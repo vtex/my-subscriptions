@@ -1,0 +1,14 @@
+query GetPaymentSystems($orderGroup: String) {
+  paymentSystems(orderGroup: $orderGroup) {
+    paymentSystem
+    paymentSystemName
+    paymentSystemGroup
+    paymentAccount {
+      accountId
+      paymentSystem
+      paymentSystemName
+      cardNumber
+      bin
+    }
+  }
+}

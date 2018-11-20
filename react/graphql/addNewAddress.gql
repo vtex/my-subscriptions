@@ -1,0 +1,6 @@
+mutation addNewAddress(
+  $subscriptionId: String
+  $address: ShippingAddressInput
+) {
+  addNewAddress(subscriptionId: $subscriptionId, address: $address)
+}

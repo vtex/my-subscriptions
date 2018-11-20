@@ -1,0 +1,17 @@
+mutation removeItem($subscriptionId: String, $itemId: String) {
+  removeItem(subscriptionId: $subscriptionId, itemId: $itemId) {
+    cacheId
+    items {
+      quantity
+      status
+      sku {
+        id
+        name
+        productName
+        priceAtSubscriptionDate
+        imageUrl
+        detailUrl
+      }
+    }
+  }
+}

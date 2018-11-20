@@ -1,0 +1,17 @@
+mutation updateAddress($subscriptionId: String, $addressId: String) {
+  updateAddress(subscriptionId: $subscriptionId, addressId: $addressId) {
+    cacheId
+    shippingAddress {
+      addressId
+      street
+      number
+      state
+      city
+      neighborhood
+      country
+      postalCode
+      complement
+      reference
+    }
+  }
+}

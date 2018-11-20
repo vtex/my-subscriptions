@@ -1,0 +1,28 @@
+mutation updatePaymentMethod(
+  $subscriptionId: String
+  $payment: String
+  $accountId: String
+) {
+  updatePaymentMethod(
+    subscriptionId: $subscriptionId
+    payment: $payment
+    accountId: $accountId
+  ) {
+    cacheId
+    purchaseSettings {
+      purchaseDay
+      seller
+      salesChannel
+      currencySymbol
+      paymentMethod {
+        paymentSystem
+        paymentSystemName
+        paymentSystemGroup
+        paymentAccount {
+          cardNumber
+          accountId
+        }
+      }
+    }
+  }
+}

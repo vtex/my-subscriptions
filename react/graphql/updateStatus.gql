@@ -1,0 +1,8 @@
+mutation updateStatus($subscriptionId: String, $status: String) {
+  updateStatus(subscriptionId: $subscriptionId, status: $status) {
+    cacheId
+    items {
+      status
+    }
+  }
+}

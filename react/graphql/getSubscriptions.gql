@@ -1,0 +1,10 @@
+query Subscriptions($customerId: String) {
+  subscriptions(customerId: $customerId) {
+    id
+    name
+    status
+    type
+    createdAt
+    endDate
+  }
+}

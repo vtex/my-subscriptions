@@ -1,0 +1,14 @@
+query GetAddresses($orderGroup: String) {
+  addresses(orderGroup: $orderGroup) {
+    addressId
+    street
+    neighborhood
+    number
+    postalCode
+    city
+    state
+    country
+    reference
+    complement
+  }
+}

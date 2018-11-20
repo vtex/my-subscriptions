@@ -1,0 +1,24 @@
+mutation updateSettings(
+  $subscriptionId: String
+  $purchaseDay: String
+  $periodicity: String
+  $interval: String
+) {
+  updateSettings(
+    subscriptionId: $subscriptionId
+    purchaseDay: $purchaseDay
+    periodicity: $periodicity
+    interval: $interval
+  ) {
+    cacheId
+    purchaseSettings {
+      purchaseDay
+    }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+    }
+  }
+}

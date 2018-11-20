@@ -1,0 +1,6 @@
+mutation updateIsSkipped($subscriptionId: String, $isSkipped: Boolean) {
+  updateIsSkipped(subscriptionId: $subscriptionId, isSkipped: $isSkipped) {
+    cacheId
+    isSkipped
+  }
+}
