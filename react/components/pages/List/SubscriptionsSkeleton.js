@@ -1,8 +1,8 @@
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
-import SkeletonLoader from './SkeletonLoader'
-import SkeletonImage from './SkeletonImage'
+import SkeletonLoader from '../../commons/SkeletonLoader'
+import SkeletonImage from '../../commons/SkeletonImage'
 
 const SubscriptionsSkeleton = () => {
   return (

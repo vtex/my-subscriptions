@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { BaseLoading } from 'vtex.my-account-commons'
 
-import { headerConfig, parseError } from '../../pages/SubscriptionsList'
+import { headerConfig, parseError } from '.'
 
-import SubscriptionsSkeleton from './skeletons/SubscriptionsSkeleton'
+import SubscriptionsSkeleton from './SubscriptionsSkeleton'
 
 const SubscriptionsListLoading = ({ data }) => {
   return (

@@ -4,12 +4,22 @@ import { graphql } from 'react-apollo'
 import { compose, branch, renderComponent, withProps } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 
-import GET_GROUPED_SUBSCRIPTIONS from '../graphql/getGroupedSubscriptions.gql'
-import EmptyState from '../components/EmptyState'
-import SubscriptionsListLoading from '../components/loaders/SubscriptionsListLoading'
+import EmptySubscriptions from './EmptyState'
+import SubscriptionsListLoading from './Loading'
+import Subscription from './Subscription'
+import GET_GROUPED_SUBSCRIPTIONS from '../../../graphql/getGroupedSubscriptions.gql'
 
 export const headerConfig = {
   titleId: 'subscription.title.list',
+  namespace: 'vtex-account__subscriptions-list',
+}
+
+const renderWrapper = children => {
+  return <ContentWrapper {...headerConfig}>{() => children}</ContentWrapper>
+}
+
+const renderEmptySubscriptions = () => {
+  return renderWrapper(<EmptySubscriptions />)
 }
 
 export const parseError = error => {
@@ -26,33 +36,20 @@ export const parseError = error => {
   }
 }
 
-class SubscriptionsList extends Component {
+class SubscriptionsListContainer extends Component {
   render() {
     const { subscriptions } = this.props
 
-    const renderWrapper = children => {
-      return <ContentWrapper {...headerConfig}>{() => children}</ContentWrapper>
-    }
-
-    if (subscriptions.length === 0) {
-      return renderWrapper(
-        <div className="mr0 pt5 pl2 w-100 tc">
-          <EmptyState />
-        </div>
-      )
-    }
-
     return renderWrapper(
       <div className="mr0 w-100">
-        <span>teste</span>
-        {/* {subscriptions.map(subscription => {
+        {subscriptions.map(subscription => {
           return (
             <Subscription
               key={subscription.orderGroup}
               subscription={subscription}
             />
           )
-        })} */}
+        })}
       </div>
     )
   }
@@ -64,13 +61,21 @@ const subscriptionsQuery = {
   },
 }
 
-SubscriptionsList.propTypes = {
-  data: PropTypes.object,
+SubscriptionsListContainer.propTypes = {
+  subscriptions: PropTypes.arrayOf(PropTypes.object),
 }
 
 const enhance = compose(
   graphql(GET_GROUPED_SUBSCRIPTIONS, subscriptionsQuery),
-  branch(({ data }) => data.loading, renderComponent(SubscriptionsListLoading)),
-  withProps(({ data }) => ({ subscriptions: data.groupedSubscriptions }))
+  branch(
+    ({ data }) => data.groupedSubscriptions === null,
+    renderComponent(SubscriptionsListLoading)
+  ),
+  withProps(({ data }) => ({ subscriptions: data.groupedSubscriptions })),
+  branch(
+    ({ subscriptions }) => !subscriptions || subscriptions.length === 0,
+    renderComponent(renderEmptySubscriptions)
+  )
 )
-export default enhance(SubscriptionsList)
+
+export default enhance(SubscriptionsListContainer)

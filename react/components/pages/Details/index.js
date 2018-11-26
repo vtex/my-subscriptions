@@ -8,20 +8,20 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import { Alert } from 'vtex.styleguide'
 import { ContentWrapper } from 'vtex.my-account-commons'
 
-import GetGroupedSubscription from '../graphql/getGroupedSubscription.gql'
-import cachedFragment from '../graphql/fragmentGroupedSubscription.gql'
-import Summary from '../components/Subscription/Summary'
-import Payment from '../components/Subscription/Payment/index'
-import History from '../components/Subscription/History/index'
-import DataCard from '../components/Subscription/DataCard/DataCardContainer'
-import Shipping from '../components/Subscription/Shipping/index'
-import ShippingSkeleton from '../components/Subscription/Shipping/ShippingSkeleton'
-import PaymentSkeleton from '../components/Subscription/Payment/PaymentSkeleton'
-import DataSkeleton from '../components/Subscription/DataCard/DataSkeleton'
-import SummarySkeleton from '../components/Subscription/SummarySkeleton'
-import HistorySkeleton from '../components/Subscription/History/HistorySkeleton'
+import GET_GROUPED_SUBSCRIPTION from '../../../graphql/getGroupedSubscription.gql'
+import CACHED_FRAGMENT from '../../../graphql/fragmentGroupedSubscription.gql'
+import Summary from './Summary'
+import Payment from './Payment/index'
+import History from './History/index'
+import DataCard from './DataCard/DataCardContainer'
+import Shipping from './Shipping/index'
+import ShippingSkeleton from './Shipping/ShippingSkeleton'
+import PaymentSkeleton from './Payment/PaymentSkeleton'
+import DataSkeleton from './DataCard/DataSkeleton'
+import SummarySkeleton from './skeletons/SummarySkeleton'
+import HistorySkeleton from './History/HistorySkeleton'
 
-class ViewSubscription extends Component {
+class SubscriptionDetailContainer extends Component {
   handleGoToSubscriptionsPage = () => {
     this.props.history.push('/subscriptions')
   }
@@ -38,8 +38,7 @@ class ViewSubscription extends Component {
       return (
         <ContentWrapper
           title={intl.formatMessage({ id: 'subscription.title.single' })}
-          backButton={backButton}
-        >
+          backButton={backButton}>
           {() => children}
         </ContentWrapper>
       )
@@ -61,8 +60,7 @@ class ViewSubscription extends Component {
               }),
               onClick: this.handleGoToSubscriptionsPage,
             }}
-            onClose={this.handleCloseAlert}
-          >
+            onClose={this.handleCloseAlert}>
             <div className="flex flex-grow-1">
               <div className="db-s di-ns">
                 {intl.formatMessage({
@@ -81,11 +79,11 @@ class ViewSubscription extends Component {
 
     const cachedSubscriptionQuery = client.readFragment({
       id: buildCacheLocator(
-        'vtex.my-orders-app@2.x',
+        'vtex.my-subscripi-app@2.x',
         'GroupedSubscription',
         match.params.subscriptionId
       ),
-      fragment: cachedFragment,
+      fragment: CACHED_FRAGMENT,
     })
 
     const subscription = cachedSubscriptionQuery || groupedSubscription
@@ -148,7 +146,7 @@ const subscriptionQuery = {
   }),
 }
 
-ViewSubscription.propTypes = {
+SubscriptionDetailContainer.propTypes = {
   intl: intlShape.isRequired,
   client: PropTypes.object,
   subscriptionData: PropTypes.object,
@@ -158,5 +156,5 @@ ViewSubscription.propTypes = {
 
 export default compose(
   withApollo,
-  graphql(GetGroupedSubscription, subscriptionQuery)
-)(withRouter(injectIntl(ViewSubscription)))
+  graphql(GET_GROUPED_SUBSCRIPTION, subscriptionQuery)
+)(withRouter(injectIntl(SubscriptionDetailContainer)))

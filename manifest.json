@@ -6,6 +6,7 @@
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
   "builders": {
+    "pages": "0.x",
     "react": "2.x"
   },
   "mustUpdateAt": "2019-04-02",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "vtex.styleguide": "7.x",
-    "vtex.my-account-commons": "0.x"
+    "vtex.my-account-commons": "0.x",
+    "vtex.my-subscriptions-graphql": "0.x"
   }
 }
