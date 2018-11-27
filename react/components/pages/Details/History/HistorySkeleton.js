@@ -1,10 +1,11 @@
 import React from 'react'
-import SkeletonLoader from '../../../commons/SkeletonLoader'
 import {
   Accordion,
   AccordionItem,
   AccordionItemTitle,
 } from 'react-accessible-accordion'
+
+import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const HistorySkeleton = () => (
   <div className="myo-subscription__history">

@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import FormattedDate from '../../../components/commons/FormattedDate'
-import estimateShipping from '../../../utils/estimateShipping'
+import { estimateShipping, Order } from 'vtex.my-account-commons'
+
+const {
+  constants: { packageProgressBarStates },
+  utils: { generatePackageProgressBarStates },
+  PackageProgressBar,
+  PackageStatus,
+} = Order
+
+import FormattedDate from '../../../../components/commons/FormattedDate'
 import OrderItems from './OrderItems'
-import PackageProgressBar from '../../ProgressBar/PackageProgressBar/PackageProgressBar'
-import PackageStatus from '../../ProgressBar/PackageProgressBar/PackageStatus'
-import { packageProgressBarStates } from '../../../constants/index'
-import { generatePackageProgressBarStates } from '../../../utils/progressBarUtils'
 
 class PackageHandler extends Component {
   render() {
-    const { packages, order } = this.props
+    const { packages } = this.props
     return (
       <div>
         {packages.map((pack, index) => {
@@ -67,7 +71,6 @@ class PackageHandler extends Component {
 PackageHandler.propTypes = {
   intl: intlShape.isRequired,
   packages: PropTypes.array,
-  order: PropTypes.object,
 }
 
 export default injectIntl(PackageHandler)
