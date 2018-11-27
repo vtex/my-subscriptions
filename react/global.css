@@ -1,0 +1,210 @@
+.vtex-bootstrap .subscriptions-page * {
+  box-sizing: border-box;
+}
+.vtex-bootstrap .subscriptions-page .subscription-container {
+  padding: 0;
+  margin: 0;
+}
+.vtex-bootstrap .subscriptions-page h1.subscription-title {
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  margin-top: 15px;
+}
+.vtex-bootstrap .subscriptions-page h1.empty-items {
+  font-size: 21px;
+}
+.vtex-bootstrap .subscriptions-page .subscription-info-container {
+  width: 100%;
+}
+.vtex-bootstrap .subscriptions-page .customer-area {
+  padding: 10px;
+  word-break: break-all;
+}
+.vtex-bootstrap .subscriptions-page .customer-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+.vtex-bootstrap .subscriptions-page .customer-actions a {
+  padding: 5px;
+  padding-left: 10px;
+  text-decoration: none;
+}
+.vtex-bootstrap .subscriptions-page .payment-card {
+  padding: 10px;
+  border: 1px solid #eee;
+}
+.vtex-bootstrap .subscriptions-page .payment-card .payment-action a {
+  padding: 5px;
+  padding-left: 10px;
+  text-decoration: none;
+}
+.vtex-bootstrap .subscriptions-page .subscription-items-container {
+  width: 100%;
+  margin-top: 20px;
+}
+.vtex-bootstrap .subscriptions-page .item-card {
+  clear: both;
+  height: 120px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #eee;
+  margin-top: 5px;
+}
+.vtex-bootstrap .subscriptions-page .item-card .item-img {
+  margin-top: 18px;
+}
+.vtex-bootstrap .subscriptions-page .item-card .item-name-container {
+  height: 100%;
+}
+.vtex-bootstrap .subscriptions-page .item-card .item-name {
+  font-size: 14px;
+  font-weight: 550;
+  margin-top: 18px;
+}
+.vtex-bootstrap .subscriptions-page .item-card .item-actions a {
+  padding: 5px;
+  padding-left: 10px;
+  text-decoration: none;
+}
+.vtex-bootstrap .subscriptions-page .shipping-data {
+  font-size: 12px;
+}
+.vtex-bootstrap .subscriptions-page .card-label {
+  color: #999;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.vtex-bootstrap .subscriptions-page #subscriptionEditItemForm label {
+  margin-bottom: 5px;
+}
+.vtex-bootstrap .subscriptions-page #subscriptionEditItemForm label:last-child {
+  margin-bottom: 0px;
+}
+.vtex-bootstrap .subscriptions-page #subscriptionEditItemForm input {
+  height: 28px;
+}
+.vtex-bootstrap .subscriptions-page #subscription-lightbox-backdrop {
+  display: none;
+}
+.vtex-bootstrap .subscriptions-page .subscription-lightbox {
+  top: 15% !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: 50% !important;
+  margin: 0 !important;
+  margin-left: -175px !important;
+  width: 350px !important;
+}
+
+.myo-subscription__history
+  .history-package-progress
+  .myo-progress-bar
+  .myo-progress-bar__subtitle {
+  min-width: 15rem;
+}
+
+.myo-subscription__history .accordion__item .title {
+  border-bottom-style: solid;
+  border-bottom-width: 0.125rem;
+  border-right-style: solid;
+  border-right-width: 0.125rem;
+  border-left-style: solid;
+  border-left-width: 0.125rem;
+}
+
+.myo-subscription__history .accordion__item:last-of-type .title {
+  border-right-style: solid;
+  border-right-width: 0.125rem;
+  border-left-style: solid;
+  border-left-width: 0.125rem;
+  border-bottom-style: solid;
+  border-bottom-width: 0.125rem;
+}
+
+.myo-subscription__history .accordion__item .accordion__body {
+  border-right-style: solid;
+  border-right-width: 0.125rem;
+  border-left-style: solid;
+  border-left-width: 0.125rem;
+  border-bottom-style: solid;
+  border-bottom-width: 0.125rem;
+}
+
+.myo-subscription__history .caption {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .myo-subscription__history .caption {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .myo-subscription__history .caption {
+    display: block;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 640px) {
+  .subscription__listing-card {
+    min-height: 23rem;
+  }
+
+  .myo-subscription__history .caption {
+    display: block;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .subscription__listing-card {
+    min-height: 12rem;
+  }
+
+  .myo-subscription__history .myo-progress-bar .w3-ns {
+    width: 9rem;
+  }
+
+  .subscription__product-listing__card {
+    height: auto;
+    min-height: 6rem;
+    padding: 0rem;
+  }
+
+  .myo-subscription__image-size {
+    height: 13.5rem;
+    width: 13.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .subscription__listing-card {
+    min-height: 12rem;
+  }
+
+  .myo-subscription__history .myo-progress-bar .w3-ns {
+    width: 14rem;
+  }
+
+  .subscription__product-listing__card {
+    height: auto;
+    min-height: 6rem;
+  }
+
+  .myo-subscription__history .myo-progress-bar .myo-package-progress-bar__text {
+    display: block;
+  }
+
+  .myo-subscription__image-size {
+    height: 13.5rem;
+    width: 13.5rem;
+  }
+}
+
+@media (min-width: 1300px) {
+  .myo-subscription__history .myo-progress-bar .w3-ns {
+    width: 22rem;
+  }
+}

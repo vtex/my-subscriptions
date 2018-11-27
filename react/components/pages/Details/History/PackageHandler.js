@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import { estimateShipping, Orders } from 'vtex.my-account-commons'
+import { Orders, utils } from 'vtex.my-account-commons'
+
+const { estimateShipping } = utils
 
 const {
   constants: { packageProgressBarStates },
