@@ -35,8 +35,8 @@ class ConfirmModal extends Component {
     updateType === 'restore'
       ? this.updateStatus('ACTIVE')
       : updateType === 'cancel'
-        ? this.updateStatus('CANCELED')
-        : this.updateStatus('PAUSED')
+      ? this.updateStatus('CANCELED')
+      : this.updateStatus('PAUSED')
   }
 
   render() {
@@ -49,8 +49,8 @@ class ConfirmModal extends Component {
               updateType === 'restore'
                 ? 'subscription.restore.title'
                 : updateType === 'cancel'
-                  ? 'subscription.cancel.title'
-                  : 'subscription.pause.title',
+                ? 'subscription.cancel.title'
+                : 'subscription.pause.title',
           })}
         </span>
         <span className="db pt6">
@@ -59,8 +59,8 @@ class ConfirmModal extends Component {
               updateType === 'restore'
                 ? 'subscription.restore.text'
                 : updateType === 'cancel'
-                  ? 'subscription.cancel.text'
-                  : 'subscription.pause.text',
+                ? 'subscription.cancel.text'
+                : 'subscription.pause.text',
           })}
         </span>
 

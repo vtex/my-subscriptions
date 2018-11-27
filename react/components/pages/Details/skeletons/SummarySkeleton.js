@@ -1,10 +1,11 @@
-import React from 'react'
-import SkeletonLoader from '../commons/SkeletonLoader'
-import SkeletonImage from '../commons/SkeletonImage'
+import React, { Fragment } from 'react'
 import MediaQuery from 'react-responsive'
 
+import SkeletonLoader from '../../../commons/SkeletonLoader'
+import SkeletonImage from '../../../commons/SkeletonImage'
+
 const SummarySkeleton = () => (
-  <div>
+  <Fragment>
     <MediaQuery minWidth={640}>
       <div className="card bg-base pa6 ba bw1 b--muted-5">
         <div className="flex-ns items-center-s items-start-ns">
@@ -77,7 +78,7 @@ const SummarySkeleton = () => (
         </div>
       </div>
     </MediaQuery>
-  </div>
+  </Fragment>
 )
 
 export default SummarySkeleton

@@ -5,8 +5,8 @@ import { intlShape, injectIntl } from 'react-intl'
 
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
-import Toast from '../../commons/Toast'
-import UpdateAddress from '../../../graphql/updateAddress.gql'
+import Toast from '../../../commons/Toast'
+import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
 
 class Shipping extends Component {
   constructor(props) {
@@ -132,6 +132,6 @@ Shipping.propTypes = {
   updateAddress: PropTypes.func.isRequired,
 }
 
-export default compose(graphql(UpdateAddress, addressMutation))(
+export default compose(graphql(UPDATE_ADDRESS, addressMutation))(
   injectIntl(Shipping)
 )

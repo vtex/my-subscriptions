@@ -8,7 +8,7 @@ import RemoveItemConfirmModal from './RemoveItemConfirmModal'
 import Price from '../../commons/FormattedPrice'
 import Toast from '../../commons/Toast'
 import RemoveItem from '../../../graphql/removeItem.gql'
-import { fixImageUrl } from '../../utils/items'
+import { fixImageUrl } from '../../../utils/items'
 
 class Item extends Component {
   state = {

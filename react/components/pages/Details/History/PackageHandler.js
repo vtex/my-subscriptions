@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import { estimateShipping, Order } from 'vtex.my-account-commons'
+import { estimateShipping, Orders } from 'vtex.my-account-commons'
 
 const {
   constants: { packageProgressBarStates },
   utils: { generatePackageProgressBarStates },
   PackageProgressBar,
   PackageStatus,
-} = Order
+} = Orders
 
 import FormattedDate from '../../../../components/commons/FormattedDate'
 import OrderItems from './OrderItems'
@@ -28,7 +28,7 @@ class PackageHandler extends Component {
                     <span className="b db">
                       {this.props.intl.formatMessage(
                         { id: 'subscription.package.index' },
-                        { index: index + 1, total: packages.length },
+                        { index: index + 1, total: packages.length }
                       )}
                     </span>
                     <span className="db f5 fw3">
@@ -50,7 +50,7 @@ class PackageHandler extends Component {
                           states={generatePackageProgressBarStates(
                             packageProgressBarStates,
                             index,
-                            pack.package,
+                            pack.package
                           )}
                           currentState={index}
                         />

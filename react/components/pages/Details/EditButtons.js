@@ -21,8 +21,7 @@ class EditButtons extends Component {
             onClick={onSave}
             variation="primary"
             isLoading={isLoading}
-            disabled={disabled}
-          >
+            disabled={disabled}>
             {intl.formatMessage({
               id: 'subscription.actions.save',
             })}

@@ -8,7 +8,7 @@ import { Button, Dropdown, Alert } from 'vtex.styleguide'
 import AddAddressModal from './AddAddressModal'
 import ShippingSkeleton from './ShippingSkeleton'
 import EditButtons from '../EditButtons'
-import GetAddresses from '../../../graphql/getAddresses.gql'
+import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 
 class EditShipping extends Component {
   state = {
@@ -103,8 +103,7 @@ class EditShipping extends Component {
             <Alert
               type={alertType}
               autoClose={3000}
-              onClose={this.handleCloseAlert}
-            >
+              onClose={this.handleCloseAlert}>
               {intl.formatMessage({
                 id: `${alertMessage}`,
               })}
@@ -131,8 +130,7 @@ class EditShipping extends Component {
               <Alert
                 type="error"
                 autoClose={3000}
-                onClose={this.handleCloseErrorAlert}
-              >
+                onClose={this.handleCloseErrorAlert}>
                 {intl.formatMessage({
                   id: `${errorMessage}`,
                 })}
@@ -153,8 +151,7 @@ class EditShipping extends Component {
             <Button
               size="small"
               variation="tertiary"
-              onClick={this.handleClick}
-            >
+              onClick={this.handleClick}>
               {intl.formatMessage({
                 id: 'subscription.shipping.newAddress',
               })}
@@ -199,6 +196,6 @@ EditShipping.propTypes = {
   errorMessage: PropTypes.string,
 }
 
-export default compose(graphql(GetAddresses, addressesQuery))(
+export default compose(graphql(GET_ADDRESSES, addressesQuery))(
   injectIntl(EditShipping)
 )

@@ -53,8 +53,7 @@ class History extends Component {
               size="small"
               variation="secondary"
               onClick={this.handleViewMore}
-              default
-            >
+              default>
               <span>{intl.formatMessage({ id: 'subscription.seeMore' })}</span>
             </Button>
           </div>

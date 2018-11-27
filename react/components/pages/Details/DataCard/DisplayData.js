@@ -138,11 +138,11 @@ class DisplayData extends Component {
                 <span className="fw3 db f5-ns f6-s c-on-base">
                   {subscription.plan.frequency.periodicity === 'WEEKLY'
                     ? intl.formatMessage({
-                      id: `subscription.periodicity.${subscription.purchaseSettings.purchaseDay.toLowerCase()}`,
-                    })
+                        id: `subscription.periodicity.${subscription.purchaseSettings.purchaseDay.toLowerCase()}`,
+                      })
                     : subscription.purchaseSettings.purchaseDay || (
-                      <span>&nbsp;</span>
-                    )}
+                        <span>&nbsp;</span>
+                      )}
                 </span>
               </div>
               <div className="pt6 pl6-s pl0-ns">

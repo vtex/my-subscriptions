@@ -12,12 +12,7 @@ import {
   IconCaretDown as CaretDown,
   IconCaretUp as CaretUp,
 } from 'vtex.styleguide'
-import {
-  constants,
-  utils,
-  OrderStatus,
-  ProgressBar,
-} from 'vtex.my-account-commons/OrderProgressBar'
+import { Orders } from 'vtex.my-account-commons'
 
 import GET_ORDER from '../../../../graphql/getOrder.gql'
 import PaymentFlagIcon from '../../../commons/PaymentFlagIcon'
@@ -27,8 +22,12 @@ import FormattedDate from '../../../commons/FormattedDate'
 
 import PackageHandler from './PackageHandler'
 
-const { generateProgressBarStates } = utils
-const { progressBarStates } = constants
+const {
+  utils: { generateProgressBarStates },
+  constants: { progressBarStates },
+  OrderStatus,
+  ProgressBar,
+} = Orders
 
 class OrderHistory extends Component {
   render() {
@@ -68,34 +67,34 @@ class OrderHistory extends Component {
               <div className="f5-ns f6-s pt2 lh-solid dib-ns">
                 {order.paymentData.transactions[0].payments[0]
                   .paymentSystemName === 'creditCard' ? (
-                    <div>
-                      <PaymentFlagIcon
-                        group={
-                          order.paymentData.transactions[0].payments[0].group
-                        }
-                        type={
-                          order.paymentData.transactions[0].payments[0]
-                            .paymentSystemName
-                        }
-                        size={400}
-                      />
-                      <span className="fw3 f5-ns f6-s">
-                        {`${intl.formatMessage({
-                          id: 'subscription.payment.final',
-                        })} ${
-                          order.paymentData.transactions[0].payments[0].lastDigits
-                        }`}
-                      </span>
-                    </div>
-                  ) : (
+                  <div>
+                    <PaymentFlagIcon
+                      group={
+                        order.paymentData.transactions[0].payments[0].group
+                      }
+                      type={
+                        order.paymentData.transactions[0].payments[0]
+                          .paymentSystemName
+                      }
+                      size={400}
+                    />
                     <span className="fw3 f5-ns f6-s">
-                      {intl.formatMessage({
-                        id: `paymentData.paymentGroup.${
-                          order.paymentData.transactions[0].payments[0].group
-                        }.name`,
-                      })}
+                      {`${intl.formatMessage({
+                        id: 'subscription.payment.final',
+                      })} ${
+                        order.paymentData.transactions[0].payments[0].lastDigits
+                      }`}
                     </span>
-                  )}
+                  </div>
+                ) : (
+                  <span className="fw3 f5-ns f6-s">
+                    {intl.formatMessage({
+                      id: `paymentData.paymentGroup.${
+                        order.paymentData.transactions[0].payments[0].group
+                      }.name`,
+                    })}
+                  </span>
+                )}
               </div>
             </div>
             <div className="pl9-ns pl5-s">

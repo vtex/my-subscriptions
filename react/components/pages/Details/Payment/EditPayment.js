@@ -8,7 +8,7 @@ import { Radio, Alert, Dropdown } from 'vtex.styleguide'
 
 import PaymentSkeleton from './PaymentSkeleton'
 import EditButtons from '../EditButtons'
-import GetPaymentSystems from '../../../graphql/getPaymentSystems.gql'
+import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
 
 class EditPayment extends Component {
   transformCards(creditCards) {
@@ -67,8 +67,7 @@ class EditPayment extends Component {
               <Alert
                 type="error"
                 autoClose={3000}
-                onClose={this.handleCloseSuccessAlert}
-              >
+                onClose={this.handleCloseSuccessAlert}>
                 {intl.formatMessage({
                   id: `${errorMessage}`,
                 })}
