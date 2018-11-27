@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MediaQuery from 'react-responsive'
-import { fixImageUrl } from '../../utils/items'
 import { intlShape, injectIntl } from 'react-intl'
+import { utils } from 'vtex.my-account-commons'
+
+const { fixImageUrl } = utils
 
 const Image = ({ items }) => {
   const itemsLength = items.length

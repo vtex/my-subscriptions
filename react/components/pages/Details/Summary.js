@@ -92,8 +92,8 @@ class Summary extends Component {
     const options = subscription.isSkipped
       ? ['unskip', 'pause', 'cancel']
       : isPaused
-      ? ['restore', 'cancel']
-      : ['skip', 'pause', 'cancel']
+        ? ['restore', 'cancel']
+        : ['skip', 'pause', 'cancel']
 
     const hasMultipleItems = subscription.items.length > 1
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { utils } from 'vtex.my-account-commons'
 
-import { fixImageUrl } from '../../../../utils/items'
+const { fixImageUrl } = utils
 
 class OrderItems extends Component {
   render() {

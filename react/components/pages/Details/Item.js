@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import { compose, graphql } from 'react-apollo'
 import { Button, Alert } from 'vtex.styleguide'
+import { utils } from 'vtex.my-account-commons'
 
 import RemoveItemConfirmModal from './RemoveItemConfirmModal'
 import Price from '../../commons/FormattedPrice'
 import Toast from '../../commons/Toast'
 import RemoveItem from '../../../graphql/removeItem.gql'
-import { fixImageUrl } from '../../../utils/items'
+
+const { fixImageUrl } = utils
 
 class Item extends Component {
   state = {
