@@ -12,18 +12,23 @@ import {
   IconCaretDown as CaretDown,
   IconCaretUp as CaretUp,
 } from 'vtex.styleguide'
+import {
+  constants,
+  utils,
+  OrderStatus,
+  ProgressBar,
+} from 'vtex.my-account-commons/OrderProgressBar'
 
-import { progressBarStates } from '../../../../constants'
 import GET_ORDER from '../../../../graphql/getOrder.gql'
 import PaymentFlagIcon from '../../../commons/PaymentFlagIcon'
 import FormattedPrice from '../../../commons/FormattedPrice'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 import FormattedDate from '../../../commons/FormattedDate'
-import { generateProgressBarStates } from '../../../utils/progressBarUtils'
 
-import OrderStatus from '../../ProgressBar/OrderStatus'
-import ProgressBar from '../../ProgressBar/ProgressBar'
 import PackageHandler from './PackageHandler'
+
+const { generateProgressBarStates } = utils
+const { progressBarStates } = constants
 
 class OrderHistory extends Component {
   render() {

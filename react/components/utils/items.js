@@ -80,8 +80,7 @@ function changeImageUrlSize(
   if (!imageUrl || !width || !height) return undefined
   const widthCalc = width * highDensityFactor
   const heightCalc = height * highDensityFactor
-  if (imageUrl.slice(-1) !== '/')
-    return `${imageUrl}?width=${widthCalc}&height=${heightCalc}&aspect=true`
+  if (imageUrl.slice(-1) !== '/') { return `${imageUrl}?width=${widthCalc}&height=${heightCalc}&aspect=true` }
   const resizedImageUrl = imageUrl.slice(0, -1) // Remove last "/"
   return `${resizedImageUrl}-${widthCalc}-${heightCalc}`
 }
