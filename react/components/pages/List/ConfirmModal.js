@@ -4,7 +4,7 @@ import { intlShape, injectIntl } from 'react-intl'
 import { compose, graphql } from 'react-apollo'
 import { Button, Modal } from 'vtex.styleguide'
 
-import UpdateStatus from '../../../graphql/updateStatus.gql'
+import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
 
 class ConfirmModal extends Component {
   state = {
@@ -107,6 +107,6 @@ const updateStatusMutation = {
   },
 }
 
-export default compose(graphql(UpdateStatus, updateStatusMutation))(
+export default compose(graphql(UPDATE_STATUS, updateStatusMutation))(
   injectIntl(ConfirmModal)
 )

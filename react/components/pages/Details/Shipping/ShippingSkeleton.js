@@ -1,5 +1,6 @@
 import React from 'react'
-import SkeletonLoader from '../../commons/SkeletonLoader'
+
+import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const ShippingSkeleton = () => (
   <div className="card-height bg-base pa6 ba bw1 b--muted-5 pb5">

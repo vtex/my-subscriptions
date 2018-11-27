@@ -10,7 +10,7 @@ import PaymentDisplay from './PaymentDisplay'
 import Price from '../../commons/FormattedPrice'
 import Title from '../../commons/Title'
 import Toast from '../../commons/Toast'
-import ItemsImage from './ItemsImage'
+import ItemsImage from '../../commons/ItemsImage'
 
 class Subscription extends Component {
   state = {

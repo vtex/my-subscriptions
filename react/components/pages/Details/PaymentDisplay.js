@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import PaymentFlagIcon from '../../commons/PaymentFlagIcon'
 import { intlShape, injectIntl } from 'react-intl'
+
+import PaymentFlagIcon from '../../commons/PaymentFlagIcon'
 
 class PaymentDisplay extends Component {
   render() {

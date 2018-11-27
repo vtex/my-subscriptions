@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { compose, graphql } from 'react-apollo'
+import { intlShape, injectIntl } from 'react-intl'
+
+import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
+import Toast from '../../../commons/Toast'
 import PaymentCard from './PaymentCard'
 import EditPayment from './EditPayment'
-import UpdatePaymentMethod from '../../../graphql/updatePaymentMethod.gql'
-import { intlShape, injectIntl } from 'react-intl'
-import Toast from '../../commons/Toast'
 
 class Payment extends Component {
   constructor(props) {
@@ -147,5 +148,5 @@ const paymentMutation = {
 }
 
 export default compose(graphql(UpdatePaymentMethod, paymentMutation))(
-  injectIntl(Payment),
+  injectIntl(Payment)
 )

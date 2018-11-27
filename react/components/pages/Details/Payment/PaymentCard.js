@@ -54,8 +54,7 @@ class Payment extends Component {
                       onClick={() =>
                         this.handleInvoiceButtonClick(bankInvoiceUrl)
                       }
-                      variation="secondary"
-                    >
+                      variation="secondary">
                       <span>
                         {intl.formatMessage({
                           id: 'subscription.payment.invoice',

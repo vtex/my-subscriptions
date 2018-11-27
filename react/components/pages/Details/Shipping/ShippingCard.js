@@ -9,7 +9,7 @@ import {
 import { Button } from 'vtex.styleguide'
 
 import DataSkeleton from '../DataCard/DataSkeleton'
-import getGGUID from '../../../utils/index'
+import { getGUID } from '../../../../utils'
 
 class ShippingCard extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class ShippingCard extends Component {
       shipsTo: [],
 
       address: addValidation({
-        addressId: getGGUID(),
+        addressId: getGUID(),
         addressType: 'residential',
         city: props.subscription.shippingAddress.city,
         complement: null,

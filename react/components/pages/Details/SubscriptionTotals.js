@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { injectIntl, intlShape } from 'react-intl'
+
 import FinalPrice from '../../commons/FinalPrice'
 import Price from '../../commons/FormattedPrice'
 

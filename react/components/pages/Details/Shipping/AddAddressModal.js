@@ -14,15 +14,15 @@ import { compose, graphql } from 'react-apollo'
 import CustomInput from '@vtex/address-form/lib/CustomInput'
 import { Button, Modal, Spinner, Alert } from 'vtex.styleguide'
 
-import getGGUID from '../../../utils/index'
-import AddNewAddress from '../../../graphql/AddNewAddress.gql'
-import { COUNTRIES } from '../../../constants'
+import { getGUID } from '../../../../utils'
+import COUNTRIES from '../../../../constants/countries'
+import ADD_NEW_ADDRESS from '../../../../graphql/addNewAddress.gql'
 
 class EditAddressModal extends Component {
   state = {
     shipsTo: [],
     address: addValidation({
-      addressId: getGGUID(),
+      addressId: getGUID(),
       addressType: 'residential',
       city: null,
       complement: null,
@@ -169,8 +169,7 @@ class EditAddressModal extends Component {
             address={this.state.address}
             rules={selectedRules}
             onChangeAddress={this.handleAddressChange}
-            autoCompletePostalCode
-          >
+            autoCompletePostalCode>
             {onChangeAddress => (
               <div>
                 <CountrySelector
@@ -190,12 +189,10 @@ class EditAddressModal extends Component {
                 <AutoCompletedFields
                   address={address}
                   rules={selectedRules}
-                  onChangeAddress={onChangeAddress}
-                >
+                  onChangeAddress={onChangeAddress}>
                   <a
                     className="c-link hover-c-link pointer pt3 link-edit"
-                    id="force-shipping-fields"
-                  >
+                    id="force-shipping-fields">
                     {intl.formatMessage({
                       id: 'address-form.edit',
                     })}
@@ -217,8 +214,7 @@ class EditAddressModal extends Component {
               <Alert
                 type="error"
                 autoClose={3000}
-                onClose={this.handleCloseErrorAlert}
-              >
+                onClose={this.handleCloseErrorAlert}>
                 {intl.formatMessage({
                   id: `${errorMessage}`,
                 })}
@@ -237,8 +233,7 @@ class EditAddressModal extends Component {
               size="small"
               variation="primary"
               isLoading={isLoading}
-              onClick={this.handleSave}
-            >
+              onClick={this.handleSave}>
               {intl.formatMessage({
                 id: 'subscription.actions.save',
               })}
@@ -275,6 +270,6 @@ EditAddressModal.propTypes = {
   addressesData: PropTypes.object,
 }
 
-export default compose(graphql(AddNewAddress, addAddressMutation))(
+export default compose(graphql(ADD_NEW_ADDRESS, addAddressMutation))(
   injectIntl(EditAddressModal)
 )

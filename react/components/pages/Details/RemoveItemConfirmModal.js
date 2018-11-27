@@ -30,8 +30,7 @@ class RemoveItemConfirmModal extends Component {
             size="small"
             variation="primary"
             isLoading={isLoading}
-            onClick={this.props.onSave}
-          >
+            onClick={this.props.onSave}>
             {intl.formatMessage({ id: 'commons.yes' })}
           </Button>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MediaQuery from 'react-responsive'
-import { fixImageUrl } from '../utils/items'
+import { fixImageUrl } from '../../utils/items'
 import { intlShape, injectIntl } from 'react-intl'
 
 const Image = ({ items }) => {
