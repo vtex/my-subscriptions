@@ -68,7 +68,7 @@ SubscriptionsListContainer.propTypes = {
 const enhance = compose(
   graphql(GET_GROUPED_SUBSCRIPTIONS, subscriptionsQuery),
   branch(
-    ({ data }) => data.groupedSubscriptions === null,
+    ({ data }) => !data.groupedSubscriptions || data.loading,
     renderComponent(SubscriptionsListLoading)
   ),
   withProps(({ data }) => ({ subscriptions: data.groupedSubscriptions })),

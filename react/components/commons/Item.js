@@ -5,10 +5,10 @@ import { compose, graphql } from 'react-apollo'
 import { Button, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.my-account-commons'
 
-import RemoveItemConfirmModal from './RemoveItemConfirmModal'
-import Price from '../../commons/FormattedPrice'
-import Toast from '../../commons/Toast'
-import RemoveItem from '../../../graphql/removeItem.gql'
+import RemoveItemConfirmModal from '../pages/Details/RemoveItemConfirmModal'
+import Price from './FormattedPrice'
+import Toast from './Toast'
+import RemoveItem from '../../graphql/removeItem.gql'
 
 const { fixImageUrl } = utils
 
