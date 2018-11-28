@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import { Orders, utils } from 'vtex.my-account-commons'
+import { ProgressBarBundle, utils } from 'vtex.my-account-commons'
 
 const { estimateShipping } = utils
 
@@ -10,7 +10,7 @@ const {
   utils: { generatePackageProgressBarStates },
   PackageProgressBar,
   PackageStatus,
-} = Orders
+} = ProgressBarBundle
 
 import FormattedDate from '../../../../components/commons/FormattedDate'
 import OrderItems from './OrderItems'

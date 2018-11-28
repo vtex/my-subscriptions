@@ -12,7 +12,7 @@ import {
   IconCaretDown as CaretDown,
   IconCaretUp as CaretUp,
 } from 'vtex.styleguide'
-import { Orders } from 'vtex.my-account-commons'
+import { ProgressBarBundle } from 'vtex.my-account-commons'
 
 import GET_ORDER from '../../../../graphql/getOrder.gql'
 import PaymentFlagIcon from '../../../commons/PaymentFlagIcon'
@@ -27,7 +27,7 @@ const {
   constants: { progressBarStates },
   OrderStatus,
   ProgressBar,
-} = Orders
+} = ProgressBarBundle
 
 class OrderHistory extends Component {
   render() {
