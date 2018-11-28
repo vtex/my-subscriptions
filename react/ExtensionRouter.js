@@ -1,23 +1,27 @@
 import React, { Fragment } from 'react'
 import { Route } from 'react-router-dom'
-import SubscriptionsList from './components/pages/List'
-import SubscriptionDetail from './components/pages/Details'
-// import SubscriptionProducts from './pages/SubscriptionProducts'
+import SubscriptionsListContainer from './components/pages/List'
+import SubscriptionDetailContainer from './components/pages/Details'
+import SubscriptionProductsContainer from './components/pages/Products'
 
 const ExtensionRouter = () => (
   <Fragment>
-    <Route exact path="/subscriptions" component={SubscriptionsList} allowSAC />
+    <Route
+      exact
+      path="/subscriptions"
+      component={SubscriptionsListContainer}
+      allowSAC
+    />
     <Route
       exact
       path="/subscriptions/:subscriptionId"
-      component={SubscriptionDetail}
+      component={SubscriptionDetailContainer}
     />
-    {/*
     <Route
       exact
       path="/subscriptions/:subscriptionId/products"
-      component={SubscriptionProducts}
-    />*/}
+      component={SubscriptionProductsContainer}
+    />
   </Fragment>
 )
 

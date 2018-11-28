@@ -21,6 +21,19 @@ import DataSkeleton from './DataCard/DataSkeleton'
 import SummarySkeleton from './skeletons/SummarySkeleton'
 import HistorySkeleton from './History/HistorySkeleton'
 
+const headerConfig = ({ intl }) => {
+  const backButton = {
+    title: intl.formatMessage({ id: 'subscription.title.list' }),
+    path: '/subscriptions',
+  }
+
+  return {
+    backButton,
+    title: intl.formatMessage({ id: 'subscription.title.single' }),
+    namespace: 'vtex-account__subscription-details',
+  }
+}
+
 class SubscriptionDetailContainer extends Component {
   handleGoToSubscriptionsPage = () => {
     this.props.history.push('/subscriptions')
@@ -30,17 +43,9 @@ class SubscriptionDetailContainer extends Component {
     const { subscriptionData, client, intl, match } = this.props
     const { groupedSubscription, error } = subscriptionData
 
-    const backButton = {
-      title: intl.formatMessage({ id: 'subscription.title.list' }),
-      path: '/subscriptions',
-    }
     const renderWrapper = children => {
       return (
-        <ContentWrapper
-          title={intl.formatMessage({ id: 'subscription.title.single' })}
-          backButton={backButton}>
-          {() => children}
-        </ContentWrapper>
+        <ContentWrapper {...headerConfig()}>{() => children}</ContentWrapper>
       )
     }
 
