@@ -2,8 +2,13 @@
   "dependencies": {
     "@vtex/address-form": "1.5.0",
     "@vtex/delivery-packages": "^2.14.1",
+    "apollo-client": "^2.4.7",
+    "graphql": "^14.0.2",
     "i18n-country-code": "^1.0.0",
+    "react": "^16.6.3",
     "react-accessible-accordion": "^2.4.5",
+    "react-apollo": "^2.3.2",
+    "react-intl": "^2.7.2",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-router-prop-types": "^1.0.4",
