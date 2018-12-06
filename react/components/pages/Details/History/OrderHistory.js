@@ -36,13 +36,16 @@ class OrderHistory extends Component {
 
     if (loading || !order) {
       return (
-        <AccordionItemTitle className="title pa5 bb bl br b--muted-5 w-100">
-          <SkeletonLoader width={10} />
-        </AccordionItemTitle>
+        <AccordionItem>
+          <AccordionItemTitle className="title pa5 bb bl br b--muted-5 w-100">
+            <SkeletonLoader width={10} />
+          </AccordionItemTitle>
+        </AccordionItem>
       )
     }
 
     const packages = parcelify(order)
+
     return (
       <AccordionItem hideBodyClassName="invert-arrow">
         <AccordionItemTitle className="title pa5 bw1 b--muted-5 w-100 tl">

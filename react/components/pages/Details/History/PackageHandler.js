@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import { ProgressBarBundle, utils } from 'vtex.my-account-commons'
@@ -18,8 +18,9 @@ import OrderItems from './OrderItems'
 class PackageHandler extends Component {
   render() {
     const { packages } = this.props
+
     return (
-      <div>
+      <Fragment>
         {packages.map((pack, index) => {
           const shippingEstimate = estimateShipping(pack)
           return (
@@ -44,7 +45,6 @@ class PackageHandler extends Component {
                   </div>
                   <div className="pt4 pl8-m pl9-xl history-package-progress">
                     <PackageStatus
-                      status={status}
                       pack={pack.package || {}}
                       packages={packages}
                       render={index => (
@@ -65,7 +65,7 @@ class PackageHandler extends Component {
             </div>
           )
         })}
-      </div>
+      </Fragment>
     )
   }
 }
