@@ -25,7 +25,7 @@ class Summary extends Component {
     const { subscription, history } = this.props
 
     history.push({
-      pathname: `subscriptions/${subscription.orderGroup}/products`,
+      pathname: `${subscription.orderGroup}/products`,
     })
   }
 
