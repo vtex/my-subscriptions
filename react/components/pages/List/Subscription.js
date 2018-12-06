@@ -126,7 +126,7 @@ class Subscription extends Component {
                 </span>
                 {isCanceled && (
                   <div className="dib lh-solid">
-                    <Badge type="neutral">
+                    <Badge>
                       {intl.formatMessage({
                         id: 'subscription.canceled',
                       })}

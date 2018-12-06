@@ -5,6 +5,7 @@ import { Button, Alert, Badge } from 'vtex.styleguide'
 
 import ConfirmModal from '../ConfirmModal'
 import Toast from '../../../commons/Toast'
+import ChargeDayInfo from '../../../ChargeDayInfo'
 
 class DisplayData extends Component {
   state = {
@@ -130,20 +131,7 @@ class DisplayData extends Component {
             </div>
             <div className="w-50-s w-100-ns">
               <div className="pl6-s pl0-ns">
-                <span className="b db f6 c-on-base">
-                  {intl.formatMessage({
-                    id: 'subscription.data.chargeDay',
-                  })}
-                </span>
-                <span className="fw3 db f5-ns f6-s c-on-base">
-                  {subscription.plan.frequency.periodicity === 'WEEKLY'
-                    ? intl.formatMessage({
-                        id: `subscription.periodicity.${subscription.purchaseSettings.purchaseDay.toLowerCase()}`,
-                      })
-                    : subscription.purchaseSettings.purchaseDay || (
-                        <span>&nbsp;</span>
-                      )}
-                </span>
+                <ChargeDayInfo subscription={subscription} />
               </div>
               <div className="pt6 pl6-s pl0-ns">
                 <span className="b db f6 c-on-base">
