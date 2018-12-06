@@ -45,7 +45,9 @@ class SubscriptionDetailContainer extends Component {
 
     const renderWrapper = children => {
       return (
-        <ContentWrapper {...headerConfig({ intl })}>{() => children}</ContentWrapper>
+        <ContentWrapper {...headerConfig({ intl })}>
+          {() => children}
+        </ContentWrapper>
       )
     }
 
