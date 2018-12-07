@@ -6,8 +6,6 @@ import { compose, withProps } from 'recompose'
 import { subscriptionShape } from '../proptypes'
 
 const ChargeDayInfo = ({ intl, subscription, shouldBeEmpty }) => {
-  if (shouldBeEmpty) return <div className="h2 mb2" />
-
   let chargeInfo
   if (subscription.plan.frequency.periodicity === 'WEEKLY') {
     chargeInfo = intl.formatMessage({
@@ -18,9 +16,9 @@ const ChargeDayInfo = ({ intl, subscription, shouldBeEmpty }) => {
   return (
     <Fragment>
       <span className="b db f6 c-on-base">
-        {intl.formatMessage({ id: 'subscription.data.chargeDay' })}
+        {!shouldBeEmpty && intl.formatMessage({ id: 'subscription.data.chargeDay' })} &nbsp;
       </span>
-      <span className="fw3 db f5-ns f6-s c-on-base">{chargeInfo}</span>
+      <span className="fw3 db f5-ns f6-s c-on-base">{!shouldBeEmpty && chargeInfo} &nbsp;</span>
     </Fragment>
   )
 }
