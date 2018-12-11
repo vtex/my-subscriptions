@@ -53,7 +53,7 @@
   "subscription.summary.totalValue": "Total value",
   "subscription.summary.items": "Items total",
   "subscription.summary.shipping": "Shipping",
-  "subscription.summary.discount": "Discount",
+  "subscription.summary.discounts": "Discounts",
   "subscription.summary.quantity": "Units",
   "subscription.items.notFound": "This subscription doesn't have any more items",
   "subscription.items.notFoundHelperText": "Therefore, it has been removed from your subscription list",
