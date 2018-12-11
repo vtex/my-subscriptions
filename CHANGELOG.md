@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.2.2] - 2018-12-07
 ### Fixed
+- `FrequencyInfo` label.
+- `Discounts` translated label.
+
+## [0.2.2] - 2018-12-07
+### Fixed
 - Link to `Products` page.
 
 ## [0.2.1] - 2018-12-06
