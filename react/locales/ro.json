@@ -53,7 +53,7 @@
   "subscription.summary.totalValue": "Valoarea totală",
   "subscription.summary.items": "totalitatea Itemns",
   "subscription.summary.shipping": "Transport",
-  "subscription.summary.discount": "Discount",
+  "subscription.summary.discounts": "Discounts",
   "subscription.summary.quantity": "Unități",
   "subscription.items.notFound": "Acest abonament nu mai are elemente",
   "subscription.items.notFoundHelperText": "De aceea, a fost eliminat din lista dvs. de abonamente",
