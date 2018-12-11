@@ -7,6 +7,8 @@ import { Button, Alert, Badge } from 'vtex.styleguide'
 
 import ConfirmModal from './ConfirmModal'
 import PaymentDisplay from './PaymentDisplay'
+import FrequencyInfo from '../../FrequencyInfo'
+import LabeledInfo from '../../LabeledInfo'
 import Price from '../../commons/FormattedPrice'
 import Title from '../../commons/Title'
 import Toast from '../../commons/Toast'
@@ -147,41 +149,32 @@ class Subscription extends Component {
                 <div className="flex flex-row w-100 mr6-s mr0-m ">
                   <div className="w-50 pt6 mr6 c-on-base">
                     <div className="pl0-ns">
-                      <span className="b db">
-                        {intl.formatMessage({
-                          id: 'subscription.frequency',
-                        })}
-                      </span>
-                      <span className="db fw3 f5-ns f6-s">
-                        {intl.formatMessage({
-                          id: `subscription.periodicity.${subscription.plan.frequency.periodicity.toLowerCase()}`,
-                        })}
-                      </span>
+                      <FrequencyInfo
+                        periodicity={subscription.plan.frequency.periodicity}
+                        interval={subscription.plan.frequency.interval}
+                      />
                     </div>
                     {!isCanceled && !isPaused ? (
                       <div className="pl0-ns pt5">
-                        <span className="b db">
-                          {intl.formatMessage({
-                            id: 'subscription.nextPurchase',
-                          })}
-                        </span>
-                        <div className="flex flex-row">
-                          <span className="db fw3 f5-ns f6-s">
-                            <FormattedDate
-                              value={subscription.nextPurchaseDate}
-                              style="short"
-                            />
-                          </span>
-                          {subscription.isSkipped && (
-                            <div className="lh-solid ml3 mt1">
-                              <Badge type="warning">
-                                {intl.formatMessage({
-                                  id: 'subscription.skip.confirm',
-                                })}
-                              </Badge>
-                            </div>
-                          )}
-                        </div>
+                        <LabeledInfo labelId="subscription.nextPurchase">
+                          <div className="flex flex-row">
+                            <span className="db fw3 f5-ns f6-s">
+                              <FormattedDate
+                                value={subscription.nextPurchaseDate}
+                                style="short"
+                              />
+                            </span>
+                            {subscription.isSkipped && (
+                              <div className="lh-solid ml3 mt1">
+                                <Badge type="warning">
+                                  {intl.formatMessage({
+                                    id: 'subscription.skip.confirm',
+                                  })}
+                                </Badge>
+                              </div>
+                            )}
+                          </div>
+                        </LabeledInfo>
                       </div>
                     ) : isPaused && !isCanceled ? (
                       <MediaQuery minWidth={640}>
@@ -203,32 +196,22 @@ class Subscription extends Component {
                   <div className="w-50 pt6 c-on-base">
                     {!isCanceled && (
                       <div className="pl6-s pl1-ns pb5">
-                        <span className="b db">
-                          {intl.formatMessage({
-                            id: 'subscription.payment',
-                          })}
-                        </span>
-                        <div className="f5-ns f6-s pt2 lh-solid dib-ns">
+                        <LabeledInfo labelId="subscription.payment">
                           <PaymentDisplay
                             purchaseSettings={subscription.purchaseSettings}
                           />
-                        </div>
+                        </LabeledInfo>
                       </div>
                     )}
                     <div className="pl6-s pl1-ns">
-                      <span className="b db">
-                        {intl.formatMessage({
-                          id: 'subscription.totalValue',
-                        })}
-                      </span>
-                      <span className="db fw3 f5-ns f6-s">
+                      <LabeledInfo labelId="subscription.totalValue">
                         <Price
                           value={subscription.totalValue}
                           currency={
                             subscription.purchaseSettings.currencySymbol
                           }
                         />
-                      </span>
+                      </LabeledInfo>
                     </div>
                   </div>
                 </div>

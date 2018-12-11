@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import { compose, graphql } from 'react-apollo'
@@ -8,6 +8,7 @@ import { utils } from 'vtex.my-account-commons'
 import RemoveItemConfirmModal from '../pages/Details/RemoveItemConfirmModal'
 import Price from './FormattedPrice'
 import Toast from './Toast'
+import LabeledInfo from '../LabeledInfo'
 import RemoveItem from '../../graphql/removeItem.gql'
 
 const { fixImageUrl } = utils
@@ -73,7 +74,7 @@ class Item extends Component {
       alertMessage,
     } = this.state
     return (
-      <div>
+      <Fragment>
         {showAlert && alertType === 'error' && (
           <div className="absolute top-2 z-5 ma7">
             <Alert
@@ -123,27 +124,17 @@ class Item extends Component {
                 <div className="flex flex-row w-100">
                   <div className="w-50-s w-third-ns">
                     <div className="pl0-ns pt5">
-                      <span className="b db">
-                        {intl.formatMessage({
-                          id: 'subscription.item.quantity',
-                        })}
-                      </span>
-                      <span className="db fw3 f5-ns f6-s">{item.quantity}</span>
+                      <LabeledInfo labelId="subscription.item.quantity"> {item.quantity}</LabeledInfo>
                     </div>
                   </div>
                   <div className="w-50-s w-third-ns">
                     <div className="pl6-s pl1-ns pt5">
-                      <span className="b db">
-                        {intl.formatMessage({
-                          id: 'subscription.totalValue',
-                        })}
-                      </span>
-                      <span className="db fw3 f5-ns f6-s">
+                      <LabeledInfo labelId="subscription.totalValue">
                         <Price
                           value={item.sku.priceAtSubscriptionDate}
                           currency={currency}
                         />
-                      </span>
+                      </LabeledInfo>
                     </div>
                   </div>
                 </div>
@@ -153,11 +144,9 @@ class Item extends Component {
                       size="small"
                       onClick={this.handleOpenModal}
                       variation="secondary">
-                      <span>
-                        {intl.formatMessage({
-                          id: 'subscription.actions.remove',
-                        })}
-                      </span>
+                      {intl.formatMessage({
+                        id: 'subscription.actions.remove',
+                      })}
                     </Button>
                   </div>
                 </div>
@@ -165,7 +154,7 @@ class Item extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     )
   }
 }

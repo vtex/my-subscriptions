@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { intlShape, injectIntl, FormattedDate } from 'react-intl'
+import { intlShape, injectIntl } from 'react-intl'
 import { Button, Alert, Badge } from 'vtex.styleguide'
 
 import ConfirmModal from '../ConfirmModal'
 import Toast from '../../../commons/Toast'
 import ChargeDayInfo from '../../../ChargeDayInfo'
+import FrequencyInfo from '../../../FrequencyInfo'
+import LabeledInfo from '../../../LabeledInfo'
 
 class DisplayData extends Component {
   state = {
@@ -100,33 +102,18 @@ class DisplayData extends Component {
             </div>
           </div>
           <div className="flex pt5-s pt5-ns w-100-s mr-auto flex-row">
-            <div className="mr5 w-50-s w-100-ns c-on-base">
-              <span className="b db f6">
-                {intl.formatMessage({
-                  id: 'subscription.data.orderAgain',
-                })}
-              </span>
-              <span className="db fw3 f5-ns f6-s c-on-base">
-                {intl.formatMessage(
-                  {
-                    id: `subscription.settings.${subscription.plan.frequency.periodicity.toLowerCase()}`,
-                  },
-                  { interval: subscription.plan.frequency.interval }
-                )}
-              </span>
+            <div className="mr5 w-50-s w-100-ns">
+              <FrequencyInfo
+                periodicity={subscription.plan.frequency.periodicity}
+                interval={subscription.plan.frequency.interval}
+              />
               <div className="pt6">
-                <span className="b db f6">
-                  {intl.formatMessage({
-                    id: 'subscription.data.initialDate',
+                <LabeledInfo labelId="subscription.data.initialDate">
+                  {intl.formatDate(subscription.plan.validity.begin, {
+                    timeZone: 'UTC',
+                    style: 'short',
                   })}
-                </span>
-                <span className="db fw3 f5-ns f6-s">
-                  <FormattedDate
-                    value={subscription.plan.validity.begin}
-                    timeZone="UTC"
-                    style="short"
-                  />
-                </span>
+                </LabeledInfo>
               </div>
             </div>
             <div className="w-50-s w-100-ns">
@@ -134,28 +121,24 @@ class DisplayData extends Component {
                 <ChargeDayInfo subscription={subscription} />
               </div>
               <div className="pt6 pl6-s pl0-ns">
-                <span className="b db f6 c-on-base">
-                  {intl.formatMessage({
-                    id: 'subscription.nextPurchase',
-                  })}
-                </span>
-                <div className="flex flex-row">
-                  <span className="db fw3 f5-ns f6-s c-on-base">
-                    <FormattedDate
-                      value={subscription.nextPurchaseDate}
-                      style="short"
-                    />
-                  </span>
-                  {subscription.isSkipped && (
-                    <div className="lh-solid mt1 ml3">
-                      <Badge type="warning">
-                        {intl.formatMessage({
-                          id: 'subscription.skip.confirm',
-                        })}
-                      </Badge>
-                    </div>
-                  )}
-                </div>
+                <LabeledInfo labelId="subscription.nextPurchase">
+                  <div className="flex flex-row">
+                    <span className="db fw3 f5-ns f6-s c-on-base">
+                      {intl.formatDate(subscription.nextPurchaseDate, {
+                        style: 'short',
+                      })}
+                    </span>
+                    {subscription.isSkipped && (
+                      <div className="lh-solid mt1 ml3">
+                        <Badge type="warning">
+                          {intl.formatMessage({
+                            id: 'subscription.skip.confirm',
+                          })}
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+                </LabeledInfo>
               </div>
             </div>
           </div>
