@@ -1,0 +1,12 @@
+{
+  "my-subscriptions": {
+    "required": [],
+    "allowed": [],
+    "component": "ExtensionRouter"
+  },
+  "my-subscriptions-link": {
+    "required": [],
+    "allowed": [],
+    "component": "ExtensionLinks"
+  }
+}

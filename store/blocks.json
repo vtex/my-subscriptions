@@ -1,0 +1,10 @@
+{
+  "my-subscriptions": {
+    "blocks": [],
+    "inheritComponent": true
+  },
+  "my-subscriptions-link": {
+    "blocks": [],
+    "inheritComponent": true
+  }
+}

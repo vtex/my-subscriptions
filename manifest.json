@@ -6,7 +6,8 @@
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
   "builders": {
-    "pages": "0.x",
+    "store": "0.x",
+    "messages": "0.x",
     "react": "2.x"
   },
   "mustUpdateAt": "2019-04-02",
