@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Using queries from `vtex.my-subscriptions-graphql` insteadof `vtex.my-orders`.
+- Using queries from `vtex.my-subscriptions-graphql` instead of `vtex.my-orders`.
 
 ## [0.2.3] - 2018-12-11
 ### Fixed
