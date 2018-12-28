@@ -1,0 +1,8 @@
+{
+  "my-subscriptions": {
+    "inheritComponent": true
+  },
+  "my-subscriptions-link": {
+    "inheritComponent": true
+  }
+}

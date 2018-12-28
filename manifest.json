@@ -1,12 +1,13 @@
 {
   "vendor": "vtex",
   "name": "my-subscriptions",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "title": "MySubscriptions",
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
   "builders": {
-    "pages": "0.x",
+    "store": "0.x",
+    "messages": "0.x",
     "react": "2.x"
   },
   "mustUpdateAt": "2019-04-02",

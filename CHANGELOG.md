@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-12-28
+### Changed
+- New builders are in town! Add messages and store builders.
+
 ## [0.2.3] - 2018-12-11
 ### Fixed
 - `FrequencyInfo` label.
