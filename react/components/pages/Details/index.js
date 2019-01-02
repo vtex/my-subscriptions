@@ -81,9 +81,7 @@ const enhance = compose(
   graphql(GET_GROUPED_SUBSCRIPTION, subscriptionQuery),
   withProps(({ client, match }) => ({
     cachedSubscriptionQuery: client.readFragment({
-      id: cacheLocator.groupedSubscription(
-        match.params.subscriptionId
-      ),
+      id: cacheLocator.groupedSubscription(match.params.subscriptionId),
       fragment: CACHED_FRAGMENT,
     }),
   })),
