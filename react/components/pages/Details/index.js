@@ -34,7 +34,7 @@ const headerConfig = ({ intl }) => {
   }
 }
 
-class SubscriptionDetailContainer extends Component {
+class SubscriptionDetailsContainer extends Component {
   handleGoToSubscriptionsPage = () => {
     this.props.history.push('/subscriptions')
   }
@@ -97,10 +97,8 @@ class SubscriptionDetailContainer extends Component {
 
     if (!subscription) {
       return renderWrapper(
-        <div className="mr0 h4 center w-100 pb5">
-          <div>
-            <SummarySkeleton />
-          </div>
+        <div className="mr0 center w-100 pb5">
+          <SummarySkeleton />
           <div className="flex flex-row-ns flex-column-s">
             <div className="pt6 pr4-ns w-50-ns">
               <DataSkeleton />
@@ -121,9 +119,7 @@ class SubscriptionDetailContainer extends Component {
 
     return renderWrapper(
       <div className="mr0 center w-100 pb5">
-        <div>
-          <Summary subscription={subscription} />
-        </div>
+        <Summary subscription={subscription} />
         <div className="flex flex-row-ns flex-column-s">
           <div className="pt6 pr4-ns w-50-ns">
             <DataCard subscription={subscription} />
@@ -153,7 +149,7 @@ const subscriptionQuery = {
   }),
 }
 
-SubscriptionDetailContainer.propTypes = {
+SubscriptionDetailsContainer.propTypes = {
   intl: intlShape.isRequired,
   client: PropTypes.object,
   subscriptionData: PropTypes.object,
@@ -163,5 +159,7 @@ SubscriptionDetailContainer.propTypes = {
 
 export default compose(
   withApollo,
-  graphql(GET_GROUPED_SUBSCRIPTION, subscriptionQuery)
-)(withRouter(injectIntl(SubscriptionDetailContainer)))
+  graphql(GET_GROUPED_SUBSCRIPTION, subscriptionQuery),
+  injectIntl,
+  withRouter
+)(SubscriptionDetailsContainer)
