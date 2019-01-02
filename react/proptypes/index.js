@@ -102,3 +102,8 @@ export const subscriptionShape = PropTypes.shape({
   totalValue: PropTypes.number.isRequired,
   totals: PropTypes.arrayOf(totalsShape).isRequired,
 })
+
+export const genericQueryShape = PropTypes.shape({
+  error: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+})
