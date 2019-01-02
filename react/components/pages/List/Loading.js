@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { BaseLoading } from 'vtex.my-account-commons'
 
-import { headerConfig, parseError } from '.'
+import { parseErrorMessageId } from '../../../utils'
+import { headerConfig } from '.'
 
 import SubscriptionsSkeleton from './SubscriptionsSkeleton'
 
@@ -11,7 +12,7 @@ const SubscriptionsListLoading = ({ data }) => {
     <BaseLoading
       queryData={data}
       headerConfig={headerConfig}
-      parseError={parseError}>
+      parseError={parseErrorMessageId}>
       <SubscriptionsSkeleton />
     </BaseLoading>
   )
