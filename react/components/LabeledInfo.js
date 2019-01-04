@@ -15,7 +15,7 @@ const LabeledInfo = ({ label, labelId, children, intl }) => {
 
 LabeledInfo.propTypes = {
   label: PropTypes.any,
-  labelId: PropTypes.string.isRequired,
+  labelId: PropTypes.string,
   children: PropTypes.any,
   intl: intlShape.isRequired,
 }

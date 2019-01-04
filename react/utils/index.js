@@ -17,3 +17,11 @@ export const parseErrorMessageId = error => {
       'timeout'}`
   }
 }
+
+export const getLastInstance = instances => {
+  if (instances && instances.length !== 0) {
+    return instances.reduce((accumulator, currentValue) =>
+      accumulator.date > currentValue.date ? accumulator : currentValue
+    )
+  }
+}

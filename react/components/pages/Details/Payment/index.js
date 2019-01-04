@@ -24,7 +24,18 @@ class Payment extends Component {
       isLoading: false,
       showSuccessAlert: false,
       showErrorAlert: false,
+      isRetryButtonEnabled: true,
     }
+  }
+
+  handleMakeRetry = () => {
+    const { onMakeRetry } = this.props
+
+    onMakeRetry().then(() => {
+      this.setState({
+        isRetryButtonEnabled: false,
+      })
+    })
   }
 
   handleEdit = () => {
@@ -85,7 +96,7 @@ class Payment extends Component {
   }
 
   render() {
-    const { subscription } = this.props
+    const { subscription, displayRetry } = this.props
     const {
       isEditMode,
       account,
@@ -93,6 +104,7 @@ class Payment extends Component {
       paymentSystemGroup,
       showErrorAlert,
       showSuccessAlert,
+      isRetryButtonEnabled,
     } = this.state
     if (isEditMode) {
       return (
@@ -122,7 +134,13 @@ class Payment extends Component {
             />
           </div>
         )}
-        <PaymentCard onEdit={this.handleEdit} subscription={subscription} />
+        <PaymentCard
+          onEdit={this.handleEdit}
+          subscription={subscription}
+          onMakeRetry={this.handleMakeRetry}
+          displayRetry={displayRetry}
+          isRetryButtonEnabled={isRetryButtonEnabled}
+        />
       </div>
     )
   }
@@ -132,6 +150,8 @@ Payment.propTypes = {
   intl: intlShape.isRequired,
   subscription: PropTypes.object.isRequired,
   updatePayment: PropTypes.func.isRequired,
+  onMakeRetry: PropTypes.func.isRequired,
+  displayRetry: PropTypes.bool.isRequired,
 }
 
 const paymentMutation = {
