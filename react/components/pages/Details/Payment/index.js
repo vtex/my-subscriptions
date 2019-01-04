@@ -28,13 +28,22 @@ class Payment extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.mounted = true
+  }
+
+  componentWillUnmount = () => {
+    this.mounted = false
+  }
+
   handleMakeRetry = () => {
     const { onMakeRetry } = this.props
 
     onMakeRetry().then(() => {
-      this.setState({
-        isRetryButtonEnabled: false,
-      })
+      this.mounted &&
+        this.setState({
+          isRetryButtonEnabled: false,
+        })
     })
   }
 

@@ -20,7 +20,6 @@ import SubscriptionDetailsLoader from './Loader'
 import { subscriptionShape } from '../../../proptypes'
 import { cacheLocator } from '../../../utils/cacheLocator'
 import { getLastInstance } from '../../../utils'
-import { throws } from 'assert'
 
 export const headerConfig = ({ intl }) => {
   const backButton = {
@@ -53,6 +52,14 @@ class SubscriptionDetailsContainer extends Component {
     return null
   }
 
+  componentDidMount = () => {
+    this.mounted = true
+  }
+
+  componentWillUnmount = () => {
+    this.mounted = false
+  }
+
   handleSetDisplayRetry = displayRetry => {
     this.setState({ displayRetry })
   }
@@ -73,7 +80,7 @@ class SubscriptionDetailsContainer extends Component {
         instanceId: lastInstance.id,
       },
     }).then(() => {
-      this.handleSetDisplayRetry(true)
+      this.mounted && this.handleSetDisplayRetry(true)
     })
   }
 
@@ -93,7 +100,7 @@ class SubscriptionDetailsContainer extends Component {
                     label: intl.formatMessage({
                       id: 'subscription.retry.button.message',
                     }),
-                    onClick: () => this.handleMakeRetry(),
+                    onClick: this.handleMakeRetry,
                   }}
                   onClose={() => this.handleSetDisplayAlert(false)}>
                   {intl.formatMessage({

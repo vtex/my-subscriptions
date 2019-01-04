@@ -81,6 +81,5 @@ fragment cachedData on GroupedSubscription {
       }
       message
       status
-      isInRetry
     }
 }
