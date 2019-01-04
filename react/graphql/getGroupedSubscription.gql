@@ -82,7 +82,6 @@ query GroupedSubscription($orderGroup: String, $customerId: String) {
       }
       message
       status
-      isInRetry
     }
   }
 }
