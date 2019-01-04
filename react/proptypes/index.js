@@ -32,7 +32,7 @@ const instanceShape = PropTypes.shape({
   date: PropTypes.string.isRequired,
   message: PropTypes.string,
   workflowId: PropTypes.string.isRequired,
-  orderInfo: orderInfoShape.isRequired,
+  orderInfo: orderInfoShape,
 })
 
 const frequencyShape = PropTypes.shape({
@@ -101,4 +101,9 @@ export const subscriptionShape = PropTypes.shape({
   shippingAddress: shippingAddressShape.isRequired,
   totalValue: PropTypes.number.isRequired,
   totals: PropTypes.arrayOf(totalsShape).isRequired,
+})
+
+export const genericQueryShape = PropTypes.shape({
+  error: PropTypes.object,
+  loading: PropTypes.bool.isRequired,
 })

@@ -22,20 +22,6 @@ const renderEmptySubscriptions = () => {
   return renderWrapper(<EmptySubscriptions />)
 }
 
-export const parseError = error => {
-  if (
-    error &&
-    error.graphQLErrors.length > 0 &&
-    error.graphQLErrors[0].extensions &&
-    error.graphQLErrors[0].extensions
-  ) {
-    return `subscription.fetch.${(error.graphQLErrors[0].extensions.error &&
-      error.graphQLErrors[0].extensions.error.statusCode &&
-      error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()) ||
-      'timeout'}`
-  }
-}
-
 class SubscriptionsListContainer extends Component {
   render() {
     const { subscriptions } = this.props

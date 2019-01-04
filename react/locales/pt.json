@@ -106,5 +106,8 @@
   "order.subscription.periodicity.bimonthly": "bimestralmente",
   "order.subscription.periodicity.quarterly": "a cada 3 meses",
   "order.subscription.periodicity.semiannual": "semestralmente",
-  "order.subscription.periodicity.yearly": "anualmente"
+  "order.subscription.periodicity.yearly": "anualmente",
+
+  "subscription.alert.error.message": "Houve um problema com o pagamento do seu pedido atual. Confira a sua forma de pagamento para que ainda possa efetuar a compra atual e para que as compras futuras ocorram sem problemas.",
+  "subscription.retry.button.message": "Efetuar pedido atual"
 }

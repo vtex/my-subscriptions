@@ -72,6 +72,7 @@ query GroupedSubscription($orderGroup: String, $customerId: String) {
       salesChannel
     }
     instances {
+      id
       date
       workflowId
       orderInfo {
@@ -80,6 +81,7 @@ query GroupedSubscription($orderGroup: String, $customerId: String) {
         paymentUrl
       }
       message
+      status
     }
   }
 }

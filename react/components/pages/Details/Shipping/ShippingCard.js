@@ -117,7 +117,7 @@ class ShippingCard extends Component {
             <div className="flex flex-row-s flex-column-ns">
               <div className="w-60-s w-100-ns pt6">
                 <LabeledInfo labelId="subscription.shipping.sla">
-                    &nbsp;
+                  &nbsp;
                 </LabeledInfo>
               </div>
             </div>
@@ -129,7 +129,7 @@ class ShippingCard extends Component {
 }
 
 ShippingCard.propTypes = {
-  subscription: subscriptionShape.isRequired,
+  subscription: subscriptionShape,
   onEdit: PropTypes.func,
   shippingAddress: PropTypes.object,
   intl: intlShape.isRequired,

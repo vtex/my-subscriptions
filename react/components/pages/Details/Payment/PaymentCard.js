@@ -11,7 +11,14 @@ class Payment extends Component {
   }
 
   render() {
-    const { subscription, onEdit, intl } = this.props
+    const {
+      subscription,
+      onEdit,
+      intl,
+      onMakeRetry,
+      displayRetry,
+      isRetryButtonEnabled,
+    } = this.props
     const lastGeneratedOrder = subscription.instances.find(
       instance => instance.orderInfo && instance.orderInfo.paymentUrl
     )
@@ -28,14 +35,25 @@ class Payment extends Component {
                   id: 'subscription.payment',
                 })}
               </div>
-              <div className="ml-auto">
-                <Button size="small" variation="tertiary" onClick={onEdit}>
-                  <span>
+              <div className="ml-auto flex flex-row">
+                {displayRetry && (
+                  <Button
+                    size="small"
+                    variation="secondary"
+                    onClick={onMakeRetry}
+                    disabled={!isRetryButtonEnabled}>
+                    {intl.formatMessage({
+                      id: 'subscription.retry.button.message',
+                    })}
+                  </Button>
+                )}
+                <div className="ml3">
+                  <Button size="small" variation="tertiary" onClick={onEdit}>
                     {intl.formatMessage({
                       id: 'subscription.actions.edit',
                     })}
-                  </span>
-                </Button>
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
@@ -76,6 +94,9 @@ Payment.propTypes = {
   onEdit: PropTypes.func.isRequired,
   paymentMethod: PropTypes.object,
   intl: intlShape.isRequired,
+  onMakeRetry: PropTypes.func.isRequired,
+  displayRetry: PropTypes.bool.isRequired,
+  isRetryButtonEnabled: PropTypes.bool.isRequired,
 }
 
 export default injectIntl(Payment)
