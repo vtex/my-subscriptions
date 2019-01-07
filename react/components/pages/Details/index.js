@@ -43,7 +43,7 @@ class SubscriptionDetailsContainer extends Component {
   static getDerivedStateFromProps(props) {
     const lastInstance = getLastInstance(props.subscription.instances)
 
-    if (lastInstance.status === 'PAYMENT_ERROR') {
+    if (lastInstance && lastInstance.status === 'PAYMENT_ERROR') {
       return {
         displayRetry: true,
       }
