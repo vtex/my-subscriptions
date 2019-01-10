@@ -6,11 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fix
+- Loading and displaying of the history of orders.
 
 ## [0.3.2] - 2019-01-07
 ### Fix
 - Add extra check on Details page for when the subscription has no instances.
-- Loading and displaying of the history of orders.
 
 ## [0.3.1] - 2019-01-04 [YANKED]
 ### Added
