@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { compose, graphql } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import { compose, branch, renderComponent, withProps, renderNothing } from 'recompose'
 import { intlShape, injectIntl } from 'react-intl'
 import {
   AccordionItem,
@@ -17,10 +18,9 @@ import { ProgressBarBundle } from 'vtex.my-account-commons'
 import GET_ORDER from '../../../../graphql/getOrder.gql'
 import PaymentFlagIcon from '../../../commons/PaymentFlagIcon'
 import FormattedPrice from '../../../commons/FormattedPrice'
-import SkeletonLoader from '../../../commons/SkeletonLoader'
 import FormattedDate from '../../../commons/FormattedDate'
-
 import PackageHandler from './PackageHandler'
+import OrderHistorySkeleton from './OrderHistorySkeleton'
 
 const {
   utils: { generateProgressBarStates },
@@ -29,21 +29,7 @@ const {
   ProgressBar,
 } = ProgressBarBundle
 
-class OrderHistory extends Component {
-  render() {
-    const { orderData, intl } = this.props
-    const { order, loading } = orderData
-
-    if (loading || !order) {
-      return (
-        <AccordionItem>
-          <AccordionItemTitle className="title pa5 bb bl br b--muted-5 w-100">
-            <SkeletonLoader width={10} />
-          </AccordionItemTitle>
-        </AccordionItem>
-      )
-    }
-
+const OrderHistory = ({ order, intl }) => {
     const packages = parcelify(order)
 
     return (
@@ -134,25 +120,32 @@ class OrderHistory extends Component {
         </AccordionItemBody>
       </AccordionItem>
     )
-  }
 }
 
 OrderHistory.propTypes = {
   intl: intlShape.isRequired,
   orderId: PropTypes.string.isRequired,
-  orderData: PropTypes.object,
   order: PropTypes.object,
 }
 
 const orderQuery = {
-  name: 'orderData',
   options({ orderId }) {
     return {
       variables: {
-        orderId: orderId,
+        orderId,
       },
     }
   },
 }
 
-export default compose(graphql(GET_ORDER, orderQuery))(injectIntl(OrderHistory))
+const enhance = compose(
+  graphql(GET_ORDER, orderQuery),
+  branch(({data}) => data.loading, renderComponent(OrderHistorySkeleton)),
+  branch(({data}) => !data.order, renderNothing),
+  withProps(({ data }) => ({
+    order: data.order,
+  })),
+  injectIntl
+)
+
+export default enhance(OrderHistory)

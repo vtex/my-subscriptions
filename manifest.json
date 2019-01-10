@@ -21,6 +21,7 @@
   "dependencies": {
     "vtex.styleguide": "8.x",
     "vtex.my-account-commons": "0.x",
-    "vtex.my-subscriptions-graphql": "0.x"
+    "vtex.my-subscriptions-graphql": "0.x",
+    "vtex.my-orders-graphql": "0.x"
   }
 }

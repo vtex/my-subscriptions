@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Accordion } from 'react-accessible-accordion'
 import { intlShape, injectIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
+import { compose, branch, withProps, renderNothing } from 'recompose'
 
 import OrderHistory from './OrderHistory'
 
@@ -18,10 +19,8 @@ class History extends Component {
   }
 
   render() {
-    const { instances, intl } = this.props
-    const filteredInstances = instances.filter(
-      instance => instance.orderInfo && instance.orderInfo.orderId
-    )
+    const { filteredInstances, intl } = this.props
+
     const showViewMore = this.state.visible < filteredInstances.length
     const visibleInstances = filteredInstances.slice(0, this.state.visible)
 
@@ -68,4 +67,14 @@ History.propTypes = {
   instances: PropTypes.array.isRequired,
 }
 
-export default injectIntl(History)
+const enhance = compose(
+  injectIntl,
+  withProps(({ instances }) => ({
+    filteredInstances: instances.filter(
+      instance => instance.orderInfo && instance.orderInfo.orderId
+    ),
+  })),
+  branch(({filteredInstances}) => filteredInstances.length === 0, renderNothing)
+)
+
+export default enhance(History)
