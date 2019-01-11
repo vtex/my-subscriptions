@@ -1,6 +1,5 @@
 query Order($orderId: String) {
-  order(orderId: $orderId)
-    @context(provider: "vtex.my-orders-app", scope: "private") {
+  order(orderId: $orderId) {
     orderId
     status
     creationDate
