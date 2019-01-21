@@ -7,7 +7,7 @@
   "description": "MySubscriptions app used used inside of the MyAccounts",
   "builders": {
     "store": "0.x",
-    "messages": "0.x",
+    "messages": "1.x",
     "react": "3.x"
   },
   "mustUpdateAt": "2019-04-02",
