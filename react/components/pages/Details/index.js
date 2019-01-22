@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { buildCacheLocator } from 'render'
+import { buildCacheLocator } from 'vtex.render-runtime'
 import { injectIntl, intlShape } from 'react-intl'
 import { compose, graphql, withApollo } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
