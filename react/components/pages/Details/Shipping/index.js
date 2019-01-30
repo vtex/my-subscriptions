@@ -116,10 +116,10 @@ class Shipping extends Component {
 
 const addressMutation = {
   name: 'updateAddress',
-  options({ subscription, addressId }) {
+  options({ subscriptionsGroup, addressId }) {
     return {
       variables: {
-        subscriptionId: subscription.orderGroup,
+        subscriptionId: subscriptionsGroup.orderGroup,
         addressId: addressId,
       },
     }
@@ -128,7 +128,7 @@ const addressMutation = {
 
 Shipping.propTypes = {
   intl: intlShape.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: PropTypes.object.isRequired,
   updateAddress: PropTypes.func.isRequired,
 }
 

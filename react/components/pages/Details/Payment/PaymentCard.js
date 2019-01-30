@@ -4,6 +4,7 @@ import { intlShape, injectIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
 import PaymentDisplay from '../PaymentDisplay'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class Payment extends Component {
   handleInvoiceButtonClick = bankInvoiceUrl => {
@@ -12,16 +13,16 @@ class Payment extends Component {
 
   render() {
     const {
-      subscription,
+      subscriptionsGroup,
       onEdit,
       intl,
       onMakeRetry,
       displayRetry,
       isRetryButtonEnabled,
     } = this.props
-    const lastGeneratedOrder = subscription.instances.find(
-      instance => instance.orderInfo && instance.orderInfo.paymentUrl
-    )
+
+    const lastGeneratedOrder = subscriptionsGroup.lastInstance
+
     const bankInvoiceUrl =
       lastGeneratedOrder && lastGeneratedOrder.orderInfo.paymentUrl
 
@@ -59,10 +60,10 @@ class Payment extends Component {
             <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
               <div className="f5-ns f6-s pt5 lh-solid dib-ns c-on-base">
                 <PaymentDisplay
-                  purchaseSettings={subscription.purchaseSettings}
+                  purchaseSettings={subscriptionsGroup.purchaseSettings}
                 />
               </div>
-              {subscription.purchaseSettings.paymentMethod
+              {subscriptionsGroup.purchaseSettings.paymentMethod
                 .paymentSystemGroup === 'bankInvoice' &&
                 bankInvoiceUrl && (
                   <div className="pl9-ns pt2-ns pt6-s">
@@ -90,7 +91,7 @@ class Payment extends Component {
 }
 
 Payment.propTypes = {
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   onEdit: PropTypes.func.isRequired,
   paymentMethod: PropTypes.object,
   intl: intlShape.isRequired,
