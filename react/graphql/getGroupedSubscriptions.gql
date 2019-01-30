@@ -1,64 +1,77 @@
-query GroupedSubscriptions($customerId: String) {
-  groupedSubscriptions(customerId: $customerId) {
+query GroupedSubscriptions {
+  groupedSubscriptions {
     cacheId
     orderGroup
-    customerId
-    plan {
-      validity {
-        end
-        begin
+    status
+    isSkipped
+    subscriptions {
+      id
+      sku {
+        id
+        name
+        productName
+        imageUrl
+        detailUrl
+        nameComplete
       }
-      type
+      quantity
+      priceAtSubscriptionDate
+      cycleCount
+      status
+      createdAt
+      lastUpdate
+      originalOrderId
+      isSkipped
+    }
+    plan {
       frequency {
         periodicity
         interval
       }
+      validity {
+        begin
+        end
+      }
+      type
     }
-    isSkipped
+    customerProfile {
+      name
+      email
+      phone
+    }
+    shippingAddress {
+      addressId
+      street
+      number
+      complement
+      neighborhood
+      city
+      state
+      country
+      postalCode
+      reference
+      formattedAddress
+      additionalComponents
+      geoCoordinate
+      receiverName
+      addressType
+    }
     purchaseSettings {
       purchaseDay
-      seller
-      salesChannel
-      currencySymbol
       paymentMethod {
         paymentSystem
         paymentSystemName
         paymentSystemGroup
         paymentAccount {
-          cardNumber
           accountId
+          cardNumber
+          bin
         }
       }
-    }
-    items {
-      id
-      quantity
-      status
-      SubscriptionId
-      sku {
-        id
-        name
-        productName
-        priceAtSubscriptionDate
-        imageUrl
-        detailUrl
-      }
-    }
-    shippingAddress {
-      addressId
-      city
-      receiverName
-      reference
-      street
-      number
-      neighborhood
-      state
-      country
-    }
-    customerProfile {
-      email
-      name
-      phone
+      seller
+      salesChannel
+      currencySymbol
+      cycleCount
     }
     nextPurchaseDate
     totals {
@@ -66,20 +79,8 @@ query GroupedSubscriptions($customerId: String) {
       value
     }
     totalValue
-    purchaseSettings {
-      purchaseDay
-      seller
-      salesChannel
-    }
-    instances {
-      date
-      workflowId
-      orderInfo {
-        orderId
-        orderGroup
-        paymentUrl
-      }
-      message
+    lastInstance {
+      status
     }
   }
 }
