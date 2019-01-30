@@ -109,7 +109,7 @@ query GroupedSubscription($orderGroup: String, $customerId: String) {
           type
         }
         value
-        paymentSysmtemName
+        paymentSystemName
       }
     }
   }

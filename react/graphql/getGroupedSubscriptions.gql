@@ -109,7 +109,7 @@ query GroupedSubscriptions {
           type
         }
         value
-        paymentSysmtemName
+        paymentSystemName
       }
     }
   }

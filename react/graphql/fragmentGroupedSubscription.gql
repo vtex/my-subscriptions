@@ -108,7 +108,7 @@ fragment cachedData on GroupedSubscription {
         type
       }
       value
-      paymentSysmtemName
+      paymentSystemName
     }
   }
 }
