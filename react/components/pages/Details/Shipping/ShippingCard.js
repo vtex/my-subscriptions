@@ -11,7 +11,7 @@ import { Button } from 'vtex.styleguide'
 import LabeledInfo from '../../../LabeledInfo'
 import DataSkeleton from '../DataCard/DataSkeleton'
 import { getGUID } from '../../../../utils'
-import { subscriptionShape } from '../../../../proptypes'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class ShippingCard extends Component {
   constructor(props) {
@@ -129,7 +129,7 @@ class ShippingCard extends Component {
 }
 
 ShippingCard.propTypes = {
-  subscription: subscriptionShape,
+  subscription: subscriptionsGroupShape,
   onEdit: PropTypes.func,
   shippingAddress: PropTypes.object,
   intl: intlShape.isRequired,

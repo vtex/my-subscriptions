@@ -14,12 +14,12 @@ const ExtensionRouter = () => (
     />
     <Route
       exact
-      path="/subscriptions/:subscriptionId"
+      path="/subscriptions/:orderGroup"
       component={SubscriptionDetailContainer}
     />
     <Route
       exact
-      path="/subscriptions/:subscriptionId/products"
+      path="/subscriptions/:orderGroup/products"
       component={SubscriptionProductsContainer}
     />
   </Fragment>

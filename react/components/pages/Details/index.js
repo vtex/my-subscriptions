@@ -16,32 +16,18 @@ import Summary from './Summary'
 import Payment from './Payment'
 import History from './History'
 import Shipping from './Shipping'
-import SubscriptionDetailsLoader from './Loader'
-import { subscriptionShape } from '../../../proptypes'
+import SubscriptionsGroupDetailsLoader from './Loader'
+import { subscriptionsGroupShape } from '../../../proptypes'
 import { cacheLocator } from '../../../utils/cacheLocator'
-import { getLastInstance } from '../../../utils'
 
-export const headerConfig = ({ intl }) => {
-  const backButton = {
-    title: intl.formatMessage({ id: 'subscription.title.list' }),
-    path: '/subscriptions',
-  }
-
-  return {
-    backButton,
-    title: intl.formatMessage({ id: 'subscription.title.single' }),
-    namespace: 'vtex-account__subscription-details',
-  }
-}
-
-class SubscriptionDetailsContainer extends Component {
+class SubscriptionsGroupDetailsContainer extends Component {
   state = {
     displayRetry: false,
     displayAlert: true,
   }
 
   static getDerivedStateFromProps(props) {
-    const lastInstance = getLastInstance(props.subscription.instances)
+    const lastInstance = props.subscriptionsGroup.lastInstance
 
     if (lastInstance && lastInstance.status === 'PAYMENT_ERROR') {
       return {
@@ -69,14 +55,13 @@ class SubscriptionDetailsContainer extends Component {
   }
 
   handleMakeRetry = () => {
-    const { retry, subscription } = this.props
+    const { retry, subscriptionsGroup } = this.props
 
-    const lastInstance = getLastInstance(subscription.instances)
+    const lastInstance = subscriptionsGroup.lastInstance
 
     return retry({
       variables: {
-        orderGroup: subscription.orderGroup,
-        workflowId: lastInstance.workflowId,
+        orderGroup: subscriptionsGroup.orderGroup,
         instanceId: lastInstance.id,
       },
     }).then(() => {
@@ -85,7 +70,7 @@ class SubscriptionDetailsContainer extends Component {
   }
 
   render() {
-    const { subscription, intl } = this.props
+    const { subscriptionsGroup, intl } = this.props
     const { displayRetry, displayAlert } = this.state
 
     return (
@@ -109,24 +94,24 @@ class SubscriptionDetailsContainer extends Component {
                 </Alert>
               </div>
             )}
-            <Summary subscription={subscription} />
+            <Summary subscriptionsGroup={subscriptionsGroup} />
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
-                <DataCard subscription={subscription} />
+                <DataCard subscriptionsGroup={subscriptionsGroup} />
               </div>
               <div className="pl4-ns pt6 w-50-ns">
-                <Shipping subscription={subscription} />
+                <Shipping subscriptionsGroup={subscriptionsGroup} />
               </div>
             </div>
             <div className="pt6">
               <Payment
-                subscription={subscription}
+                subscriptionsGroup={subscriptionsGroup}
                 onMakeRetry={this.handleMakeRetry}
                 displayRetry={displayRetry}
               />
             </div>
             <div className="pt6 mb8">
-              <History instances={subscription.instances} />
+              <History instances={subscriptionsGroup.instances} />
             </div>
           </div>
         )}
@@ -138,15 +123,15 @@ class SubscriptionDetailsContainer extends Component {
 const subscriptionQuery = {
   options: props => ({
     variables: {
-      orderGroup: props.match.params.subscriptionId,
+      orderGroup: props.match.params.orderGroup,
     },
     errorPolicy: 'all',
   }),
 }
 
-SubscriptionDetailsContainer.propTypes = {
+SubscriptionsGroupDetailsContainer.propTypes = {
   intl: intlShape.isRequired,
-  subscription: subscriptionShape.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   client: PropTypes.object,
   history: ReactRouterPropTypes.history.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
@@ -161,17 +146,30 @@ const enhance = compose(
   graphql(RETRY_MUTATION, { name: 'retry' }),
   withProps(({ client, match }) => ({
     cachedSubscriptionQuery: client.readFragment({
-      id: cacheLocator.groupedSubscription(match.params.subscriptionId),
+      id: cacheLocator.groupedSubscription(match.params.orderGroup),
       fragment: CACHED_FRAGMENT,
     }),
   })),
   withProps(({ data, cachedSubscriptionQuery }) => ({
-    subscription: cachedSubscriptionQuery || data.groupedSubscription,
+    subscriptionsGroup: cachedSubscriptionQuery || data.groupedSubscription,
   })),
   branch(
-    ({ subscription }) => !subscription,
-    renderComponent(SubscriptionDetailsLoader)
+    ({ subscriptionsGroup }) => !subscriptionsGroup,
+    renderComponent(SubscriptionsGroupDetailsLoader)
   )
 )
 
-export default enhance(SubscriptionDetailsContainer)
+export default enhance(SubscriptionsGroupDetailsContainer)
+
+export function headerConfig({ intl }) {
+  const backButton = {
+    title: intl.formatMessage({ id: 'subscription.title.list' }),
+    path: '/subscriptions',
+  }
+
+  return {
+    backButton,
+    title: intl.formatMessage({ id: 'subscription.title.single' }),
+    namespace: 'vtex-account__subscription-details',
+  }
+}

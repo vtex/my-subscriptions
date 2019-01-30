@@ -1,3 +1,3 @@
-mutation retry($orderGroup: String!, $workflowId: String!, $instanceId: String!) {
-  subscriptionsOrderRetry(orderGroup: $orderGroup, workflowId: $workflowId, instanceId: $instanceId)
+mutation retry($orderGroup: String!, $instanceId: String!) {
+  subscriptionsOrderRetry(orderGroup: $orderGroup, instanceId: $instanceId)
 }

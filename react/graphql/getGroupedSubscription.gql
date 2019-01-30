@@ -79,7 +79,7 @@ query GroupedSubscription($orderGroup: String, $customerId: String) {
       value
     }
     totalValue
-    lastInstance {
+    instances {
       status
       orderGroup
       date
