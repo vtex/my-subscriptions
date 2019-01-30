@@ -14,7 +14,7 @@ import Title from '../../commons/Title'
 import Toast from '../../commons/Toast'
 import ItemsImage from '../../commons/ItemsImage'
 
-class Subscription extends Component {
+class SubscriptionsGroup extends Component {
   state = {
     isRestoreModalOpen: false,
     showSuccessAlert: false,
@@ -23,7 +23,7 @@ class Subscription extends Component {
 
   handleClick = () => {
     this.props.history.push(
-      `/subscriptions/${this.props.subscription.orderGroup}`
+      `/subscriptions/${this.props.subscriptionsGroup.orderGroup}`
     )
   }
 
@@ -65,11 +65,8 @@ class Subscription extends Component {
   }
 
   render() {
-    const { subscription, intl } = this.props
+    const { subscriptionsGroup, intl } = this.props
 
-    if (subscription.items === null) {
-      return null
-    }
     const {
       isRestoreModalOpen,
       showErrorAlert,
@@ -78,9 +75,8 @@ class Subscription extends Component {
       alertType,
     } = this.state
 
-    const firstItemOfSubscription = subscription.items[0]
-    const isCanceled = firstItemOfSubscription.status === 'CANCELED'
-    const isPaused = firstItemOfSubscription.status === 'PAUSED'
+    const isCanceled = subscriptionsGroup.status === 'CANCELED'
+    const isPaused = subscriptionsGroup.status === 'PAUSED'
 
     return (
       <div className="pb6">
@@ -90,7 +86,7 @@ class Subscription extends Component {
             onClose={this.handleCloseModal}
             onSuccessUpdate={this.handleSuccessUpdate}
             onErrorUpdate={this.handleSuccessUpdate}
-            subscription={subscription}
+            subscriptionGroup={subscriptionsGroup}
           />
         )}
         {showErrorAlert && (
@@ -119,12 +115,12 @@ class Subscription extends Component {
         <div className="card ba bw1 bg-base center subscription__listing-card pa0-ns pa6-s ba bw1 b--muted-5">
           <div className="flex-ns items-center-s items-start-ns">
             <div className="myo-subscription__image-size  br-ns flex-none bw1-ns b--muted-5">
-              <ItemsImage items={subscription.items} />
+              <ItemsImage items={subscriptionsGroup.subscriptions} />
             </div>
             <div className="pt6-l pb6-l pl6-l pt6-m pb6-m pl6-m pt6-s w-100">
               <div className="db b f4 tl c-on-base">
                 <span className="mr3">
-                  <Title items={subscription.items} />
+                  <Title items={subscriptionsGroup.subscriptions} />
                 </span>
                 {isCanceled && (
                   <div className="dib lh-solid">
@@ -150,8 +146,10 @@ class Subscription extends Component {
                   <div className="w-50 pt6 mr6 c-on-base">
                     <div className="pl0-ns">
                       <FrequencyInfo
-                        periodicity={subscription.plan.frequency.periodicity}
-                        interval={subscription.plan.frequency.interval}
+                        periodicity={
+                          subscriptionsGroup.plan.frequency.periodicity
+                        }
+                        interval={subscriptionsGroup.plan.frequency.interval}
                       />
                     </div>
                     {!isCanceled && !isPaused ? (
@@ -160,11 +158,11 @@ class Subscription extends Component {
                           <div className="flex flex-row">
                             <span className="db fw3 f5-ns f6-s">
                               <FormattedDate
-                                value={subscription.nextPurchaseDate}
+                                value={subscriptionsGroup.nextPurchaseDate}
                                 style="short"
                               />
                             </span>
-                            {subscription.isSkipped && (
+                            {subscriptionsGroup.isSkipped && (
                               <div className="lh-solid ml3 mt1">
                                 <Badge type="warning">
                                   {intl.formatMessage({
@@ -198,7 +196,9 @@ class Subscription extends Component {
                       <div className="pl6-s pl1-ns pb5">
                         <LabeledInfo labelId="subscription.payment">
                           <PaymentDisplay
-                            purchaseSettings={subscription.purchaseSettings}
+                            purchaseSettings={
+                              subscriptionsGroup.purchaseSettings
+                            }
                           />
                         </LabeledInfo>
                       </div>
@@ -206,9 +206,9 @@ class Subscription extends Component {
                     <div className="pl6-s pl1-ns">
                       <LabeledInfo labelId="subscription.totalValue">
                         <Price
-                          value={subscription.totalValue}
+                          value={subscriptionsGroup.totalValue}
                           currency={
-                            subscription.purchaseSettings.currencySymbol
+                            subscriptionsGroup.purchaseSettings.currencySymbol
                           }
                         />
                       </LabeledInfo>
@@ -285,10 +285,10 @@ class Subscription extends Component {
   }
 }
 
-Subscription.propTypes = {
+SubscriptionsGroup.propTypes = {
   intl: intlShape.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 }
 
-export default withRouter(injectIntl(Subscription))
+export default withRouter(injectIntl(SubscriptionsGroup))
