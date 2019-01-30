@@ -74,7 +74,10 @@ const enhance = compose(
       instance => instance.orderInfo && instance.orderInfo.orderId
     ),
   })),
-  branch(({filteredInstances}) => filteredInstances.length === 0, renderNothing)
+  branch(
+    ({ filteredInstances }) => filteredInstances.length === 0,
+    renderNothing
+  )
 )
 
 export default enhance(History)

@@ -10,16 +10,17 @@ import EditButtons from '../EditButtons'
 import { MONTH_OPTIONS, WEEK_OPTIONS } from '../../../../constants'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class EditData extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      periodicity: props.subscription.plan.frequency.periodicity,
-      interval: props.subscription.plan.frequency.interval,
-      chargeDay: props.subscription.purchaseSettings.purchaseDay,
+      periodicity: props.subscriptionsGroup.plan.frequency.periodicity,
+      interval: props.subscriptionsGroup.plan.frequency.interval,
+      chargeDay: props.subscriptionsGroup.purchaseSettings.purchaseDay,
       chargeDayOptions:
-        props.subscription.plan.frequency.periodicity === 'WEEKLY'
+        props.subscriptionsGroup.plan.frequency.periodicity === 'WEEKLY'
           ? WEEK_OPTIONS
           : MONTH_OPTIONS,
       isLoading: false,
@@ -32,8 +33,9 @@ class EditData extends Component {
           .findIndex(option => {
             return (
               option.periodicity ===
-                props.subscription.plan.frequency.periodicity &&
-              option.interval === props.subscription.plan.frequency.interval
+                props.subscriptionsGroup.plan.frequency.periodicity &&
+              option.interval ===
+                props.subscriptionsGroup.plan.frequency.interval
             )
           })
           .toString(),
@@ -101,7 +103,7 @@ class EditData extends Component {
     this.props
       .updateSettings({
         variables: {
-          subscriptionId: this.props.subscription.orderGroup,
+          subscriptionId: this.props.subscriptionsGroup.orderGroup,
           purchaseDay: this.state.chargeDay,
           periodicity: this.state.periodicity,
           interval: this.state.interval,
@@ -228,7 +230,7 @@ EditData.propTypes = {
   updateSettings: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   intl: intlShape.isRequired,
   options: PropTypes.shape({
     frequencyOptions: PropTypes.arrayOf(
@@ -243,10 +245,10 @@ EditData.propTypes = {
 
 const optionsQuery = {
   name: 'options',
-  options({ subscription }) {
+  options({ subscriptionsGroup }) {
     return {
       variables: {
-        orderGroup: subscription.orderGroup,
+        orderGroup: subscriptionsGroup.orderGroup,
       },
     }
   },

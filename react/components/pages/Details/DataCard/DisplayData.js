@@ -8,6 +8,7 @@ import Toast from '../../../commons/Toast'
 import ChargeDayInfo from '../../../ChargeDayInfo'
 import FrequencyInfo from '../../../FrequencyInfo'
 import LabeledInfo from '../../../LabeledInfo'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class DisplayData extends Component {
   state = {
@@ -50,7 +51,7 @@ class DisplayData extends Component {
   }
 
   render() {
-    const { subscription, intl, onEdit } = this.props
+    const { subscriptionsGroup, intl, onEdit } = this.props
     const { isModalOpen, showAlert, alertType, alertMessage } = this.state
     return (
       <div className="card-height bw1 bg-base pa6 ba b--muted-5">
@@ -82,7 +83,7 @@ class DisplayData extends Component {
               onClose={this.handleCloseModal}
               onSuccessUpdate={this.handleSuccessUpdate}
               onErrorUpdate={this.handleErrorUpdate}
-              subscription={subscription}
+              subscriptionsGroup={subscriptionsGroup}
             />
           )}
           <div className="flex flex-row">
@@ -104,12 +105,12 @@ class DisplayData extends Component {
           <div className="flex pt5-s pt5-ns w-100-s mr-auto flex-row">
             <div className="mr5 w-50-s w-100-ns">
               <FrequencyInfo
-                periodicity={subscription.plan.frequency.periodicity}
-                interval={subscription.plan.frequency.interval}
+                periodicity={subscriptionsGroup.plan.frequency.periodicity}
+                interval={subscriptionsGroup.plan.frequency.interval}
               />
               <div className="pt6">
                 <LabeledInfo labelId="subscription.data.initialDate">
-                  {intl.formatDate(subscription.plan.validity.begin, {
+                  {intl.formatDate(subscriptionsGroup.plan.validity.begin, {
                     timeZone: 'UTC',
                     style: 'short',
                   })}
@@ -118,17 +119,17 @@ class DisplayData extends Component {
             </div>
             <div className="w-50-s w-100-ns">
               <div className="pl6-s pl0-ns">
-                <ChargeDayInfo subscription={subscription} />
+                <ChargeDayInfo subscription={subscriptionsGroup} />
               </div>
               <div className="pt6 pl6-s pl0-ns">
                 <LabeledInfo labelId="subscription.nextPurchase">
                   <div className="flex flex-row">
                     <span className="db fw3 f5-ns f6-s c-on-base">
-                      {intl.formatDate(subscription.nextPurchaseDate, {
+                      {intl.formatDate(subscriptionsGroup.nextPurchaseDate, {
                         style: 'short',
                       })}
                     </span>
-                    {subscription.isSkipped && (
+                    {subscriptionsGroup.isSkipped && (
                       <div className="lh-solid mt1 ml3">
                         <Badge type="warning">
                           {intl.formatMessage({
@@ -149,7 +150,7 @@ class DisplayData extends Component {
 }
 
 DisplayData.propTypes = {
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   onEdit: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 }
