@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`
 
 ## [0.3.3] - 2019-01-11
 ### Fixed
