@@ -1,4 +1,4 @@
-query GetAddresses($orderGroup: String) {
+query GetAddresses($orderGroup: String!) {
   addresses(orderGroup: $orderGroup) {
     addressId
     street

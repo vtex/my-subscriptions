@@ -22,17 +22,17 @@ class ShippingCard extends Component {
       address: addValidation({
         addressId: getGUID(),
         addressType: 'residential',
-        city: props.subscription.shippingAddress.city,
+        city: props.subscriptionsGroup.shippingAddress.city,
         complement: null,
         country: { value: 'BRA', label: 'Brazil' },
         geoCoordinates: [],
-        neighborhood: props.subscription.shippingAddress.neighborhood,
-        number: props.subscription.shippingAddress.number,
-        postalCode: props.subscription.shippingAddress.postalCode,
+        neighborhood: props.subscriptionsGroup.shippingAddress.neighborhood,
+        number: props.subscriptionsGroup.shippingAddress.number,
+        postalCode: props.subscriptionsGroup.shippingAddress.postalCode,
         receiverName: null,
         reference: null,
-        state: props.subscription.shippingAddress.state,
-        street: props.subscription.shippingAddress.street,
+        state: props.subscriptionsGroup.shippingAddress.state,
+        street: props.subscriptionsGroup.shippingAddress.street,
         addressQuery: null,
       }),
       rules: {},
@@ -46,7 +46,7 @@ class ShippingCard extends Component {
 
   componentDidUpdate(_, prevState) {
     const countryChanged =
-      this.props.subscription.shippingAddress.country !==
+      this.props.subscriptionsGroup.shippingAddress.country !==
       prevState.address.country.value
 
     if (countryChanged) {
@@ -55,13 +55,13 @@ class ShippingCard extends Component {
   }
 
   getCurrentRules() {
-    const country = this.props.subscription.shippingAddress.country
+    const country = this.props.subscriptionsGroup.shippingAddress.country
     const selectedRules = this.state.rules[country]
     return selectedRules
   }
 
   loadCurrentCountryRules = () => {
-    const country = this.props.subscription.shippingAddress.country
+    const country = this.props.subscriptionsGroup.shippingAddress.country
     const hasRulesLoaded = this.state.rules[country]
     if (hasRulesLoaded) {
       return
@@ -129,7 +129,7 @@ class ShippingCard extends Component {
 }
 
 ShippingCard.propTypes = {
-  subscription: subscriptionsGroupShape,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   onEdit: PropTypes.func,
   shippingAddress: PropTypes.object,
   intl: intlShape.isRequired,
