@@ -1,5 +1,5 @@
-query GroupedSubscription($orderGroup: String, $customerId: String) {
-  groupedSubscription(orderGroup: $orderGroup, customerId: $customerId) {
+query GroupedSubscription($orderGroup: String!) {
+  groupedSubscription(orderGroup: $orderGroup) {
     cacheId
     orderGroup
     status
