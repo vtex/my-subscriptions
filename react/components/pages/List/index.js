@@ -4,35 +4,22 @@ import { graphql } from 'react-apollo'
 import { compose, branch, renderComponent, withProps } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 
-import EmptySubscriptions from './EmptyState'
-import SubscriptionsListLoading from './Loading'
-import Subscription from './Subscription'
+import EmptySubscriptionsGroupList from './EmptyState'
+import SubscriptionsGroupListLoading from './Loading'
+import SubscriptionGroup from './SubscriptionsGroup'
 import GET_GROUPED_SUBSCRIPTIONS from '../../../graphql/getGroupedSubscriptions.gql'
 
-export const headerConfig = {
-  titleId: 'subscription.title.list',
-  namespace: 'vtex-account__subscriptions-list',
-}
-
-const renderWrapper = children => {
-  return <ContentWrapper {...headerConfig}>{() => children}</ContentWrapper>
-}
-
-const renderEmptySubscriptions = () => {
-  return renderWrapper(<EmptySubscriptions />)
-}
-
-class SubscriptionsListContainer extends Component {
+class SubscriptionsGroupListContainer extends Component {
   render() {
-    const { subscriptions } = this.props
+    const { subscriptionsGroups } = this.props
 
     return renderWrapper(
       <div className="mr0 w-100">
-        {subscriptions.map(subscription => {
+        {subscriptionsGroups.map(group => {
           return (
-            <Subscription
-              key={subscription.orderGroup}
-              subscription={subscription}
+            <SubscriptionGroup
+              key={group.orderGroup}
+              subscriptionsGroup={group}
             />
           )
         })}
@@ -41,27 +28,35 @@ class SubscriptionsListContainer extends Component {
   }
 }
 
-const subscriptionsQuery = {
-  options: {
-    notifyOnNetworkStatusChange: true,
-  },
-}
-
-SubscriptionsListContainer.propTypes = {
-  subscriptions: PropTypes.arrayOf(PropTypes.object),
+SubscriptionsGroupListContainer.propTypes = {
+  subscriptionsGroups: PropTypes.arrayOf(PropTypes.object),
 }
 
 const enhance = compose(
-  graphql(GET_GROUPED_SUBSCRIPTIONS, subscriptionsQuery),
+  graphql(GET_GROUPED_SUBSCRIPTIONS),
   branch(
     ({ data }) => !data.groupedSubscriptions || data.loading,
-    renderComponent(SubscriptionsListLoading)
+    renderComponent(SubscriptionsGroupListLoading)
   ),
-  withProps(({ data }) => ({ subscriptions: data.groupedSubscriptions })),
+  withProps(({ data }) => ({ subscriptionsGroups: data.groupedSubscriptions })),
   branch(
-    ({ subscriptions }) => !subscriptions || subscriptions.length === 0,
+    ({ subscriptionsGroups }) =>
+      !subscriptionsGroups || subscriptionsGroups.length === 0,
     renderComponent(renderEmptySubscriptions)
   )
 )
 
-export default enhance(SubscriptionsListContainer)
+export default enhance(SubscriptionsGroupListContainer)
+
+function renderWrapper(children) {
+  return <ContentWrapper {...headerConfig}>{() => children}</ContentWrapper>
+}
+
+function renderEmptySubscriptions() {
+  return renderWrapper(<EmptySubscriptionsGroupList />)
+}
+
+export const headerConfig = {
+  titleId: 'subscription.title.list',
+  namespace: 'vtex-account__subscriptions-list',
+}

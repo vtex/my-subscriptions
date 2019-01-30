@@ -16,7 +16,7 @@ class ConfirmModal extends Component {
       .updateStatus({
         variables: {
           status: status,
-          subscriptionId: this.props.subscription.orderGroup,
+          orderGroup: this.props.subscriptionGroup.orderGroup,
         },
       })
       .then(() => {
@@ -89,7 +89,7 @@ ConfirmModal.propTypes = {
   onErrorUpdate: PropTypes.func.isRequired,
   updateStatus: PropTypes.func,
   isModalOpen: PropTypes.bool.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionGroup: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
   subscriptionsData: PropTypes.object,
   updateType: PropTypes.string.isRequired,
@@ -97,14 +97,6 @@ ConfirmModal.propTypes = {
 
 const updateStatusMutation = {
   name: 'updateStatus',
-  options({ subscription, status }) {
-    return {
-      variables: {
-        subscriptionId: subscription.orderGroup,
-        status: status,
-      },
-    }
-  },
 }
 
 export default compose(graphql(UPDATE_STATUS, updateStatusMutation))(

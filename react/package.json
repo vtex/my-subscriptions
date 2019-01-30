@@ -5,13 +5,26 @@
     "apollo-client": "^2.4.7",
     "graphql": "^14.0.2",
     "i18n-country-code": "^1.0.0",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-accessible-accordion": "^2.4.5",
     "react-apollo": "^2.3.2",
+    "react-dom": "^16.7.0",
     "react-intl": "^2.7.2",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-router-prop-types": "^1.0.4",
     "recompose": "^0.30.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10",
+    "eslint": "^5",
+    "eslint-config-prettier": "^3",
+    "eslint-config-vtex": "^8",
+    "eslint-config-vtex-react": "^3",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-lodash": "^5",
+    "eslint-plugin-prettier": "^3",
+    "prettier": "^1"
   }
 }

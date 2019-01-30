@@ -5,9 +5,9 @@ import { BaseLoading } from 'vtex.my-account-commons'
 import { parseErrorMessageId } from '../../../utils'
 import { headerConfig } from '.'
 
-import SubscriptionsSkeleton from './SubscriptionsSkeleton'
+import SubscriptionsSkeleton from './SubscriptionsGroupSkeleton'
 
-const SubscriptionsListLoading = ({ data }) => {
+const SubscriptionsGroupListLoading = ({ data }) => {
   return (
     <BaseLoading
       queryData={data}
@@ -18,8 +18,8 @@ const SubscriptionsListLoading = ({ data }) => {
   )
 }
 
-SubscriptionsListLoading.propTypes = {
+SubscriptionsGroupListLoading.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
-export default SubscriptionsListLoading
+export default SubscriptionsGroupListLoading
