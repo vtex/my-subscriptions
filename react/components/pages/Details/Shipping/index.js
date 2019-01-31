@@ -7,6 +7,7 @@ import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 import Toast from '../../../commons/Toast'
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class Shipping extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Shipping extends Component {
 
     this.state = {
       isEditMode: false,
-      selectedAddress: props.subscription.shippingAddress.addressId,
+      selectedAddress: props.subscriptionsGroup.shippingAddress.addressId,
       isLoading: false,
       showSuccessAlert: false,
       showErrorAlert: false,
@@ -34,7 +35,7 @@ class Shipping extends Component {
     this.props
       .updateAddress({
         variables: {
-          subscriptionId: this.props.subscription.orderGroup,
+          orderGroup: this.props.subscriptionsGroup.orderGroup,
           addressId: this.state.selectedAddress,
         },
       })
@@ -70,7 +71,7 @@ class Shipping extends Component {
   }
 
   render() {
-    const { intl, subscription } = this.props
+    const { intl, subscriptionsGroup } = this.props
     const {
       showSuccessAlert,
       isEditMode,
@@ -90,7 +91,7 @@ class Shipping extends Component {
           isLoading={isLoading}
           showErrorAlert={showErrorAlert}
           errorMessage={errorMessage}
-          subscription={subscription}
+          subscriptionsGroup={subscriptionsGroup}
         />
       )
     }
@@ -107,7 +108,7 @@ class Shipping extends Component {
         )}
         <ShippingCard
           onEdit={this.handleEditClick}
-          subscription={subscription}
+          subscriptionsGroup={subscriptionsGroup}
         />
       </div>
     )
@@ -116,10 +117,10 @@ class Shipping extends Component {
 
 const addressMutation = {
   name: 'updateAddress',
-  options({ subscription, addressId }) {
+  options({ subscriptionsGroup, addressId }) {
     return {
       variables: {
-        subscriptionId: subscription.orderGroup,
+        orderGroup: subscriptionsGroup.orderGroup,
         addressId: addressId,
       },
     }
@@ -128,7 +129,7 @@ const addressMutation = {
 
 Shipping.propTypes = {
   intl: intlShape.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   updateAddress: PropTypes.func.isRequired,
 }
 

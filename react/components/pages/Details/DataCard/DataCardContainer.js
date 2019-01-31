@@ -5,6 +5,7 @@ import { intlShape, injectIntl } from 'react-intl'
 import EditData from './EditData'
 import DisplayData from './DisplayData'
 import Toast from '../../../commons/Toast'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class DataCardContainer extends Component {
   state = {
@@ -35,7 +36,7 @@ class DataCardContainer extends Component {
   }
 
   render() {
-    const { intl, subscription } = this.props
+    const { intl, subscriptionsGroup } = this.props
     const { showSuccessAlert, isEditMode } = this.state
 
     if (isEditMode) {
@@ -43,7 +44,7 @@ class DataCardContainer extends Component {
         <EditData
           onSave={this.handleSaveClick}
           onCancel={this.handleCancelClick}
-          subscription={subscription}
+          subscriptionsGroup={subscriptionsGroup}
         />
       )
     }
@@ -59,7 +60,7 @@ class DataCardContainer extends Component {
         )}
         <DisplayData
           onEdit={this.handleEditClick}
-          subscription={subscription}
+          subscriptionsGroup={subscriptionsGroup}
         />
       </Fragment>
     )
@@ -67,7 +68,7 @@ class DataCardContainer extends Component {
 }
 
 DataCardContainer.propTypes = {
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   updateSettings: PropTypes.func,
   intl: intlShape.isRequired,
 }

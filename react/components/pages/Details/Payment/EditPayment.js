@@ -40,10 +40,12 @@ class EditPayment extends Component {
     if (loading || !paymentSystems) {
       return <PaymentSkeleton />
     }
+
     const groupedPayments = groupBy(
       paymentSystems,
       pay => pay.paymentSystemGroup
     )
+
     return (
       <div className="card bg-base pa6 ba bw1 b--muted-5">
         <div className="flex flex-row">
@@ -119,10 +121,10 @@ class EditPayment extends Component {
 
 const paymentsQuery = {
   name: 'payments',
-  options({ subscription }) {
+  options({ orderGroup }) {
     return {
       variables: {
-        orderGroup: subscription.orderGroup,
+        orderGroup,
       },
     }
   },
@@ -140,6 +142,7 @@ EditPayment.propTypes = {
   account: PropTypes.string,
   showErrorAlert: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string,
+  orderGroup: PropTypes.string.isRequired,
 }
 
 export default compose(graphql(GetPaymentSystems, paymentsQuery))(

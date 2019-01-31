@@ -33,7 +33,7 @@ class Item extends Component {
     this.props
       .removeItem({
         variables: {
-          subscriptionId: this.props.subscriptionId,
+          orderGroup: this.props.orderGroup,
           itemId: this.props.item.SubscriptionId,
         },
       })
@@ -124,7 +124,9 @@ class Item extends Component {
                 <div className="flex flex-row w-100">
                   <div className="w-50-s w-third-ns">
                     <div className="pl0-ns pt5">
-                      <LabeledInfo labelId="subscription.item.quantity"> {item.quantity}</LabeledInfo>
+                      <LabeledInfo labelId="subscription.item.quantity">
+                        {item.quantity}
+                      </LabeledInfo>
                     </div>
                   </div>
                   <div className="w-50-s w-third-ns">
@@ -166,7 +168,7 @@ const removeItemMutation = {
 Item.propTypes = {
   intl: intlShape.isRequired,
   removeItem: PropTypes.func.isRequired,
-  subscriptionId: PropTypes.string.isRequired,
+  orderGroup: PropTypes.string.isRequired,
   item: PropTypes.object.isRequired,
   currency: PropTypes.string.isRequired,
 }

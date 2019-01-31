@@ -1,8 +1,6 @@
-mutation updateStatus($subscriptionId: String, $status: String) {
-  updateStatus(subscriptionId: $subscriptionId, status: $status) {
+mutation updateStatus($orderGroup: String!, $status: String!) {
+  updateStatus(orderGroup: $orderGroup, status: $status) {
     cacheId
-    items {
-      status
-    }
+    statu
   }
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { compose, graphql } from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
 
+import { subscriptionsGroupShape } from '../../../../proptypes'
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
 import Toast from '../../../commons/Toast'
 import PaymentCard from './PaymentCard'
@@ -13,14 +14,16 @@ class Payment extends Component {
     super(props)
     this.state = {
       isEditMode: false,
-      account: props.subscription.purchaseSettings.paymentMethod.paymentAccount
-        ? props.subscription.purchaseSettings.paymentMethod.paymentAccount
+      account: props.subscriptionsGroup.purchaseSettings.paymentMethod
+        .paymentAccount
+        ? props.subscriptionsGroup.purchaseSettings.paymentMethod.paymentAccount
             .accountId
         : undefined,
       paymentSystem:
-        props.subscription.purchaseSettings.paymentMethod.paymentSystem,
+        props.subscriptionsGroup.purchaseSettings.paymentMethod.paymentSystem,
       paymentSystemGroup:
-        props.subscription.purchaseSettings.paymentMethod.paymentSystemGroup,
+        props.subscriptionsGroup.purchaseSettings.paymentMethod
+          .paymentSystemGroup,
       isLoading: false,
       showSuccessAlert: false,
       showErrorAlert: false,
@@ -60,7 +63,7 @@ class Payment extends Component {
     this.props
       .updatePayment({
         variables: {
-          subscriptionId: this.props.subscription.orderGroup,
+          orderGroup: this.props.subscriptionsGroup.orderGroup,
           payment: this.state.paymentSystem,
           accountId:
             this.state.paymentSystemGroup === 'creditCard'
@@ -105,7 +108,7 @@ class Payment extends Component {
   }
 
   render() {
-    const { subscription, displayRetry } = this.props
+    const { subscriptionsGroup, displayRetry } = this.props
     const {
       isEditMode,
       account,
@@ -115,6 +118,7 @@ class Payment extends Component {
       showSuccessAlert,
       isRetryButtonEnabled,
     } = this.state
+
     if (isEditMode) {
       return (
         <EditPayment
@@ -125,12 +129,13 @@ class Payment extends Component {
           paymentSystemGroup={paymentSystemGroup}
           showErrorAlert={showErrorAlert}
           errorMessage={this.state.errorMessage}
-          subscription={subscription}
+          orderGroup={subscriptionsGroup.orderGroup}
           account={account}
           isLoading={isLoading}
         />
       )
     }
+
     return (
       <div>
         {showSuccessAlert && (
@@ -145,7 +150,7 @@ class Payment extends Component {
         )}
         <PaymentCard
           onEdit={this.handleEdit}
-          subscription={subscription}
+          subscriptionsGroup={subscriptionsGroup}
           onMakeRetry={this.handleMakeRetry}
           displayRetry={displayRetry}
           isRetryButtonEnabled={isRetryButtonEnabled}
@@ -157,7 +162,7 @@ class Payment extends Component {
 
 Payment.propTypes = {
   intl: intlShape.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   updatePayment: PropTypes.func.isRequired,
   onMakeRetry: PropTypes.func.isRequired,
   displayRetry: PropTypes.bool.isRequired,
@@ -165,10 +170,10 @@ Payment.propTypes = {
 
 const paymentMutation = {
   name: 'updatePayment',
-  options({ subscription, paymentSystem, accountId }) {
+  options({ subscriptionsGroup, paymentSystem, accountId }) {
     return {
       variables: {
-        subscriptionId: subscription.orderGroup,
+        orderGroup: subscriptionsGroup.orderGroup,
         payment: paymentSystem,
         account: accountId,
       },

@@ -1,5 +1,5 @@
-query GroupedSubscription($orderGroup: String, $customerId: String) {
-  groupedSubscription(orderGroup: $orderGroup, customerId: $customerId) {
+query GroupedSubscription($orderGroup: String!) {
+  groupedSubscription(orderGroup: $orderGroup) {
     cacheId
     orderGroup
     status
@@ -79,7 +79,7 @@ query GroupedSubscription($orderGroup: String, $customerId: String) {
       value
     }
     totalValue
-    lastInstance {
+    instances {
       status
       orderGroup
       date

@@ -88,7 +88,7 @@ const totalsShape = PropTypes.shape({
   value: PropTypes.string.isRequired,
 })
 
-export const subscriptionShape = PropTypes.shape({
+export const subscriptionsGroupShape = PropTypes.shape({
   customerId: PropTypes.string.isRequired,
   customerProfile: customerProfileShape.isRequired,
   instances: PropTypes.arrayOf(instanceShape).isRequired,

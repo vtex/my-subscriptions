@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import { Button, IconCaretDown as CaretDown } from 'vtex.styleguide'
 
+import { subscriptionsGroupShape } from '../../../proptypes'
 import ConfirmModal from './ConfirmModal'
 
 class Menu extends Component {
@@ -46,10 +47,10 @@ class Menu extends Component {
   }
 
   render() {
-    const { options, subscription } = this.props
+    const { options, subscriptionsGroup } = this.props
     const { isMenuOpen, isModalOpen, updateType } = this.state
 
-    if (subscription.items[0].status === 'CANCELED') {
+    if (subscriptionsGroup.status === 'CANCELED') {
       return null
     }
 
@@ -62,7 +63,7 @@ class Menu extends Component {
             onSuccessUpdate={this.handleSuccess}
             onErrorUpdate={this.handleError}
             updateType={updateType}
-            subscription={subscription}
+            subscriptionsGroup={subscriptionsGroup}
           />
         )}
         <div className="relative mt3">
@@ -105,7 +106,7 @@ class Menu extends Component {
 Menu.propTypes = {
   intl: intlShape.isRequired,
   options: PropTypes.array,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   onSuccessUpdate: PropTypes.func.isRequired,
   onSkipOrUnskip: PropTypes.func.isRequired,
   onErrorUpdate: PropTypes.func.isRequired,

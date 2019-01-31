@@ -11,12 +11,11 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import Item from '../../commons/Item'
 import ViewItemsSkeleton from '../../commons/ViewItemsSkeleton'
 import GetGroupedSubscription from '../../../graphql/getGroupedSubscription.gql'
-import cachedFragment from '../../../graphql/fragmentGroupedSubscription.gql'
 
-const headerConfig = ({ intl, subscriptionId }) => {
+const headerConfig = ({ intl, orderGroup }) => {
   const backButton = {
     title: intl.formatMessage({ id: 'subscription.title.single' }),
-    path: `/subscriptions/${subscriptionId}`,
+    path: `/subscriptions/${orderGroup}`,
   }
   return {
     backButton,
@@ -34,7 +33,7 @@ class SubscriptionProductsContainer extends Component {
       id: buildCacheLocator(
         `${process.env.VTEX_APP_ID}`,
         'GroupedSubscription',
-        match.params.subscriptionId
+        match.params.orderGroup
       ),
       fragment: cachedFragment,
     })
@@ -46,7 +45,7 @@ class SubscriptionProductsContainer extends Component {
         <ContentWrapper
           {...headerConfig({
             intl,
-            subscriptionId: match.params.subscriptionId,
+            orderGroup: match.params.orderGroup,
           })}>
           {() => children}
         </ContentWrapper>
@@ -88,7 +87,7 @@ class SubscriptionProductsContainer extends Component {
             <Item
               key={item.id}
               item={item}
-              subscriptionId={subscription.orderGroup}
+              orderGroup={subscription.orderGroup}
               subscription={subscription}
               currency={subscription.purchaseSettings.currencySymbol}
             />
@@ -103,7 +102,7 @@ const subscriptionQuery = {
   name: 'subscriptionData',
   options: props => ({
     variables: {
-      orderGroup: props.match.params.subscriptionId,
+      orderGroup: props.match.params.orderGroup,
     },
   }),
 }

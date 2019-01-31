@@ -80,7 +80,7 @@ class EditShipping extends Component {
     if (isModalOpen) {
       return (
         <AddAddressModal
-          subscription={this.props.subscription}
+          subscriptionsGroup={this.props.subscriptionsGroup}
           isModalOpen={this.state.isModalOpen}
           onClose={this.handleCloseModal}
           onCloseSuccess={this.handleCloseModalSuccess}
@@ -174,17 +174,17 @@ class EditShipping extends Component {
 
 const addressesQuery = {
   name: 'addressesData',
-  options({ subscription }) {
+  options({ subscriptionsGroup }) {
     return {
       variables: {
-        orderGroup: subscription.orderGroup,
+        orderGroup: subscriptionsGroup.orderGroup,
       },
     }
   },
 }
 
 EditShipping.propTypes = {
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
   isLoading: PropTypes.bool.isRequired,
   addressesData: PropTypes.object,

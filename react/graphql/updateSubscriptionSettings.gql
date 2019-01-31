@@ -1,11 +1,11 @@
 mutation updateSettings(
-  $subscriptionId: String
+  $orderGroup: String!
   $purchaseDay: String
   $periodicity: String
   $interval: String
 ) {
   updateSettings(
-    subscriptionId: $subscriptionId
+    orderGroup: $orderGroup
     purchaseDay: $purchaseDay
     periodicity: $periodicity
     interval: $interval
