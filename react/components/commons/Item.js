@@ -125,7 +125,6 @@ class Item extends Component {
                   <div className="w-50-s w-third-ns">
                     <div className="pl0-ns pt5">
                       <LabeledInfo labelId="subscription.item.quantity">
-                        {' '}
                         {item.quantity}
                       </LabeledInfo>
                     </div>
