@@ -1,5 +1,5 @@
-mutation updateIsSkipped($subscriptionId: String, $isSkipped: Boolean) {
-  updateIsSkipped(subscriptionId: $subscriptionId, isSkipped: $isSkipped) {
+mutation updateIsSkipped($orderGroup: String!, $isSkipped: Boolean!) {
+  updateIsSkipped(orderGroup: $orderGroup, isSkipped: $isSkipped) {
     cacheId
     isSkipped
   }

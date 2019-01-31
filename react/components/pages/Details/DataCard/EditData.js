@@ -103,7 +103,7 @@ class EditData extends Component {
     this.props
       .updateSettings({
         variables: {
-          subscriptionId: this.props.subscriptionsGroup.orderGroup,
+          orderGroup: this.props.subscriptionsGroup.orderGroup,
           purchaseDay: this.state.chargeDay,
           periodicity: this.state.periodicity,
           interval: this.state.interval,

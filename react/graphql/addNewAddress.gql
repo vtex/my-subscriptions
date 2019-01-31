@@ -1,6 +1,6 @@
 mutation addNewAddress(
-  $subscriptionId: String
+  $orderGroup: String!
   $address: ShippingAddressInput
 ) {
-  addNewAddress(subscriptionId: $subscriptionId, address: $address)
+  addNewAddress(orderGroup: $orderGroup, address: $address)
 }

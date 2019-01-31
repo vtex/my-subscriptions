@@ -35,7 +35,7 @@ class Shipping extends Component {
     this.props
       .updateAddress({
         variables: {
-          subscriptionId: this.props.subscriptionsGroup.orderGroup,
+          orderGroup: this.props.subscriptionsGroup.orderGroup,
           addressId: this.state.selectedAddress,
         },
       })

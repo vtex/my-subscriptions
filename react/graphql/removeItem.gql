@@ -1,5 +1,5 @@
-mutation removeItem($subscriptionId: String, $itemId: String) {
-  removeItem(subscriptionId: $subscriptionId, itemId: $itemId) {
+mutation removeItem($orderGroup: String!, $itemId: String!) {
+  removeItem(orderGroup: $orderGroup, itemId: $itemId) {
     cacheId
     items {
       quantity
