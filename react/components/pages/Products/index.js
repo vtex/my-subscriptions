@@ -11,7 +11,6 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import Item from '../../commons/Item'
 import ViewItemsSkeleton from '../../commons/ViewItemsSkeleton'
 import GetGroupedSubscription from '../../../graphql/getGroupedSubscription.gql'
-import cachedFragment from '../../../graphql/fragmentGroupedSubscription.gql'
 
 const headerConfig = ({ intl, orderGroup }) => {
   const backButton = {

@@ -9,7 +9,6 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import { Alert } from 'vtex.styleguide'
 
 import GET_GROUPED_SUBSCRIPTION from '../../../graphql/getGroupedSubscription.gql'
-import CACHED_FRAGMENT from '../../../graphql/fragmentGroupedSubscription.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import DataCard from './DataCard/DataCardContainer'
 import Summary from './Summary'
@@ -18,7 +17,6 @@ import History from './History'
 import Shipping from './Shipping'
 import SubscriptionsGroupDetailsLoader from './Loader'
 import { subscriptionsGroupShape } from '../../../proptypes'
-import { cacheLocator } from '../../../utils/cacheLocator'
 
 class SubscriptionsGroupDetailsContainer extends Component {
   state = {
@@ -144,14 +142,8 @@ const enhance = compose(
   withApollo,
   graphql(GET_GROUPED_SUBSCRIPTION, subscriptionQuery),
   graphql(RETRY_MUTATION, { name: 'retry' }),
-  withProps(({ client, match }) => ({
-    cachedSubscriptionQuery: client.readFragment({
-      id: cacheLocator.groupedSubscription(match.params.orderGroup),
-      fragment: CACHED_FRAGMENT,
-    }),
-  })),
-  withProps(({ data, cachedSubscriptionQuery }) => ({
-    subscriptionsGroup: cachedSubscriptionQuery || data.groupedSubscription,
+  withProps(({ data }) => ({
+    subscriptionsGroup: data.groupedSubscription,
   })),
   branch(
     ({ subscriptionsGroup }) => !subscriptionsGroup,

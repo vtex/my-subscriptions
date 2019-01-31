@@ -65,6 +65,7 @@ class History extends Component {
 History.propTypes = {
   intl: intlShape.isRequired,
   instances: PropTypes.array.isRequired,
+  filteredInstances: PropTypes.array.isRequired,
 }
 
 const enhance = compose(
