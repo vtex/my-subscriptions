@@ -28,6 +28,8 @@ class Payment extends Component {
       lastGeneratedOrder.orderInfo &&
       lastGeneratedOrder.orderInfo.paymentUrl
 
+    const displayEdit = subscriptionsGroup.status !== 'CANCELED'
+
     return (
       <div className="card bw1 bg-base pa6 ba b--muted-5">
         <div>
@@ -51,11 +53,13 @@ class Payment extends Component {
                   </Button>
                 )}
                 <div className="ml3">
-                  <Button size="small" variation="tertiary" onClick={onEdit}>
-                    {intl.formatMessage({
-                      id: 'subscription.actions.edit',
-                    })}
-                  </Button>
+                  {displayEdit && (
+                    <Button size="small" variation="tertiary" onClick={onEdit}>
+                      {intl.formatMessage({
+                        id: 'subscription.actions.edit',
+                      })}
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

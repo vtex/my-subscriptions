@@ -83,12 +83,14 @@ class ShippingCard extends Component {
   }
 
   render() {
-    const { onEdit, intl } = this.props
+    const { onEdit, intl, subscriptionsGroup } = this.props
     const selectedRules = this.getCurrentRules(this.state)
 
     if (!selectedRules) {
       return <DataSkeleton />
     }
+
+    const displayEdit = subscriptionsGroup.status !== 'CANCELED'
 
     return (
       <div className="card-height bw1 bg-base pa6 ba b--muted-5">
@@ -99,11 +101,13 @@ class ShippingCard extends Component {
             })}
           </div>
           <div className="ml-auto">
-            <Button size="small" variation="tertiary" onClick={onEdit}>
-              {intl.formatMessage({
-                id: 'subscription.actions.edit',
-              })}
-            </Button>
+            {displayEdit && (
+              <Button size="small" variation="tertiary" onClick={onEdit}>
+                {intl.formatMessage({
+                  id: 'subscription.actions.edit',
+                })}
+              </Button>
+            )}
           </div>
         </div>
         <div className="flex pt3-s pt5-ns w-100">

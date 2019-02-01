@@ -53,6 +53,9 @@ class DisplayData extends Component {
   render() {
     const { subscriptionsGroup, intl, onEdit } = this.props
     const { isModalOpen, showAlert, alertType, alertMessage } = this.state
+
+    const displayEdit = subscriptionsGroup.status !== 'CANCELED'
+
     return (
       <div className="card-height bw1 bg-base pa6 ba b--muted-5">
         <div>
@@ -93,13 +96,15 @@ class DisplayData extends Component {
               })}
             </div>
             <div className="ml-auto">
-              <Button size="small" variation="tertiary" onClick={onEdit}>
-                <span>
-                  {intl.formatMessage({
-                    id: 'subscription.actions.edit',
-                  })}
-                </span>
-              </Button>
+              {displayEdit && (
+                <Button size="small" variation="tertiary" onClick={onEdit}>
+                  <span>
+                    {intl.formatMessage({
+                      id: 'subscription.actions.edit',
+                    })}
+                  </span>
+                </Button>
+              )}
             </div>
           </div>
           <div className="flex pt5-s pt5-ns w-100-s mr-auto flex-row">
