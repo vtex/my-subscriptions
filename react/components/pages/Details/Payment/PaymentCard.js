@@ -24,7 +24,9 @@ class Payment extends Component {
     const lastGeneratedOrder = subscriptionsGroup.lastInstance
 
     const bankInvoiceUrl =
-      lastGeneratedOrder && lastGeneratedOrder.orderInfo.paymentUrl
+      lastGeneratedOrder &&
+      lastGeneratedOrder.orderInfo &&
+      lastGeneratedOrder.orderInfo.paymentUrl
 
     return (
       <div className="card bw1 bg-base pa6 ba b--muted-5">

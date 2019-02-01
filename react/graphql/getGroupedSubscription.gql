@@ -112,5 +112,38 @@ query GroupedSubscription($orderGroup: String!) {
         paymentSystemName
       }
     }
+    lastInstance {
+      status
+      orderGroup
+      date
+      dataInstanceId
+      workflowId
+      customerName
+      customerEmail
+      message
+      context {
+        items {
+          skuId
+          name
+          imageUrl
+          quantity
+          price
+          isGift
+        }
+        plan {
+          frequency {
+            periodicity
+            interval
+          }
+          validity {
+            begin
+            end
+          }
+          type
+        }
+        value
+        paymentSystemName
+      }
+    }
   }
 }
