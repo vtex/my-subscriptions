@@ -119,7 +119,7 @@ class DisplayData extends Component {
             </div>
             <div className="w-50-s w-100-ns">
               <div className="pl6-s pl0-ns">
-                <ChargeDayInfo subscription={subscriptionsGroup} />
+                <ChargeDayInfo subscriptionsGroup={subscriptionsGroup} />
               </div>
               <div className="pt6 pl6-s pl0-ns">
                 <LabeledInfo labelId="subscription.nextPurchase">
