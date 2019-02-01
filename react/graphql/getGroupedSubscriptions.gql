@@ -5,9 +5,9 @@ query GroupedSubscriptions {
     status
     isSkipped
     subscriptions {
-      id
+      SubscriptionId
       sku {
-        id
+        SkuId
         name
         productName
         imageUrl
@@ -79,7 +79,7 @@ query GroupedSubscriptions {
       value
     }
     totalValue
-    lastInstance {
+    instances {
       status
       orderGroup
       date

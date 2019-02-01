@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
-import { compose, graphql, withApollo } from 'react-apollo'
-import { buildCacheLocator } from 'render'
+import { graphql } from 'react-apollo'
+import { compose, withProps } from 'recompose'
+import { withRouter, Link } from 'react-router-dom'
 import ReactRouterPropTypes from 'react-router-prop-types'
-import { Link } from 'react-router-dom'
 import { EmptyState, Button } from 'vtex.styleguide'
 import { ContentWrapper } from 'vtex.my-account-commons'
 
-import Item from '../../commons/Item'
+import Subscription from './Subscription'
 import ViewItemsSkeleton from '../../commons/ViewItemsSkeleton'
-import GetGroupedSubscription from '../../../graphql/getGroupedSubscription.gql'
+import GET_SUBSCRIPTIONS_INFO from '../../../graphql/Products/getSubscriptionsInfo.gql'
 
 const headerConfig = ({ intl, orderGroup }) => {
   const backButton = {
@@ -26,35 +26,34 @@ const headerConfig = ({ intl, orderGroup }) => {
 
 class SubscriptionProductsContainer extends Component {
   render() {
-    const { subscriptionData, intl, client, match } = this.props
-    const { groupedSubscription, error, loading } = subscriptionData
-
-    const cachedSubscriptionQuery = client.readFragment({
-      id: buildCacheLocator(
-        `${process.env.VTEX_APP_ID}`,
-        'GroupedSubscription',
-        match.params.orderGroup
-      ),
-      fragment: cachedFragment,
-    })
-
-    const subscription = cachedSubscriptionQuery || groupedSubscription
+    const {
+      data: { subscriptionsInfo, error, loading },
+      intl,
+      orderGroup,
+    } = this.props
 
     const renderWrapper = children => {
       return (
         <ContentWrapper
           {...headerConfig({
             intl,
-            orderGroup: match.params.orderGroup,
+            orderGroup,
           })}>
           {() => children}
         </ContentWrapper>
       )
     }
 
-    if (loading || !subscription) return renderWrapper(<ViewItemsSkeleton />)
+    if (loading || (!subscriptionsInfo && subscriptionsInfo.subscriptions)) {
+      return renderWrapper(<ViewItemsSkeleton />)
+    }
 
-    if (subscription.items == null || error) {
+    const {
+      subscriptions,
+      purchaseSettings: { currencySymbol },
+    } = subscriptionsInfo
+
+    if (subscriptions == null || error) {
       return renderWrapper(
         <EmptyState
           title={intl.formatMessage({
@@ -82,14 +81,13 @@ class SubscriptionProductsContainer extends Component {
 
     return renderWrapper(
       <div className="w-100 center pb6">
-        {subscription.items.map(item => {
+        {subscriptions.map(subscription => {
           return (
-            <Item
-              key={item.id}
-              item={item}
-              orderGroup={subscription.orderGroup}
+            <Subscription
+              key={subscription.SubscriptionId}
               subscription={subscription}
-              currency={subscription.purchaseSettings.currencySymbol}
+              orderGroup={orderGroup}
+              currency={currencySymbol}
             />
           )
         })}
@@ -98,11 +96,10 @@ class SubscriptionProductsContainer extends Component {
   }
 }
 
-const subscriptionQuery = {
-  name: 'subscriptionData',
-  options: props => ({
+const subscriptionsQuery = {
+  options: ({ orderGroup }) => ({
     variables: {
-      orderGroup: props.match.params.orderGroup,
+      orderGroup,
     },
   }),
 }
@@ -111,12 +108,17 @@ SubscriptionProductsContainer.propTypes = {
   intl: intlShape.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object),
-  client: PropTypes.object,
-  subscriptionData: PropTypes.object,
+  orderGroup: PropTypes.string.isRequired,
+  data: PropTypes.object,
 }
 
-export default compose(
-  withApollo,
-  graphql(GetGroupedSubscription, subscriptionQuery)
-)(injectIntl(SubscriptionProductsContainer))
+const enhance = compose(
+  injectIntl,
+  withRouter,
+  withProps(({ match }) => ({
+    orderGroup: match.params.orderGroup,
+  })),
+  graphql(GET_SUBSCRIPTIONS_INFO, subscriptionsQuery)
+)
+
+export default enhance(SubscriptionProductsContainer)
