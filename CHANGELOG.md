@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Block edition on a canceled subscription.
 
 ### Changed
-- Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`
+- Bump `vtex.my-subscriptions-graphql`.
+- Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`.
 
 ## [0.3.3] - 2019-01-11
 ### Fixed
