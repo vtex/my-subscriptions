@@ -5,9 +5,9 @@ query GroupedSubscription($orderGroup: String!) {
     status
     isSkipped
     subscriptions {
-      id
+      SubscriptionId
       sku {
-        id
+        SkuId
         name
         productName
         imageUrl

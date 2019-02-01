@@ -1,5 +1,5 @@
-mutation removeItem($orderGroup: String!, $itemId: String!) {
-  removeItem(orderGroup: $orderGroup, itemId: $itemId) {
+query subscriptions($orderGroup: String!) {
+  subscriptionsInfo: groupedSubscription(orderGroup: $orderGroup) {
     cacheId
     subscriptions {
       SubscriptionId
