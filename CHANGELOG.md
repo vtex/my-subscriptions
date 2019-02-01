@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Display of `purchaseDay` on `DisplayData`.
+- Display of `purchaseDay` on `SubscriptionDetails`.
 
 ### Changed
 - Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`
