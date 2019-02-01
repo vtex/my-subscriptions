@@ -12,6 +12,7 @@ import LabeledInfo from '../../../LabeledInfo'
 import DataSkeleton from '../DataCard/DataSkeleton'
 import { getGUID } from '../../../../utils'
 import { subscriptionsGroupShape } from '../../../../proptypes'
+import { CANCELED_STATUS } from '../../../../constants'
 
 class ShippingCard extends Component {
   constructor(props) {
@@ -90,7 +91,7 @@ class ShippingCard extends Component {
       return <DataSkeleton />
     }
 
-    const displayEdit = subscriptionsGroup.status !== 'CANCELED'
+    const displayEdit = subscriptionsGroup.status !== CANCELED_STATUS
 
     return (
       <div className="card-height bw1 bg-base pa6 ba b--muted-5">
