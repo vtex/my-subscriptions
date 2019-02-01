@@ -44,8 +44,9 @@ class SubscriptionProductsContainer extends Component {
       )
     }
 
-    if (loading || (!subscriptionsInfo && subscriptionsInfo.subscriptions))
+    if (loading || (!subscriptionsInfo && subscriptionsInfo.subscriptions)) {
       return renderWrapper(<ViewItemsSkeleton />)
+    }
 
     const {
       subscriptions,
