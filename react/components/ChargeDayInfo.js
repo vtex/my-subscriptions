@@ -40,7 +40,7 @@ const enhance = compose(
     shouldBeEmpty:
       subscriptionsGroup.purchaseSettings.purchaseDay === 'Not_Applicable' ||
       !subscriptionsGroup.purchaseSettings.purchaseDay,
-    periodicity: subscriptionsGroup.plan.frequency,
+    periodicity: subscriptionsGroup.plan.frequency.periodicity,
     purchaseDay: subscriptionsGroup.purchaseSettings.purchaseDay,
   }))
 )
