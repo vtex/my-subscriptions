@@ -6,6 +6,7 @@ import ReactRouterPropTypes from 'react-router-prop-types'
 import { compose, graphql } from 'react-apollo'
 import { Alert, Button, Modal, Badge } from 'vtex.styleguide'
 
+import { subscriptionsGroupShape } from '../../../proptypes'
 import updateIsSkipped from '../../../graphql/updateIsSkipped.gql'
 import Title from '../../commons/Title'
 import Toast from '../../commons/Toast'
@@ -22,10 +23,10 @@ class Summary extends Component {
   }
 
   handleClick = () => {
-    const { subscription, history } = this.props
+    const { subscriptionsGroup, history } = this.props
 
     history.push({
-      pathname: `${subscription.orderGroup}/products`,
+      pathname: `${subscriptionsGroup.orderGroup}/products`,
     })
   }
 
@@ -42,8 +43,8 @@ class Summary extends Component {
     this.props
       .updateIsSkipped({
         variables: {
-          subscriptionId: this.props.subscription.orderGroup,
-          isSkipped: !this.props.subscription.isSkipped,
+          orderGroup: this.props.subscriptionsGroup.orderGroup,
+          isSkipped: !this.props.subscriptionsGroup.isSkipped,
         },
       })
       .then(() => {
@@ -77,7 +78,7 @@ class Summary extends Component {
   }
 
   render() {
-    const { subscription, intl } = this.props
+    const { subscriptionsGroup, intl } = this.props
     const {
       isModalOpen,
       showSuccessAlert,
@@ -85,17 +86,16 @@ class Summary extends Component {
       errorMessage,
     } = this.state
 
-    const firstItemOfSubscription = subscription.items[0]
-    const isCanceled = firstItemOfSubscription.status === 'CANCELED'
-    const isPaused = firstItemOfSubscription.status === 'PAUSED'
+    const isCanceled = subscriptionsGroup.status === 'CANCELED'
+    const isPaused = subscriptionsGroup.status === 'PAUSED'
 
-    const options = subscription.isSkipped
+    const options = subscriptionsGroup.isSkipped
       ? ['unskip', 'pause', 'cancel']
       : isPaused
       ? ['restore', 'cancel']
       : ['skip', 'pause', 'cancel']
 
-    const hasMultipleItems = subscription.items.length > 1
+    const hasMultipleItems = subscriptionsGroup.subscriptions.length > 1
 
     return (
       <div>
@@ -111,7 +111,7 @@ class Summary extends Component {
             </Alert>
           </div>
         )}
-        {subscription.isSkipped && (
+        {subscriptionsGroup.isSkipped && (
           <div className="mb5">
             <Alert type="warning">
               {intl.formatMessage({
@@ -137,14 +137,14 @@ class Summary extends Component {
                 onClose={this.handleCloseModal}>
                 <span className="db b f5">
                   {intl.formatMessage({
-                    id: subscription.isSkipped
+                    id: subscriptionsGroup.isSkipped
                       ? 'subscription.unskip.title'
                       : 'subscription.skip.title',
                   })}
                 </span>
                 <span className="db pt6">
                   {intl.formatMessage({
-                    id: subscription.isSkipped
+                    id: subscriptionsGroup.isSkipped
                       ? 'subscription.unskip.text'
                       : 'subscription.skip.text',
                   })}
@@ -164,7 +164,7 @@ class Summary extends Component {
                     isLoading={this.state.isLoading}
                     onClick={this.handleConfirmSkip}>
                     {intl.formatMessage({
-                      id: subscription.isSkipped
+                      id: subscriptionsGroup.isSkipped
                         ? 'subscription.unskip.confirm'
                         : 'subscription.skip.confirm',
                     })}
@@ -182,13 +182,13 @@ class Summary extends Component {
               </div>
               <div className="pt5">
                 <div className="myo-subscription__image-size relative items-center ba-ns bw1-ns b--muted-5">
-                  <ItemsImage items={subscription.items} />
+                  <ItemsImage items={subscriptionsGroup.subscriptions} />
                 </div>
               </div>
             </div>
             <div className="pt9-l pt9-m pt4-s pl6-ns flex-grow-1">
               <span className="db b f4 tl c-on-base">
-                <Title items={subscription.items} />
+                <Title items={subscriptionsGroup.subscriptions} />
                 {isCanceled && (
                   <div className="ml4 dib lh-solid">
                     <Badge type="neutral">
@@ -218,13 +218,15 @@ class Summary extends Component {
                         })}
                       </div>
                       <div className="dib f6 fw4 c-muted-1 tr w-60">
-                        {subscription.items[0].quantity}
+                        {subscriptionsGroup.subscriptions[0].quantity}
                       </div>
                     </div>
                   )}
                   <SubscriptionTotals
-                    totals={subscription.totals}
-                    currencyCode={subscription.purchaseSettings.currencySymbol}
+                    totals={subscriptionsGroup.totals}
+                    currencyCode={
+                      subscriptionsGroup.purchaseSettings.currencySymbol
+                    }
                   />
                 </div>
                 <div className="w-100 flex flex-column justify-center-s justify-end-ns items-center pt6-s pt2-ns">
@@ -246,7 +248,7 @@ class Summary extends Component {
                     onSkipOrUnskip={this.handleOpenModal}
                     onSuccessUpdate={this.handleSuccessUpdate}
                     onErrorUpdate={this.handleErrorUpdate}
-                    subscription={subscription}
+                    subscriptionsGroup={subscriptionsGroup}
                   />
                 </div>
               </div>
@@ -265,7 +267,7 @@ const isSkippedMutation = {
 Summary.propTypes = {
   item: PropTypes.object,
   updateIsSkipped: PropTypes.func.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   originalOrderId: PropTypes.string,
   intl: intlShape.isRequired,
   history: ReactRouterPropTypes.history.isRequired,

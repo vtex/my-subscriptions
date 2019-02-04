@@ -11,7 +11,8 @@ import { Button } from 'vtex.styleguide'
 import LabeledInfo from '../../../LabeledInfo'
 import DataSkeleton from '../DataCard/DataSkeleton'
 import { getGUID } from '../../../../utils'
-import { subscriptionShape } from '../../../../proptypes'
+import { subscriptionsGroupShape } from '../../../../proptypes'
+import { CANCELED_STATUS } from '../../../../constants'
 
 class ShippingCard extends Component {
   constructor(props) {
@@ -22,17 +23,17 @@ class ShippingCard extends Component {
       address: addValidation({
         addressId: getGUID(),
         addressType: 'residential',
-        city: props.subscription.shippingAddress.city,
+        city: props.subscriptionsGroup.shippingAddress.city,
         complement: null,
         country: { value: 'BRA', label: 'Brazil' },
         geoCoordinates: [],
-        neighborhood: props.subscription.shippingAddress.neighborhood,
-        number: props.subscription.shippingAddress.number,
-        postalCode: props.subscription.shippingAddress.postalCode,
+        neighborhood: props.subscriptionsGroup.shippingAddress.neighborhood,
+        number: props.subscriptionsGroup.shippingAddress.number,
+        postalCode: props.subscriptionsGroup.shippingAddress.postalCode,
         receiverName: null,
         reference: null,
-        state: props.subscription.shippingAddress.state,
-        street: props.subscription.shippingAddress.street,
+        state: props.subscriptionsGroup.shippingAddress.state,
+        street: props.subscriptionsGroup.shippingAddress.street,
         addressQuery: null,
       }),
       rules: {},
@@ -46,7 +47,7 @@ class ShippingCard extends Component {
 
   componentDidUpdate(_, prevState) {
     const countryChanged =
-      this.props.subscription.shippingAddress.country !==
+      this.props.subscriptionsGroup.shippingAddress.country !==
       prevState.address.country.value
 
     if (countryChanged) {
@@ -55,13 +56,13 @@ class ShippingCard extends Component {
   }
 
   getCurrentRules() {
-    const country = this.props.subscription.shippingAddress.country
+    const country = this.props.subscriptionsGroup.shippingAddress.country
     const selectedRules = this.state.rules[country]
     return selectedRules
   }
 
   loadCurrentCountryRules = () => {
-    const country = this.props.subscription.shippingAddress.country
+    const country = this.props.subscriptionsGroup.shippingAddress.country
     const hasRulesLoaded = this.state.rules[country]
     if (hasRulesLoaded) {
       return
@@ -83,12 +84,14 @@ class ShippingCard extends Component {
   }
 
   render() {
-    const { onEdit, intl } = this.props
+    const { onEdit, intl, subscriptionsGroup } = this.props
     const selectedRules = this.getCurrentRules(this.state)
 
     if (!selectedRules) {
       return <DataSkeleton />
     }
+
+    const displayEdit = subscriptionsGroup.status !== CANCELED_STATUS
 
     return (
       <div className="card-height bw1 bg-base pa6 ba b--muted-5">
@@ -99,11 +102,13 @@ class ShippingCard extends Component {
             })}
           </div>
           <div className="ml-auto">
-            <Button size="small" variation="tertiary" onClick={onEdit}>
-              {intl.formatMessage({
-                id: 'subscription.actions.edit',
-              })}
-            </Button>
+            {displayEdit && (
+              <Button size="small" variation="tertiary" onClick={onEdit}>
+                {intl.formatMessage({
+                  id: 'subscription.actions.edit',
+                })}
+              </Button>
+            )}
           </div>
         </div>
         <div className="flex pt3-s pt5-ns w-100">
@@ -129,7 +134,7 @@ class ShippingCard extends Component {
 }
 
 ShippingCard.propTypes = {
-  subscription: subscriptionShape,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   onEdit: PropTypes.func,
   shippingAddress: PropTypes.object,
   intl: intlShape.isRequired,

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.4.0] - 2019-02-04
+### Fixed
+- Display of `purchaseDay` on `SubscriptionDetails`.
+- Block edition on a canceled subscription.
+
+### Changed
+- Bump `vtex.my-subscriptions-graphql`.
+- Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`.
+
 ## [0.3.3] - 2019-01-11
 ### Fixed
 - Loading and display of order's history.

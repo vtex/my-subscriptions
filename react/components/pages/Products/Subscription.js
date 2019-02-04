@@ -5,15 +5,15 @@ import { compose, graphql } from 'react-apollo'
 import { Button, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.my-account-commons'
 
-import RemoveItemConfirmModal from '../pages/Details/RemoveItemConfirmModal'
-import Price from './FormattedPrice'
-import Toast from './Toast'
-import LabeledInfo from '../LabeledInfo'
-import RemoveItem from '../../graphql/removeItem.gql'
+import RemoveItemConfirmModal from '../Details/RemoveItemConfirmModal'
+import Price from '../../commons/FormattedPrice'
+import Toast from '../../commons/Toast'
+import LabeledInfo from '../../LabeledInfo'
+import RemoveItem from '../../../graphql/removeItem.gql'
 
 const { fixImageUrl } = utils
 
-class Item extends Component {
+class Subscription extends Component {
   state = {
     isLoading: false,
     isModalOpen: false,
@@ -33,8 +33,8 @@ class Item extends Component {
     this.props
       .removeItem({
         variables: {
-          subscriptionId: this.props.subscriptionId,
-          itemId: this.props.item.SubscriptionId,
+          orderGroup: this.props.orderGroup,
+          itemId: this.props.subscription.SubscriptionId,
         },
       })
       .then(() => {
@@ -65,7 +65,7 @@ class Item extends Component {
   }
 
   render() {
-    const { item, currency, intl } = this.props
+    const { subscription, currency, intl } = this.props
     const {
       isModalOpen,
       isLoading,
@@ -108,7 +108,7 @@ class Item extends Component {
             <div className="br-ns flex-none product-vertical-line bw1-ns b--muted-5">
               <img
                 className="db-s center di-ns pt6-ns pl8-ns"
-                src={fixImageUrl(item.sku.imageUrl, 90, 100)}
+                src={fixImageUrl(subscription.sku.imageUrl, 90, 100)}
               />
             </div>
             <div className="pt5-l pt3-s pl6-m w-100">
@@ -116,22 +116,24 @@ class Item extends Component {
                 <a
                   className="c-on-base"
                   target="_blank"
-                  href={item.sku.detailUrl}>
-                  <span className="mr3 underline">{item.sku.name}</span>
+                  href={subscription.sku.detailUrl}>
+                  <span className="mr3 underline">{subscription.sku.name}</span>
                 </a>
               </div>
               <div className="flex pt3-s pt0-ns w-100 mr-auto flex-column-s flex-row-ns">
                 <div className="flex flex-row w-100">
                   <div className="w-50-s w-third-ns">
                     <div className="pl0-ns pt5">
-                      <LabeledInfo labelId="subscription.item.quantity"> {item.quantity}</LabeledInfo>
+                      <LabeledInfo labelId="subscription.item.quantity">
+                        {subscription.quantity}
+                      </LabeledInfo>
                     </div>
                   </div>
                   <div className="w-50-s w-third-ns">
                     <div className="pl6-s pl1-ns pt5">
                       <LabeledInfo labelId="subscription.totalValue">
                         <Price
-                          value={item.sku.priceAtSubscriptionDate}
+                          value={subscription.priceAtSubscriptionDate}
                           currency={currency}
                         />
                       </LabeledInfo>
@@ -163,14 +165,14 @@ const removeItemMutation = {
   name: 'removeItem',
 }
 
-Item.propTypes = {
+Subscription.propTypes = {
   intl: intlShape.isRequired,
   removeItem: PropTypes.func.isRequired,
-  subscriptionId: PropTypes.string.isRequired,
-  item: PropTypes.object.isRequired,
+  orderGroup: PropTypes.string.isRequired,
+  subscription: PropTypes.object.isRequired,
   currency: PropTypes.string.isRequired,
 }
 
 export default compose(graphql(RemoveItem, removeItemMutation))(
-  injectIntl(Item)
+  injectIntl(Subscription)
 )

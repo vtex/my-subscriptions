@@ -17,6 +17,7 @@ import { Button, Modal, Spinner, Alert } from 'vtex.styleguide'
 import { getGUID } from '../../../../utils'
 import COUNTRIES from '../../../../constants/countries'
 import ADD_NEW_ADDRESS from '../../../../graphql/addNewAddress.gql'
+import { subscriptionsGroupShape } from '../../../../proptypes'
 
 class EditAddressModal extends Component {
   state = {
@@ -108,14 +109,14 @@ class EditAddressModal extends Component {
         .addAddress({
           variables: {
             address: removeValidation(this.state.address),
-            subscriptionId: this.props.subscription.orderGroup,
+            orderGroup: this.props.subscriptionsGroup.orderGroup,
           },
         })
         .then(() => {
           this.setState({ isLoading: false })
           this.props.addressesData
             .refetch({
-              variables: { subscription: this.props.subscription },
+              variables: { subscriptionsGroup: this.props.subscriptionsGroup },
             })
             .then(() => {
               this.props.onCloseSuccess()
@@ -247,10 +248,10 @@ class EditAddressModal extends Component {
 
 const addAddressMutation = {
   name: 'addAddress',
-  options({ subscriptionId, address }) {
+  options({ orderGroup, address }) {
     return {
       variables: {
-        subscriptionId: subscriptionId,
+        orderGroup,
         address: address,
       },
     }
@@ -259,7 +260,7 @@ const addAddressMutation = {
 
 EditAddressModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   intl: intlShape.isRequired,
   addAddress: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,

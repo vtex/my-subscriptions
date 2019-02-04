@@ -1,4 +1,4 @@
-query GetPaymentSystems($orderGroup: String) {
+query GetPaymentSystems($orderGroup: String!) {
   paymentSystems(orderGroup: $orderGroup) {
     paymentSystem
     paymentSystemName

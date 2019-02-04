@@ -1,9 +1,0 @@
-query Subscription($id: String) {
-  subscription(id: $id) {
-    id
-    frequency {
-      periodicity
-      interval
-    }
-  }
-}

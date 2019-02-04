@@ -36,10 +36,12 @@ ChargeDayInfo.propTypes = {
 
 const enhance = compose(
   injectIntl,
-  withProps(({ subscription }) => ({
+  withProps(({ subscriptionsGroup }) => ({
     shouldBeEmpty:
-      subscription.purchaseSettings.purchaseDay === 'Not_Applicable' ||
-      !subscription.purchaseSettings.purchaseDay,
+      subscriptionsGroup.purchaseSettings.purchaseDay === 'Not_Applicable' ||
+      !subscriptionsGroup.purchaseSettings.purchaseDay,
+    periodicity: subscriptionsGroup.plan.frequency.periodicity,
+    purchaseDay: subscriptionsGroup.purchaseSettings.purchaseDay,
   }))
 )
 

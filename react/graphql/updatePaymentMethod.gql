@@ -1,10 +1,10 @@
 mutation updatePaymentMethod(
-  $subscriptionId: String
+  $orderGroup: String!
   $payment: String
   $accountId: String
 ) {
   updatePaymentMethod(
-    subscriptionId: $subscriptionId
+    orderGroup: $orderGroup
     payment: $payment
     accountId: $accountId
   ) {

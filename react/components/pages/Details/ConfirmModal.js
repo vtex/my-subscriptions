@@ -5,6 +5,7 @@ import { compose, graphql } from 'react-apollo'
 import { Button, Modal } from 'vtex.styleguide'
 
 import UpdateStatus from '../../../graphql/updateStatus.gql'
+import { subscriptionsGroupShape } from '../../../proptypes'
 
 class ConfirmModal extends Component {
   state = {
@@ -16,7 +17,7 @@ class ConfirmModal extends Component {
       .updateStatus({
         variables: {
           status: status,
-          subscriptionId: this.props.subscription.orderGroup,
+          orderGroup: this.props.subscriptionsGroup.orderGroup,
         },
       })
       .then(() => {
@@ -89,7 +90,7 @@ ConfirmModal.propTypes = {
   onErrorUpdate: PropTypes.func.isRequired,
   updateStatus: PropTypes.func,
   isModalOpen: PropTypes.bool.isRequired,
-  subscription: PropTypes.object.isRequired,
+  subscriptionsGroup: subscriptionsGroupShape.isRequired,
   intl: intlShape.isRequired,
   subscriptionsData: PropTypes.object,
   updateType: PropTypes.string.isRequired,
@@ -97,10 +98,10 @@ ConfirmModal.propTypes = {
 
 const updateStatusMutation = {
   name: 'updateStatus',
-  options({ subscription, status }) {
+  options({ subscriptionsGroup, status }) {
     return {
       variables: {
-        subscriptionId: subscription.orderGroup,
+        orderGroup: subscriptionsGroup.orderGroup,
         status: status,
       },
     }
