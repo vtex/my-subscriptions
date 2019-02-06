@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Update status query.
 
-## [0.4.0] - 2019-02-04
+## [0.4.0] - 2019-02-04 [YANKED]
 ### Fixed
 - Display of `purchaseDay` on `SubscriptionDetails`.
 - Block edition on a canceled subscription.
