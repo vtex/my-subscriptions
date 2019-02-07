@@ -1,10 +1,12 @@
+import { SubscriptionDisplayFilter, SubscriptionStatus } from '../enums'
+
 let guid = 1
 
 export function getGUID() {
   return (guid++ * new Date().getTime() * -1).toString()
 }
 
-export const parseErrorMessageId = error => {
+export function parseErrorMessageId(error: any) : string {
   if (
     error &&
     error.graphQLErrors.length > 0 &&
@@ -16,4 +18,14 @@ export const parseErrorMessageId = error => {
       error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()) ||
       'timeout'}`
   }
+
+  return ''
+}
+
+export function convertFilter(filter: SubscriptionDisplayFilter) {
+  if (filter === SubscriptionDisplayFilter.Canceled) {
+    return [SubscriptionStatus.Canceled]
+  }
+  
+  return [SubscriptionStatus.Active, SubscriptionStatus.Paused]
 }
