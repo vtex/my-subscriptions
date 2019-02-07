@@ -107,5 +107,8 @@
   "order.subscription.periodicity.yearly": "yearly",
   
   "subscription.alert.error.message": "There was a problem paying your current order. Check your payment method so that you can still make the current purchase and so the future purchases will occur without problems.",
-  "subscription.retry.button.message": "Place current order"
+  "subscription.retry.button.message": "Place current order",
+  "subscription.list.display" : "Display",
+  "subscription.list.display.active_filter" : "Actives",
+  "subscription.list.display.canceled_filter" : "Canceled"
 }
