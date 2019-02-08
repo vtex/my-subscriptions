@@ -4,6 +4,9 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 
 import { SubscriptionDisplayFilter } from '../../../enums'
+import SubscriptionsGroups from './SubscriptionsGroups'
+
+import { convertFilter } from '../../../utils'
 
 class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
   public state = {
@@ -44,11 +47,13 @@ class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
       titleId: 'subscription.title.list',
     }
 
+    const resultFilter = convertFilter(filter)
+
     return (
       <ContentWrapper {...headerConfig}> 
         {() => (
           <Fragment>
-            test
+            <SubscriptionsGroups filter={resultFilter} />
           </Fragment>
         )} 
       </ContentWrapper>
