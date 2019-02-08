@@ -9,11 +9,7 @@ describe('Utils test Scenarios', () => {
     const result = convertFilter(SubscriptionDisplayFilter.Active)
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
-    expect(result.length).toEqual(expectedResult.length)
-
-    expectedResult.push(SubscriptionStatus.Canceled)
-
-    expect(result).not.toEqual(expect.arrayContaining(expectedResult))
+    expect(result).toHaveLength(expectedResult.length)
   })
 
   it('should convert canceled filter', () => {
