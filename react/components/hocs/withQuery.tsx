@@ -18,7 +18,7 @@ interface WithQueryArgs {
   validateEmpty: (data: any) => boolean,
 }
 
-interface CurrenState {
+interface CurrentState {
   component: ComponentType,
   props: any
 }
@@ -66,7 +66,7 @@ export function withQuery({
       errorCallback({ error, info })
     }
 
-    public currentState = ({ data, loading, queryError, refetch } : CurrentStateArgs): CurrenState => {
+    public currentState = ({ data, loading, queryError, refetch } : CurrentStateArgs): CurrentState => {
       const { hasError, componentError } = this.state
 
       if (loading) {
@@ -89,9 +89,9 @@ export function withQuery({
         <Query {...queryProps}>
           {({ data, loading, error, refetch }) => {
 
-            const CurrentState = this.currentState({data, loading, queryError: error, refetch})
+            const ResultantState = this.currentState({data, loading, queryError: error, refetch})
 
-            return <CurrentState.component {...CurrentState.props} />
+            return <ResultantState.component {...ResultantState.props} />
           }}
         </Query>
       )
