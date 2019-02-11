@@ -4,19 +4,43 @@ import { compose } from 'recompose'
 import { SubscriptionStatus } from '../../../enums'
 import GET_SUBSCRIPTIONS from '../../../graphql/getGroupedSubscriptions.gql'
 import withQuery from '../../hocs/withQuery'
+import EmptyState from './EmptyState'
 import Loading from './Loading'
 
 interface Props {
   filter: SubscriptionStatus[]
 }
 
-const SubscriptionsGroups: FunctionComponent<Props> = ({ filter })  => {
-  console.log('filter', filter)
-  return <Loading />
+const SubscriptionsGroups: FunctionComponent<Props> = ()  => {
+  return <span> hey </span>
+}
+
+const queryOptions = {
+  options: (props: Props) => ({
+    variables: {
+      status: props.filter,
+    },
+  }),
 }
 
 const enhance = compose<any, Props>(
-  withQuery({ document: GET_SUBSCRIPTIONS, errorCallback: (e) => console.log(e), loadingState: Loading, errorState: () => <div>Error</div> })
+  withQuery({
+    document: GET_SUBSCRIPTIONS, 
+    emptyState: EmptyState,
+    errorCallback: (e) => console.error(e), 
+    errorState: () => <div>Error</div>,
+    loadingState: Loading, 
+    operationOptions: queryOptions,
+    validateEmpty,
+  })
 )
 
 export default enhance(SubscriptionsGroups)
+
+function validateEmpty(data: any) {
+  if (data && data.groupedSubscriptions && data.groupedSubscriptions.length === 0) {
+    return false
+  }
+
+  return false
+}
