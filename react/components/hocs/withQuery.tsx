@@ -1,5 +1,6 @@
 import { ApolloError } from 'apollo-client' 
 import { DocumentNode } from 'graphql'
+import hoistNonReactStatics from 'hoist-non-react-statics'
 import React, { Component, ComponentClass, ComponentType } from 'react'
 import { graphql, OperationOption } from 'react-apollo'
 import { branch, compose, renderComponent } from 'recompose'
@@ -36,7 +37,7 @@ export default function withQuery({
   }: WithQueryArgs) {
 
   return (WrappedComponent: ComponentType<any>): ComponentClass<any> =>  {
-    return class WithQueryComponent extends Component {
+    class WithQueryComponent extends Component {
       public static displayName = `WithQueryComponent(${WrappedComponent && WrappedComponent.displayName ||
         WrappedComponent && WrappedComponent.name || ''})`
 
@@ -74,5 +75,7 @@ export default function withQuery({
         return <ResultComp />
       }
     }
+
+    return hoistNonReactStatics(WithQueryComponent, WrappedComponent)
   }
 }
