@@ -1,8 +1,8 @@
-import React from 'react'
-import { intlShape, injectIntl } from 'react-intl'
+import React, { FunctionComponent } from 'react'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { EmptyState } from 'vtex.styleguide'
 
-const EmptySubscriptionsGroupList = ({ intl }) => {
+const EmptySubscriptionsGroupList: FunctionComponent<InjectedIntlProps> = ({ intl }) => {
   return (
     <div className="mr0 pt5 pl2 w-100 tc">
       <EmptyState
@@ -15,10 +15,6 @@ const EmptySubscriptionsGroupList = ({ intl }) => {
       </EmptyState>
     </div>
   )
-}
-
-EmptySubscriptionsGroupList.propTypes = {
-  intl: intlShape.isRequired,
 }
 
 export default injectIntl(EmptySubscriptionsGroupList)
