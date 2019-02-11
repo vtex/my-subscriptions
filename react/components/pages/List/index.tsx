@@ -1,12 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 
 import { SubscriptionDisplayFilter } from '../../../enums'
-import SubscriptionsGroups from './SubscriptionsGroups'
-
 import { convertFilter } from '../../../utils'
+import SubscriptionsGroups from './SubscriptionsGroups'
 
 class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
   public state = {
@@ -51,11 +50,7 @@ class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
 
     return (
       <ContentWrapper {...headerConfig}> 
-        {() => (
-          <Fragment>
-            <SubscriptionsGroups filter={resultFilter} />
-          </Fragment>
-        )} 
+        {() => <SubscriptionsGroups filter={resultFilter} /> } 
       </ContentWrapper>
     )
   }
