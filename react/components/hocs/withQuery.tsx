@@ -72,7 +72,7 @@ export default function withQuery({
 
         const ResultComp = enhance(WrappedComponent)
 
-        return <ResultComp />
+        return <ResultComp {...this.props}/>
       }
     }
 
