@@ -6,11 +6,7 @@ const EmptySubscriptionsGroupList: FunctionComponent<InjectedIntlProps> = ({ int
   return (
     <div className="mr0 pt5 pl2 w-100 tc">
       <EmptyState
-        title={
-          <span className="c-on-base">
-            {intl.formatMessage({ id: 'subscriptions.notFound.title' })}
-          </span>
-        }>
+        title={intl.formatMessage({ id: 'subscriptions.notFound.title' })}>
         {intl.formatMessage({ id: 'subscriptions.notFound.text' })}
       </EmptyState>
     </div>
