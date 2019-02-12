@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 
 import SkeletonLoader from '../../commons/SkeletonLoader'
-import DescriptionColumn from './DescriptionColumnSkeleton'
+import DescriptionColumn from './SkeletonDescriptionColumn'
 
 const SubscriptionsGroupsLoading: FunctionComponent = () => {
   return (

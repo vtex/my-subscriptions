@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 
 import SkeletonLoader from '../../commons/SkeletonLoader'
 
-const DescriptionColumnSkeleton: FunctionComponent = () => {
+const SkeletonDescriptionColumn: FunctionComponent = () => {
   return (
     <div className="ml4">
       <SkeletonLoader width="70" size="3" />
@@ -19,4 +19,4 @@ const DescriptionColumnSkeleton: FunctionComponent = () => {
   )
 }
 
-export default DescriptionColumnSkeleton
+export default SkeletonDescriptionColumn
