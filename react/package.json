@@ -10,6 +10,7 @@
     "react-accessible-accordion": "^2.4.5",
     "react-apollo": "^2.3.2",
     "react-dom": "^16.7.0",
+    "react-id-swiper": "^1.6.8",
     "react-intl": "^2.7.2",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
