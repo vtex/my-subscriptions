@@ -1,35 +1,40 @@
-import React, { FunctionComponent } from 'react'
+import React, { Fragment, FunctionComponent } from 'react'
 import { compose } from 'recompose'
 
 import { SubscriptionStatus } from '../../../enums'
-import GET_SUBSCRIPTIONS from '../../../graphql/getGroupedSubscriptions.gql'
+import ITEMS from '../../../graphql/groupedSubscriptionsItems.gql'
 import withQuery from '../../hocs/withQuery'
 import EmptyState from './EmptyState'
+import Item from './Item'
 import Loading from './Loading'
 
-interface Props {
-  filter: SubscriptionStatus[]
-}
-
-const SubscriptionsGroups: FunctionComponent<Props> = ()  => {
-  return <span> hey </span>
+const SubscriptionsGroups: FunctionComponent<InnerProps> = ({
+  data: { items },
+}) => {
+  return (
+    <Fragment>
+      {items.map(item => (
+        <Item item={item} />
+      ))}
+    </Fragment>
+  )
 }
 
 const queryOptions = {
-  options: (props: Props) => ({
+  options: (props: OuterProps) => ({
     variables: {
       status: props.filter,
     },
   }),
 }
 
-const enhance = compose<any, Props>(
+const enhance = compose<any, OuterProps>(
   withQuery({
-    document: GET_SUBSCRIPTIONS, 
+    document: ITEMS,
     emptyState: EmptyState,
-    errorCallback: (e) => console.error(e), 
+    errorCallback: e => console.error(e),
     errorState: () => <div>Error</div>,
-    loadingState: Loading, 
+    loadingState: Loading,
     operationOptions: queryOptions,
     validateEmpty,
   })
@@ -38,9 +43,24 @@ const enhance = compose<any, Props>(
 export default enhance(SubscriptionsGroups)
 
 function validateEmpty(data: any) {
-  if (data && data.groupedSubscriptions && data.groupedSubscriptions.length === 0) {
-    return false
+  if (
+    data &&
+    data.groupedSubscriptions &&
+    data.groupedSubscriptions.length === 0
+  ) {
+    return true
   }
 
   return false
+}
+
+interface ItemsData {
+  items: SubscriptionsGroupItemType[]
+}
+
+interface OuterProps {
+  filter: SubscriptionStatus[]
+}
+interface InnerProps {
+  data: ItemsData
 }
