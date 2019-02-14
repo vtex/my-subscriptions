@@ -1,0 +1,22 @@
+query GroupedSubscriptionsItems($status: [SubscriptionStatusEnum]) {
+  items: groupedSubscriptions(status: $status) {
+    cacheId
+    orderGroup
+    status
+    name
+    nextPurchaseDate
+    lastStatusUpdate
+    subscriptions {
+      sku {
+        name
+        imageUrl
+      }
+    }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+    }
+  }
+}
