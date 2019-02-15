@@ -24,11 +24,6 @@ const SubscriptionGroupImages: FunctionComponent<Props> = ({ images }) => {
             <img src={url} className="w-100" />
           </div>
         ))}
-        {images.map((url, i) => (
-          <div key={i} className="swiper-slide center-all pa6">
-            <img src={url} className="w-100" />
-          </div>
-        ))}
       </Swiper>
     </div>
   )
@@ -36,8 +31,9 @@ const SubscriptionGroupImages: FunctionComponent<Props> = ({ images }) => {
 
 export default SubscriptionGroupImages
 
-const iconSize = 24
-const caretClassName = 'pv7 absolute top-50 z-2 pointer c-action-primary'
+const iconSize = 17
+const caretClassName =
+  'pv7 absolute top-50 translate--50y z-2 pointer c-action-primary'
 
 function getParams(images: string[]) {
   return {
