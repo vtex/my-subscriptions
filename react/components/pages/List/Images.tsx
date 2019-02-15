@@ -1,14 +1,12 @@
 import React, { FunctionComponent } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 
-// tslint:disable-next-line
+// tslint:disable-next-line:no-var-requires
 const Swiper = window.navigator ? require('react-id-swiper').default : null
 
 import css from '../../../constants/css'
 
 import './global.css'
-
-const { subscriptionGroupImageWrapper } = css
 
 interface Props {
   images: string[]
@@ -17,10 +15,10 @@ interface Props {
 const SubscriptionGroupImages: FunctionComponent<Props> = ({ images }) => {
   const params = getParams(images)
   return (
-    <div className={subscriptionGroupImageWrapper}>
+    <div className={css.subscriptionGroupImageWrapper}>
       <Swiper {...params}>
-        {images.map((url, i) => (
-          <div key={i} className="swiper-slide center-all pa6">
+        {images.map(url => (
+          <div key={url} className="swiper-slide center-all pa6">
             <img src={url} className="w-100" />
           </div>
         ))}

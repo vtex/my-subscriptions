@@ -4,8 +4,6 @@ import css from '../../../constants/css'
 import Images from './Images'
 import Summary from './Summary'
 
-const { subscriptionGroupItemWrapper } = css
-
 interface Props {
   item: SubscriptionsGroupItemType
 }
@@ -16,7 +14,7 @@ const SubscriptionGroupItem: FunctionComponent<Props> = ({ item }) => {
   )
 
   return (
-    <article className={subscriptionGroupItemWrapper}>
+    <article className={css.subscriptionGroupItemWrapper}>
       <Images images={images} />
       <Summary item={item} />
     </article>
