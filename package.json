@@ -12,8 +12,5 @@
       "pre-commit": "cd ./react && yarn lint",
       "pre-push": "cd ./react && yarn test && yarn lint"
     }
-  },
-  "dependencies": {
-    "@types/recompose": "^0.30.3"
   }
 }
