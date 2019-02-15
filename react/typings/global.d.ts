@@ -1,15 +1,21 @@
-interface SubscriptionsGroupItemType {
-  name: string
-  orderGroup: string
-  status: string
-  subscriptions: [SubscriptionType]
+import { SubscriptionStatus } from './../enums'
+
+declare global {
+  interface SubscriptionsGroupItemType {
+    name: string
+    orderGroup: string
+    status: SubscriptionStatus
+    subscriptions: [SubscriptionType]
+  }
+
+  interface SubscriptionType {
+    sku: SKUType
+  }
+
+  interface SKUType {
+    imageUrl: string
+    nameComplete: string
+  }
 }
 
-interface SubscriptionType {
-  sku: SKUType
-}
-
-interface SKUType {
-  imageUrl: string
-  nameComplete: string
-}
+export {}
