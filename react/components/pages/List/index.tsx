@@ -3,28 +3,32 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 
-import { SubscriptionDisplayFilter } from '../../../enums'
+import { SubscriptionDisplayFilterEnum } from '../../../enums'
 import { convertFilter } from '../../../utils'
 import SubscriptionsGroups from './SubscriptionsGroups'
 
 class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
   public state = {
-    filter: SubscriptionDisplayFilter.Active,
+    filter: SubscriptionDisplayFilterEnum.Active,
   }
 
-  public render () {
+  public render() {
     const { intl } = this.props
     const { filter } = this.state
-    
+
     const filterLabel = intl.formatMessage({ id: 'subscription.list.display' })
     const filterOptions = [
       {
-        label: intl.formatMessage({ id: `subscription.list.display.${SubscriptionDisplayFilter.Active.toLowerCase()}` }),
-        value: SubscriptionDisplayFilter.Active,
+        label: intl.formatMessage({
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Active.toLowerCase()}`,
+        }),
+        value: SubscriptionDisplayFilterEnum.Active,
       },
       {
-        label: intl.formatMessage({ id: `subscription.list.display.${SubscriptionDisplayFilter.Canceled.toLowerCase()}` }),
-        value: SubscriptionDisplayFilter.Canceled,
+        label: intl.formatMessage({
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Canceled.toLowerCase()}`,
+        }),
+        value: SubscriptionDisplayFilterEnum.Canceled,
       },
     ]
 
@@ -49,13 +53,16 @@ class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
     const resultFilter = convertFilter(filter)
 
     return (
-      <ContentWrapper {...headerConfig}> 
-        {() => <SubscriptionsGroups filter={resultFilter} /> } 
+      <ContentWrapper {...headerConfig}>
+        {() => <SubscriptionsGroups filter={resultFilter} />}
       </ContentWrapper>
     )
   }
 
-  private handleChangeFilter = (_: any, filter: SubscriptionDisplayFilter) => {
+  private handleChangeFilter = (
+    _: any,
+    filter: SubscriptionDisplayFilterEnum
+  ) => {
     this.setState({ filter })
   }
 }

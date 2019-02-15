@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent } from 'react'
 import { compose } from 'recompose'
 
-import { SubscriptionStatus } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../enums'
 import ITEMS from '../../../graphql/groupedSubscriptionsItems.gql'
 import withQuery from '../../hocs/withQuery'
 import EmptyState from './EmptyState'
@@ -59,7 +59,7 @@ interface ItemsData {
 }
 
 interface OuterProps {
-  filter: SubscriptionStatus[]
+  filter: SubscriptionStatusEnum[]
 }
 interface InnerProps {
   data: ItemsData

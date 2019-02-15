@@ -108,7 +108,9 @@
 
   "subscription.alert.error.message": "Un problème est survenu lors du paiement de votre commande actuelle. Vérifiez votre mode de paiement afin de pouvoir toujours effectuer l’achat en cours afin que les achats futurs se déroulent sans problème.",
   "subscription.retry.button.message": "Passer la commande en cours",
-  "subscription.list.display" : "Visualiser",
-  "subscription.list.display.active_filter" : "Actif",
-  "subscription.list.display.canceled_filter" : "Annulé"
+  "subscription.list.display": "Visualiser",
+  "subscription.list.display.active_filter": "Actif",
+  "subscription.list.display.canceled_filter": "Annulé",
+  "subscription.list.button.seeDetails": "Voir les détails",
+  "subscription.list.button.reactivate": "Réactiver l'abonnement"
 }
