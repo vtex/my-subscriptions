@@ -1,4 +1,8 @@
-import { SubscriptionDisplayFilter, SubscriptionStatus } from '../enums'
+import {
+  SubscriptionDisplayFilterEnum,
+  SubscriptionStatusEnum,
+  TagTypeEnum,
+} from '../enums'
 
 let guid = 1
 
@@ -6,7 +10,7 @@ export function getGUID() {
   return (guid++ * new Date().getTime() * -1).toString()
 }
 
-export function parseErrorMessageId(error: any) : string {
+export function parseErrorMessageId(error: any): string {
   if (
     error &&
     error.graphQLErrors.length > 0 &&
@@ -22,10 +26,25 @@ export function parseErrorMessageId(error: any) : string {
   return ''
 }
 
-export function convertFilter(filter: SubscriptionDisplayFilter) {
-  if (filter === SubscriptionDisplayFilter.Canceled) {
-    return [SubscriptionStatus.Canceled]
+export function convertFilter(
+  filter: SubscriptionDisplayFilterEnum
+): SubscriptionStatusEnum[] {
+  if (filter === SubscriptionDisplayFilterEnum.Canceled) {
+    return [SubscriptionStatusEnum.Canceled]
   }
-  
-  return [SubscriptionStatus.Active, SubscriptionStatus.Paused]
+
+  return [SubscriptionStatusEnum.Active, SubscriptionStatusEnum.Paused]
+}
+
+export function convertStatusInTagType(
+  status: SubscriptionStatusEnum
+): TagTypeEnum | null {
+  switch (status) {
+    case SubscriptionStatusEnum.Canceled:
+      return TagTypeEnum.Error
+    case SubscriptionStatusEnum.Paused:
+      return TagTypeEnum.Warning
+    default:
+      return null
+  }
 }
