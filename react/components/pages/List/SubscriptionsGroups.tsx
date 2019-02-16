@@ -10,11 +10,12 @@ import Loading from './Loading'
 
 const SubscriptionsGroups: FunctionComponent<InnerProps> = ({
   data: { items },
+  onGoToDetails,
 }) => {
   return (
     <Fragment>
       {items.map(item => (
-        <Item item={item} />
+        <Item item={item} onGoToDetails={onGoToDetails} />
       ))}
     </Fragment>
   )
@@ -60,7 +61,9 @@ interface ItemsData {
 
 interface OuterProps {
   filter: SubscriptionStatusEnum[]
+  onGoToDetails: (orderGroup: string) => void
 }
 interface InnerProps {
   data: ItemsData
+  onGoToDetails: (orderGroup: string) => void
 }
