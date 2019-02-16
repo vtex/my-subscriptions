@@ -1,26 +1,24 @@
 import { ApolloError } from 'apollo-client' 
-import React, { Component, ComponentType } from 'react'
-import { Query, QueryOpts } from 'react-apollo'
+import { DocumentNode } from 'graphql'
+import hoistNonReactStatics from 'hoist-non-react-statics'
+import React, { Component, ComponentClass, ComponentType } from 'react'
+import { graphql, OperationOption } from 'react-apollo'
+import { branch, compose, renderComponent } from 'recompose'
 
 interface ErrorCallback {
-  error?: ApolloError, 
-  refetch?: () => void,
+  error?: ApolloError
+  refetch?: () => void
   info: any
 }
 
 interface WithQueryArgs {
-  component: ComponentType,
+  document: DocumentNode,
+  operationOptions?: OperationOption<any, any> | undefined,
   loadingState: ComponentType,
   errorState: ComponentType,
-  emptyState: ComponentType,
-  queryProps: QueryCustom,
+  emptyState?: ComponentType,
   errorCallback: (args: ErrorCallback) => void,
-  validateEmpty: (data: any) => boolean,
-}
-
-interface CurrentState {
-  component: ComponentType,
-  props: any
+  validateEmpty?: (data: any) => boolean,
 }
 
 interface WithQueryComponentState {
@@ -28,73 +26,56 @@ interface WithQueryComponentState {
   componentError: any
 }
 
-interface QueryCustom extends QueryOpts {
-  query: any,
-  children: any,
-  onCompleted: any,
-  onError: any,
-}
-
-interface CurrentStateArgs {
-  data: any, 
-  loading: boolean, 
-  queryError?: ApolloError, 
-  refetch: () => void 
-}
-
-export function withQuery({
-   component: WrappedComponent, 
+export default function withQuery({
+   document,
+   operationOptions, 
    loadingState: LoadingState, 
    errorState: ErrorState, 
    emptyState: EmptyState,
-   queryProps,
    errorCallback,
-   validateEmpty, 
+   validateEmpty,
   }: WithQueryArgs) {
 
-  return class WithQueryComponent extends Component {
-    public static displayName = `WithQueryComponent(${WrappedComponent && WrappedComponent.displayName ||
-      WrappedComponent && WrappedComponent.name || ''})`
+  return (WrappedComponent: ComponentType<any>): ComponentClass<any> =>  {
+    class WithQueryComponent extends Component {
+      public static displayName = `WithQueryComponent(${WrappedComponent && WrappedComponent.displayName ||
+        WrappedComponent && WrappedComponent.name || ''})`
 
-    public state : WithQueryComponentState  = {
-      componentError: null,
-      hasError: false,
-    }
-
-    public componentDidCatch = (error: any, info: any) => {
-      this.setState({ hasError: true, componentError: error })
-      errorCallback({ error, info })
-    }
-
-    public currentState = ({ data, loading, queryError, refetch } : CurrentStateArgs): CurrentState => {
-      const { hasError, componentError } = this.state
-
-      if (loading) {
-        return { component: LoadingState, props: {} }
+      public state : WithQueryComponentState  = {
+        componentError: null,
+        hasError: false,
       }
 
-      if (queryError || hasError) {
-        return { component: ErrorState, props: { error: queryError || componentError, refetch } } 
+      public componentDidCatch = (error: any, info: any) => {
+        this.setState({ hasError: true, componentError: error })
+        errorCallback({ error, info })
       }
 
-      if(validateEmpty && validateEmpty(data)) {
-        return { component: EmptyState, props: {} }
+      public render = () => {
+        const { hasError } = this.state
+        const operationName = operationOptions && operationOptions.name || 'data' 
+
+        const enhance = compose(
+          graphql(document, operationOptions),
+          branch(
+            (result: any) => result[operationName].loading,
+            renderComponent(LoadingState)
+          ),
+          branch(
+            (result: any) => validateEmpty && EmptyState && validateEmpty(result[operationName]) || false,
+            renderComponent(EmptyState || '')
+          ),
+          branch(
+            (result: any) => result[operationName].error || hasError, renderComponent(ErrorState)
+          )
+        )
+
+        const ResultComp = enhance(WrappedComponent)
+
+        return <ResultComp {...this.props}/>
       }
-
-      return { component: WrappedComponent, props: { data }}
     }
 
-    public render = () => {
-      return (
-        <Query {...queryProps}>
-          {({ data, loading, error, refetch }) => {
-
-            const ResultantState = this.currentState({data, loading, queryError: error, refetch})
-
-            return <ResultantState.component {...ResultantState.props} />
-          }}
-        </Query>
-      )
-    }
+    return hoistNonReactStatics(WithQueryComponent, WrappedComponent)
   }
 }
