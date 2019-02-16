@@ -114,5 +114,9 @@
   "subscription.list.display.active_filter": "Ativas",
   "subscription.list.display.canceled_filter": "Canceladas",
   "subscription.list.button.seeDetails": "Ver detalhes",
-  "subscription.list.button.reactivate": "Reativar Assinatura"
+  "subscription.list.button.reactivate": "Reativar Assinatura",
+  "subscription.status.paused": "Pausada",
+  "subscription.status.canceled": "Cancelada",
+  "subscription.list.item.date.since": "{status} desde {date}",
+  "subscription.list.item.date.next.purchase": "Próxima compra em {date}"
 }

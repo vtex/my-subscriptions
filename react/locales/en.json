@@ -112,5 +112,9 @@
   "subscription.list.display.active_filter": "Actives",
   "subscription.list.display.canceled_filter": "Canceled",
   "subscription.list.button.seeDetails": "View details",
-  "subscription.list.button.reactivate": "Reactivate Subscription"
+  "subscription.list.button.reactivate": "Reactivate Subscription",
+  "subscription.status.paused": "Paused",
+  "subscription.status.canceled": "Canceled",
+  "subscription.list.item.date.since": "{status} since {date}",
+  "subscription.list.item.date.next.purchase": "Next purchase on {date}"
 }
