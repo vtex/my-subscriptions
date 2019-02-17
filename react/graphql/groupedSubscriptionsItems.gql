@@ -8,8 +8,10 @@ query GroupedSubscriptionsItems($status: [SubscriptionStatusEnum]) {
     lastStatusUpdate
     subscriptions {
       sku {
-        name
         imageUrl
+        name
+        detailUrl
+        productName
       }
     }
     plan {
