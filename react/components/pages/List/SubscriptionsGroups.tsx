@@ -15,7 +15,7 @@ const SubscriptionsGroups: FunctionComponent<InnerProps> = ({
   return (
     <Fragment>
       {items.map(item => (
-        <Item item={item} onGoToDetails={onGoToDetails} />
+        <Item key={item.orderGroup} item={item} onGoToDetails={onGoToDetails} />
       ))}
     </Fragment>
   )

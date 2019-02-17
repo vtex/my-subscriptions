@@ -6,6 +6,9 @@ declare global {
     orderGroup: string
     status: SubscriptionStatus
     subscriptions: [SubscriptionType]
+    nextPurchaseDate: string
+    lastStatusUpdate: string
+    plan: SubscriptionPlanType
   }
 
   interface SubscriptionType {
@@ -15,6 +18,15 @@ declare global {
   interface SKUType {
     imageUrl: string
     nameComplete: string
+  }
+
+  interface SubscriptionPlanType {
+    frequency: SubscriptionFrequencyType
+  }
+
+  interface SubscriptionFrequencyType {
+    periodicity: string
+    interval: number
   }
 }
 

@@ -15,13 +15,13 @@ const SubscriptionsGroupItemDate: FunctionComponent<
       ? intl.formatMessage(
           { id: 'subscription.list.item.date.next.purchase' },
           {
-            date: '10/10/10',
+            date: intl.formatDate(item.nextPurchaseDate),
           }
         )
       : intl.formatMessage(
           { id: 'subscription.list.item.date.since' },
           {
-            date: '10/10/10',
+            date: intl.formatDate(item.lastStatusUpdate),
             status: intl.formatMessage({
               id: `subscription.status.${item.status.toLowerCase()}`,
             }),
