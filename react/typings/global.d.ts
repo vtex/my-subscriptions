@@ -17,7 +17,9 @@ declare global {
 
   interface SKUType {
     imageUrl: string
-    nameComplete: string
+    name: string
+    detailUrl: string
+    productName: string
   }
 
   interface SubscriptionPlanType {
