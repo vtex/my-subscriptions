@@ -120,6 +120,6 @@
   "subscription.name.editition.cancel": "Cancelar",
   "subscription.name.editition.edit": "Editar",
   "subscription.name.editition.name.title": "Elija un nombre para su suscripción:",
-  "subscription.name.editition.success": "Edición completada con éxito!",
+  "subscription.editition.success": "Suscripción editada!",
   "subscription.fallback.error.message": "Algo salió mal, inténtalo de nuevo más tarde!"
 }

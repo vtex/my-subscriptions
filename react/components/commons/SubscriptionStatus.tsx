@@ -1,4 +1,4 @@
-import React, { Fragment, FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
@@ -11,12 +11,15 @@ interface Props {
 
 const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
   const type = convertStatusInTagType(status)
-  return type ? (
+
+  if (!type) {
+    return null
+  }
+
+  return (
     <Tag type={type}>
       <FormattedMessage id={`subscription.status.${status.toLowerCase()}`} />
     </Tag>
-  ) : (
-    <Fragment />
   )
 }
 

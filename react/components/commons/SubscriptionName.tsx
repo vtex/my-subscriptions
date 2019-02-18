@@ -37,7 +37,7 @@ class SubscriptionNameContainer extends Component<
         this.setState({ isModalOpen: false })
         showToast({
           message: intl.formatMessage({
-            id: 'subscription.name.editition.success',
+            id: 'subscription.editition.success',
           }),
         })
       })
