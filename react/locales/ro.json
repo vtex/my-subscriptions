@@ -120,6 +120,6 @@
   "subscription.name.editition.cancel": "Anulare",
   "subscription.name.editition.edit": "Editați | ×",
   "subscription.name.editition.name.title": "Alegeți un nume în abonament:",
-  "subscription.name.editition.success": "Ediția a fost terminată cu succes!",
+  "subscription.editition.success": "Subscrierea a fost editată!",
   "subscription.fallback.error.message": "Sa întâmplat ceva, încercați din nou mai târziu!"
 }
