@@ -116,5 +116,10 @@
   "subscription.status.paused": "En pause",
   "subscription.status.canceled": "Annulé",
   "subscription.list.item.date.since": "{status} puisque {date}",
-  "subscription.list.item.date.next.purchase": "Prochain achat sur {date}"
+  "subscription.list.item.date.next.purchase": "Prochain achat sur {date}",
+  "subscription.name.editition.cancel": "Annuler",
+  "subscription.name.editition.edit": "Modifier",
+  "subscription.name.editition.name.title": "Choisissez un nom pour votre abonnement:",
+  "subscription.name.editition.success": "Edition terminée avec succès!",
+  "subscription.fallback.error.message": "Quelque chose s'est mal passé, réessayez plus tard!"
 }
