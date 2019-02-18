@@ -4,9 +4,9 @@ import { Button } from 'vtex.styleguide'
 
 import { SubscriptionStatusEnum } from '../../../enums'
 import Frequency from '../../commons/FrequencyInfo'
+import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
 import ItemDate from './ItemDate'
-import Name from './SubscriptionName'
 
 interface Props {
   item: SubscriptionsGroupItemType

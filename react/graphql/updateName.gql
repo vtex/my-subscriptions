@@ -1,0 +1,24 @@
+mutation updateName($orderGroup: String!, $name: String) {
+  updateName(orderGroup: $orderGroup, name: $name) {
+    cacheId
+    orderGroup
+    status
+    name
+    nextPurchaseDate
+    lastStatusUpdate
+    subscriptions {
+      sku {
+        imageUrl
+        name
+        detailUrl
+        productName
+      }
+    }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+    }
+  }
+}
