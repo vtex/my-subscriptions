@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent } from 'react'
 import { compose } from 'recompose'
 
-import { SubscriptionStatus } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../enums'
 import ITEMS from '../../../graphql/groupedSubscriptionsItems.gql'
 import withQuery from '../../hocs/withQuery'
 import EmptyState from './EmptyState'
@@ -10,11 +10,12 @@ import Loading from './Loading'
 
 const SubscriptionsGroups: FunctionComponent<InnerProps> = ({
   data: { items },
+  onGoToDetails,
 }) => {
   return (
     <Fragment>
       {items.map(item => (
-        <Item item={item} />
+        <Item key={item.orderGroup} item={item} onGoToDetails={onGoToDetails} />
       ))}
     </Fragment>
   )
@@ -59,8 +60,10 @@ interface ItemsData {
 }
 
 interface OuterProps {
-  filter: SubscriptionStatus[]
+  filter: SubscriptionStatusEnum[]
+  onGoToDetails: (orderGroup: string) => void
 }
 interface InnerProps {
   data: ItemsData
+  onGoToDetails: (orderGroup: string) => void
 }

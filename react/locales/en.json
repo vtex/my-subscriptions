@@ -74,7 +74,6 @@
   "subscription.payment": "Payment",
   "subscription.payment.method": "Payment method",
   "subscription.actions.save": "Save",
-  "subscription.seeDetails": "View details",
   "subscription.seeMore": "View more",
   "subscription.view.title": "Subscription with {value} products",
   "subscription.canceled": "Canceled",
@@ -105,10 +104,22 @@
   "order.subscription.periodicity.quarterly": "every 3 months",
   "order.subscription.periodicity.semiannual": "semiannually",
   "order.subscription.periodicity.yearly": "yearly",
-  
+
   "subscription.alert.error.message": "There was a problem paying your current order. Check your payment method so that you can still make the current purchase and so the future purchases will occur without problems.",
   "subscription.retry.button.message": "Place current order",
-  "subscription.list.display" : "Display",
-  "subscription.list.display.active_filter" : "Actives",
-  "subscription.list.display.canceled_filter" : "Canceled"
+
+  "subscription.list.display": "Display",
+  "subscription.list.display.active_filter": "Actives",
+  "subscription.list.display.canceled_filter": "Canceled",
+  "subscription.list.button.seeDetails": "View details",
+  "subscription.list.button.reactivate": "Reactivate Subscription",
+  "subscription.status.paused": "Paused",
+  "subscription.status.canceled": "Canceled",
+  "subscription.list.item.date.since": "{status} since {date}",
+  "subscription.list.item.date.next.purchase": "Next purchase on {date}",
+  "subscription.name.editition.cancel": "Cancel",
+  "subscription.name.editition.edit": "Edit",
+  "subscription.name.editition.name.title": "Choose a name to your subscription:",
+  "subscription.editition.success": "Subscription edited!",
+  "subscription.fallback.error.message": "Something went wrong, try again later!"
 }

@@ -108,7 +108,19 @@
 
   "subscription.alert.error.message": "Hubo un problema al pagar su orden actual. Verifique su método de pago para que aún pueda realizar la compra actual y para que las compras futuras se realicen sin problemas.",
   "subscription.retry.button.message": "Colocar orden actual",
-  "subscription.list.display" : "Exhibir",
-  "subscription.list.display.active_filter" : "Activas",
-  "subscription.list.display.canceled_filter" : "Canceladas"
+
+  "subscription.list.display": "Exhibir",
+  "subscription.list.display.active_filter": "Activas",
+  "subscription.list.display.canceled_filter": "Canceladas",
+  "subscription.list.button.seeDetails": "Ver detalles",
+  "subscription.list.button.reactivate": "Reactivar Suscripción",
+  "subscription.status.paused": "En pausa",
+  "subscription.status.canceled": "Canceledo",
+  "subscription.list.item.date.since": "{status} ya que {date}",
+  "subscription.list.item.date.next.purchase": "Próxima compra en {date}",
+  "subscription.name.editition.cancel": "Cancelar",
+  "subscription.name.editition.edit": "Editar",
+  "subscription.name.editition.name.title": "Elija un nombre para su suscripción:",
+  "subscription.editition.success": "Suscripción editada!",
+  "subscription.fallback.error.message": "Algo salió mal, inténtalo de nuevo más tarde!"
 }

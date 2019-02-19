@@ -12,5 +12,8 @@
       "pre-commit": "cd ./react && yarn lint",
       "pre-push": "cd ./react && yarn test && yarn lint"
     }
+  },
+  "intl-equalizer": {
+    "localeDirectory": "react/locales/"
   }
 }

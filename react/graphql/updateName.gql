@@ -1,5 +1,5 @@
-query GroupedSubscriptionsItems($status: [SubscriptionStatusEnum]) {
-  items: groupedSubscriptions(status: $status) {
+mutation updateName($orderGroup: String!, $name: String) {
+  updateName(orderGroup: $orderGroup, name: $name) {
     cacheId
     orderGroup
     status

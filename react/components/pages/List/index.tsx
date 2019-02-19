@@ -1,30 +1,46 @@
 import React, { Component } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { withRouter } from 'react-router-dom'
+import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 
-import { SubscriptionDisplayFilter } from '../../../enums'
+import { SubscriptionDisplayFilterEnum } from '../../../enums'
 import { convertFilter } from '../../../utils'
 import SubscriptionsGroups from './SubscriptionsGroups'
 
-class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
+interface Props {
+  history: any
+}
+
+class SubscriptionsGroupListContainer extends Component<
+  Props & InjectedIntlProps
+> {
   public state = {
-    filter: SubscriptionDisplayFilter.Active,
+    filter: SubscriptionDisplayFilterEnum.ACTIVE,
   }
 
-  public render () {
+  public handleGoToDetails = (orderGroup: string) => {
+    this.props.history.push(`/subscriptions/${orderGroup}`)
+  }
+
+  public render() {
     const { intl } = this.props
     const { filter } = this.state
-    
+
     const filterLabel = intl.formatMessage({ id: 'subscription.list.display' })
     const filterOptions = [
       {
-        label: intl.formatMessage({ id: `subscription.list.display.${SubscriptionDisplayFilter.Active.toLowerCase()}` }),
-        value: SubscriptionDisplayFilter.Active,
+        label: intl.formatMessage({
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.ACTIVE.toLowerCase()}`,
+        }),
+        value: SubscriptionDisplayFilterEnum.ACTIVE,
       },
       {
-        label: intl.formatMessage({ id: `subscription.list.display.${SubscriptionDisplayFilter.Canceled.toLowerCase()}` }),
-        value: SubscriptionDisplayFilter.Canceled,
+        label: intl.formatMessage({
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.CANCELED.toLowerCase()}`,
+        }),
+        value: SubscriptionDisplayFilterEnum.CANCELED,
       },
     ]
 
@@ -49,15 +65,28 @@ class SubscriptionsGroupListContainer extends Component<InjectedIntlProps> {
     const resultFilter = convertFilter(filter)
 
     return (
-      <ContentWrapper {...headerConfig}> 
-        {() => <SubscriptionsGroups filter={resultFilter} /> } 
+      <ContentWrapper {...headerConfig}>
+        {() => (
+          <SubscriptionsGroups
+            filter={resultFilter}
+            onGoToDetails={this.handleGoToDetails}
+          />
+        )}
       </ContentWrapper>
     )
   }
 
-  private handleChangeFilter = (_: any, filter: SubscriptionDisplayFilter) => {
+  private handleChangeFilter = (
+    _: any,
+    filter: SubscriptionDisplayFilterEnum
+  ) => {
     this.setState({ filter })
   }
 }
 
-export default injectIntl(SubscriptionsGroupListContainer)
+const enhance = compose<any, InjectedIntlProps>(
+  injectIntl,
+  withRouter
+)
+
+export default enhance(SubscriptionsGroupListContainer)

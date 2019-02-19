@@ -1,11 +1,16 @@
-export enum SubscriptionStatus {
-  Active = 'ACTIVE',
-  Canceled = 'CANCELED',
-  Expired = 'EXPIRED',
-  Paused = 'PAUSED',
+export enum SubscriptionStatusEnum {
+  ACTIVE = 'ACTIVE',
+  CANCELED = 'CANCELED',
+  EXPIRED = 'EXPIRED',
+  PAUSED = 'PAUSED',
 }
 
-export enum SubscriptionDisplayFilter {
-  Active = 'ACTIVE_FILTER',
-  Canceled = 'CANCELED_FILTER',
+export enum SubscriptionDisplayFilterEnum {
+  ACTIVE = 'ACTIVE_FILTER',
+  CANCELED = 'CANCELED_FILTER',
+}
+
+export enum TagTypeEnum {
+  ERROR = 'error',
+  WARNING = 'warning',
 }

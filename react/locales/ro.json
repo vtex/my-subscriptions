@@ -108,7 +108,19 @@
 
   "subscription.alert.error.message": "A apărut o problemă la plata comenzii dvs. actuale. Verificați metoda de plată pentru a putea efectua în continuare achiziția curentă și astfel achizițiile viitoare vor avea loc fără probleme.",
   "subscription.retry.button.message": "Plasați comanda curentă",
-  "subscription.list.display" : "Exhibir",
-  "subscription.list.display.active_filter" : "Activ",
-  "subscription.list.display.canceled_filter" : "Anulat"
+
+  "subscription.list.display": "Exhibir",
+  "subscription.list.display.active_filter": "Activ",
+  "subscription.list.display.canceled_filter": "Anulat",
+  "subscription.list.button.seeDetails": "Vezi detalii",
+  "subscription.list.button.reactivate": "Reactivați abonamentul",
+  "subscription.status.paused": "întrerupte",
+  "subscription.status.canceled": "Anulat",
+  "subscription.list.item.date.since": "{status} de cand {date}",
+  "subscription.list.item.date.next.purchase": "Achiziționarea următoare {date}",
+  "subscription.name.editition.cancel": "Anulare",
+  "subscription.name.editition.edit": "Editați | ×",
+  "subscription.name.editition.name.title": "Alegeți un nume în abonament:",
+  "subscription.editition.success": "Subscrierea a fost editată!",
+  "subscription.fallback.error.message": "Sa întâmplat ceva, încercați din nou mai târziu!"
 }
