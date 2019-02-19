@@ -1,4 +1,4 @@
-import { ApolloError } from 'apollo-client' 
+import { ApolloError } from 'apollo-client'
 import { DocumentNode } from 'graphql'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import React, { Component, ComponentClass, ComponentType } from 'react'
@@ -12,36 +12,37 @@ interface ErrorCallback {
 }
 
 interface WithQueryArgs {
-  document: DocumentNode,
-  operationOptions?: OperationOption<any, any> | undefined,
-  loadingState: ComponentType,
-  errorState: ComponentType,
-  emptyState?: ComponentType,
-  errorCallback: (args: ErrorCallback) => void,
-  validateEmpty?: (data: any) => boolean,
+  document: DocumentNode
+  operationOptions?: OperationOption<any, any> | undefined
+  loadingState: ComponentType
+  errorState: ComponentType
+  emptyState?: ComponentType
+  errorCallback: (args: ErrorCallback) => void
+  validateEmpty?: (data: any) => boolean
 }
 
 interface WithQueryComponentState {
-  hasError: boolean,
+  hasError: boolean
   componentError: any
 }
 
 export default function withQuery({
-   document,
-   operationOptions, 
-   loadingState: LoadingState, 
-   errorState: ErrorState, 
-   emptyState: EmptyState,
-   errorCallback,
-   validateEmpty,
-  }: WithQueryArgs) {
-
-  return (WrappedComponent: ComponentType<any>): ComponentClass<any> =>  {
+  document,
+  operationOptions,
+  loadingState: LoadingState,
+  errorState: ErrorState,
+  emptyState: EmptyState,
+  errorCallback,
+  validateEmpty,
+}: WithQueryArgs) {
+  return (WrappedComponent: ComponentType<any>): ComponentClass<any> => {
     class WithQueryComponent extends Component {
-      public static displayName = `WithQueryComponent(${WrappedComponent && WrappedComponent.displayName ||
-        WrappedComponent && WrappedComponent.name || ''})`
+      public static displayName = `WithQueryComponent(${(WrappedComponent &&
+        WrappedComponent.displayName) ||
+        (WrappedComponent && WrappedComponent.name) ||
+        ''})`
 
-      public state : WithQueryComponentState  = {
+      public state: WithQueryComponentState = {
         componentError: null,
         hasError: false,
       }
@@ -53,7 +54,8 @@ export default function withQuery({
 
       public render = () => {
         const { hasError } = this.state
-        const operationName = operationOptions && operationOptions.name || 'data' 
+        const operationName =
+          (operationOptions && operationOptions.name) || 'data'
 
         const enhance = compose(
           graphql(document, operationOptions),
@@ -62,17 +64,22 @@ export default function withQuery({
             renderComponent(LoadingState)
           ),
           branch(
-            (result: any) => validateEmpty && EmptyState && validateEmpty(result[operationName]) || false,
+            (result: any) =>
+              (validateEmpty &&
+                EmptyState &&
+                validateEmpty(result[operationName])) ||
+              false,
             renderComponent(EmptyState || '')
           ),
           branch(
-            (result: any) => result[operationName].error || hasError, renderComponent(ErrorState)
+            (result: any) => result[operationName].error || hasError,
+            renderComponent(ErrorState)
           )
         )
 
         const ResultComp = enhance(WrappedComponent)
 
-        return <ResultComp {...this.props}/>
+        return <ResultComp {...this.props} />
       }
     }
 
