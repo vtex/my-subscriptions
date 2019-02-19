@@ -19,18 +19,17 @@ class SubscriptionNameContainer extends Component<
   public state = {
     isLoading: false,
     isModalOpen: false,
+    isMounted: false,
     name: '',
     shouldDisplayError: false,
   }
 
-  public isMounted = false
-
   public componentDidMount = () => {
-    this.isMounted = true
+    this.setState({ isMounted: true })
   }
 
   public componentWillUnmount = () => {
-    this.isMounted = false
+    this.setState({ isMounted: false })
   }
 
   public handleSubmit = () => {
@@ -44,7 +43,7 @@ class SubscriptionNameContainer extends Component<
       },
     })
       .then(() => {
-        if (this.isMounted) {
+        if (this.state.isMounted) {
           this.setState({ isModalOpen: false })
           showToast({
             message: intl.formatMessage({
@@ -54,12 +53,12 @@ class SubscriptionNameContainer extends Component<
         }
       })
       .catch(() => {
-        if (this.isMounted) {
+        if (this.state.isMounted) {
           this.setState({ shouldDisplayError: true })
         }
       })
       .finally(() => {
-        if (this.isMounted) {
+        if (this.state.isMounted) {
           this.setState({ isLoading: false })
         }
       })
