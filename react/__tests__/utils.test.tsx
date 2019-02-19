@@ -7,40 +7,40 @@ import { convertFilter, convertStatusInTagType } from '../utils'
 
 describe('Utils test Scenarios', () => {
   it('should convert active filter', () => {
-    const active = SubscriptionStatusEnum.Active
+    const active = SubscriptionStatusEnum.ACTIVE
 
-    const expectedResult = [active, SubscriptionStatusEnum.Paused]
-    const result = convertFilter(SubscriptionDisplayFilterEnum.Active)
+    const expectedResult = [active, SubscriptionStatusEnum.PAUSED]
+    const result = convertFilter(SubscriptionDisplayFilterEnum.ACTIVE)
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
     expect(result).toHaveLength(expectedResult.length)
   })
 
   it('should convert canceled filter', () => {
-    const result = convertFilter(SubscriptionDisplayFilterEnum.Canceled)
-    const expectedResult = [SubscriptionStatusEnum.Canceled]
+    const result = convertFilter(SubscriptionDisplayFilterEnum.CANCELED)
+    const expectedResult = [SubscriptionStatusEnum.CANCELED]
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
     expect(result.length).toEqual(expectedResult.length)
 
-    expectedResult.push(SubscriptionStatusEnum.Active)
+    expectedResult.push(SubscriptionStatusEnum.ACTIVE)
 
     expect(result).not.toEqual(expect.arrayContaining(expectedResult))
   })
 
   it('should convert status canceled into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatusEnum.Canceled)).toEqual(
-      TagTypeEnum.Error
+    expect(convertStatusInTagType(SubscriptionStatusEnum.CANCELED)).toEqual(
+      TagTypeEnum.ERROR
     )
   })
 
   it('should convert status paused into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatusEnum.Paused)).toEqual(
-      TagTypeEnum.Warning
+    expect(convertStatusInTagType(SubscriptionStatusEnum.PAUSED)).toEqual(
+      TagTypeEnum.WARNING
     )
   })
 
   it('should convert status active into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatusEnum.Active)).toEqual(null)
+    expect(convertStatusInTagType(SubscriptionStatusEnum.ACTIVE)).toEqual(null)
   })
 })

@@ -11,7 +11,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<
   Props & InjectedIntlProps
 > = ({ item, intl }) => {
   const content =
-    item.status === SubscriptionStatusEnum.Active
+    item.status === SubscriptionStatusEnum.ACTIVE
       ? intl.formatMessage(
           { id: 'subscription.list.item.date.next.purchase' },
           {
