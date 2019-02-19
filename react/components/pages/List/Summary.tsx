@@ -17,8 +17,8 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
   item,
   onGoToDetails,
 }) => {
-  const isPaused = item.status === SubscriptionStatusEnum.Paused
-  const isActive = item.status === SubscriptionStatusEnum.Active
+  const isPaused = item.status === SubscriptionStatusEnum.PAUSED
+  const isActive = item.status === SubscriptionStatusEnum.ACTIVE
 
   return (
     <div className="w-100 flex pv6 ph3">

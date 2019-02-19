@@ -17,7 +17,7 @@ class SubscriptionsGroupListContainer extends Component<
   Props & InjectedIntlProps
 > {
   public state = {
-    filter: SubscriptionDisplayFilterEnum.Active,
+    filter: SubscriptionDisplayFilterEnum.ACTIVE,
   }
 
   public handleGoToDetails = (orderGroup: string) => {
@@ -32,15 +32,15 @@ class SubscriptionsGroupListContainer extends Component<
     const filterOptions = [
       {
         label: intl.formatMessage({
-          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Active.toLowerCase()}`,
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.ACTIVE.toLowerCase()}`,
         }),
-        value: SubscriptionDisplayFilterEnum.Active,
+        value: SubscriptionDisplayFilterEnum.ACTIVE,
       },
       {
         label: intl.formatMessage({
-          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Canceled.toLowerCase()}`,
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.CANCELED.toLowerCase()}`,
         }),
-        value: SubscriptionDisplayFilterEnum.Canceled,
+        value: SubscriptionDisplayFilterEnum.CANCELED,
       },
     ]
 

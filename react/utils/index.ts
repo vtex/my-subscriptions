@@ -29,21 +29,21 @@ export function parseErrorMessageId(error: any): string {
 export function convertFilter(
   filter: SubscriptionDisplayFilterEnum
 ): SubscriptionStatusEnum[] {
-  if (filter === SubscriptionDisplayFilterEnum.Canceled) {
-    return [SubscriptionStatusEnum.Canceled]
+  if (filter === SubscriptionDisplayFilterEnum.CANCELED) {
+    return [SubscriptionStatusEnum.CANCELED]
   }
 
-  return [SubscriptionStatusEnum.Active, SubscriptionStatusEnum.Paused]
+  return [SubscriptionStatusEnum.ACTIVE, SubscriptionStatusEnum.PAUSED]
 }
 
 export function convertStatusInTagType(
   status: SubscriptionStatusEnum
 ): TagTypeEnum | null {
   switch (status) {
-    case SubscriptionStatusEnum.Canceled:
-      return TagTypeEnum.Error
-    case SubscriptionStatusEnum.Paused:
-      return TagTypeEnum.Warning
+    case SubscriptionStatusEnum.CANCELED:
+      return TagTypeEnum.ERROR
+    case SubscriptionStatusEnum.PAUSED:
+      return TagTypeEnum.WARNING
     default:
       return null
   }
