@@ -123,5 +123,6 @@
   "subscription.name.editition.edit": "Editar",
   "subscription.name.editition.name.title": "Escolha um nome para a sua assinatura:",
   "subscription.editition.success": "Assinatura editada!",
-  "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!"
+  "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!",
+  "subscription.fallback.error.refresh.message": "Recarregar"
 }

@@ -23,6 +23,16 @@ class SubscriptionNameContainer extends Component<
     shouldDisplayError: false,
   }
 
+  public isMounted = false
+
+  public componentDidMount = () => {
+    this.isMounted = true
+  }
+
+  public componentWillUnmount = () => {
+    this.isMounted = false
+  }
+
   public handleSubmit = () => {
     const { intl, showToast, subscriptionGroup, updateName } = this.props
 
@@ -34,17 +44,25 @@ class SubscriptionNameContainer extends Component<
       },
     })
       .then(() => {
-        this.setState({ isModalOpen: false })
-        showToast({
-          message: intl.formatMessage({
-            id: 'subscription.editition.success',
-          }),
-        })
+        if (this.isMounted) {
+          this.setState({ isModalOpen: false })
+          showToast({
+            message: intl.formatMessage({
+              id: 'subscription.editition.success',
+            }),
+          })
+        }
       })
       .catch(() => {
-        this.setState({ shouldDisplayError: true })
+        if (this.isMounted) {
+          this.setState({ shouldDisplayError: true })
+        }
       })
-      .finally(() => this.setState({ isLoading: false }))
+      .finally(() => {
+        if (this.isMounted) {
+          this.setState({ isLoading: false })
+        }
+      })
   }
 
   public handleOpenModal = () => {
