@@ -5,6 +5,7 @@ import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 const Swiper = window.navigator ? require('react-id-swiper').default : null
 
 import css from '../../../constants/css'
+import ProductImage from '../../commons/ProductImage'
 
 import './global.css'
 
@@ -17,11 +18,13 @@ const SubscriptionGroupImages: FunctionComponent<Props> = ({ images }) => {
   return (
     <div className={css.subscriptionGroupImageWrapper}>
       <Swiper {...params}>
-        {images.map(url => (
-          <div key={url} className="swiper-slide center-all pa6">
-            <img src={url} className="w-100" />
-          </div>
-        ))}
+        <div>
+          {images.map(url => (
+            <div key={url} className="swiper-slide center-all pa6 w-100">
+              <ProductImage url={url} alt="product" />
+            </div>
+          ))}
+        </div>
       </Swiper>
     </div>
   )
