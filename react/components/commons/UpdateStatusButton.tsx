@@ -2,111 +2,73 @@ import React, { Component, Fragment, ReactNode } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
-import { Alert, Button, Modal, withToast } from 'vtex.styleguide'
+import { Button } from 'vtex.styleguide'
 
 import { SubscriptionStatusEnum } from '../../enums'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-import { makeCancelable, retrieveMessagesByStatus } from '../../utils'
+import { retrieveMessagesByStatus } from '../../utils'
+import ConfirmationModal from '../commons/ConfirmationModal'
 
 class SubscriptionUpdateStatusButtonContainer extends Component<
   Props & InnerProps & InjectedIntlProps
 > {
   public state = {
-    isLoading: false,
     isModalOpen: false,
-    shouldDisplayError: false,
-  }
-
-  private updatePromise: any
-
-  public componentWillUnmount = () => {
-    if (this.updatePromise) {
-      this.updatePromise.cancel()
-    }
-  }
-
-  public handleSubmit = () => {
-    const {
-      intl,
-      showToast,
-      orderGroup,
-      updateStatus,
-      targetStatus,
-    } = this.props
-
-    this.updatePromise = makeCancelable(
-      updateStatus({
-        variables: {
-          orderGroup,
-          status: targetStatus,
-        },
-      })
-        .then(() => {
-          this.setState({ isModalOpen: false })
-          showToast({
-            message: intl.formatMessage({
-              id: 'subscription.editition.success',
-            }),
-          })
-        })
-        .catch(() => this.setState({ shouldDisplayError: true }))
-        .finally(() => this.setState({ isLoading: false }))
-    )
-
-    this.setState({ isLoading: true })
   }
 
   public handleToggleModal = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen })
   }
 
-  public handleDismissError = () => {
-    this.setState({ shouldDisplayError: false })
-  }
-
   public render() {
-    const { intl, children, targetStatus, block } = this.props
+    const {
+      intl,
+      children,
+      targetStatus,
+      block,
+      updateStatus,
+      orderGroup,
+    } = this.props
 
     const messages = retrieveMessagesByStatus(targetStatus)
 
-    const CustomModal = (
-      <Modal
-        centered
-        isOpen={this.state.isModalOpen}
-        onClose={this.handleToggleModal}>
-        {this.state.shouldDisplayError && (
-          <Alert type="error" onClose={this.handleDismissError}>
-            {intl.formatMessage({ id: 'subscription.fallback.error.message' })}
-          </Alert>
-        )}
-        <h2 className="heading-2">
-          {intl.formatMessage({ id: messages.titleMessageId })}
-        </h2>
-        <p className="t-body">
-          {intl.formatMessage({ id: messages.bodyMessageId })}
-        </p>
-        <div className="flex flex-row justify-end mt7">
-          <span className="mr4">
-            <Button
-              size="small"
-              variation="tertiary"
-              onClick={this.handleToggleModal}>
-              {intl.formatMessage({ id: messages.cancelationMessageId })}
-            </Button>
-          </span>
-          <Button
-            size="small"
-            isLoading={this.state.isLoading}
-            onClick={this.handleSubmit}>
-            {intl.formatMessage({ id: messages.confirmationMessageId })}
-          </Button>
-        </div>
-      </Modal>
-    )
+    const modalProps = {
+      cancelationLabel: intl.formatMessage({
+        id: messages.cancelationMessageId,
+      }),
+      confirmationLabel: intl.formatMessage({
+        id: messages.confirmationMessageId,
+      }),
+      errorMessage: intl.formatMessage({
+        id: 'subscription.fallback.error.message',
+      }),
+      isModalOpen: this.state.isModalOpen,
+      modalContent: (
+        <Fragment>
+          <h2 className="heading-2">
+            {intl.formatMessage({ id: messages.titleMessageId })}
+          </h2>
+          <p className="t-body">
+            {intl.formatMessage({ id: messages.bodyMessageId })}
+          </p>
+        </Fragment>
+      ),
+      onCloseModal: this.handleToggleModal,
+      successMessage: intl.formatMessage({
+        id: 'subscription.editition.success',
+      }),
+      targetPromise: () =>
+        updateStatus({
+          variables: {
+            orderGroup,
+            status: targetStatus,
+          },
+        }),
+    }
 
     return (
       <Fragment>
-        {CustomModal}
+        <ConfirmationModal {...modalProps} />
         <Button
           variation="secondary"
           onClick={this.handleToggleModal}
@@ -120,7 +82,6 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
 
 const enhance = compose<any, Props>(
   injectIntl,
-  withToast,
   graphql(UPDATE_STATUS, { name: 'updateStatus' })
 )
 
