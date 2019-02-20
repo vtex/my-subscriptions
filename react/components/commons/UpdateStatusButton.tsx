@@ -104,7 +104,6 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
           </span>
           <Button
             size="small"
-            variation="primary"
             isLoading={this.state.isLoading}
             onClick={this.handleSubmit}>
             {intl.formatMessage({ id: messages.confirmationMessageId })}
