@@ -2,17 +2,10 @@ import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
-import {
-  Alert,
-  Button,
-  IconEdit,
-  Input,
-  Modal,
-  withToast,
-} from 'vtex.styleguide'
+import { IconEdit, Input } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
-import { makeCancelable } from '../../utils'
+import ConfirmationModal from '../commons/ConfirmationModal'
 
 class SubscriptionNameContainer extends Component<
   Props & InnerProps & InjectedIntlProps
@@ -21,39 +14,10 @@ class SubscriptionNameContainer extends Component<
     isLoading: false,
     isModalOpen: false,
     name: '',
-    shouldDisplayError: false,
   }
 
-  private updatePromise: any
-
-  public componentWillUnmount = () => {
-    if (this.updatePromise) {
-      this.updatePromise.cancel()
-    }
-  }
-
-  public handleSubmit = () => {
-    const { intl, showToast, subscriptionGroup, updateName } = this.props
-
-    this.setState({ isLoading: true })
-    this.updatePromise = makeCancelable(
-      updateName({
-        variables: {
-          name: this.state.name,
-          orderGroup: subscriptionGroup.orderGroup,
-        },
-      })
-        .then(() => {
-          this.setState({ isModalOpen: false })
-          showToast({
-            message: intl.formatMessage({
-              id: 'subscription.editition.success',
-            }),
-          })
-        })
-        .catch(() => this.setState({ shouldDisplayError: true }))
-        .finally(() => this.setState({ isLoading: false }))
-    )
+  public handleLoading = (value: boolean) => {
+    this.setState({ isLoading: value })
   }
 
   public handleOpenModal = () => {
@@ -73,14 +37,11 @@ class SubscriptionNameContainer extends Component<
     this.setState({ name: event.target.value })
   }
 
-  public handleDismissError = () => {
-    this.setState({ shouldDisplayError: false })
-  }
-
   public render() {
     const {
       subscriptionGroup: { name, subscriptions },
       intl,
+      updateName,
     } = this.props
 
     let content
@@ -106,50 +67,52 @@ class SubscriptionNameContainer extends Component<
       }
     }
 
-    const CustomModal = (
-      <Modal
-        centered
-        isOpen={this.state.isModalOpen}
-        onClose={this.handleCloseModal}>
-        {this.state.shouldDisplayError && (
-          <Alert type="error" onClose={this.handleDismissError}>
-            {intl.formatMessage({ id: 'subscription.fallback.error.message' })}
-          </Alert>
-        )}
-        <h2 className="heading-2">
-          {intl.formatMessage({ id: 'subscription.name.editition.name.title' })}
-        </h2>
-        <div className="flex items-center">
-          <div className="w-90">
-            <Input
-              value={this.state.name}
-              onChange={this.handleChangeName}
-              disabled={this.state.isLoading}
-            />
+    const modalProps = {
+      cancelationLabel: intl.formatMessage({
+        id: 'subscription.name.editition.cancel',
+      }),
+      confirmationLabel: intl.formatMessage({
+        id: 'subscription.name.editition.edit',
+      }),
+      errorMessage: intl.formatMessage({
+        id: 'subscription.fallback.error.message',
+      }),
+      isModalOpen: this.state.isModalOpen,
+      modalContent: (
+        <Fragment>
+          <h2 className="heading-2">
+            {intl.formatMessage({
+              id: 'subscription.name.editition.name.title',
+            })}
+          </h2>
+          <div className="flex items-center">
+            <div className="w-90">
+              <Input
+                value={this.state.name}
+                onChange={this.handleChangeName}
+                disabled={this.state.isLoading}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-end mt7">
-          <span className="mr4">
-            <Button
-              size="small"
-              variation="tertiary"
-              onClick={this.handleCloseModal}>
-              {intl.formatMessage({ id: 'subscription.name.editition.cancel' })}
-            </Button>
-          </span>
-          <Button
-            size="small"
-            isLoading={this.state.isLoading}
-            onClick={this.handleSubmit}>
-            {intl.formatMessage({ id: 'subscription.name.editition.edit' })}
-          </Button>
-        </div>
-      </Modal>
-    )
+        </Fragment>
+      ),
+      onCloseModal: this.handleCloseModal,
+      onLoading: this.handleLoading,
+      successMessage: intl.formatMessage({
+        id: 'subscription.editition.success',
+      }),
+      targetPromise: () =>
+        updateName({
+          variables: {
+            name: this.state.name,
+            orderGroup: this.props.subscriptionGroup.orderGroup,
+          },
+        }),
+    }
 
     return (
       <Fragment>
-        {CustomModal}
+        <ConfirmationModal {...modalProps} />
         <div className="t-heading-4">
           {content}
           <span
@@ -165,7 +128,6 @@ class SubscriptionNameContainer extends Component<
 
 const enhance = compose<any, Props>(
   injectIntl,
-  withToast,
   graphql(UPDATE_NAME, { name: 'updateName' })
 )
 
