@@ -16,8 +16,12 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
     isModalOpen: false,
   }
 
-  public handleToggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen })
+  public handleOpenModal = () => {
+    this.setState({ isModalOpen: true })
+  }
+
+  public handleCloseModal = () => {
+    this.setState({ isModalOpen: false })
   }
 
   public render() {
@@ -53,7 +57,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
           </p>
         </Fragment>
       ),
-      onCloseModal: this.handleToggleModal,
+      onCloseModal: this.handleCloseModal,
       successMessage: intl.formatMessage({
         id: 'subscription.editition.success',
       }),
@@ -71,7 +75,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
         <ConfirmationModal {...modalProps} />
         <Button
           variation="secondary"
-          onClick={this.handleToggleModal}
+          onClick={this.handleOpenModal}
           block={block}>
           {children}
         </Button>
