@@ -18,13 +18,11 @@ const SubscriptionGroupImages: FunctionComponent<Props> = ({ images }) => {
   return (
     <div className={css.subscriptionGroupImageWrapper}>
       <Swiper {...params}>
-        <div>
-          {images.map(url => (
-            <div key={url} className="swiper-slide center-all pa6 w-100">
-              <ProductImage url={url} alt="product" />
-            </div>
-          ))}
-        </div>
+        {images.map(url => (
+          <div key={url} className="swiper-slide center-all pa6 w-100">
+            <ProductImage url={url} alt="product" />
+          </div>
+        ))}
       </Swiper>
     </div>
   )
