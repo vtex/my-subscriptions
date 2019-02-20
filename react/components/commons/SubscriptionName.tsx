@@ -81,10 +81,6 @@ class SubscriptionNameContainer extends Component<
     this.setState({ name: event.target.value })
   }
 
-  public handleToggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen })
-  }
-
   public handleDismissError = () => {
     this.setState({ shouldDisplayError: false })
   }
@@ -129,10 +125,10 @@ class SubscriptionNameContainer extends Component<
           label: intl.formatMessage({
             id: 'subscription.name.editition.cancel',
           }),
-          onClick: this.handleToggleModal,
+          onClick: this.handleCloseModal,
         }}
         isOpen={this.state.isModalOpen}
-        onClose={this.handleToggleModal}>
+        onClose={this.handleCloseModal}>
         {this.state.shouldDisplayError && (
           <Alert type="error" onClose={this.handleDismissError}>
             {intl.formatMessage({ id: 'subscription.fallback.error.message' })}

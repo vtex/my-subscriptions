@@ -123,5 +123,7 @@
   "subscription.name.editition.name.title": "Elija un nombre para su suscripción:",
   "subscription.editition.success": "Suscripción editada!",
   "subscription.fallback.error.message": "Algo salió mal, inténtalo de nuevo más tarde!",
-  "subscription.fallback.error.refresh.message": "Recargar"
+  "subscription.fallback.error.refresh.message": "Recargar",
+  "subscription.change.status.modal.confirmation": "Sí",
+  "subscription.change.status.modal.cancelation": "No"
 }

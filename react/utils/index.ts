@@ -48,3 +48,30 @@ export function convertStatusInTagType(
       return null
   }
 }
+
+export function retrieveMessagesByStatus(status: SubscriptionStatusEnum) {
+  let titleMessageId = ''
+  let bodyMessageId = ''
+
+  switch (status) {
+    case SubscriptionStatusEnum.ACTIVE:
+      titleMessageId = 'subscription.restore.title'
+      bodyMessageId = 'subscription.restore.text'
+      break
+    case SubscriptionStatusEnum.PAUSED:
+      titleMessageId = 'subscription.pause.title'
+      bodyMessageId = 'subscription.pause.text'
+      break
+    case SubscriptionStatusEnum.CANCELED:
+      titleMessageId = 'subscription.cancel.title'
+      bodyMessageId = 'subscription.cancel.text'
+      break
+  }
+
+  return {
+    bodyMessageId,
+    cancelationMessageId: 'subscription.change.status.modal.cancelation',
+    confirmationMessageId: 'subscription.change.status.modal.confirmation',
+    titleMessageId,
+  }
+}
