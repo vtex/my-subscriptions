@@ -6,7 +6,7 @@ import { Alert, Button, Modal, withToast } from 'vtex.styleguide'
 
 import { SubscriptionStatusEnum } from '../../enums'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-import { retrieveMessagesByStatus } from '../../utils'
+import { makeCancelable, retrieveMessagesByStatus } from '../../utils'
 
 class SubscriptionUpdateStatusButtonContainer extends Component<
   Props & InnerProps & InjectedIntlProps
@@ -14,16 +14,15 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
   public state = {
     isLoading: false,
     isModalOpen: false,
-    isMounted: false,
     shouldDisplayError: false,
   }
 
-  public componentDidMount = () => {
-    this.setState({ isMounted: true })
-  }
+  private updatePromise: any
 
   public componentWillUnmount = () => {
-    this.setState({ isMounted: false })
+    if (this.updatePromise) {
+      this.updatePromise.cancel()
+    }
   }
 
   public handleSubmit = () => {
@@ -35,33 +34,26 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       targetStatus,
     } = this.props
 
-    this.setState({ isLoading: true })
-    updateStatus({
-      variables: {
-        orderGroup,
-        status: targetStatus,
-      },
-    })
-      .then(() => {
-        if (this.state.isMounted) {
+    this.updatePromise = makeCancelable(
+      updateStatus({
+        variables: {
+          orderGroup,
+          status: targetStatus,
+        },
+      })
+        .then(() => {
           this.setState({ isModalOpen: false })
           showToast({
             message: intl.formatMessage({
               id: 'subscription.editition.success',
             }),
           })
-        }
-      })
-      .catch(() => {
-        if (this.state.isMounted) {
-          this.setState({ shouldDisplayError: true })
-        }
-      })
-      .finally(() => {
-        if (this.state.isMounted) {
-          this.setState({ isLoading: false })
-        }
-      })
+        })
+        .catch(() => this.setState({ shouldDisplayError: true }))
+        .finally(() => this.setState({ isLoading: false }))
+    )
+
+    this.setState({ isLoading: true })
   }
 
   public handleToggleModal = () => {

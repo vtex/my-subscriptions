@@ -12,6 +12,7 @@ import {
 } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
+import { makeCancelable } from '../../utils'
 
 class SubscriptionNameContainer extends Component<
   Props & InnerProps & InjectedIntlProps
@@ -19,49 +20,40 @@ class SubscriptionNameContainer extends Component<
   public state = {
     isLoading: false,
     isModalOpen: false,
-    isMounted: false,
     name: '',
     shouldDisplayError: false,
   }
 
-  public componentDidMount = () => {
-    this.setState({ isMounted: true })
-  }
+  private updatePromise: any
 
   public componentWillUnmount = () => {
-    this.setState({ isMounted: false })
+    if (this.updatePromise) {
+      this.updatePromise.cancel()
+    }
   }
 
   public handleSubmit = () => {
     const { intl, showToast, subscriptionGroup, updateName } = this.props
 
     this.setState({ isLoading: true })
-    updateName({
-      variables: {
-        name: this.state.name,
-        orderGroup: subscriptionGroup.orderGroup,
-      },
-    })
-      .then(() => {
-        if (this.state.isMounted) {
+    this.updatePromise = makeCancelable(
+      updateName({
+        variables: {
+          name: this.state.name,
+          orderGroup: subscriptionGroup.orderGroup,
+        },
+      })
+        .then(() => {
           this.setState({ isModalOpen: false })
           showToast({
             message: intl.formatMessage({
               id: 'subscription.editition.success',
             }),
           })
-        }
-      })
-      .catch(() => {
-        if (this.state.isMounted) {
-          this.setState({ shouldDisplayError: true })
-        }
-      })
-      .finally(() => {
-        if (this.state.isMounted) {
-          this.setState({ isLoading: false })
-        }
-      })
+        })
+        .catch(() => this.setState({ shouldDisplayError: true }))
+        .finally(() => this.setState({ isLoading: false }))
+    )
   }
 
   public handleOpenModal = () => {
