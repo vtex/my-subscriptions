@@ -11,4 +11,5 @@ declare module 'vtex.styleguide' {
   export const Spinner
   export const withToast
   export const Alert
+  export const Modal
 }

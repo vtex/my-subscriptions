@@ -6,6 +6,7 @@ import { SubscriptionStatusEnum } from '../../../enums'
 import Frequency from '../../commons/FrequencyInfo'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
+import UpdateStatusButton from '../../commons/UpdateStatusButton'
 import ItemDate from './ItemDate'
 
 interface Props {
@@ -50,9 +51,12 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           </Button>
           {isPaused && (
             <div className="pt4">
-              <Button variation="secondary" block>
+              <UpdateStatusButton
+                targetStatus={SubscriptionStatusEnum.ACTIVE}
+                orderGroup={item.orderGroup}
+                block>
                 <FormattedMessage id="subscription.list.button.reactivate" />
-              </Button>
+              </UpdateStatusButton>
             </div>
           )}
         </div>
