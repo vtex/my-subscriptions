@@ -4,10 +4,10 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import {
   Alert,
+  Button,
   IconEdit,
   Input,
-  ModalDialog,
-  Spinner,
+  Modal,
   withToast,
 } from 'vtex.styleguide'
 
@@ -114,19 +114,9 @@ class SubscriptionNameContainer extends Component<
       }
     }
 
-    const Modal = (
-      <ModalDialog
+    const CustomModal = (
+      <Modal
         centered
-        confirmation={{
-          label: intl.formatMessage({ id: 'subscription.name.editition.edit' }),
-          onClick: this.handleSubmit,
-        }}
-        cancelation={{
-          label: intl.formatMessage({
-            id: 'subscription.name.editition.cancel',
-          }),
-          onClick: this.handleCloseModal,
-        }}
         isOpen={this.state.isModalOpen}
         onClose={this.handleCloseModal}>
         {this.state.shouldDisplayError && (
@@ -134,9 +124,9 @@ class SubscriptionNameContainer extends Component<
             {intl.formatMessage({ id: 'subscription.fallback.error.message' })}
           </Alert>
         )}
-        <h1 className="heading-2">
+        <h2 className="heading-2">
           {intl.formatMessage({ id: 'subscription.name.editition.name.title' })}
-        </h1>
+        </h2>
         <div className="flex items-center">
           <div className="w-90">
             <Input
@@ -145,18 +135,29 @@ class SubscriptionNameContainer extends Component<
               disabled={this.state.isLoading}
             />
           </div>
-          {this.state.isLoading && (
-            <div className="w-10 c-action-primary ml4">
-              <Spinner color="currentColor" size={20} />
-            </div>
-          )}
         </div>
-      </ModalDialog>
+        <div className="flex flex-row justify-end mt7">
+          <span className="mr4">
+            <Button
+              size="small"
+              variation="tertiary"
+              onClick={this.handleCloseModal}>
+              {intl.formatMessage({ id: 'subscription.name.editition.cancel' })}
+            </Button>
+          </span>
+          <Button
+            size="small"
+            isLoading={this.state.isLoading}
+            onClick={this.handleSubmit}>
+            {intl.formatMessage({ id: 'subscription.name.editition.edit' })}
+          </Button>
+        </div>
+      </Modal>
     )
 
     return (
       <Fragment>
-        {Modal}
+        {CustomModal}
         <div className="t-heading-4">
           {content}
           <span
