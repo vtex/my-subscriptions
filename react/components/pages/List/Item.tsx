@@ -13,13 +13,11 @@ const SubscriptionGroupItem: FunctionComponent<Props> = ({
   item,
   onGoToDetails,
 }) => {
-  const images = item.subscriptions.map(
-    subscription => subscription.sku.imageUrl
-  )
+  const skus = item.subscriptions.map(subscription => subscription.sku)
 
   return (
     <article className={css.subscriptionGroupItemWrapper}>
-      <Images images={images} />
+      <Images skus={skus} />
       <Summary item={item} onGoToDetails={onGoToDetails} />
     </article>
   )

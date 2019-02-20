@@ -10,17 +10,17 @@ import ProductImage from '../../commons/ProductImage'
 import './global.css'
 
 interface Props {
-  images: string[]
+  skus: SKUType[]
 }
 
-const SubscriptionGroupImages: FunctionComponent<Props> = ({ images }) => {
-  const params = getParams(images)
+const SubscriptionGroupImages: FunctionComponent<Props> = ({ skus }) => {
+  const params = getParams(skus.length)
   return (
     <div className={css.subscriptionGroupImageWrapper}>
       <Swiper {...params}>
-        {images.map(url => (
-          <div key={url} className="swiper-slide center-all pa6 w-100">
-            <ProductImage url={url} alt="product" />
+        {skus.map((sku, i) => (
+          <div key={i} className="swiper-slide center-all pa6 w-100">
+            <ProductImage url={sku.imageUrl} alt={sku.productName} />
           </div>
         ))}
       </Swiper>
@@ -34,11 +34,11 @@ const iconSize = 17
 const caretClassName =
   'pv7 absolute top-50 translate--50y z-2 pointer c-action-primary'
 
-function getParams(images: string[]) {
+function getParams(imagesLength: number) {
   return {
     containerClass: 'swiper-container',
     navigation:
-      images.length > 1
+      imagesLength > 1
         ? {
             disabledClass: `c-disabled`,
             nextEl: '.swiper-caret-next',
@@ -46,7 +46,7 @@ function getParams(images: string[]) {
           }
         : {},
     pagination:
-      images.length > 1
+      imagesLength > 1
         ? {
             bulletActiveClass:
               'c-action-primary swiper-pagination-bullet-active',
@@ -65,9 +65,6 @@ function getParams(images: string[]) {
         <IconCaretLeft size={iconSize} />
       </span>
     ),
-    resistanceRatio: images.length > 1 ? 0.85 : 0,
-    zoom: {
-      maxRatio: 2,
-    },
+    resistanceRatio: imagesLength > 1 ? 0.85 : 0,
   }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment, FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 
 import { utils } from 'vtex.my-account-commons'
 
@@ -16,13 +16,7 @@ const ProductImage: FunctionComponent<Props> = ({
   alt,
 }: Props) => {
   return (
-    <Fragment>
-      <img
-        className={`${className}`}
-        src={fixImageUrl(url, 300, 300)}
-        alt={alt}
-      />
-    </Fragment>
+    <img className={className} src={fixImageUrl(url, 300, 300)} alt={alt} />
   )
 }
 
