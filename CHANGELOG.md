@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Get updates from versions `v0.4.0` and `v0.4.1`.
+
 ## [0.4.1] - 2019-02-06
 ### Fixed
 - Update status query.
@@ -20,6 +23,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bump `vtex.my-subscriptions-graphql`.
 - Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`.
 
+## [1.2.1] - 2019-01-22
+
+## [1.2.0] - 2019-01-22
+
+## [1.1.0] - 2019-01-18
+### Changed
+- Update React builder to 3.x.
+- Bump vtex.styleguide to 9.x.
+
 ## [0.3.3] - 2019-01-11
 ### Fixed
 - Loading and display of order's history.
@@ -31,6 +43,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.3.1] - 2019-01-04 [YANKED]
 ### Added
 - Retry button to the subscriptions with error.
+
+## [1.0.0] - 2018-12-28
+### Changed
+- New builders are in town! Add messages and store builders.
 
 ## [0.3.0] - 2018-12-28
 ### Changed
