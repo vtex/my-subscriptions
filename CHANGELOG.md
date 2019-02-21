@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- List by filter
-- Display and edition of subscription group name.
+- List by filter.
+- Display and edition of subscription group name on listing.
+- Unpause button on listing.
+- `Error` fallback component on listing.
 
 ## [0.4.1] - 2019-02-06
 

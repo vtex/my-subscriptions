@@ -5,6 +5,7 @@ import { SubscriptionStatusEnum } from '../../../enums'
 import ITEMS from '../../../graphql/groupedSubscriptionsItems.gql'
 import withQuery from '../../hocs/withQuery'
 import EmptyState from './EmptyState'
+import ErrorState from './ErrorState'
 import Item from './Item'
 import Loading from './Loading'
 
@@ -34,7 +35,7 @@ const enhance = compose<any, OuterProps>(
     document: ITEMS,
     emptyState: EmptyState,
     errorCallback: e => console.error(e),
-    errorState: () => <div>Error</div>,
+    errorState: ErrorState,
     loadingState: Loading,
     operationOptions: queryOptions,
     validateEmpty,
@@ -44,11 +45,7 @@ const enhance = compose<any, OuterProps>(
 export default enhance(SubscriptionsGroups)
 
 function validateEmpty(data: any) {
-  if (
-    data &&
-    data.groupedSubscriptions &&
-    data.groupedSubscriptions.length === 0
-  ) {
+  if (data.items && data.items.length === 0) {
     return true
   }
 

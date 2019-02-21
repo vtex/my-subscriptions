@@ -48,3 +48,48 @@ export function convertStatusInTagType(
       return null
   }
 }
+
+export function retrieveMessagesByStatus(status: SubscriptionStatusEnum) {
+  let titleMessageId = ''
+  let bodyMessageId = ''
+
+  switch (status) {
+    case SubscriptionStatusEnum.ACTIVE:
+      titleMessageId = 'subscription.restore.title'
+      bodyMessageId = 'subscription.restore.text'
+      break
+    case SubscriptionStatusEnum.PAUSED:
+      titleMessageId = 'subscription.pause.title'
+      bodyMessageId = 'subscription.pause.text'
+      break
+    case SubscriptionStatusEnum.CANCELED:
+      titleMessageId = 'subscription.cancel.title'
+      bodyMessageId = 'subscription.cancel.text'
+      break
+  }
+
+  return {
+    bodyMessageId,
+    cancelationMessageId: 'subscription.change.status.modal.cancelation',
+    confirmationMessageId: 'subscription.change.status.modal.confirmation',
+    titleMessageId,
+  }
+}
+
+export const makeCancelable = (promise: Promise<any>) => {
+  let hasCanceled = false
+
+  const wrappedPromise = new Promise((resolve, reject) => {
+    promise.then(
+      val => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
+      error => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
+    )
+  })
+
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      hasCanceled = true
+    },
+  }
+}

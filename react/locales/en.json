@@ -121,5 +121,8 @@
   "subscription.name.editition.edit": "Edit",
   "subscription.name.editition.name.title": "Choose a name to your subscription:",
   "subscription.editition.success": "Subscription edited!",
-  "subscription.fallback.error.message": "Something went wrong, try again later!"
+  "subscription.fallback.error.message": "Something went wrong, try again later!",
+  "subscription.fallback.error.refresh.message": "Refresh",
+  "subscription.change.status.modal.confirmation": "Yes",
+  "subscription.change.status.modal.cancelation": "No"
 }
