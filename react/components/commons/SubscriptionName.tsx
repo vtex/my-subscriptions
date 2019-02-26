@@ -113,12 +113,12 @@ class SubscriptionNameContainer extends Component<
     return (
       <Fragment>
         <ConfirmationModal {...modalProps} />
-        <div className="t-heading-4">
+        <div className="t-heading-5">
           {content}
           <span
-            className="ml4 c-action-primary hover-c-emphasis pointer"
+            className="ml5 c-action-primary hover-c-action-primary pointer"
             onClick={this.handleOpenModal}>
-            <IconEdit />
+            <IconEdit solid />
           </span>
         </div>
       </Fragment>

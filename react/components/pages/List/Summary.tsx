@@ -22,7 +22,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
   const isActive = item.status === SubscriptionStatusEnum.ACTIVE
 
   return (
-    <div className="w-100 flex pv6 ph3">
+    <div className="w-100 flex pv6 pl3 pr5">
       <div className="w-50 flex flex-row flex-wrap">
         <div className="w-100">
           <Name subscriptionGroup={item} />
@@ -41,8 +41,8 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           <ItemDate item={item} />
         </div>
       </div>
-      <div className="w-50 flex flex-row flex-wrap">
-        <div className="w-100 mw5 self-center center">
+      <div className="w-50 flex flex-wrap justify-end">
+        <div className="w-100 mw5 self-center">
           <Button
             variation="secondary"
             onClick={() => onGoToDetails(item.orderGroup)}
