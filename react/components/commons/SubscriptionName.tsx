@@ -113,7 +113,7 @@ class SubscriptionNameContainer extends Component<
     return (
       <Fragment>
         <ConfirmationModal {...modalProps} />
-        <div className="t-heading-5">
+        <div className="t-heading-5 c-on-base">
           {content}
           <span
             className="ml5 c-action-primary hover-c-action-primary pointer"
