@@ -80,13 +80,13 @@ class SubscriptionNameContainer extends Component<
       isModalOpen: this.state.isModalOpen,
       modalContent: (
         <Fragment>
-          <h2 className="heading-2">
+          <h2 className="t-heading-5 c-on-base mt0 mb7">
             {intl.formatMessage({
               id: 'subscription.name.editition.name.title',
             })}
           </h2>
           <div className="flex items-center">
-            <div className="w-90">
+            <div className="w-100">
               <Input
                 value={this.state.name}
                 onChange={this.handleChangeName}

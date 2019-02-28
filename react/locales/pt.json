@@ -120,7 +120,7 @@
   "subscription.list.item.date.since": "{status} desde {date}",
   "subscription.list.item.date.next.purchase": "Próxima compra em {date}",
   "subscription.name.editition.cancel": "Cancelar",
-  "subscription.name.editition.edit": "Editar",
+  "subscription.name.editition.edit": "Salvar",
   "subscription.name.editition.name.title": "Escolha um nome para a sua assinatura:",
   "subscription.editition.success": "Assinatura editada!",
   "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!",
