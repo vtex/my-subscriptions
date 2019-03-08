@@ -1,5 +1,5 @@
 export default {
-  subscriptionGroupImageWrapper: 'h5 w5 flex-none center overflow-hidden',
+  subscriptionGroupImageWrapper: 'vtex-subscriptions-custom-image-size flex-none center overflow-hidden mb4',
   subscriptionGroupItemWrapper:
-    'subscription__listing-card mb6 bg-base pa0-ns pa6-s bb b--muted-5 flex flex-row-ns flex-column-s',
+    'subscription__listing-card mb4 bg-base pa0-ns pa3-s bb b--muted-5 flex flex-row-ns flex-column-s',
 }

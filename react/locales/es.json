@@ -119,7 +119,7 @@
   "subscription.list.item.date.since": "{status} ya que {date}",
   "subscription.list.item.date.next.purchase": "Próxima compra en {date}",
   "subscription.name.editition.cancel": "Cancelar",
-  "subscription.name.editition.edit": "Editar",
+  "subscription.name.editition.edit": "Guardar",
   "subscription.name.editition.name.title": "Elija un nombre para su suscripción:",
   "subscription.editition.success": "Suscripción editada!",
   "subscription.fallback.error.message": "Algo salió mal, inténtalo de nuevo más tarde!",

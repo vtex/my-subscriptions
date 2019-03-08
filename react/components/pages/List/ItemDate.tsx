@@ -28,7 +28,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<
           }
         )
 
-  return <span className="t-body c-muted-2">{content}</span>
+  return <span className="t-small c-muted-2">{content}</span>
 }
 
 export default injectIntl(SubscriptionsGroupItemDate)

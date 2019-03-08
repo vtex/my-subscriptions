@@ -12,7 +12,7 @@ const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
   periodicity,
 }) => {
   return (
-    <span className="t-body">
+    <span className="t-body c-on-base">
       {intl.formatMessage(
         {
           id: `subscription.settings.${periodicity.toLowerCase()}`,

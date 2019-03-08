@@ -80,13 +80,13 @@ class SubscriptionNameContainer extends Component<
       isModalOpen: this.state.isModalOpen,
       modalContent: (
         <Fragment>
-          <h2 className="heading-2">
+          <h2 className="t-heading-5 c-on-base mt0 mb7">
             {intl.formatMessage({
               id: 'subscription.name.editition.name.title',
             })}
           </h2>
           <div className="flex items-center">
-            <div className="w-90">
+            <div className="w-100">
               <Input
                 value={this.state.name}
                 onChange={this.handleChangeName}
@@ -113,12 +113,12 @@ class SubscriptionNameContainer extends Component<
     return (
       <Fragment>
         <ConfirmationModal {...modalProps} />
-        <div className="t-heading-4">
+        <div className="t-heading-5 c-on-base">
           {content}
           <span
-            className="ml4 c-action-primary hover-c-emphasis pointer"
+            className="ml5 c-action-primary hover-c-action-primary pointer"
             onClick={this.handleOpenModal}>
-            <IconEdit />
+            <IconEdit solid />
           </span>
         </div>
       </Fragment>
