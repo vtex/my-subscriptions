@@ -1,6 +1,0 @@
-mutation addNewAddress(
-  $orderGroup: String!
-  $address: ShippingAddressInput
-) {
-  addNewAddress(orderGroup: $orderGroup, address: $address)
-}
