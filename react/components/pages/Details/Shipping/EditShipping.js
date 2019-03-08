@@ -5,7 +5,6 @@ import { compose, graphql } from 'react-apollo'
 import MediaQuery from 'react-responsive'
 import { Button, Dropdown, Alert } from 'vtex.styleguide'
 
-import AddAddressModal from './AddAddressModal'
 import ShippingSkeleton from './ShippingSkeleton'
 import EditButtons from '../EditButtons'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
@@ -76,21 +75,6 @@ class EditShipping extends Component {
       alertMessage,
       showModalErrorAlert,
     } = this.state
-
-    if (isModalOpen) {
-      return (
-        <AddAddressModal
-          subscriptionsGroup={this.props.subscriptionsGroup}
-          isModalOpen={this.state.isModalOpen}
-          onClose={this.handleCloseModal}
-          onCloseSuccess={this.handleCloseModalSuccess}
-          onCloseError={this.handleCloseModalSuccess}
-          addressesData={this.props.addressesData}
-          showErrorAlert={showModalErrorAlert}
-          errorMessage={alertMessage}
-        />
-      )
-    }
 
     if (loading || !addresses) {
       return <ShippingSkeleton />
