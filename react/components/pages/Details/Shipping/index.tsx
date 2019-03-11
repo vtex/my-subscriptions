@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { withRouter } from 'react-router-dom'
+
 import { compose } from 'recompose'
 import { withToast } from 'vtex.styleguide'
 
@@ -17,6 +19,17 @@ class ShippingContainer extends Component<
     isLoading: false,
     selectedAddressId: '',
     showErrorAlert: false,
+  }
+
+  public handleGoToCreateAddress = () => {
+    const { history } = this.props
+
+    const here = history.location.pathname
+
+    history.push({
+      pathname: '/addresses/new',
+      search: `?returnUrl=${here}`,
+    })
   }
 
   public handleCloseErrorAlert = () => {
@@ -85,6 +98,7 @@ class ShippingContainer extends Component<
         onCancel={this.handleCancelClick}
         onChangeAddress={this.handleAddressChange}
         onCloseErrorAlert={this.handleCloseErrorAlert}
+        onGoToCreateAddress={this.handleGoToCreateAddress}
         selectedAddressId={selectedAddressId}
         isLoading={isLoading}
         showErrorAlert={showErrorAlert}
@@ -102,6 +116,7 @@ class ShippingContainer extends Component<
 
 interface Props {
   subscriptionsGroup: SubscriptionsGroupItemType
+  history: any
 }
 
 interface InnerProps {
@@ -114,5 +129,6 @@ export default compose<any, Props>(
   graphql(UPDATE_ADDRESS, {
     name: 'updateAddress',
   }),
-  withToast
+  withToast,
+  withRouter
 )(ShippingContainer)

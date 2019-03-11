@@ -15,6 +15,7 @@ const EditShipping: FunctionComponent<
   selectedAddressId,
   onCloseErrorAlert,
   onChangeAddress,
+  onGoToCreateAddress,
   onCancel,
   onSave,
   showErrorAlert,
@@ -52,7 +53,10 @@ const EditShipping: FunctionComponent<
           />
         </div>
         <div className="pt3 pb4 nl5">
-          <Button size="small" variation="tertiary">
+          <Button
+            size="small"
+            variation="tertiary"
+            onClick={onGoToCreateAddress}>
             {intl.formatMessage({
               id: 'subscription.shipping.newAddress',
             })}
@@ -105,6 +109,7 @@ interface OuterProps {
   onCancel: () => void
   onChangeAddress: (e: any) => void
   onCloseErrorAlert: () => void
+  onGoToCreateAddress: () => void
   subscriptionsGroup: SubscriptionsGroupItemType
   selectedAddressId: string
   showErrorAlert: boolean
