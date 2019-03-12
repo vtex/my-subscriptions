@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router-dom'
-
 import { compose } from 'recompose'
 import { withToast } from 'vtex.styleguide'
 
@@ -12,7 +11,7 @@ import ShippingCard from './ShippingCard'
 
 class ShippingContainer extends Component<
   Props & InnerProps & InjectedIntlProps
-> {
+  > {
   public state = {
     errorMessage: '',
     isEditMode: false,
@@ -106,11 +105,11 @@ class ShippingContainer extends Component<
         subscriptionsGroup={subscriptionsGroup}
       />
     ) : (
-      <ShippingCard
-        onEdit={this.handleEditClick}
-        subscriptionsGroup={subscriptionsGroup}
-      />
-    )
+        <ShippingCard
+          onEdit={this.handleEditClick}
+          subscriptionsGroup={subscriptionsGroup}
+        />
+      )
   }
 }
 
