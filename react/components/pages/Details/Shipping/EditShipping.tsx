@@ -12,6 +12,7 @@ const EditShipping: FunctionComponent<
   InnerProps & OuterProps & InjectedIntlProps
 > = ({
   addresses,
+  addressesData,
   selectedAddressId,
   onCloseErrorAlert,
   onChangeAddress,
@@ -23,56 +24,58 @@ const EditShipping: FunctionComponent<
   isLoading,
   intl,
 }) => {
-  return (
-    <div className="card-height bg-base pa6 ba bw1 b--muted-5">
-      <div className="flex flex-row">
-        <div className="db-s di-ns b f4 tl c-on-base">
-          {intl.formatMessage({
-            id: 'subscription.shipping',
-          })}
-        </div>
-      </div>
-      <div className="flex pt5 w-100-s mr-auto flex-column">
-        {showErrorAlert && (
-          <div className="mb5">
-            <Alert type="error" autoClose={3000} onClose={onCloseErrorAlert}>
-              {intl.formatMessage({
-                id: `${errorMessage}`,
-              })}
-            </Alert>
-          </div>
-        )}
-        <div className="w-100">
-          <Dropdown
-            label={intl.formatMessage({
-              id: 'subscription.shipping.address',
-            })}
-            options={transformAddresses(addresses)}
-            value={selectedAddressId}
-            onChange={onChangeAddress}
-          />
-        </div>
-        <div className="pt3 pb4 nl5">
-          <Button
-            size="small"
-            variation="tertiary"
-            onClick={onGoToCreateAddress}>
+    addressesData.refetch()
+
+    return (
+      <div className="card-height bg-base pa6 ba bw1 b--muted-5">
+        <div className="flex flex-row">
+          <div className="db-s di-ns b f4 tl c-on-base">
             {intl.formatMessage({
-              id: 'subscription.shipping.newAddress',
+              id: 'subscription.shipping',
             })}
-          </Button>
+          </div>
         </div>
-        <div className="flex pt2-s pt0-ns">
-          <EditButtons
-            isLoading={isLoading}
-            onCancel={onCancel}
-            onSave={onSave}
-          />
+        <div className="flex pt5 w-100-s mr-auto flex-column">
+          {showErrorAlert && (
+            <div className="mb5">
+              <Alert type="error" autoClose={3000} onClose={onCloseErrorAlert}>
+                {intl.formatMessage({
+                  id: `${errorMessage}`,
+                })}
+              </Alert>
+            </div>
+          )}
+          <div className="w-100">
+            <Dropdown
+              label={intl.formatMessage({
+                id: 'subscription.shipping.address',
+              })}
+              options={transformAddresses(addresses)}
+              value={selectedAddressId}
+              onChange={onChangeAddress}
+            />
+          </div>
+          <div className="pt3 pb4 nl5">
+            <Button
+              size="small"
+              variation="tertiary"
+              onClick={onGoToCreateAddress}>
+              {intl.formatMessage({
+                id: 'subscription.shipping.newAddress',
+              })}
+            </Button>
+          </div>
+          <div className="flex pt2-s pt0-ns">
+            <EditButtons
+              isLoading={isLoading}
+              onCancel={onCancel}
+              onSave={onSave}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
 function transformAddresses(addresses: Address[]) {
   return addresses.map(address => {
@@ -87,6 +90,9 @@ const addressesQuery = {
   name: 'addressesData',
   options({ subscriptionsGroup }: OuterProps) {
     return {
+      options: {
+        fetchPolicy: 'network-only',
+      },
       variables: {
         orderGroup: subscriptionsGroup.orderGroup,
       },
@@ -97,6 +103,7 @@ const addressesQuery = {
 interface QueryResults {
   loading: boolean
   addresses: Address[]
+  refetch: () => void
 }
 
 interface InnerProps {
