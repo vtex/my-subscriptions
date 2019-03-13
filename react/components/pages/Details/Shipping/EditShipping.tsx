@@ -1,3 +1,4 @@
+import { FetchPolicy } from 'apollo-client'
 import React, { FunctionComponent } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
@@ -12,7 +13,6 @@ const EditShipping: FunctionComponent<
   InnerProps & OuterProps & InjectedIntlProps
 > = ({
   addresses,
-  addressesData,
   selectedAddressId,
   onCloseErrorAlert,
   onChangeAddress,
@@ -24,8 +24,6 @@ const EditShipping: FunctionComponent<
   isLoading,
   intl,
 }) => {
-    addressesData.refetch()
-
     return (
       <div className="card-height bg-base pa6 ba bw1 b--muted-5">
         <div className="flex flex-row">
@@ -90,9 +88,7 @@ const addressesQuery = {
   name: 'addressesData',
   options({ subscriptionsGroup }: OuterProps) {
     return {
-      options: {
-        fetchPolicy: 'network-only',
-      },
+      fetchPolicy: 'network-only' as FetchPolicy,
       variables: {
         orderGroup: subscriptionsGroup.orderGroup,
       },
@@ -103,7 +99,6 @@ const addressesQuery = {
 interface QueryResults {
   loading: boolean
   addresses: Address[]
-  refetch: () => void
 }
 
 interface InnerProps {
@@ -128,8 +123,7 @@ export default compose<any, OuterProps>(
   injectIntl,
   graphql(GET_ADDRESSES, addressesQuery),
   branch(
-    ({ addressesData }: InnerProps) =>
-      addressesData.loading ||
+    ({ addressesData }: InnerProps) => addressesData.loading ||
       !addressesData.addresses ||
       addressesData.addresses.length === 0,
     renderComponent(ShippingSkeleton)
