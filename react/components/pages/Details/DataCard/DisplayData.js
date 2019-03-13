@@ -9,7 +9,7 @@ import ChargeDayInfo from '../../../ChargeDayInfo'
 import FrequencyInfo from '../../../FrequencyInfo'
 import LabeledInfo from '../../../LabeledInfo'
 import { subscriptionsGroupShape } from '../../../../proptypes'
-import { CANCELED_STATUS } from '../../../../constants'
+import { SubscriptionStatusEnum } from '../../../../enums'
 
 class DisplayData extends Component {
   state = {
@@ -55,7 +55,7 @@ class DisplayData extends Component {
     const { subscriptionsGroup, intl, onEdit } = this.props
     const { isModalOpen, showAlert, alertType, alertMessage } = this.state
 
-    const displayEdit = subscriptionsGroup.status !== CANCELED_STATUS
+    const displayEdit = subscriptionsGroup.status === SubscriptionStatusEnum.ACTIVE
 
     return (
       <div className="card-height bw1 bg-base pa6 ba b--muted-5">
@@ -71,13 +71,13 @@ class DisplayData extends Component {
                 })}
               </Alert>
             ) : (
-              <Toast
-                message={intl.formatMessage({
-                  id: 'subscription.edit.success',
-                })}
-                onClose={this.handleCloseAlert}
-              />
-            )}
+                <Toast
+                  message={intl.formatMessage({
+                    id: 'subscription.edit.success',
+                  })}
+                  onClose={this.handleCloseAlert}
+                />
+              )}
           </div>
         )}
         {isModalOpen && (
