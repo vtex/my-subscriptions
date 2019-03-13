@@ -41,5 +41,3 @@ export const WEEK_OPTIONS = [
   { value: 'saturday', label: 'saturday' },
   { value: 'sunday', label: 'sunday' },
 ]
-
-export const CANCELED_STATUS = 'CANCELED'

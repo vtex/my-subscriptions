@@ -5,7 +5,7 @@ import { Button } from 'vtex.styleguide'
 
 import PaymentDisplay from '../PaymentDisplay'
 import { subscriptionsGroupShape } from '../../../../proptypes'
-import { CANCELED_STATUS } from '../../../../constants'
+import { SubscriptionStatusEnum } from '../../../../enums'
 
 class Payment extends Component {
   handleInvoiceButtonClick = bankInvoiceUrl => {
@@ -29,7 +29,7 @@ class Payment extends Component {
       lastGeneratedOrder.orderInfo &&
       lastGeneratedOrder.orderInfo.paymentUrl
 
-    const displayEdit = subscriptionsGroup.status !== CANCELED_STATUS
+    const displayEdit = subscriptionsGroup.status === SubscriptionStatusEnum.ACTIVE
 
     return (
       <div className="card bw1 bg-base pa6 ba b--muted-5">
