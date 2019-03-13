@@ -9,6 +9,7 @@ declare global {
     nextPurchaseDate: string
     lastStatusUpdate: string
     plan: SubscriptionPlanType
+    shippingAddress: Address
   }
 
   interface SubscriptionType {
@@ -30,6 +31,37 @@ declare global {
     periodicity: string
     interval: number
   }
+
+  interface UpdateAddressMutationArgs {
+    variables: UpdateAddressArgs
+  }
+
+  interface UpdateAddressArgs {
+    orderGroup: string
+    addressId: string
+  }
+
+  interface GetAddressesQueryArgs {
+    orderGroup: string
+  }
+
+  interface Address {
+    addressId: string
+    street: string
+    number: string
+    complement: string
+    neighborhood: string
+    city: string
+    state: string
+    country: string
+    postalCode: string
+    reference: string
+    formattedAddress: string
+    additionalComponents: string
+    geoCoordinate: number[]
+    receiverName: string
+    addressType: string
+  }
 }
 
-export {}
+export { }
