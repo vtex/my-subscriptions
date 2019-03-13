@@ -12,7 +12,7 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
   subscriptionsGroup,
 }) => {
   const displayEdit =
-    subscriptionsGroup.status !== SubscriptionStatusEnum.CANCELED
+    subscriptionsGroup.status === SubscriptionStatusEnum.ACTIVE
 
   return (
     <div className="card-height bw1 bg-base pa6 ba b--muted-5">

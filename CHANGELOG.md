@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Redirect to the address creation page and go back on add new address.
+- Enable edition only for ACTIVE subscriptions.
 
 ## [0.5.0] - 2019-03-29
 
