@@ -40,6 +40,7 @@ declare global {
     orderGroup: string
     addressId: string
   }
+
   interface GetAddressesQueryArgs {
     orderGroup: string
   }
@@ -63,4 +64,4 @@ declare global {
   }
 }
 
-export {}
+export { }
