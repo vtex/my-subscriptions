@@ -43,16 +43,6 @@ declare global {
     addressId: string
   }
 
-  interface MutationArgs<A> {
-    variables: A
-  }
-
-  interface UpdatePaymentArgs {
-    accountId: string | null
-    orderGroup: string
-    payment: string
-  }
-
   interface GetAddressesQueryArgs {
     orderGroup: string
   }
@@ -132,3 +122,4 @@ declare global {
   }
 }
 
+export { }
