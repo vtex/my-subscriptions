@@ -124,5 +124,6 @@
   "subscription.fallback.error.message": "Something went wrong, try again later!",
   "subscription.fallback.error.refresh.message": "Refresh",
   "subscription.change.status.modal.confirmation": "Yes",
-  "subscription.change.status.modal.cancelation": "No"
+  "subscription.change.status.modal.cancelation": "No",
+  "subcription.add.new.card": "Add new card"
 }

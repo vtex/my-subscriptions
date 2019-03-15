@@ -125,5 +125,6 @@
   "subscription.fallback.error.message": "Sa întâmplat ceva, încercați din nou mai târziu!",
   "subscription.fallback.error.refresh.message": "Reincarca",
   "subscription.change.status.modal.confirmation": "Da",
-  "subscription.change.status.modal.cancelation": "Nu"
+  "subscription.change.status.modal.cancelation": "Nu",
+  "subcription.add.new.card": "Adăugați o nouă carte"
 }
