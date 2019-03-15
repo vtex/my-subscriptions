@@ -38,13 +38,13 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
               <FormattedMessage id="subscription.retry.button.message" />
             </Button>
           )}
-          <div className="ml3">
-            {displayEdit && (
+          {displayEdit && (
+            <div className="ml3">
               <Button size="small" variation="tertiary" onClick={onEdit}>
                 <FormattedMessage id="subscription.actions.edit" />
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
