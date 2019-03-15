@@ -65,7 +65,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             />
             {groupedPayments[group][0].paymentSystemGroup ===
               PaymentGroupEnum.CREDIT_CARD && (
-              <div className="w-40-ns w-100-s ml6-ns flex flex-row">
+              <div className="w-40-ns w-100-s ml6-ns flex">
                 <div className="w-50 mr4">
                   <Dropdown
                     options={transformCards(groupedPayments.creditCard, intl)}
