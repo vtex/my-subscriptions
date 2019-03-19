@@ -12,6 +12,7 @@ declare global {
     shippingAddress: Address
     lastInstance: SubcriptionOrder
     purchaseSettings: PurchaseSettings
+    isSkipped: boolean
   }
 
   interface SubscriptionType {
@@ -26,10 +27,17 @@ declare global {
   }
 
   interface Plan {
-    frequency: SubscriptionFrequencyType
+    frequency: Frequency
+    validity: Validity
+    type: string
   }
 
-  interface SubscriptionFrequencyType {
+  interface Validity {
+    begin: string
+    end: string
+  }
+
+  interface Frequency {
     periodicity: string
     interval: number
   }
@@ -41,6 +49,23 @@ declare global {
   interface UpdateAddressArgs {
     orderGroup: string
     addressId: string
+  }
+
+  interface MutationArgs<A> {
+    variables: A
+  }
+
+  interface UpdatePaymentArgs {
+    accountId: string | null
+    orderGroup: string
+    payment: string
+  }
+
+  interface UpdateSettingsArgs {
+    orderGroup: string
+    purchaseDay: string
+    periodicity: strign
+    interval: string
   }
 
   interface GetAddressesQueryArgs {
@@ -122,4 +147,4 @@ declare global {
   }
 }
 
-export { }
+export {}

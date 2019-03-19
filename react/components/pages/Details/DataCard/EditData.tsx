@@ -1,36 +1,29 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import MediaQuery from 'react-responsive'
-import { intlShape, injectIntl } from 'react-intl'
-import { compose, graphql } from 'react-apollo'
-import { Dropdown, Alert } from 'vtex.styleguide'
+import { graphql } from 'react-apollo'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { compose } from 'recompose'
+import { Alert, Dropdown } from 'vtex.styleguide'
 
-import DataSkeleton from './DataSkeleton'
-import EditButtons from '../EditButtons'
-import { MONTH_OPTIONS, WEEK_OPTIONS } from '../../../../constants'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
-import { subscriptionsGroupShape } from '../../../../proptypes'
+import EditButtons from '../EditButtons'
+import DataSkeleton from './DataSkeleton'
 
-class EditData extends Component {
-  constructor(props) {
+class EditData extends Component<Props,State>{
+  constructor(props: Props) {
     super(props)
     this.state = {
-      periodicity: props.subscriptionsGroup.plan.frequency.periodicity,
-      interval: props.subscriptionsGroup.plan.frequency.interval,
       chargeDay: props.subscriptionsGroup.purchaseSettings.purchaseDay,
       chargeDayOptions:
         props.subscriptionsGroup.plan.frequency.periodicity === 'WEEKLY'
           ? WEEK_OPTIONS
           : MONTH_OPTIONS,
-      isLoading: false,
-      showErrorAlert: false,
       currentIndex:
-        props.options &&
+        (props.options &&
         props.options.frequencyOptions &&
-        props.options.frequencyOptions.length > 0 &&
+        props.options.frequencyOptions.length > 0) &&
         props.options.frequencyOptions
-          .findIndex(option => {
+          .findIndex((option: Frequency) => {
             return (
               option.periodicity ===
                 props.subscriptionsGroup.plan.frequency.periodicity &&
@@ -39,49 +32,53 @@ class EditData extends Component {
             )
           })
           .toString(),
+      interval: props.subscriptionsGroup.plan.frequency.interval,
+      isLoading: false,
+      periodicity: props.subscriptionsGroup.plan.frequency.periodicity,
+      showErrorAlert: false,
     }
   }
 
-  translateFrequencyOptions(options) {
-    return options.map((option, index) => ({
-      value: index.toString(),
+  public translateFrequencyOptions(options: Frequency[]) {
+    return options.map((option: Frequency, index: number) => ({
       label: this.props.intl.formatMessage(
         {
           id: `subscription.settings.${option.periodicity.toLowerCase()}`,
         },
         { interval: option.interval }
-      ),
+        ),
+        value: index.toString(),
     }))
   }
 
-  translateChargeDayOptions(options) {
-    return options.map(option => ({
-      value: option.value,
+  public translateChargeDayOptions(options: any) {
+    return options.map((option: any) => ({
       label: this.props.intl.formatMessage({
         id: `subscription.periodicity.${option.label}`,
       }),
+      value: option.value,
     }))
   }
 
-  handleFrequencyChange = e => {
+  public handleFrequencyChange = (e: any) => {
     const { frequencyOptions } = this.props.options
     this.setState({
-      currentIndex: e.target.value.toString(),
-      periodicity: frequencyOptions[e.target.value].periodicity,
-      interval: frequencyOptions[e.target.value].interval,
       chargeDay: '',
       chargeDayOptions:
         frequencyOptions[e.target.value].periodicity === 'WEEKLY'
           ? WEEK_OPTIONS
           : MONTH_OPTIONS,
+      currentIndex: e.target.value.toString(),
+      interval: frequencyOptions[e.target.value].interval,
+      periodicity: frequencyOptions[e.target.value].periodicity,
     })
   }
 
-  handleChargeDayChange = e => {
+  public handleChargeDayChange = (e:  any) => {
     this.setState({ chargeDay: e.target.value })
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps: Props) {
     if (prevProps.options !== this.props.options) {
       const { frequencyOptions } = this.props.options
       this.setState({
@@ -98,10 +95,10 @@ class EditData extends Component {
     }
   }
 
-  handleSaveClick = () => {
+  public handleSaveClick = () => {
     this.setState({ isLoading: true })
     this.props
-      .updateSettings({
+      .udpateSettings({
         variables: {
           orderGroup: this.props.subscriptionsGroup.orderGroup,
           purchaseDay: this.state.chargeDay,
@@ -136,7 +133,7 @@ class EditData extends Component {
       })
   }
 
-  render() {
+  public render() {
     const {
       chargeDay,
       chargeDayOptions,
@@ -162,14 +159,6 @@ class EditData extends Component {
               id: 'subscription.data',
             })}
           </div>
-          <MediaQuery minWidth={1024}>
-            <EditButtons
-              isLoading={isLoading}
-              onCancel={this.props.onCancel}
-              onSave={this.handleSaveClick}
-              disabled={isDisabled}
-            />
-          </MediaQuery>
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">
           {showErrorAlert && (
@@ -210,42 +199,48 @@ class EditData extends Component {
               />
             )}
           </div>
-          <MediaQuery maxWidth={1023}>
             <div className="pt4 flex">
               <EditButtons
                 isLoading={isLoading}
-                onCancel={this.props.onCancel}
+                onCancel={this.props.onCloseEdit}
                 onSave={this.handleSaveClick}
                 disabled={isDisabled}
               />
             </div>
-          </MediaQuery>
         </div>
       </div>
     )
   }
 }
 
-EditData.propTypes = {
-  updateSettings: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  subscriptionsGroup: subscriptionsGroupShape.isRequired,
-  intl: intlShape.isRequired,
-  options: PropTypes.shape({
-    frequencyOptions: PropTypes.arrayOf(
-      PropTypes.shape({
-        interval: PropTypes.number.isRequired,
-        periodicity: PropTypes.string.isRequired,
-      })
-    ),
-    loading: PropTypes.bool.isRequired,
-  }).isRequired,
+interface QueryResult {
+  frequencyOptions: Frequency[]
+  loading: boolean
+}
+
+interface Props extends InjectedIntlProps, OutterProps {
+  udpateSettings: (args: MutationArgs<UpdateSettingsArgs>) => Promise<void>,
+  options: QueryResult
+}
+
+interface OutterProps {
+  subscriptionsGroup: SubscriptionsGroupItemType
+  onCloseEdit: () => void
+}
+
+interface State {
+  chargeDay: string
+  chargeDayOptions: string
+  currentIndex: string | undefined,
+  interval: number,
+  isLoading: boolean,
+  periodicity: string,
+  showErrorAlert: boolean,
 }
 
 const optionsQuery = {
   name: 'options',
-  options({ subscriptionsGroup }) {
+  options({ subscriptionsGroup }: OutterProps) {
     return {
       variables: {
         orderGroup: subscriptionsGroup.orderGroup,
@@ -254,7 +249,8 @@ const optionsQuery = {
   },
 }
 
-export default compose(
+export default compose<Props, OutterProps>(
+  injectIntl,
   graphql(GetFrequencyOptions, optionsQuery),
   graphql(UpdateSettings, { name: 'updateSettings' })
-)(injectIntl(EditData))
+)(EditData)
