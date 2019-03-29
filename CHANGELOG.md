@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.0] - 2019-03-29
+
+### Added
+
+- Redirect to the card creation page on add new card.
+
+### Changed
+
+- Redirect to the address creation page and go back on add new address.
+- Enable edition only for ACTIVE subscriptions.
+
 ## [0.5.0] - 2019-03-29
 
 ### Added

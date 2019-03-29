@@ -126,5 +126,6 @@
   "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!",
   "subscription.fallback.error.refresh.message": "Recarregar",
   "subscription.change.status.modal.confirmation": "Sim",
-  "subscription.change.status.modal.cancelation": "Não"
+  "subscription.change.status.modal.cancelation": "Não",
+  "subcription.add.new.card": "Adicionar novo cartão"
 }

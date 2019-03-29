@@ -4,12 +4,6 @@ import {
   TagTypeEnum,
 } from '../enums'
 
-let guid = 1
-
-export function getGUID() {
-  return (guid++ * new Date().getTime() * -1).toString()
-}
-
 export function parseErrorMessageId(error: any): string {
   if (
     error &&

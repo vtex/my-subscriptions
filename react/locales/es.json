@@ -125,5 +125,6 @@
   "subscription.fallback.error.message": "Algo salió mal, inténtalo de nuevo más tarde!",
   "subscription.fallback.error.refresh.message": "Recargar",
   "subscription.change.status.modal.confirmation": "Sí",
-  "subscription.change.status.modal.cancelation": "No"
+  "subscription.change.status.modal.cancelation": "No",
+  "subcription.add.new.card": "Agregar nueva tarjeta"
 }
