@@ -3,7 +3,7 @@
     "alwaysStrict": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2017", "dom", "es2018.promise"],
     "module": "es6",
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -18,7 +18,7 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "es2017",
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules"],
     "types": ["node", "jest", "graphql"]
   },
   "exclude": ["node_modules"],

@@ -107,5 +107,23 @@
   "order.subscription.periodicity.yearly": "annuel",
 
   "subscription.alert.error.message": "Un problème est survenu lors du paiement de votre commande actuelle. Vérifiez votre mode de paiement afin de pouvoir toujours effectuer l’achat en cours afin que les achats futurs se déroulent sans problème.",
-  "subscription.retry.button.message": "Passer la commande en cours"
+  "subscription.retry.button.message": "Passer la commande en cours",
+
+  "subscription.list.display": "Visualiser",
+  "subscription.list.display.active_filter": "Actif",
+  "subscription.list.display.canceled_filter": "Annulé",
+  "subscription.list.button.seeDetails": "Voir les détails",
+  "subscription.list.button.reactivate": "Réactiver l'abonnement",
+  "subscription.status.paused": "En pause",
+  "subscription.status.canceled": "Annulé",
+  "subscription.list.item.date.since": "{status} puisque {date}",
+  "subscription.list.item.date.next.purchase": "Prochain achat sur {date}",
+  "subscription.name.editition.cancel": "Annuler",
+  "subscription.name.editition.edit": "Enregistrer",
+  "subscription.name.editition.name.title": "Choisissez un nom pour votre abonnement:",
+  "subscription.editition.success": "Abonnement édité!",
+  "subscription.fallback.error.message": "Quelque chose s'est mal passé, réessayez plus tard!",
+  "subscription.fallback.error.refresh.message": "Recharger",
+  "subscription.change.status.modal.confirmation": "Oui",
+  "subscription.change.status.modal.cancelation": "Non"
 }

@@ -76,7 +76,6 @@
   "subscription.payment": "Pagamento",
   "subscription.payment.method": "Forma de pagamento",
   "subscription.actions.save": "Salvar",
-  "subscription.seeDetails": "Ver detalhes",
   "subscription.seeMore": "Ver mais",
   "subscription.view.title": "Assinatura com {value} produtos",
   "subscription.canceled": "Cancelada",
@@ -109,5 +108,23 @@
   "order.subscription.periodicity.yearly": "anualmente",
 
   "subscription.alert.error.message": "Houve um problema com o pagamento do seu pedido atual. Confira a sua forma de pagamento para que ainda possa efetuar a compra atual e para que as compras futuras ocorram sem problemas.",
-  "subscription.retry.button.message": "Efetuar pedido atual"
+  "subscription.retry.button.message": "Efetuar pedido atual",
+
+  "subscription.list.display": "Exibir",
+  "subscription.list.display.active_filter": "Ativas",
+  "subscription.list.display.canceled_filter": "Canceladas",
+  "subscription.list.button.seeDetails": "Ver detalhes",
+  "subscription.list.button.reactivate": "Reativar Assinatura",
+  "subscription.status.paused": "Pausada",
+  "subscription.status.canceled": "Cancelada",
+  "subscription.list.item.date.since": "{status} desde {date}",
+  "subscription.list.item.date.next.purchase": "Próxima compra em {date}",
+  "subscription.name.editition.cancel": "Cancelar",
+  "subscription.name.editition.edit": "Salvar",
+  "subscription.name.editition.name.title": "Escolha um nome para a sua assinatura:",
+  "subscription.editition.success": "Assinatura editada!",
+  "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!",
+  "subscription.fallback.error.refresh.message": "Recarregar",
+  "subscription.change.status.modal.confirmation": "Sim",
+  "subscription.change.status.modal.cancelation": "Não"
 }
