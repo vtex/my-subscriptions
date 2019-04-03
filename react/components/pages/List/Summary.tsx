@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../constants'
 import Frequency from '../../commons/FrequencyInfo'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
@@ -18,8 +18,8 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
   item,
   onGoToDetails,
 }) => {
-  const isPaused = item.status === SubscriptionStatusEnum.PAUSED
-  const isActive = item.status === SubscriptionStatusEnum.ACTIVE
+  const isPaused = item.status === SubscriptionStatusEnum.Paused
+  const isActive = item.status === SubscriptionStatusEnum.Active
 
   return (
     <div className="w-100 flex flex-wrap pv6 pl3-ns pr5-ns">
@@ -52,7 +52,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           {isPaused && (
             <div className="pt4">
               <UpdateStatusButton
-                targetStatus={SubscriptionStatusEnum.ACTIVE}
+                targetStatus={SubscriptionStatusEnum.Active}
                 orderGroup={item.orderGroup}
                 block>
                 <FormattedMessage id="subscription.list.button.reactivate" />

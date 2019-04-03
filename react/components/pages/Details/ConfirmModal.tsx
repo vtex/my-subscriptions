@@ -6,7 +6,7 @@ import { Button, Modal } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
 import UpdateStatus from '../../../graphql/updateStatus.gql'
-import { SubscriptionStatusEnum } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../constants'
 
 class ConfirmModal extends Component<InnerProps & OutterProps> {
   state = {
@@ -35,10 +35,10 @@ class ConfirmModal extends Component<InnerProps & OutterProps> {
     const { updateType } = this.props
     this.setState({ isLoading: true })
     updateType === 'restore'
-      ? this.updateStatus(SubscriptionStatusEnum.ACTIVE)
+      ? this.updateStatus(SubscriptionStatusEnum.Active)
       : updateType === 'cancel'
-      ? this.updateStatus(SubscriptionStatusEnum.CANCELED)
-      : this.updateStatus(SubscriptionStatusEnum.PAUSED)
+      ? this.updateStatus(SubscriptionStatusEnum.Canceled)
+      : this.updateStatus(SubscriptionStatusEnum.Paused)
   }
 
   render() {

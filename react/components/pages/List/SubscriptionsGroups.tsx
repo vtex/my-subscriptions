@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent } from 'react'
 import { compose } from 'recompose'
 
-import { SubscriptionStatusEnum } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../constants'
 import ITEMS from '../../../graphql/groupedSubscriptionsItems.gql'
 import withQuery from '../../hocs/withQuery'
 import EmptyState from './EmptyState'

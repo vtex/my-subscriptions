@@ -4,7 +4,7 @@ import { Button, IconCaretDown as CaretDown } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
 import ConfirmModal from './ConfirmModal'
-import { SubscriptionStatusEnum } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../constants'
 
 class Menu extends Component<Props> {
   state = {
@@ -51,7 +51,7 @@ class Menu extends Component<Props> {
     const { options, subscriptionsGroup } = this.props
     const { isMenuOpen, isModalOpen, updateType } = this.state
 
-    if (subscriptionsGroup.status === SubscriptionStatusEnum.CANCELED) {
+    if (subscriptionsGroup.status === SubscriptionStatusEnum.Canceled) {
       return null
     }
 

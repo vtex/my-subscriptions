@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 
-import css from '../../../constants/css'
+import { CSS } from '../../../constants'
 import Images from './Images'
 import Summary from './Summary'
 
@@ -16,7 +16,7 @@ const SubscriptionGroupItem: FunctionComponent<Props> = ({
   const skus = item.subscriptions.map(subscription => subscription.sku)
 
   return (
-    <article className={css.subscriptionGroupItemWrapper}>
+    <article className={CSS.subscriptionGroupItemWrapper}>
       <Images skus={skus} />
       <Summary item={item} onGoToDetails={onGoToDetails} />
     </article>

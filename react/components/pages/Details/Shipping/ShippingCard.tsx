@@ -3,7 +3,7 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../../../enums'
+import { SubscriptionStatusEnum } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
 
 const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
@@ -12,7 +12,7 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
   subscriptionsGroup,
 }) => {
   const displayEdit =
-    subscriptionsGroup.status === SubscriptionStatusEnum.ACTIVE
+    subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
   return (
     <div className="card-height bw1 bg-base pa6 ba b--muted-5">

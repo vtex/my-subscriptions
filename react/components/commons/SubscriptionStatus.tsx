@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../enums'
+import { SubscriptionStatusEnum } from '../../constants'
 import { convertStatusInTagType } from '../../utils'
 
 interface Props {

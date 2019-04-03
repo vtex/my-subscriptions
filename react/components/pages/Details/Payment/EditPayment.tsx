@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 import { branch, compose, renderComponent, renderNothing } from 'recompose'
 import { Alert, Button, Dropdown, Radio } from 'vtex.styleguide'
 
-import { PaymentGroupEnum } from '../../../../enums'
+import { PaymentGroupEnum } from '../../../../constants'
 import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
 import EditButtons from '../EditButtons'
 import PaymentSkeleton from './PaymentSkeleton'
@@ -64,7 +64,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
               value={groupedPayments[group][0].paymentSystem}
             />
             {groupedPayments[group][0].paymentSystemGroup ===
-              PaymentGroupEnum.CREDIT_CARD && (
+              PaymentGroupEnum.CreditCard && (
               <div className="w-40-ns w-100-s ml6-ns flex">
                 <div className="w-50 mr4">
                   <Dropdown
@@ -73,7 +73,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
                       id: 'subscription.payment.chooseOne',
                     })}
                     disabled={
-                      paymentSystemGroup !== PaymentGroupEnum.CREDIT_CARD
+                      paymentSystemGroup !== PaymentGroupEnum.CreditCard
                     }
                     value={account}
                     onChange={onChangeCard}
@@ -97,7 +97,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             onCancel={onCancel}
             onSave={onSave}
             disabled={
-              paymentSystemGroup === PaymentGroupEnum.CREDIT_CARD && !account
+              paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
             }
           />
         </div>
