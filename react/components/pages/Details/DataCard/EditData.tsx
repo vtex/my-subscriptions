@@ -4,12 +4,13 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { Alert, Dropdown } from 'vtex.styleguide'
 
+import { WEEK_OPTIONS, MONTH_OPTIONS } from '../../../../constants'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditButtons from '../EditButtons'
 import DataSkeleton from './DataSkeleton'
 
-class EditData extends Component<Props,State>{
+class EditData extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -19,23 +20,23 @@ class EditData extends Component<Props,State>{
           ? WEEK_OPTIONS
           : MONTH_OPTIONS,
       currentIndex:
-        (props.options &&
+        props.options &&
         props.options.frequencyOptions &&
-        props.options.frequencyOptions.length > 0) &&
-        props.options.frequencyOptions
-          .findIndex((option: Frequency) => {
-            return (
-              option.periodicity ===
-                props.subscriptionsGroup.plan.frequency.periodicity &&
-              option.interval ===
-                props.subscriptionsGroup.plan.frequency.interval
-            )
-          })
-          .toString(),
+        props.options.frequencyOptions.length > 0
+          ? props.options.frequencyOptions.findIndex((option: Frequency) => {
+              return (
+                option.periodicity ===
+                  props.subscriptionsGroup.plan.frequency.periodicity &&
+                option.interval ===
+                  props.subscriptionsGroup.plan.frequency.interval
+              )
+            })
+          : 0,
       interval: props.subscriptionsGroup.plan.frequency.interval,
       isLoading: false,
       periodicity: props.subscriptionsGroup.plan.frequency.periodicity,
       showErrorAlert: false,
+      errorMessage: '',
     }
   }
 
@@ -46,8 +47,8 @@ class EditData extends Component<Props,State>{
           id: `subscription.settings.${option.periodicity.toLowerCase()}`,
         },
         { interval: option.interval }
-        ),
-        value: index.toString(),
+      ),
+      value: index.toString(),
     }))
   }
 
@@ -74,7 +75,7 @@ class EditData extends Component<Props,State>{
     })
   }
 
-  public handleChargeDayChange = (e:  any) => {
+  public handleChargeDayChange = (e: any) => {
     this.setState({ chargeDay: e.target.value })
   }
 
@@ -84,13 +85,11 @@ class EditData extends Component<Props,State>{
       this.setState({
         currentIndex:
           frequencyOptions &&
-          frequencyOptions
-            .findIndex(
-              option =>
-                option.periodicity === this.state.periodicity &&
-                option.interval === this.state.interval
-            )
-            .toString(),
+          frequencyOptions.findIndex(
+            option =>
+              option.periodicity === this.state.periodicity &&
+              option.interval === this.state.interval
+          ),
       })
     }
   }
@@ -107,14 +106,9 @@ class EditData extends Component<Props,State>{
         },
       })
       .then(() => {
-        this.setState(
-          {
-            isLoading: false,
-          },
-          () => {
-            this.props.onSave()
-          }
-        )
+        this.setState({
+          isLoading: false,
+        })
       })
       .catch(error => {
         const errorMessage =
@@ -199,14 +193,14 @@ class EditData extends Component<Props,State>{
               />
             )}
           </div>
-            <div className="pt4 flex">
-              <EditButtons
-                isLoading={isLoading}
-                onCancel={this.props.onCloseEdit}
-                onSave={this.handleSaveClick}
-                disabled={isDisabled}
-              />
-            </div>
+          <div className="pt4 flex">
+            <EditButtons
+              isLoading={isLoading}
+              onCancel={this.props.onCloseEdit}
+              onSave={this.handleSaveClick}
+              disabled={isDisabled}
+            />
+          </div>
         </div>
       </div>
     )
@@ -219,7 +213,7 @@ interface QueryResult {
 }
 
 interface Props extends InjectedIntlProps, OutterProps {
-  udpateSettings: (args: MutationArgs<UpdateSettingsArgs>) => Promise<void>,
+  udpateSettings: (args: Variables<UpdateSettingsArgs>) => Promise<void>
   options: QueryResult
 }
 
@@ -230,12 +224,13 @@ interface OutterProps {
 
 interface State {
   chargeDay: string
-  chargeDayOptions: string
-  currentIndex: string | undefined,
-  interval: number,
-  isLoading: boolean,
-  periodicity: string,
-  showErrorAlert: boolean,
+  chargeDayOptions: { value: string; label: string }[]
+  currentIndex: number
+  interval: number
+  isLoading: boolean
+  periodicity: string
+  showErrorAlert: boolean
+  errorMessage: string
 }
 
 const optionsQuery = {

@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { Button, IconCaretDown as CaretDown } from 'vtex.styleguide'
+import { ApolloError } from 'apollo-client'
 
-import { subscriptionsGroupShape } from '../../../proptypes'
 import ConfirmModal from './ConfirmModal'
+import { SubscriptionStatusEnum } from '../../../enums'
 
-class Menu extends Component {
+class Menu extends Component<Props> {
   state = {
     isMenuOpen: false,
     isModalOpen: false,
+    updateType: '',
   }
 
   handleClick = () => {
@@ -24,11 +25,11 @@ class Menu extends Component {
     this.setState({ isModalOpen: false })
   }
 
-  handleOpenModal = updateType => {
+  handleOpenModal = (updateType: string) => {
     this.setState({ isModalOpen: true, updateType: updateType })
   }
 
-  handleSelect = value => {
+  handleSelect = (value: string) => {
     if (value === 'skip' || value === 'unskip') {
       this.props.onSkipOrUnskip()
     } else {
@@ -41,8 +42,8 @@ class Menu extends Component {
     this.setState({ isModalOpen: false })
   }
 
-  handleError = () => {
-    this.props.onErrorUpdate()
+  handleError = (error: ApolloError) => {
+    this.props.onErrorUpdate(error)
     this.setState({ isModalOpen: false })
   }
 
@@ -50,7 +51,7 @@ class Menu extends Component {
     const { options, subscriptionsGroup } = this.props
     const { isMenuOpen, isModalOpen, updateType } = this.state
 
-    if (subscriptionsGroup.status === 'CANCELED') {
+    if (subscriptionsGroup.status === SubscriptionStatusEnum.CANCELED) {
       return null
     }
 
@@ -103,13 +104,12 @@ class Menu extends Component {
   }
 }
 
-Menu.propTypes = {
-  intl: intlShape.isRequired,
-  options: PropTypes.array,
-  subscriptionsGroup: subscriptionsGroupShape.isRequired,
-  onSuccessUpdate: PropTypes.func.isRequired,
-  onSkipOrUnskip: PropTypes.func.isRequired,
-  onErrorUpdate: PropTypes.func.isRequired,
+interface Props extends InjectedIntlProps {
+  options: string[]
+  subscriptionsGroup: SubscriptionsGroupItemType
+  onSuccessUpdate: () => void
+  onSkipOrUnskip: () => void
+  onErrorUpdate: (error: ApolloError) => void
 }
 
 export default injectIntl(Menu)

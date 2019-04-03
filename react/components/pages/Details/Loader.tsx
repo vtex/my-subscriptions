@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { BaseLoading } from 'vtex.my-account-commons'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl, InjectedIntlProps } from 'react-intl'
 
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
 import PaymentSkeleton from './Payment/PaymentSkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'
-import SummarySkeleton from './skeletons/SummarySkeleton'
-import HistorySkeleton from './History/HistorySkeleton'
-import { genericQueryShape } from '../../../proptypes'
+import SummarySkeleton from './SummarySkeleton'
 import { parseErrorMessageId } from '../../../utils'
 import { headerConfig } from '.'
 
-const SubscriptionDetailsLoader = ({ data, intl }) => {
+const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
+  data,
+  intl,
+}) => {
   return (
     <BaseLoading
       queryData={data}
@@ -30,17 +31,13 @@ const SubscriptionDetailsLoader = ({ data, intl }) => {
         <div className="pt6">
           <PaymentSkeleton />
         </div>
-        <div className="pt6 pb3">
-          <HistorySkeleton />
-        </div>
       </div>
     </BaseLoading>
   )
 }
 
-SubscriptionDetailsLoader.propTypes = {
-  intl: intlShape.isRequired,
-  data: genericQueryShape.isRequired,
+interface Props extends InjectedIntlProps {
+  data: any
 }
 
 export default injectIntl(SubscriptionDetailsLoader)

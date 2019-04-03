@@ -1,11 +1,11 @@
-import { SubscriptionStatus } from './../enums'
+import { SubscriptionStatusEnum } from './../enums'
 
 declare global {
   interface SubscriptionsGroupItemType {
     name: string
     orderGroup: string
-    status: SubscriptionStatus
-    subscriptions: [SubscriptionType]
+    status: SubscriptionStatusEnum
+    subscriptions: SubscriptionType[]
     nextPurchaseDate: string
     lastStatusUpdate: string
     plan: Plan
@@ -13,10 +13,17 @@ declare global {
     lastInstance: SubcriptionOrder
     purchaseSettings: PurchaseSettings
     isSkipped: boolean
+    totals: TotalType[]
+  }
+
+  interface TotalType {
+    id: string
+    value: number
   }
 
   interface SubscriptionType {
     sku: SKUType
+    quantity: number
   }
 
   interface SKUType {
@@ -42,8 +49,8 @@ declare global {
     interval: number
   }
 
-  interface UpdateAddressMutationArgs {
-    variables: UpdateAddressArgs
+  interface Variables<A> {
+    variables: A
   }
 
   interface UpdateAddressArgs {
@@ -51,8 +58,9 @@ declare global {
     addressId: string
   }
 
-  interface MutationArgs<A> {
-    variables: A
+  interface UpdateStatusArgs {
+    orderGroup: string
+    status: SubscriptionStatusEnum
   }
 
   interface UpdatePaymentArgs {
@@ -64,8 +72,18 @@ declare global {
   interface UpdateSettingsArgs {
     orderGroup: string
     purchaseDay: string
-    periodicity: strign
-    interval: string
+    periodicity: string
+    interval: number
+  }
+
+  interface UpdateIsSkippedArgs {
+    orderGroup: string
+    isSkipped: boolean
+  }
+
+  interface RetryArgs {
+    orderGroup: string
+    instanceId: string
   }
 
   interface GetAddressesQueryArgs {

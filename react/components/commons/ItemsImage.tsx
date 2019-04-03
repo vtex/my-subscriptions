@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { FunctionComponent } from 'react'
 import MediaQuery from 'react-responsive'
-import { intlShape, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { utils } from 'vtex.my-account-commons'
 
 const { fixImageUrl } = utils
 
-const Image = ({ items }) => {
+const Image: FunctionComponent<Props> = ({ items }) => {
   const itemsLength = items.length
+
   if (itemsLength === 1) {
     return (
       <img
@@ -17,6 +17,7 @@ const Image = ({ items }) => {
       />
     )
   }
+
   if (itemsLength === 2) {
     return (
       <div className="flex flex-column-ns flex-row-s pb4-s pb0-ns">
@@ -224,11 +225,12 @@ const Image = ({ items }) => {
       </div>
     )
   }
+
+  return null
 }
 
-Image.propTypes = {
-  intl: intlShape.isRequired,
-  items: PropTypes.array.isRequired,
+interface Props extends InjectedIntlProps {
+  items: SubscriptionType[]
 }
 
 export default injectIntl(Image)

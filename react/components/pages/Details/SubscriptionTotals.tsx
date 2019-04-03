@@ -1,11 +1,15 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import { injectIntl, intlShape } from 'react-intl'
+import React, { FunctionComponent } from 'react'
+import { injectIntl, InjectedIntlProps } from 'react-intl'
 
-import FinalPrice from '../../commons/FinalPrice'
-import Price from '../../commons/FormattedPrice'
+import FormattedPrice from '../../commons/FormattedPrice'
 
-const SubscriptionTotals = ({ totals, currencyCode, intl }) => {
+const SubscriptionTotals: FunctionComponent<Props> = ({
+  totals,
+  currencyCode,
+  intl,
+}) => {
+  const fullPrice = totals.reduce((price, total) => price + total.value, 0)
+
   return (
     <div className="w-100">
       {totals &&
@@ -18,7 +22,7 @@ const SubscriptionTotals = ({ totals, currencyCode, intl }) => {
                 })}
               </div>
               <div className="dib f6 fw4 c-muted-1 tr w-60">
-                <Price value={total.value} currency={currencyCode} />
+                <FormattedPrice value={total.value} currency={currencyCode} />
               </div>
             </div>
           )
@@ -29,17 +33,16 @@ const SubscriptionTotals = ({ totals, currencyCode, intl }) => {
           {intl.formatMessage({ id: 'order.summary.total' })}
         </div>
         <div className="dib f6 fw5 c-muted-1 w-60 tr">
-          <FinalPrice totals={totals} currency={currencyCode} />
+          <FormattedPrice value={fullPrice} currency={currencyCode} />
         </div>
       </div>
     </div>
   )
 }
 
-SubscriptionTotals.propTypes = {
-  totals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currencyCode: PropTypes.string.isRequired,
-  intl: intlShape.isRequired,
+interface Props extends InjectedIntlProps {
+  totals: TotalType[]
+  currencyCode: string
 }
 
 export default injectIntl(SubscriptionTotals)

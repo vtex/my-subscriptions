@@ -1,8 +1,7 @@
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
-import SkeletonLoader from '../commons/SkeletonLoader'
-import SkeletonImage from '../commons/SkeletonImage'
+import SkeletonLoader from './SkeletonLoader'
 
 const ViewItemsSkeleton = () =>
   [0, 1].map(index => (
@@ -11,7 +10,7 @@ const ViewItemsSkeleton = () =>
         <div className="card bg-base center subscription__product-listing__card w-80-ns pa0-ns pa6-s ba bw1 b--muted-5">
           <div className="flex-ns items-center-s items-start-ns">
             <div className="myo-subscription__image-size br-ns product-vertical-line b--muted-5">
-              <SkeletonImage width={100} />
+              <SkeletonLoader width={100} />
             </div>
             <div className="pl9-m w-100">
               <div className="db b f4 tl c-on-base">

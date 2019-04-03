@@ -1,30 +1,28 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { compose, branch, renderComponent, withProps } from 'recompose'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql, withApollo } from 'react-apollo'
-import { withRouter } from 'react-router-dom'
-import ReactRouterPropTypes from 'react-router-prop-types'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Alert } from 'vtex.styleguide'
 
 import GET_GROUPED_SUBSCRIPTION from '../../../graphql/getGroupedSubscription.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
-import DataCard from './DataCard/DataCardContainer'
+import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
-import History from './History'
 import Shipping from './Shipping'
 import SubscriptionsGroupDetailsLoader from './Loader'
-import { subscriptionsGroupShape } from '../../../proptypes'
 
-class SubscriptionsGroupDetailsContainer extends Component {
+class SubscriptionsGroupDetailsContainer extends Component<Props> {
   state = {
     displayRetry: false,
     displayAlert: true,
   }
 
-  static getDerivedStateFromProps(props) {
+  mounted = false
+
+  static getDerivedStateFromProps(props: Props) {
     const lastInstance = props.subscriptionsGroup.lastInstance
 
     if (lastInstance && lastInstance.status === 'PAYMENT_ERROR') {
@@ -44,11 +42,11 @@ class SubscriptionsGroupDetailsContainer extends Component {
     this.mounted = false
   }
 
-  handleSetDisplayRetry = displayRetry => {
+  handleSetDisplayRetry = (displayRetry: boolean) => {
     this.setState({ displayRetry })
   }
 
-  handleSetDisplayAlert = displayAlert => {
+  handleSetDisplayAlert = (displayAlert: boolean) => {
     this.setState({ displayAlert })
   }
 
@@ -60,7 +58,7 @@ class SubscriptionsGroupDetailsContainer extends Component {
     return retry({
       variables: {
         orderGroup: subscriptionsGroup.orderGroup,
-        instanceId: lastInstance.id,
+        instanceId: lastInstance.dataInstanceId,
       },
     }).then(() => {
       this.mounted && this.handleSetDisplayRetry(true)
@@ -108,9 +106,6 @@ class SubscriptionsGroupDetailsContainer extends Component {
                 displayRetry={displayRetry}
               />
             </div>
-            <div className="pt6 mb8">
-              <History instances={subscriptionsGroup.instances} />
-            </div>
           </div>
         )}
       </ContentWrapper>
@@ -119,33 +114,34 @@ class SubscriptionsGroupDetailsContainer extends Component {
 }
 
 const subscriptionQuery = {
-  options: props => ({
+  options: (props: Props) => ({
     variables: {
       orderGroup: props.match.params.orderGroup,
     },
-    errorPolicy: 'all',
   }),
 }
 
-SubscriptionsGroupDetailsContainer.propTypes = {
-  intl: intlShape.isRequired,
-  subscriptionsGroup: subscriptionsGroupShape.isRequired,
-  client: PropTypes.object,
-  history: ReactRouterPropTypes.history.isRequired,
-  match: ReactRouterPropTypes.match.isRequired,
-  retry: PropTypes.func.isRequired,
+interface Props
+  extends InjectedIntlProps,
+    RouteComponentProps<{ orderGroup: string }> {
+  retry: (args: Variables<RetryArgs>) => Promise<void>
+  subscriptionsGroup: SubscriptionsGroupItemType
+  data: { groupedSubscription: SubscriptionsGroupItemType }
 }
 
-const enhance = compose(
+const enhance = compose<Props, void>(
   injectIntl,
   withRouter,
   withApollo,
-  graphql(GET_GROUPED_SUBSCRIPTION, subscriptionQuery),
+  graphql<Props, Variables<{ ordergroup: string }>>(
+    GET_GROUPED_SUBSCRIPTION,
+    subscriptionQuery
+  ),
   graphql(RETRY_MUTATION, { name: 'retry' }),
-  withProps(({ data }) => ({
+  withProps(({ data }: Props) => ({
     subscriptionsGroup: data.groupedSubscription,
   })),
-  branch(
+  branch<Props>(
     ({ subscriptionsGroup }) => !subscriptionsGroup,
     renderComponent(SubscriptionsGroupDetailsLoader)
   )
@@ -153,7 +149,7 @@ const enhance = compose(
 
 export default enhance(SubscriptionsGroupDetailsContainer)
 
-export function headerConfig({ intl }) {
+export function headerConfig({ intl }: InjectedIntlProps) {
   const backButton = {
     title: intl.formatMessage({ id: 'subscription.title.list' }),
     path: '/subscriptions',

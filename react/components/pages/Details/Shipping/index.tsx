@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
 import { withToast } from 'vtex.styleguide'
 
@@ -9,9 +9,7 @@ import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 
-class ShippingContainer extends Component<
-  Props & InnerProps & InjectedIntlProps
-  > {
+class ShippingContainer extends Component<OutterProps & InnerProps> {
   public state = {
     errorMessage: '',
     isEditMode: false,
@@ -105,25 +103,24 @@ class ShippingContainer extends Component<
         subscriptionsGroup={subscriptionsGroup}
       />
     ) : (
-        <ShippingCard
-          onEdit={this.handleEditClick}
-          subscriptionsGroup={subscriptionsGroup}
-        />
-      )
+      <ShippingCard
+        onEdit={this.handleEditClick}
+        subscriptionsGroup={subscriptionsGroup}
+      />
+    )
   }
 }
 
-interface Props {
+interface OutterProps {
   subscriptionsGroup: SubscriptionsGroupItemType
-  history: any
 }
 
-interface InnerProps {
-  updateAddress: (args: UpdateAddressMutationArgs) => Promise<any>
+interface InnerProps extends RouteComponentProps, InjectedIntlProps {
+  updateAddress: (args: Variables<UpdateAddressArgs>) => Promise<any>
   showToast: (args: object) => void
 }
 
-export default compose<any, Props>(
+export default compose<InnerProps & OutterProps, OutterProps>(
   injectIntl,
   graphql(UPDATE_ADDRESS, {
     name: 'updateAddress',

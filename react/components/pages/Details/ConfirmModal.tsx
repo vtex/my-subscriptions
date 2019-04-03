@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
-import { compose, graphql } from 'react-apollo'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { graphql } from 'react-apollo'
+import { compose } from 'recompose'
 import { Button, Modal } from 'vtex.styleguide'
+import { ApolloError } from 'apollo-client'
 
 import UpdateStatus from '../../../graphql/updateStatus.gql'
-import { subscriptionsGroupShape } from '../../../proptypes'
+import { SubscriptionStatusEnum } from '../../../enums'
 
-class ConfirmModal extends Component {
+class ConfirmModal extends Component<InnerProps & OutterProps> {
   state = {
     isLoading: false,
   }
 
-  updateStatus(status) {
+  updateStatus(status: SubscriptionStatusEnum) {
     this.props
       .updateStatus({
         variables: {
@@ -24,9 +25,9 @@ class ConfirmModal extends Component {
         this.setState({ isLoading: false })
         this.props.onSuccessUpdate()
       })
-      .catch(() => {
+      .catch(error => {
         this.setState({ isLoading: false })
-        this.props.onErrorUpdate()
+        this.props.onErrorUpdate(error)
       })
   }
 
@@ -34,10 +35,10 @@ class ConfirmModal extends Component {
     const { updateType } = this.props
     this.setState({ isLoading: true })
     updateType === 'restore'
-      ? this.updateStatus('ACTIVE')
+      ? this.updateStatus(SubscriptionStatusEnum.ACTIVE)
       : updateType === 'cancel'
-      ? this.updateStatus('CANCELED')
-      : this.updateStatus('PAUSED')
+      ? this.updateStatus(SubscriptionStatusEnum.CANCELED)
+      : this.updateStatus(SubscriptionStatusEnum.PAUSED)
   }
 
   render() {
@@ -84,21 +85,28 @@ class ConfirmModal extends Component {
   }
 }
 
-ConfirmModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onSuccessUpdate: PropTypes.func.isRequired,
-  onErrorUpdate: PropTypes.func.isRequired,
-  updateStatus: PropTypes.func,
-  isModalOpen: PropTypes.bool.isRequired,
-  subscriptionsGroup: subscriptionsGroupShape.isRequired,
-  intl: intlShape.isRequired,
-  subscriptionsData: PropTypes.object,
-  updateType: PropTypes.string.isRequired,
+interface OutterProps {
+  onClose: () => void
+  onSuccessUpdate: () => void
+  onErrorUpdate: (error: ApolloError) => void
+  isModalOpen: boolean
+  subscriptionsGroup: SubscriptionsGroupItemType
+  updateType: string
+}
+
+interface InnerProps extends InjectedIntlProps {
+  updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<void>
 }
 
 const updateStatusMutation = {
   name: 'updateStatus',
-  options({ subscriptionsGroup, status }) {
+  options({
+    subscriptionsGroup,
+    status,
+  }: {
+    subscriptionsGroup: SubscriptionsGroupItemType
+    status: SubscriptionStatusEnum
+  }) {
     return {
       variables: {
         orderGroup: subscriptionsGroup.orderGroup,
@@ -108,6 +116,7 @@ const updateStatusMutation = {
   },
 }
 
-export default compose(graphql(UpdateStatus, updateStatusMutation))(
-  injectIntl(ConfirmModal)
-)
+export default compose<InnerProps & OutterProps, OutterProps>(
+  injectIntl,
+  graphql(UpdateStatus, updateStatusMutation)
+)(ConfirmModal)

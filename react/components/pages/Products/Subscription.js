@@ -8,7 +8,7 @@ import { utils } from 'vtex.my-account-commons'
 import RemoveItemConfirmModal from '../Details/RemoveItemConfirmModal'
 import Price from '../../commons/FormattedPrice'
 import Toast from '../../commons/Toast'
-import LabeledInfo from '../../LabeledInfo'
+import LabeledInfo from '../../commons/LabeledInfo'
 import RemoveItem from '../../../graphql/removeItem.gql'
 
 const { fixImageUrl } = utils

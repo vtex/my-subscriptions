@@ -158,13 +158,13 @@ class SubscriptionsGroupPaymentContainer extends Component<
 
 interface OuterProps {
   subscriptionsGroup: SubscriptionsGroupItemType
+  onMakeRetry: () => Promise<void>
+  displayRetry: boolean
 }
 
 interface InnerProps extends InjectedIntlProps {
-  updatePayment: (args: MutationArgs<UpdatePaymentArgs>) => Promise<void>
-  onMakeRetry: () => Promise<void>
+  updatePayment: (args: Variables<UpdatePaymentArgs>) => Promise<void>
   showToast: ({ message }: ShowToastArgs) => void
-  displayRetry: boolean
 }
 
 interface State {

@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
-import { withRouter } from 'react-router-dom'
-import ReactRouterPropTypes from 'react-router-prop-types'
-import { compose, graphql } from 'react-apollo'
-import { Alert, Button, Modal, Badge } from 'vtex.styleguide'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { graphql } from 'react-apollo'
+import { ApolloError } from 'apollo-client'
+import { compose } from 'recompose'
+import { Alert, Button, Modal, withToast } from 'vtex.styleguide'
 
-import { subscriptionsGroupShape } from '../../../proptypes'
 import updateIsSkipped from '../../../graphql/updateIsSkipped.gql'
 import Title from '../../commons/Title'
-import Toast from '../../commons/Toast'
 import ItemsImage from '../../commons/ItemsImage'
+import SubscriptionsStatus from '../../commons/SubscriptionStatus'
+
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 
-class Summary extends Component {
+class Summary extends Component<InnerProps & OutterProps> {
   state = {
     isLoading: false,
-    isModalUpdateIOpen: false,
+    isModalOpen: false,
     showErrorAlert: false,
-    showSuccessAlert: false,
+    errorMessage: '',
   }
 
   handleClick = () => {
@@ -55,7 +55,7 @@ class Summary extends Component {
       })
   }
 
-  handleErrorUpdate = error => {
+  handleErrorUpdate = (error: ApolloError) => {
     this.setState({
       showErrorAlert: true,
       errorMessage: `subscription.fetch.${error.graphQLErrors.length > 0 &&
@@ -66,10 +66,15 @@ class Summary extends Component {
   }
 
   handleSuccessUpdate = () => {
+    const { showToast, intl } = this.props
+
     this.setState({
       isLoading: false,
       isModalOpen: false,
-      showSuccessAlert: true,
+    })
+
+    showToast({
+      message: intl.formatMessage({ id: 'subscription.edit.success' }),
     })
   }
 
@@ -79,14 +84,8 @@ class Summary extends Component {
 
   render() {
     const { subscriptionsGroup, intl } = this.props
-    const {
-      isModalOpen,
-      showSuccessAlert,
-      showErrorAlert,
-      errorMessage,
-    } = this.state
+    const { isModalOpen, showErrorAlert, errorMessage } = this.state
 
-    const isCanceled = subscriptionsGroup.status === 'CANCELED'
     const isPaused = subscriptionsGroup.status === 'PAUSED'
 
     const options = subscriptionsGroup.isSkipped
@@ -122,56 +121,46 @@ class Summary extends Component {
         )}
         <div className="card bw1 bg-base pa6 ba b--muted-5">
           <div className="flex-ns items-center-s items-start-ns">
-            {showSuccessAlert && (
-              <Toast
-                message={intl.formatMessage({
-                  id: 'subscription.edit.success',
+            <Modal
+              centered
+              isOpen={isModalOpen}
+              onClose={this.handleCloseModal}>
+              <span className="db b f5">
+                {intl.formatMessage({
+                  id: subscriptionsGroup.isSkipped
+                    ? 'subscription.unskip.title'
+                    : 'subscription.skip.title',
                 })}
-                onClose={this.handleCloseSuccessAlert}
-              />
-            )}
-            {isModalOpen && (
-              <Modal
-                centered
-                isOpen={isModalOpen}
-                onClose={this.handleCloseModal}>
-                <span className="db b f5">
-                  {intl.formatMessage({
-                    id: subscriptionsGroup.isSkipped
-                      ? 'subscription.unskip.title'
-                      : 'subscription.skip.title',
-                  })}
-                </span>
-                <span className="db pt6">
-                  {intl.formatMessage({
-                    id: subscriptionsGroup.isSkipped
-                      ? 'subscription.unskip.text'
-                      : 'subscription.skip.text',
-                  })}
-                </span>
-                <div className="flex flex-row justify-end mt7">
-                  <span className="mr4">
-                    <Button
-                      size="small"
-                      variation="tertiary"
-                      onClick={this.handleCloseModal}>
-                      {intl.formatMessage({ id: 'commons.cancel' })}
-                    </Button>
-                  </span>
+              </span>
+              <span className="db pt6">
+                {intl.formatMessage({
+                  id: subscriptionsGroup.isSkipped
+                    ? 'subscription.unskip.text'
+                    : 'subscription.skip.text',
+                })}
+              </span>
+              <div className="flex flex-row justify-end mt7">
+                <span className="mr4">
                   <Button
                     size="small"
-                    variation="primary"
-                    isLoading={this.state.isLoading}
-                    onClick={this.handleConfirmSkip}>
-                    {intl.formatMessage({
-                      id: subscriptionsGroup.isSkipped
-                        ? 'subscription.unskip.confirm'
-                        : 'subscription.skip.confirm',
-                    })}
+                    variation="tertiary"
+                    onClick={this.handleCloseModal}>
+                    {intl.formatMessage({ id: 'commons.cancel' })}
                   </Button>
-                </div>
-              </Modal>
-            )}
+                </span>
+                <Button
+                  size="small"
+                  variation="primary"
+                  isLoading={this.state.isLoading}
+                  onClick={this.handleConfirmSkip}>
+                  {intl.formatMessage({
+                    id: subscriptionsGroup.isSkipped
+                      ? 'subscription.unskip.confirm'
+                      : 'subscription.skip.confirm',
+                  })}
+                </Button>
+              </div>
+            </Modal>
             <div className="flex flex-column">
               <div>
                 <span className="mb4 db b f4 tl c-on-base">
@@ -189,24 +178,7 @@ class Summary extends Component {
             <div className="pt9-l pt9-m pt4-s pl6-ns flex-grow-1">
               <span className="db b f4 tl c-on-base">
                 <Title items={subscriptionsGroup.subscriptions} />
-                {isCanceled && (
-                  <div className="ml4 dib lh-solid">
-                    <Badge type="neutral">
-                      {intl.formatMessage({
-                        id: 'subscription.canceled',
-                      })}
-                    </Badge>
-                  </div>
-                )}
-                {isPaused && (
-                  <div className="ml4 dib lh-solid">
-                    <Badge type="error">
-                      {intl.formatMessage({
-                        id: 'subscription.paused',
-                      })}
-                    </Badge>
-                  </div>
-                )}
+                <SubscriptionsStatus status={subscriptionsGroup.status} />
               </span>
               <div className="w-100 flex flex-row-ns flex-column-s flex-wrap mw6">
                 <div className="w-100 pt5">
@@ -264,15 +236,18 @@ const isSkippedMutation = {
   name: 'updateIsSkipped',
 }
 
-Summary.propTypes = {
-  item: PropTypes.object,
-  updateIsSkipped: PropTypes.func.isRequired,
-  subscriptionsGroup: subscriptionsGroupShape.isRequired,
-  originalOrderId: PropTypes.string,
-  intl: intlShape.isRequired,
-  history: ReactRouterPropTypes.history.isRequired,
+interface OutterProps {
+  subscriptionsGroup: SubscriptionsGroupItemType
 }
 
-export default compose(graphql(updateIsSkipped, isSkippedMutation))(
-  withRouter(injectIntl(Summary))
-)
+interface InnerProps extends InjectedIntlProps, RouteComponentProps {
+  updateIsSkipped: (args: Variables<UpdateIsSkippedArgs>) => Promise<void>
+  showToast: (args: ShowToastArgs) => void
+}
+
+export default compose<InnerProps & OutterProps, OutterProps>(
+  injectIntl,
+  withRouter,
+  withToast,
+  graphql(updateIsSkipped, isSkippedMutation)
+)(Summary)
