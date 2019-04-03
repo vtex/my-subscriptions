@@ -25,7 +25,7 @@ class ConfirmModal extends Component<InnerProps & OutterProps> {
         this.setState({ isLoading: false })
         this.props.onSuccessUpdate()
       })
-      .catch(error => {
+      .catch((error: ApolloError) => {
         this.setState({ isLoading: false })
         this.props.onErrorUpdate(error)
       })

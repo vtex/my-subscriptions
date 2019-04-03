@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { Alert, Dropdown } from 'vtex.styleguide'
+import { ApolloError } from 'apollo-client'
 
 import { WEEK_OPTIONS, MONTH_OPTIONS } from '../../../../constants'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
@@ -97,7 +98,7 @@ class EditData extends Component<Props, State> {
   public handleSaveClick = () => {
     this.setState({ isLoading: true })
     this.props
-      .udpateSettings({
+      .updateSettings({
         variables: {
           orderGroup: this.props.subscriptionsGroup.orderGroup,
           purchaseDay: this.state.chargeDay,
@@ -110,7 +111,7 @@ class EditData extends Component<Props, State> {
           isLoading: false,
         })
       })
-      .catch(error => {
+      .catch((error: ApolloError) => {
         const errorMessage =
           error.graphQLErrors.length > 0 &&
           error.graphQLErrors[0].extensions &&
@@ -213,7 +214,7 @@ interface QueryResult {
 }
 
 interface Props extends InjectedIntlProps, OutterProps {
-  udpateSettings: (args: Variables<UpdateSettingsArgs>) => Promise<void>
+  updateSettings: (args: Variables<UpdateSettingsArgs>) => Promise<void>
   options: QueryResult
 }
 
