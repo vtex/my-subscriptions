@@ -4,10 +4,11 @@ import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql, withApollo } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { ContentWrapper } from 'vtex.my-account-commons'
-import { Alert } from 'vtex.styleguide'
 
 import GET_GROUPED_SUBSCRIPTION from '../../../graphql/getGroupedSubscription.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
+import Alert from '../../commons/Alert'
+import { TagTypeEnum } from '../../../constants'
 import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
@@ -73,23 +74,20 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
       <ContentWrapper {...headerConfig({ intl })}>
         {() => (
           <div className="mr0 center w-100 pb5">
-            {displayRetry && displayAlert && (
-              <div className="mb5">
-                <Alert
-                  type="error"
-                  action={{
-                    label: intl.formatMessage({
-                      id: 'subscription.retry.button.message',
-                    }),
-                    onClick: this.handleMakeRetry,
-                  }}
-                  onClose={() => this.handleSetDisplayAlert(false)}>
-                  {intl.formatMessage({
-                    id: 'subscription.alert.error.message',
-                  })}
-                </Alert>
-              </div>
-            )}
+            <Alert
+              visible={displayRetry && displayAlert}
+              type={TagTypeEnum.Error}
+              action={{
+                label: intl.formatMessage({
+                  id: 'subscription.retry.button.message',
+                }),
+                onClick: this.handleMakeRetry,
+              }}
+              onClose={() => this.handleSetDisplayAlert(false)}>
+              {intl.formatMessage({
+                id: 'subscription.alert.error.message',
+              })}
+            </Alert>
             <Summary subscriptionsGroup={subscriptionsGroup} />
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
