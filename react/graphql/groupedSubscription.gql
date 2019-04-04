@@ -4,6 +4,7 @@ query GroupedSubscription($orderGroup: String!) {
     orderGroup
     status
     isSkipped
+    name
     subscriptions {
       SubscriptionId
       sku {

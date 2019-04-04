@@ -9,7 +9,7 @@ import { Button, Modal, withToast } from 'vtex.styleguide'
 import updateIsSkipped from '../../../graphql/updateIsSkipped.gql'
 import { TagTypeEnum } from '../../../constants'
 import Alert from '../../commons/CustomAlert'
-import Title from '../../commons/Title'
+import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
 import SubscriptionTotals from './SubscriptionTotals'
@@ -172,11 +172,13 @@ class Summary extends Component<InnerProps & OutterProps> {
                 </div>
               </div>
             </div>
-            <div className="pt9-l pt9-m pt4-s pl6-ns flex-grow-1">
-              <span className="db b f4 tl c-on-base">
-                <Title items={subscriptionsGroup.subscriptions} />
-                <SubscriptionsStatus status={subscriptionsGroup.status} />
-              </span>
+            <div className="pt9-l pt9-m pt4-s ph6-ns flex-grow-1">
+              <div className="flex">
+                <Name subscriptionGroup={subscriptionsGroup} />
+                <div className="pl5-ns pl0-s pt0-ns pt5-s">
+                  <SubscriptionsStatus status={subscriptionsGroup.status} />
+                </div>
+              </div>
               <div className="w-100 flex flex-row-ns flex-column-s flex-wrap mw6">
                 <div className="w-100 pt5">
                   {!hasMultipleItems && (

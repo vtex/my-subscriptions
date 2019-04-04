@@ -5,7 +5,7 @@ import { graphql, withApollo } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { ContentWrapper } from 'vtex.my-account-commons'
 
-import GET_GROUPED_SUBSCRIPTION from '../../../graphql/getGroupedSubscription.gql'
+import GROUPED_SUBSCRIPTION from '../../../graphql/groupedSubscription.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Alert from '../../commons/CustomAlert'
 import { TagTypeEnum } from '../../../constants'
@@ -128,7 +128,7 @@ const enhance = compose<Props, void>(
   withRouter,
   withApollo,
   graphql<Props, Variables<{ ordergroup: string }>>(
-    GET_GROUPED_SUBSCRIPTION,
+    GROUPED_SUBSCRIPTION,
     subscriptionQuery
   ),
   graphql(RETRY_MUTATION, { name: 'retry' }),

@@ -6,10 +6,9 @@ import { IconEdit, Input } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
 import ConfirmationModal from '../commons/ConfirmationModal'
+import { SubscriptionStatusEnum } from '../../constants'
 
-class SubscriptionNameContainer extends Component<
-  Props & InnerProps & InjectedIntlProps
-> {
+class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public state = {
     isLoading: false,
     isModalOpen: false,
@@ -39,7 +38,7 @@ class SubscriptionNameContainer extends Component<
 
   public render() {
     const {
-      subscriptionGroup: { name, subscriptions },
+      subscriptionGroup: { name, subscriptions, status },
       intl,
       updateName,
     } = this.props
@@ -110,42 +109,42 @@ class SubscriptionNameContainer extends Component<
         }),
     }
 
+    const canEdit = status === SubscriptionStatusEnum.Active
+
     return (
       <Fragment>
         <ConfirmationModal {...modalProps} />
         <div className="t-heading-5 c-on-base">
           {content}
-          <span
-            className="ml5 c-action-primary hover-c-action-primary pointer"
-            onClick={this.handleOpenModal}>
-            <IconEdit solid />
-          </span>
+          {canEdit && (
+            <span
+              className="ml5 c-action-primary hover-c-action-primary pointer"
+              onClick={this.handleOpenModal}>
+              <IconEdit solid />
+            </span>
+          )}
         </div>
       </Fragment>
     )
   }
 }
 
-const enhance = compose<any, Props>(
+const enhance = compose<InnerProps & OutterProps, OutterProps>(
   injectIntl,
   graphql(UPDATE_NAME, { name: 'updateName' })
 )
 
 export default enhance(SubscriptionNameContainer)
 
-interface Props {
+interface OutterProps {
   subscriptionGroup: SubscriptionsGroupItemType
 }
 
-interface InnerProps {
+interface InnerProps extends InjectedIntlProps {
   updateName: (args: object) => Promise<any>
   showToast: (args: object) => void
 }
 
 interface InputChangeEvent {
-  target: InputChangeEventTarget
-}
-
-interface InputChangeEventTarget {
-  value: string
+  target: { value: string }
 }
