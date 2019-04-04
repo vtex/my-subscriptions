@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { graphql } from 'react-apollo'
@@ -98,7 +98,7 @@ class Summary extends Component<InnerProps & OutterProps> {
     const hasMultipleItems = subscriptionsGroup.subscriptions.length > 1
 
     return (
-      <div>
+      <Fragment>
         <Alert
           visible={showErrorAlert}
           type={TagTypeEnum.Error}
@@ -179,54 +179,57 @@ class Summary extends Component<InnerProps & OutterProps> {
                   <SubscriptionsStatus status={subscriptionsGroup.status} />
                 </div>
               </div>
-              <div className="w-100 flex flex-row-ns flex-column-s flex-wrap mw6">
-                <div className="w-100 pt5">
-                  {!hasMultipleItems && (
-                    <div className="cf pt2">
-                      <div className="dib f6 fw4 c-muted-1 w-40">
-                        {intl.formatMessage({
-                          id: 'subscription.summary.quantity',
-                        })}
+              <div className="flex flex-row-ns flex-column-s flex-wrap pt6">
+                <div className="w-50-ns">
+                  <div className="mw6">
+                    {!hasMultipleItems && (
+                      <div className="cf pt2">
+                        <div className="dib f6 fw4 c-muted-1 w-40">
+                          {intl.formatMessage({
+                            id: 'subscription.summary.quantity',
+                          })}
+                        </div>
+                        <div className="dib f6 fw4 c-muted-1 tr w-60">
+                          {subscriptionsGroup.subscriptions[0].quantity}
+                        </div>
                       </div>
-                      <div className="dib f6 fw4 c-muted-1 tr w-60">
-                        {subscriptionsGroup.subscriptions[0].quantity}
-                      </div>
-                    </div>
-                  )}
-                  <SubscriptionTotals
-                    totals={subscriptionsGroup.totals}
-                    currencyCode={
-                      subscriptionsGroup.purchaseSettings.currencySymbol
-                    }
-                  />
+                    )}
+                    <SubscriptionTotals
+                      totals={subscriptionsGroup.totals}
+                      currencyCode={
+                        subscriptionsGroup.purchaseSettings.currencySymbol
+                      }
+                    />
+                  </div>
                 </div>
-                <div className="w-100 flex flex-column justify-center-s justify-end-ns items-center pt6-s pt2-ns">
-                  {hasMultipleItems && (
-                    <Button
-                      size="small"
-                      block
-                      onClick={this.handleClick}
-                      variation="secondary">
-                      <span>
-                        {intl.formatMessage({
-                          id: 'subscription.seeProducts',
-                        })}
-                      </span>
-                    </Button>
-                  )}
-                  <Menu
-                    options={options}
-                    onSkipOrUnskip={this.handleOpenModal}
-                    onSuccessUpdate={this.handleSuccessUpdate}
-                    onErrorUpdate={this.handleErrorUpdate}
-                    subscriptionsGroup={subscriptionsGroup}
-                  />
+                <div className="w-50-ns flex justify-end">
+                  <div className="mw6">
+                    {hasMultipleItems && (
+                      <div className="mb5">
+                        <Button
+                          block
+                          onClick={this.handleClick}
+                          variation="secondary">
+                          {intl.formatMessage({
+                            id: 'subscription.seeProducts',
+                          })}
+                        </Button>
+                      </div>
+                    )}
+                    <Menu
+                      options={options}
+                      onSkipOrUnskip={this.handleOpenModal}
+                      onSuccessUpdate={this.handleSuccessUpdate}
+                      onErrorUpdate={this.handleErrorUpdate}
+                      subscriptionsGroup={subscriptionsGroup}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     )
   }
 }
