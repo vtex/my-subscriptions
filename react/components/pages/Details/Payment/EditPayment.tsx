@@ -5,9 +5,10 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import { branch, compose, renderComponent, renderNothing } from 'recompose'
-import { Alert, Button, Dropdown, Radio } from 'vtex.styleguide'
+import { Button, Dropdown, Radio } from 'vtex.styleguide'
 
-import { PaymentGroupEnum } from '../../../../constants'
+import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
+import Alert from '../../../commons/CustomAlert'
 import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
 import EditButtons from '../EditButtons'
 import PaymentSkeleton from './PaymentSkeleton'
@@ -42,15 +43,15 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
         </div>
       </div>
       <div className="mr-auto pt5 flex flex-column justify-center">
-        {showAlert && (
-          <div className="mb6">
-            <Alert type="error" autoClose={3000} onClose={onCloseAlert}>
-              {intl.formatMessage({
-                id: `${errorMessage}`,
-              })}
-            </Alert>
-          </div>
-        )}
+        <Alert
+          type={TagTypeEnum.Error}
+          autoClose={3000}
+          onClose={onCloseAlert}
+          visible={showAlert}>
+          {intl.formatMessage({
+            id: `${errorMessage}`,
+          })}
+        </Alert>
         {Object.keys(groupedPayments).map(group => (
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio

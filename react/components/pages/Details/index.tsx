@@ -7,7 +7,7 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 
 import GET_GROUPED_SUBSCRIPTION from '../../../graphql/getGroupedSubscription.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
-import Alert from '../../commons/Alert'
+import Alert from '../../commons/CustomAlert'
 import { TagTypeEnum } from '../../../constants'
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -78,16 +78,12 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
               visible={displayRetry && displayAlert}
               type={TagTypeEnum.Error}
               action={{
-                label: intl.formatMessage({
-                  id: 'subscription.retry.button.message',
-                }),
+                labelId: 'subscription.retry.button.message',
                 onClick: this.handleMakeRetry,
               }}
-              onClose={() => this.handleSetDisplayAlert(false)}>
-              {intl.formatMessage({
-                id: 'subscription.alert.error.message',
-              })}
-            </Alert>
+              contentId="subscription.alert.error.message"
+              onClose={() => this.handleSetDisplayAlert(false)}
+            />
             <Summary subscriptionsGroup={subscriptionsGroup} />
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">

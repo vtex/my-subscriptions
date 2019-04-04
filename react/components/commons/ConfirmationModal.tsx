@@ -1,7 +1,9 @@
 import React, { Component, ReactNode } from 'react'
 import { compose } from 'recompose'
-import { Alert, Button, Modal, withToast } from 'vtex.styleguide'
+import { Button, Modal, withToast } from 'vtex.styleguide'
 
+import Alert from '../commons/CustomAlert'
+import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
 
 class ConfirmationModalContainer extends Component<Props & InnerProps> {
@@ -66,11 +68,12 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
 
     return (
       <Modal centered isOpen={isModalOpen} onClose={onCloseModal}>
-        {this.state.shouldDisplayError && (
-          <Alert type="error" onClose={this.handleDismissError}>
-            {errorMessage}
-          </Alert>
-        )}
+        <Alert
+          type={TagTypeEnum.Error}
+          onClose={this.handleDismissError}
+          visible={this.state.shouldDisplayError}>
+          {errorMessage}
+        </Alert>
         {modalContent}
         <div className="flex flex-row justify-end mt7">
           <span className="mr4">

@@ -4,13 +4,14 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import { compose } from 'recompose'
-import { Alert, Button, Modal, withToast } from 'vtex.styleguide'
+import { Button, Modal, withToast } from 'vtex.styleguide'
 
 import updateIsSkipped from '../../../graphql/updateIsSkipped.gql'
+import { TagTypeEnum } from '../../../constants'
+import Alert from '../../commons/CustomAlert'
 import Title from '../../commons/Title'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
-
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 
@@ -98,27 +99,23 @@ class Summary extends Component<InnerProps & OutterProps> {
 
     return (
       <div>
-        {showErrorAlert && (
-          <div className="mb5">
-            <Alert
-              type="error"
-              autoClose={3000}
-              onClose={this.handleCloseErrorAlert}>
-              {intl.formatMessage({
-                id: `${errorMessage}`,
-              })}
-            </Alert>
-          </div>
-        )}
-        {subscriptionsGroup.isSkipped && (
-          <div className="mb5">
-            <Alert type="warning">
-              {intl.formatMessage({
-                id: 'subscription.skip.alert',
-              })}
-            </Alert>
-          </div>
-        )}
+        <Alert
+          visible={showErrorAlert}
+          type={TagTypeEnum.Error}
+          autoClose={3000}
+          onClose={this.handleCloseErrorAlert}>
+          {errorMessage &&
+            intl.formatMessage({
+              id: `${errorMessage}`,
+            })}
+        </Alert>
+        <Alert
+          visible={subscriptionsGroup.isSkipped}
+          type={TagTypeEnum.Warning}>
+          {intl.formatMessage({
+            id: 'subscription.skip.alert',
+          })}
+        </Alert>
         <div className="card bw1 bg-base pa6 ba b--muted-5">
           <div className="flex-ns items-center-s items-start-ns">
             <Modal
