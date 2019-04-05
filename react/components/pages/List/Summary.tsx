@@ -30,6 +30,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
         <div className="w-100 mt6-s flex items-end">
           {isActive ? (
             <Frequency
+              displayLabel={false}
               periodicity={item.plan.frequency.periodicity}
               interval={item.plan.frequency.interval}
             />
