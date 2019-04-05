@@ -7,7 +7,7 @@ import { compose } from 'recompose'
 import { Button, Modal, withToast } from 'vtex.styleguide'
 
 import updateIsSkipped from '../../../graphql/updateIsSkipped.gql'
-import { TagTypeEnum } from '../../../constants'
+import { TagTypeEnum, CSS } from '../../../constants'
 import Alert from '../../commons/CustomAlert'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
@@ -116,7 +116,7 @@ class Summary extends Component<InnerProps & OutterProps> {
             id: 'subscription.skip.alert',
           })}
         </Alert>
-        <div className="card bw1 bg-base pa6 ba b--muted-5">
+        <div className={CSS.detailCardWrapper}>
           <div className="flex-ns items-center-s items-start-ns">
             <Modal
               centered

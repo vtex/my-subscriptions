@@ -1,12 +1,13 @@
 import React from 'react'
 
+import { CSS } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const DataSkeleton = () => (
-  <div className="bg-base pa6 ba bw1 b--muted-5 pb5">
+  <div className={CSS.detailCardWrapper}>
     <div className="flex flex-row">
       <div className="db-s di-ns b f4 w-100">
-        <SkeletonLoader width="50" />
+        <SkeletonLoader width="50" size="4" />
       </div>
     </div>
     <div className="flex pt7 w-100-s mr-auto flex-row pb8-s pb0-ns">

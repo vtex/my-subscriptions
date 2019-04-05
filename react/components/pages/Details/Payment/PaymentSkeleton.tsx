@@ -1,9 +1,10 @@
 import React from 'react'
 
+import { CSS } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const PaymentSkeleton = () => (
-  <div className="bg-base pa6 ba bw1 b--muted-5">
+  <div className={CSS.detailCardWrapper}>
     <div className="db-s di-ns b w-90">
       <SkeletonLoader width="20" size="3" />
     </div>
