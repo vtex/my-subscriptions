@@ -103,19 +103,14 @@ class Summary extends Component<InnerProps & OutterProps> {
           visible={showErrorAlert}
           type={TagTypeEnum.Error}
           autoClose={3000}
-          onClose={this.handleCloseErrorAlert}>
-          {errorMessage &&
-            intl.formatMessage({
-              id: `${errorMessage}`,
-            })}
-        </Alert>
+          onClose={this.handleCloseErrorAlert}
+          contentId={errorMessage}
+        />
         <Alert
           visible={subscriptionsGroup.isSkipped}
-          type={TagTypeEnum.Warning}>
-          {intl.formatMessage({
-            id: 'subscription.skip.alert',
-          })}
-        </Alert>
+          type={TagTypeEnum.Warning}
+          contentId="subscription.skip.alert"
+        />
         <div className={CSS.detailCardWrapper}>
           <div className="flex-ns items-center-s items-start-ns">
             <Modal

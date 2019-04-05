@@ -24,9 +24,7 @@ const CustomAlert: FunctionComponent<Props> = ({
             onClick: action.onClick,
           }
         }>
-        {children
-          ? children
-          : contentId && intl.formatMessage({ id: contentId })}
+        {children || (contentId && intl.formatMessage({ id: contentId }))}
       </Alert>
     </div>
   )
