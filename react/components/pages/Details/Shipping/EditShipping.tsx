@@ -40,11 +40,9 @@ const EditShipping: FunctionComponent<
           visible={showErrorAlert}
           type={TagTypeEnum.Error}
           autoClose={3000}
-          onClose={onCloseErrorAlert}>
-          {intl.formatMessage({
-            id: `${errorMessage}`,
-          })}
-        </Alert>
+          onClose={onCloseErrorAlert}
+          contentId={errorMessage}
+        />
         <div className="w-100">
           <Dropdown
             label={intl.formatMessage({

@@ -47,11 +47,9 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
           type={TagTypeEnum.Error}
           autoClose={3000}
           onClose={onCloseAlert}
-          visible={showAlert}>
-          {intl.formatMessage({
-            id: `${errorMessage}`,
-          })}
-        </Alert>
+          visible={showAlert}
+          contentId={errorMessage}
+        />
         {Object.keys(groupedPayments).map(group => (
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio
