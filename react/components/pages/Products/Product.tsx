@@ -1,23 +1,25 @@
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
-import { compose, graphql } from 'react-apollo'
-import { Button, Alert } from 'vtex.styleguide'
+import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { graphql } from 'react-apollo'
+import { compose } from 'recompose'
+import { ApolloError } from 'apollo-client'
+import { Button, Alert, withToast } from 'vtex.styleguide'
 import { utils } from 'vtex.my-account-commons'
 
-import RemoveItemConfirmModal from '../Details/RemoveItemConfirmModal'
-import Price from '../../commons/FormattedPrice'
-import Toast from '../../commons/Toast'
-import LabeledInfo from '../../commons/LabeledInfo'
 import RemoveItem from '../../../graphql/removeItem.gql'
+import Price from '../../commons/FormattedPrice'
+import LabeledInfo from '../../commons/LabeledInfo'
+import RemoveItemConfirmModal from '../Details/RemoveItemConfirmModal'
+import { TagTypeEnum } from '../../../constants'
 
 const { fixImageUrl } = utils
 
-class Subscription extends Component {
+class Product extends Component<InnerProps & OutterProps> {
   state = {
     isLoading: false,
     isModalOpen: false,
     showAlert: false,
+    alertMessage: '',
   }
 
   handleOpenModal = () => {
@@ -29,24 +31,25 @@ class Subscription extends Component {
   }
 
   handleRemoveItem = () => {
+    const { removeItem, orderGroup, subscription, intl, showToast } = this.props
     this.setState({ isLoading: true })
-    this.props
-      .removeItem({
-        variables: {
-          orderGroup: this.props.orderGroup,
-          itemId: this.props.subscription.SubscriptionId,
-        },
-      })
+
+    removeItem({
+      variables: {
+        orderGroup: orderGroup,
+        itemId: subscription.SubscriptionId,
+      },
+    })
       .then(() => {
         this.setState({
           isLoading: false,
           isModalOpen: false,
-          showAlert: true,
-          alertType: 'success',
-          alertMessage: 'subscription.edit.success',
+        })
+        showToast({
+          message: intl.formatMessage({ id: 'subscription.edit.success' }),
         })
       })
-      .catch(e => {
+      .catch((e: ApolloError) => {
         this.setState({
           showAlert: true,
           isLoading: false,
@@ -66,34 +69,17 @@ class Subscription extends Component {
 
   render() {
     const { subscription, currency, intl } = this.props
-    const {
-      isModalOpen,
-      isLoading,
-      showAlert,
-      alertType,
-      alertMessage,
-    } = this.state
+    const { isModalOpen, isLoading, showAlert, alertMessage } = this.state
     return (
       <Fragment>
-        {showAlert && alertType === 'error' && (
+        {showAlert && (
           <div className="absolute top-2 z-5 ma7">
-            <Alert
-              type={alertType}
-              autoClose={3000}
-              onClose={this.handleCloseAlert}>
+            <Alert type={TagTypeEnum.Error} onClose={this.handleCloseAlert}>
               {intl.formatMessage({
                 id: `${alertMessage}`,
               })}
             </Alert>
           </div>
-        )}
-        {showAlert && alertType === 'success' && (
-          <Toast
-            onClose={this.handleCloseAlert}
-            message={intl.formatMessage({
-              id: `${alertMessage}`,
-            })}
-          />
         )}
         <div className="card center bg-base center pa0-ns mb5 subscription__product-listing__card pa6 ba bw1 b--muted-5">
           {isModalOpen && (
@@ -165,14 +151,19 @@ const removeItemMutation = {
   name: 'removeItem',
 }
 
-Subscription.propTypes = {
-  intl: intlShape.isRequired,
-  removeItem: PropTypes.func.isRequired,
-  orderGroup: PropTypes.string.isRequired,
-  subscription: PropTypes.object.isRequired,
-  currency: PropTypes.string.isRequired,
+interface InnerProps extends InjectedIntlProps {
+  removeItem: (args: Variables<RemoveSubscripionArgs>) => Promise<void>
+  showToast: (args: { message: string }) => void
 }
 
-export default compose(graphql(RemoveItem, removeItemMutation))(
-  injectIntl(Subscription)
-)
+interface OutterProps {
+  subscription: SubscriptionType
+  orderGroup: string
+  currency: string
+}
+
+export default compose<InnerProps & OutterProps, OutterProps>(
+  injectIntl,
+  withToast,
+  graphql(RemoveItem, removeItemMutation)
+)(Product)
