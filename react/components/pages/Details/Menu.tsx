@@ -67,7 +67,7 @@ class Menu extends Component<Props> {
         />
         <ActionMenu
           label={intl.formatMessage({ id: 'subscription.manage' })}
-          buttonProps={{ variation: 'secondary' }}
+          buttonProps={{ variation: 'secondary', block: true, size: 'small' }}
           options={actionOptions}
         />
       </Fragment>
