@@ -37,13 +37,13 @@ export enum SubscriptionOrderStatusEnum {
 }
 
 export const WEEK_OPTIONS = [
-  { value: 'monday', label: 'monday' },
-  { value: 'tuesday', label: 'tuesday' },
-  { value: 'wednesday', label: 'wednesday' },
-  { value: 'thursday', label: 'thursday' },
-  { value: 'friday', label: 'friday' },
-  { value: 'saturday', label: 'saturday' },
-  { value: 'sunday', label: 'sunday' },
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
 ]
 
 export const MONTH_OPTIONS = [

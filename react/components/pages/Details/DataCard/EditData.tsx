@@ -54,12 +54,12 @@ class EditData extends Component<Props, State> {
     }))
   }
 
-  public translateChargeDayOptions(options: any) {
-    return options.map((option: any) => ({
+  public translateChargeDayOptions(options: string[]) {
+    return options.map((option: string) => ({
       label: this.props.intl.formatMessage({
-        id: `subscription.periodicity.${option.label}`,
+        id: `subscription.periodicity.${option}`,
       }),
-      value: option.value,
+      value: option,
     }))
   }
 
@@ -160,7 +160,6 @@ class EditData extends Component<Props, State> {
           <Alert
             visible={showErrorAlert}
             type={TagTypeEnum.Error}
-            autoClose={3000}
             onClose={() => this.setState({ showErrorAlert: false })}
             contentId={errorMessage}
           />
@@ -182,7 +181,9 @@ class EditData extends Component<Props, State> {
                 })}
                 options={
                   periodicity === 'WEEKLY'
-                    ? this.translateChargeDayOptions(chargeDayOptions)
+                    ? this.translateChargeDayOptions(
+                        chargeDayOptions as string[]
+                      )
                     : chargeDayOptions
                 }
                 value={chargeDay}
@@ -221,7 +222,7 @@ interface OutterProps {
 
 interface State {
   chargeDay: string
-  chargeDayOptions: { value: string; label: string }[]
+  chargeDayOptions: { value: string; label: string }[] | string[]
   currentIndex: number
   interval: number
   isLoading: boolean
