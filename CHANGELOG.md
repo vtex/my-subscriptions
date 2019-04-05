@@ -6,9 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Changed
-- Redirect to the address creation page and go back on add new address.
-- Enable edition only for ACTIVE subscriptions.
+
+### Added
+
+- Edit subscription name on the subscription details page.
+
+### Fixed
+
+- Loaders on the details page.
+- Standarize the card wrappers css on the subscription details page.
 
 ## [0.6.0] - 2019-03-29
 
