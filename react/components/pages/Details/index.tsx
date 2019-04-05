@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent, withProps } from 'recompose'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import { graphql, withApollo } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { ContentWrapper } from 'vtex.my-account-commons'
 
@@ -126,7 +126,6 @@ interface Props
 const enhance = compose<Props, void>(
   injectIntl,
   withRouter,
-  withApollo,
   graphql<Props, Variables<{ ordergroup: string }>>(
     GROUPED_SUBSCRIPTION,
     subscriptionQuery
