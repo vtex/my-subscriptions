@@ -39,7 +39,6 @@ const EditShipping: FunctionComponent<
         <Alert
           visible={showErrorAlert}
           type={TagTypeEnum.Error}
-          autoClose={3000}
           onClose={onCloseErrorAlert}
           contentId={errorMessage}
         />

@@ -34,7 +34,6 @@ interface Props extends InjectedIntlProps {
   visible: boolean
   type: TagTypeEnum
   action?: { labelId: string; onClick: () => void }
-  autoClose?: number
   contentId?: string
   onClose?: () => void
 }

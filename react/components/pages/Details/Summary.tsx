@@ -102,7 +102,6 @@ class Summary extends Component<InnerProps & OutterProps> {
         <Alert
           visible={showErrorAlert}
           type={TagTypeEnum.Error}
-          autoClose={3000}
           onClose={this.handleCloseErrorAlert}
           contentId={errorMessage}
         />

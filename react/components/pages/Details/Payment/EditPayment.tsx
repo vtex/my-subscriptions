@@ -45,7 +45,6 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
       <div className="mr-auto pt5 flex flex-column justify-center">
         <Alert
           type={TagTypeEnum.Error}
-          autoClose={3000}
           onClose={onCloseAlert}
           visible={showAlert}
           contentId={errorMessage}
