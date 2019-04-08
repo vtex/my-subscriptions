@@ -13,4 +13,5 @@ declare module 'vtex.styleguide' {
   export const Alert
   export const Modal
   export const Radio
+  export const ActionMenu
 }

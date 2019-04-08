@@ -1,21 +1,31 @@
-import { SubscriptionStatus } from './../enums'
+import { SubscriptionStatusEnum } from './../enums'
 
 declare global {
   interface SubscriptionsGroupItemType {
     name: string
     orderGroup: string
-    status: SubscriptionStatus
-    subscriptions: [SubscriptionType]
+    status: SubscriptionStatusEnum
+    subscriptions: SubscriptionType[]
     nextPurchaseDate: string
     lastStatusUpdate: string
     plan: Plan
     shippingAddress: Address
     lastInstance: SubcriptionOrder
     purchaseSettings: PurchaseSettings
+    isSkipped: boolean
+    totals: TotalType[]
+  }
+
+  interface TotalType {
+    id: string
+    value: number
   }
 
   interface SubscriptionType {
+    SubscriptionId: number
     sku: SKUType
+    quantity: number
+    priceAtSubscriptionDate: number
   }
 
   interface SKUType {
@@ -26,16 +36,23 @@ declare global {
   }
 
   interface Plan {
-    frequency: SubscriptionFrequencyType
+    frequency: Frequency
+    validity: Validity
+    type: string
   }
 
-  interface SubscriptionFrequencyType {
+  interface Validity {
+    begin: string
+    end: string
+  }
+
+  interface Frequency {
     periodicity: string
     interval: number
   }
 
-  interface UpdateAddressMutationArgs {
-    variables: UpdateAddressArgs
+  interface Variables<A> {
+    variables: A
   }
 
   interface UpdateAddressArgs {
@@ -43,14 +60,37 @@ declare global {
     addressId: string
   }
 
-  interface MutationArgs<A> {
-    variables: A
+  interface UpdateStatusArgs {
+    orderGroup: string
+    status: SubscriptionStatusEnum
   }
 
   interface UpdatePaymentArgs {
     accountId: string | null
     orderGroup: string
     payment: string
+  }
+
+  interface UpdateSettingsArgs {
+    orderGroup: string
+    purchaseDay: string
+    periodicity: string
+    interval: number
+  }
+
+  interface UpdateIsSkippedArgs {
+    orderGroup: string
+    isSkipped: boolean
+  }
+
+  interface RemoveSubscripionArgs {
+    itemId: number
+    orderGroup: string
+  }
+
+  interface RetryArgs {
+    orderGroup: string
+    instanceId: string
   }
 
   interface GetAddressesQueryArgs {
@@ -132,3 +172,4 @@ declare global {
   }
 }
 
+export {}

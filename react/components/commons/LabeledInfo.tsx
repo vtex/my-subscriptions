@@ -19,7 +19,7 @@ const LabeledInfo: FunctionComponent<Props & InjectedIntlProps> = ({
 
 interface Props {
   label?: ReactNode
-  labelId: string
+  labelId?: string
   children: ReactNode
 }
 

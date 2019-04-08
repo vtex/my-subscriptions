@@ -5,9 +5,10 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import { branch, compose, renderComponent, renderNothing } from 'recompose'
-import { Alert, Button, Dropdown, Radio } from 'vtex.styleguide'
+import { Button, Dropdown, Radio } from 'vtex.styleguide'
 
-import { PaymentGroupEnum } from '../../../../enums'
+import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
+import Alert from '../../../commons/CustomAlert'
 import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
 import EditButtons from '../EditButtons'
 import PaymentSkeleton from './PaymentSkeleton'
@@ -42,15 +43,12 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
         </div>
       </div>
       <div className="mr-auto pt5 flex flex-column justify-center">
-        {showAlert && (
-          <div className="mb6">
-            <Alert type="error" autoClose={3000} onClose={onCloseAlert}>
-              {intl.formatMessage({
-                id: `${errorMessage}`,
-              })}
-            </Alert>
-          </div>
-        )}
+        <Alert
+          type={TagTypeEnum.Error}
+          onClose={onCloseAlert}
+          visible={showAlert}
+          contentId={errorMessage}
+        />
         {Object.keys(groupedPayments).map(group => (
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio
@@ -64,7 +62,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
               value={groupedPayments[group][0].paymentSystem}
             />
             {groupedPayments[group][0].paymentSystemGroup ===
-              PaymentGroupEnum.CREDIT_CARD && (
+              PaymentGroupEnum.CreditCard && (
               <div className="w-40-ns w-100-s ml6-ns flex">
                 <div className="w-50 mr4">
                   <Dropdown
@@ -73,7 +71,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
                       id: 'subscription.payment.chooseOne',
                     })}
                     disabled={
-                      paymentSystemGroup !== PaymentGroupEnum.CREDIT_CARD
+                      paymentSystemGroup !== PaymentGroupEnum.CreditCard
                     }
                     value={account}
                     onChange={onChangeCard}
@@ -97,7 +95,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             onCancel={onCancel}
             onSave={onSave}
             disabled={
-              paymentSystemGroup === PaymentGroupEnum.CREDIT_CARD && !account
+              paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
             }
           />
         </div>

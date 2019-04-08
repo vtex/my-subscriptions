@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 
-import { SubscriptionStatusEnum } from '../../../enums'
+import { SubscriptionStatusEnum } from '../../../constants'
 
 interface Props {
   item: SubscriptionsGroupItemType
@@ -11,7 +11,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<
   Props & InjectedIntlProps
 > = ({ item, intl }) => {
   const content =
-    item.status === SubscriptionStatusEnum.ACTIVE
+    item.status === SubscriptionStatusEnum.Active
       ? intl.formatMessage(
           { id: 'subscription.list.item.date.next.purchase' },
           {

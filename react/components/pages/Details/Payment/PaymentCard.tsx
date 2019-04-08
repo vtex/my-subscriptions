@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../../../enums'
+import { SubscriptionStatusEnum, CSS } from '../../../../constants'
 import PaymentDisplay from '../PaymentDisplay'
 
 const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
@@ -20,10 +20,10 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   //   lastGeneratedOrder.orderInfo.paymentUrl
 
   const displayEdit =
-    subscriptionsGroup.status === SubscriptionStatusEnum.ACTIVE
+    subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
   return (
-    <div className="card bw1 bg-base pa6 ba b--muted-5">
+    <div className={CSS.detailCardWrapper}>
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
           <FormattedMessage id="subscription.payment" />

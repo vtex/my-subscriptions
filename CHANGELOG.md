@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.7.0] - 2019-04-08
+
+### Added
+
+- Edit subscription name on the subscription details page.
+
+### Fixed
+
+- Loaders on the details page.
+- Standarize the card wrappers css on the subscription details page.
+
 ## [0.6.0] - 2019-03-29
 
 ### Added

@@ -1,26 +1,31 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 
-interface Props {
-  periodicity: string
-  interval: string | number
-}
+import LabeledInfo from '../../components/commons/LabeledInfo'
 
 const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
   intl,
   interval,
   periodicity,
+  displayLabel = true,
 }) => {
-  return (
-    <span className="t-body c-on-base">
-      {intl.formatMessage(
-        {
-          id: `subscription.settings.${periodicity.toLowerCase()}`,
-        },
-        { interval }
-      )}
-    </span>
+  const frequency = intl.formatMessage(
+    {
+      id: `subscription.settings.${periodicity.toLowerCase()}`,
+    },
+    { interval }
   )
+  return displayLabel ? (
+    <LabeledInfo labelId="subscription.frequency">{frequency}</LabeledInfo>
+  ) : (
+    <Fragment>{frequency}</Fragment>
+  )
+}
+
+interface Props {
+  periodicity: string
+  interval: string | number
+  displayLabel?: boolean
 }
 
 export default injectIntl(FrequencyInfo)

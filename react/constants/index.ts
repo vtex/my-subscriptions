@@ -1,3 +1,51 @@
+export enum SubscriptionStatusEnum {
+  Active = 'ACTIVE',
+  Canceled = 'CANCELED',
+  Expired = 'EXPIRED',
+  Paused = 'PAUSED',
+}
+
+export enum SubscriptionDisplayFilterEnum {
+  Active = 'ACTIVE_FILTER',
+  Canceled = 'CANCELED_FILTER',
+}
+
+export enum TagTypeEnum {
+  Error = 'error',
+  Warning = 'warning',
+}
+
+export enum PaymentGroupEnum {
+  BankInvoice = 'bankInvoice',
+  PayPal = 'payPal',
+  GiftCard = 'giftCard',
+  DebitCard = 'debitCard',
+  CreditCard = 'creditCard',
+}
+
+export enum SubscriptionOrderStatusEnum {
+  Triggered = 'TRIGGERED',
+  InProcess = 'IN_PROCESS',
+  Failure = 'FAILURE',
+  Success = 'SUCCESS',
+  Expired = 'EXPIRED',
+  OrderError = 'ORDER_ERROR',
+  PymentError = 'PAYMENT_ERROR',
+  Skiped = 'SKIPED',
+  SuccessWithNoOrder = 'SUCCESS_WITH_NO_ORDER',
+  SuccessWithPartialOrder = 'SUCCESS_WITH_PARTIAL_ORDER',
+}
+
+export const WEEK_OPTIONS = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
+]
+
 export const MONTH_OPTIONS = [
   { value: '1', label: '1' },
   { value: '2', label: '2' },
@@ -32,12 +80,10 @@ export const MONTH_OPTIONS = [
   { value: '31', label: '31' },
 ]
 
-export const WEEK_OPTIONS = [
-  { value: 'monday', label: 'monday' },
-  { value: 'tuesday', label: 'tuesday' },
-  { value: 'wednesday', label: 'wednesday' },
-  { value: 'thursday', label: 'thursday' },
-  { value: 'friday', label: 'friday' },
-  { value: 'saturday', label: 'saturday' },
-  { value: 'sunday', label: 'sunday' },
-]
+export const CSS = {
+  subscriptionGroupImageWrapper:
+    'vtex-subscriptions-custom-image-size flex-none center overflow-hidden mb4',
+  subscriptionGroupItemWrapper:
+    'subscription__listing-card mb4 bg-base pa0-ns pa3-s bb b--muted-5 flex flex-row-ns flex-column-s',
+  detailCardWrapper: 'bw1 bg-base pa6 ba b--muted-5 h-100',
+}

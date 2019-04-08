@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 
-import css from '../../../constants/css'
+import { CSS } from '../../../constants'
 import SkeletonLoader from '../../commons/SkeletonLoader'
 import DescriptionColumn from './SkeletonDescriptionColumn'
 
@@ -8,8 +8,8 @@ const SubscriptionsGroupsLoading: FunctionComponent = () => {
   return (
     <div className="w-100">
       {[0, 1].map(index => (
-        <div className={css.subscriptionGroupItemWrapper} key={index}>
-          <div className={css.subscriptionGroupImageWrapper}>
+        <div className={CSS.subscriptionGroupItemWrapper} key={index}>
+          <div className={CSS.subscriptionGroupImageWrapper}>
             <SkeletonLoader />
           </div>
           <div className="ml6-ns ml0-s mt0-ns mt3-s w-100 mb3">
