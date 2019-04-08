@@ -12,7 +12,6 @@
     "react-intl": "^2.7.2",
     "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
-    "react-router-prop-types": "^1.0.4",
     "recompose": "^0.30.0"
   },
   "devDependencies": {

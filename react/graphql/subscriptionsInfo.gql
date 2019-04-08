@@ -1,4 +1,4 @@
-query subscriptions($orderGroup: String!) {
+query SubscriptionsInfo($orderGroup: String!) {
   subscriptionsInfo: groupedSubscription(orderGroup: $orderGroup) {
     cacheId
     subscriptions {
@@ -20,7 +20,7 @@ query subscriptions($orderGroup: String!) {
       originalOrderId
       isSkipped
     }
-    purchaseSettings{
+    purchaseSettings {
       currencySymbol
     }
   }

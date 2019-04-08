@@ -22,8 +22,10 @@ declare global {
   }
 
   interface SubscriptionType {
+    SubscriptionId: number
     sku: SKUType
     quantity: number
+    priceAtSubscriptionDate: number
   }
 
   interface SKUType {
@@ -79,6 +81,11 @@ declare global {
   interface UpdateIsSkippedArgs {
     orderGroup: string
     isSkipped: boolean
+  }
+
+  interface RemoveSubscripionArgs {
+    itemId: number
+    orderGroup: string
   }
 
   interface RetryArgs {
