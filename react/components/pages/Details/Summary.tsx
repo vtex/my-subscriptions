@@ -174,7 +174,7 @@ class Summary extends Component<InnerProps & OutterProps> {
                 </div>
               </div>
               <div className="flex flex-row-ns flex-column-s flex-wrap pt6">
-                <div className="w-50-ns w-100">
+                <div className="w-50-ns w-100 mt5">
                   <div className="w-90-m w-100-s">
                     {!hasMultipleItems && (
                       <div className="cf pt2">
@@ -196,7 +196,7 @@ class Summary extends Component<InnerProps & OutterProps> {
                     />
                   </div>
                 </div>
-                <div className="w-50-ns w-100 flex justify-end-ns justify-center mt0-ns mt5">
+                <div className="w-50-ns w-100 flex justify-end-ns justify-center mt5">
                   <div className="w-90-m w-100-s">
                     {hasMultipleItems && (
                       <div className="mb3">
