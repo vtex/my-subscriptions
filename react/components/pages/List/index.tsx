@@ -5,7 +5,7 @@ import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 
-import { SubscriptionDisplayFilterEnum } from '../../../enums'
+import { SubscriptionDisplayFilterEnum } from '../../../constants'
 import { convertFilter } from '../../../utils'
 import SubscriptionsGroups from './SubscriptionsGroups'
 
@@ -17,7 +17,7 @@ class SubscriptionsGroupListContainer extends Component<
   Props & InjectedIntlProps
 > {
   public state = {
-    filter: SubscriptionDisplayFilterEnum.ACTIVE,
+    filter: SubscriptionDisplayFilterEnum.Active,
   }
 
   public handleGoToDetails = (orderGroup: string) => {
@@ -32,15 +32,15 @@ class SubscriptionsGroupListContainer extends Component<
     const filterOptions = [
       {
         label: intl.formatMessage({
-          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.ACTIVE.toLowerCase()}`,
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Active.toLowerCase()}`,
         }),
-        value: SubscriptionDisplayFilterEnum.ACTIVE,
+        value: SubscriptionDisplayFilterEnum.Active,
       },
       {
         label: intl.formatMessage({
-          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.CANCELED.toLowerCase()}`,
+          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Canceled.toLowerCase()}`,
         }),
-        value: SubscriptionDisplayFilterEnum.CANCELED,
+        value: SubscriptionDisplayFilterEnum.Canceled,
       },
     ]
 

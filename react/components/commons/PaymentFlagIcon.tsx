@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 
-import { PaymentGroupEnum } from '../../enums'
+import { PaymentGroupEnum } from '../../constants'
 import PaymentFlagsSprite from '../../images/payment-flags.png'
 
 const PaymentFlagIcon: FunctionComponent<Props> = ({ type, size, group }) => {
@@ -10,16 +10,16 @@ const PaymentFlagIcon: FunctionComponent<Props> = ({ type, size, group }) => {
 
   let slug
   switch (group) {
-    case PaymentGroupEnum.BANK_INVOICE:
+    case PaymentGroupEnum.BankInvoice:
       slug = 'bankinvoice'
       break
-    case PaymentGroupEnum.PAY_PAL:
+    case PaymentGroupEnum.PayPal:
       slug = 'paypal'
       break
-    case PaymentGroupEnum.GIFT_CARD:
+    case PaymentGroupEnum.GiftCard:
       slug = 'giftcard'
       break
-    case PaymentGroupEnum.DEBIT_CARD:
+    case PaymentGroupEnum.DebitCard:
       slug = 'cash'
       break
     default:
@@ -47,7 +47,8 @@ const PaymentFlagIcon: FunctionComponent<Props> = ({ type, size, group }) => {
     visa: 0,
   } as Position
 
-  const position = positions[slug] || positions[slug] === 0 ? positions[slug] : -1
+  const position =
+    positions[slug] || positions[slug] === 0 ? positions[slug] : -1
 
   if (position === -1) {
     return null
@@ -65,9 +66,9 @@ const PaymentFlagIcon: FunctionComponent<Props> = ({ type, size, group }) => {
 }
 
 interface Props {
-  type: string,
-  size: number,
-  group: string,
+  type: string
+  size: number
+  group: string
 }
 
 interface Position {

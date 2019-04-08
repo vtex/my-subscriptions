@@ -2,16 +2,21 @@ import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { Button, Tag } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../../../enums'
+import { SubscriptionStatusEnum, CSS } from '../../../../constants'
 import FrequencyInfo from '../../../commons/FrequencyInfo'
 import LabeledInfo from '../../../commons/LabeledInfo'
 import ChargeDayInfo from './ChargeDayInfo'
 
-const DisplayData: FunctionComponent<Props> = ({ subscriptionsGroup, intl, onOpenEdit }) => {
-  const displayEdit = subscriptionsGroup.status === SubscriptionStatusEnum.ACTIVE
+const DisplayData: FunctionComponent<Props> = ({
+  subscriptionsGroup,
+  intl,
+  onOpenEdit,
+}) => {
+  const displayEdit =
+    subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
   return (
-    <div className="bw1 bg-base pa6 ba b--muted-5">
+    <div className={CSS.detailCardWrapper}>
       <div className="flex">
         <div className="db-s di-ns b f4 tl c-on-base">
           {intl.formatMessage({
@@ -70,10 +75,9 @@ const DisplayData: FunctionComponent<Props> = ({ subscriptionsGroup, intl, onOpe
   )
 }
 
-
 interface Props extends InjectedIntlProps {
-  subscriptionsGroup: SubscriptionsGroupItemType,
-  onOpenEdit: () => void,
+  subscriptionsGroup: SubscriptionsGroupItemType
+  onOpenEdit: () => void
 }
 
 export default injectIntl(DisplayData)

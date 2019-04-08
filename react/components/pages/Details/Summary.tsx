@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import { compose } from 'recompose'
-import { Alert, Button, Modal, withToast } from 'vtex.styleguide'
+import { Button, Modal, withToast } from 'vtex.styleguide'
 
 import updateIsSkipped from '../../../graphql/updateIsSkipped.gql'
-import Title from '../../commons/Title'
+import { TagTypeEnum, CSS } from '../../../constants'
+import Alert from '../../commons/CustomAlert'
+import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
-
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 
@@ -97,29 +98,19 @@ class Summary extends Component<InnerProps & OutterProps> {
     const hasMultipleItems = subscriptionsGroup.subscriptions.length > 1
 
     return (
-      <div>
-        {showErrorAlert && (
-          <div className="mb5">
-            <Alert
-              type="error"
-              autoClose={3000}
-              onClose={this.handleCloseErrorAlert}>
-              {intl.formatMessage({
-                id: `${errorMessage}`,
-              })}
-            </Alert>
-          </div>
-        )}
-        {subscriptionsGroup.isSkipped && (
-          <div className="mb5">
-            <Alert type="warning">
-              {intl.formatMessage({
-                id: 'subscription.skip.alert',
-              })}
-            </Alert>
-          </div>
-        )}
-        <div className="card bw1 bg-base pa6 ba b--muted-5">
+      <Fragment>
+        <Alert
+          visible={showErrorAlert}
+          type={TagTypeEnum.Error}
+          onClose={this.handleCloseErrorAlert}
+          contentId={errorMessage}
+        />
+        <Alert
+          visible={subscriptionsGroup.isSkipped}
+          type={TagTypeEnum.Warning}
+          contentId="subscription.skip.alert"
+        />
+        <div className={CSS.detailCardWrapper}>
           <div className="flex-ns items-center-s items-start-ns">
             <Modal
               centered
@@ -175,59 +166,65 @@ class Summary extends Component<InnerProps & OutterProps> {
                 </div>
               </div>
             </div>
-            <div className="pt9-l pt9-m pt4-s pl6-ns flex-grow-1">
-              <span className="db b f4 tl c-on-base">
-                <Title items={subscriptionsGroup.subscriptions} />
-                <SubscriptionsStatus status={subscriptionsGroup.status} />
-              </span>
-              <div className="w-100 flex flex-row-ns flex-column-s flex-wrap mw6">
-                <div className="w-100 pt5">
-                  {!hasMultipleItems && (
-                    <div className="cf pt2">
-                      <div className="dib f6 fw4 c-muted-1 w-40">
-                        {intl.formatMessage({
-                          id: 'subscription.summary.quantity',
-                        })}
-                      </div>
-                      <div className="dib f6 fw4 c-muted-1 tr w-60">
-                        {subscriptionsGroup.subscriptions[0].quantity}
-                      </div>
-                    </div>
-                  )}
-                  <SubscriptionTotals
-                    totals={subscriptionsGroup.totals}
-                    currencyCode={
-                      subscriptionsGroup.purchaseSettings.currencySymbol
-                    }
-                  />
+            <div className="pt9-l pt9-m pt4-s ph6-ns flex-grow-1">
+              <div className="flex">
+                <Name subscriptionGroup={subscriptionsGroup} />
+                <div className="pl5-ns pl0-s pt0-ns pt5-s">
+                  <SubscriptionsStatus status={subscriptionsGroup.status} />
                 </div>
-                <div className="w-100 flex flex-column justify-center-s justify-end-ns items-center pt6-s pt2-ns">
-                  {hasMultipleItems && (
-                    <Button
-                      size="small"
-                      block
-                      onClick={this.handleClick}
-                      variation="secondary">
-                      <span>
-                        {intl.formatMessage({
-                          id: 'subscription.seeProducts',
-                        })}
-                      </span>
-                    </Button>
-                  )}
-                  <Menu
-                    options={options}
-                    onSkipOrUnskip={this.handleOpenModal}
-                    onSuccessUpdate={this.handleSuccessUpdate}
-                    onErrorUpdate={this.handleErrorUpdate}
-                    subscriptionsGroup={subscriptionsGroup}
-                  />
+              </div>
+              <div className="flex flex-row-ns flex-column-s flex-wrap pt6">
+                <div className="w-50-ns w-100">
+                  <div className="w-90-m w-100-s">
+                    {!hasMultipleItems && (
+                      <div className="cf pt2">
+                        <div className="dib f6 fw4 c-muted-1 w-40">
+                          {intl.formatMessage({
+                            id: 'subscription.summary.quantity',
+                          })}
+                        </div>
+                        <div className="dib f6 fw4 c-muted-1 tr w-60">
+                          {subscriptionsGroup.subscriptions[0].quantity}
+                        </div>
+                      </div>
+                    )}
+                    <SubscriptionTotals
+                      totals={subscriptionsGroup.totals}
+                      currencyCode={
+                        subscriptionsGroup.purchaseSettings.currencySymbol
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="w-50-ns w-100 flex justify-end-ns justify-center mt0-ns mt5">
+                  <div className="w-90-m w-100-s">
+                    {hasMultipleItems && (
+                      <div className="mb3">
+                        <Button
+                          block
+                          onClick={this.handleClick}
+                          size="small"
+                          variation="secondary">
+                          {intl.formatMessage({
+                            id: 'subscription.seeProducts',
+                          })}
+                        </Button>
+                      </div>
+                    )}
+                    <Menu
+                      options={options}
+                      onSkipOrUnskip={this.handleOpenModal}
+                      onSuccessUpdate={this.handleSuccessUpdate}
+                      onErrorUpdate={this.handleErrorUpdate}
+                      subscriptionsGroup={subscriptionsGroup}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     )
   }
 }

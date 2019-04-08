@@ -1,27 +1,27 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { Alert } from 'vtex.styleguide'
 
-const ErrorStateSubscriptionsGroupList: FunctionComponent<
-  Props & InjectedIntlProps
-> = ({ intl, data }) => {
+import Alert from '../../commons/CustomAlert'
+import { TagTypeEnum } from '../../../constants'
+
+const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
+  data,
+}) => {
   return (
     <div className="mw7 center">
       <Alert
-        type="error"
+        visible={true}
+        type={TagTypeEnum.Error}
         action={{
-          label: intl.formatMessage({
-            id: 'subscription.fallback.error.refresh.message',
-          }),
+          labelId: 'subscription.fallback.error.refresh.message',
           onClick: () => data && data.refetch(),
-        }}>
-        {intl.formatMessage({ id: 'subscription.fallback.error.message' })}
-      </Alert>
+        }}
+        contentId="subscription.fallback.error.message"
+      />
     </div>
   )
 }
 
-export default injectIntl(ErrorStateSubscriptionsGroupList)
+export default ErrorStateSubscriptionsGroupList
 
 interface Props {
   data?: GraphqlDataProp

@@ -1,17 +1,18 @@
 import React from 'react'
 
+import { CSS } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const ShippingSkeleton = () => (
-  <div className="card-height bg-base pa6 ba bw1 b--muted-5 pb5">
-    <div className="flex flex-row pt2">
+  <div className={CSS.detailCardWrapper}>
+    <div className="flex">
       <div className="db-s di-ns b w-100">
         <SkeletonLoader width="40" size="4" />
       </div>
     </div>
-    <div className="flex pt7 w-100-s mr-auto flex-row">
+    <div className="flex pt7 w-100-s mr-auto">
       <div className="w-100">
-        <span className="db pt4-ns">
+        <span className="db pt3-ns">
           <SkeletonLoader width="40" size="3" />
         </span>
         <span className="db pt3">

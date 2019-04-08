@@ -4,7 +4,7 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../enums'
+import { SubscriptionStatusEnum } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
 import { retrieveMessagesByStatus } from '../../utils'
 import ConfirmationModal from '../commons/ConfirmationModal'

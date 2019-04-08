@@ -7,7 +7,7 @@ const SummarySkeleton = () => (
     <div className="flex-ns items-center-s items-start-ns">
       <div className="flex flex-column w-20">
         <span className="db">
-          <SkeletonLoader width="70" size="3" />
+          <SkeletonLoader width="70" size="4" />
         </span>
         <div className="pt5 w-90">
           <div className="relative items-center ba-ns bw1 b--muted-5 h4 w-100">

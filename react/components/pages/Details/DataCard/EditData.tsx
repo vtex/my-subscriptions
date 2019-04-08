@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
-import { Alert, Dropdown } from 'vtex.styleguide'
+import { Dropdown } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
-import { WEEK_OPTIONS, MONTH_OPTIONS } from '../../../../constants'
+import { WEEK_OPTIONS, MONTH_OPTIONS, TagTypeEnum } from '../../../../constants'
+import Alert from '../../../commons/CustomAlert'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditButtons from '../EditButtons'
@@ -53,12 +54,12 @@ class EditData extends Component<Props, State> {
     }))
   }
 
-  public translateChargeDayOptions(options: any) {
-    return options.map((option: any) => ({
+  public translateChargeDayOptions(options: string[]) {
+    return options.map((option: string) => ({
       label: this.props.intl.formatMessage({
-        id: `subscription.periodicity.${option.label}`,
+        id: `subscription.periodicity.${option}`,
       }),
-      value: option.value,
+      value: option,
     }))
   }
 
@@ -156,18 +157,12 @@ class EditData extends Component<Props, State> {
           </div>
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">
-          {showErrorAlert && (
-            <div className="mb5">
-              <Alert
-                type="error"
-                autoClose={3000}
-                onClose={() => this.setState({ showErrorAlert: false })}>
-                {this.props.intl.formatMessage({
-                  id: `${errorMessage}`,
-                })}
-              </Alert>
-            </div>
-          )}
+          <Alert
+            visible={showErrorAlert}
+            type={TagTypeEnum.Error}
+            onClose={() => this.setState({ showErrorAlert: false })}
+            contentId={errorMessage}
+          />
           <div className="w-40-l w-60-m w-100-s">
             <Dropdown
               label={this.props.intl.formatMessage({
@@ -186,7 +181,9 @@ class EditData extends Component<Props, State> {
                 })}
                 options={
                   periodicity === 'WEEKLY'
-                    ? this.translateChargeDayOptions(chargeDayOptions)
+                    ? this.translateChargeDayOptions(
+                        chargeDayOptions as string[]
+                      )
                     : chargeDayOptions
                 }
                 value={chargeDay}
@@ -225,7 +222,7 @@ interface OutterProps {
 
 interface State {
   chargeDay: string
-  chargeDayOptions: { value: string; label: string }[]
+  chargeDayOptions: { value: string; label: string }[] | string[]
   currentIndex: number
   interval: number
   isLoading: boolean
