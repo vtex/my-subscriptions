@@ -85,5 +85,6 @@ export const CSS = {
     'vtex-subscriptions-custom-image-size flex-none center overflow-hidden mb4',
   subscriptionGroupItemWrapper:
     'subscription__listing-card mb4 bg-base pa0-ns pa3-s bb b--muted-5 flex flex-row-ns flex-column-s',
-  detailCardWrapper: 'bw1 bg-base pa6 ba b--muted-5 h-100',
+  cardWrapper:
+    'bg-base t-body c-on-base pa5 pa7-ns b--muted-5 bw1 bt bb bl-ns br-ns h-100',
 }

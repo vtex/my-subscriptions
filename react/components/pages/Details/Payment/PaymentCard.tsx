@@ -23,7 +23,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
     subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
   return (
-    <div className={CSS.detailCardWrapper}>
+    <div className={CSS.cardWrapper}>
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
           <FormattedMessage id="subscription.payment" />

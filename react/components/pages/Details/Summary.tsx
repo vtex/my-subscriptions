@@ -110,7 +110,7 @@ class Summary extends Component<InnerProps & OutterProps> {
           type={TagTypeEnum.Warning}
           contentId="subscription.skip.alert"
         />
-        <div className={CSS.detailCardWrapper}>
+        <div className={CSS.cardWrapper}>
           <div className="flex-ns items-center-s items-start-ns">
             <Modal
               centered
