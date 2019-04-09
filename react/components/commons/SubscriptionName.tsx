@@ -77,8 +77,25 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         id: 'subscription.fallback.error.message',
       }),
       isModalOpen: this.state.isModalOpen,
-      modalContent: (
-        <Fragment>
+      onCloseModal: this.handleCloseModal,
+      onLoading: this.handleLoading,
+      successMessage: intl.formatMessage({
+        id: 'subscription.editition.success',
+      }),
+      onSubmit: () =>
+        updateName({
+          variables: {
+            name: this.state.name,
+            orderGroup: this.props.subscriptionGroup.orderGroup,
+          },
+        }),
+    }
+
+    const canEdit = status === SubscriptionStatusEnum.Active
+
+    return (
+      <Fragment>
+        <ConfirmationModal {...modalProps}>
           <h2 className="t-heading-5 c-on-base mt0 mb7">
             {intl.formatMessage({
               id: 'subscription.name.editition.name.title',
@@ -93,27 +110,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
               />
             </div>
           </div>
-        </Fragment>
-      ),
-      onCloseModal: this.handleCloseModal,
-      onLoading: this.handleLoading,
-      successMessage: intl.formatMessage({
-        id: 'subscription.editition.success',
-      }),
-      targetPromise: () =>
-        updateName({
-          variables: {
-            name: this.state.name,
-            orderGroup: this.props.subscriptionGroup.orderGroup,
-          },
-        }),
-    }
-
-    const canEdit = status === SubscriptionStatusEnum.Active
-
-    return (
-      <Fragment>
-        <ConfirmationModal {...modalProps} />
+        </ConfirmationModal>
         <div className="t-heading-5 c-on-base">
           {content}
           {canEdit && (
