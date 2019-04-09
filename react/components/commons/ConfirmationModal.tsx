@@ -29,9 +29,10 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
       onSubmit()
         .then(() => {
           onCloseModal()
-          showToast({
-            message: successMessage,
-          })
+          successMessage &&
+            showToast({
+              message: successMessage,
+            })
         })
         .catch(error => {
           this.setState({ shouldDisplayError: true })
@@ -102,7 +103,7 @@ interface Props {
   confirmationLabel: string
   cancelationLabel: string
   errorMessage: string
-  successMessage: string
+  successMessage?: string
   isModalOpen: boolean
 }
 

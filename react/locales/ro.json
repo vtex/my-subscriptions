@@ -118,7 +118,7 @@
   "subscription.status.canceled": "Anulat",
   "subscription.list.item.date.since": "{status} de cand {date}",
   "subscription.list.item.date.next.purchase": "Achiziționarea următoare {date}",
-  "subscription.name.editition.cancel": "Anulare",
+  "subscription.editition.cancel": "Anulare",
   "subscription.name.editition.edit": "Salvați",
   "subscription.name.editition.name.title": "Alegeți un nume în abonament:",
   "subscription.editition.success": "Subscrierea a fost editată!",
@@ -126,5 +126,10 @@
   "subscription.fallback.error.refresh.message": "Reincarca",
   "subscription.change.status.modal.confirmation": "Da",
   "subscription.change.status.modal.cancelation": "Nu",
-  "subcription.add.new.card": "Adăugați o nouă carte"
+  "subcription.add.new.card": "Adăugați o nouă carte",
+  "subscription.order.again.button": "Comandă din nou",
+  "subscription.order.again.title": "Aveți nevoie să primiți produsele dvs. în prealabil?",
+  "subscription.next.purchase": "Achiziționarea următoare în",
+  "subscription.order.again.description": "Această comandă nu va interfera în achizițiile viitoare abonamentele și datele dvs.",
+  "subscription.order.again.confirmation": "Mergeți la checkout"
 }

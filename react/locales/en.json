@@ -117,7 +117,7 @@
   "subscription.status.canceled": "Canceled",
   "subscription.list.item.date.since": "{status} since {date}",
   "subscription.list.item.date.next.purchase": "Next purchase on {date}",
-  "subscription.name.editition.cancel": "Cancel",
+  "subscription.editition.cancel": "Cancel",
   "subscription.name.editition.edit": "Save",
   "subscription.name.editition.name.title": "Choose a name to your subscription:",
   "subscription.editition.success": "Subscription edited!",
@@ -125,5 +125,10 @@
   "subscription.fallback.error.refresh.message": "Refresh",
   "subscription.change.status.modal.confirmation": "Yes",
   "subscription.change.status.modal.cancelation": "No",
-  "subcription.add.new.card": "Add new card"
+  "subcription.add.new.card": "Add new card",
+  "subscription.order.again.button": "Order Again",
+  "subscription.order.again.title": "Need to receive your products beforehand?",
+  "subscription.next.purchase": "Next purchase in",
+  "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and it's dates.",
+  "subscription.order.again.confirmation": "Go to checkout"
 }

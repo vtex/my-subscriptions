@@ -119,7 +119,7 @@
   "subscription.status.canceled": "Cancelada",
   "subscription.list.item.date.since": "{status} desde {date}",
   "subscription.list.item.date.next.purchase": "Próxima compra em {date}",
-  "subscription.name.editition.cancel": "Cancelar",
+  "subscription.editition.cancel": "Cancelar",
   "subscription.name.editition.edit": "Salvar",
   "subscription.name.editition.name.title": "Escolha um nome para a sua assinatura:",
   "subscription.editition.success": "Assinatura editada!",
@@ -127,5 +127,10 @@
   "subscription.fallback.error.refresh.message": "Recarregar",
   "subscription.change.status.modal.confirmation": "Sim",
   "subscription.change.status.modal.cancelation": "Não",
-  "subcription.add.new.card": "Adicionar novo cartão"
+  "subcription.add.new.card": "Adicionar novo cartão",
+  "subscription.order.again.button": "Fechar um Pedido Agora",
+  "subscription.order.again.title": "Precisa receber seus produtos antes do próximo pedido?",
+  "subscription.next.purchase": "Próximo pedido em",
+  "subscription.order.again.description": "Este pedido não irá alterar as datas das próximas compras ou dados da assinatura.",
+  "subscription.order.again.confirmation": "Finalizar compra"
 }

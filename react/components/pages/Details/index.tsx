@@ -14,6 +14,7 @@ import Summary from './Summary'
 import Payment from './Payment'
 import Shipping from './Shipping'
 import SubscriptionsGroupDetailsLoader from './Loader'
+import OrderNow from './OrderNow'
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   state = {
@@ -83,6 +84,10 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
               }}
               contentId="subscription.alert.error.message"
               onClose={() => this.handleSetDisplayAlert(false)}
+            />
+            <OrderNow
+              subscriptionStatus={subscriptionsGroup.status}
+              subscriptions={subscriptionsGroup.subscriptions}
             />
             <Summary subscriptionsGroup={subscriptionsGroup} />
             <div className="flex flex-row-ns flex-column-s">

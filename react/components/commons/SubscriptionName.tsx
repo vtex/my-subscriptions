@@ -68,7 +68,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
 
     const modalProps = {
       cancelationLabel: intl.formatMessage({
-        id: 'subscription.name.editition.cancel',
+        id: 'subscription.editition.cancel',
       }),
       confirmationLabel: intl.formatMessage({
         id: 'subscription.name.editition.edit',
