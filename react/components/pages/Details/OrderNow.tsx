@@ -3,6 +3,7 @@ import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { compose, branch, renderNothing } from 'recompose'
 import { Button } from 'vtex.styleguide'
+import TranslateEstimate from 'vtex.shipping-estimate-translator/TranslateEstimate'
 
 import { CSS, SubscriptionStatusEnum } from '../../../constants'
 import ADD_TO_CART from '../../../graphql/addToCart.gql'
@@ -40,7 +41,7 @@ class SubscriptionOrderNowContainer extends Component<
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, shippingEstimate } = this.props
 
     return (
       <div className={`${CSS.cardWrapper} mb9 flex`}>
@@ -68,6 +69,7 @@ class SubscriptionOrderNowContainer extends Component<
           <div className="mt4">
             <span className="t-small c-muted-1">
               {intl.formatMessage({ id: 'subscription.next.purchase' })}
+              <TranslateEstimate shippingEstimate={shippingEstimate} />
             </span>
           </div>
         </div>
@@ -89,6 +91,7 @@ interface InnerProps extends InjectedIntlProps {
 interface OutterProps {
   subscriptionStatus: SubscriptionStatusEnum
   subscriptions: SubscriptionType[]
+  shippingEstimate: string
 }
 
 const enhance = compose<InnerProps & OutterProps, OutterProps>(

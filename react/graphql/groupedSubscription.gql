@@ -35,11 +35,6 @@ query GroupedSubscription($orderGroup: String!) {
       }
       type
     }
-    customerProfile {
-      name
-      email
-      phone
-    }
     shippingAddress {
       addressId
       street
@@ -145,6 +140,9 @@ query GroupedSubscription($orderGroup: String!) {
         value
         paymentSystemName
       }
+    }
+    shippingEstimate {
+      estimate
     }
   }
 }
