@@ -128,7 +128,7 @@
   "subcription.add.new.card": "Add new card",
   "subscription.order.again.button": "Order Again",
   "subscription.order.again.title": "Need to receive your products beforehand?",
-  "subscription.next.purchase": "Next purchase in",
+  "subscription.next.purchase.estimatedDelivery": "Estimated next purchase delivery:",
   "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and it's dates.",
   "subscription.order.again.confirmation": "Go to checkout"
 }

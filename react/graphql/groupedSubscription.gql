@@ -142,7 +142,7 @@ query GroupedSubscription($orderGroup: String!) {
       }
     }
     shippingEstimate {
-      estimate
+      estimatedDeliveryDate
     }
   }
 }

@@ -130,7 +130,7 @@
   "subcription.add.new.card": "Adicionar novo cartão",
   "subscription.order.again.button": "Fechar um Pedido Agora",
   "subscription.order.again.title": "Precisa receber seus produtos antes do próximo pedido?",
-  "subscription.next.purchase": "Próximo pedido em",
+  "subscription.next.purchase.estimatedDelivery": "Estimativa de entrega da próxima compra:",
   "subscription.order.again.description": "Este pedido não irá alterar as datas das próximas compras ou dados da assinatura.",
   "subscription.order.again.confirmation": "Finalizar compra"
 }

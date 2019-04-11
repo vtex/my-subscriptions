@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, InjectedIntlProps, FormattedDate } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { compose, branch, renderNothing } from 'recompose'
 import { Button } from 'vtex.styleguide'
@@ -33,14 +33,16 @@ class SubscriptionOrderNowContainer extends Component<
       items,
     }
 
-    debugger
     return addToCart({ variables }).then(() => {
       window.location.href = '/checkout/'
     })
   }
 
   render() {
-    const { intl } = this.props
+    const {
+      intl,
+      shippingEstimate: { estimatedDeliveryDate },
+    } = this.props
 
     return (
       <div className={`${CSS.cardWrapper} mb9 flex`}>
@@ -66,9 +68,14 @@ class SubscriptionOrderNowContainer extends Component<
             </span>
           </div>
           <div className="mt4">
-            <span className="t-small c-muted-1">
-              {intl.formatMessage({ id: 'subscription.next.purchase' })}
-            </span>
+            {estimatedDeliveryDate && (
+              <span className="t-small c-muted-1">
+                {intl.formatMessage({
+                  id: 'subscription.next.purchase.estimatedDelivery',
+                })}{' '}
+                <FormattedDate value={estimatedDeliveryDate} />
+              </span>
+            )}
           </div>
         </div>
         <div className="w-30 flex justify-end">
@@ -89,7 +96,7 @@ interface InnerProps extends InjectedIntlProps {
 interface OutterProps {
   subscriptionStatus: SubscriptionStatusEnum
   subscriptions: SubscriptionType[]
-  shippingEstimate: string
+  shippingEstimate: ShippingEstimateType
 }
 
 const enhance = compose<InnerProps & OutterProps, OutterProps>(

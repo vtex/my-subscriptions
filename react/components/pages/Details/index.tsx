@@ -88,6 +88,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
             <OrderNow
               subscriptionStatus={subscriptionsGroup.status}
               subscriptions={subscriptionsGroup.subscriptions}
+              shippingEstimate={subscriptionsGroup.shippingEstimate}
             />
             <Summary subscriptionsGroup={subscriptionsGroup} />
             <div className="flex flex-row-ns flex-column-s">

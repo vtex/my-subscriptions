@@ -14,6 +14,11 @@ declare global {
     purchaseSettings: PurchaseSettings
     isSkipped: boolean
     totals: TotalType[]
+    shippingEstimate: ShippingEstimateType
+  }
+
+  interface ShippingEstimateType {
+    estimatedDeliveryDate?: string
   }
 
   interface TotalType {

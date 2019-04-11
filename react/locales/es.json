@@ -129,7 +129,7 @@
   "subcription.add.new.card": "Agregar nueva tarjeta",
   "subscription.order.again.button": "Solicitar de nuevo",
   "subscription.order.again.title": "¿Necesita recibir sus productos de antemano?",
-  "subscription.next.purchase": "Siguiente compra en",
+  "subscription.next.purchase.estimatedDelivery": "Entrega estimada para la próxima compra:",
   "subscription.order.again.description": "Este pedido no interferirá en sus próximas compras y sus fechas.",
   "subscription.order.again.confirmation": "Ir al proceso de pago"
 }
