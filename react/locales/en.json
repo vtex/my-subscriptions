@@ -76,7 +76,6 @@
   "subscription.actions.save": "Save",
   "subscription.seeMore": "View more",
   "subscription.view.title": "Subscription with {value} products",
-  "subscription.canceled": "Canceled",
   "subscription.settings.daily": "{interval, plural, =0 {Every 0 days} one {Every 1 day} other {Every # days}}",
   "subscription.settings.weekly": "{interval, plural, =0 {Every 0 weeks} one {Every 1 week} other {Every # weeks}}",
   "subscription.settings.monthly": "{interval, plural, =0 {Every 0 months} one {Every 1 month} other {Every # months}}",

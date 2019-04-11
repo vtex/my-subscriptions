@@ -78,7 +78,6 @@
   "subscription.actions.save": "Salvar",
   "subscription.seeMore": "Ver mais",
   "subscription.view.title": "Assinatura com {value} produtos",
-  "subscription.canceled": "Cancelada",
   "subscription.settings.daily": "{interval, plural, =0 {A cada 0 dias} one {A cada 1 dia} other {A cada # dias}}",
   "subscription.settings.weekly": "{interval, plural, =0 {A cada 0 semanas} one {A cada 1 semana} other {A cada # semanas}}",
   "subscription.settings.monthly": "{interval, plural, =0 {A cada 0 meses} one {A cada 1 mês} other {A cada # meses}}",

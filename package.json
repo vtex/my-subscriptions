@@ -6,7 +6,7 @@
   },
   "scripts": {
     "verify": "yarn messages && cd ./react && yarn lint && yarn test",
-    "messages": "intl-equalizer && intl-equalizer --fix && git commit --amend --no-edit"
+    "messages": "intl-equalizer && intl-equalizer --fix"
   },
   "husky": {
     "hooks": {

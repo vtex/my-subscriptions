@@ -77,7 +77,6 @@
   "subscription.seeDetails": "Ver detalles",
   "subscription.seeMore": "Ver más",
   "subscription.view.title": "Suscripción con {productos} de valor",
-  "subscription.canceled": "Cancelado",
   "subscription.settings.daily": "{interval, plural, = 0 {Cada 0 días} one {Cada 1 día} other {Cada # días}}",
   "subscription.settings.weekly": "{interval, plural, = 0 {Cada 0 semanas} one {Cada 1 semana} other {Cada # semanas}}",
   "subscription.settings.monthly": "{interval, plural, = 0 {Cada 0 meses} ​​one {Cada 1 mes} other {Cada # meses}}",
