@@ -4,6 +4,7 @@ import {
   SubscriptionDisplayFilterEnum,
   SubscriptionStatusEnum,
   TagTypeEnum,
+  MenuOptionsEnum,
 } from '../constants'
 
 export function parseErrorMessageId(error: ApolloError): string {
@@ -88,4 +89,29 @@ export const makeCancelable = (promise: Promise<any>) => {
       hasCanceled = true
     },
   }
+}
+
+export function retrieveMenuOptions(
+  isSkipped: boolean,
+  status: SubscriptionStatusEnum
+) {
+  return isSkipped
+    ? [
+        MenuOptionsEnum.OrderNow,
+        MenuOptionsEnum.Unskip,
+        MenuOptionsEnum.Pause,
+        MenuOptionsEnum.Cancel,
+      ]
+    : status === SubscriptionStatusEnum.Paused
+    ? [
+        MenuOptionsEnum.OrderNow,
+        MenuOptionsEnum.Restore,
+        MenuOptionsEnum.Cancel,
+      ]
+    : [
+        MenuOptionsEnum.OrderNow,
+        MenuOptionsEnum.Skip,
+        MenuOptionsEnum.Pause,
+        MenuOptionsEnum.Cancel,
+      ]
 }

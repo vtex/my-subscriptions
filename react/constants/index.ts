@@ -36,6 +36,15 @@ export enum SubscriptionOrderStatusEnum {
   SuccessWithPartialOrder = 'SUCCESS_WITH_PARTIAL_ORDER',
 }
 
+export enum MenuOptionsEnum {
+  Skip = 'skip',
+  Unskip = 'unskip',
+  Pause = 'pause',
+  Cancel = 'cancel',
+  Restore = 'restore',
+  OrderNow = 'orderNow',
+}
+
 export const WEEK_OPTIONS = [
   'monday',
   'tuesday',

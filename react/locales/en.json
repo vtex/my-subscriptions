@@ -125,7 +125,7 @@
   "subscription.change.status.modal.confirmation": "Yes",
   "subscription.change.status.modal.cancelation": "No",
   "subcription.add.new.card": "Add new card",
-  "subscription.manage.orderAgain": "Order Again",
+  "subscription.manage.orderNow": "Order Again",
   "subscription.order.again.title": "Need to receive your products beforehand?",
   "subscription.next.purchase.estimatedDelivery": "Estimated next purchase delivery:",
   "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and it's dates.",
