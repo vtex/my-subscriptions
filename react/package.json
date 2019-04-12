@@ -40,7 +40,7 @@
     "react-dom": "^16.7.0",
     "react-testing-library": "^5.4.4",
     "regenerator-runtime": "^0.13.1",
-    "typescript": "^3.4.1",
+    "typescript": "^3.4.3",
     "typescript-babel-jest": "^1.0.5"
   },
   "scripts": {
