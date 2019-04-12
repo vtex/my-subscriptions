@@ -6,7 +6,7 @@ import { ApolloError } from 'apollo-client'
 import ConfirmModal from './ConfirmModal'
 import { SubscriptionStatusEnum } from '../../../constants'
 
-class Menu extends Component<Props> {
+class MenuContainer extends Component<Props> {
   state = {
     isModalOpen: false,
     updateType: '',
@@ -76,11 +76,7 @@ class Menu extends Component<Props> {
 }
 
 interface Props extends InjectedIntlProps {
-  options: string[]
   subscriptionsGroup: SubscriptionsGroupItemType
-  onSuccessUpdate: () => void
-  onSkipOrUnskip: () => void
-  onErrorUpdate: (error: ApolloError) => void
 }
 
-export default injectIntl(Menu)
+export default injectIntl(MenuContainer)

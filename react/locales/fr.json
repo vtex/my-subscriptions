@@ -127,7 +127,7 @@
   "subscription.change.status.modal.confirmation": "Oui",
   "subscription.change.status.modal.cancelation": "Non",
   "subcription.add.new.card": "Ajouter une nouvelle carte",
-  "subscription.order.again.button": "Nouvelle commande",
+  "subscription.manage.orderAgain": "Nouvelle commande",
   "subscription.order.again.title": "Besoin de recevoir vos produits à l'avance?",
   "subscription.next.purchase.estimatedDelivery": "Estimation du prochain achat:",
   "subscription.order.again.description": "Cette commande n'interférera pas avec vos prochains abonnements et ses dates",

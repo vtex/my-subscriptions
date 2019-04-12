@@ -126,7 +126,7 @@
   "subscription.change.status.modal.confirmation": "Da",
   "subscription.change.status.modal.cancelation": "Nu",
   "subcription.add.new.card": "Adăugați o nouă carte",
-  "subscription.order.again.button": "Comandă din nou",
+  "subscription.manage.orderAgain": "Comandă din nou",
   "subscription.order.again.title": "Aveți nevoie să primiți produsele dvs. în prealabil?",
   "subscription.next.purchase.estimatedDelivery": "Estimată livrarea viitoare a achiziției:",
   "subscription.order.again.description": "Această comandă nu va interfera în achizițiile viitoare abonamentele și datele dvs.",

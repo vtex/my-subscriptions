@@ -126,7 +126,7 @@
   "subscription.change.status.modal.confirmation": "Sí",
   "subscription.change.status.modal.cancelation": "No",
   "subcription.add.new.card": "Agregar nueva tarjeta",
-  "subscription.order.again.button": "Solicitar de nuevo",
+  "subscription.manage.orderAgain": "Solicitar de nuevo",
   "subscription.order.again.title": "¿Necesita recibir sus productos de antemano?",
   "subscription.next.purchase.estimatedDelivery": "Entrega estimada para la próxima compra:",
   "subscription.order.again.description": "Este pedido no interferirá en sus próximas compras y sus fechas.",
