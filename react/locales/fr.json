@@ -64,7 +64,7 @@
   "subscription.order.history": "Historique des commandes",
   "subscription.data": "Données d'abonnement",
   "subscription.data.orderAgain": "Passer à nouveau cette commande",
-  "subscription.data.initialDate": "Date de début",
+  "subscription.data.estimatedDelivery": "Livraison estimé",
   "subscription.nextPurchase": "Prochain achat",
   "subscription.data.chargeDay": "Jour de facturation",
   "subscription.shipping": "Envoi",

@@ -64,7 +64,7 @@
   "subscription.order.history": "Order history",
   "subscription.data": "Data",
   "subscription.data.orderAgain": "Reorder",
-  "subscription.data.initialDate": "Start date",
+  "subscription.data.estimatedDelivery": "Estimated delivery",
   "subscription.nextPurchase": "Next purchase",
   "subscription.data.chargeDay": "Charge day",
   "subscription.shipping": "Shipping",

@@ -64,7 +64,7 @@
   "subscription.order.history": "Istoric comenzi",
   "subscription.data": "Datele abonamentului",
   "subscription.data.orderAgain": "Reordona",
-  "subscription.data.initialDate": "Data de începere",
+  "subscription.data.estimatedDelivery": "Livrare estimata",
   "subscription.nextPurchase": "Achiziția următoare",
   "subscription.data.chargeDay": "Ziua de încărcare",
   "subscription.shipping": "Transport",

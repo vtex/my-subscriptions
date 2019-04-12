@@ -15,6 +15,13 @@ const DisplayData: FunctionComponent<Props> = ({
   const displayEdit =
     subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
+  let displayDelivery = false
+  if (subscriptionsGroup.shippingEstimate.estimatedDeliveryDate) {
+    displayDelivery =
+      subscriptionsGroup.shippingEstimate.estimatedDeliveryDate >
+      subscriptionsGroup.nextPurchaseDate
+  }
+
   return (
     <div className={CSS.cardWrapper}>
       <div className="flex">
@@ -40,10 +47,15 @@ const DisplayData: FunctionComponent<Props> = ({
             interval={subscriptionsGroup.plan.frequency.interval}
           />
           <div className="pt6">
-            <LabeledInfo labelId="subscription.data.initialDate">
-              {intl.formatDate(subscriptionsGroup.plan.validity.begin, {
-                timeZone: 'UTC',
-              })}
+            <LabeledInfo labelId="subscription.data.estimatedDelivery">
+              {displayDelivery &&
+                intl.formatDate(
+                  subscriptionsGroup.shippingEstimate
+                    .estimatedDeliveryDate as string,
+                  {
+                    timeZone: 'UTC',
+                  }
+                )}
             </LabeledInfo>
           </div>
         </div>

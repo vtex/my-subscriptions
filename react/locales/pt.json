@@ -66,7 +66,7 @@
   "subscription.order.history": "Histórico de pedidos",
   "subscription.data": "Dados de assinatura",
   "subscription.data.orderAgain": "Refazer este pedido",
-  "subscription.data.initialDate": "Data de início",
+  "subscription.data.estimatedDelivery": "Entrega estimada",
   "subscription.nextPurchase": "Próxima compra",
   "subscription.data.chargeDay": "Dia de cobrança",
   "subscription.shipping": "Entrega",
