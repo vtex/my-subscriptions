@@ -128,6 +128,6 @@
   "subscription.manage.orderNow": "Order Again",
   "subscription.order.again.title": "Need to receive your products beforehand?",
   "subscription.next.purchase.estimatedDelivery": "Estimated next purchase delivery:",
-  "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and it's dates.",
+  "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and its dates.",
   "subscription.order.again.confirmation": "Go to checkout"
 }
