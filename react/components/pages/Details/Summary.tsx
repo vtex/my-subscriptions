@@ -36,13 +36,11 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
       <div className={CSS.cardWrapper}>
         <div className="flex-ns items-center-s items-start-ns">
           <div className="flex flex-column">
-            <div>
-              <span className="mb4 db b f4 tl c-on-base">
-                {intl.formatMessage({
-                  id: 'subscription.summary',
-                })}
-              </span>
-            </div>
+            <span className="mb4 db b f4 tl c-on-base">
+              {intl.formatMessage({
+                id: 'subscription.summary',
+              })}
+            </span>
             <div className="pt5">
               <div className="myo-subscription__image-size relative items-center ba-ns bw1-ns b--muted-5">
                 <ItemsImage items={subscriptions} />
@@ -60,7 +58,7 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
               <div className="w-50-ns w-100 mt5">
                 <div className="w-90-m w-100-s">
                   {!hasMultipleItems && (
-                    <div className="cf pt2">
+                    <div className="pt2">
                       <div className="dib f6 fw4 c-muted-1 w-40">
                         {intl.formatMessage({
                           id: 'subscription.summary.quantity',
@@ -87,7 +85,8 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
                         block
                         onClick={goToProducts}
                         size="small"
-                        variation="secondary">
+                        variation="secondary"
+                      >
                         {intl.formatMessage({
                           id: 'subscription.seeProducts',
                         })}
