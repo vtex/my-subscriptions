@@ -130,7 +130,7 @@ export function logOrderNowMetric(account: string, orderGroup: string) {
   splunkEvents.logEvent(
     'Important',
     'Info',
-    'orderNow',
+    'details/orderNow',
     orderGroup,
     {
       app_version: process.env.VTEX_APP_ID,
