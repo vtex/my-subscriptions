@@ -36,7 +36,7 @@ describe('Retry Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(queryByText(/subscription.retry.button.message/)).toBeTruthy()
+    expect(queryByText(/Try again/)).toBeTruthy()
   })
 
   test('Shouldnt display retry', async () => {
@@ -52,6 +52,6 @@ describe('Retry Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(queryByText(/subscription.retry.button.message/)).toBeFalsy()
+    expect(queryByText(/Try again/)).toBeFalsy()
   })
 })
