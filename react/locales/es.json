@@ -74,7 +74,6 @@
   "subscription.payment": "Payment",
   "subscription.payment.method": "Método de pago",
   "subscription.actions.save": "Guardar",
-  "subscription.seeDetails": "Ver detalles",
   "subscription.seeMore": "Ver más",
   "subscription.view.title": "Suscripción con {productos} de valor",
   "subscription.settings.daily": "{interval, plural, = 0 {Cada 0 días} one {Cada 1 día} other {Cada # días}}",

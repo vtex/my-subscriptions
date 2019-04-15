@@ -74,7 +74,6 @@
   "subscription.payment": "Plata",
   "subscription.payment.method": "Metoda de plată",
   "subscription.actions.save": "Salvați",
-  "subscription.seeDetails": "Vezi detalii",
   "subscription.seeMore": "Vezi mai multe",
   "subscription.view.title": "Abonament la {value} products",
   "subscription.settings.daily": "{interval, plural, = 0 {fiecare 0 zile} one {fiecare 1 zi} other {la fiecare # zile}}",
