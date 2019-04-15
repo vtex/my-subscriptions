@@ -7,17 +7,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Get changes made at version `v0.9.0`.
+
 ## [0.9.0] - 2019-06-24
 
 ### Changed
 
 - Improve retry UX.
 
+## [1.4.2] - 2019-06-18
+
+### Changed
+
+- Get changes made at version `v0.8.4`.
+
 ## [0.8.4] - 2019-06-18
 
 ### Fix
 
 - Rename interpolated `interval` variable to `count`.
+
+## [1.4.1] - 2019-05-14
+
+### Changed
+
+- Get changes made at version `v0.8.3`.
 
 ## [0.8.3] - 2019-05-14
 
@@ -32,6 +48,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Display frequency correctly on dropdown.
 - Edit address mutation.
 
+## [1.4.0] - 2019-04-16
+
+## [1.3.2] - 2019-04-15
+
+### Changed
+
+- Get changes made at version `v0.8.1`.
+
 ## [0.8.1] - 2019-04-15
 
 ### Added
@@ -45,6 +69,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Estimated delivery.
 - Order now feature.
 
+## [1.3.1] - 2019-04-08
+
+### Changed
+
+- Get changes made at version `v0.7.0`.
+
 ## [0.7.0] - 2019-04-08
 
 ### Added
@@ -55,6 +85,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Loaders on the details page.
 - Standarize the card wrappers css on the subscription details page.
+
+## [1.3.0] - 2019-03-29
+
+### Changed
+
+- Get changes made at version `v0.6.0`.
 
 ## [0.6.0] - 2019-03-29
 
@@ -76,6 +112,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Unpause button on listing.
 - `Error` fallback component on listing.
 
+## [1.2.2] - 2019-02-21
+
+### Changed
+
+- Get updates from versions `v0.4.0` and `v0.4.1`.
+
 ## [0.4.1] - 2019-02-06
 
 ### Fixed
@@ -94,6 +136,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bump `vtex.my-subscriptions-graphql`.
 - Queries and mutations to use `orderGroup` and subscriptionGroup instead of `subscription`.
 
+## [1.2.1] - 2019-01-22
+
+## [1.2.0] - 2019-01-22
+
+## [1.1.0] - 2019-01-18
+
+### Changed
+
+- Update React builder to 3.x.
+- Bump vtex.styleguide to 9.x.
+
 ## [0.3.3] - 2019-01-11
 
 ### Fixed
@@ -111,6 +164,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Retry button to the subscriptions with error.
+
+## [1.0.0] - 2018-12-28
+
+### Changed
+
+- New builders are in town! Add messages and store builders.
 
 ## [0.3.0] - 2018-12-28
 
