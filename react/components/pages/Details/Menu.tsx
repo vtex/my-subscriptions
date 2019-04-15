@@ -1,16 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose, renderNothing, branch } from 'recompose'
-import { ActionMenu, withToast } from 'vtex.styleguide'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
+import { ActionMenu, withToast } from 'vtex.styleguide'
+import { withRuntimeContext } from 'render'
 
 import ADD_TO_CART from '../../../graphql/addToCart.gql'
 import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
 import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
 import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
 import { SubscriptionStatusEnum, MenuOptionsEnum } from '../../../constants'
-import { retrieveMenuOptions } from '../../../utils'
+import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
 
 class MenuContainer extends Component<InnerProps & OutterProps> {
@@ -50,7 +51,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   }
 
   handleOrderNow = () => {
-    const { orderFormId, addToCart, subscriptionsGroup } = this.props
+    const { orderFormId, addToCart, subscriptionsGroup, runtime } = this.props
 
     const items = subscriptionsGroup.subscriptions.map(subscription => ({
       quantity: subscription.quantity,
@@ -65,6 +66,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     }
 
     return addToCart({ variables }).then(() => {
+      logOrderNowMetric(runtime.account, subscriptionsGroup.orderGroup)
       window.location.href = '/checkout/'
     })
   }
@@ -230,11 +232,13 @@ interface InnerProps extends InjectedIntlProps {
   updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<void>
   showToast: (args: ShowToastArgs) => void
   orderFormId: string
+  runtime: any
 }
 
 const enhance = compose<InnerProps & OutterProps, OutterProps>(
   injectIntl,
   withToast,
+  withRuntimeContext,
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
   graphql(ADD_TO_CART, { name: 'addToCart' }),

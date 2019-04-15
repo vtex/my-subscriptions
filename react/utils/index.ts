@@ -1,4 +1,6 @@
 import { ApolloError } from 'apollo-client'
+import axios from 'axios'
+import SplunkEvents from 'splunk-events'
 
 import {
   SubscriptionDisplayFilterEnum,
@@ -6,6 +8,14 @@ import {
   TagTypeEnum,
   MenuOptionsEnum,
 } from '../constants'
+
+const splunkEvents = new SplunkEvents()
+
+splunkEvents.config({
+  endpoint: 'https://splunk-heavyforwarder-public.vtex.com:8088',
+  token: 'bdb546bd-456f-41e2-8c58-00aae10331ab',
+  request: axios,
+})
 
 export function parseErrorMessageId(error: ApolloError): string {
   if (
@@ -114,4 +124,17 @@ export function retrieveMenuOptions(
         MenuOptionsEnum.Pause,
         MenuOptionsEnum.Cancel,
       ]
+}
+
+export function logOrderNowMetric(account: string, orderGroup: string) {
+  splunkEvents.logEvent(
+    'Important',
+    'Info',
+    'orderNow',
+    orderGroup,
+    {
+      app_version: process.env.VTEX_APP_ID,
+    },
+    account
+  )
 }
