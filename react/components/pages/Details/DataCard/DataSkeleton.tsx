@@ -6,7 +6,7 @@ import SkeletonLoader from '../../../commons/SkeletonLoader'
 const DataSkeleton = () => (
   <div className={CSS.cardWrapper}>
     <div className="flex flex-row">
-      <div className="db-s di-ns b f4 w-100">
+      <div className="w-100">
         <SkeletonLoader width="50" size="4" />
       </div>
     </div>

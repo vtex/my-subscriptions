@@ -52,7 +52,8 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
           <a
             className="no-underline c-on-base ttc"
             target="_blank"
-            href={subscriptions[0].sku.detailUrl}>
+            href={subscriptions[0].sku.detailUrl}
+          >
             {`${subscriptions[0].sku.productName} - ${
               subscriptions[0].sku.name
             }`}
@@ -101,14 +102,12 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
               id: 'subscription.name.editition.name.title',
             })}
           </h2>
-          <div className="flex items-center">
-            <div className="w-100">
-              <Input
-                value={this.state.name}
-                onChange={this.handleChangeName}
-                disabled={this.state.isLoading}
-              />
-            </div>
+          <div className="w-100">
+            <Input
+              value={this.state.name}
+              onChange={this.handleChangeName}
+              disabled={this.state.isLoading}
+            />
           </div>
         </ConfirmationModal>
         <div className="t-heading-5 c-on-base">
@@ -116,7 +115,8 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
           {canEdit && (
             <span
               className="ml5 c-action-primary hover-c-action-primary pointer"
-              onClick={this.handleOpenModal}>
+              onClick={this.handleOpenModal}
+            >
               <IconEdit solid />
             </span>
           )}
