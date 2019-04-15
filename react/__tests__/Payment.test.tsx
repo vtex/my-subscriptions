@@ -35,7 +35,9 @@ describe('Payment Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.purchase-settings.error.message/)
+      queryByText(
+        /Invalid payment method, select a new valid payment for this subscription./
+      )
     ).toBeFalsy()
   })
 
@@ -57,7 +59,9 @@ describe('Payment Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.purchase-settings.error.message/)
+      queryByText(
+        /Invalid payment method, select a new valid payment for this subscription./
+      )
     ).toBeTruthy()
   })
 
@@ -81,7 +85,7 @@ describe('Payment Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.purchase-settings.error.no-action/)
+      queryByText(/The selected payment method is not available anymore./)
     ).toBeTruthy()
   })
 })

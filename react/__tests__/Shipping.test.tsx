@@ -35,7 +35,9 @@ describe('Shipping Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.shipping-address.error.message/)
+      queryByText(
+        /Invalid address, select a new valid address for this subscription./
+      )
     ).toBeFalsy()
   })
 
@@ -57,7 +59,9 @@ describe('Shipping Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.shipping-address.error.message/)
+      queryByText(
+        /Invalid address, select a new valid address for this subscription./
+      )
     ).toBeTruthy()
   })
 
@@ -81,7 +85,7 @@ describe('Shipping Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.shipping-address.error.no-action/)
+      queryByText(/The selected address is not available anymore./)
     ).toBeTruthy()
   })
 })
