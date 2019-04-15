@@ -2,6 +2,7 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "esModuleInterop": true,
+    "allowJs": true,
     "jsx": "react",
     "lib": ["es2017", "dom", "es2018.promise"],
     "module": "es6",

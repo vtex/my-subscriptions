@@ -4,7 +4,7 @@ import { CSS } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const PaymentSkeleton = () => (
-  <div className={CSS.detailCardWrapper}>
+  <div className={CSS.cardWrapper}>
     <div className="db-s di-ns b w-90">
       <SkeletonLoader width="20" size="3" />
     </div>

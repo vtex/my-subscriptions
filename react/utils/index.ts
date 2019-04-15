@@ -1,10 +1,21 @@
 import { ApolloError } from 'apollo-client'
+import axios from 'axios'
+import SplunkEvents from 'splunk-events'
 
 import {
   SubscriptionDisplayFilterEnum,
   SubscriptionStatusEnum,
   TagTypeEnum,
+  MenuOptionsEnum,
 } from '../constants'
+
+const splunkEvents = new SplunkEvents()
+
+splunkEvents.config({
+  endpoint: 'https://splunk-heavyforwarder-public.vtex.com:8088',
+  token: 'bdb546bd-456f-41e2-8c58-00aae10331ab',
+  request: axios,
+})
 
 export function parseErrorMessageId(error: ApolloError): string {
   if (
@@ -88,4 +99,42 @@ export const makeCancelable = (promise: Promise<any>) => {
       hasCanceled = true
     },
   }
+}
+
+export function retrieveMenuOptions(
+  isSkipped: boolean,
+  status: SubscriptionStatusEnum
+) {
+  return isSkipped
+    ? [
+        MenuOptionsEnum.OrderNow,
+        MenuOptionsEnum.Unskip,
+        MenuOptionsEnum.Pause,
+        MenuOptionsEnum.Cancel,
+      ]
+    : status === SubscriptionStatusEnum.Paused
+    ? [
+        MenuOptionsEnum.OrderNow,
+        MenuOptionsEnum.Restore,
+        MenuOptionsEnum.Cancel,
+      ]
+    : [
+        MenuOptionsEnum.OrderNow,
+        MenuOptionsEnum.Skip,
+        MenuOptionsEnum.Pause,
+        MenuOptionsEnum.Cancel,
+      ]
+}
+
+export function logOrderNowMetric(account: string, orderGroup: string) {
+  splunkEvents.logEvent(
+    'Important',
+    'Info',
+    'details/orderNow',
+    orderGroup,
+    {
+      app_version: process.env.VTEX_APP_ID,
+    },
+    account
+  )
 }

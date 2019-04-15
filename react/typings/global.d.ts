@@ -14,6 +14,11 @@ declare global {
     purchaseSettings: PurchaseSettings
     isSkipped: boolean
     totals: TotalType[]
+    shippingEstimate: ShippingEstimateType
+  }
+
+  interface ShippingEstimateType {
+    estimatedDeliveryDate?: string
   }
 
   interface TotalType {
@@ -29,6 +34,7 @@ declare global {
   }
 
   interface SKUType {
+    SkuId: string
     imageUrl: string
     name: string
     detailUrl: string
@@ -95,6 +101,11 @@ declare global {
 
   interface GetAddressesQueryArgs {
     orderGroup: string
+  }
+
+  interface AddToCarArgs {
+    orderFormId: string
+    items: { id: number; quantity: number; seller: string; index: number }[]
   }
 
   interface Address {

@@ -52,7 +52,8 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
           <a
             className="no-underline c-on-base ttc"
             target="_blank"
-            href={subscriptions[0].sku.detailUrl}>
+            href={subscriptions[0].sku.detailUrl}
+          >
             {`${subscriptions[0].sku.productName} - ${
               subscriptions[0].sku.name
             }`}
@@ -68,7 +69,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
 
     const modalProps = {
       cancelationLabel: intl.formatMessage({
-        id: 'subscription.name.editition.cancel',
+        id: 'subscription.editition.cancel',
       }),
       confirmationLabel: intl.formatMessage({
         id: 'subscription.name.editition.edit',
@@ -77,30 +78,12 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         id: 'subscription.fallback.error.message',
       }),
       isModalOpen: this.state.isModalOpen,
-      modalContent: (
-        <Fragment>
-          <h2 className="t-heading-5 c-on-base mt0 mb7">
-            {intl.formatMessage({
-              id: 'subscription.name.editition.name.title',
-            })}
-          </h2>
-          <div className="flex items-center">
-            <div className="w-100">
-              <Input
-                value={this.state.name}
-                onChange={this.handleChangeName}
-                disabled={this.state.isLoading}
-              />
-            </div>
-          </div>
-        </Fragment>
-      ),
       onCloseModal: this.handleCloseModal,
       onLoading: this.handleLoading,
       successMessage: intl.formatMessage({
         id: 'subscription.editition.success',
       }),
-      targetPromise: () =>
+      onSubmit: () =>
         updateName({
           variables: {
             name: this.state.name,
@@ -113,13 +96,27 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
 
     return (
       <Fragment>
-        <ConfirmationModal {...modalProps} />
+        <ConfirmationModal {...modalProps}>
+          <h2 className="t-heading-5 c-on-base mt0 mb7">
+            {intl.formatMessage({
+              id: 'subscription.name.editition.name.title',
+            })}
+          </h2>
+          <div className="w-100">
+            <Input
+              value={this.state.name}
+              onChange={this.handleChangeName}
+              disabled={this.state.isLoading}
+            />
+          </div>
+        </ConfirmationModal>
         <div className="t-heading-5 c-on-base">
           {content}
           {canEdit && (
             <span
               className="ml5 c-action-primary hover-c-action-primary pointer"
-              onClick={this.handleOpenModal}>
+              onClick={this.handleOpenModal}
+            >
               <IconEdit solid />
             </span>
           )}

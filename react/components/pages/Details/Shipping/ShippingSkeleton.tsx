@@ -4,7 +4,7 @@ import { CSS } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const ShippingSkeleton = () => (
-  <div className={CSS.detailCardWrapper}>
+  <div className={CSS.cardWrapper}>
     <div className="flex">
       <div className="db-s di-ns b w-100">
         <SkeletonLoader width="40" size="4" />

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.8.1] - 2019-04-15
+
+### Added
+
+- OrderNow metric on splunk.
+
+## [0.8.0] - 2019-04-12
+
+### Added
+
+- Estimated delivery.
+- Order now feature.
+
 ## [0.7.0] - 2019-04-08
 
 ### Added

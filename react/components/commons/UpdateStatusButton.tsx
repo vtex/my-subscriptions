@@ -47,21 +47,12 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
         id: 'subscription.fallback.error.message',
       }),
       isModalOpen: this.state.isModalOpen,
-      modalContent: (
-        <Fragment>
-          <h2 className="heading-2">
-            {intl.formatMessage({ id: messages.titleMessageId })}
-          </h2>
-          <p className="t-body">
-            {intl.formatMessage({ id: messages.bodyMessageId })}
-          </p>
-        </Fragment>
-      ),
+
       onCloseModal: this.handleCloseModal,
       successMessage: intl.formatMessage({
         id: 'subscription.editition.success',
       }),
-      targetPromise: () =>
+      onSubmit: () =>
         updateStatus({
           variables: {
             orderGroup,
@@ -72,7 +63,14 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
 
     return (
       <Fragment>
-        <ConfirmationModal {...modalProps} />
+        <ConfirmationModal {...modalProps}>
+          <h2 className="heading-2">
+            {intl.formatMessage({ id: messages.titleMessageId })}
+          </h2>
+          <p className="t-body">
+            {intl.formatMessage({ id: messages.bodyMessageId })}
+          </p>
+        </ConfirmationModal>
         <Button
           variation="secondary"
           onClick={this.handleOpenModal}

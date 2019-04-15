@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react'
+import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { Button, Modal, withToast } from 'vtex.styleguide'
 
@@ -7,63 +7,61 @@ import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
 
 class ConfirmationModalContainer extends Component<Props & InnerProps> {
-  public state = {
+  state = {
     isLoading: false,
     shouldDisplayError: false,
   }
 
-  private innerPromise: any
+  innerPromise: any
 
-  public componentWillUnmount = () => {
-    if (this.innerPromise) {
-      this.innerPromise.cancel()
-    }
-  }
+  componentWillUnmount = () => this.innerPromise && this.innerPromise.cancel()
 
-  public handleSubmit = () => {
+  handleSubmit = () => {
     const {
       showToast,
-      targetPromise,
       successMessage,
+      onSubmit,
       onCloseModal,
+      onError,
     } = this.props
 
     this.innerPromise = makeCancelable(
-      targetPromise()
+      onSubmit()
         .then(() => {
           onCloseModal()
-          showToast({
-            message: successMessage,
-          })
+          successMessage &&
+            showToast({
+              message: successMessage,
+            })
         })
-        .catch(() => this.setState({ shouldDisplayError: true }))
+        .catch(error => {
+          this.setState({ shouldDisplayError: true })
+          onError && onError(error)
+        })
         .finally(() => this.handleLoading(false))
     )
 
     this.handleLoading(true)
   }
 
-  public handleLoading = (value: boolean) => {
-    const { onLoading } = this.props
+  handleLoading = (value: boolean) => {
+    this.props.onLoading && this.props.onLoading(value)
 
-    if (onLoading) {
-      onLoading(value)
-    }
     this.setState({ isLoading: value })
   }
 
-  public handleDismissError = () => {
+  handleDismissError = () => {
     this.setState({ shouldDisplayError: false })
   }
 
-  public render() {
+  render() {
     const {
       isModalOpen,
       errorMessage,
       confirmationLabel,
       cancelationLabel,
-      modalContent,
       onCloseModal,
+      children,
     } = this.props
 
     return (
@@ -74,7 +72,7 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
           visible={this.state.shouldDisplayError}>
           {errorMessage}
         </Alert>
-        {modalContent}
+        {children}
         <div className="flex flex-row justify-end mt7">
           <span className="mr4">
             <Button size="small" variation="tertiary" onClick={onCloseModal}>
@@ -98,14 +96,14 @@ const enhance = compose<any, Props>(withToast)
 export default enhance(ConfirmationModalContainer)
 
 interface Props {
-  targetPromise: () => Promise<any>
+  onSubmit: () => Promise<any>
+  onCloseModal: () => void
+  onLoading?: (loading: boolean) => void
+  onError?: (error: any) => void
   confirmationLabel: string
   cancelationLabel: string
   errorMessage: string
-  successMessage: string
-  modalContent: ReactNode
-  onCloseModal: () => void
-  onLoading?: (loading: boolean) => void
+  successMessage?: string
   isModalOpen: boolean
 }
 
