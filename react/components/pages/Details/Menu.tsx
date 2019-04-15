@@ -4,7 +4,7 @@ import { compose, renderNothing, branch } from 'recompose'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import { ActionMenu, withToast } from 'vtex.styleguide'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
 import ADD_TO_CART from '../../../graphql/addToCart.gql'
 import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
