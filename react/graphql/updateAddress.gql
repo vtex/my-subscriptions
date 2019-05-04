@@ -1,5 +1,6 @@
 mutation updateAddress($orderGroup: String!, $addressId: String!) {
-  updateAddress(orderGroup: $orderGroup, addressId: $addressId) {
+  updateAddress(orderGroup: $orderGroup, addressId: $addressId)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     shippingAddress {
       addressId
