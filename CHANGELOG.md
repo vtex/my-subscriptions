@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.8.2] - 2019-05-04
+
+### Fix
+
+- Display frequency correctly on dropdown.
+- Edit address mutation.
+
 ## [0.8.1] - 2019-04-15
 
 ### Added

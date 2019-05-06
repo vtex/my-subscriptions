@@ -111,6 +111,7 @@ class EditData extends Component<Props, State> {
         this.setState({
           isLoading: false,
         })
+        this.props.onCloseEdit()
       })
       .catch((error: ApolloError) => {
         const errorMessage =
@@ -169,7 +170,7 @@ class EditData extends Component<Props, State> {
                 id: 'subscription.data.orderAgain',
               })}
               options={this.translateFrequencyOptions(frequencyOptions)}
-              value={this.state.currentIndex}
+              value={this.state.currentIndex.toString()}
               onChange={this.handleFrequencyChange}
             />
           </div>
