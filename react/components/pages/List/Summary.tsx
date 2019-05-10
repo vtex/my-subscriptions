@@ -29,33 +29,34 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
         </div>
         <div className="w-100 mt6-s flex items-end">
           {isActive ? (
-            <Frequency
-              displayLabel={false}
-              periodicity={item.plan.frequency.periodicity}
-              interval={item.plan.frequency.interval}
-            />
+            <Frequency subscriptionsGroup={item} displayLabel={false} />
           ) : (
             <Status status={item.status} />
           )}
         </div>
+
         <div className="w-100 mt4-s flex items-center">
           <ItemDate item={item} />
         </div>
       </div>
+
       <div className="w-50-ns w-100-s flex-ns justify-end-ns mt6-s">
         <div className="w-100 mw5-ns self-center">
           <Button
             variation="secondary"
             onClick={() => onGoToDetails(item.orderGroup)}
-            block>
+            block
+          >
             <FormattedMessage id="subscription.list.button.seeDetails" />
           </Button>
+
           {isPaused && (
             <div className="pt4">
               <UpdateStatusButton
                 targetStatus={SubscriptionStatusEnum.Active}
                 orderGroup={item.orderGroup}
-                block>
+                block
+              >
                 <FormattedMessage id="subscription.list.button.reactivate" />
               </UpdateStatusButton>
             </div>
