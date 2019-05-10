@@ -5,26 +5,53 @@ import LabeledInfo from '../../components/commons/LabeledInfo'
 
 const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
   intl,
-  interval,
-  periodicity,
+  subscriptionsGroup: { plan, purchaseSettings },
   displayLabel = true,
 }) => {
-  const frequency = intl.formatMessage(
-    {
-      id: `subscription.settings.${periodicity.toLowerCase()}`,
-    },
+  const { interval } = plan.frequency
+  const periodicity = plan.frequency.periodicity.toLowerCase()
+
+  const periodicityText = intl.formatMessage(
+    { id: `order.subscription.periodicity.${periodicity}` },
     { interval }
   )
-  return displayLabel ? (
-    <LabeledInfo labelId="subscription.frequency">{frequency}</LabeledInfo>
-  ) : (
-    <Fragment>{frequency}</Fragment>
-  )
+
+  let frequencyText = periodicityText
+
+  if (periodicity !== 'daily' && purchaseSettings != null) {
+    let { purchaseDay } = purchaseSettings
+
+    if (purchaseDay != null && purchaseDay !== 'Not_Applicable') {
+      let moment = purchaseDay.toLowerCase()
+
+      if (periodicity === 'weekly') {
+        moment = intl
+          .formatMessage({ id: `subscription.periodicity.${moment}` })
+          .toLocaleLowerCase()
+      }
+
+      const purchaseDayText = intl.formatMessage(
+        { id: `order.subscription.periodicity.${periodicity}.step` },
+        { moment }
+      )
+
+      frequencyText = `${periodicityText}, ${purchaseDayText}`
+    }
+  }
+
+  if (displayLabel) {
+    return (
+      <LabeledInfo labelId="subscription.frequency">
+        {frequencyText}
+      </LabeledInfo>
+    )
+  }
+
+  return <Fragment>{frequencyText}</Fragment>
 }
 
 interface Props {
-  periodicity: string
-  interval: string | number
+  subscriptionsGroup: SubscriptionsGroupItemType
   displayLabel?: boolean
 }
 
