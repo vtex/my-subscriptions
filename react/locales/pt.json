@@ -1,52 +1,53 @@
 {
   "subscription.title.list": "Assinaturas",
   "subscription.title.single": "Assinatura",
-  "subscription.items.notFoundAction": "Voltar para Minhas Assinaturas",
+
   "subscription.fetch.notfound": "Este endereço não corresponde à uma assinatura existente, vá para sua lista de assinaturas.",
   "subscription.fetch.servererror": "Algo deu errado, tente novamente",
   "subscription.fetch.timeout": "Algo deu errado, tente novamente",
+
   "subscription.pause.title": "Pausar esta assinatura?",
   "subscription.pause.text": "Ao pausar, esta assinatura deixará de ser pedida automaticamente. Você poderá retoma-la a qualquer momento.",
+
   "subscription.cancel.title": "Cancelar esta assinatura?",
   "subscription.cancel.text": "Ao cancelar, esta assinatura deixará de ser pedida automaticamente e essa ação não pode ser desfeita.",
+
   "subscription.restore.title": "Retomar esta assinatura?",
   "subscription.restore.text": "Ao retomar, esta assinatura voltará a ser pedida automaticamente. Você poderá cancelar a qualquer momento, sem taxas extras.",
+
   "subscription.actions.cancel": "Cancelar assinatura",
   "subscription.actions.pause": "Pausar assinatura",
   "subscription.actions.edit": "Editar",
   "subscription.actions.remove": "Remover",
   "subscription.actions.restart": "Retomar assinatura",
-  "subscription.periodicity.monday": "Segunda-feira",
-  "subscription.periodicity.tuesday": "Terça-feira",
-  "subscription.periodicity.wednesday": "Quarta-feira",
-  "subscription.periodicity.thursday": "Quinta-feira",
-  "subscription.periodicity.friday": "Sexta-feira",
-  "subscription.periodicity.saturday": "Sábado",
-  "subscription.periodicity.sunday": "Domingo",
-  "subscription.periodicity.weekly": "Semanal",
-  "subscription.periodicity.daily": "Diária",
-  "subscription.periodicity.monthly": "Mensal",
+
   "subscription.seeProducts": "Ver produtos",
+
   "subscription.manage.skip": "Pular próxima compra",
   "subscription.manage.unskip": "Não pular próxima compra",
   "subscription.manage.cancel": "Cancelar assinatura",
   "subscription.manage.pause": "Pausar assinatura",
   "subscription.manage.restore": "Retomar assinatura",
   "subscription.manage": "Gerenciar assinatura",
-  "subscription.skip.confirm": "Pular",
+
   "subscription.unskip.confirm": "Não pular",
   "subscription.unskip.title": "Deseja não pular a próxima compra da sua assinatura?",
+  "subscription.unskip.text": "A próxima compra da sua assinatura não será feita, mas as compras seguintes não serão afetadas. Você pode mudar essa configuração até a data do pedido.",
+
+  "subscription.skip.confirm": "Pular",
   "subscription.skip.text": "A próxima compra da sua assinatura será feita e as compras seguintes não serão afetadas. Você pode mudar essa configuração até a data do pedido.",
   "subscription.skip.title": "Deseja pular a próxima compra da sua assinatura?",
-  "subscription.unskip.text": "A próxima compra da sua assinatura não será feita, mas as compras seguintes não serão afetadas. Você pode mudar essa configuração até a data do pedido.",
   "subscription.skip.alert": "Sua próxima compra será pulada. Você pode mudar esta configuração até a data do pedido.",
+
   "subscription.payment.final": "Final",
   "subscription.payment.invoice": "Emitir boleto",
   "subscription.payment.chooseOne": "Escolha um cartão",
+
   "subscription.package.index": "Encomenda {index} de {total}",
   "subscription.shipping.newAddress": "Adicionar novo endereço",
   "subscription.totalValue": "Valor total",
   "subscription.frequency": "Frequência",
+
   "subscription.summary": "Resumo do pedido",
   "subscription.summary.orderId": "Número do pedido",
   "subscription.summary.value": "Valor unitário",
@@ -55,54 +56,86 @@
   "subscription.summary.shipping": "Frete",
   "subscription.summary.discounts": "Descontos",
   "subscription.summary.quantity": "Unidades",
+
+  "subscription.items.notFoundAction": "Voltar para Minhas Assinaturas",
   "subscription.items.notFound": "Essa assinatura não contém mais itens",
   "subscription.items.notFoundHelperText": "Portanto, ela foi removida da sua lista de assinaturas",
+
   "subscription.itemCancel.title": "Remover este produto?",
   "subscription.itemCancel.text": "Ao removê-lo, este produto deixará de ser pedido nesta assinatura.",
+
   "subscription.item.quantity": "Quantidade",
+
   "subscription.edit.success": "Alterações salvas com sucesso!",
   "subscription.order.history": "Histórico de pedidos",
+
   "subscription.data": "Dados de assinatura",
   "subscription.data.orderAgain": "Refazer este pedido",
   "subscription.data.estimatedDelivery": "Entrega estimada",
-  "subscription.nextPurchase": "Próxima compra",
   "subscription.data.chargeDay": "Dia de cobrança",
+  "subscription.data.chargeEvery": "Todo(a)",
+
+  "subscription.nextPurchase": "Próximo pedido",
+
   "subscription.shipping": "Entrega",
   "subscription.shipping.address": "Endereço",
   "subscription.shipping.sla": "Forma de entrega",
   "subscription.shipping.tracking": "Rastreamento",
+
   "subscription.payment": "Pagamento",
   "subscription.payment.method": "Forma de pagamento",
   "subscription.actions.save": "Salvar",
   "subscription.seeMore": "Ver mais",
   "subscription.view.title": "Assinatura com {value} produtos",
+
+  "subscriptions.notFound.title": "Você ainda não possui assinaturas",
+  "subscriptions.notFound.text": "Assine seus produtos preferidos e os encontre sempre aqui",
+
   "subscription.settings.daily": "{interval, plural, =0 {A cada 0 dias} one {A cada 1 dia} other {A cada # dias}}",
   "subscription.settings.weekly": "{interval, plural, =0 {A cada 0 semanas} one {A cada 1 semana} other {A cada # semanas}}",
   "subscription.settings.monthly": "{interval, plural, =0 {A cada 0 meses} one {A cada 1 mês} other {A cada # meses}}",
   "subscription.settings.yearly": "{interval, plural, =0 {A cada 0 anos} one {A cada 1 ano} other {A cada # anos}}",
-  "subscriptions.notFound.title": "Você ainda não possui assinaturas",
-  "subscriptions.notFound.text": "Assine seus produtos preferidos e os encontre sempre aqui",
+
+  "subscription.select": "Selecione",
+  "subscription.select.day": "Dia {day}",
+
+  "subscription.periodicity.monday": "Segunda-feira",
+  "subscription.periodicity.tuesday": "Terça-feira",
+  "subscription.periodicity.wednesday": "Quarta-feira",
+  "subscription.periodicity.thursday": "Quinta-feira",
+  "subscription.periodicity.friday": "Sexta-feira",
+  "subscription.periodicity.saturday": "Sábado",
+  "subscription.periodicity.sunday": "Domingo",
+  "subscription.periodicity.daily": "Diária",
+  "subscription.periodicity.weekly": "Semanal",
+  "subscription.periodicity.monthly": "Mensal",
+
+  "order.subscription.periodicity.day": "a cada {count, plural, one {1 dia} other {# dias}}",
+  "order.subscription.periodicity.days": "a cada {count, plural, one {1 dia} other {# dias}}",
+  "order.subscription.periodicity.week": "a cada {count, plural, one {1 semana} other {# semanas}}",
+  "order.subscription.periodicity.weeks": "a cada {count, plural, one {1 semana} other {# semanas}}",
+  "order.subscription.periodicity.month": "a cada {count, plural, one {1 mês} other {# meses}}",
+  "order.subscription.periodicity.months": "a cada {count, plural, one {1 mês} other {# meses}}",
+  "order.subscription.periodicity.year": "a cada {count, plural, one {1 ano} other {# anos}}",
+  "order.subscription.periodicity.years": "a cada {count, plural, one {1 ano} other {# anos}}",
+  "order.subscription.periodicity.daily": "{interval, plural, one {Diariamente} other {A cada # dias}}",
+  "order.subscription.periodicity.weekly": "{interval, plural, one {Semanalmente} other {A cada # semanas}}",
+  "order.subscription.periodicity.monthly": "{interval, plural, one {Mensalmente} other {A cada # meses}}",
+  "order.subscription.periodicity.biweekly": "A cada 15 dias",
+  "order.subscription.periodicity.bimonthly": "Bimestralmente",
+  "order.subscription.periodicity.quarterly": "A cada 3 meses",
+  "order.subscription.periodicity.semiannual": "Semestralmente",
+  "order.subscription.periodicity.yearly": "Anualmente",
+
+  "order.subscription.periodicity.weekly.step": "toda(o) {moment}",
+  "order.subscription.periodicity.monthly.step": "todo dia {moment}",
+  "order.subscription.periodicity.yearly.step": "todo mês de {moment}",
+
   "order.subscription": "Assinatura",
   "order.subscription.key.frequency": "Frequência",
   "order.subscription.key.purchaseday": "Dia de cobrança",
   "order.subscription.key.validity.begin": "Início",
   "order.subscription.key.validity.end": "Fim",
-  "order.subscription.periodicity.day": "a cada { count, plural, one {1 dia} other {# dias}}",
-  "order.subscription.periodicity.days": "a cada { count, plural, one {1 dia} other {# dias}}",
-  "order.subscription.periodicity.week": "a cada { count, plural, one {1 semana} other {# semanas}}",
-  "order.subscription.periodicity.weeks": "a cada { count, plural, one {1 semana} other {# semanas}}",
-  "order.subscription.periodicity.month": "a cada { count, plural, one {1 mês} other {# meses}}",
-  "order.subscription.periodicity.months": "a cada { count, plural, one {1 mês} other {# meses}}",
-  "order.subscription.periodicity.year": "a cada { count, plural, one {1 ano} other {# anos}}",
-  "order.subscription.periodicity.years": "a cada { count, plural, one {1 ano} other {# anos}}",
-  "order.subscription.periodicity.daily": "diariamente",
-  "order.subscription.periodicity.weekly": "semanalmente",
-  "order.subscription.periodicity.monthly": "mensalmente",
-  "order.subscription.periodicity.biweekly": "a cada 15 dias",
-  "order.subscription.periodicity.bimonthly": "bimestralmente",
-  "order.subscription.periodicity.quarterly": "a cada 3 meses",
-  "order.subscription.periodicity.semiannual": "semestralmente",
-  "order.subscription.periodicity.yearly": "anualmente",
 
   "subscription.alert.error.message": "Houve um problema com o pagamento do seu pedido atual. Confira a sua forma de pagamento para que ainda possa efetuar a compra atual e para que as compras futuras ocorram sem problemas.",
   "subscription.retry.button.message": "Efetuar pedido atual",
@@ -112,22 +145,32 @@
   "subscription.list.display.canceled_filter": "Canceladas",
   "subscription.list.button.seeDetails": "Ver detalhes",
   "subscription.list.button.reactivate": "Reativar Assinatura",
+
   "subscription.status.paused": "Pausada",
   "subscription.status.canceled": "Cancelada",
+
   "subscription.list.item.date.since": "{status} desde {date}",
   "subscription.list.item.date.next.purchase": "Próxima compra em {date}",
+
   "subscription.editition.cancel": "Cancelar",
+  "subscription.editition.success": "Assinatura editada!",
+
   "subscription.name.editition.edit": "Salvar",
   "subscription.name.editition.name.title": "Escolha um nome para a sua assinatura:",
-  "subscription.editition.success": "Assinatura editada!",
+
   "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!",
   "subscription.fallback.error.refresh.message": "Recarregar",
+
   "subscription.change.status.modal.confirmation": "Sim",
   "subscription.change.status.modal.cancelation": "Não",
+
   "subcription.add.new.card": "Adicionar novo cartão",
+
   "subscription.manage.orderNow": "Fechar um Pedido Agora",
   "subscription.order.again.title": "Precisa receber seus produtos antes do próximo pedido?",
+
   "subscription.next.purchase.estimatedDelivery": "Estimativa de entrega da próxima compra:",
+
   "subscription.order.again.description": "Este pedido não irá alterar as datas das próximas compras ou dados da assinatura.",
   "subscription.order.again.confirmation": "Finalizar compra"
 }

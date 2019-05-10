@@ -65,7 +65,7 @@
   "subscription.data": "Données d'abonnement",
   "subscription.data.orderAgain": "Passer à nouveau cette commande",
   "subscription.data.estimatedDelivery": "Livraison estimé",
-  "subscription.nextPurchase": "Prochain achat",
+  "subscription.nextPurchase": "Prochain commande",
   "subscription.data.chargeDay": "Jour de facturation",
   "subscription.shipping": "Envoi",
   "subscription.shipping.address": "Address",

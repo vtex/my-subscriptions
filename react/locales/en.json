@@ -65,7 +65,7 @@
   "subscription.data": "Data",
   "subscription.data.orderAgain": "Reorder",
   "subscription.data.estimatedDelivery": "Estimated delivery",
-  "subscription.nextPurchase": "Next purchase",
+  "subscription.nextPurchase": "Next order",
   "subscription.data.chargeDay": "Charge day",
   "subscription.shipping": "Shipping",
   "subscription.shipping.address": "Address",
