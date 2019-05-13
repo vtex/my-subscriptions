@@ -57,7 +57,7 @@ class EditData extends Component<Props, State> {
     }))
   }
 
-  public getPeriodicityOptions() {
+  public getIntervalOptions() {
     const { formatMessage } = this.props.intl
     const { periodicity } = this.state
 
@@ -187,7 +187,7 @@ class EditData extends Component<Props, State> {
               <Dropdown
                 label={formatMessage({ id: 'subscription.data.chargeEvery' })}
                 placeholder={formatMessage({ id: 'subscription.select' })}
-                options={this.getPeriodicityOptions()}
+                options={this.getIntervalOptions()}
                 value={chargeDay.toLowerCase()}
                 onChange={this.handleChargeDayChange}
               />
