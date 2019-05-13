@@ -104,6 +104,10 @@
   "order.subscription.periodicity.semiannual": "semi anualmente",
   "order.subscription.periodicity.yearly": "anual",
 
+  "order.subscription.periodicity.weekly.step": "cada {moment}",
+  "order.subscription.periodicity.monthly.step": "todos los días {moment}",
+  "order.subscription.periodicity.yearly.step": "día {moment}",
+
   "subscription.alert.error.message": "Hubo un problema al pagar su orden actual. Verifique su método de pago para que aún pueda realizar la compra actual y para que las compras futuras se realicen sin problemas.",
   "subscription.retry.button.message": "Colocar orden actual",
 

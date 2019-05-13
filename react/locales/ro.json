@@ -104,6 +104,10 @@
   "order.subscription.periodicity.semiannual": "semi anual",
   "order.subscription.periodicity.yearly": "anual",
 
+  "order.subscription.periodicity.weekly.step": "în fiecare {moment}",
+  "order.subscription.periodicity.monthly.step": "în fiecare zi {moment}",
+  "order.subscription.periodicity.yearly.step": "în fiecare an la {moment}",
+
   "subscription.alert.error.message": "A apărut o problemă la plata comenzii dvs. actuale. Verificați metoda de plată pentru a putea efectua în continuare achiziția curentă și astfel achizițiile viitoare vor avea loc fără probleme.",
   "subscription.retry.button.message": "Plasați comanda curentă",
 
