@@ -37,9 +37,7 @@ const DisplayData: FunctionComponent<Props> = ({
       </div>
 
       <div className="pt5-s pt5-ns w-100-s mr-auto">
-        <div>
-          <FrequencyInfo subscriptionsGroup={subscriptionsGroup} />
-        </div>
+        <FrequencyInfo subscriptionsGroup={subscriptionsGroup} />
 
         <div className="flex-l">
           <div className="w-50-l pt6">
