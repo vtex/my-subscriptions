@@ -16,31 +16,30 @@ class EditData extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
-    const {
-      options,
-      subscriptionsGroup: { purchaseSettings, plan },
-    } = props
+    const { purchaseSettings, plan } = props.subscriptionsGroup
     const { interval, periodicity } = plan.frequency
-    let currentIndex = 0
-
-    if (options && options.frequencyOptions) {
-      currentIndex = options.frequencyOptions.findIndex((option: Frequency) => {
-        return (
-          option.periodicity === plan.frequency.periodicity &&
-          option.interval === plan.frequency.interval
-        )
-      })
-    }
 
     this.state = {
       isLoading: false,
       showErrorAlert: false,
       errorMessage: '',
       chargeDay: purchaseSettings.purchaseDay,
-      currentIndex,
+      currentIndex: this.getCurrentFrequencyOption({ periodicity, interval }),
       periodicity,
       interval,
     }
+  }
+
+  public getCurrentFrequencyOption({ periodicity, interval }: Frequency) {
+    const { frequencyOptions } = this.props.options
+    if (!frequencyOptions || !frequencyOptions.length) {
+      return 0
+    }
+
+    return frequencyOptions.findIndex(
+      option =>
+        option.periodicity === periodicity && option.interval === interval
+    )
   }
 
   public getFrequencyOptions() {
@@ -81,9 +80,7 @@ class EditData extends Component<Props, State> {
   }
 
   public handleFrequencyChange = (e: any) => {
-    const {
-      options: { frequencyOptions },
-    } = this.props
+    const { frequencyOptions } = this.props.options
     const { periodicity, interval } = frequencyOptions[e.target.value]
 
     this.setState({
@@ -103,18 +100,8 @@ class EditData extends Component<Props, State> {
       return
     }
 
-    const { frequencyOptions } = this.props.options
-    if (!frequencyOptions || !frequencyOptions.length) {
-      this.setState({ currentIndex: 0 })
-      return
-    }
-
     this.setState({
-      currentIndex: frequencyOptions.findIndex(
-        option =>
-          option.periodicity === this.state.periodicity &&
-          option.interval === this.state.interval
-      ),
+      currentIndex: this.getCurrentFrequencyOption(this.state),
     })
   }
 
