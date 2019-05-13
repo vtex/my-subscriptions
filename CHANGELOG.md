@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fix
+
+- Merge frequency info and charge day components.
+- Display frequency interval correctly on dropdown.
+
 ## [0.8.2] - 2019-05-04
 
 ### Fix
