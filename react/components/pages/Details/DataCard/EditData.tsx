@@ -120,6 +120,7 @@ class EditData extends Component<Props, State> {
 
   public handleSaveClick = () => {
     this.setState({ isLoading: true })
+
     this.props
       .updateSettings({
         variables: {
@@ -186,7 +187,7 @@ class EditData extends Component<Props, State> {
             onClose={() => this.setState({ showErrorAlert: false })}
             contentId={errorMessage}
           />
-          <div className="w-40-l w-60-m w-100-s">
+          <div className="w-50-l w-60-m w-100-s">
             <Dropdown
               label={formatMessage({ id: 'subscription.data.orderAgain' })}
               options={this.getFrequencyOptions()}
@@ -194,13 +195,13 @@ class EditData extends Component<Props, State> {
               onChange={this.handleFrequencyChange}
             />
           </div>
-          <div className="w-40-l w-60-m pt6 pb4">
+          <div className="w-50-l w-60-m pt6 pb4">
             {periodicity !== 'DAILY' && (
               <Dropdown
                 label={formatMessage({ id: 'subscription.data.chargeEvery' })}
                 placeholder={formatMessage({ id: 'subscription.select' })}
                 options={this.getPeriodicityOptions()}
-                value={chargeDay}
+                value={chargeDay.toLowerCase()}
                 onChange={this.handleChargeDayChange}
               />
             )}
