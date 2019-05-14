@@ -65,7 +65,7 @@
   "subscription.data": "Data",
   "subscription.data.orderAgain": "Reorder",
   "subscription.data.estimatedDelivery": "Estimated delivery",
-  "subscription.nextPurchase": "Next purchase",
+  "subscription.nextPurchase": "Next order",
   "subscription.data.chargeDay": "Charge day",
   "subscription.shipping": "Shipping",
   "subscription.shipping.address": "Address",
@@ -103,6 +103,10 @@
   "order.subscription.periodicity.quarterly": "every 3 months",
   "order.subscription.periodicity.semiannual": "semiannually",
   "order.subscription.periodicity.yearly": "yearly",
+
+  "order.subscription.periodicity.weekly.step": "every {moment}",
+  "order.subscription.periodicity.monthly.step": "every {moment}",
+  "order.subscription.periodicity.yearly.step": "every {moment}",
 
   "subscription.alert.error.message": "There was a problem paying your current order. Check your payment method so that you can still make the current purchase and so the future purchases will occur without problems.",
   "subscription.retry.button.message": "Place current order",

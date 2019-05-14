@@ -65,7 +65,7 @@
   "subscription.data": "Données d'abonnement",
   "subscription.data.orderAgain": "Passer à nouveau cette commande",
   "subscription.data.estimatedDelivery": "Livraison estimé",
-  "subscription.nextPurchase": "Prochain achat",
+  "subscription.nextPurchase": "Prochain commande",
   "subscription.data.chargeDay": "Jour de facturation",
   "subscription.shipping": "Envoi",
   "subscription.shipping.address": "Address",
@@ -103,6 +103,10 @@
   "order.subscription.periodicity.quarterly": "tous les 3 mois",
   "order.subscription.periodicity.semiannual": "semestriellement",
   "order.subscription.periodicity.yearly": "annuel",
+
+  "order.subscription.periodicity.weekly.step": "chaque {moment}",
+  "order.subscription.periodicity.monthly.step": "tous les jours {moment}",
+  "order.subscription.periodicity.yearly.step": "chaque année au jour {moment}",
 
   "subscription.alert.error.message": "Un problème est survenu lors du paiement de votre commande actuelle. Vérifiez votre mode de paiement afin de pouvoir toujours effectuer l’achat en cours afin que les achats futurs se déroulent sans problème.",
   "subscription.retry.button.message": "Passer la commande en cours",
