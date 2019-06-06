@@ -137,8 +137,10 @@
   "order.subscription.key.validity.begin": "Início",
   "order.subscription.key.validity.end": "Fim",
 
-  "subscription.alert.error.message": "Houve um problema com o pagamento do seu pedido atual. Confira a sua forma de pagamento para que ainda possa efetuar a compra atual e para que as compras futuras ocorram sem problemas.",
-  "subscription.retry.button.message": "Efetuar pedido atual",
+  "subscription.alert.error.message": "Houve um problema de pagamento ao efetuar o seu pedido atual. Configure sua forma de pagamento para evitar problemas futuros.",
+  "subscription.alert.error.button.message": "Configurar Pagamento",
+  "subscription.payment.alert.info.message": "Não foi possível efetuar a compra com essa forma de pagamento. Tente novamente ou escolha outra maneira de pagamento.",
+  "subscription.retry.button.message": "Tentar Novamente",
 
   "subscription.list.display": "Exibir",
   "subscription.list.display.active_filter": "Ativas",

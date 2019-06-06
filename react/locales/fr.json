@@ -108,8 +108,10 @@
   "order.subscription.periodicity.monthly.step": "tous les jours {moment}",
   "order.subscription.periodicity.yearly.step": "chaque année au jour {moment}",
 
-  "subscription.alert.error.message": "Un problème est survenu lors du paiement de votre commande actuelle. Vérifiez votre mode de paiement afin de pouvoir toujours effectuer l’achat en cours afin que les achats futurs se déroulent sans problème.",
-  "subscription.retry.button.message": "Passer la commande en cours",
+  "subscription.alert.error.message": "Un problème de paiement est survenu lors de la tentative de passer votre commande en cours. Configurez votre méthode de paiement pour éviter des problèmes futurs.",
+  "subscription.alert.error.button.message": "Configuration du mode de paiement",
+  "subscription.payment.alert.info.message": "Il n’était pas possible de faire un achat avec ce mode de paiement. Veuillez réessayer ou choisir un autre mode.",
+  "subscription.retry.button.message": "Réessayer",
 
   "subscription.list.display": "Visualiser",
   "subscription.list.display.active_filter": "Actif",

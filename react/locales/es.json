@@ -108,8 +108,10 @@
   "order.subscription.periodicity.monthly.step": "todos los días {moment}",
   "order.subscription.periodicity.yearly.step": "día {moment}",
 
-  "subscription.alert.error.message": "Hubo un problema al pagar su orden actual. Verifique su método de pago para que aún pueda realizar la compra actual y para que las compras futuras se realicen sin problemas.",
-  "subscription.retry.button.message": "Colocar orden actual",
+  "subscription.alert.error.message": "Hubo un problema de pago al intentar realizar su pedido actual. Configure su método de pago para evitar futuros problemas.",
+  "subscription.alert.error.button.message": "Configuración del método de pago",
+  "subscription.payment.alert.info.message": "No fue posible realizar una compra con este método de pago. Inténtelo de nuevo o elija otro método.",
+  "subscription.retry.button.message": "Inténtelo de nuevo",
 
   "subscription.list.display": "Exhibir",
   "subscription.list.display.active_filter": "Activas",
