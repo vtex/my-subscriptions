@@ -52,7 +52,7 @@ class EditData extends Component<Props, State> {
         {
           id: `order.subscription.periodicity.${option.periodicity.toLowerCase()}`,
         },
-        { interval: option.interval }
+        { count: option.interval }
       ),
     }))
   }

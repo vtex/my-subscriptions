@@ -13,7 +13,7 @@ const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
 
   const periodicityText = intl.formatMessage(
     { id: `order.subscription.periodicity.${periodicity}` },
-    { interval }
+    { count: interval }
   )
 
   let frequencyText = periodicityText
