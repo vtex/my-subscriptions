@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.8.4] - 2019-06-18
+
+### Fix
+
+- Rename interpolated `interval` variable to `count`.
+
 ## [0.8.3] - 2019-05-14
 
 ### Fix
