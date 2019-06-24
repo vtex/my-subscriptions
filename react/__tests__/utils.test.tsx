@@ -8,7 +8,6 @@ import { convertFilter, convertStatusInTagType } from '../utils'
 describe('Utils test Scenarios', () => {
   it('should convert active filter', () => {
     const active = SubscriptionStatusEnum.Active
-
     const expectedResult = [active, SubscriptionStatusEnum.Paused]
     const result = convertFilter(SubscriptionDisplayFilterEnum.Active)
 
@@ -16,7 +15,7 @@ describe('Utils test Scenarios', () => {
     expect(result).toHaveLength(expectedResult.length)
   })
 
-  it('should convert canceled filter', () => {
+  it.only('should convert canceled filter', () => {
     const result = convertFilter(SubscriptionDisplayFilterEnum.Canceled)
     const expectedResult = [SubscriptionStatusEnum.Canceled]
 

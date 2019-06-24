@@ -18,7 +18,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   //   lastGeneratedOrder &&
   //   lastGeneratedOrder.orderInfo &&
   //   lastGeneratedOrder.orderInfo.paymentUrl
-
+  console.log(subscriptionsGroup)
   const displayEdit =
     subscriptionsGroup.status === SubscriptionStatusEnum.Active
 

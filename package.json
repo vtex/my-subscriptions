@@ -3,6 +3,8 @@
   "devDependencies": {
     "@vtex/intl-equalizer": "^2.0.1",
     "danger": "^8.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-vtex-react": "^4.1.0",
     "husky": "^1.3.1"
   },
   "scripts": {

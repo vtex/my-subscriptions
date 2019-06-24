@@ -8,6 +8,7 @@ mutation addItem($orderFormId: String, $items: [OrderFormItemInput]) {
       name
       value
     }
+
     items {
       id
       name
