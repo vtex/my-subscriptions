@@ -77,7 +77,6 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   render() {
     const { subscriptionsGroup, intl } = this.props
     const { displayRetry, displayAlert } = this.state
-
     return (
       <ContentWrapper {...headerConfig({ intl })}>
         {() => (
@@ -131,7 +130,7 @@ interface Props
   data: { groupedSubscription: SubscriptionsGroupItemType }
 }
 
-const enhance = compose<Props, void>(
+const enhance = compose<Props, any>(
   injectIntl,
   withRouter,
   graphql<Props, Variables<{ ordergroup: string }>>(
