@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.9.0] - 2019-06-24
+
+### Changed
+
+- Improve retry UX.
+
 ## [0.8.4] - 2019-06-18
 
 ### Fix

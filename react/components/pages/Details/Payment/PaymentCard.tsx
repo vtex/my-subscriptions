@@ -2,7 +2,13 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum, CSS } from '../../../../constants'
+import {
+  SubscriptionStatusEnum,
+  CSS,
+  PAYMENT_DIV_ID,
+  TagTypeEnum,
+} from '../../../../constants'
+import Alert from '../../../commons/CustomAlert'
 import PaymentDisplay from '../PaymentDisplay'
 
 const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
@@ -23,7 +29,13 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
     subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
   return (
-    <div className={CSS.cardWrapper}>
+    <div className={CSS.cardWrapper} id={PAYMENT_DIV_ID}>
+      <Alert
+        visible={displayRetry}
+        type={TagTypeEnum.Warning}
+        contentId="subscription.payment.alert.info.message"
+        onClose={() => null}
+      />
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
           <FormattedMessage id="subscription.payment" />
@@ -34,7 +46,8 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
               size="small"
               variation="secondary"
               onClick={onMakeRetry}
-              disabled={!isRetryButtonEnabled}>
+              disabled={!isRetryButtonEnabled}
+            >
               <FormattedMessage id="subscription.retry.button.message" />
             </Button>
           )}

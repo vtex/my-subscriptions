@@ -108,8 +108,10 @@
   "order.subscription.periodicity.monthly.step": "every {moment}",
   "order.subscription.periodicity.yearly.step": "every {moment}",
 
-  "subscription.alert.error.message": "There was a problem paying your current order. Check your payment method so that you can still make the current purchase and so the future purchases will occur without problems.",
-  "subscription.retry.button.message": "Place current order",
+  "subscription.alert.error.message": "There was a payment problem on trying to place your current order. Configure your payment method to avoid future problems.",
+  "subscription.alert.error.button.message": "Setup payment method",
+  "subscription.payment.alert.info.message": "It wasn't possible to make a purchase with this payment method. Try again or choose another method.",
+  "subscription.retry.button.message": "Try again",
 
   "subscription.list.display": "Display",
   "subscription.list.display.active_filter": "Actives",

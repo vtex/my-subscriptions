@@ -8,7 +8,11 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import GROUPED_SUBSCRIPTION from '../../../graphql/groupedSubscription.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Alert from '../../commons/CustomAlert'
-import { TagTypeEnum } from '../../../constants'
+import {
+  TagTypeEnum,
+  SubscriptionOrderStatusEnum,
+  PAYMENT_DIV_ID,
+} from '../../../constants'
 import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
@@ -26,13 +30,12 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   static getDerivedStateFromProps(props: Props) {
     const lastInstance = props.subscriptionsGroup.lastInstance
 
-    if (lastInstance && lastInstance.status === 'PAYMENT_ERROR') {
-      return {
-        displayRetry: true,
-      }
-    }
-
-    return null
+    return lastInstance &&
+      lastInstance.status === SubscriptionOrderStatusEnum.PaymentError
+      ? {
+          displayRetry: true,
+        }
+      : null
   }
 
   componentDidMount = () => {
@@ -49,6 +52,11 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
   handleSetDisplayAlert = (displayAlert: boolean) => {
     this.setState({ displayAlert })
+  }
+
+  handleScrollToPayment = () => {
+    const paymentDiv = document.getElementById(PAYMENT_DIV_ID)
+    paymentDiv && paymentDiv.scrollIntoView()
   }
 
   handleMakeRetry = () => {
@@ -69,7 +77,6 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   render() {
     const { subscriptionsGroup, intl } = this.props
     const { displayRetry, displayAlert } = this.state
-
     return (
       <ContentWrapper {...headerConfig({ intl })}>
         {() => (
@@ -78,8 +85,8 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
               visible={displayRetry && displayAlert}
               type={TagTypeEnum.Error}
               action={{
-                labelId: 'subscription.retry.button.message',
-                onClick: this.handleMakeRetry,
+                labelId: 'subscription.alert.error.button.message',
+                onClick: this.handleScrollToPayment,
               }}
               contentId="subscription.alert.error.message"
               onClose={() => this.handleSetDisplayAlert(false)}
@@ -123,7 +130,7 @@ interface Props
   data: { groupedSubscription: SubscriptionsGroupItemType }
 }
 
-const enhance = compose<Props, void>(
+const enhance = compose<Props, any>(
   injectIntl,
   withRouter,
   graphql<Props, Variables<{ ordergroup: string }>>(

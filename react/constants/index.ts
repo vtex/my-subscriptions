@@ -30,7 +30,7 @@ export enum SubscriptionOrderStatusEnum {
   Success = 'SUCCESS',
   Expired = 'EXPIRED',
   OrderError = 'ORDER_ERROR',
-  PymentError = 'PAYMENT_ERROR',
+  PaymentError = 'PAYMENT_ERROR',
   Skiped = 'SKIPED',
   SuccessWithNoOrder = 'SUCCESS_WITH_NO_ORDER',
   SuccessWithPartialOrder = 'SUCCESS_WITH_PARTIAL_ORDER',
@@ -97,3 +97,5 @@ export const CSS = {
   cardWrapper:
     'bg-base t-body c-on-base pa5 pa7-ns b--muted-5 bw1 bt bb bl-ns br-ns h-100',
 }
+
+export const PAYMENT_DIV_ID = 'subscriptions-payment-div'
