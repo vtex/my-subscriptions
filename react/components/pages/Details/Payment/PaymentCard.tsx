@@ -25,35 +25,40 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   onMakeRetry,
   displayRetry,
   isRetryButtonEnabled,
-}) => (
-  <div className={CSS.cardWrapper} id={PAYMENT_DIV_ID}>
-    <Alert
-      visible={displayRetry}
-      type={TagTypeEnum.Warning}
-      contentId="subscription.payment.alert.info.message"
-      onClose={() => null}
-    />
-    <div className="flex flex-row">
-      <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.payment" />
-      </div>
-      <div className="ml-auto flex flex-row">
-        {displayRetry && (
-          <Button
-            size="small"
-            variation="secondary"
-            onClick={onMakeRetry}
-            disabled={!isRetryButtonEnabled}
-          >
-            <FormattedMessage id="subscription.retry.button.message" />
-          </Button>
-        )}
-        <div className="ml3">
-          <EditButton
-            onEdit={onEdit}
-            subscriptionStatus={subscriptionsGroup.status}
-            testId="edit-payment-button"
-          />
+}) => {
+  // TODO: Check if Boleto is working
+  // const lastGeneratedOrder = subscriptionsGroup.lastInstance
+  // const bankInvoiceUrl =
+  //   lastGeneratedOrder &&
+  //   lastGeneratedOrder.orderInfo &&
+  //   lastGeneratedOrder.orderInfo.paymentUrl
+  console.log(subscriptionsGroup)
+  const displayEdit =
+    subscriptionsGroup.status === SubscriptionStatusEnum.Active
+
+  return (
+    <div className={CSS.cardWrapper}>
+      <div className="flex flex-row">
+        <div className="db-s di-ns b f4 tl c-on-base">
+          <FormattedMessage id="subscription.payment" />
+        </div>
+        <div className="ml-auto flex flex-row">
+          {displayRetry && (
+            <Button
+              size="small"
+              variation="secondary"
+              onClick={onMakeRetry}
+              disabled={!isRetryButtonEnabled}>
+              <FormattedMessage id="subscription.retry.button.message" />
+            </Button>
+          )}
+          {displayEdit && (
+            <div className="ml3">
+              <Button size="small" variation="tertiary" onClick={onEdit}>
+                <FormattedMessage id="subscription.actions.edit" />
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
