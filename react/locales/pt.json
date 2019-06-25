@@ -111,13 +111,9 @@
   "subscription.periodicity.monthly": "Mensal",
 
   "order.subscription.periodicity.day": "a cada {count, plural, one {1 dia} other {# dias}}",
-  "order.subscription.periodicity.days": "a cada {count, plural, one {1 dia} other {# dias}}",
   "order.subscription.periodicity.week": "a cada {count, plural, one {1 semana} other {# semanas}}",
-  "order.subscription.periodicity.weeks": "a cada {count, plural, one {1 semana} other {# semanas}}",
   "order.subscription.periodicity.month": "a cada {count, plural, one {1 mês} other {# meses}}",
-  "order.subscription.periodicity.months": "a cada {count, plural, one {1 mês} other {# meses}}",
   "order.subscription.periodicity.year": "a cada {count, plural, one {1 ano} other {# anos}}",
-  "order.subscription.periodicity.years": "a cada {count, plural, one {1 ano} other {# anos}}",
   "order.subscription.periodicity.daily": "{count, plural, one {Diariamente} other {A cada # dias}}",
   "order.subscription.periodicity.weekly": "{count, plural, one {Semanalmente} other {A cada # semanas}}",
   "order.subscription.periodicity.monthly": "{count, plural, one {Mensalmente} other {A cada # meses}}",
