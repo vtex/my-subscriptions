@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Remove some month options(29, 30, 31), from the list of frequencies.
+
 ## [0.9.0] - 2019-06-24
 
 ### Changed

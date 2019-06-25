@@ -84,9 +84,6 @@ export const MONTH_OPTIONS = [
   '26',
   '27',
   '28',
-  '29',
-  '30',
-  '31',
 ]
 
 export const CSS = {
