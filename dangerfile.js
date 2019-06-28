@@ -169,11 +169,7 @@ function checkLockFileUpdated() {
 
 function checkMergeability() {
   if (!pr.mergeable) {
-    fail(
-      `This PR doesn't seem to be mergeable. Did you rebase it with \`${
-        pr.base.ref
-      }\`?`
-    )
+    fail(`“Branch is not rebased with \`${pr.base.ref}\`?`)
   }
 }
 
