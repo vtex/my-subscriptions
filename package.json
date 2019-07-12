@@ -1,7 +1,7 @@
 {
   "version": "0.8.4",
   "devDependencies": {
-    "@vtex/danger": "^0.0.5-beta.1",
+    "@vtex/danger": "^0.0.5-beta.3",
     "@vtex/intl-equalizer": "^2.0.1",
     "eslint": "^6.0.1",
     "eslint-config-vtex-react": "^4.1.0",
