@@ -49,6 +49,7 @@ export default function withQuery({
 
       public componentDidCatch = (error: any, info: any) => {
         this.setState({ hasError: true, componentError: error })
+        debugger
         errorCallback({ error, info })
       }
 
