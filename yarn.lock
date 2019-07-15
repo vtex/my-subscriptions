@@ -125,10 +125,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@vtex/danger@^0.0.5-beta.4":
-  version "0.0.5-beta.4"
-  resolved "https://registry.yarnpkg.com/@vtex/danger/-/danger-0.0.5-beta.4.tgz#a53b0cd91b4e4eaaf8e340848ba9159383f0f82a"
-  integrity sha512-AAIk0/SB+zFqu7Z5GE/dlqk6rGDxXIL3K3/SYHBaqL70boJJLngQ+XuRQukCc2ovIHS5CgZfQ3+ipTGon/mCuA==
+"@vtex/danger@^0.0.5-beta.5":
+  version "0.0.5-beta.5"
+  resolved "https://registry.yarnpkg.com/@vtex/danger/-/danger-0.0.5-beta.5.tgz#c3694bc5f02fc36c91e9caaec4fa20dcbfba0191"
+  integrity sha512-79VVz5HFrnIJSnZoajEWlJy44kpffpb5hOsSKNNBoua+b14dgar+FlUIpvne/20i3j4i0BqYQ+URPqfdwpU9Ww==
   dependencies:
     danger "^9.0.2"
 
