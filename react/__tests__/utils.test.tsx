@@ -5,7 +5,7 @@ import {
 } from '../constants'
 import { convertFilter, convertStatusInTagType } from '../utils'
 
-describe('Utils test Scenarios', () => {
+describe.only('Utils test Scenarios', () => {
   it('should convert active filter', () => {
     const active = SubscriptionStatusEnum.Active
     const expectedResult = [active, SubscriptionStatusEnum.Paused]
