@@ -49,6 +49,7 @@ export default {
           type: 'RECURRING_PAYMENT',
         },
         shippingAddress: {
+          cacheId: 'b3665b68c9714441bdea54c35a4d0cd6',
           addressId: 'b3665b68c9714441bdea54c35a4d0cd6',
           street: 'Avenida Evandro Lins e Silva',
           number: '1',

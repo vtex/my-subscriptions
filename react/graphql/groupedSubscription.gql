@@ -36,6 +36,7 @@ query GroupedSubscription($orderGroup: String!) {
       type
     }
     shippingAddress {
+      cacheId
       addressId
       street
       number
@@ -46,8 +47,6 @@ query GroupedSubscription($orderGroup: String!) {
       country
       postalCode
       reference
-      formattedAddress
-      additionalComponents
       geoCoordinate
       receiverName
       addressType

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
-import { Button } from 'vtex.styleguide'
+import { Button, Alert } from 'vtex.styleguide'
 
 import { SubscriptionStatusEnum, CSS } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
@@ -33,22 +33,26 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
         </div>
       </div>
       <div className="flex pt3-s pt5-ns w-100">
-        <div className="w-100">
-          <LabeledInfo labelId="subscription.shipping.address">
-            <AddressRules
-              country={subscriptionsGroup.shippingAddress.country}
-              shouldUseIOFetching>
-              <AddressSummary address={subscriptionsGroup.shippingAddress} />
-            </AddressRules>
-          </LabeledInfo>
-          <div className="flex flex-row-s flex-column-ns">
-            <div className="w-60-s w-100-ns pt6">
-              <LabeledInfo labelId="subscription.shipping.sla">
-                &nbsp;
-              </LabeledInfo>
-            </div>
+        {subscriptionsGroup.shippingAddress ? (
+          <div className="w-100">
+            <LabeledInfo labelId="subscription.shipping.address">
+              <AddressRules
+                country={subscriptionsGroup.shippingAddress.country}
+                shouldUseIOFetching
+              >
+                <AddressSummary address={subscriptionsGroup.shippingAddress} />
+              </AddressRules>
+            </LabeledInfo>
           </div>
-        </div>
+        ) : (
+          <Alert
+            type="error"
+            action={{ label: 'Substituir endereço', onClick: () => onEdit() }}
+          >
+            Endereço inválido, associe um novo endereço válido a essa
+            assinatura.
+          </Alert>
+        )}
       </div>
     </div>
   )
