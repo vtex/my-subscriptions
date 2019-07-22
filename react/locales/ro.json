@@ -69,7 +69,6 @@
   "subscription.data.chargeDay": "Ziua de încărcare",
   "subscription.shipping": "Transport",
   "subscription.shipping.address": "Adresa",
-  "subscription.shipping.sla": "Metodă de expediere",
   "subscription.shipping.tracking": "Urmărire",
   "subscription.payment": "Plata",
   "subscription.payment.method": "Metoda de plată",

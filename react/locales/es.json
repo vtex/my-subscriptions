@@ -69,7 +69,6 @@
   "subscription.data.chargeDay": "Día de carga",
   "subscription.shipping": "Envío",
   "subscription.shipping.address": "Dirección",
-  "subscription.shipping.sla": "Método de envío",
   "subscription.shipping.tracking": "Seguimiento",
   "subscription.payment": "Payment",
   "subscription.payment.method": "Método de pago",

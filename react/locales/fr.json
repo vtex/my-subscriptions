@@ -69,7 +69,6 @@
   "subscription.data.chargeDay": "Jour de facturation",
   "subscription.shipping": "Envoi",
   "subscription.shipping.address": "Address",
-  "subscription.shipping.sla": "Mode de livraison",
   "subscription.shipping.tracking": "Suivi",
   "subscription.payment": "Paiement",
   "subscription.payment.method": "Mode de paiement",

@@ -79,7 +79,6 @@
 
   "subscription.shipping": "Entrega",
   "subscription.shipping.address": "Endereço",
-  "subscription.shipping.sla": "Forma de entrega",
   "subscription.shipping.tracking": "Rastreamento",
 
   "subscription.payment": "Pagamento",
