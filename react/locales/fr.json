@@ -133,5 +133,8 @@
   "subscription.order.again.confirmation": "Finaliser l'achat",
   "subscription.shipping-address.error.message": "Adresse invalide, sélectionnez une nouvelle adresse valide pour cet abonnement.",
   "subscription.shipping-address.error.action": "Changement d'adresse",
-  "subscription.shipping-address.error.no-action": "L'adresse sélectionnée n'est plus disponible."
+  "subscription.shipping-address.error.no-action": "L'adresse sélectionnée n'est plus disponible.",
+  "subscription.purchase-settings.error.message": "Méthode de paiement invalide, sélectionnez un nouveau paiement valide pour cet abonnement.",
+  "subscription.purchase-settings.error.action": "Changer la méthode de paiement",
+  "subscription.purchase-settings.error.no-action": "Le mode de paiement sélectionné n'est plus disponible."
 }

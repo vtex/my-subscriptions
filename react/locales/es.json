@@ -133,5 +133,8 @@
   "subscription.order.again.confirmation": "Ir al proceso de pago",
   "subscription.shipping-address.error.message": "Dirección no válida, seleccione una nueva dirección válida para esta suscripción.",
   "subscription.shipping-address.error.action": "Cambiar dirección",
-  "subscription.shipping-address.error.no-action": "La dirección seleccionada ya no está disponible."
+  "subscription.shipping-address.error.no-action": "La dirección seleccionada ya no está disponible.",
+  "subscription.purchase-settings.error.message": "Método de pago no válido, seleccione un nuevo pago válido para esta suscripción.",
+  "subscription.purchase-settings.error.action": "Cambiar método de pago",
+  "subscription.purchase-settings.error.no-action": "El método de pago seleccionado ya no está disponible."
 }

@@ -133,5 +133,8 @@
   "subscription.order.again.confirmation": "Go to checkout",
   "subscription.shipping-address.error.message": "Invalid address, select a new valid address for this subscription.",
   "subscription.shipping-address.error.action": "Change address",
-  "subscription.shipping-address.error.no-action": "The selected address is not available anymore."
+  "subscription.shipping-address.error.no-action": "The selected address is not available anymore.",
+  "subscription.purchase-settings.error.message": "Invalid payment method, select a new valid payment for this subscription.",
+  "subscription.purchase-settings.error.action": "Change payment method",
+  "subscription.purchase-settings.error.no-action": "The selected payment method is not available anymore."
 }

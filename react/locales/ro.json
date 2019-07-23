@@ -133,5 +133,8 @@
   "subscription.order.again.confirmation": "Mergeți la checkout",
   "subscription.shipping-address.error.message": "Adresă nevalidă, selectați o nouă adresă validă pentru acest abonament.",
   "subscription.shipping-address.error.action": "Schimba adresa",
-  "subscription.shipping-address.error.no-action": "Adresa selectată nu mai este disponibilă."
+  "subscription.shipping-address.error.no-action": "Adresa selectată nu mai este disponibilă.",
+  "subscription.purchase-settings.error.message": "Metoda de plată nevalidă, selectați o nouă plată valabilă pentru acest abonament.",
+  "subscription.purchase-settings.error.action": "Schimbă modalitatea de plată",
+  "subscription.purchase-settings.error.no-action": "Metoda de plată selectată nu mai este disponibilă."
 }
