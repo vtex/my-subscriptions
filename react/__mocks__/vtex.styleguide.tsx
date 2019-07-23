@@ -26,7 +26,7 @@ export class Input extends Component {
 
 export class IconEdit extends Component {
   public render() {
-    return <div {...this.props}>{this.props.children}</div>
+    return <div>{this.props.children}</div>
   }
 }
 
