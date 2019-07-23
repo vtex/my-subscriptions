@@ -171,5 +171,6 @@
   "subscription.order.again.description": "Este pedido não irá alterar as datas das próximas compras ou dados da assinatura.",
   "subscription.order.again.confirmation": "Finalizar compra",
   "subscription.shipping-address.error.message": "Endereço inválido, associe um novo endereço válido a essa assinatura.",
-  "subscription.shipping-address.error.action": "Substituir Endereço"
+  "subscription.shipping-address.error.action": "Substituir Endereço",
+  "subscription.shipping-address.error.no-action": "O endereço selecionado não está mais disponível."
 }

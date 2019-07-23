@@ -1,35 +1,27 @@
 import React, { FunctionComponent } from 'react'
-import {
-  InjectedIntlProps,
-  injectIntl,
-  FormattedMessage,
-  defineMessages,
-} from 'react-intl'
+import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
-import { Button, Alert } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum, CSS } from '../../../../constants'
+import { CSS } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
+import EditButton from '../../../commons/EditButton'
+import EditAlert from '../../../commons/EditAlert'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.shipping.address',
+    id: 'subscription.shipping-address.error.action',
     defaultMessage: '',
   },
-  action: {
-    id: 'subscription.shipping-address.error.action',
+  noAction: {
+    id: 'subscription.shipping-address.error.no-action',
     defaultMessage: '',
   },
 })
 
-const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
+const ShippingCard: FunctionComponent<Props> = ({
   onEdit,
-  intl,
   subscriptionsGroup,
 }) => {
-  const displayEdit =
-    subscriptionsGroup.status === SubscriptionStatusEnum.Active
-
   return (
     <div className={CSS.cardWrapper}>
       <div className="flex flex-row">
@@ -37,11 +29,10 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
           <FormattedMessage id="subscription.shipping" />
         </div>
         <div className="ml-auto">
-          {displayEdit && (
-            <Button size="small" variation="tertiary" onClick={onEdit}>
-              <FormattedMessage id="subscription.actions.edit" />
-            </Button>
-          )}
+          <EditButton
+            subscriptionStatus={subscriptionsGroup.status}
+            onEdit={onEdit}
+          />
         </div>
       </div>
       <div className="flex pt3-s pt5-ns w-100">
@@ -57,19 +48,14 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
             </LabeledInfo>
           </div>
         ) : (
-          <Alert
-            type="error"
-            action={
-              displayEdit
-                ? {
-                    label: intl.formatMessage(messages.action),
-                    onClick: () => onEdit(),
-                  }
-                : undefined
-            }
+          <EditAlert
+            subscriptionStatus={subscriptionsGroup.status}
+            onAction={onEdit}
+            actionLabelMessage={messages.label}
+            noActionMessage={messages.noAction}
           >
             <FormattedMessage id="subscription.shipping-address.error.message" />
-          </Alert>
+          </EditAlert>
         )}
       </div>
     </div>

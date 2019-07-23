@@ -132,5 +132,6 @@
   "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and its dates.",
   "subscription.order.again.confirmation": "Go to checkout",
   "subscription.shipping-address.error.message": "Invalid address, select a new valid address for this subscription.",
-  "subscription.shipping-address.error.action": "Change address"
+  "subscription.shipping-address.error.action": "Change address",
+  "subscription.shipping-address.error.no-action": "The selected address is not available anymore."
 }

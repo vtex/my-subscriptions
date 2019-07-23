@@ -40,7 +40,7 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     expect(queryByText(/subscription.retry.button.message/)).toBeTruthy()
   })
 
-  test('shouldnt display retry', async () => {
+  test('Shouldnt display retry', async () => {
     const { queryByText } = render(
       <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />
@@ -56,7 +56,7 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     expect(queryByText(/subscription.retry.button.message/)).toBeFalsy()
   })
 
-  test('shouldnt display address error', async () => {
+  test('Shouldnt display address error', async () => {
     const { queryByText } = render(
       <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />
@@ -74,7 +74,7 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     ).toBeFalsy()
   })
 
-  test('should display address error', async () => {
+  test('Should display address error', async () => {
     const noAddress = { ...RegularSubscription }
     // @ts-ignore
     noAddress.result.data.groupedSubscription.shippingAddress = null
@@ -96,12 +96,13 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     ).toBeTruthy()
   })
 
-  test('shouldnt display address error action when the subscription status is not active', async () => {
+  test('Should display address no-action error when the subscription status is not active', async () => {
     const noAddress = { ...RegularSubscription }
     // @ts-ignore
     noAddress.result.data.groupedSubscription.shippingAddress = null
     noAddress.result.data.groupedSubscription.status =
       SubscriptionStatusEnum.Paused
+
     const { queryByText } = render(
       <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />
@@ -115,7 +116,57 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/subscription.shipping-address.error.action/)
-    ).toBeFalsy()
+      queryByText(/subscription.shipping-address.error.no-action/)
+    ).toBeTruthy()
+  })
+
+  test('Should display edit button disabled', async () => {
+    const noAddress = { ...RegularSubscription }
+    // @ts-ignore
+    noAddress.result.data.groupedSubscription.status =
+      SubscriptionStatusEnum.Paused
+
+    const { getAllByTestId } = render(
+      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+        <SubscriptionDetails />
+      </MockRouter>,
+      {
+        // @ts-ignore
+        graphql: { mocks: [noAddress] },
+      }
+    )
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    const buttons = getAllByTestId('edit-button')
+
+    expect(buttons.map((button: any) => button.disabled)).toEqual([
+      true,
+      true,
+      true,
+    ])
+  })
+
+  test('Shouldnt display edit button', async () => {
+    const noAddress = { ...RegularSubscription }
+    // @ts-ignore
+    noAddress.result.data.groupedSubscription.status =
+      SubscriptionStatusEnum.Canceled
+
+    const { queryAllByTestId } = render(
+      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+        <SubscriptionDetails />
+      </MockRouter>,
+      {
+        // @ts-ignore
+        graphql: { mocks: [noAddress] },
+      }
+    )
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    const buttons = queryAllByTestId('edit-button')
+
+    expect(buttons.map((button: any) => button.disabled)).toEqual([])
   })
 })

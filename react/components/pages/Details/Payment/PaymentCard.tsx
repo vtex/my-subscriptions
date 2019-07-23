@@ -2,13 +2,9 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import {
-  SubscriptionStatusEnum,
-  CSS,
-  PAYMENT_DIV_ID,
-  TagTypeEnum,
-} from '../../../../constants'
+import { CSS, PAYMENT_DIV_ID, TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
+import EditButton from '../../../commons/EditButton'
 import PaymentDisplay from '../PaymentDisplay'
 
 const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
@@ -24,9 +20,6 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   //   lastGeneratedOrder &&
   //   lastGeneratedOrder.orderInfo &&
   //   lastGeneratedOrder.orderInfo.paymentUrl
-
-  const displayEdit =
-    subscriptionsGroup.status === SubscriptionStatusEnum.Active
 
   return (
     <div className={CSS.cardWrapper} id={PAYMENT_DIV_ID}>
@@ -51,13 +44,12 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
               <FormattedMessage id="subscription.retry.button.message" />
             </Button>
           )}
-          {displayEdit && (
-            <div className="ml3">
-              <Button size="small" variation="tertiary" onClick={onEdit}>
-                <FormattedMessage id="subscription.actions.edit" />
-              </Button>
-            </div>
-          )}
+          <div className="ml3">
+            <EditButton
+              onEdit={onEdit}
+              subscriptionStatus={subscriptionsGroup.status}
+            />
+          </div>
         </div>
       </div>
       <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
