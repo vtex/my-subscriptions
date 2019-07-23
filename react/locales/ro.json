@@ -130,5 +130,7 @@
   "subscription.order.again.title": "Aveți nevoie să primiți produsele dvs. în prealabil?",
   "subscription.next.purchase.estimatedDelivery": "Estimată livrarea viitoare a achiziției:",
   "subscription.order.again.description": "Această comandă nu va interfera în achizițiile viitoare abonamentele și datele dvs.",
-  "subscription.order.again.confirmation": "Mergeți la checkout"
+  "subscription.order.again.confirmation": "Mergeți la checkout",
+  "subscription.shipping-address.error.message": "Adresă nevalidă, selectați o nouă adresă validă pentru acest abonament.",
+  "subscription.shipping-address.error.action": "Schimba adresa"
 }

@@ -1,10 +1,26 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import {
+  InjectedIntlProps,
+  injectIntl,
+  FormattedMessage,
+  defineMessages,
+} from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 import { Button, Alert } from 'vtex.styleguide'
 
 import { SubscriptionStatusEnum, CSS } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
+
+const messages = defineMessages({
+  label: {
+    id: 'subscription.shipping.address',
+    defaultMessage: '',
+  },
+  action: {
+    id: 'subscription.shipping-address.error.action',
+    defaultMessage: '',
+  },
+})
 
 const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
   onEdit,
@@ -18,16 +34,12 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
     <div className={CSS.cardWrapper}>
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
-          {intl.formatMessage({
-            id: 'subscription.shipping',
-          })}
+          <FormattedMessage id="subscription.shipping" />
         </div>
         <div className="ml-auto">
           {displayEdit && (
             <Button size="small" variation="tertiary" onClick={onEdit}>
-              {intl.formatMessage({
-                id: 'subscription.actions.edit',
-              })}
+              <FormattedMessage id="subscription.actions.edit" />
             </Button>
           )}
         </div>
@@ -35,7 +47,7 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
       <div className="flex pt3-s pt5-ns w-100">
         {subscriptionsGroup.shippingAddress ? (
           <div className="w-100">
-            <LabeledInfo labelId="subscription.shipping.address">
+            <LabeledInfo labelId={messages.label.id}>
               <AddressRules
                 country={subscriptionsGroup.shippingAddress.country}
                 shouldUseIOFetching
@@ -47,10 +59,12 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
         ) : (
           <Alert
             type="error"
-            action={{ label: 'Substituir endereço', onClick: () => onEdit() }}
+            action={{
+              label: intl.formatMessage(messages.action),
+              onClick: () => onEdit(),
+            }}
           >
-            Endereço inválido, associe um novo endereço válido a essa
-            assinatura.
+            <FormattedMessage id="subscription.shipping-address.error.message" />
           </Alert>
         )}
       </div>

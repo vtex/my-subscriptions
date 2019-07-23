@@ -130,5 +130,7 @@
   "subscription.order.again.title": "Besoin de recevoir vos produits à l'avance ?",
   "subscription.next.purchase.estimatedDelivery": "Estimation du prochain achat :",
   "subscription.order.again.description": "Cette commande n'interférera pas avec vos prochains abonnements et ses dates",
-  "subscription.order.again.confirmation": "Finaliser l'achat"
+  "subscription.order.again.confirmation": "Finaliser l'achat",
+  "subscription.shipping-address.error.message": "Adresse invalide, sélectionnez une nouvelle adresse valide pour cet abonnement.",
+  "subscription.shipping-address.error.action": "Changement d'adresse"
 }

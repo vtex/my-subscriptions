@@ -130,5 +130,7 @@
   "subscription.order.again.title": "¿Necesita recibir sus productos de antemano?",
   "subscription.next.purchase.estimatedDelivery": "Entrega estimada para la próxima compra:",
   "subscription.order.again.description": "Este pedido no interferirá en sus próximas compras y sus fechas.",
-  "subscription.order.again.confirmation": "Ir al proceso de pago"
+  "subscription.order.again.confirmation": "Ir al proceso de pago",
+  "subscription.shipping-address.error.message": "Dirección no válida, seleccione una nueva dirección válida para esta suscripción.",
+  "subscription.shipping-address.error.action": "Cambiar dirección"
 }
