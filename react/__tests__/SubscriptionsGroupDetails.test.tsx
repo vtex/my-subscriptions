@@ -54,4 +54,44 @@ describe('SubscriptionGroupDetails Scenarios', () => {
 
     expect(queryByText(/subscription.retry.button.message/)).toBeFalsy()
   })
+
+  test('shouldnt display address error', async () => {
+    const { queryByText } = render(
+      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+        <SubscriptionDetails />
+      </MockRouter>,
+      {
+        // @ts-ignore
+        graphql: { mocks: [RegularSubscription] },
+      }
+    )
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    expect(
+      queryByText(/subscription.shipping-address.error.message/)
+    ).toBeFalsy()
+  })
+
+  test('should display address error', async () => {
+    const noAddress = { ...RegularSubscription }
+    // @ts-ignore
+    noAddress.result.data.groupedSubscription.shippingAddress = null
+
+    const { queryByText } = render(
+      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+        <SubscriptionDetails />
+      </MockRouter>,
+      {
+        // @ts-ignore
+        graphql: { mocks: [noAddress] },
+      }
+    )
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    expect(
+      queryByText(/subscription.shipping-address.error.message/)
+    ).toBeTruthy()
+  })
 })
