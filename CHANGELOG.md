@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Validation for null `shippingAddress`.
+
 ## [0.9.1] - 2019-06-25
 
 ### Changed
