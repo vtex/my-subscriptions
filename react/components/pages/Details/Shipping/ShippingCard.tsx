@@ -59,10 +59,14 @@ const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
         ) : (
           <Alert
             type="error"
-            action={{
-              label: intl.formatMessage(messages.action),
-              onClick: () => onEdit(),
-            }}
+            action={
+              displayEdit
+                ? {
+                    label: intl.formatMessage(messages.action),
+                    onClick: () => onEdit(),
+                  }
+                : undefined
+            }
           >
             <FormattedMessage id="subscription.shipping-address.error.message" />
           </Alert>

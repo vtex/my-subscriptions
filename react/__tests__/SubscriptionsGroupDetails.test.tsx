@@ -4,6 +4,7 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
+import { SubscriptionStatusEnum } from '../constants'
 import SubscriptionPaymentError, {
   orderGroupId as paymentErrorOrderGroup,
 } from '../mocks/SubscriptionPaymentError'
@@ -93,5 +94,28 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     expect(
       queryByText(/subscription.shipping-address.error.message/)
     ).toBeTruthy()
+  })
+
+  test('shouldnt display address error action when the subscription status is not active', async () => {
+    const noAddress = { ...RegularSubscription }
+    // @ts-ignore
+    noAddress.result.data.groupedSubscription.shippingAddress = null
+    noAddress.result.data.groupedSubscription.status =
+      SubscriptionStatusEnum.Paused
+    const { queryByText } = render(
+      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+        <SubscriptionDetails />
+      </MockRouter>,
+      {
+        // @ts-ignore
+        graphql: { mocks: [noAddress] },
+      }
+    )
+
+    await new Promise(resolve => setTimeout(resolve, 0))
+
+    expect(
+      queryByText(/subscription.shipping-address.error.action/)
+    ).toBeFalsy()
   })
 })
