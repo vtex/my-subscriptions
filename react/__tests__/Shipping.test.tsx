@@ -5,14 +5,11 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { SubscriptionStatusEnum } from '../constants'
-import SubscriptionPaymentError, {
-  orderGroupId as paymentErrorOrderGroup,
-} from '../mocks/SubscriptionPaymentError'
 import RegularSubscription, {
   orderGroupId as regularSubscriptionOrderGroup,
 } from '../mocks/RegularSubscription'
 
-describe('SubscriptionGroupDetails Scenarios', () => {
+describe('Shipping Scenarios', () => {
   const { location } = window
 
   beforeAll(() => {
@@ -22,38 +19,6 @@ describe('SubscriptionGroupDetails Scenarios', () => {
 
   afterAll(() => {
     window.location = location
-  })
-
-  test('should display retry', async () => {
-    const { queryByText } = render(
-      <MockRouter params={{ orderGroup: paymentErrorOrderGroup }}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        // @ts-ignore
-        graphql: { mocks: [SubscriptionPaymentError] },
-      }
-    )
-
-    await new Promise(resolve => setTimeout(resolve, 0))
-
-    expect(queryByText(/subscription.retry.button.message/)).toBeTruthy()
-  })
-
-  test('Shouldnt display retry', async () => {
-    const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        // @ts-ignore
-        graphql: { mocks: [RegularSubscription] },
-      }
-    )
-
-    await new Promise(resolve => setTimeout(resolve, 0))
-
-    expect(queryByText(/subscription.retry.button.message/)).toBeFalsy()
   })
 
   test('Shouldnt display address error', async () => {
@@ -145,28 +110,5 @@ describe('SubscriptionGroupDetails Scenarios', () => {
       true,
       true,
     ])
-  })
-
-  test('Shouldnt display edit button', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.status =
-      SubscriptionStatusEnum.Canceled
-
-    const { queryAllByTestId } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        // @ts-ignore
-        graphql: { mocks: [noAddress] },
-      }
-    )
-
-    await new Promise(resolve => setTimeout(resolve, 0))
-
-    const buttons = queryAllByTestId('edit-button')
-
-    expect(buttons.map((button: any) => button.disabled)).toEqual([])
   })
 })
