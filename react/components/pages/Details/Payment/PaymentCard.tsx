@@ -52,6 +52,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
           <EditButton
             onEdit={onEdit}
             subscriptionStatus={subscriptionsGroup.status}
+            testId="edit-payment-button"
           />
         </div>
       </div>

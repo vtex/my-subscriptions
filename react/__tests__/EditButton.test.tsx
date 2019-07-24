@@ -27,7 +27,7 @@ describe('Display Address Scenarios', () => {
     noAddress.result.data.groupedSubscription.status =
       SubscriptionStatusEnum.Paused
 
-    const { getAllByTestId } = render(
+    const { queryByTestId } = render(
       <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />
       </MockRouter>,
@@ -39,13 +39,13 @@ describe('Display Address Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    const buttons = getAllByTestId('edit-button')
+    const paymentButton = queryByTestId('edit-payment-button')
+    const addressButton = queryByTestId('edit-address-button')
+    const frequencyButton = queryByTestId('edit-frequency-button')
 
-    expect(buttons.map((button: any) => button.disabled)).toEqual([
-      true,
-      true,
-      true,
-    ])
+    expect((paymentButton as any).disabled).toBe(true)
+    expect((addressButton as any).disabled).toBe(true)
+    expect((frequencyButton as any).disabled).toBe(true)
   })
 
   test('Shouldnt display edit button', async () => {
@@ -54,7 +54,7 @@ describe('Display Address Scenarios', () => {
     noAddress.result.data.groupedSubscription.status =
       SubscriptionStatusEnum.Canceled
 
-    const { queryAllByTestId } = render(
+    const { queryByTestId } = render(
       <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />
       </MockRouter>,
@@ -66,8 +66,12 @@ describe('Display Address Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    const buttons = queryAllByTestId('edit-button')
+    const paymentButton = queryByTestId('edit-payment-button')
+    const addressButton = queryByTestId('edit-address-button')
+    const frequencyButton = queryByTestId('edit-frequency-button')
 
-    expect(buttons.map((button: any) => button.disabled)).toEqual([])
+    expect(paymentButton).toBe(null)
+    expect(addressButton).toBe(null)
+    expect(frequencyButton).toBe(null)
   })
 })

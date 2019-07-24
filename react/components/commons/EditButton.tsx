@@ -7,6 +7,7 @@ import { SubscriptionStatusEnum } from '../../constants'
 const EditButton: FunctionComponent<Props> = ({
   subscriptionStatus,
   onEdit,
+  testId,
 }) => {
   if (
     subscriptionStatus === SubscriptionStatusEnum.Active ||
@@ -18,7 +19,7 @@ const EditButton: FunctionComponent<Props> = ({
         variation="tertiary"
         onClick={onEdit}
         disabled={subscriptionStatus === SubscriptionStatusEnum.Paused}
-        data-testid="edit-button"
+        data-testid={testId}
       >
         <FormattedMessage id="subscription.actions.edit" />
       </Button>
@@ -30,6 +31,7 @@ const EditButton: FunctionComponent<Props> = ({
 interface Props {
   subscriptionStatus: SubscriptionStatusEnum
   onEdit: () => void
+  testId: string
 }
 
 export default EditButton

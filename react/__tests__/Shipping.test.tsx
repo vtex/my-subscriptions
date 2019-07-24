@@ -84,31 +84,4 @@ describe('Shipping Scenarios', () => {
       queryByText(/subscription.shipping-address.error.no-action/)
     ).toBeTruthy()
   })
-
-  test('Should display edit button disabled', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.status =
-      SubscriptionStatusEnum.Paused
-
-    const { getAllByTestId } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        // @ts-ignore
-        graphql: { mocks: [noAddress] },
-      }
-    )
-
-    await new Promise(resolve => setTimeout(resolve, 0))
-
-    const buttons = getAllByTestId('edit-button')
-
-    expect(buttons.map((button: any) => button.disabled)).toEqual([
-      true,
-      true,
-      true,
-    ])
-  })
 })

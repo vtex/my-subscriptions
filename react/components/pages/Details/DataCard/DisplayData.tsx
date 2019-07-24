@@ -29,6 +29,7 @@ const DisplayData: FunctionComponent<Props> = ({
           <EditButton
             onEdit={onOpenEdit}
             subscriptionStatus={subscriptionsGroup.status}
+            testId="edit-frequency-button"
           />
         </div>
       </div>

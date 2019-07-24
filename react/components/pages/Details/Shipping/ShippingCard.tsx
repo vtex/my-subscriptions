@@ -32,6 +32,7 @@ const ShippingCard: FunctionComponent<Props> = ({
           <EditButton
             subscriptionStatus={subscriptionsGroup.status}
             onEdit={onEdit}
+            testId="edit-address-button"
           />
         </div>
       </div>
