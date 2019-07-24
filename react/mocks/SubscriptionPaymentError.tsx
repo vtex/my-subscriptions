@@ -68,6 +68,7 @@ export default {
         },
         purchaseSettings: {
           purchaseDay: '10',
+          cacheId: '5FE0FD2838AB47BF852E9E43402DE553',
           paymentMethod: {
             paymentSystem: '2',
             paymentSystemName: 'Visa',

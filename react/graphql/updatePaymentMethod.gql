@@ -7,20 +7,17 @@ mutation updatePaymentMethod(
     orderGroup: $orderGroup
     payment: $payment
     accountId: $accountId
-  ) {
+  ) @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     purchaseSettings {
-      purchaseDay
-      seller
-      salesChannel
-      currencySymbol
+      cacheId
       paymentMethod {
         paymentSystem
         paymentSystemName
         paymentSystemGroup
         paymentAccount {
-          cardNumber
           accountId
+          cardNumber
         }
       }
     }

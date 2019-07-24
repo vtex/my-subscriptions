@@ -1,5 +1,6 @@
 query GroupedSubscription($orderGroup: String!) {
-  groupedSubscription(orderGroup: $orderGroup) {
+  groupedSubscription(orderGroup: $orderGroup)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     orderGroup
     status
@@ -51,7 +52,7 @@ query GroupedSubscription($orderGroup: String!) {
       addressType
     }
     purchaseSettings {
-      purchaseDay
+      cacheId
       paymentMethod {
         paymentSystem
         paymentSystemName
@@ -59,13 +60,8 @@ query GroupedSubscription($orderGroup: String!) {
         paymentAccount {
           accountId
           cardNumber
-          bin
         }
       }
-      seller
-      salesChannel
-      currencySymbol
-      cycleCount
     }
     nextPurchaseDate
     totals {
