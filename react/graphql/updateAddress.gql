@@ -2,42 +2,7 @@ mutation updateAddress($orderGroup: String!, $addressId: String!) {
   updateAddress(orderGroup: $orderGroup, addressId: $addressId)
     @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
-    orderGroup
-    status
-    isSkipped
-    name
-    subscriptions {
-      SubscriptionId
-      sku {
-        SkuId
-        name
-        productName
-        imageUrl
-        detailUrl
-        nameComplete
-      }
-      quantity
-      priceAtSubscriptionDate
-      cycleCount
-      status
-      createdAt
-      lastUpdate
-      originalOrderId
-      isSkipped
-    }
-    plan {
-      frequency {
-        periodicity
-        interval
-      }
-      validity {
-        begin
-        end
-      }
-      type
-    }
     shippingAddress {
-      cacheId
       addressId
       street
       number
@@ -51,65 +16,6 @@ mutation updateAddress($orderGroup: String!, $addressId: String!) {
       geoCoordinate
       receiverName
       addressType
-    }
-    purchaseSettings {
-      purchaseDay
-      paymentMethod {
-        paymentSystem
-        paymentSystemName
-        paymentSystemGroup
-        paymentAccount {
-          accountId
-          cardNumber
-          bin
-        }
-      }
-      seller
-      salesChannel
-      currencySymbol
-      cycleCount
-    }
-    nextPurchaseDate
-    totals {
-      id
-      value
-    }
-    totalValue
-    lastInstance {
-      status
-      orderGroup
-      date
-      dataInstanceId
-      workflowId
-      customerName
-      customerEmail
-      message
-      context {
-        items {
-          skuId
-          name
-          imageUrl
-          quantity
-          price
-          isGift
-        }
-        plan {
-          frequency {
-            periodicity
-            interval
-          }
-          validity {
-            begin
-            end
-          }
-          type
-        }
-        value
-        paymentSystemName
-      }
-    }
-    shippingEstimate {
-      estimatedDeliveryDate
     }
   }
 }

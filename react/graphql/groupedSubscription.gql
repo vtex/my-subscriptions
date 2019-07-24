@@ -36,7 +36,6 @@ query GroupedSubscription($orderGroup: String!) {
       type
     }
     shippingAddress {
-      cacheId
       addressId
       street
       number
