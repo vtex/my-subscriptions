@@ -58,9 +58,9 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
     </div>
     <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
       <div className="f5-ns f6-s pt5 lh-solid dib-ns c-on-base">
-        {subscriptionsGroup.purchaseSettings ? (
+        {subscriptionsGroup.purchaseSettings.paymentMethod ? (
           <PaymentDisplay
-            purchaseSettings={subscriptionsGroup.purchaseSettings}
+            paymentMethod={subscriptionsGroup.purchaseSettings.paymentMethod}
           />
         ) : (
           <EditAlert

@@ -80,7 +80,8 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
                 <Button
                   variation="tertiary"
                   size="small"
-                  onClick={() => goToCreateCard(history)}>
+                  onClick={() => goToCreateCard(history)}
+                >
                   {intl.formatMessage({
                     id: `subcription.add.new.card`,
                   })}
@@ -148,7 +149,7 @@ interface OuterProps {
   onChangePayment: (e: any) => void
   onCloseAlert: () => void
   isLoading: boolean
-  paymentSystemGroup: string
+  paymentSystemGroup: string | null
   account: string | null
   showAlert: boolean
   errorMessage: string
