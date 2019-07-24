@@ -6,6 +6,7 @@ import { withToast } from 'vtex.styleguide'
 import { path } from 'ramda'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
+import { PaymentGroupEnum } from '../../../../constants'
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 
@@ -52,7 +53,7 @@ class SubscriptionsGroupPaymentContainer extends Component<
             'paymentSystemGroup',
           ],
           props
-        ) || null,
+        ) || PaymentGroupEnum.CreditCard,
       showAlert: false,
     }
 
@@ -92,7 +93,8 @@ class SubscriptionsGroupPaymentContainer extends Component<
     this.setState({ isLoading: true })
     updatePayment({
       variables: {
-        accountId: paymentSystemGroup === 'creditCard' ? account : null,
+        accountId:
+          paymentSystemGroup === PaymentGroupEnum.CreditCard ? account : null,
         orderGroup: subscriptionsGroup.orderGroup,
         payment: paymentSystem as string,
       },
@@ -196,7 +198,7 @@ interface State {
   isLoading: boolean
   isRetryButtonEnabled: boolean
   paymentSystem: string | null
-  paymentSystemGroup: string | null
+  paymentSystemGroup: PaymentGroupEnum
   showAlert: boolean
 }
 
