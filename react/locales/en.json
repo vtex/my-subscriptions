@@ -65,11 +65,13 @@
   "subscription.data": "Data",
   "subscription.data.orderAgain": "Reorder",
   "subscription.data.estimatedDelivery": "Estimated delivery",
+  "subscription.data.chargeEvery": "Every",
+  "subscription.select": "Select",
+  "subscription.select.day": "Day {day}",
   "subscription.nextPurchase": "Next order",
   "subscription.data.chargeDay": "Charge day",
   "subscription.shipping": "Shipping",
   "subscription.shipping.address": "Address",
-  "subscription.shipping.sla": "Shipping method",
   "subscription.shipping.tracking": "Tracking",
   "subscription.payment": "Payment",
   "subscription.payment.method": "Payment method",
@@ -131,5 +133,11 @@
   "subscription.order.again.title": "Need to receive your products beforehand?",
   "subscription.next.purchase.estimatedDelivery": "Estimated next purchase delivery:",
   "subscription.order.again.description": "This order won't interfere in your subscriptions next purchases and its dates.",
-  "subscription.order.again.confirmation": "Go to checkout"
+  "subscription.order.again.confirmation": "Go to checkout",
+  "subscription.shipping-address.error.message": "Invalid address, select a new valid address for this subscription.",
+  "subscription.shipping-address.error.action": "Change address",
+  "subscription.shipping-address.error.no-action": "The selected address is not available anymore.",
+  "subscription.purchase-settings.error.message": "Invalid payment method, select a new valid payment for this subscription.",
+  "subscription.purchase-settings.error.action": "Change payment method",
+  "subscription.purchase-settings.error.no-action": "The selected payment method is not available anymore."
 }

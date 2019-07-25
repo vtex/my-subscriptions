@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { Button, Tag } from 'vtex.styleguide'
+import { Tag } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum, CSS } from '../../../../constants'
+import { CSS } from '../../../../constants'
+import EditButton from '../../../commons/EditButton'
 import FrequencyInfo from '../../../commons/FrequencyInfo'
 import LabeledInfo from '../../../commons/LabeledInfo'
 
@@ -11,9 +12,6 @@ const DisplayData: FunctionComponent<Props> = ({
   intl,
   onOpenEdit,
 }) => {
-  const displayEdit =
-    subscriptionsGroup.status === SubscriptionStatusEnum.Active
-
   let displayDelivery = false
   if (subscriptionsGroup.shippingEstimate.estimatedDeliveryDate) {
     displayDelivery =
@@ -28,11 +26,11 @@ const DisplayData: FunctionComponent<Props> = ({
           {intl.formatMessage({ id: 'subscription.data' })}
         </div>
         <div className="ml-auto">
-          {displayEdit && (
-            <Button size="small" variation="tertiary" onClick={onOpenEdit}>
-              {intl.formatMessage({ id: 'subscription.actions.edit' })}
-            </Button>
-          )}
+          <EditButton
+            onEdit={onOpenEdit}
+            subscriptionStatus={subscriptionsGroup.status}
+            testId="edit-frequency-button"
+          />
         </div>
       </div>
 

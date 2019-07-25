@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.10.0] - 2019-07-25
+
+### Added
+
+- Validation for null `shippingAddress`.
+- Validation for null `paymentMethod`.
+- Redirect to credit card creation when the user has no credit card registered.
+
 ## [0.9.1] - 2019-06-25
 
 ### Changed

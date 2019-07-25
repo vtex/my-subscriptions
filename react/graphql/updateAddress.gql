@@ -6,13 +6,16 @@ mutation updateAddress($orderGroup: String!, $addressId: String!) {
       addressId
       street
       number
-      state
-      city
+      complement
       neighborhood
+      city
+      state
       country
       postalCode
-      complement
       reference
+      geoCoordinate
+      receiverName
+      addressType
     }
   }
 }

@@ -11,7 +11,7 @@ import RegularSubscription, {
   orderGroupId as regularSubscriptionOrderGroup,
 } from '../mocks/RegularSubscription'
 
-describe('SubscriptionGroupDetails Scenarios', () => {
+describe('Retry Scenarios', () => {
   const { location } = window
 
   beforeAll(() => {
@@ -39,7 +39,7 @@ describe('SubscriptionGroupDetails Scenarios', () => {
     expect(queryByText(/subscription.retry.button.message/)).toBeTruthy()
   })
 
-  test('shouldnt display retry', async () => {
+  test('Shouldnt display retry', async () => {
     const { queryByText } = render(
       <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />

@@ -1,5 +1,6 @@
 query GetPaymentSystems($orderGroup: String!) {
-  paymentSystems(orderGroup: $orderGroup) {
+  paymentSystems(orderGroup: $orderGroup)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     paymentSystem
     paymentSystemName
     paymentSystemGroup

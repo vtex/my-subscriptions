@@ -1,58 +1,65 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
-import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum, CSS } from '../../../../constants'
+import { CSS } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
+import EditButton from '../../../commons/EditButton'
+import EditAlert from '../../../commons/EditAlert'
 
-const ShippingCard: FunctionComponent<InjectedIntlProps & Props> = ({
+const messages = defineMessages({
+  label: {
+    id: 'subscription.shipping-address.error.action',
+    defaultMessage: '',
+  },
+  noAction: {
+    id: 'subscription.shipping-address.error.no-action',
+    defaultMessage: '',
+  },
+})
+
+const ShippingCard: FunctionComponent<Props> = ({
   onEdit,
-  intl,
   subscriptionsGroup,
-}) => {
-  const displayEdit =
-    subscriptionsGroup.status === SubscriptionStatusEnum.Active
-
-  return (
-    <div className={CSS.cardWrapper}>
-      <div className="flex flex-row">
-        <div className="db-s di-ns b f4 tl c-on-base">
-          {intl.formatMessage({
-            id: 'subscription.shipping',
-          })}
-        </div>
-        <div className="ml-auto">
-          {displayEdit && (
-            <Button size="small" variation="tertiary" onClick={onEdit}>
-              {intl.formatMessage({
-                id: 'subscription.actions.edit',
-              })}
-            </Button>
-          )}
-        </div>
+}) => (
+  <div className={CSS.cardWrapper}>
+    <div className="flex flex-row">
+      <div className="db-s di-ns b f4 tl c-on-base">
+        <FormattedMessage id="subscription.shipping" />
       </div>
-      <div className="flex pt3-s pt5-ns w-100">
+      <div className="ml-auto">
+        <EditButton
+          subscriptionStatus={subscriptionsGroup.status}
+          onEdit={onEdit}
+          testId="edit-address-button"
+        />
+      </div>
+    </div>
+    <div className="flex pt3-s pt5-ns w-100">
+      {subscriptionsGroup.shippingAddress ? (
         <div className="w-100">
-          <LabeledInfo labelId="subscription.shipping.address">
+          <LabeledInfo labelId={messages.label.id}>
             <AddressRules
               country={subscriptionsGroup.shippingAddress.country}
-              shouldUseIOFetching>
+              shouldUseIOFetching
+            >
               <AddressSummary address={subscriptionsGroup.shippingAddress} />
             </AddressRules>
           </LabeledInfo>
-          <div className="flex flex-row-s flex-column-ns">
-            <div className="w-60-s w-100-ns pt6">
-              <LabeledInfo labelId="subscription.shipping.sla">
-                &nbsp;
-              </LabeledInfo>
-            </div>
-          </div>
         </div>
-      </div>
+      ) : (
+        <EditAlert
+          subscriptionStatus={subscriptionsGroup.status}
+          onAction={onEdit}
+          actionLabelMessage={messages.label}
+          noActionMessage={messages.noAction}
+        >
+          <FormattedMessage id="subscription.shipping-address.error.message" />
+        </EditAlert>
+      )}
     </div>
-  )
-}
+  </div>
+)
 
 interface Props {
   subscriptionsGroup: SubscriptionsGroupItemType

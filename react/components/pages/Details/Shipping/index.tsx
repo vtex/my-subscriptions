@@ -34,7 +34,7 @@ class ShippingContainer extends Component<OutterProps & InnerProps> {
   }
 
   public handleSave = () => {
-    const { intl, subscriptionsGroup, showToast } = this.props
+    const { subscriptionsGroup, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
     this.props
@@ -45,14 +45,15 @@ class ShippingContainer extends Component<OutterProps & InnerProps> {
         },
       })
       .then(() => {
-        this.setState({
-          isEditMode: false,
-          isLoading: false,
-        })
         showToast({
           message: intl.formatMessage({
             id: 'subscription.edit.success',
           }),
+        })
+
+        this.setState({
+          isEditMode: false,
+          isLoading: false,
         })
       })
       .catch((e: any) => {

@@ -3,8 +3,10 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { withToast } from 'vtex.styleguide'
+import { path } from 'ramda'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
+import { PaymentGroupEnum } from '../../../../constants'
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 
@@ -17,20 +19,41 @@ class SubscriptionsGroupPaymentContainer extends Component<
   constructor(props: InnerProps & OuterProps) {
     super(props)
     this.state = {
-      account: props.subscriptionsGroup.purchaseSettings.paymentMethod
-        .paymentAccount
-        ? props.subscriptionsGroup.purchaseSettings.paymentMethod.paymentAccount
-            .accountId
-        : null,
+      account:
+        path(
+          [
+            'subscriptionsGroup',
+            'purchaseSettings',
+            'paymentMethod',
+            'paymentAccount',
+            'accountId',
+          ],
+          props
+        ) || null,
       errorMessage: '',
       isEditMode: false,
       isLoading: false,
       isRetryButtonEnabled: true,
       paymentSystem:
-        props.subscriptionsGroup.purchaseSettings.paymentMethod.paymentSystem,
+        path(
+          [
+            'subscriptionsGroup',
+            'purchaseSettings',
+            'paymentMethod',
+            'paymentSystem',
+          ],
+          props
+        ) || null,
       paymentSystemGroup:
-        props.subscriptionsGroup.purchaseSettings.paymentMethod
-          .paymentSystemGroup,
+        path(
+          [
+            'subscriptionsGroup',
+            'purchaseSettings',
+            'paymentMethod',
+            'paymentSystemGroup',
+          ],
+          props
+        ) || PaymentGroupEnum.CreditCard,
       showAlert: false,
     }
 
@@ -70,9 +93,10 @@ class SubscriptionsGroupPaymentContainer extends Component<
     this.setState({ isLoading: true })
     updatePayment({
       variables: {
-        accountId: paymentSystemGroup === 'creditCard' ? account : null,
+        accountId:
+          paymentSystemGroup === PaymentGroupEnum.CreditCard ? account : null,
         orderGroup: subscriptionsGroup.orderGroup,
-        payment: paymentSystem,
+        payment: paymentSystem as string,
       },
     })
       .then(() => {
@@ -173,8 +197,8 @@ interface State {
   isEditMode: boolean
   isLoading: boolean
   isRetryButtonEnabled: boolean
-  paymentSystem: string
-  paymentSystemGroup: string
+  paymentSystem: string | null
+  paymentSystemGroup: PaymentGroupEnum
   showAlert: boolean
 }
 

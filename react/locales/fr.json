@@ -65,11 +65,13 @@
   "subscription.data": "Données d'abonnement",
   "subscription.data.orderAgain": "Passer à nouveau cette commande",
   "subscription.data.estimatedDelivery": "Livraison estimé",
+  "subscription.data.chargeEvery": "Chaque",
+  "subscription.select": "Choisir",
+  "subscription.select.day": "Jour {day}",
   "subscription.nextPurchase": "Prochain commande",
   "subscription.data.chargeDay": "Jour de facturation",
   "subscription.shipping": "Envoi",
   "subscription.shipping.address": "Address",
-  "subscription.shipping.sla": "Mode de livraison",
   "subscription.shipping.tracking": "Suivi",
   "subscription.payment": "Paiement",
   "subscription.payment.method": "Mode de paiement",
@@ -99,16 +101,13 @@
   "order.subscription.periodicity.quarterly": "tous les 3 mois",
   "order.subscription.periodicity.semiannual": "semestriellement",
   "order.subscription.periodicity.yearly": "annuel",
-
   "order.subscription.periodicity.weekly.step": "chaque {moment}",
   "order.subscription.periodicity.monthly.step": "tous les jours {moment}",
   "order.subscription.periodicity.yearly.step": "chaque année au jour {moment}",
-
   "subscription.alert.error.message": "Un problème de paiement est survenu lors de la tentative de passer votre commande en cours. Configurez votre méthode de paiement pour éviter des problèmes futurs.",
   "subscription.alert.error.button.message": "Configuration du mode de paiement",
   "subscription.payment.alert.info.message": "Il n’était pas possible de faire un achat avec ce mode de paiement. Veuillez réessayer ou choisir un autre mode.",
   "subscription.retry.button.message": "Réessayer",
-
   "subscription.list.display": "Visualiser",
   "subscription.list.display.active_filter": "Actif",
   "subscription.list.display.canceled_filter": "Annulé",
@@ -131,5 +130,11 @@
   "subscription.order.again.title": "Besoin de recevoir vos produits à l'avance ?",
   "subscription.next.purchase.estimatedDelivery": "Estimation du prochain achat :",
   "subscription.order.again.description": "Cette commande n'interférera pas avec vos prochains abonnements et ses dates",
-  "subscription.order.again.confirmation": "Finaliser l'achat"
+  "subscription.order.again.confirmation": "Finaliser l'achat",
+  "subscription.shipping-address.error.message": "Adresse invalide, sélectionnez une nouvelle adresse valide pour cet abonnement.",
+  "subscription.shipping-address.error.action": "Changement d'adresse",
+  "subscription.shipping-address.error.no-action": "L'adresse sélectionnée n'est plus disponible.",
+  "subscription.purchase-settings.error.message": "Méthode de paiement invalide, sélectionnez un nouveau paiement valide pour cet abonnement.",
+  "subscription.purchase-settings.error.action": "Changer la méthode de paiement",
+  "subscription.purchase-settings.error.no-action": "Le mode de paiement sélectionné n'est plus disponible."
 }

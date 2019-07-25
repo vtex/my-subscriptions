@@ -1,10 +1,10 @@
-import { FetchPolicy } from 'apollo-client'
-import groupBy from 'lodash/groupBy'
 import React, { FunctionComponent } from 'react'
-import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl'
 import { withRouter } from 'react-router-dom'
-import { branch, compose, renderComponent, renderNothing } from 'recompose'
+import { branch, compose, renderComponent } from 'recompose'
+import { graphql } from 'react-apollo'
+import { FetchPolicy } from 'apollo-client'
+import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 
 import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
@@ -29,17 +29,16 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
   history,
 }) => {
   const groupedPayments = groupBy(
-    payments.paymentSystems,
-    (pay: PaymentMethod) => pay.paymentSystemGroup
-  )
+    (method: PaymentMethod) => method.paymentSystemGroup
+  )(payments.paymentSystems)
+
+  if (payments.paymentSystems.length === 0) goToCreateCard(history)
 
   return (
     <div className="bg-base pa6 ba bw1 b--muted-5">
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
-          {intl.formatMessage({
-            id: 'subscription.payment',
-          })}
+          <FormattedMessage id="subscription.payment" />
         </div>
       </div>
       <div className="mr-auto pt5 flex flex-column justify-center">
@@ -80,10 +79,9 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
                 <Button
                   variation="tertiary"
                   size="small"
-                  onClick={() => goToCreateCard(history)}>
-                  {intl.formatMessage({
-                    id: `subcription.add.new.card`,
-                  })}
+                  onClick={() => goToCreateCard(history)}
+                >
+                  <FormattedMessage id="subcription.add.new.card" />
                 </Button>
               </div>
             )}
@@ -148,7 +146,7 @@ interface OuterProps {
   onChangePayment: (e: any) => void
   onCloseAlert: () => void
   isLoading: boolean
-  paymentSystemGroup: string
+  paymentSystemGroup: string | null
   account: string | null
   showAlert: boolean
   errorMessage: string
@@ -167,9 +165,5 @@ export default compose<InnerProps & OuterProps, OuterProps>(
   branch(
     ({ payments: { loading } }: InnerProps) => loading,
     renderComponent(PaymentSkeleton)
-  ),
-  branch(
-    ({ payments: { paymentSystems } }: InnerProps) => !paymentSystems,
-    renderNothing
   )
 )(EditPayment)
