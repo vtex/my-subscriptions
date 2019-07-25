@@ -21,47 +21,45 @@ const messages = defineMessages({
 const ShippingCard: FunctionComponent<Props> = ({
   onEdit,
   subscriptionsGroup,
-}) => {
-  return (
-    <div className={CSS.cardWrapper}>
-      <div className="flex flex-row">
-        <div className="db-s di-ns b f4 tl c-on-base">
-          <FormattedMessage id="subscription.shipping" />
-        </div>
-        <div className="ml-auto">
-          <EditButton
-            subscriptionStatus={subscriptionsGroup.status}
-            onEdit={onEdit}
-            testId="edit-address-button"
-          />
-        </div>
+}) => (
+  <div className={CSS.cardWrapper}>
+    <div className="flex flex-row">
+      <div className="db-s di-ns b f4 tl c-on-base">
+        <FormattedMessage id="subscription.shipping" />
       </div>
-      <div className="flex pt3-s pt5-ns w-100">
-        {subscriptionsGroup.shippingAddress ? (
-          <div className="w-100">
-            <LabeledInfo labelId={messages.label.id}>
-              <AddressRules
-                country={subscriptionsGroup.shippingAddress.country}
-                shouldUseIOFetching
-              >
-                <AddressSummary address={subscriptionsGroup.shippingAddress} />
-              </AddressRules>
-            </LabeledInfo>
-          </div>
-        ) : (
-          <EditAlert
-            subscriptionStatus={subscriptionsGroup.status}
-            onAction={onEdit}
-            actionLabelMessage={messages.label}
-            noActionMessage={messages.noAction}
-          >
-            <FormattedMessage id="subscription.shipping-address.error.message" />
-          </EditAlert>
-        )}
+      <div className="ml-auto">
+        <EditButton
+          subscriptionStatus={subscriptionsGroup.status}
+          onEdit={onEdit}
+          testId="edit-address-button"
+        />
       </div>
     </div>
-  )
-}
+    <div className="flex pt3-s pt5-ns w-100">
+      {subscriptionsGroup.shippingAddress ? (
+        <div className="w-100">
+          <LabeledInfo labelId={messages.label.id}>
+            <AddressRules
+              country={subscriptionsGroup.shippingAddress.country}
+              shouldUseIOFetching
+            >
+              <AddressSummary address={subscriptionsGroup.shippingAddress} />
+            </AddressRules>
+          </LabeledInfo>
+        </div>
+      ) : (
+        <EditAlert
+          subscriptionStatus={subscriptionsGroup.status}
+          onAction={onEdit}
+          actionLabelMessage={messages.label}
+          noActionMessage={messages.noAction}
+        >
+          <FormattedMessage id="subscription.shipping-address.error.message" />
+        </EditAlert>
+      )}
+    </div>
+  </div>
+)
 
 interface Props {
   subscriptionsGroup: SubscriptionsGroupItemType
