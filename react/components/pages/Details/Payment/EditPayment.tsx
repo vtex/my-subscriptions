@@ -5,7 +5,6 @@ import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
 import { FetchPolicy } from 'apollo-client'
 import { groupBy } from 'ramda'
-
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 
 import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
