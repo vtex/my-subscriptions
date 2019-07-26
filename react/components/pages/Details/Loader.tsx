@@ -3,9 +3,10 @@ import { BaseLoading } from 'vtex.my-account-commons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
-import PaymentSkeleton from './Payment/PaymentSkeleton'
+import HistorySkeleton from './History/HistorySkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'
 import SummarySkeleton from './SummarySkeleton'
+import PaymentSkeleton from './Payment/PaymentSkeleton'
 import { parseErrorMessageId } from '../../../utils'
 import { headerConfig } from '.'
 
@@ -17,7 +18,8 @@ const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
     <BaseLoading
       queryData={data}
       headerConfig={headerConfig({ intl })}
-      parseError={parseErrorMessageId}>
+      parseError={parseErrorMessageId}
+    >
       <div className="mr0 center w-100 pb5">
         <SummarySkeleton />
         <div className="flex flex-row-ns flex-column-s">
@@ -28,8 +30,13 @@ const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
             <ShippingSkeleton />
           </div>
         </div>
-        <div className="pt6">
-          <PaymentSkeleton />
+        <div className="flex flex-row-ns flex-column-s">
+          <div className="pt6 pr4-ns w-50-ns">
+            <PaymentSkeleton />
+          </div>
+          <div className="pl4-ns pt6 w-50-ns">
+            <HistorySkeleton />
+          </div>
         </div>
       </div>
     </BaseLoading>
