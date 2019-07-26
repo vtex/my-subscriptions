@@ -1,0 +1,55 @@
+.historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 5px;
+}
+
+.historyListItem {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+}
+
+.historyListItem::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 4px;
+  border-left: 1px solid #e3e4e6;
+  height: 100%;
+  z-index: 0;
+}
+.historyListItem:first-child::before {
+  top: 1em;
+}
+
+.historyList.isFullyloaded .historyListItem:last-child::before {
+  top: auto;
+  /* 100% - 1em font-size - 1em padding between items */
+  bottom: calc(100% - 1em);
+}
+
+.historyListItemDot,
+.historyListItemDot::before {
+  display: block;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 9px;
+  height: 9px;
+  border-radius: 50%;
+  transform-origin: 50%;
+  background: currentColor;
+}
+
+/** display translucent dot only on first item */
+.historyListItem:first-child .historyListItemDot::before {
+  content: '';
+  transform: scale(2);
+  opacity: .2;
+}
+
+.historyListItemContent {
+  flex: 1;
+  margin-left: 1rem;
+}
