@@ -10,7 +10,6 @@ mutation updatePaymentMethod(
   ) @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     purchaseSettings {
-      cacheId
       paymentMethod {
         paymentSystem
         paymentSystemName
