@@ -52,7 +52,7 @@ query GroupedSubscription($orderGroup: String!) {
       addressType
     }
     purchaseSettings {
-      cacheId
+      purchaseDay
       paymentMethod {
         paymentSystem
         paymentSystemName
