@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps } from 'react-intl'
 import { compose } from 'recompose'
@@ -19,20 +19,36 @@ interface InnerProps extends InjectedIntlProps {
   data: any
 }
 
-const HistoryList: FunctionComponent<OuterProps & InnerProps> = ({
-  data,
-  perPage,
-}) => {
-  const { fetchMore, subscriptionOrdersByGroup } = data
+class HistoryList extends Component<OuterProps & InnerProps> {
+  state = {
+    page: 1,
+  }
 
-  function loadMore() {
-    if (subscriptionOrdersByGroup.pagination.nextPage == null) {
-      return false
-    }
+  getNextPage = () => {
+    const {
+      perPage,
+      data: {
+        subscriptionOrdersByGroup: { totalCount },
+      },
+    } = this.props
+    const { page: currentPage } = this.state
+
+    const totalPages = Math.ceil(totalCount / perPage)
+    return currentPage < totalPages ? currentPage + 1 : null
+  }
+
+  loadMore = () => {
+    const {
+      data: { fetchMore },
+    } = this.props
+
+    const nextPage = this.getNextPage()
+
+    if (nextPage == null) return
 
     return fetchMore({
       variables: {
-        page: subscriptionOrdersByGroup.pagination.nextPage,
+        page: nextPage,
       },
       updateQuery(prev: any, { fetchMoreResult }: any) {
         return {
@@ -43,37 +59,45 @@ const HistoryList: FunctionComponent<OuterProps & InnerProps> = ({
               ...prev.subscriptionOrdersByGroup.list,
               ...fetchMoreResult.subscriptionOrdersByGroup.list,
             ],
-            pagination: fetchMoreResult.subscriptionOrdersByGroup.pagination,
           },
         }
       },
+    }).then(() => {
+      this.setState({ page: nextPage })
     })
   }
 
-  if (!subscriptionOrdersByGroup)
-    return <HistoryItemsSkeleton numberOfItems={perPage} />
+  render() {
+    const {
+      perPage,
+      data: { subscriptionOrdersByGroup },
+    } = this.props
 
-  const { list, pagination } = subscriptionOrdersByGroup
-  const hasNextPage = pagination.nextPage != null
+    if (!subscriptionOrdersByGroup)
+      return <HistoryItemsSkeleton numberOfItems={perPage} />
 
-  return (
-    <InfiniteScroll
-      element="ul"
-      className={`${style.historyList} ${
-        !hasNextPage ? style.isFullyloaded : ''
-      }`}
-      pageStart={1}
-      threshold={50}
-      loadMore={loadMore}
-      hasMore={hasNextPage}
-      useWindow={false}
-      loader={<HistoryItemsSkeleton numberOfItems={1} />}
-    >
-      {list.map((order: any) => (
-        <HistoryItem key={order.date} order={order} />
-      ))}
-    </InfiniteScroll>
-  )
+    const { list } = subscriptionOrdersByGroup
+    const hasNextPage = this.getNextPage() != null
+
+    return (
+      <InfiniteScroll
+        element="ul"
+        className={`${style.historyList} ${
+          !hasNextPage ? style.isFullyloaded : ''
+        }`}
+        pageStart={1}
+        threshold={50}
+        loadMore={this.loadMore}
+        hasMore={hasNextPage}
+        useWindow={false}
+        loader={<HistoryItemsSkeleton numberOfItems={1} />}
+      >
+        {list.map((order: any) => (
+          <HistoryItem key={order.date} order={order} />
+        ))}
+      </InfiniteScroll>
+    )
+  }
 }
 
 const enhance = compose<InnerProps & OuterProps, OuterProps>(

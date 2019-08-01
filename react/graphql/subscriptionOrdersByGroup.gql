@@ -13,8 +13,6 @@ query GroupedSubscriptionByGroup(
       status
       date
     }
-    pagination {
-      nextPage
-    }
+    totalCount
   }
 }
