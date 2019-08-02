@@ -193,14 +193,12 @@ class EditData extends Component<Props, State> {
               />
             )}
           </div>
-          <div className="pt4 flex">
-            <EditionButtons
-              isLoading={isLoading}
-              onCancel={this.props.onCloseEdit}
-              onSave={this.handleSaveClick}
-              disabled={isEditDisabled}
-            />
-          </div>
+          <EditionButtons
+            isLoading={isLoading}
+            onCancel={this.props.onCloseEdit}
+            onSave={this.handleSaveClick}
+            disabled={isEditDisabled}
+          />
         </div>
       </div>
     )

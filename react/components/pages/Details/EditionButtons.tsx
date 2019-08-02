@@ -9,8 +9,8 @@ const EditionButtons: FunctionComponent<Props> = ({
   disabled,
 }) => {
   return (
-    <div className="ml-auto">
-      <div className="flex">
+    <div className="pt4 flex">
+      <div className="flex ml-auto">
         <div className="pr3">
           <Button size="small" onClick={onCancel} variation="secondary">
             <FormattedMessage id="subscription.edition.button.cancel" />

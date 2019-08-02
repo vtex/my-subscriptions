@@ -1,0 +1,24 @@
+query ProductsGroupedSubscription($orderGroup: String!) {
+  groupedSubscription: groupedSubscription(orderGroup: $orderGroup)
+    @context(provider: "vtex.my-subscriptions-graphql") {
+    cacheId
+    orderGroup
+    status
+    subscriptions {
+      subscriptionId
+      sku {
+        skuId
+        name
+        productName
+        imageUrl
+        detailUrl
+        nameComplete
+      }
+      quantity
+      priceAtSubscriptionDate
+    }
+    purchaseSettings {
+      currencySymbol
+    }
+  }
+}
