@@ -5,7 +5,12 @@ import { compose } from 'recompose'
 import { Dropdown } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
-import { WEEK_OPTIONS, MONTH_OPTIONS, TagTypeEnum } from '../../../../constants'
+import {
+  WEEK_OPTIONS,
+  MONTH_OPTIONS,
+  TagTypeEnum,
+  CSS,
+} from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
@@ -161,7 +166,7 @@ class EditData extends Component<Props, State> {
     const isEditDisabled = chargeDay === '' && periodicity !== 'DAILY'
 
     return (
-      <div className="card-height h-auto bg-base pa6 ba bw1 b--muted-5">
+      <div className={CSS.cardWrapper}>
         <div className="flex flex-row">
           <div className="db-s di-ns b f4 tl c-on-base">
             {formatMessage({ id: 'subscription.data' })}

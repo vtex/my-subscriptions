@@ -6,7 +6,7 @@ import { branch, compose, renderComponent, withProps } from 'recompose'
 import { Button, Dropdown } from 'vtex.styleguide'
 
 import Alert from '../../../commons/CustomAlert'
-import { TagTypeEnum } from '../../../../constants'
+import { TagTypeEnum, CSS } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
@@ -36,7 +36,7 @@ const EditShipping: FunctionComponent<
   intl,
 }) => {
   return (
-    <div className="card-height bg-base pa6 ba bw1 b--muted-5">
+    <div className={CSS.cardWrapper}>
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
           {intl.formatMessage({
@@ -72,13 +72,11 @@ const EditShipping: FunctionComponent<
             })}
           </Button>
         </div>
-        <div className="flex pt2-s pt0-ns">
-          <EditionButtons
-            isLoading={isLoading}
-            onCancel={onCancel}
-            onSave={onSave}
-          />
-        </div>
+        <EditionButtons
+          isLoading={isLoading}
+          onCancel={onCancel}
+          onSave={onSave}
+        />
       </div>
     </div>
   )

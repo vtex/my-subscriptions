@@ -7,7 +7,7 @@ import { FetchPolicy } from 'apollo-client'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 
-import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
+import { PaymentGroupEnum, TagTypeEnum, CSS } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
 import EditionButtons from '../EditionButtons'
@@ -55,7 +55,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
   if (payments.paymentSystems.length === 0) goToCreateCard(history)
 
   return (
-    <div className="bg-base pa6 ba bw1 b--muted-5">
+    <div className={CSS.cardWrapper}>
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
           <FormattedMessage id="subscription.payment" />
@@ -107,16 +107,14 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             )}
           </div>
         ))}
-        <div className="flex pt3">
-          <EditionButtons
-            isLoading={isLoading}
-            onCancel={onCancel}
-            onSave={onSave}
-            disabled={
-              paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
-            }
-          />
-        </div>
+        <EditionButtons
+          isLoading={isLoading}
+          onCancel={onCancel}
+          onSave={onSave}
+          disabled={
+            paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
+          }
+        />
       </div>
     </div>
   )
