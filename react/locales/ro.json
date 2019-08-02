@@ -75,7 +75,8 @@
   "subscription.shipping.tracking": "Urmărire",
   "subscription.payment": "Plata",
   "subscription.payment.method": "Metoda de plată",
-  "subscription.actions.save": "Salvați",
+  "subscription.edition.button.save": "Salva",
+  "subscription.edition.button.cancel": "Anula",
   "subscription.seeMore": "Vezi mai multe",
   "subscription.view.title": "Abonament la {value} products",
   "subscription.settings.daily": "{count, plural, = 0 {fiecare 0 zile} one {fiecare 1 zi} other {la fiecare # zile}}",
@@ -150,5 +151,6 @@
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Comanda a plasată cu succes, dar unul sau mai multe produse nu sunt fost disponibile în acest ciclu de cumpărare",
   "store/subscription.order.status.RE_TRIGGERED": "După o tentativă nereușită, încercăm să plasăm din nou comanda",
   "store/subscription.order.no-order": "Nu există comenzi încă",
-  "store/subscription.order.awaiting-first-cycle": "În așteptarea primului ciclu"
+  "store/subscription.order.awaiting-first-cycle": "În așteptarea primului ciclu",
+  "subscription.products.card.title": "Produse abonate"
 }

@@ -9,7 +9,7 @@ import { WEEK_OPTIONS, MONTH_OPTIONS, TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
-import EditButtons from '../EditButtons'
+import EditionButtons from '../EditionButtons'
 import DataSkeleton from './DataSkeleton'
 
 class EditData extends Component<Props, State> {
@@ -194,7 +194,7 @@ class EditData extends Component<Props, State> {
             )}
           </div>
           <div className="pt4 flex">
-            <EditButtons
+            <EditionButtons
               isLoading={isLoading}
               onCancel={this.props.onCloseEdit}
               onSave={this.handleSaveClick}

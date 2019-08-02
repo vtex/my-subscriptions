@@ -75,7 +75,8 @@
   "subscription.shipping.tracking": "Seguimiento",
   "subscription.payment": "Payment",
   "subscription.payment.method": "Método de pago",
-  "subscription.actions.save": "Guardar",
+  "subscription.edition.button.save": "Salvar",
+  "subscription.edition.button.cancel": "Cancelar",
   "subscription.seeMore": "Ver más",
   "subscription.view.title": "Suscripción con {productos} de valor",
   "subscription.settings.daily": "{count, plural, = 0 {Cada 0 días} one {Cada 1 día} other {Cada # días}}",
@@ -150,5 +151,6 @@
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Conseguimos generar su pedido pero uno o más ítems no estaban disponibles para compra en este ciclo",
   "store/subscription.order.status.RE_TRIGGERED": "Después de un intento fallido, estamos intentando efectuar el pedido nuevamente",
   "store/subscription.order.no-order": "No hay pedido todavía",
-  "store/subscription.order.awaiting-first-cycle": ". Esperando el primer ciclo"
+  "store/subscription.order.awaiting-first-cycle": ". Esperando el primer ciclo",
+  "subscription.products.card.title": "Productos suscritos"
 }

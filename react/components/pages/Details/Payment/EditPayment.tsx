@@ -10,7 +10,7 @@ import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
-import EditButtons from '../EditButtons'
+import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 
 function transformCards(creditCards: any[], intl: any) {
@@ -108,7 +108,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
           </div>
         ))}
         <div className="flex pt3">
-          <EditButtons
+          <EditionButtons
             isLoading={isLoading}
             onCancel={onCancel}
             onSave={onSave}

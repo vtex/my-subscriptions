@@ -8,7 +8,7 @@ import { Button, Dropdown } from 'vtex.styleguide'
 import Alert from '../../../commons/CustomAlert'
 import { TagTypeEnum } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
-import EditButtons from '../EditButtons'
+import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
 
 function transformAddresses(addresses: Address[]) {
@@ -73,7 +73,7 @@ const EditShipping: FunctionComponent<
           </Button>
         </div>
         <div className="flex pt2-s pt0-ns">
-          <EditButtons
+          <EditionButtons
             isLoading={isLoading}
             onCancel={onCancel}
             onSave={onSave}
