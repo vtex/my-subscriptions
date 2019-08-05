@@ -10,6 +10,7 @@ import {
   MONTH_OPTIONS,
   TagTypeEnum,
   CSS,
+  BASIC_CARD_WRAPPER,
 } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
@@ -166,7 +167,7 @@ class EditData extends Component<Props, State> {
     const isEditDisabled = chargeDay === '' && periodicity !== 'DAILY'
 
     return (
-      <div className={CSS.cardWrapper}>
+      <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex flex-row">
           <div className="db-s di-ns b f4 tl c-on-base">
             {formatMessage({ id: 'subscription.data' })}

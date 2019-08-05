@@ -4,7 +4,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
 import { Button } from 'vtex.styleguide'
 
-import { TagTypeEnum, CSS } from '../../../constants'
+import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../constants'
 import Alert from '../../commons/CustomAlert'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
@@ -33,7 +33,7 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
         type={TagTypeEnum.Warning}
         contentId="subscription.skip.alert"
       />
-      <div className={CSS.cardWrapper}>
+      <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex-ns items-center-s items-start-ns">
           <div className="flex flex-column">
             <span className="mb4 db b f4 tl c-on-base">

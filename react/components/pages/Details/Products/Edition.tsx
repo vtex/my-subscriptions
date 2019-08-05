@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { defineMessages } from 'react-intl'
 
-import { CSS } from '../../../../constants'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import Header from '../CardHeader'
 import EditionButtons from '../EditionButtons'
 
@@ -18,7 +18,7 @@ const ProductsEdition: FunctionComponent<Props> = ({
   onCancel,
 }) => {
   return (
-    <div className={CSS.cardWrapper}>
+    <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
       <Header title={messages.title} />
       <EditionButtons
         isLoading={isLoading}

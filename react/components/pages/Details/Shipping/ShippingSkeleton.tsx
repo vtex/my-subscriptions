@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { CSS } from '../../../../constants'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
 const ShippingSkeleton = () => (
-  <div className={CSS.cardWrapper}>
+  <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
     <div className="flex">
       <div className="db-s di-ns b w-100">
         <SkeletonLoader width="40" size="4" />

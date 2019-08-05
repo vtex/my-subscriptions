@@ -6,7 +6,7 @@ import { branch, compose, renderComponent, withProps } from 'recompose'
 import { Button, Dropdown } from 'vtex.styleguide'
 
 import Alert from '../../../commons/CustomAlert'
-import { TagTypeEnum, CSS } from '../../../../constants'
+import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
@@ -36,7 +36,7 @@ const EditShipping: FunctionComponent<
   intl,
 }) => {
   return (
-    <div className={CSS.cardWrapper}>
+    <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
       <div className="flex flex-row">
         <div className="db-s di-ns b f4 tl c-on-base">
           {intl.formatMessage({
