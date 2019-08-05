@@ -28,12 +28,9 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
   })
 
   let statusColor = `c-muted-3`
-  if (status === 'SUCCESS') statusColor = `c-success`
-  else if (
-    status === 'SKIPED' ||
-    status === 'SUCCESS_WITH_NO_ORDER' ||
-    status === 'SUCCESS_WITH_PARTIAL_ORDER'
-  )
+  if (status === 'SUCCESS' || status === 'SUCCESS_WITH_PARTIAL_ORDER')
+    statusColor = `c-success`
+  else if (status === 'SKIPED' || status === 'SUCCESS_WITH_NO_ORDER')
     statusColor = `c-warning`
   else if (
     status === 'FAILURE' ||
