@@ -151,5 +151,7 @@
   "store/subscription.order.status.SKIPED": "Skipped cycle",
   "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "We tried to generate your order, but the products weren't in stock",
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "We're able to generate your order, but one or more items weren't in stock",
-  "store/subscription.order.status.RE_TRIGGERED": "After an unsuccessful attempt, we're trying to generate your order again"
+  "store/subscription.order.status.RE_TRIGGERED": "After an unsuccessful attempt, we're trying to generate your order again",
+  "store/subscription.order.no-orders": "There are no orders yet",
+  "store/subscription.order.awaiting-first-cycle": "Awaiting the first cycle"
 }

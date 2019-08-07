@@ -146,7 +146,9 @@
   "store/subscription.order.status.EXPIRED": "Assinatura vencida",
   "store/subscription.order.status.PAYMENT_ERROR": "Erro de pagamento",
   "store/subscription.order.status.SKIPED": "Ciclo pulado",
-  "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "Tentamos gerar seu pedido, mas não ha produtos disponíveis para compra",
+  "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "Tentamos gerar seu pedido, mas não há produtos disponíveis para compra",
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Conseguimos gerar o seu pedido, mas um ou mais itens não estavam disponíveis para compra neste ciclo",
-  "store/subscription.order.status.RE_TRIGGERED": "Após uma tentativa sem sucesso, estamos tentando efetuar o pedido novamente"
+  "store/subscription.order.status.RE_TRIGGERED": "Após uma tentativa sem sucesso, estamos tentando efetuar o pedido novamente",
+  "store/subscription.order.no-orders": "Não há nenhum pedido",
+  "store/subscription.order.awaiting-first-cycle": "Aguardando o primeiro ciclo"
 }

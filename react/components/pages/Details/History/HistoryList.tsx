@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps } from 'react-intl'
+import { InjectedIntlProps, FormattedMessage } from 'react-intl'
 import { compose } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -9,6 +9,8 @@ import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 
 import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
 import style from './style.css'
+
+import PinkPackageImg from '../../../../images/pink-package.svg'
 
 interface OuterProps {
   subscriptionsGroup: SubscriptionsGroupItemType
@@ -78,6 +80,22 @@ class HistoryList extends Component<OuterProps & InnerProps> {
 
     const { list } = subscriptionOrdersByGroup
     const hasNextPage = this.getNextPage() != null
+
+    console.log(list)
+
+    if (list.length === 0) {
+      return (
+        <div className="tc">
+          <img src={PinkPackageImg} alt="pink package box" />
+          <div className="mt5 lh-copy f5 serious-black">
+            <FormattedMessage id="store/subscription.order.no-orders" />
+          </div>
+          <div className="lh-title f6 c-muted-1">
+            <FormattedMessage id="store/subscription.order.waiting-first-cycle" />
+          </div>
+        </div>
+      )
+    }
 
     return (
       <InfiniteScroll
