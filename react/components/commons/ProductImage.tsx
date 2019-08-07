@@ -1,23 +1,24 @@
 import React, { FunctionComponent } from 'react'
-
 import { utils } from 'vtex.my-account-commons'
 
 const { fixImageUrl } = utils
 
-interface Props {
-  className?: string
-  url: string
-  alt: string
-}
-
 const ProductImage: FunctionComponent<Props> = ({
-  className,
-  url,
-  alt,
+  productName,
+  imageUrl,
+  widthSize = 300,
+  heightSize = 300,
 }: Props) => {
   return (
-    <img className={className} src={fixImageUrl(url, 300, 300)} alt={alt} />
+    <img src={fixImageUrl(imageUrl, widthSize, heightSize)} alt={productName} />
   )
+}
+
+interface Props {
+  productName: string
+  imageUrl: string
+  widthSize?: number
+  heightSize?: number
 }
 
 export default ProductImage

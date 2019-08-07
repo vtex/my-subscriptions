@@ -41,6 +41,8 @@ class ProductsContainer extends Component<InnerProps & OutterProps> {
       <Listing
         onEdit={this.handleEdit}
         subscriptionStatus={groupedSubscription.status}
+        products={groupedSubscription.subscriptions}
+        currency={groupedSubscription.purchaseSettings.currencySymbol}
       />
     )
   }
@@ -52,24 +54,26 @@ interface InnerProps {
     groupedSubscription: {
       orderGroup: string
       status: SubscriptionStatusEnum
-      subscriptions: {
-        subscriptionId: string
-        sku: {
-          skuId: string
-          name: string
-          productName: string
-          imageUrl: string
-          detailUrl: string
-          nameComplete: string
-        }
-        quantity: number
-        priceAtSubscriptionDate: number
-      }
+      subscriptions: SubscriptionProduct[]
       purchaseSettings: {
         currencySymbol: string
       }
     }
   }
+}
+
+export interface SubscriptionProduct {
+  subscriptionId: string
+  sku: {
+    skuId: string
+    name: string
+    productName: string
+    imageUrl: string
+    detailUrl: string
+    nameComplete: string
+  }
+  quantity: number
+  priceAtSubscriptionDate: number
 }
 
 interface OutterProps {
