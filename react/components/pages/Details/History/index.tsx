@@ -13,7 +13,7 @@ const SubscriptionGroupHistory: FunctionComponent<OuterProps> = ({
 }) => {
   return (
     <div className={CSS.cardWrapper}>
-      <div className="mb5 f4 b tl c-on-base">
+      <div className="db-s di-ns db-ns b f4 tl c-on-base mb4">
         <FormattedMessage id="store/subscription.history" />
       </div>
       <div style={{ maxHeight: '260px', overflow: 'auto' }}>

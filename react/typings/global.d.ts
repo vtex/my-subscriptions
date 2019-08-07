@@ -10,7 +10,7 @@ declare global {
     lastStatusUpdate: string
     plan: Plan
     shippingAddress: Address
-    lastInstance: SubcriptionOrder
+    lastInstance: SubscriptionOrder
     purchaseSettings: PurchaseSettings
     isSkipped: boolean
     totals: TotalType[]
@@ -126,7 +126,7 @@ declare global {
     addressType: string
   }
 
-  interface SubcriptionOrder {
+  interface SubscriptionOrder {
     status: SubscriptionOrderStatusEnum
     orderGroup: string
     date: string

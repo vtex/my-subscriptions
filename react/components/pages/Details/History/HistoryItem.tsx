@@ -5,7 +5,7 @@ import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl'
 import style from './style.css'
 
 interface OuterProps {
-  order: SubcriptionOrder
+  order: SubscriptionOrder
 }
 
 interface InnerProps extends InjectedIntlProps {}
@@ -19,11 +19,6 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
     year: 'numeric',
     month: 'long',
     day: '2-digit',
-    timeZone: 'UTC',
-  })
-  const formattedTime = intl.formatTime(date, {
-    hour: 'numeric',
-    minute: 'numeric',
     timeZone: 'UTC',
   })
 
@@ -47,7 +42,7 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
           {text => <span className={style.historyListItemStatus}>{text}</span>}
         </FormattedMessage>
         <time className="db f6 c-muted-2 lh-title">
-          {formattedDate} - {formattedTime}
+          {formattedDate}
         </time>
       </div>
     </li>
