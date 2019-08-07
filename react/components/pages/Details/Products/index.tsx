@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
 import { graphql } from 'react-apollo'
 
-import QUERY from '../../../../graphql/products/subscriptionGroup.gql'
+import QUERY from '../../../../graphql/products/subscriptionGroupProducts.gql'
 import { SubscriptionStatusEnum } from '../../../../constants'
 import Edition from './Edition'
 import Listing from './Listing'

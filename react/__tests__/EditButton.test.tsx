@@ -5,9 +5,9 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { SubscriptionStatusEnum } from '../constants'
-import RegularSubscription, {
-  orderGroupId as regularSubscriptionOrderGroup,
-} from '../mocks/RegularSubscription'
+import RegularSubscription from '../mocks/RegularSubscription'
+import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
+import Products from '../mocks/Products'
 
 describe('Display Address Scenarios', () => {
   const { location } = window
@@ -33,7 +33,7 @@ describe('Display Address Scenarios', () => {
       </MockRouter>,
       {
         // @ts-ignore
-        graphql: { mocks: [noAddress] },
+        graphql: { mocks: [noAddress, Products] },
       }
     )
 
@@ -60,7 +60,7 @@ describe('Display Address Scenarios', () => {
       </MockRouter>,
       {
         // @ts-ignore
-        graphql: { mocks: [noAddress] },
+        graphql: { mocks: [noAddress, Products] },
       }
     )
 
