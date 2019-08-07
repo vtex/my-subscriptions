@@ -136,5 +136,17 @@
   "subscription.shipping-address.error.no-action": "La dirección seleccionada ya no está disponible.",
   "subscription.purchase-settings.error.message": "Método de pago no válido, seleccione un nuevo pago válido para esta suscripción.",
   "subscription.purchase-settings.error.action": "Cambiar método de pago",
-  "subscription.purchase-settings.error.no-action": "El método de pago seleccionado ya no está disponible."
+  "subscription.purchase-settings.error.no-action": "El método de pago seleccionado ya no está disponible.",
+  "store/subscription.history": "Histórico",
+  "store/subscription.order.status.TRIGGERED": "En procesamiento",
+  "store/subscription.order.status.IN_PROCESS": "En procesamiento",
+  "store/subscription.order.status.FAILURE": "Hubo un error para generar tu pedido",
+  "store/subscription.order.status.ORDER_ERROR": "Hubo un error para generar tu pedido",
+  "store/subscription.order.status.SUCCESS": "La solicitud se generó con éxito",
+  "store/subscription.order.status.EXPIRED": "Assinatura vencida",
+  "store/subscription.order.status.PAYMENT_ERROR": "Error de pago",
+  "store/subscription.order.status.SKIPED": "Ciclo pulado",
+  "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "Tratamos de generar su pedido, pero no hay productos disponibles para comprar",
+  "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Logramos generar tu pedido, pero uno o más artículos no estaban disponibles para comprar este ciclo",
+  "store/subscription.order.status.RE_TRIGGERED": "Después de un intento sin exito, estamos intentanto rehacer la orden"
 }
