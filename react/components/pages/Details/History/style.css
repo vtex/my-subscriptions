@@ -30,6 +30,8 @@
   bottom: calc(100% - 1em);
 }
 
+.historyListItem:only-child::before { content: none; }
+
 .historyListItemDot,
 .historyListItemDot::before {
   display: block;
