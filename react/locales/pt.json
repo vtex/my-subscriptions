@@ -138,15 +138,15 @@
   "subscription.purchase-settings.error.action": "Alterar forma de pagamento",
   "subscription.purchase-settings.error.no-action": "A forma de pagamento selecionada não está mais disponível.",
   "store/subscription.history": "Histórico",
-  "store/subscription.order.status.TRIGGERED": "Início do processo",
+  "store/subscription.order.status.TRIGGERED": "Em processamento",
   "store/subscription.order.status.IN_PROCESS": "Em processamento",
   "store/subscription.order.status.FAILURE": "Ocorreu um erro ao gerar o seu pedido",
+  "store/subscription.order.status.ORDER_ERROR": "Ocorreu um erro ao gerar o seu pedido",
   "store/subscription.order.status.SUCCESS": "Pedido gerado com sucesso",
   "store/subscription.order.status.EXPIRED": "Assinatura vencida",
-  "store/subscription.order.status.ORDER_ERROR": "Ocorreu um erro ao gerar o pedido",
   "store/subscription.order.status.PAYMENT_ERROR": "Erro de pagamento",
   "store/subscription.order.status.SKIPED": "Ciclo pulado",
   "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "Tentamos gerar seu pedido, mas não ha produtos disponíveis para compra",
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Conseguimos gerar o seu pedido, mas um ou mais itens não estavam disponíveis para compra neste ciclo",
-  "store/subscription.order.status.RE_TRIGGERED": "Após uma tentativa sem sucesso, estamos tentando efetuar o pedido novamente."
+  "store/subscription.order.status.RE_TRIGGERED": "Após uma tentativa sem sucesso, estamos tentando efetuar o pedido novamente"
 }
