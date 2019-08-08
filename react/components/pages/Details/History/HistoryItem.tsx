@@ -2,15 +2,10 @@ import React, { FunctionComponent } from 'react'
 import { compose } from 'recompose'
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl'
 
+import { SubscriptionOrderStatusEnum } from '../../../../constants'
 import style from './style.css'
 
-interface OuterProps {
-  order: SubscriptionOrder
-}
-
-interface InnerProps extends InjectedIntlProps {}
-
-const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
+const HistoryItem: FunctionComponent<OuterProps & InjectedIntlProps> = ({
   intl,
   order,
 }) => {
@@ -25,17 +20,17 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
   let statusColor = `c-muted-3`
 
   switch (status) {
-    case 'SUCCESS':
-    case 'SUCCESS_WITH_PARTIAL_ORDER':
+    case SubscriptionOrderStatusEnum.Success:
+    case SubscriptionOrderStatusEnum.SuccessWithPartialOrder:
       statusColor = `c-success`
       break
-    case 'SKIPED':
-    case 'SUCCESS_WITH_NO_ORDER':
+    case SubscriptionOrderStatusEnum.Skiped:
+    case SubscriptionOrderStatusEnum.SuccessWithNoOrder:
       statusColor = `c-warning`
       break
-    case 'FAILURE':
-    case 'ORDER_ERROR':
-    case 'PAYMENT_ERROR':
+    case SubscriptionOrderStatusEnum.Failure:
+    case SubscriptionOrderStatusEnum.OrderError:
+    case SubscriptionOrderStatusEnum.PaymentError:
       statusColor = `c-danger`
       break
   }
@@ -53,6 +48,10 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
   )
 }
 
-const enhance = compose<OuterProps & InnerProps, OuterProps>(injectIntl)
+interface OuterProps {
+  order: SubscriptionOrder
+}
+
+const enhance = compose<OuterProps & InjectedIntlProps, OuterProps>(injectIntl)
 
 export default enhance(HistoryItem)

@@ -2,10 +2,6 @@ import React, { FunctionComponent, Fragment } from 'react'
 
 import SkeletonLoader from '../../../commons/SkeletonLoader'
 
-interface Props {
-  numberOfItems: number
-}
-
 const SummarySkeleton: FunctionComponent<Props> = ({ numberOfItems = 3 }) => (
   <Fragment>
     {Array.from({ length: numberOfItems }).map((_, i) => (
@@ -18,5 +14,9 @@ const SummarySkeleton: FunctionComponent<Props> = ({ numberOfItems = 3 }) => (
     ))}
   </Fragment>
 )
+
+interface Props {
+  numberOfItems: number
+}
 
 export default SummarySkeleton

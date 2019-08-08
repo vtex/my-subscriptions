@@ -1,23 +1,14 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, FormattedMessage } from 'react-intl'
-import { compose } from 'recompose'
+import { InjectedIntlProps } from 'react-intl'
+import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
-
 import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
 import style from './style.css'
-
-interface OuterProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
-  perPage: number
-}
-
-interface InnerProps extends InjectedIntlProps {
-  data: any
-}
+import HistoryEmpty from './HistoryEmpty'
 
 class HistoryList extends Component<OuterProps & InnerProps> {
   state = {
@@ -79,19 +70,6 @@ class HistoryList extends Component<OuterProps & InnerProps> {
     const { list } = subscriptionOrdersByGroup
     const hasNextPage = this.getNextPage() != null
 
-    if (list.length === 0) {
-      return (
-        <div className="tc">
-          <div className="mt5 lh-copy f5 serious-black">
-            <FormattedMessage id="store/subscription.order.no-order" />
-          </div>
-          <div className="lh-title f6 c-muted-1">
-            <FormattedMessage id="store/subscription.order.awaiting-first-cycle" />
-          </div>
-        </div>
-      )
-    }
-
     return (
       <InfiniteScroll
         element="ul"
@@ -113,7 +91,16 @@ class HistoryList extends Component<OuterProps & InnerProps> {
   }
 }
 
-const enhance = compose<InnerProps & OuterProps, OuterProps>(
+interface OuterProps {
+  subscriptionsGroup: SubscriptionsGroupItemType
+  perPage: number
+}
+
+interface InnerProps extends InjectedIntlProps {
+  data: any
+}
+
+const enhance = compose<OuterProps & InnerProps, OuterProps>(
   graphql(SUBSCRIPTION_ORDERS_BY_GROUP, {
     options({ subscriptionsGroup, perPage }: OuterProps) {
       return {
@@ -124,7 +111,17 @@ const enhance = compose<InnerProps & OuterProps, OuterProps>(
         },
       }
     },
-  })
+  }),
+  branch(
+    ({ data }: InnerProps) => !data.subscriptionOrdersByGroup,
+    renderComponent(({ perPage }: OuterProps) => (
+      <HistoryItemsSkeleton numberOfItems={perPage} />
+    ))
+  ),
+  branch(
+    ({ data }: InnerProps) => data.subscriptionOrdersByGroup.list.length === 0,
+    renderComponent(HistoryEmpty)
+  )
 )
 
 export default enhance(HistoryList)

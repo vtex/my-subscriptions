@@ -1,4 +1,4 @@
-query GroupedSubscriptionByGroup(
+query SubscriptionOrdersByGroup(
   $orderGroup: String!
   $page: Int = 1
   $perPage: Int
