@@ -103,10 +103,10 @@ class HistoryList extends Component<OuterProps & InnerProps> {
         loadMore={this.loadMore}
         hasMore={hasNextPage}
         useWindow={false}
-        loader={<HistoryItemsSkeleton numberOfItems={1} />}
+        loader={<HistoryItemsSkeleton numberOfItems={1} key={1} />}
       >
-        {list.map((order: any) => (
-          <HistoryItem key={order.date} order={order} />
+        {list.map((order: any, i: number) => (
+          <HistoryItem key={`${i}_${order.date}`} order={order} />
         ))}
       </InfiniteScroll>
     )
