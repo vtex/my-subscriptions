@@ -23,16 +23,22 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
   })
 
   let statusColor = `c-muted-3`
-  if (status === 'SUCCESS' || status === 'SUCCESS_WITH_PARTIAL_ORDER')
-    statusColor = `c-success`
-  else if (status === 'SKIPED' || status === 'SUCCESS_WITH_NO_ORDER')
-    statusColor = `c-warning`
-  else if (
-    status === 'FAILURE' ||
-    status === 'ORDER_ERROR' ||
-    status === 'PAYMENT_ERROR'
-  )
-    statusColor = `c-danger`
+
+  switch (status) {
+    case 'SUCCESS':
+    case 'SUCCESS_WITH_PARTIAL_ORDER':
+      statusColor = `c-success`
+      break
+    case 'SKIPED':
+    case 'SUCCESS_WITH_NO_ORDER':
+      statusColor = `c-warning`
+      break
+    case 'FAILURE':
+    case 'ORDER_ERROR':
+    case 'PAYMENT_ERROR':
+      statusColor = `c-danger`
+      break
+  }
 
   return (
     <li className={`${style.historyListItem} pb5 f5 c-on-base lh-copy`}>
@@ -41,9 +47,7 @@ const HistoryItem: FunctionComponent<OuterProps & InnerProps> = ({
         <FormattedMessage id={`store/subscription.order.status.${status}`}>
           {text => <span className={style.historyListItemStatus}>{text}</span>}
         </FormattedMessage>
-        <time className="db f6 c-muted-2 lh-title">
-          {formattedDate}
-        </time>
+        <time className="db f6 c-muted-2 lh-title">{formattedDate}</time>
       </div>
     </li>
   )

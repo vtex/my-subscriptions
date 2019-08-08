@@ -79,8 +79,6 @@ class HistoryList extends Component<OuterProps & InnerProps> {
     const { list } = subscriptionOrdersByGroup
     const hasNextPage = this.getNextPage() != null
 
-    console.log(list)
-
     if (list.length === 0) {
       return (
         <div className="tc">
@@ -88,7 +86,7 @@ class HistoryList extends Component<OuterProps & InnerProps> {
             <FormattedMessage id="store/subscription.order.no-order" />
           </div>
           <div className="lh-title f6 c-muted-1">
-            <FormattedMessage id="store/subscription.order.waiting-first-cycle" />
+            <FormattedMessage id="store/subscription.order.awaiting-first-cycle" />
           </div>
         </div>
       )
