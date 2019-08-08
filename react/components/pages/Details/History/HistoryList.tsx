@@ -10,8 +10,6 @@ import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
 import style from './style.css'
 
-import PinkPackageImg from '../../../../images/pink-package.svg'
-
 interface OuterProps {
   subscriptionsGroup: SubscriptionsGroupItemType
   perPage: number
@@ -86,7 +84,6 @@ class HistoryList extends Component<OuterProps & InnerProps> {
     if (list.length === 0) {
       return (
         <div className="tc">
-          <img src={PinkPackageImg} alt="pink package box" />
           <div className="mt5 lh-copy f5 serious-black">
             <FormattedMessage id="store/subscription.order.no-order" />
           </div>
