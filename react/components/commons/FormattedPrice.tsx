@@ -1,9 +1,18 @@
-import React, { FunctionComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { FormattedNumber } from 'react-intl'
 
-const FormattedPrice: FunctionComponent<Props> = ({ value, currency }) => (
-  <FormattedNumber currency={currency} style="currency" value={value / 100} />
-)
+class FormattedPrice extends PureComponent<Props> {
+  render() {
+    const { value, currency } = this.props
+    return (
+      <FormattedNumber
+        currency={currency}
+        style="currency"
+        value={value / 100}
+      />
+    )
+  }
+}
 
 interface Props {
   value: number

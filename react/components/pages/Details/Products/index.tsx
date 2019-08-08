@@ -4,26 +4,53 @@ import { graphql } from 'react-apollo'
 
 import QUERY from '../../../../graphql/products/subscriptionGroupProducts.gql'
 import { SubscriptionStatusEnum } from '../../../../constants'
-import Edition from './Edition'
 import Listing from './Listing'
 
-class ProductsContainer extends Component<InnerProps & OutterProps> {
-  state = {
-    isEditMode: false,
-    isLoading: false,
+class ProductsContainer extends Component<InnerProps & OutterProps, State> {
+  constructor(props: InnerProps & OutterProps) {
+    super(props)
+
+    const products = mapSubscriptionsToHashMap(
+      props.data.groupedSubscription.subscriptions
+    )
+
+    this.state = {
+      isEditMode: false,
+      isLoading: false,
+      products,
+    }
   }
 
-  handleEdit = () => {
+  handleGoToEdition = () => {
     this.setState({ isEditMode: true })
   }
 
   handleCancel = () => {
-    this.setState({ isEditMode: false })
+    this.setState({
+      isEditMode: false,
+      products: mapSubscriptionsToHashMap(
+        this.props.data.groupedSubscription.subscriptions
+      ),
+    })
   }
 
   handleSave = () => {
     console.log('SAVED')
   }
+
+  handleUpdateQuantity = (id: string, quantity: number) => {
+    const updatedProducts = {
+      ...this.state.products,
+      [id]: { ...this.state.products[id], quantity },
+    }
+
+    this.setState({ products: updatedProducts })
+  }
+
+  getProductsAvailable = () =>
+    Object.values<SubscriptionProduct>(this.state.products).filter(
+      p => p.quantity > 0
+    )
 
   render() {
     const {
@@ -31,21 +58,38 @@ class ProductsContainer extends Component<InnerProps & OutterProps> {
     } = this.props
     const { isEditMode, isLoading } = this.state
 
-    return isEditMode ? (
-      <Edition
+    const products = this.getProductsAvailable()
+
+    return (
+      <Listing
+        isEditing={isEditMode}
         isLoading={isLoading}
         onSave={this.handleSave}
         onCancel={this.handleCancel}
-      />
-    ) : (
-      <Listing
-        onEdit={this.handleEdit}
+        onGoToEdition={this.handleGoToEdition}
+        onUpdateQuantity={this.handleUpdateQuantity}
         subscriptionStatus={groupedSubscription.status}
-        products={groupedSubscription.subscriptions}
+        products={products}
         currency={groupedSubscription.purchaseSettings.currencySymbol}
       />
     )
   }
+}
+
+function mapSubscriptionsToHashMap(subscriptions: SubscriptionProduct[]) {
+  return subscriptions.reduce(
+    (previous, current) => ({
+      ...previous,
+      [current.subscriptionId]: current,
+    }),
+    {}
+  )
+}
+
+interface State {
+  isEditMode: boolean
+  isLoading: boolean
+  products: { [subscriptionId: string]: SubscriptionProduct }
 }
 
 interface InnerProps {

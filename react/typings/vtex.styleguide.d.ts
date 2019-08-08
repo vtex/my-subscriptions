@@ -14,4 +14,5 @@ declare module 'vtex.styleguide' {
   export const Modal
   export const Radio
   export const ActionMenu
+  export const NumericStepper
 }

@@ -1,43 +1,67 @@
-import React, { FunctionComponent } from 'react'
+import React, { PureComponent } from 'react'
+import { NumericStepper } from 'vtex.styleguide'
 
 import Image from '../../../commons/ProductImage'
 import Price from '../../../commons/FormattedPrice'
+import IconTrashCan from './IconTrashCan'
 
-const ProductListItem: FunctionComponent<Props> = ({
-  imageUrl,
-  name,
-  description,
-  quantity,
-  price,
-  currency,
-  measurementUnit,
-}) => {
-  return (
-    <article className="flex">
-      <Image
-        imageUrl={imageUrl}
-        productName={name}
-        widthSize={100}
-        heightSize={100}
-      />
-      <div className="w-100 flex flex-column flex-row-m t-body justify-between pl4">
-        <div className="w-60-l w-100 flex items-center">
-          <div>
-            <span className="db mb4 b">{name}</span>
-            <span className="t-small c-muted-2">{description}</span>
+class ProductListItem extends PureComponent<Props> {
+  render() {
+    const {
+      imageUrl,
+      name,
+      description,
+      quantity,
+      price,
+      currency,
+      measurementUnit,
+      isEditing,
+      onChange,
+      onRemove,
+    } = this.props
+
+    return (
+      <article className="flex">
+        <Image
+          imageUrl={imageUrl}
+          productName={name}
+          widthSize={100}
+          heightSize={100}
+        />
+        <div className="w-100 flex flex-column flex-row-m t-body justify-between pl4">
+          <div className="w-60-l w-100 flex items-center">
+            <div>
+              <span className="db mb4 b">{name}</span>
+              <span className="t-small c-muted-2">{description}</span>
+            </div>
+          </div>
+          <div className="w-20-l w-100 flex items-center pa3">
+            {isEditing ? (
+              <NumericStepper
+                minValue={1}
+                value={quantity}
+                onChange={(event: any) => onChange && onChange(event.value)}
+              />
+            ) : (
+              <span>
+                {quantity} {measurementUnit}. &nbsp;
+              </span>
+            )}
+          </div>
+          <div className="w-20-l w-100 flex items-center justify-end">
+            <span className="b ph5">
+              <Price value={price} currency={currency} />
+            </span>
+            {isEditing && (
+              <span className="c-danger pointer" onClick={onRemove}>
+                <IconTrashCan size={25} />
+              </span>
+            )}
           </div>
         </div>
-        <div className="w-20-l w-100 flex items-center">
-          {quantity} {measurementUnit}. &nbsp;
-        </div>
-        <div className="w-20-l w-100 flex items-center justify-end">
-          <span className="b ph5">
-            <Price value={price} currency={currency} />
-          </span>
-        </div>
-      </div>
-    </article>
-  )
+      </article>
+    )
+  }
 }
 
 interface Props {
@@ -48,6 +72,9 @@ interface Props {
   price: number
   currency: string
   measurementUnit: string
+  isEditing: boolean
+  onRemove?: () => void
+  onChange?: (quantity: number) => void
 }
 
 export default ProductListItem

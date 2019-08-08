@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 const CardHeader: FunctionComponent<Props> = ({ title, children }) => (
-  <div className="flex">
+  <div className="flex h2">
     <div className="db-s di-ns b f4 tl c-on-base">
       <FormattedMessage {...title} />
     </div>
