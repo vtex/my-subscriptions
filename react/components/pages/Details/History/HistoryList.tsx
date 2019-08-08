@@ -88,7 +88,7 @@ class HistoryList extends Component<OuterProps & InnerProps> {
         <div className="tc">
           <img src={PinkPackageImg} alt="pink package box" />
           <div className="mt5 lh-copy f5 serious-black">
-            <FormattedMessage id="store/subscription.order.no-orders" />
+            <FormattedMessage id="store/subscription.order.no-order" />
           </div>
           <div className="lh-title f6 c-muted-1">
             <FormattedMessage id="store/subscription.order.waiting-first-cycle" />

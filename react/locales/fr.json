@@ -149,6 +149,6 @@
   "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "Nous avons essayé de créer votre commande, mais aucun produit n'est disponible",
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Commande passée avec succès, mais un ou plusieurs produits ne sont pas disponibles dans ce cycle d'achat",
   "store/subscription.order.status.RE_TRIGGERED": "Tentative infructueuse, nous essayons de passer la commande à nouveau",
-  "store/subscription.order.no-orders": "Il n'y a pas encore de commande",
+  "store/subscription.order.no-order": "Il n'y a pas encore de commande",
   "store/subscription.order.awaiting-first-cycle": "En attente du premier cycle"
 }

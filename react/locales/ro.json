@@ -149,6 +149,6 @@
   "store/subscription.order.status.SUCCESS_WITH_NO_ORDER": "Am încercat să-ți generăm comanda, dar nu există produse disponibile",
   "store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER": "Comanda a plasată cu succes, dar unul sau mai multe produse nu sunt fost disponibile în acest ciclu de cumpărare",
   "store/subscription.order.status.RE_TRIGGERED": "După o tentativă nereușită, încercăm să plasăm din nou comanda",
-  "store/subscription.order.no-orders": "Nu există comenzi încă",
+  "store/subscription.order.no-order": "Nu există comenzi încă",
   "store/subscription.order.awaiting-first-cycle": "În așteptarea primului ciclu"
 }
