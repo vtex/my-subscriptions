@@ -1,21 +1,11 @@
 import React, { FunctionComponent } from 'react'
-import { compose } from 'recompose'
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl'
+import { FormattedDate, FormattedMessage } from 'react-intl'
 
 import { SubscriptionOrderStatusEnum } from '../../../../constants'
 import style from './style.css'
 
-const HistoryItem: FunctionComponent<OuterProps & InjectedIntlProps> = ({
-  intl,
-  order,
-}) => {
+const HistoryItem: FunctionComponent<OuterProps> = ({ order }) => {
   const { date, status } = order
-  const formattedDate = intl.formatDate(date, {
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit',
-    timeZone: 'UTC',
-  })
 
   let statusColor = `c-muted-3`
 
@@ -42,7 +32,15 @@ const HistoryItem: FunctionComponent<OuterProps & InjectedIntlProps> = ({
         <FormattedMessage id={`store/subscription.order.status.${status}`}>
           {text => <span className={style.historyListItemStatus}>{text}</span>}
         </FormattedMessage>
-        <time className="db f6 c-muted-2 lh-title">{formattedDate}</time>
+        <FormattedDate
+          value={date}
+          year="numeric"
+          month="long"
+          day="2-digit"
+          timeZone="UTC"
+        >
+          {text => <time className="db f6 c-muted-2 lh-title">{text}</time>}
+        </FormattedDate>
       </div>
     </li>
   )
@@ -52,6 +50,4 @@ interface OuterProps {
   order: SubscriptionOrder
 }
 
-const enhance = compose<OuterProps & InjectedIntlProps, OuterProps>(injectIntl)
-
-export default enhance(HistoryItem)
+export default HistoryItem

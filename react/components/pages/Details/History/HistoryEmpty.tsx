@@ -1,5 +1,5 @@
 import React from 'react'
-import { injectIntl, FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 const HistoryEmpty = () => (
   <div className="tc">
@@ -12,4 +12,4 @@ const HistoryEmpty = () => (
   </div>
 )
 
-export default injectIntl(HistoryEmpty)
+export default HistoryEmpty

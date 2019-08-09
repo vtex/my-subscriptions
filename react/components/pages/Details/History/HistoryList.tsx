@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -96,7 +95,7 @@ interface OuterProps {
   perPage: number
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps {
   data: any
 }
 
