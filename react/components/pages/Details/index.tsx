@@ -17,6 +17,7 @@ import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
 import Shipping from './Shipping'
+import History from './History'
 import SubscriptionsGroupDetailsLoader from './Loader'
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
@@ -100,12 +101,17 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
                 <Shipping subscriptionsGroup={subscriptionsGroup} />
               </div>
             </div>
-            <div className="pt6">
-              <Payment
-                subscriptionsGroup={subscriptionsGroup}
-                onMakeRetry={this.handleMakeRetry}
-                displayRetry={displayRetry}
-              />
+            <div className="flex flex-row-ns flex-column-s">
+              <div className="pt6 pr4-ns w-50-ns">
+                <Payment
+                  subscriptionsGroup={subscriptionsGroup}
+                  onMakeRetry={this.handleMakeRetry}
+                  displayRetry={displayRetry}
+                />
+              </div>
+              <div className="pt6 pl4-ns w-50-ns">
+                <History subscriptionsGroup={subscriptionsGroup} />
+              </div>
             </div>
           </div>
         )}

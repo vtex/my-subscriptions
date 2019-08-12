@@ -1,0 +1,18 @@
+query SubscriptionOrdersByGroup(
+  $orderGroup: String!
+  $page: Int = 1
+  $perPage: Int
+) {
+  subscriptionOrdersByGroup(
+    orderGroup: $orderGroup
+    page: $page
+    perPage: $perPage
+  ) @context(provider: "vtex.my-subscriptions-graphql") {
+    list {
+      subscriptionOrderId
+      status
+      date
+    }
+    totalCount
+  }
+}
