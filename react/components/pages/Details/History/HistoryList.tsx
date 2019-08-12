@@ -10,11 +10,11 @@ import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
 
 class HistoryList extends Component<OuterProps & InnerProps> {
-  state = {
+  public state = {
     page: 1,
   }
 
-  getNextPage = () => {
+  private getNextPage = () => {
     const {
       perPage,
       data: {
@@ -27,7 +27,7 @@ class HistoryList extends Component<OuterProps & InnerProps> {
     return currentPage < totalPages ? currentPage + 1 : null
   }
 
-  loadMore = () => {
+  private loadMore = () => {
     const {
       data: { fetchMore },
     } = this.props
@@ -57,7 +57,7 @@ class HistoryList extends Component<OuterProps & InnerProps> {
     })
   }
 
-  render() {
+  public render() {
     const {
       perPage,
       data: { subscriptionOrdersByGroup },

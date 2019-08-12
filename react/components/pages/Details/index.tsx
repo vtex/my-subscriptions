@@ -20,15 +20,28 @@ import Shipping from './Shipping'
 import History from './History'
 import SubscriptionsGroupDetailsLoader from './Loader'
 
+export function headerConfig({ intl }: InjectedIntlProps) {
+  const backButton = {
+    title: intl.formatMessage({ id: 'subscription.title.list' }),
+    path: '/subscriptions',
+  }
+
+  return {
+    backButton,
+    title: intl.formatMessage({ id: 'subscription.title.single' }),
+    namespace: 'vtex-account__subscription-details',
+  }
+}
+
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
-  state = {
+  public state = {
     displayRetry: false,
     displayAlert: true,
   }
 
-  mounted = false
+  private mounted = false
 
-  static getDerivedStateFromProps(props: Props) {
+  public static getDerivedStateFromProps(props: Props) {
     const lastInstance = props.subscriptionsGroup.lastInstance
 
     return lastInstance &&
@@ -39,28 +52,28 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
       : null
   }
 
-  componentDidMount = () => {
+  public componentDidMount = () => {
     this.mounted = true
   }
 
-  componentWillUnmount = () => {
+  public componentWillUnmount = () => {
     this.mounted = false
   }
 
-  handleSetDisplayRetry = (displayRetry: boolean) => {
+  private handleSetDisplayRetry = (displayRetry: boolean) => {
     this.setState({ displayRetry })
   }
 
-  handleSetDisplayAlert = (displayAlert: boolean) => {
+  private handleSetDisplayAlert = (displayAlert: boolean) => {
     this.setState({ displayAlert })
   }
 
-  handleScrollToPayment = () => {
+  private handleScrollToPayment = () => {
     const paymentDiv = document.getElementById(PAYMENT_DIV_ID)
     paymentDiv && paymentDiv.scrollIntoView()
   }
 
-  handleMakeRetry = () => {
+  private handleMakeRetry = () => {
     const { retry, subscriptionsGroup } = this.props
 
     const lastInstance = subscriptionsGroup.lastInstance
@@ -75,7 +88,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
     })
   }
 
-  render() {
+  public render() {
     const { subscriptionsGroup, intl } = this.props
     const { displayRetry, displayAlert } = this.state
     return (
@@ -154,16 +167,3 @@ const enhance = compose<Props, any>(
 )
 
 export default enhance(SubscriptionsGroupDetailsContainer)
-
-export function headerConfig({ intl }: InjectedIntlProps) {
-  const backButton = {
-    title: intl.formatMessage({ id: 'subscription.title.list' }),
-    path: '/subscriptions',
-  }
-
-  return {
-    backButton,
-    title: intl.formatMessage({ id: 'subscription.title.single' }),
-    namespace: 'vtex-account__subscription-details',
-  }
-}

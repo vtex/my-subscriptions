@@ -30,7 +30,7 @@ const PaymentFlagIcon: FunctionComponent<Props> = ({ type, size, group }) => {
   const originalSize = 560 /* In pixel */
   const ratio = size ? size / originalSize : originalSize
 
-  const positions = {
+  const positions: Position = {
     american: -120 * ratio,
     aura: -280 * ratio,
     bankinvoice: -400 * ratio,
@@ -45,7 +45,7 @@ const PaymentFlagIcon: FunctionComponent<Props> = ({ type, size, group }) => {
     mastercard: -40 * ratio,
     paypal: -440 * ratio,
     visa: 0,
-  } as Position
+  }
 
   const position =
     positions[slug] || positions[slug] === 0 ? positions[slug] : -1

@@ -13,23 +13,6 @@ interface Props {
   skus: SKUType[]
 }
 
-const SubscriptionGroupImages: FunctionComponent<Props> = ({ skus }) => {
-  const params = getParams(skus.length)
-  return (
-    <div className={CSS.subscriptionGroupImageWrapper}>
-      <Swiper {...params}>
-        {skus.map((sku, i) => (
-          <div key={i} className="swiper-slide center-all pa6 w-100">
-            <ProductImage url={sku.imageUrl} alt={sku.productName} />
-          </div>
-        ))}
-      </Swiper>
-    </div>
-  )
-}
-
-export default SubscriptionGroupImages
-
 const iconSize = 17
 const caretClassName =
   'pv7 absolute top-50 translate--50y z-2 pointer c-action-primary'
@@ -55,11 +38,13 @@ function getParams(imagesLength: number) {
             el: '.swiper-pagination',
           }
         : {},
+    //eslint-disable-next-line react/display-name
     renderNextButton: () => (
       <span className={`swiper-caret-next pl7 right-1 ${caretClassName}`}>
         <IconCaretRight size={iconSize} />
       </span>
     ),
+    //eslint-disable-next-line react/display-name
     renderPrevButton: () => (
       <span className={`swiper-caret-prev pr7 left-1 ${caretClassName}`}>
         <IconCaretLeft size={iconSize} />
@@ -68,3 +53,20 @@ function getParams(imagesLength: number) {
     resistanceRatio: imagesLength > 1 ? 0.85 : 0,
   }
 }
+
+const SubscriptionGroupImages: FunctionComponent<Props> = ({ skus }) => {
+  const params = getParams(skus.length)
+  return (
+    <div className={CSS.subscriptionGroupImageWrapper}>
+      <Swiper {...params}>
+        {skus.map((sku, i) => (
+          <div key={i} className="swiper-slide center-all pa6 w-100">
+            <ProductImage url={sku.imageUrl} alt={sku.productName} />
+          </div>
+        ))}
+      </Swiper>
+    </div>
+  )
+}
+
+export default SubscriptionGroupImages

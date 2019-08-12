@@ -15,22 +15,22 @@ import { TagTypeEnum } from '../../../constants'
 const { fixImageUrl } = utils
 
 class Product extends Component<InnerProps & OutterProps> {
-  state = {
+  public state = {
     isLoading: false,
     isModalOpen: false,
     showAlert: false,
     alertMessage: '',
   }
 
-  handleOpenModal = () => {
+  private handleOpenModal = () => {
     this.setState({ isModalOpen: true })
   }
 
-  handleCloseModal = () => {
+  private handleCloseModal = () => {
     this.setState({ isModalOpen: false })
   }
 
-  handleRemoveItem = () => {
+  private handleRemoveItem = () => {
     const { removeItem, orderGroup, subscription, intl, showToast } = this.props
     this.setState({ isLoading: true })
 
@@ -63,11 +63,11 @@ class Product extends Component<InnerProps & OutterProps> {
       })
   }
 
-  handleCloseAlert = () => {
+  private handleCloseAlert = () => {
     this.setState({ showAlert: false })
   }
 
-  render() {
+  public render() {
     const { subscription, currency, intl } = this.props
     const { isModalOpen, isLoading, showAlert, alertMessage } = this.state
     return (
@@ -95,6 +95,7 @@ class Product extends Component<InnerProps & OutterProps> {
               <img
                 className="db-s center di-ns pt6-ns pl8-ns"
                 src={fixImageUrl(subscription.sku.imageUrl, 90, 100)}
+                alt={subscription.sku.name}
               />
             </div>
             <div className="pt5-l pt3-s pl6-m w-100">
@@ -102,6 +103,7 @@ class Product extends Component<InnerProps & OutterProps> {
                 <a
                   className="c-on-base"
                   target="_blank"
+                  rel="noopener noreferrer"
                   href={subscription.sku.detailUrl}
                 >
                   <span className="mr3 underline">{subscription.sku.name}</span>
