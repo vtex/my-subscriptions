@@ -56,7 +56,8 @@ const EditShipping: FunctionComponent<
           <Button
             size="small"
             variation="tertiary"
-            onClick={onGoToCreateAddress}>
+            onClick={onGoToCreateAddress}
+          >
             {intl.formatMessage({
               id: 'subscription.shipping.newAddress',
             })}

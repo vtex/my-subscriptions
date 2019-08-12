@@ -35,7 +35,7 @@ class DataCardContainer extends Component<Props> {
 }
 
 interface Props {
-  subscriptionsGroup: SubscriptionsGroupItemType,
+  subscriptionsGroup: SubscriptionsGroupItemType
 }
 
 export default DataCardContainer

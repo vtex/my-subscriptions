@@ -54,9 +54,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
             target="_blank"
             href={subscriptions[0].sku.detailUrl}
           >
-            {`${subscriptions[0].sku.productName} - ${
-              subscriptions[0].sku.name
-            }`}
+            {`${subscriptions[0].sku.productName} - ${subscriptions[0].sku.name}`}
           </a>
         )
       } else {

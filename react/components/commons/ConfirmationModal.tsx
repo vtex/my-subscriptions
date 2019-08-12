@@ -69,7 +69,8 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
         <Alert
           type={TagTypeEnum.Error}
           onClose={this.handleDismissError}
-          visible={this.state.shouldDisplayError}>
+          visible={this.state.shouldDisplayError}
+        >
           {errorMessage}
         </Alert>
         {children}
@@ -82,7 +83,8 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
           <Button
             size="small"
             isLoading={this.state.isLoading}
-            onClick={this.handleSubmit}>
+            onClick={this.handleSubmit}
+          >
             {confirmationLabel}
           </Button>
         </div>

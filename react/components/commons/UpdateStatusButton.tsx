@@ -74,7 +74,8 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
         <Button
           variation="secondary"
           onClick={this.handleOpenModal}
-          block={block}>
+          block={block}
+        >
           {children}
         </Button>
       </Fragment>

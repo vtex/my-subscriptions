@@ -9,7 +9,7 @@ const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
   return (
     <div className="mw7 center">
       <Alert
-        visible={true}
+        visible
         type={TagTypeEnum.Error}
         action={{
           labelId: 'subscription.fallback.error.refresh.message',

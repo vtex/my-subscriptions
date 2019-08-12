@@ -102,7 +102,8 @@ class Product extends Component<InnerProps & OutterProps> {
                 <a
                   className="c-on-base"
                   target="_blank"
-                  href={subscription.sku.detailUrl}>
+                  href={subscription.sku.detailUrl}
+                >
                   <span className="mr3 underline">{subscription.sku.name}</span>
                 </a>
               </div>
@@ -131,7 +132,8 @@ class Product extends Component<InnerProps & OutterProps> {
                     <Button
                       size="small"
                       onClick={this.handleOpenModal}
-                      variation="secondary">
+                      variation="secondary"
+                    >
                       {intl.formatMessage({
                         id: 'subscription.actions.remove',
                       })}
