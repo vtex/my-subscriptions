@@ -52,11 +52,10 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
           <a
             className="no-underline c-on-base ttc"
             target="_blank"
+            rel="noopener noreferrer"
             href={subscriptions[0].sku.detailUrl}
           >
-            {`${subscriptions[0].sku.productName} - ${
-              subscriptions[0].sku.name
-            }`}
+            {`${subscriptions[0].sku.productName} - ${subscriptions[0].sku.name}`}
           </a>
         )
       } else {
@@ -113,12 +112,12 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         <div className="t-heading-5 c-on-base">
           {content}
           {canEdit && (
-            <span
-              className="ml5 c-action-primary hover-c-action-primary pointer"
+            <button
+              className="ml5 c-action-primary hover-c-action-primary pointer bn"
               onClick={this.handleOpenModal}
             >
               <IconEdit solid />
-            </span>
+            </button>
           )}
         </div>
       </Fragment>

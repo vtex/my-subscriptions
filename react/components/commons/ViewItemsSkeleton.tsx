@@ -7,7 +7,8 @@ const ViewItemsSkeleton = () => (
     {[0, 1].map(index => (
       <div
         className="card bg-base center subscription__product-listing__card w-80-ns pa0-ns pa6-s ba bw1 b--muted-5 mb5"
-        key={index}>
+        key={index}
+      >
         <div className="flex-ns items-center-s items-start-ns">
           <div className="myo-subscription__image-size br-ns product-vertical-line b--muted-5">
             <SkeletonLoader width="100" />

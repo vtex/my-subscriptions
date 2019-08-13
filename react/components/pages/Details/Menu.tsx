@@ -15,19 +15,19 @@ import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
 
 class MenuContainer extends Component<InnerProps & OutterProps> {
-  state = {
+  public state = {
     isModalOpen: false,
     errorMessage: '',
     updateType: '',
   }
 
-  handleOpenModal = (updateType: MenuOptionsEnum) => {
+  private handleOpenModal = (updateType: MenuOptionsEnum) => {
     this.setState({ isModalOpen: true, updateType })
   }
 
-  handleCloseModal = () => this.setState({ isModalOpen: false })
+  private handleCloseModal = () => this.setState({ isModalOpen: false })
 
-  handleError = (error: ApolloError) => {
+  private handleError = (error: ApolloError) => {
     this.setState({
       errorMessage: `subscription.fetch.${error.graphQLErrors.length > 0 &&
         error.graphQLErrors[0].extensions &&
@@ -36,7 +36,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     })
   }
 
-  handleUpdateSkipped = () => {
+  private handleUpdateSkipped = () => {
     const {
       updateIsSkipped,
       subscriptionsGroup: { orderGroup, isSkipped },
@@ -50,7 +50,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     })
   }
 
-  handleOrderNow = () => {
+  private handleOrderNow = () => {
     const { orderFormId, addToCart, subscriptionsGroup, runtime } = this.props
 
     const items = subscriptionsGroup.subscriptions.map(subscription => ({
@@ -71,7 +71,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     })
   }
 
-  handleUpdateStatus(status: SubscriptionStatusEnum) {
+  private handleUpdateStatus(status: SubscriptionStatusEnum) {
     const {
       updateStatus,
       subscriptionsGroup: { orderGroup },
@@ -80,7 +80,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     return updateStatus({ variables: { status, orderGroup } })
   }
 
-  retrieveModalConfig = () => {
+  private retrieveModalConfig = () => {
     const { intl } = this.props
     const { isModalOpen, updateType, errorMessage } = this.state
 
@@ -148,6 +148,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         children = modalBody({ descId: 'subscription.order.again.description' })
         break
       default:
+        // eslint-disable-next-line no-case-declarations
         const unskip = updateType === MenuOptionsEnum.Unskip
         onSubmit = this.handleUpdateSkipped
         confirmationLabel = intl.formatMessage({
@@ -156,9 +157,11 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
             : 'subscription.skip.confirm',
         })
 
+        // eslint-disable-next-line no-case-declarations
         const titleId = unskip
           ? 'subscription.unskip.title'
           : 'subscription.skip.title'
+        // eslint-disable-next-line no-case-declarations
         const descId = unskip
           ? 'subscription.unskip.text'
           : 'subscription.skip.text'
@@ -186,7 +189,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     return modalConfigs
   }
 
-  render() {
+  public render() {
     const { subscriptionsGroup, intl } = this.props
 
     if (subscriptionsGroup.status === SubscriptionStatusEnum.Canceled) {

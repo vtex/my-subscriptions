@@ -13,7 +13,7 @@ import EditButtons from '../EditButtons'
 import DataSkeleton from './DataSkeleton'
 
 class EditData extends Component<Props, State> {
-  constructor(props: Props) {
+  public constructor(props: Props) {
     super(props)
 
     const { purchaseSettings, plan } = props.subscriptionsGroup

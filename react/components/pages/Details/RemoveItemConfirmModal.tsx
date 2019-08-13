@@ -32,7 +32,8 @@ const RemoveItemConfirmModal: FunctionComponent<Props> = ({
           size="small"
           variation="primary"
           isLoading={isLoading}
-          onClick={onSave}>
+          onClick={onSave}
+        >
           {intl.formatMessage({ id: 'commons.yes' })}
         </Button>
       </div>

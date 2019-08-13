@@ -13,6 +13,26 @@ import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
 import EditButtons from '../EditButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 
+function transformCards(creditCards: any[], intl: any) {
+  return creditCards.map(card => {
+    return {
+      label: `${intl.formatMessage({
+        id: 'subscription.payment.final',
+      })} ${card.paymentAccount.cardNumber.slice(-4)}`,
+      value: card.paymentAccount.accountId,
+    }
+  })
+}
+
+function goToCreateCard(history: any) {
+  const here = history.location.pathname
+
+  history.push({
+    pathname: '/cards/new',
+    search: `?returnUrl=${here}`,
+  })
+}
+
 const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
   payments,
   isLoading,
@@ -112,26 +132,6 @@ const paymentsQuery = {
       },
     }
   },
-}
-
-function transformCards(creditCards: any[], intl: any) {
-  return creditCards.map(card => {
-    return {
-      label: `${intl.formatMessage({
-        id: 'subscription.payment.final',
-      })} ${card.paymentAccount.cardNumber.slice(-4)}`,
-      value: card.paymentAccount.accountId,
-    }
-  })
-}
-
-function goToCreateCard(history: any) {
-  const here = history.location.pathname
-
-  history.push({
-    pathname: '/cards/new',
-    search: `?returnUrl=${here}`,
-  })
 }
 
 interface QueryResults {

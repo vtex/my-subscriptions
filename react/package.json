@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "lint": "tsc --noEmit && eslint --quiet --fix --ext ts,tsx .",
+    "test": "vtex-test-tools test"
+  },
   "dependencies": {
     "@vtex/delivery-packages": "^2.14.1",
     "apollo-client": "^2.6.3",
@@ -38,11 +42,5 @@
     "prop-types": "^15.7.2",
     "react-mock-router": "^1.0.15",
     "typescript": "3.5.2"
-  },
-  "scripts": {
-    "test": "vtex-test-tools test",
-    "test:watch": "vtex-test-tools test --watch",
-    "lint": "tsc --noEmit",
-    "lint:locales": "intl-equalizer"
   }
 }

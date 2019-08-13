@@ -16,7 +16,7 @@ class SubscriptionsGroupPaymentContainer extends Component<
 > {
   private mounted: boolean
 
-  constructor(props: InnerProps & OuterProps) {
+  public constructor(props: InnerProps & OuterProps) {
     super(props)
     this.state = {
       account:

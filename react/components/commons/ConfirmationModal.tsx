@@ -7,16 +7,17 @@ import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
 
 class ConfirmationModalContainer extends Component<Props & InnerProps> {
-  state = {
+  public state = {
     isLoading: false,
     shouldDisplayError: false,
   }
 
-  innerPromise: any
+  private innerPromise: any
 
-  componentWillUnmount = () => this.innerPromise && this.innerPromise.cancel()
+  public componentWillUnmount = () =>
+    this.innerPromise && this.innerPromise.cancel()
 
-  handleSubmit = () => {
+  private handleSubmit = () => {
     const {
       showToast,
       successMessage,
@@ -44,17 +45,17 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
     this.handleLoading(true)
   }
 
-  handleLoading = (value: boolean) => {
+  private handleLoading = (value: boolean) => {
     this.props.onLoading && this.props.onLoading(value)
 
     this.setState({ isLoading: value })
   }
 
-  handleDismissError = () => {
+  private handleDismissError = () => {
     this.setState({ shouldDisplayError: false })
   }
 
-  render() {
+  public render() {
     const {
       isModalOpen,
       errorMessage,
@@ -69,7 +70,8 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
         <Alert
           type={TagTypeEnum.Error}
           onClose={this.handleDismissError}
-          visible={this.state.shouldDisplayError}>
+          visible={this.state.shouldDisplayError}
+        >
           {errorMessage}
         </Alert>
         {children}
@@ -82,7 +84,8 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
           <Button
             size="small"
             isLoading={this.state.isLoading}
-            onClick={this.handleSubmit}>
+            onClick={this.handleSubmit}
+          >
             {confirmationLabel}
           </Button>
         </div>

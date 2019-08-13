@@ -11,6 +11,15 @@ import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditButtons from '../EditButtons'
 import ShippingSkeleton from './ShippingSkeleton'
 
+function transformAddresses(addresses: Address[]) {
+  return addresses.map(address => {
+    return {
+      label: `${address.street}, ${address.number}`,
+      value: address.addressId,
+    }
+  })
+}
+
 const EditShipping: FunctionComponent<
   InnerProps & OuterProps & InjectedIntlProps
 > = ({
@@ -56,7 +65,8 @@ const EditShipping: FunctionComponent<
           <Button
             size="small"
             variation="tertiary"
-            onClick={onGoToCreateAddress}>
+            onClick={onGoToCreateAddress}
+          >
             {intl.formatMessage({
               id: 'subscription.shipping.newAddress',
             })}
@@ -72,15 +82,6 @@ const EditShipping: FunctionComponent<
       </div>
     </div>
   )
-}
-
-function transformAddresses(addresses: Address[]) {
-  return addresses.map(address => {
-    return {
-      label: `${address.street}, ${address.number}`,
-      value: address.addressId,
-    }
-  })
 }
 
 const addressesQuery = {

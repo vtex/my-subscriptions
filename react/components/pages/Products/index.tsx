@@ -40,7 +40,8 @@ const SubscriptionProducts: FunctionComponent<InnerProps> = ({
         {...headerConfig({
           intl,
           orderGroup,
-        })}>
+        })}
+      >
         {() => children}
       </ContentWrapper>
     )
@@ -60,7 +61,8 @@ const SubscriptionProducts: FunctionComponent<InnerProps> = ({
       <EmptyState
         title={intl.formatMessage({
           id: 'subscription.items.notFound',
-        })}>
+        })}
+      >
         <p>
           {intl.formatMessage({
             id: 'subscription.items.notFoundHelperText',

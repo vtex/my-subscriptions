@@ -9,6 +9,14 @@ import ErrorState from './ErrorState'
 import Item from './Item'
 import Loading from './Loading'
 
+function validateEmpty(data: any) {
+  if (data.items && data.items.length === 0) {
+    return true
+  }
+
+  return false
+}
+
 const SubscriptionsGroups: FunctionComponent<InnerProps> = ({
   data: { items },
   onGoToDetails,
@@ -43,14 +51,6 @@ const enhance = compose<any, OuterProps>(
 )
 
 export default enhance(SubscriptionsGroups)
-
-function validateEmpty(data: any) {
-  if (data.items && data.items.length === 0) {
-    return true
-  }
-
-  return false
-}
 
 interface ItemsData {
   items: SubscriptionsGroupItemType[]

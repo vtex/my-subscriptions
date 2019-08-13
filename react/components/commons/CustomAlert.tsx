@@ -23,7 +23,8 @@ const CustomAlert: FunctionComponent<Props> = ({
             label: intl.formatMessage({ id: action.labelId }),
             onClick: action.onClick,
           }
-        }>
+        }
+      >
         {children || (contentId && intl.formatMessage({ id: contentId }))}
       </Alert>
     </div>

@@ -133,7 +133,8 @@ export function logOrderNowMetric(account: string, orderGroup: string) {
     'details/orderNow',
     orderGroup,
     {
-      app_version: process.env.VTEX_APP_ID,
+      // eslint-disable-next-line no-undef
+      ['app_version']: process.env.VTEX_APP_ID,
     },
     account
   )
