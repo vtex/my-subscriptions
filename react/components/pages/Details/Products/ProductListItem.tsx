@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react'
-import { NumericStepper } from 'vtex.styleguide'
+import { NumericStepper, IconDelete } from 'vtex.styleguide'
 
 import Image from '../../../commons/ProductImage'
 import Price from '../../../commons/FormattedPrice'
-import IconTrashCan from './IconTrashCan'
 
 class ProductListItem extends PureComponent<Props> {
   public render() {
@@ -54,7 +53,7 @@ class ProductListItem extends PureComponent<Props> {
             </span>
             {isEditing && (
               <button className="c-danger pointer bn" onClick={onRemove}>
-                <IconTrashCan size={25} />
+                <IconDelete size={25} />
               </button>
             )}
           </div>
