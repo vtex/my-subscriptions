@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
 import { graphql } from 'react-apollo'
 
 import QUERY from '../../../../graphql/products/subscriptionGroupProducts.gql'
 import { SubscriptionStatusEnum } from '../../../../constants'
+import ConfirmationModal from '../../../commons/ConfirmationModal'
 import Listing from './Listing'
 
 function mapSubscriptionsToHashMap(subscriptions: SubscriptionProduct[]) {
@@ -25,10 +26,16 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     )
 
     this.state = {
+      selectedSubscription: '',
       isEditMode: false,
       isLoading: false,
+      isModalOpen: false,
       products,
     }
+  }
+
+  private handleLoading = (value: boolean) => {
+    this.setState({ isLoading: value })
   }
 
   private handleGoToEdition = () => {
@@ -43,6 +50,21 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
       ),
     })
   }
+
+  private handleRemoveSubscription = () =>
+    new Promise(() => console.warn('ihu'))
+
+  private handleOpenRemoveModal = (subscriptionId: string) =>
+    this.setState({
+      isModalOpen: true,
+      selectedSubscription: subscriptionId,
+    })
+
+  private handleCloseModal = () =>
+    this.setState({
+      isModalOpen: false,
+      selectedSubscription: '',
+    })
 
   private handleSave = () => {}
 
@@ -64,22 +86,36 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     const {
       data: { groupedSubscription },
     } = this.props
-    const { isEditMode, isLoading } = this.state
+    const { isEditMode, isLoading, isModalOpen } = this.state
 
     const products = this.getProductsAvailable()
 
     return (
-      <Listing
-        isEditing={isEditMode}
-        isLoading={isLoading}
-        onSave={this.handleSave}
-        onCancel={this.handleCancel}
-        onGoToEdition={this.handleGoToEdition}
-        onUpdateQuantity={this.handleUpdateQuantity}
-        subscriptionStatus={groupedSubscription.status}
-        products={products}
-        currency={groupedSubscription.purchaseSettings.currencySymbol}
-      />
+      <Fragment>
+        <ConfirmationModal
+          confirmationLabel="remover"
+          cancelationLabel="cancelar"
+          errorMessage="erou"
+          isModalOpen={isModalOpen}
+          onCloseModal={this.handleCloseModal}
+          onSubmit={this.handleRemoveSubscription}
+          onLoading={this.handleLoading}
+        >
+          Deseja realmente remover esse produto?
+        </ConfirmationModal>
+        <Listing
+          isEditing={isEditMode}
+          isLoading={isLoading}
+          onSave={this.handleSave}
+          onCancel={this.handleCancel}
+          onGoToEdition={this.handleGoToEdition}
+          onRemoveSubscription={this.handleOpenRemoveModal}
+          onUpdateQuantity={this.handleUpdateQuantity}
+          subscriptionStatus={groupedSubscription.status}
+          products={products}
+          currency={groupedSubscription.purchaseSettings.currencySymbol}
+        />
+      </Fragment>
     )
   }
 }
@@ -87,6 +123,8 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
 interface State {
   isEditMode: boolean
   isLoading: boolean
+  isModalOpen: boolean
+  selectedSubscription: string
   products: { [subscriptionId: string]: SubscriptionProduct }
 }
 

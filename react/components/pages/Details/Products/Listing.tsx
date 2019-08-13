@@ -29,6 +29,7 @@ const ProductsListing: FunctionComponent<Props> = ({
   onCancel,
   onGoToEdition,
   onUpdateQuantity,
+  onRemoveSubscription,
 }) => (
   <section className={BASIC_CARD_WRAPPER}>
     <div className={CSS.cardHorizontalPadding}>
@@ -59,7 +60,7 @@ const ProductsListing: FunctionComponent<Props> = ({
           onChange={(quantity: number) =>
             onUpdateQuantity(product.subscriptionId, quantity)
           }
-          onRemove={() => onUpdateQuantity(product.subscriptionId, 0)}
+          onRemove={() => onRemoveSubscription(product.subscriptionId)}
         />
       </div>
     ))}
@@ -78,6 +79,7 @@ const ProductsListing: FunctionComponent<Props> = ({
 interface Props {
   onGoToEdition: () => void
   onUpdateQuantity: (id: string, quantity: number) => void
+  onRemoveSubscription: (id: string) => void
   onSave: () => void
   onCancel: () => void
   isLoading: boolean
