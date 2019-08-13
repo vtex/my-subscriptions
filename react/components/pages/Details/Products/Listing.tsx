@@ -14,7 +14,7 @@ import { SubscriptionProduct } from '.'
 
 const messages = defineMessages({
   title: {
-    id: 'subscription.products.card.title',
+    id: 'store/subscription.products.card.title',
     defaultMessage: '',
   },
 })

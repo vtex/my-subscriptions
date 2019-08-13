@@ -152,5 +152,5 @@
   "store/subscription.order.status.RE_TRIGGERED": "Após uma tentativa sem sucesso, estamos tentando efetuar o pedido novamente",
   "store/subscription.order.no-order": "Não há nenhum pedido",
   "store/subscription.order.awaiting-first-cycle": "Aguardando o primeiro ciclo",
-  "subscription.products.card.title": "Produtos Assinados"
+  "store/subscription.products.card.title": "Produtos Assinados"
 }

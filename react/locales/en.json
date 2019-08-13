@@ -155,5 +155,5 @@
   "store/subscription.order.status.RE_TRIGGERED": "After an unsuccessful attempt, we're trying to generate your order again",
   "store/subscription.order.no-order": "There are no orders yet",
   "store/subscription.order.awaiting-first-cycle": "Awaiting the first cycle",
-  "subscription.products.card.title": "Subscribed Products"
+  "store/subscription.products.card.title": "Subscribed Products"
 }

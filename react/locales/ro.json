@@ -152,5 +152,5 @@
   "store/subscription.order.status.RE_TRIGGERED": "După o tentativă nereușită, încercăm să plasăm din nou comanda",
   "store/subscription.order.no-order": "Nu există comenzi încă",
   "store/subscription.order.awaiting-first-cycle": "În așteptarea primului ciclu",
-  "subscription.products.card.title": "Produse abonate"
+  "store/subscription.products.card.title": "Produse abonate"
 }
