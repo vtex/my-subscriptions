@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { FormattedNumber } from 'react-intl'
 
 class FormattedPrice extends PureComponent<Props> {
-  render() {
+  public render() {
     const { value, currency } = this.props
     return (
       <FormattedNumber

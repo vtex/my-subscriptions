@@ -6,8 +6,18 @@ import QUERY from '../../../../graphql/products/subscriptionGroupProducts.gql'
 import { SubscriptionStatusEnum } from '../../../../constants'
 import Listing from './Listing'
 
+function mapSubscriptionsToHashMap(subscriptions: SubscriptionProduct[]) {
+  return subscriptions.reduce(
+    (previous, current) => ({
+      ...previous,
+      [current.subscriptionId]: current,
+    }),
+    {}
+  )
+}
+
 class ProductsContainer extends Component<InnerProps & OutterProps, State> {
-  constructor(props: InnerProps & OutterProps) {
+  public constructor(props: InnerProps & OutterProps) {
     super(props)
 
     const products = mapSubscriptionsToHashMap(
@@ -21,11 +31,11 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     }
   }
 
-  handleGoToEdition = () => {
+  private handleGoToEdition = () => {
     this.setState({ isEditMode: true })
   }
 
-  handleCancel = () => {
+  private handleCancel = () => {
     this.setState({
       isEditMode: false,
       products: mapSubscriptionsToHashMap(
@@ -34,11 +44,9 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     })
   }
 
-  handleSave = () => {
-    console.log('SAVED')
-  }
+  private handleSave = () => {}
 
-  handleUpdateQuantity = (id: string, quantity: number) => {
+  private handleUpdateQuantity = (id: string, quantity: number) => {
     const updatedProducts = {
       ...this.state.products,
       [id]: { ...this.state.products[id], quantity },
@@ -47,12 +55,12 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     this.setState({ products: updatedProducts })
   }
 
-  getProductsAvailable = () =>
+  private getProductsAvailable = () =>
     Object.values<SubscriptionProduct>(this.state.products).filter(
       p => p.quantity > 0
     )
 
-  render() {
+  public render() {
     const {
       data: { groupedSubscription },
     } = this.props
@@ -74,16 +82,6 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
       />
     )
   }
-}
-
-function mapSubscriptionsToHashMap(subscriptions: SubscriptionProduct[]) {
-  return subscriptions.reduce(
-    (previous, current) => ({
-      ...previous,
-      [current.subscriptionId]: current,
-    }),
-    {}
-  )
 }
 
 interface State {

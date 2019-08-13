@@ -9,7 +9,7 @@ class ProductImage extends PureComponent<Props> {
     heightSize: 300,
   }
 
-  render() {
+  public render() {
     const { productName, imageUrl, widthSize, heightSize } = this.props
 
     return (

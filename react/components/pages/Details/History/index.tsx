@@ -2,12 +2,12 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import HistoryList from './HistoryList'
-import { CSS } from '../../../../constants'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 
 const SubscriptionGroupHistory: FunctionComponent<OuterProps> = ({
   subscriptionsGroup,
 }) => (
-  <div className={CSS.cardWrapper}>
+  <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
     <div className="db-s di-ns db-ns b f4 tl c-on-base mb4">
       <FormattedMessage id="store/subscription.history" />
     </div>

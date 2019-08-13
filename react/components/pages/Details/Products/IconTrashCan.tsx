@@ -13,7 +13,7 @@ class TrashCan extends PureComponent<Props> {
     block: false,
   }
 
-  render() {
+  public render() {
     const { color, size, block } = this.props
     const newSize = calcIconSize(iconBase, size)
 

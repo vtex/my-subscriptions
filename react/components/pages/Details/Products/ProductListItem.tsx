@@ -6,7 +6,7 @@ import Price from '../../../commons/FormattedPrice'
 import IconTrashCan from './IconTrashCan'
 
 class ProductListItem extends PureComponent<Props> {
-  render() {
+  public render() {
     const {
       imageUrl,
       name,
@@ -53,9 +53,9 @@ class ProductListItem extends PureComponent<Props> {
               <Price value={price} currency={currency} />
             </span>
             {isEditing && (
-              <span className="c-danger pointer" onClick={onRemove}>
+              <button className="c-danger pointer bn" onClick={onRemove}>
                 <IconTrashCan size={25} />
-              </span>
+              </button>
             )}
           </div>
         </div>
