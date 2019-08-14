@@ -34,7 +34,7 @@ class ProductListItem extends PureComponent<Props> {
               <span className="t-small c-muted-2">{description}</span>
             </div>
           </div>
-          <div className="w-20-l w-100 flex items-center pa3">
+          <div className="w-20-l w-100 flex items-center pv3 ph3-m">
             {isEditing ? (
               <NumericStepper
                 minValue={1}
@@ -47,17 +47,19 @@ class ProductListItem extends PureComponent<Props> {
               </span>
             )}
           </div>
-          <div className="w-20-l w-100 flex items-center justify-end">
-            <span className="b ph5">
+          <div className="w-20-l w-100 flex items-center justify-end-m">
+            <span className="b ph5-m">
               <Price value={price} currency={currency} />
             </span>
-            {isEditing && (
-              <button className="c-danger pointer bn" onClick={onRemove}>
-                <IconDelete size={25} />
-              </button>
-            )}
           </div>
         </div>
+        {isEditing && (
+          <div className="flex-m">
+            <button className="c-danger pointer bn-l" onClick={onRemove}>
+              <IconDelete />
+            </button>
+          </div>
+        )}
       </article>
     )
   }

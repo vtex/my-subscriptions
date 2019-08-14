@@ -16,6 +16,7 @@ class ProductImage extends PureComponent<Props> {
       <img
         src={fixImageUrl(imageUrl, widthSize, heightSize)}
         alt={productName}
+        style={{ width: widthSize, height: heightSize }}
       />
     )
   }
