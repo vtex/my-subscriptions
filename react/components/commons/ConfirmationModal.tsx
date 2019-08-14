@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
-import { Button, Modal, withToast } from 'vtex.styleguide'
+import { ModalDialog, withToast } from 'vtex.styleguide'
 
 import Alert from '../commons/CustomAlert'
 import { TagTypeEnum } from '../../constants'
@@ -66,30 +66,31 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
     } = this.props
 
     return (
-      <Modal centered isOpen={isModalOpen} onClose={onCloseModal}>
-        <Alert
-          type={TagTypeEnum.Error}
-          onClose={this.handleDismissError}
-          visible={this.state.shouldDisplayError}
-        >
-          {errorMessage}
-        </Alert>
-        {children}
-        <div className="flex flex-row justify-end mt7">
-          <span className="mr4">
-            <Button size="small" variation="tertiary" onClick={onCloseModal}>
-              {cancelationLabel}
-            </Button>
-          </span>
-          <Button
-            size="small"
-            isLoading={this.state.isLoading}
-            onClick={this.handleSubmit}
+      <ModalDialog
+        centered
+        loading={this.state.isLoading}
+        isOpen={isModalOpen}
+        onClose={onCloseModal}
+        confirmation={{
+          onClick: this.handleSubmit,
+          label: confirmationLabel,
+        }}
+        cancelation={{
+          onClick: onCloseModal,
+          label: cancelationLabel,
+        }}
+      >
+        <div className="mt7">
+          <Alert
+            type={TagTypeEnum.Error}
+            onClose={this.handleDismissError}
+            visible={this.state.shouldDisplayError}
           >
-            {confirmationLabel}
-          </Button>
+            {errorMessage}
+          </Alert>
+          {children}
         </div>
-      </Modal>
+      </ModalDialog>
     )
   }
 }

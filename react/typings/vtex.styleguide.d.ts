@@ -12,7 +12,6 @@ declare module 'vtex.styleguide' {
   export const Spinner
   export const withToast
   export const Alert
-  export const Modal
   export const Radio
   export const ActionMenu
   export const NumericStepper
