@@ -83,7 +83,7 @@ export function retrieveMessagesByStatus(status: SubscriptionStatusEnum) {
   }
 }
 
-export const makeCancelable = (promise: Promise<any>) => {
+export const makeCancelable = (promise: Promise<unknown>) => {
   let hasCanceled = false
 
   const wrappedPromise = new Promise((resolve, reject) => {

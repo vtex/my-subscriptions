@@ -13,7 +13,7 @@ const EditionButtons: FunctionComponent<Props> = ({
       <div className="flex ml-auto">
         <div className="pr3">
           <Button size="small" onClick={onCancel} variation="secondary">
-            <FormattedMessage id="subscription.edition.button.cancel" />
+            <FormattedMessage id="store/subscription.edition.button.cancel" />
           </Button>
         </div>
         <Button

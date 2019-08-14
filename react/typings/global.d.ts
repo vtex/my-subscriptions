@@ -90,8 +90,8 @@ declare global {
   }
 
   interface RemoveSubscripionArgs {
-    itemId: number
-    orderGroup: string
+    subscriptionId: string
+    subscriptionsGroupId: string
   }
 
   interface RetryArgs {

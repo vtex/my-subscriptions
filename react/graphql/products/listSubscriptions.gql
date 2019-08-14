@@ -1,4 +1,4 @@
-query ProductsGroupedSubscription($orderGroup: String!) {
+query ListSubscriptionsFromGroup($orderGroup: String!) {
   groupedSubscription: groupedSubscription(orderGroup: $orderGroup)
     @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId

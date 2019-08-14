@@ -67,7 +67,7 @@
   "subscription.payment": "Pagamento",
   "subscription.payment.method": "Forma de pagamento",
   "subscription.edition.button.save": "Salvar",
-  "subscription.edition.button.cancel": "Cancelar",
+  "store/subscription.edition.button.cancel": "Cancelar",
   "subscription.seeMore": "Ver mais",
   "subscription.view.title": "Assinatura com {value} produtos",
   "subscription.settings.daily": "{count, plural, =0 {A cada 0 dias} one {A cada 1 dia} other {A cada # dias}}",
@@ -143,5 +143,10 @@
   "store/subscription.order.status.RE_TRIGGERED": "Após uma tentativa sem sucesso, estamos tentando efetuar o pedido novamente",
   "store/subscription.order.no-order": "Não há nenhum pedido",
   "store/subscription.order.awaiting-first-cycle": "Aguardando o primeiro ciclo",
-  "store/subscription.products.card.title": "Produtos Assinados"
+  "store/subscription.products.card.title": "Produtos Assinados",
+  "store/subscription.products.card.remove.success": "Produto removido com suscesso!",
+  "store/subscription.products.card.remove.error": "Ocorreu um erro ao remover esse produto, tente novamente mais tarde.",
+  "store/subscription.products.card.remove.confirm": "Remover",
+  "store/subscription.products.card.remove.title": "Remover este produto?",
+  "store/subscription.products.card.remove.desc": "Ao removê-lo, este produto deixará de ser pedido nesta assinatura."
 }

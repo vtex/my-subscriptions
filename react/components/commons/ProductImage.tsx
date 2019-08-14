@@ -7,16 +7,17 @@ class ProductImage extends PureComponent<Props> {
   public static defaultProps = {
     widthSize: 300,
     heightSize: 300,
+    isFixed: false,
   }
 
   public render() {
-    const { productName, imageUrl, widthSize, heightSize } = this.props
+    const { productName, imageUrl, widthSize, heightSize, isFixed } = this.props
 
     return (
       <img
         src={fixImageUrl(imageUrl, widthSize, heightSize)}
         alt={productName}
-        style={{ width: widthSize, height: heightSize }}
+        style={isFixed ? { width: widthSize, height: heightSize } : {}}
       />
     )
   }
@@ -27,6 +28,7 @@ interface Props {
   imageUrl: string
   widthSize: number
   heightSize: number
+  isFixed: boolean
 }
 
 export default ProductImage

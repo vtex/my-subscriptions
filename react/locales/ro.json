@@ -67,7 +67,7 @@
   "subscription.payment": "Plata",
   "subscription.payment.method": "Metoda de plată",
   "subscription.edition.button.save": "Salva",
-  "subscription.edition.button.cancel": "Anula",
+  "store/subscription.edition.button.cancel": "Anula",
   "subscription.seeMore": "Vezi mai multe",
   "subscription.view.title": "Abonament la {value} products",
   "subscription.settings.daily": "{count, plural, = 0 {fiecare 0 zile} one {fiecare 1 zi} other {la fiecare # zile}}",
@@ -143,5 +143,10 @@
   "store/subscription.order.status.RE_TRIGGERED": "După o tentativă nereușită, încercăm să plasăm din nou comanda",
   "store/subscription.order.no-order": "Nu există comenzi încă",
   "store/subscription.order.awaiting-first-cycle": "În așteptarea primului ciclu",
-  "store/subscription.products.card.title": "Produse abonate"
+  "store/subscription.products.card.title": "Produse abonate",
+  "store/subscription.products.card.remove.success": "Product removed with succcess!",
+  "store/subscription.products.card.remove.error": "An error occurred trying to remove this product, try again later.",
+  "store/subscription.products.card.remove.confirm": "Elimina",
+  "store/subscription.products.card.remove.title": "Ștergeți acest produs?",
+  "store/subscription.products.card.remove.desc": "Dacă îl eliminați, nu va mai fi comandat la abonament."
 }

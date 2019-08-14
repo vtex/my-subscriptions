@@ -12,7 +12,9 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
     shouldDisplayError: false,
   }
 
-  private innerPromise: any
+  private innerPromise:
+    | undefined
+    | { promise: Promise<unknown>; cancel: () => void }
 
   public componentWillUnmount = () =>
     this.innerPromise && this.innerPromise.cancel()
@@ -95,12 +97,12 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
   }
 }
 
-const enhance = compose<any, Props>(withToast)
+const enhance = compose<Props & InnerProps, Props>(withToast)
 
 export default enhance(ConfirmationModalContainer)
 
 interface Props {
-  onSubmit: () => Promise<any>
+  onSubmit: () => Promise<unknown>
   onCloseModal: () => void
   onLoading?: (loading: boolean) => void
   onError?: (error: any) => void

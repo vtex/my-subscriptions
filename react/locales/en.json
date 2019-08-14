@@ -67,7 +67,7 @@
   "subscription.payment": "Payment",
   "subscription.payment.method": "Payment method",
   "subscription.edition.button.save": "Save",
-  "subscription.edition.button.cancel": "Cancel",
+  "store/subscription.edition.button.cancel": "Cancel",
   "subscription.seeMore": "View more",
   "subscription.view.title": "Subscription with {value} products",
   "subscription.settings.daily": "{count, plural, =0 {Every 0 days} one {Every 1 day} other {Every # days}}",
@@ -146,5 +146,10 @@
   "store/subscription.order.status.RE_TRIGGERED": "After an unsuccessful attempt, we're trying to generate your order again",
   "store/subscription.order.no-order": "There are no orders yet",
   "store/subscription.order.awaiting-first-cycle": "Awaiting the first cycle",
-  "store/subscription.products.card.title": "Subscribed Products"
+  "store/subscription.products.card.title": "Subscribed Products",
+  "store/subscription.products.card.remove.success": "Product removed with succcess!",
+  "store/subscription.products.card.remove.error": "An error occurred trying to remove this product, try again later.",
+  "store/subscription.products.card.remove.confirm": "Remove",
+  "store/subscription.products.card.remove.title": "Remove this product?",
+  "store/subscription.products.card.remove.desc": "If you remove it, it won't be ordered anymore on subscription."
 }

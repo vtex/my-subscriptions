@@ -26,6 +26,7 @@ class ProductListItem extends PureComponent<Props> {
           productName={name}
           widthSize={100}
           heightSize={100}
+          isFixed
         />
         <div className="w-100 flex flex-column flex-row-m t-body justify-between pl4">
           <div className="w-60-l w-100 flex items-center">

@@ -1,8 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
 import { graphql } from 'react-apollo'
+import {
+  InjectedIntlProps,
+  injectIntl,
+  defineMessages,
+  FormattedMessage,
+} from 'react-intl'
+import { withToast } from 'vtex.styleguide'
 
-import QUERY from '../../../../graphql/products/subscriptionGroupProducts.gql'
+import LIST_QUERY from '../../../../graphql/products/listSubscriptions.gql'
+import REMOVE_MUTATION from '../../../../graphql/products/removeSubscription.gql'
 import { SubscriptionStatusEnum } from '../../../../constants'
 import ConfirmationModal from '../../../commons/ConfirmationModal'
 import Listing from './Listing'
@@ -17,6 +25,25 @@ function mapSubscriptionsToHashMap(subscriptions: SubscriptionProduct[]) {
   )
 }
 
+const messages = defineMessages({
+  removeSuccess: {
+    id: 'store/subscription.products.card.remove.success',
+    defaultMessage: '',
+  },
+  removeError: {
+    id: 'store/subscription.products.card.remove.error',
+    defaultMessage: '',
+  },
+  cancel: {
+    id: 'store/subscription.edition.button.cancel',
+    defaultMessage: '',
+  },
+  confirm: {
+    id: 'store/subscription.products.card.remove.confirm',
+    defaultMessage: '',
+  },
+})
+
 class ProductsContainer extends Component<InnerProps & OutterProps, State> {
   public constructor(props: InnerProps & OutterProps) {
     super(props)
@@ -26,16 +53,12 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     )
 
     this.state = {
-      selectedSubscription: '',
+      subscriptionId: '',
       isEditMode: false,
       isLoading: false,
       isModalOpen: false,
       products,
     }
-  }
-
-  private handleLoading = (value: boolean) => {
-    this.setState({ isLoading: value })
   }
 
   private handleGoToEdition = () => {
@@ -51,19 +74,35 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     })
   }
 
-  private handleRemoveSubscription = () =>
-    new Promise(() => console.warn('ihu'))
+  private handleRemoveSubscription = () => {
+    const { removeSubscription, orderGroup, showToast, intl } = this.props
+    const { subscriptionId } = this.state
+
+    return removeSubscription({
+      variables: {
+        subscriptionsGroupId: orderGroup,
+        subscriptionId,
+      },
+    }).then(() => {
+      this.setState({
+        isModalOpen: false,
+      })
+      showToast({
+        message: intl.formatMessage(messages.removeSuccess),
+      })
+    })
+  }
 
   private handleOpenRemoveModal = (subscriptionId: string) =>
     this.setState({
       isModalOpen: true,
-      selectedSubscription: subscriptionId,
+      subscriptionId,
     })
 
   private handleCloseModal = () =>
     this.setState({
       isModalOpen: false,
-      selectedSubscription: '',
+      subscriptionId: '',
     })
 
   private handleSave = () => {}
@@ -85,6 +124,7 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
   public render() {
     const {
       data: { groupedSubscription },
+      intl,
     } = this.props
     const { isEditMode, isLoading, isModalOpen } = this.state
 
@@ -93,15 +133,19 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     return (
       <Fragment>
         <ConfirmationModal
-          confirmationLabel="remover"
-          cancelationLabel="cancelar"
-          errorMessage="erou"
+          confirmationLabel={intl.formatMessage(messages.confirm)}
+          cancelationLabel={intl.formatMessage(messages.cancel)}
+          errorMessage={intl.formatMessage(messages.removeError)}
           isModalOpen={isModalOpen}
           onCloseModal={this.handleCloseModal}
           onSubmit={this.handleRemoveSubscription}
-          onLoading={this.handleLoading}
         >
-          Deseja realmente remover esse produto?
+          <h4 className="t-heading-4">
+            <FormattedMessage id="store/subscription.products.card.remove.title" />
+          </h4>
+          <p className="t-body">
+            <FormattedMessage id="store/subscription.products.card.remove.desc" />
+          </p>
         </ConfirmationModal>
         <Listing
           isEditing={isEditMode}
@@ -124,11 +168,11 @@ interface State {
   isEditMode: boolean
   isLoading: boolean
   isModalOpen: boolean
-  selectedSubscription: string
+  subscriptionId: string
   products: { [subscriptionId: string]: SubscriptionProduct }
 }
 
-interface InnerProps {
+interface InnerProps extends InjectedIntlProps {
   data: {
     loading: boolean
     groupedSubscription: {
@@ -140,6 +184,8 @@ interface InnerProps {
       }
     }
   }
+  removeSubscription: (args: Variables<RemoveSubscripionArgs>) => Promise<void>
+  showToast: (args: { message: string }) => void
 }
 
 export interface SubscriptionProduct {
@@ -161,8 +207,11 @@ interface OutterProps {
 }
 
 const enhance = compose<InnerProps & OutterProps, OutterProps>(
-  graphql(QUERY),
-  branch<InnerProps>(({ data: { loading } }) => loading, renderNothing)
+  graphql(LIST_QUERY),
+  branch<InnerProps>(({ data: { loading } }) => loading, renderNothing),
+  graphql(REMOVE_MUTATION, { name: 'removeSubscription' }),
+  withToast,
+  injectIntl
 )
 
 export default enhance(ProductsContainer)

@@ -1,0 +1,29 @@
+mutation RemoveSubscriptionFromGroup(
+  $subscriptionsGroupId: String!
+  $subscriptionId: String!
+) {
+  removeSubscription(
+    subscriptionsGroupId: $subscriptionsGroupId
+    subscriptionId: $subscriptionId
+  ) @context(provider: "vtex.my-subscriptions-graphql") {
+    cacheId
+    orderGroup
+    status
+    subscriptions {
+      subscriptionId
+      sku {
+        skuId
+        name
+        productName
+        imageUrl
+        detailUrl
+        nameComplete
+      }
+      quantity
+      priceAtSubscriptionDate
+    }
+    purchaseSettings {
+      currencySymbol
+    }
+  }
+}

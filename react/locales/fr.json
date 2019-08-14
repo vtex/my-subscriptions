@@ -67,7 +67,7 @@
   "subscription.payment": "Paiement",
   "subscription.payment.method": "Mode de paiement",
   "subscription.edition.button.save": "Sauvegarder",
-  "subscription.edition.button.cancel": "Annuler",
+  "store/subscription.edition.button.cancel": "Annuler",
   "subscription.seeMore": "Voir plus",
   "subscription.view.title": "Abonnement à des produits {value}",
   "subscription.settings.daily": "{count, plural, = 0 {tous les 0 jours} one {tous les 1 jours} other {tous les # jours}}",
@@ -143,5 +143,10 @@
   "store/subscription.order.status.RE_TRIGGERED": "Tentative infructueuse, nous essayons de passer la commande à nouveau",
   "store/subscription.order.no-order": "Il n'y a pas encore de commande",
   "store/subscription.order.awaiting-first-cycle": "En attente du premier cycle",
-  "store/subscription.products.card.title": "Produits souscrits"
+  "store/subscription.products.card.title": "Produits souscrits",
+  "store/subscription.products.card.remove.success": "Produit retiré avec succès!",
+  "store/subscription.products.card.remove.error": "Une erreur s'est produite lors de la tentative de suppression de ce produit, réessayez plus tard.",
+  "store/subscription.products.card.remove.confirm": "Retirer",
+  "store/subscription.products.card.remove.title": "Retirer ce produit?",
+  "store/subscription.products.card.remove.desc": "Si vous le supprimez, il ne sera plus commandé lors de l'abonnement."
 }
