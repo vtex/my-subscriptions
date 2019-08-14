@@ -1,8 +1,6 @@
 import React, { FunctionComponent, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
-import { Button } from 'vtex.styleguide'
 
 import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../constants'
 import Alert from '../../commons/CustomAlert'
@@ -12,17 +10,10 @@ import SubscriptionsStatus from '../../commons/SubscriptionStatus'
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 
-const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
-  subscriptionsGroup,
-  intl,
-  history,
-}) => {
-  const { orderGroup, subscriptions, isSkipped, status } = subscriptionsGroup
-
-  const goToProducts = () =>
-    history.push({
-      pathname: `${orderGroup}/products`,
-    })
+const SubscriptionSummary: FunctionComponent<
+  InjectedIntlProps & OutterProps
+> = ({ subscriptionsGroup, intl }) => {
+  const { subscriptions, isSkipped, status } = subscriptionsGroup
 
   const hasMultipleItems = subscriptions.length > 1
 
@@ -79,20 +70,6 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
               </div>
               <div className="w-50-ns w-100 flex justify-end-ns justify-center mt5">
                 <div className="w-90-m w-100-s">
-                  {hasMultipleItems && (
-                    <div className="mb3">
-                      <Button
-                        block
-                        onClick={goToProducts}
-                        size="small"
-                        variation="secondary"
-                      >
-                        {intl.formatMessage({
-                          id: 'subscription.seeProducts',
-                        })}
-                      </Button>
-                    </div>
-                  )}
                   <Menu subscriptionsGroup={subscriptionsGroup} />
                 </div>
               </div>
@@ -108,9 +85,6 @@ interface OutterProps {
   subscriptionsGroup: SubscriptionsGroupItemType
 }
 
-interface InnerProps extends InjectedIntlProps, RouteComponentProps {}
-
-export default compose<InnerProps & OutterProps, OutterProps>(
-  injectIntl,
-  withRouter
+export default compose<InjectedIntlProps & OutterProps, OutterProps>(
+  injectIntl
 )(SubscriptionSummary)
