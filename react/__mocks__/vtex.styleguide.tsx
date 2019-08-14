@@ -6,7 +6,7 @@ export class Alert extends Component {
   }
 }
 
-export class Modal extends Component {
+export class ModalDialog extends Component {
   public render() {
     return <div>Modal</div>
   }
