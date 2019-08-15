@@ -80,7 +80,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
       onCloseModal: this.handleCloseModal,
       onLoading: this.handleLoading,
       successMessage: intl.formatMessage({
-        id: 'subscription.editition.success',
+        id: 'store/subscription.editition.success',
       }),
       onSubmit: () =>
         updateName({

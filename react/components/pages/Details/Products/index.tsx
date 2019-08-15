@@ -11,6 +11,7 @@ import { withToast } from 'vtex.styleguide'
 
 import LIST_QUERY from '../../../../graphql/products/listSubscriptions.gql'
 import REMOVE_MUTATION from '../../../../graphql/products/removeSubscription.gql'
+import UPDATE_MUTATION from '../../../../graphql/products/updateSubscriptions.gql'
 import { SubscriptionStatusEnum } from '../../../../constants'
 import ConfirmationModal from '../../../commons/ConfirmationModal'
 import Listing from './Listing'
@@ -40,6 +41,10 @@ const messages = defineMessages({
   },
   confirm: {
     id: 'store/subscription.products.card.remove.confirm',
+    defaultMessage: '',
+  },
+  editionSuccess: {
+    id: 'store/subscription.editition.success',
     defaultMessage: '',
   },
 })
@@ -105,7 +110,31 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
       subscriptionId: '',
     })
 
-  private handleSave = () => {}
+  private handleSave = () => {
+    const { orderGroup, updateSubscriptions, showToast, intl } = this.props
+
+    this.setState({ isLoading: true })
+
+    const subscriptions = Object.values(this.state.products).map(
+      subscription => ({
+        skuId: subscription.sku.skuId,
+        quantity: subscription.quantity,
+      })
+    )
+
+    updateSubscriptions({
+      variables: {
+        subscriptionsGroupId: orderGroup,
+        subscriptions,
+      },
+    })
+      .then(() =>
+        showToast({ message: intl.formatMessage(messages.editionSuccess) })
+      )
+      .finally(() => {
+        this.setState({ isLoading: false, isEditMode: false })
+      })
+  }
 
   private handleUpdateQuantity = (id: string, quantity: number) => {
     const updatedProducts = {
@@ -185,7 +214,14 @@ interface InnerProps extends InjectedIntlProps {
     }
   }
   removeSubscription: (args: Variables<RemoveSubscripionArgs>) => Promise<void>
+  updateSubscriptions: (
+    args: Variables<UpdateSubscripionsArgs>
+  ) => Promise<void>
   showToast: (args: { message: string }) => void
+}
+
+interface OutterProps {
+  orderGroup: string
 }
 
 export interface SubscriptionProduct {
@@ -202,14 +238,11 @@ export interface SubscriptionProduct {
   priceAtSubscriptionDate: number
 }
 
-interface OutterProps {
-  orderGroup: string
-}
-
 const enhance = compose<InnerProps & OutterProps, OutterProps>(
   graphql(LIST_QUERY),
   branch<InnerProps>(({ data: { loading } }) => loading, renderNothing),
   graphql(REMOVE_MUTATION, { name: 'removeSubscription' }),
+  graphql(UPDATE_MUTATION, { name: 'updateSubscriptions' }),
   withToast,
   injectIntl
 )

@@ -112,7 +112,7 @@
   "subscription.editition.cancel": "Cancelar",
   "subscription.name.editition.edit": "Salvar",
   "subscription.name.editition.name.title": "Escolha um nome para a sua assinatura:",
-  "subscription.editition.success": "Assinatura editada!",
+  "store/subscription.editition.success": "Assinatura editada!",
   "subscription.fallback.error.message": "Algo deu errado, tente novamente mais tarde!",
   "subscription.fallback.error.refresh.message": "Recarregar",
   "subscription.change.status.modal.confirmation": "Sim",

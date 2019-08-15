@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Update products quantity.
+
+### Changed
+
+- Products list to the details page.
+
 ## [0.11.0] - 2019-08-12
 
 ### Added

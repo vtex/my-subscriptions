@@ -112,7 +112,7 @@
   "subscription.editition.cancel": "Annuler",
   "subscription.name.editition.edit": "Enregistrer",
   "subscription.name.editition.name.title": "Choisissez un nom pour votre abonnement:",
-  "subscription.editition.success": "Abonnement édité!",
+  "store/subscription.editition.success": "Abonnement édité!",
   "subscription.fallback.error.message": "Quelque chose s'est mal passé, réessayez plus tard!",
   "subscription.fallback.error.refresh.message": "Recharger",
   "subscription.change.status.modal.confirmation": "Oui",

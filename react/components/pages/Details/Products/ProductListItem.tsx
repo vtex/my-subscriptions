@@ -40,7 +40,9 @@ class ProductListItem extends PureComponent<Props> {
               <NumericStepper
                 minValue={1}
                 value={quantity}
-                onChange={(event: any) => onChange && onChange(event.value)}
+                onChange={(event: { value: number }) =>
+                  onChange && onChange(event.value)
+                }
               />
             ) : (
               <span>
@@ -50,7 +52,7 @@ class ProductListItem extends PureComponent<Props> {
           </div>
           <div className="w-20-l w-100 flex items-center justify-end-m">
             <span className="b ph5-m">
-              <Price value={price} currency={currency} />
+              <Price value={price * quantity} currency={currency} />
             </span>
           </div>
         </div>

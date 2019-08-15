@@ -1,4 +1,4 @@
-import QUERY from '../graphql/products/subscriptionGroupProducts.gql'
+import QUERY from '../graphql/products/listSubscriptions.gql'
 import { orderGroup } from '.'
 
 export default {

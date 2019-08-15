@@ -94,6 +94,14 @@ declare global {
     subscriptionsGroupId: string
   }
 
+  interface UpdateSubscripionsArgs {
+    subscriptions: {
+      skuId: string
+      quantity: number
+    }[]
+    subscriptionsGroupId: string
+  }
+
   interface RetryArgs {
     orderGroup: string
     instanceId: string
