@@ -50,6 +50,7 @@
   "subscription.summary.items": "Total des éléments",
   "subscription.summary.shipping": "Envoi",
   "subscription.summary.discounts": "Remises",
+  "subscription.summary.quantity": "Unités",
   "subscription.edit.success": "Les modifications ont été enregistrées avec succès!",
   "subscription.order.history": "Historique des commandes",
   "subscription.data": "Données d'abonnement",

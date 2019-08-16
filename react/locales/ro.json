@@ -50,6 +50,7 @@
   "subscription.summary.items": "totalitatea Itemns",
   "subscription.summary.shipping": "Transport",
   "subscription.summary.discounts": "Discounts",
+  "subscription.summary.quantity": "Unități",
   "subscription.edit.success": "Modificările au fost salvate cu succes!",
   "subscription.order.history": "Istoric comenzi",
   "subscription.data": "Datele abonamentului",

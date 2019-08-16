@@ -50,6 +50,7 @@
   "subscription.summary.items": "Total dos itens",
   "subscription.summary.shipping": "Frete",
   "subscription.summary.discounts": "Descontos",
+  "subscription.summary.quantity": "Unidades",
   "subscription.edit.success": "Alterações salvas com sucesso!",
   "subscription.order.history": "Histórico de pedidos",
   "subscription.data": "Dados de assinatura",
