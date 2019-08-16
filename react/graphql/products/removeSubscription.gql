@@ -9,6 +9,11 @@ mutation RemoveSubscriptionFromGroup(
     cacheId
     orderGroup
     status
+    totals {
+      id
+      value
+    }
+    totalValue
     subscriptions {
       subscriptionId
       sku {

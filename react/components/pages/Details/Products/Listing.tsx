@@ -25,6 +25,7 @@ const ProductsListing: FunctionComponent<Props> = ({
   currency,
   isEditing,
   isLoading,
+  canRemove,
   onSave,
   onCancel,
   onGoToEdition,
@@ -57,6 +58,7 @@ const ProductsListing: FunctionComponent<Props> = ({
           measurementUnit="un"
           price={product.priceAtSubscriptionDate}
           currency={currency}
+          canRemove={canRemove}
           onChange={(quantity: number) =>
             onUpdateQuantity(product.subscriptionId, quantity)
           }
@@ -84,6 +86,7 @@ interface Props {
   onCancel: () => void
   isLoading: boolean
   isEditing: boolean
+  canRemove: boolean
   subscriptionStatus: SubscriptionStatusEnum
   products: SubscriptionProduct[]
   currency: string

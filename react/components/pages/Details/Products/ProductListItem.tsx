@@ -15,6 +15,7 @@ class ProductListItem extends PureComponent<Props> {
       currency,
       measurementUnit,
       isEditing,
+      canRemove,
       onChange,
       onRemove,
     } = this.props
@@ -56,7 +57,7 @@ class ProductListItem extends PureComponent<Props> {
             </span>
           </div>
         </div>
-        {isEditing && (
+        {isEditing && canRemove && (
           <div className="flex-m">
             <button className="c-danger pointer bn-l" onClick={onRemove}>
               <IconDelete />
@@ -77,6 +78,7 @@ interface Props {
   currency: string
   measurementUnit: string
   isEditing: boolean
+  canRemove: boolean
   onRemove?: () => void
   onChange?: (quantity: number) => void
 }

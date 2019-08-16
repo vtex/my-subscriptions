@@ -159,6 +159,8 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
 
     const products = this.getProductsAvailable()
 
+    const canRemove = products.length > 1
+
     return (
       <Fragment>
         <ConfirmationModal
@@ -187,6 +189,7 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
           subscriptionStatus={groupedSubscription.status}
           products={products}
           currency={groupedSubscription.purchaseSettings.currencySymbol}
+          canRemove={canRemove}
         />
       </Fragment>
     )
