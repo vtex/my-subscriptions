@@ -61,12 +61,10 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
 
   return (
     <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
-      <div className="flex flex-row">
-        <div className="db-s di-ns b f4 tl c-on-base">
-          <FormattedMessage id="subscription.payment" />
-        </div>
+      <div className="db-s di-ns b f4 tl c-on-base">
+        <FormattedMessage id="subscription.payment" />
       </div>
-      <div className="mr-auto pt5 flex flex-column justify-center">
+      <div className="flex flex-column justify-center mt5">
         <Alert
           type={TagTypeEnum.Error}
           onClose={onCloseAlert}
@@ -87,7 +85,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             />
             {groupedPayments[group][0].paymentSystemGroup ===
               PaymentGroupEnum.CreditCard && (
-              <div className="w-40-ns w-100-s ml6-ns flex">
+              <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
                     options={transformCards(groupedPayments.creditCard, intl)}

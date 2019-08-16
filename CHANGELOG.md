@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Products list to the details page.
 
+### Fixed
+
+- Credit cards display on details.
+
 ## [0.11.0] - 2019-08-12
 
 ### Added
