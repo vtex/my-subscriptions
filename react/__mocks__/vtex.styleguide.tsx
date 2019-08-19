@@ -14,7 +14,11 @@ export class ModalDialog extends Component {
 
 export class Button extends Component {
   public render() {
-    return <button {...this.props}>{this.props.children}</button>
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { isLoading, ...rest } = this.props
+
+    return <button {...rest}>{this.props.children}</button>
   }
 }
 
@@ -27,6 +31,18 @@ export class Input extends Component {
 export class IconEdit extends Component {
   public render() {
     return <div>{this.props.children}</div>
+  }
+}
+
+export class IconDelete extends Component {
+  public render() {
+    return <div>{this.props.children}</div>
+  }
+}
+
+export class NumericStepper extends Component {
+  public render() {
+    return <input />
   }
 }
 

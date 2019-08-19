@@ -21,7 +21,7 @@ class ProductListItem extends PureComponent<Props> {
     } = this.props
 
     return (
-      <article className="flex">
+      <article className="flex" data-testid="products-item">
         <Image
           imageUrl={imageUrl}
           productName={name}
@@ -59,7 +59,11 @@ class ProductListItem extends PureComponent<Props> {
         </div>
         {isEditing && canRemove && (
           <div className="flex-m">
-            <button className="c-danger pointer bn-l" onClick={onRemove}>
+            <button
+              className="c-danger pointer bn-l"
+              onClick={onRemove}
+              data-testid="delete-subscription-button"
+            >
               <IconDelete />
             </button>
           </div>

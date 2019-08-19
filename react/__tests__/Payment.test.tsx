@@ -7,7 +7,7 @@ import SubscriptionDetails from '../components/pages/Details'
 import { SubscriptionStatusEnum } from '../constants'
 import RegularSubscription from '../mocks/RegularSubscription'
 import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
-import Products from '../mocks/Products'
+import Products from '../mocks/OneProduct'
 
 describe('Payment Scenarios', () => {
   const { location } = window

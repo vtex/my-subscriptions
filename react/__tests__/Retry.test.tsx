@@ -7,7 +7,7 @@ import SubscriptionDetails from '../components/pages/Details'
 import SubscriptionPaymentError from '../mocks/SubscriptionPaymentError'
 import RegularSubscription from '../mocks/RegularSubscription'
 import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
-import Products from '../mocks/Products'
+import Products from '../mocks/OneProduct'
 
 describe('Retry Scenarios', () => {
   const { location } = window
