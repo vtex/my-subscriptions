@@ -50,18 +50,26 @@ const messages = defineMessages({
 })
 
 class ProductsContainer extends Component<InnerProps & OutterProps, State> {
-  public constructor(props: InnerProps & OutterProps) {
-    super(props)
+  public state = {
+    subscriptionId: '',
+    isEditMode: false,
+    isLoading: false,
+    isModalOpen: false,
+    products: {},
+  }
+
+  public static getDerivedStateFromProps(props: InnerProps, state: State) {
+    const shouldUpdate =
+      props.data.groupedSubscription.subscriptions.length !==
+      Object.values(state.products).length
+
+    if (!shouldUpdate) return null
 
     const products = mapSubscriptionsToHashMap(
       props.data.groupedSubscription.subscriptions
     )
 
-    this.state = {
-      subscriptionId: '',
-      isEditMode: false,
-      isLoading: false,
-      isModalOpen: false,
+    return {
       products,
     }
   }
@@ -115,12 +123,10 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
 
     this.setState({ isLoading: true })
 
-    const subscriptions = Object.values(this.state.products).map(
-      subscription => ({
-        skuId: subscription.sku.skuId,
-        quantity: subscription.quantity,
-      })
-    )
+    const subscriptions = this.getProducts().map(subscription => ({
+      skuId: subscription.sku.skuId,
+      quantity: subscription.quantity,
+    }))
 
     updateSubscriptions({
       variables: {
@@ -139,16 +145,14 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
   private handleUpdateQuantity = (id: string, quantity: number) => {
     const updatedProducts = {
       ...this.state.products,
-      [id]: { ...this.state.products[id], quantity },
+      [id]: { ...(this.state.products as State['products'])[id], quantity },
     }
 
     this.setState({ products: updatedProducts })
   }
 
-  private getProductsAvailable = () =>
-    Object.values<SubscriptionProduct>(this.state.products).filter(
-      p => p.quantity > 0
-    )
+  private getProducts = () =>
+    Object.values<SubscriptionProduct>(this.state.products)
 
   public render() {
     const {
@@ -157,7 +161,7 @@ class ProductsContainer extends Component<InnerProps & OutterProps, State> {
     } = this.props
     const { isEditMode, isLoading, isModalOpen } = this.state
 
-    const products = this.getProductsAvailable()
+    const products = this.getProducts()
 
     const canRemove = products.length > 1
 
