@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { compose } from 'recompose'
 import { ModalDialog, withToast } from 'vtex.styleguide'
 
 import Alert from '../commons/CustomAlert'
 import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
 
-class ConfirmationModalContainer extends Component<Props & InnerProps> {
+class ConfirmationModalContainer extends Component<Props> {
   public state = {
     isLoading: false,
     shouldDisplayError: false,
@@ -97,9 +96,7 @@ class ConfirmationModalContainer extends Component<Props & InnerProps> {
   }
 }
 
-const enhance = compose<Props & InnerProps, Props>(withToast)
-
-export default enhance(ConfirmationModalContainer)
+export default withToast(ConfirmationModalContainer)
 
 interface Props {
   onSubmit: () => Promise<unknown>
@@ -111,8 +108,5 @@ interface Props {
   errorMessage: string
   successMessage?: string
   isModalOpen: boolean
-}
-
-interface InnerProps {
   showToast: (args: object) => void
 }

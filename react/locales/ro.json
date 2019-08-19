@@ -144,8 +144,8 @@
   "store/subscription.order.no-order": "Nu există comenzi încă",
   "store/subscription.order.awaiting-first-cycle": "În așteptarea primului ciclu",
   "store/subscription.products.card.title": "Produse abonate",
-  "store/subscription.products.card.remove.success": "Product removed with succcess!",
-  "store/subscription.products.card.remove.error": "An error occurred trying to remove this product, try again later.",
+  "store/subscription.products.card.remove.success": "Produs eliminat cu succes!",
+  "store/subscription.products.card.remove.error": "A apărut o eroare la încercarea de a elimina acest produs, încercați din nou mai târziu.",
   "store/subscription.products.card.remove.confirm": "Elimina",
   "store/subscription.products.card.remove.title": "Ștergeți acest produs?",
   "store/subscription.products.card.remove.desc": "Dacă îl eliminați, nu va mai fi comandat la abonament."

@@ -30,11 +30,9 @@ class ProductListItem extends PureComponent<Props> {
           isFixed
         />
         <div className="w-100 flex flex-column flex-row-m t-body justify-between pl4">
-          <div className="w-60-l w-100 flex items-center">
-            <div>
-              <span className="db mb4 b">{name}</span>
-              <span className="t-small c-muted-2">{description}</span>
-            </div>
+          <div className="w-60-l w-100 flex flex-column justify-center">
+            <span className="db mb4 b">{name}</span>
+            <span className="t-small c-muted-2">{description}</span>
           </div>
           <div className="w-20-l w-100 flex items-center pv3 ph3-m">
             {isEditing ? (
