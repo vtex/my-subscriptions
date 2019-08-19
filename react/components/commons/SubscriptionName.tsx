@@ -113,7 +113,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
           {content}
           {canEdit && (
             <button
-              className="ml5 c-action-primary hover-c-action-primary pointer"
+              className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
               onClick={this.handleOpenModal}
             >
               <IconEdit solid />

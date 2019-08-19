@@ -60,7 +60,7 @@ class ProductListItem extends PureComponent<Props> {
         {isEditing && canRemove && (
           <div className="flex-m">
             <button
-              className="c-danger pointer bn-l"
+              className="c-danger pointer bn bg-transparent"
               onClick={onRemove}
               data-testid="delete-subscription-button"
             >
