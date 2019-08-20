@@ -19,6 +19,21 @@ const messages = defineMessages({
   },
 })
 
+function mapVariationsToDesc(product: SubscriptionProduct) {
+  const variations = product.sku.variations
+    ? Object.keys(product.sku.variations)
+    : []
+
+  return variations.reduce(
+    (description, variationKey, index) =>
+      `${description} ${variationKey}: ${product.sku.variations &&
+        product.sku.variations[variationKey]}${
+        index === variations.length - 1 ? '' : ';'
+      }`,
+    ''
+  )
+}
+
 const ProductsListing: FunctionComponent<Props> = ({
   subscriptionStatus,
   products,
@@ -54,8 +69,8 @@ const ProductsListing: FunctionComponent<Props> = ({
           name={product.sku.productName}
           quantity={product.quantity}
           imageUrl={product.sku.imageUrl}
-          description=""
-          measurementUnit="un"
+          description={mapVariationsToDesc(product)}
+          measurementUnit={product.sku.measurementUnit}
           price={product.priceAtSubscriptionDate}
           currency={currency}
           canRemove={canRemove}

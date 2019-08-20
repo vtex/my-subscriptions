@@ -240,6 +240,8 @@ export interface SubscriptionProduct {
     imageUrl: string
     detailUrl: string
     nameComplete: string
+    variations?: { [key: string]: string }
+    measurementUnit: string
   }
   quantity: number
   priceAtSubscriptionDate: number

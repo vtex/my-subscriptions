@@ -45,7 +45,7 @@ class ProductListItem extends PureComponent<Props> {
               />
             ) : (
               <span>
-                {quantity} {measurementUnit}. &nbsp;
+                {quantity} {measurementUnit}
               </span>
             )}
           </div>

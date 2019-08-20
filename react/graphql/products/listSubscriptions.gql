@@ -13,6 +13,8 @@ query ListSubscriptionsFromGroup($orderGroup: String!) {
         imageUrl
         detailUrl
         nameComplete
+        variations
+        measurementUnit
       }
       quantity
       priceAtSubscriptionDate
