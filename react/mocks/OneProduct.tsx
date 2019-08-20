@@ -25,6 +25,8 @@ export default {
                 'http://recorrenciaqa.vteximg.com.br/arquivos/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000',
               detailUrl: '/racaoparapeixe/p',
               nameComplete: 'Ração para peixe',
+              variations: null,
+              measurementUnit: 'un',
             },
             quantity: 1,
             priceAtSubscriptionDate: 100,

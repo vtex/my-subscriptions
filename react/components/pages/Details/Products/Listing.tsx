@@ -61,7 +61,9 @@ const ProductsListing: FunctionComponent<Props> = ({
     </div>
     {products.map((product, i) => (
       <div
-        className="ml7-l ml5 pv7-l pv5 pr7-l pr5 b--muted-5 bw1 bb"
+        className={`ml7-l ml5 pv7-l pv5 pr7-l pr5 b--muted-5 bw1 ${
+          i !== products.length - 1 ? 'bb' : ''
+        }`}
         key={`subscription-product-listing-${i}`}
       >
         <ProductListItem
