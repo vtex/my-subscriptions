@@ -14,12 +14,7 @@
     "locales:fix": "intl-equalizer --fix",
     "verify": "yarn lint && yarn lint:locales && yarn test"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint && yarn lint:locales && yarn locales:fix",
-      "pre-push": "yarn verify"
-    }
-  },
+  "husky": {},
   "intl-equalizer": {
     "localeDirectory": "react/locales/"
   }
