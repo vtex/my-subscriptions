@@ -5,11 +5,17 @@ import { compose } from 'recompose'
 import { Dropdown } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
-import { WEEK_OPTIONS, MONTH_OPTIONS, TagTypeEnum } from '../../../../constants'
+import {
+  WEEK_OPTIONS,
+  MONTH_OPTIONS,
+  TagTypeEnum,
+  CSS,
+  BASIC_CARD_WRAPPER,
+} from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
 import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
-import EditButtons from '../EditButtons'
+import EditionButtons from '../EditionButtons'
 import DataSkeleton from './DataSkeleton'
 
 class EditData extends Component<Props, State> {
@@ -161,7 +167,7 @@ class EditData extends Component<Props, State> {
     const isEditDisabled = chargeDay === '' && periodicity !== 'DAILY'
 
     return (
-      <div className="card-height h-auto bg-base pa6 ba bw1 b--muted-5">
+      <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex flex-row">
           <div className="db-s di-ns b f4 tl c-on-base">
             {formatMessage({ id: 'subscription.data' })}
@@ -193,14 +199,12 @@ class EditData extends Component<Props, State> {
               />
             )}
           </div>
-          <div className="pt4 flex">
-            <EditButtons
-              isLoading={isLoading}
-              onCancel={this.props.onCloseEdit}
-              onSave={this.handleSaveClick}
-              disabled={isEditDisabled}
-            />
-          </div>
+          <EditionButtons
+            isLoading={isLoading}
+            onCancel={this.props.onCloseEdit}
+            onSave={this.handleSaveClick}
+            disabled={isEditDisabled}
+          />
         </div>
       </div>
     )

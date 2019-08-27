@@ -3,6 +3,7 @@ declare module 'vtex.styleguide' {
   export const EmptyState
   export const IconCaretLeft
   export const IconCaretRight
+  export const IconDelete
   export const Button
   export const Tag
   export const ModalDialog
@@ -11,7 +12,7 @@ declare module 'vtex.styleguide' {
   export const Spinner
   export const withToast
   export const Alert
-  export const Modal
   export const Radio
   export const ActionMenu
+  export const NumericStepper
 }

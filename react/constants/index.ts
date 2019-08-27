@@ -91,8 +91,12 @@ export const CSS = {
     'vtex-subscriptions-custom-image-size flex-none center overflow-hidden mb4',
   subscriptionGroupItemWrapper:
     'subscription__listing-card mb4 bg-base pa0-ns pa3-s bb b--muted-5 flex flex-row-ns flex-column-s',
-  cardWrapper:
-    'bg-base t-body c-on-base pa5 pa7-ns b--muted-5 bw1 bt bb bl-ns br-ns h-100',
+  cardTypograph: 't-body bg-base c-on-base',
+  cardBorder: 'bw1 bt bb bl-l br-l b--muted-5',
+  cardVerticalPadding: 'pv7-l pv5',
+  cardHorizontalPadding: 'ph7-l ph5',
 }
+
+export const BASIC_CARD_WRAPPER = `h-100 ${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding}`
 
 export const PAYMENT_DIV_ID = 'subscriptions-payment-div'

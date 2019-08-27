@@ -4,12 +4,10 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import SubscriptionPaymentError, {
-  orderGroupId as paymentErrorOrderGroup,
-} from '../mocks/SubscriptionPaymentError'
-import RegularSubscription, {
-  orderGroupId as regularSubscriptionOrderGroup,
-} from '../mocks/RegularSubscription'
+import SubscriptionPaymentError from '../mocks/SubscriptionPaymentError'
+import RegularSubscription from '../mocks/RegularSubscription'
+import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
+import Products from '../mocks/OneProduct'
 
 describe('Retry Scenarios', () => {
   const { location } = window
@@ -25,12 +23,12 @@ describe('Retry Scenarios', () => {
 
   test('should display retry', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: paymentErrorOrderGroup }}>
+      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
         // @ts-ignore
-        graphql: { mocks: [SubscriptionPaymentError] },
+        graphql: { mocks: [SubscriptionPaymentError, Products] },
       }
     )
 
@@ -46,7 +44,7 @@ describe('Retry Scenarios', () => {
       </MockRouter>,
       {
         // @ts-ignore
-        graphql: { mocks: [RegularSubscription] },
+        graphql: { mocks: [RegularSubscription, Products] },
       }
     )
 

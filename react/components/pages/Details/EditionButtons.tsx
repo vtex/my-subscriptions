@@ -1,22 +1,19 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-const EditButtons: FunctionComponent<Props & InjectedIntlProps> = ({
+const EditionButtons: FunctionComponent<Props> = ({
   onCancel,
   onSave,
   isLoading,
-  intl,
   disabled,
 }) => {
   return (
-    <div className="ml-auto">
-      <div className="flex flex-row">
+    <div className="pt4 flex">
+      <div className="flex ml-auto">
         <div className="pr3">
           <Button size="small" onClick={onCancel} variation="secondary">
-            {intl.formatMessage({
-              id: 'commons.cancel',
-            })}
+            <FormattedMessage id="store/subscription.edition.button.cancel" />
           </Button>
         </div>
         <Button
@@ -26,16 +23,14 @@ const EditButtons: FunctionComponent<Props & InjectedIntlProps> = ({
           isLoading={isLoading}
           disabled={disabled}
         >
-          {intl.formatMessage({
-            id: 'subscription.actions.save',
-          })}
+          <FormattedMessage id="subscription.edition.button.save" />
         </Button>
       </div>
     </div>
   )
 }
 
-EditButtons.defaultProps = {
+EditionButtons.defaultProps = {
   disabled: false,
 }
 
@@ -46,4 +41,4 @@ interface Props {
   onCancel: () => void
 }
 
-export default injectIntl(EditButtons)
+export default EditionButtons

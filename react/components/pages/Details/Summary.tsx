@@ -1,10 +1,7 @@
 import React, { FunctionComponent, Fragment } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { compose } from 'recompose'
-import { Button } from 'vtex.styleguide'
+import { FormattedMessage } from 'react-intl'
 
-import { TagTypeEnum, CSS } from '../../../constants'
+import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../constants'
 import Alert from '../../commons/CustomAlert'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
@@ -12,17 +9,10 @@ import SubscriptionsStatus from '../../commons/SubscriptionStatus'
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 
-const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
+const SubscriptionSummary: FunctionComponent<Props> = ({
   subscriptionsGroup,
-  intl,
-  history,
 }) => {
-  const { orderGroup, subscriptions, isSkipped, status } = subscriptionsGroup
-
-  const goToProducts = () =>
-    history.push({
-      pathname: `${orderGroup}/products`,
-    })
+  const { subscriptions, isSkipped, status } = subscriptionsGroup
 
   const hasMultipleItems = subscriptions.length > 1
 
@@ -33,13 +23,11 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
         type={TagTypeEnum.Warning}
         contentId="subscription.skip.alert"
       />
-      <div className={CSS.cardWrapper}>
+      <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex-ns items-center-s items-start-ns">
           <div className="flex flex-column">
             <span className="mb4 db b f4 tl c-on-base">
-              {intl.formatMessage({
-                id: 'subscription.summary',
-              })}
+              <FormattedMessage id="subscription.summary" />
             </span>
             <div className="pt5">
               <div className="myo-subscription__image-size relative items-center ba-ns bw1-ns b--muted-5">
@@ -60,9 +48,7 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
                   {!hasMultipleItems && (
                     <div className="pt2">
                       <div className="dib f6 fw4 c-muted-1 w-40">
-                        {intl.formatMessage({
-                          id: 'subscription.summary.quantity',
-                        })}
+                        <FormattedMessage id="subscription.summary.quantity" />
                       </div>
                       <div className="dib f6 fw4 c-muted-1 tr w-60">
                         {subscriptionsGroup.subscriptions[0].quantity}
@@ -79,20 +65,6 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
               </div>
               <div className="w-50-ns w-100 flex justify-end-ns justify-center mt5">
                 <div className="w-90-m w-100-s">
-                  {hasMultipleItems && (
-                    <div className="mb3">
-                      <Button
-                        block
-                        onClick={goToProducts}
-                        size="small"
-                        variation="secondary"
-                      >
-                        {intl.formatMessage({
-                          id: 'subscription.seeProducts',
-                        })}
-                      </Button>
-                    </div>
-                  )}
                   <Menu subscriptionsGroup={subscriptionsGroup} />
                 </div>
               </div>
@@ -104,13 +76,8 @@ const SubscriptionSummary: FunctionComponent<InnerProps & OutterProps> = ({
   )
 }
 
-interface OutterProps {
+interface Props {
   subscriptionsGroup: SubscriptionsGroupItemType
 }
 
-interface InnerProps extends InjectedIntlProps, RouteComponentProps {}
-
-export default compose<InnerProps & OutterProps, OutterProps>(
-  injectIntl,
-  withRouter
-)(SubscriptionSummary)
+export default SubscriptionSummary

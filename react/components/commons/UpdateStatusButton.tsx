@@ -50,7 +50,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
 
       onCloseModal: this.handleCloseModal,
       successMessage: intl.formatMessage({
-        id: 'subscription.editition.success',
+        id: 'store/subscription.editition.success',
       }),
       onSubmit: () =>
         updateStatus({

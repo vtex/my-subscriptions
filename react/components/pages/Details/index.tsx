@@ -18,7 +18,8 @@ import Summary from './Summary'
 import Payment from './Payment'
 import Shipping from './Shipping'
 import History from './History'
-import SubscriptionsGroupDetailsLoader from './Loader'
+import Loader from './Loader'
+import Products from './Products'
 
 export function headerConfig({ intl }: InjectedIntlProps) {
   const backButton = {
@@ -89,8 +90,9 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   }
 
   public render() {
-    const { subscriptionsGroup, intl } = this.props
+    const { subscriptionsGroup, intl, match } = this.props
     const { displayRetry, displayAlert } = this.state
+
     return (
       <ContentWrapper {...headerConfig({ intl })}>
         {() => (
@@ -125,6 +127,9 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
               <div className="pt6 pl4-ns w-50-ns">
                 <History subscriptionsGroup={subscriptionsGroup} />
               </div>
+            </div>
+            <div className="pt6">
+              <Products orderGroup={match.params.orderGroup} />
             </div>
           </div>
         )}
@@ -162,7 +167,7 @@ const enhance = compose<Props, any>(
   })),
   branch<Props>(
     ({ subscriptionsGroup }) => !subscriptionsGroup,
-    renderComponent(SubscriptionsGroupDetailsLoader)
+    renderComponent(Loader)
   )
 )
 

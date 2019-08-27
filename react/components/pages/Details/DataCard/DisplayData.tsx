@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
-import { CSS } from '../../../../constants'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
 import FrequencyInfo from '../../../commons/FrequencyInfo'
 import LabeledInfo from '../../../commons/LabeledInfo'
@@ -20,7 +20,7 @@ const DisplayData: FunctionComponent<Props> = ({
   }
 
   return (
-    <div className={CSS.cardWrapper}>
+    <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
       <div className="flex">
         <div className="db-s di-ns b f4 tl c-on-base">
           {intl.formatMessage({ id: 'subscription.data' })}

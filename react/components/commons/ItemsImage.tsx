@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react'
 import MediaQuery from 'react-responsive'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { utils } from 'vtex.my-account-commons'
 
 const { fixImageUrl } = utils
@@ -229,8 +228,8 @@ const Image: FunctionComponent<Props> = ({ items }) => {
   return null
 }
 
-interface Props extends InjectedIntlProps {
+interface Props {
   items: SubscriptionType[]
 }
 
-export default injectIntl(Image)
+export default Image

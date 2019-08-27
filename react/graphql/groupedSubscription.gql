@@ -7,23 +7,12 @@ query GroupedSubscription($orderGroup: String!) {
     isSkipped
     name
     subscriptions {
-      SubscriptionId
       sku {
-        SkuId
-        name
-        productName
         imageUrl
+        name
         detailUrl
-        nameComplete
+        productName
       }
-      quantity
-      priceAtSubscriptionDate
-      cycleCount
-      status
-      createdAt
-      lastUpdate
-      originalOrderId
-      isSkipped
     }
     plan {
       frequency {

@@ -116,7 +116,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
       case MenuOptionsEnum.Cancel:
         onSubmit = () =>
           this.handleUpdateStatus(SubscriptionStatusEnum.Canceled)
-        confirmationLabel = this.props.intl.formatMessage({ id: 'commons.yes' })
+        confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.cancel.title',
           descId: 'subscription.cancel.text',
@@ -124,7 +124,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         break
       case MenuOptionsEnum.Pause:
         onSubmit = () => this.handleUpdateStatus(SubscriptionStatusEnum.Paused)
-        confirmationLabel = this.props.intl.formatMessage({ id: 'commons.yes' })
+        confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.pause.title',
           descId: 'subscription.pause.text',
@@ -132,7 +132,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         break
       case MenuOptionsEnum.Restore:
         onSubmit = () => this.handleUpdateStatus(SubscriptionStatusEnum.Active)
-        confirmationLabel = this.props.intl.formatMessage({ id: 'commons.yes' })
+        confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.restore.title',
           descId: 'subscription.restore.text',

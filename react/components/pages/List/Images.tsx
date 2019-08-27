@@ -61,7 +61,10 @@ const SubscriptionGroupImages: FunctionComponent<Props> = ({ skus }) => {
       <Swiper {...params}>
         {skus.map((sku, i) => (
           <div key={i} className="swiper-slide center-all pa6 w-100">
-            <ProductImage url={sku.imageUrl} alt={sku.productName} />
+            <ProductImage
+              imageUrl={sku.imageUrl}
+              productName={sku.productName}
+            />
           </div>
         ))}
       </Swiper>

@@ -7,10 +7,15 @@ import { FetchPolicy } from 'apollo-client'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 
-import { PaymentGroupEnum, TagTypeEnum } from '../../../../constants'
+import {
+  PaymentGroupEnum,
+  TagTypeEnum,
+  CSS,
+  BASIC_CARD_WRAPPER,
+} from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
-import EditButtons from '../EditButtons'
+import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 
 function transformCards(creditCards: any[], intl: any) {
@@ -55,13 +60,11 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
   if (payments.paymentSystems.length === 0) goToCreateCard(history)
 
   return (
-    <div className="bg-base pa6 ba bw1 b--muted-5">
-      <div className="flex flex-row">
-        <div className="db-s di-ns b f4 tl c-on-base">
-          <FormattedMessage id="subscription.payment" />
-        </div>
+    <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
+      <div className="db-s di-ns b f4 tl c-on-base">
+        <FormattedMessage id="subscription.payment" />
       </div>
-      <div className="mr-auto pt5 flex flex-column justify-center">
+      <div className="flex flex-column justify-center mt5">
         <Alert
           type={TagTypeEnum.Error}
           onClose={onCloseAlert}
@@ -82,7 +85,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             />
             {groupedPayments[group][0].paymentSystemGroup ===
               PaymentGroupEnum.CreditCard && (
-              <div className="w-40-ns w-100-s ml6-ns flex">
+              <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
                     options={transformCards(groupedPayments.creditCard, intl)}
@@ -107,16 +110,14 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
             )}
           </div>
         ))}
-        <div className="flex pt3">
-          <EditButtons
-            isLoading={isLoading}
-            onCancel={onCancel}
-            onSave={onSave}
-            disabled={
-              paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
-            }
-          />
-        </div>
+        <EditionButtons
+          isLoading={isLoading}
+          onCancel={onCancel}
+          onSave={onSave}
+          disabled={
+            paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
+          }
+        />
       </div>
     </div>
   )

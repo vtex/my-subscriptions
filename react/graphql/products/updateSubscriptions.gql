@@ -1,0 +1,34 @@
+mutation UpdateSubscriptions(
+  $subscriptionsGroupId: String!
+  $subscriptions: [SubscriptionInput]!
+) {
+  updateSubscriptions(
+    subscriptionsGroupId: $subscriptionsGroupId
+    subscriptions: $subscriptions
+  ) @context(provider: "vtex.my-subscriptions-graphql") {
+    cacheId
+    orderGroup
+    status
+    totals {
+      id
+      value
+    }
+    totalValue
+    subscriptions {
+      subscriptionId
+      sku {
+        skuId
+        name
+        productName
+        imageUrl
+        detailUrl
+        nameComplete
+      }
+      quantity
+      priceAtSubscriptionDate
+    }
+    purchaseSettings {
+      currencySymbol
+    }
+  }
+}

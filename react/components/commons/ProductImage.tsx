@@ -1,23 +1,34 @@
-import React, { FunctionComponent } from 'react'
-
+import React, { PureComponent } from 'react'
 import { utils } from 'vtex.my-account-commons'
 
 const { fixImageUrl } = utils
 
-interface Props {
-  className?: string
-  url: string
-  alt: string
+class ProductImage extends PureComponent<Props> {
+  public static defaultProps = {
+    width: 300,
+    height: 300,
+    isFixed: false,
+  }
+
+  public render() {
+    const { productName, imageUrl, width, height, isFixed } = this.props
+
+    return (
+      <img
+        src={fixImageUrl(imageUrl, width, height)}
+        alt={productName}
+        style={isFixed ? { width: width, height: height } : {}}
+      />
+    )
+  }
 }
 
-const ProductImage: FunctionComponent<Props> = ({
-  className,
-  url,
-  alt,
-}: Props) => {
-  return (
-    <img className={className} src={fixImageUrl(url, 300, 300)} alt={alt} />
-  )
+interface Props {
+  productName: string
+  imageUrl: string
+  width: number
+  height: number
+  isFixed: boolean
 }
 
 export default ProductImage

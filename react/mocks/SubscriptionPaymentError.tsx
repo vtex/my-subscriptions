@@ -1,17 +1,16 @@
 import QUERY from '../graphql/groupedSubscription.gql'
-
-export const orderGroupId = 'C842CBFAF3728E8EBDA401836B2ED6D1'
+import { orderGroup } from '.'
 
 export default {
   request: {
     query: QUERY,
-    variables: { orderGroup: 'C842CBFAF3728E8EBDA401836B2ED6D1' },
+    variables: { orderGroup },
   },
   result: {
     data: {
       groupedSubscription: {
-        cacheId: 'C842CBFAF3728E8EBDA401836B2ED6D1',
-        orderGroup: 'C842CBFAF3728E8EBDA401836B2ED6D1',
+        cacheId: orderGroup,
+        orderGroup,
         status: 'ACTIVE',
         isSkipped: false,
         name: null,
@@ -98,7 +97,7 @@ export default {
         totalValue: 400,
         lastInstance: {
           status: 'PAYMENT_ERROR',
-          orderGroup: 'C842CBFAF3728E8EBDA401836B2ED6D1',
+          orderGroup,
           date: '2019-06-10T09:04:10.9944376Z',
           dataInstanceId: '3748EAF9A6F44F72B899359C92DF6C81',
           workflowId: '6F72F825EB4D4773899BEDF4150D3AD7',
