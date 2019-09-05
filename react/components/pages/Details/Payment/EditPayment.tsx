@@ -1,11 +1,16 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl'
+import {
+  InjectedIntlProps,
+  injectIntl,
+  FormattedMessage,
+  InjectedIntl,
+} from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
-import { FetchPolicy } from 'apollo-client'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
+import { utils } from 'vtex.payment-flags'
 
 import {
   PaymentGroupEnum,
@@ -14,19 +19,22 @@ import {
   BASIC_CARD_WRAPPER,
 } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
-import GetPaymentSystems from '../../../../graphql/getPaymentSystems.gql'
+import QUERY from '../../../../graphql/payments/paymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 
-function transformCards(creditCards: any[], intl: any) {
-  return creditCards.map(card => {
-    return {
-      label: `${intl.formatMessage({
-        id: 'subscription.payment.final',
-      })} ${card.paymentAccount.cardNumber.slice(-4)}`,
-      value: card.paymentAccount.accountId,
-    }
-  })
+function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
+  return creditCards.map(
+    ({ paymentSystemGroup, paymentSystemName, paymentAccount }) => ({
+      label: utils.displayPayment({
+        intl,
+        paymentSystemGroup,
+        paymentSystemName,
+        lastDigits: paymentAccount && paymentAccount.cardNumber.slice(-4),
+      }),
+      value: paymentAccount && paymentAccount.accountId,
+    })
+  )
 }
 
 function goToCreateCard(history: any) {
@@ -39,7 +47,7 @@ function goToCreateCard(history: any) {
 }
 
 const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
-  payments,
+  data: { methods },
   isLoading,
   onCancel,
   onSave,
@@ -55,9 +63,9 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
 }) => {
   const groupedPayments = groupBy(
     (method: PaymentMethod) => method.paymentSystemGroup
-  )(payments.paymentSystems)
+  )(methods)
 
-  if (payments.paymentSystems.length === 0) goToCreateCard(history)
+  if (methods.length === 0) goToCreateCard(history)
 
   return (
     <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
@@ -75,8 +83,9 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio
               id={group}
-              label={intl.formatMessage({
-                id: `paymentData.paymentGroup.${group}.name`,
+              label={utils.translatePaymentGroup({
+                intl,
+                paymentSystemGroup: group,
               })}
               name={group}
               checked={paymentSystemGroup === group}
@@ -88,7 +97,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
               <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
-                    options={transformCards(groupedPayments.creditCard, intl)}
+                    options={cardOptions(groupedPayments.creditCard, intl)}
                     placeholder={intl.formatMessage({
                       id: 'subscription.payment.chooseOne',
                     })}
@@ -123,21 +132,9 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
   )
 }
 
-const paymentsQuery = {
-  name: 'payments',
-  options({ orderGroup }: OuterProps) {
-    return {
-      fetchPolicy: 'network-only' as FetchPolicy,
-      variables: {
-        orderGroup,
-      },
-    }
-  },
-}
-
 interface QueryResults {
   loading: boolean
-  paymentSystems: PaymentMethod[]
+  methods: PaymentMethod[]
 }
 
 interface OuterProps {
@@ -155,16 +152,16 @@ interface OuterProps {
 }
 
 interface InnerProps extends InjectedIntlProps {
-  payments: QueryResults
+  data: QueryResults
   history: any
 }
 
 export default compose<InnerProps & OuterProps, OuterProps>(
   injectIntl,
   withRouter,
-  graphql(GetPaymentSystems, paymentsQuery),
+  graphql(QUERY),
   branch(
-    ({ payments: { loading } }: InnerProps) => loading,
+    ({ data: { loading } }: InnerProps) => loading,
     renderComponent(PaymentSkeleton)
   )
 )(EditPayment)
