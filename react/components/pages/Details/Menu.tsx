@@ -55,9 +55,8 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     const items = subscriptionsGroup.subscriptions.map(subscription => ({
       quantity: subscription.quantity,
-      id: parseInt(subscription.sku.SkuId, 10),
+      id: parseInt(subscription.sku.skuId, 10),
       seller: '1',
-      index: 1,
     }))
 
     const variables = {

@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Get changes made at version `v0.12.0`.
 
+### Fixed
+
+- `OrderNow` feature.
+
 ## [0.12.0] - 2019-08-27
 
 ### Added
