@@ -34,7 +34,7 @@ declare global {
   }
 
   interface SKUType {
-    SkuId: string
+    skuId: string
     imageUrl: string
     name: string
     detailUrl: string
@@ -113,7 +113,7 @@ declare global {
 
   interface AddToCarArgs {
     orderFormId: string
-    items: { id: number; quantity: number; seller: string; index: number }[]
+    items: { id: number; quantity: number; seller: string }[]
   }
 
   interface Address {
