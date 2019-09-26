@@ -7,17 +7,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.8.0] - 2019-08-27
-
 ### Changed
 
-- Get changes made at version `v0.12.0`.
+- Get changes made at version `v0.12.1`.
 
 ## [0.12.1] - 2019-09-23
 
 ### Fixed
 
 - `OrderNow` feature.
+
+## [1.8.0] - 2019-08-27
+
+### Changed
+
+- Get changes made at version `v0.12.0`.
 
 ## [0.12.0] - 2019-08-27
 
