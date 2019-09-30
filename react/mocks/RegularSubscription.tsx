@@ -18,7 +18,7 @@ export default {
           {
             SubscriptionId: '0A19A86877B04D149D314D7453F5385C',
             sku: {
-              SkuId: '18',
+              skuId: '18',
               name: 'Ração para peixe',
               productName: 'Ração para peixe',
               imageUrl:
