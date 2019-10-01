@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Using payments flags from `vtex.playment-flags`
+- Using payments flags from `vtex.payment-flags`
 - Get PaymentMethods from `userPaymentMethods`
 
 ## [1.8.1] - 2019-09-26
