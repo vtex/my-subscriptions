@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "my-subscriptions",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "title": "MySubscriptions",
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
@@ -10,7 +10,9 @@
     "react": "2.x"
   },
   "mustUpdateAt": "2019-04-02",
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
