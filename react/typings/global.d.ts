@@ -175,7 +175,7 @@ declare global {
     paymentSystem: string
     paymentSystemName: string
     paymentSystemGroup: string
-    paymentAccount: PaymentAccount
+    paymentAccount?: PaymentAccount
   }
 
   interface PaymentAccount {
