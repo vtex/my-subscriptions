@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.9.0] - 2019-10-14
+
+### Changed
+
+- Using payments flags from `vtex.payment-flags`
+- Get PaymentMethods from `userPaymentMethods`
+
 ## [1.8.1] - 2019-09-26
 
 ### Changed
