@@ -9,6 +9,9 @@ import RegularSubscription from '../mocks/RegularSubscription'
 import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
 import Products from '../mocks/OneProduct'
 
+const INVALID_PAYMENT =
+  'Invalid payment method, select a new valid payment for this subscription.'
+
 describe('Payment Scenarios', () => {
   const { location } = window
 
@@ -34,11 +37,7 @@ describe('Payment Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(
-      queryByText(
-        /Invalid payment method, select a new valid payment for this subscription./
-      )
-    ).toBeFalsy()
+    expect(queryByText(INVALID_PAYMENT)).toBeFalsy()
   })
 
   test('Should display payment error', async () => {
@@ -58,11 +57,7 @@ describe('Payment Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(
-      queryByText(
-        /Invalid payment method, select a new valid payment for this subscription./
-      )
-    ).toBeTruthy()
+    expect(queryByText(INVALID_PAYMENT)).toBeTruthy()
   })
 
   test('Should display payment no-action error when the subscription status is not active', async () => {
@@ -85,7 +80,7 @@ describe('Payment Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/The selected payment method is not available anymore./)
+      queryByText('The selected payment method is not available anymore.')
     ).toBeTruthy()
   })
 })
