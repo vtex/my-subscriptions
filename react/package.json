@@ -32,6 +32,7 @@
     "@types/react-intl": "^2.3.18",
     "@types/react-router-dom": "^4.3.1",
     "@types/recompose": "^0.30.3",
+    "@vtex/styleguide": "^9.91.4",
     "@vtex/test-tools": "^1.1.0",
     "@vtex/tsconfig": "^0.2.0",
     "apollo-cache-inmemory": "^1.6.2",

@@ -19,7 +19,7 @@ const EditButton: FunctionComponent<Props> = ({
         variation="tertiary"
         onClick={onEdit}
         disabled={subscriptionStatus === SubscriptionStatusEnum.Paused}
-        data-testid={testId}
+        testId={testId}
       >
         <FormattedMessage id="subscription.actions.edit" />
       </Button>
