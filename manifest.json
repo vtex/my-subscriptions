@@ -7,12 +7,11 @@
   "description": "MySubscriptions app used used inside of the MyAccounts",
   "builders": {
     "pages": "0.x",
-    "react": "2.x"
+    "react": "2.x",
+    "messages": "1.x"
   },
   "mustUpdateAt": "2019-04-02",
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },

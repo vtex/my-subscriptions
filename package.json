@@ -16,8 +16,5 @@
       "pre-commit": "yarn lint && yarn lint:locales && yarn locales:fix",
       "pre-push": "yarn verify"
     }
-  },
-  "intl-equalizer": {
-    "localeDirectory": "react/locales/"
   }
 }
