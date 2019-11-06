@@ -9,6 +9,9 @@ import RegularSubscription from '../mocks/RegularSubscription'
 import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
 import Products from '../mocks/OneProduct'
 
+const ERROR_MESSAGE =
+  'Invalid address, select a new valid address for this subscription.'
+
 describe('Shipping Scenarios', () => {
   const { location } = window
 
@@ -34,11 +37,7 @@ describe('Shipping Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(
-      queryByText(
-        /Invalid address, select a new valid address for this subscription./
-      )
-    ).toBeFalsy()
+    expect(queryByText(ERROR_MESSAGE)).toBeFalsy()
   })
 
   test('Should display address error', async () => {
@@ -58,11 +57,7 @@ describe('Shipping Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(
-      queryByText(
-        /Invalid address, select a new valid address for this subscription./
-      )
-    ).toBeTruthy()
+    expect(queryByText(ERROR_MESSAGE)).toBeTruthy()
   })
 
   test('Should display address no-action error when the subscription status is not active', async () => {
@@ -85,7 +80,7 @@ describe('Shipping Scenarios', () => {
     await new Promise(resolve => setTimeout(resolve, 0))
 
     expect(
-      queryByText(/The selected address is not available anymore./)
+      queryByText('The selected address is not available anymore.')
     ).toBeTruthy()
   })
 })
