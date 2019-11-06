@@ -9,6 +9,8 @@ import RegularSubscription from '../mocks/RegularSubscription'
 import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
 import Products from '../mocks/OneProduct'
 
+const RETRY_BUTTON = 'Try again'
+
 describe('Retry Scenarios', () => {
   const { location } = window
 
@@ -34,7 +36,7 @@ describe('Retry Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(queryByText(/subscription.retry.button.message/)).toBeTruthy()
+    expect(queryByText(RETRY_BUTTON)).toBeTruthy()
   })
 
   test('Shouldnt display retry', async () => {
@@ -50,6 +52,6 @@ describe('Retry Scenarios', () => {
 
     await new Promise(resolve => setTimeout(resolve, 0))
 
-    expect(queryByText(/subscription.retry.button.message/)).toBeFalsy()
+    expect(queryByText(RETRY_BUTTON)).toBeFalsy()
   })
 })
