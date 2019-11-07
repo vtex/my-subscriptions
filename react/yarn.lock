@@ -1292,10 +1292,10 @@
     vtex-tachyons "^3.2.0"
     whatwg-fetch "2.0.4"
 
-"@vtex/test-tools@^1.1.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@vtex/test-tools/-/test-tools-1.2.0.tgz#671a60aaf1905e497021855266c997eff12883d5"
-  integrity sha512-23l3Mvzn8TgOlVsrk7TqSu6jBn3cY+/Ci+c2UW26mLW9esNgsEq0Xb0QfESOptw+8UmuaF5GN2P96e9hsnsrLA==
+"@vtex/test-tools@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@vtex/test-tools/-/test-tools-1.2.1.tgz#7eef4fccefac111b5d7b11af83a3face09d8bbc8"
+  integrity sha512-zKVoWUekpvhTmHbxgyH0+4x5G9y/BIKHS+L5NVLU/4lopXE1qeKBy3mQsV6zG9qylOpqka6vRMFk8dvUz8eLnA==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/plugin-proposal-class-properties" "^7.3.4"
@@ -1311,7 +1311,7 @@
     "@types/prop-types" "^15.7.0"
     "@types/react" "^16.8.7"
     "@types/react-intl" "^2.3.17"
-    apollo-cache-inmemory "^1.5.1"
+    apollo-cache-inmemory "^1.6.3"
     apollo-client "^2.5.1"
     babel-jest "^24.4.0"
     babel-plugin-dynamic-import-node "^2.2.0"
@@ -1452,7 +1452,7 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apollo-cache-inmemory@^1.5.1, apollo-cache-inmemory@^1.6.2:
+apollo-cache-inmemory@^1.6.2, apollo-cache-inmemory@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.6.3.tgz#826861d20baca4abc45f7ca7a874105905b8525d"
   integrity sha512-S4B/zQNSuYc0M/1Wq8dJDTIO9yRgU0ZwDGnmlqxGGmFombOZb9mLjylewSfQKmjNpciZ7iUIBbJ0mHlPJTzdXg==
