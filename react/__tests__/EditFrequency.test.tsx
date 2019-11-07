@@ -5,8 +5,8 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { generateSubscriptionsGroup } from '../mocks'
-import Products from '../mocks/OneProduct'
 
+import SUBSCRIPTIONS_QUERY from '../graphql/products/listSubscriptions.gql'
 import GROUP_QUERY from '../graphql/groupedSubscription.gql'
 import FREQUENCY_QUERY from '../graphql/getFrequencyOptions.gql'
 import MUTATION from '../graphql/updateSubscriptionSettings.gql'
@@ -25,7 +25,7 @@ describe('Payment Scenarios', () => {
   test('Should update the ', async () => {
     const group = generateSubscriptionsGroup({})
 
-    const { queryByTestId, queryByText, debug } = render(
+    const { queryByTestId, queryByText } = render(
       <MockRouter params={{ orderGroup: group.orderGroup }}>
         <SubscriptionDetails />
       </MockRouter>,
@@ -59,7 +59,19 @@ describe('Payment Scenarios', () => {
                 },
               },
             },
-            Products,
+            {
+              request: {
+                query: SUBSCRIPTIONS_QUERY,
+                variables: {
+                  orderGroup: group.orderGroup,
+                },
+              },
+              result: {
+                data: {
+                  groupedSubscription: group,
+                },
+              },
+            },
             {
               request: {
                 query: MUTATION,
@@ -98,11 +110,11 @@ describe('Payment Scenarios', () => {
     fireEvent.click(queryByText('Save') as HTMLElement)
 
     await new Promise(resolve => setTimeout(resolve, 0))
-    debug()
+    await new Promise(resolve => setTimeout(resolve, 0))
 
     // nextPurchaseDate
-    // expect(queryByText('9/11/2019')).toBeTruthy()
-    // // estimatedDeliveryDate
-    // expect(queryByText('14/11/2019')).toBeTruthy()
+    expect(queryByText('11/9/2019')).toBeTruthy()
+    // estimatedDeliveryDate
+    expect(queryByText('11/14/2019')).toBeTruthy()
   })
 })

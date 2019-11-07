@@ -4,6 +4,7 @@ function generateSubscriptions(subscriptionsAmount: number) {
   const subscriptions = []
   for (let i = 0; i < subscriptionsAmount; i++) {
     subscriptions.push({
+      subscriptionId: `0A19A86877B04D149D314D7453F538${i}C`,
       SubscriptionId: `0A19A86877B04D149D314D7453F538${i}C`,
       sku: {
         skuId: `1${i}`,
@@ -13,6 +14,8 @@ function generateSubscriptions(subscriptionsAmount: number) {
           'http://recorrenciaqa.vteximg.com.br/arquivos/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000',
         detailUrl: '/racaoparapeixe/p',
         nameComplete: 'Ração para peixe',
+        variations: null,
+        measurementUnit: 'un',
       },
       quantity: 1,
       priceAtSubscriptionDate: 100,
@@ -36,6 +39,7 @@ export function generateSubscriptionsGroup({
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
 }) {
   return {
+    __typename: 'GroupedSubscription',
     cacheId: subscriptionsGroupId,
     orderGroup: subscriptionsGroupId,
     status: status,
