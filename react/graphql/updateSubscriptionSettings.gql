@@ -20,5 +20,9 @@ mutation updateSettings(
         interval
       }
     }
+    nextPurchaseDate
+    shippingEstimate {
+      estimatedDeliveryDate
+    }
   }
 }

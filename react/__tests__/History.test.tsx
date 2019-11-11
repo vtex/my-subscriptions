@@ -40,16 +40,14 @@ describe('History Scenarios', () => {
 
     await new Promise(res => setTimeout(res))
 
-    expect(queryByText('store/subscription.order.no-order')).toBeTruthy()
-    expect(
-      queryByText('store/subscription.order.awaiting-first-cycle')
-    ).toBeTruthy()
+    expect(queryByText('There are no orders yet')).toBeTruthy()
+    expect(queryByText('Awaiting the first cycle')).toBeTruthy()
   })
 
   test('should display all possible states', async () => {
     const queryMock = copyObj(subscriptionHistoryQueryMock)
 
-    const { queryByText } = render(
+    const { queryByText, queryAllByText } = render(
       <MockRouter params={{ orderGroup: orderGroupId }}>
         <History
           subscriptionsGroup={
@@ -62,30 +60,29 @@ describe('History Scenarios', () => {
 
     await new Promise(res => setTimeout(res))
 
+    expect(queryAllByText('Processing').length).toBe(2)
     expect(
-      queryByText('store/subscription.order.status.TRIGGERED')
+      queryAllByText('A problem has occurred while generating your order')
+        .length
+    ).toBe(2)
+    expect(queryByText('Order successfully generated')).toBeTruthy()
+    expect(queryByText('Subscription expired')).toBeTruthy()
+    expect(queryByText('Payment Error')).toBeTruthy()
+    expect(queryByText('Skipped cycle')).toBeTruthy()
+    expect(
+      queryByText(
+        `We tried to generate your order, but the products weren't in stock`
+      )
     ).toBeTruthy()
     expect(
-      queryByText('store/subscription.order.status.IN_PROCESS')
-    ).toBeTruthy()
-    expect(queryByText('store/subscription.order.status.FAILURE')).toBeTruthy()
-    expect(
-      queryByText('store/subscription.order.status.ORDER_ERROR')
-    ).toBeTruthy()
-    expect(queryByText('store/subscription.order.status.SUCCESS')).toBeTruthy()
-    expect(queryByText('store/subscription.order.status.EXPIRED')).toBeTruthy()
-    expect(
-      queryByText('store/subscription.order.status.PAYMENT_ERROR')
-    ).toBeTruthy()
-    expect(queryByText('store/subscription.order.status.SKIPED')).toBeTruthy()
-    expect(
-      queryByText('store/subscription.order.status.SUCCESS_WITH_NO_ORDER')
+      queryByText(
+        `We're able to generate your order, but one or more items weren't in stock`
+      )
     ).toBeTruthy()
     expect(
-      queryByText('store/subscription.order.status.SUCCESS_WITH_PARTIAL_ORDER')
-    ).toBeTruthy()
-    expect(
-      queryByText('store/subscription.order.status.RE_TRIGGERED')
+      queryByText(
+        `After an unsuccessful attempt, we're trying to generate your order again`
+      )
     ).toBeTruthy()
   })
 

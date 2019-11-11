@@ -76,6 +76,7 @@
   "subscription.settings.yearly": "{count, plural, =0 {Every 0 years} one {Every 1 year} other {Every # years}}",
   "subscriptions.notFound.title": "You don't have subscriptions yet",
   "subscriptions.notFound.text": "Subscribe your favorite products and always find them here",
+  "order.summary.total": "Total",
   "order.subscription": "Subscription",
   "order.subscription.key.frequency": "Frequency",
   "order.subscription.key.purchaseday": "Billing day",
@@ -93,16 +94,13 @@
   "order.subscription.periodicity.quarterly": "every 3 months",
   "order.subscription.periodicity.semiannual": "semiannually",
   "order.subscription.periodicity.yearly": "yearly",
-
   "order.subscription.periodicity.weekly.step": "every {moment}",
   "order.subscription.periodicity.monthly.step": "every {moment}",
   "order.subscription.periodicity.yearly.step": "every {moment}",
-
   "subscription.alert.error.message": "There was a payment problem on trying to place your current order. Configure your payment method to avoid future problems.",
   "subscription.alert.error.button.message": "Setup payment method",
   "subscription.payment.alert.info.message": "It wasn't possible to make a purchase with this payment method. Try again or choose another method.",
   "subscription.retry.button.message": "Try again",
-
   "subscription.list.display": "Display",
   "subscription.list.display.active_filter": "Actives",
   "subscription.list.display.canceled_filter": "Canceled",
