@@ -20,9 +20,9 @@ function transformAddresses(addresses: Address[]) {
   })
 }
 
-const EditShipping: FunctionComponent<
-  InnerProps & OuterProps & InjectedIntlProps
-> = ({
+const EditShipping: FunctionComponent<InnerProps &
+  OuterProps &
+  InjectedIntlProps> = ({
   addresses,
   selectedAddressId,
   onCloseErrorAlert,

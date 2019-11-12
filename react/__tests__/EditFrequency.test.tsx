@@ -22,7 +22,7 @@ describe('Payment Scenarios', () => {
     window.location = location
   })
 
-  test('Should update the ', async () => {
+  test('Should update the nextPurchaseDate and estimatedDeliveryDate after editing', async () => {
     const group = generateSubscriptionsGroup({})
 
     const { queryByTestId, queryByText } = render(
