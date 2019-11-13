@@ -60,10 +60,11 @@ describe('History Scenarios', () => {
 
     await new Promise(res => setTimeout(res))
 
-    expect(queryAllByText('Processing')).toBeTruthy()
+    expect(queryAllByText('Processing').length).toBe(2)
     expect(
       queryAllByText('A problem has occurred while generating your order')
-    ).toBeTruthy()
+        .length
+    ).toBe(2)
     expect(queryByText('Order successfully generated')).toBeTruthy()
     expect(queryByText('Subscription expired')).toBeTruthy()
     expect(queryByText('Payment Error')).toBeTruthy()

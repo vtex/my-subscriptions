@@ -84,9 +84,6 @@ class SubscriptionsGroupListContainer extends Component<
   }
 }
 
-const enhance = compose<any, InjectedIntlProps>(
-  injectIntl,
-  withRouter
-)
+const enhance = compose<any, InjectedIntlProps>(injectIntl, withRouter)
 
 export default enhance(SubscriptionsGroupListContainer)

@@ -7,9 +7,8 @@ interface Props {
   item: SubscriptionsGroupItemType
 }
 
-const SubscriptionsGroupItemDate: FunctionComponent<
-  Props & InjectedIntlProps
-> = ({ item, intl }) => {
+const SubscriptionsGroupItemDate: FunctionComponent<Props &
+  InjectedIntlProps> = ({ item, intl }) => {
   const content =
     item.status === SubscriptionStatusEnum.Active
       ? intl.formatMessage(

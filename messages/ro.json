@@ -76,6 +76,7 @@
   "subscription.settings.yearly": "{count, plural, =0 {La fiecare 0 ani} one {La fiecare 1 an} other {La fiecare # ani}}",
   "subscriptions.notFound.title": "Nu aveți încă abonamente",
   "subscriptions.notFound.text": "Abonați-vă produsele preferate și găsiți-le întotdeauna aici",
+  "order.summary.total": "Total",
   "order.subscription": "Abonament",
   "order.subscription.key.frequency": "Frecvență",
   "order.subscription.key.purchaseday": "Ziua facturării",
