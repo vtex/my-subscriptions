@@ -6,6 +6,7 @@ import { Button } from 'vtex.styleguide'
 
 import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
+
 import ConfirmationModal from './ConfirmationModal'
 
 function retrieveMessagesByStatus(status: SubscriptionStatus) {

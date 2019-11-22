@@ -9,8 +9,10 @@ import {
 import EditButton from '../../../commons/EditButton'
 import Header from '../CardHeader'
 import EditionButtons from '../EditionButtons'
+
 import ProductListItem from './ProductListItem'
-import { Subscription } from '../.'
+
+import { Subscription } from '..'
 
 const messages = defineMessages({
   title: {

@@ -9,8 +9,10 @@ import Alert from '../../../commons/CustomAlert'
 import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
+
 import ShippingSkeleton from './ShippingSkeleton'
-import { SubscriptionsGroup } from '../'
+
+import { SubscriptionsGroup } from '..'
 
 function transformAddresses(addresses: Address[]) {
   return addresses.map(address => ({

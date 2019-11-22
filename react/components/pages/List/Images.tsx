@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 
-const Swiper = window.navigator ? require('react-id-swiper').default : null
-
 import { CSS } from '../../../constants'
 import ProductImage from '../../commons/ProductImage'
 
 import './global.css'
+
+const Swiper = window.navigator ? require('react-id-swiper').default : null
 
 interface Props {
   skus: {

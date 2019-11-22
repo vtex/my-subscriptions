@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedDate, FormattedMessage } from 'react-intl'
 
 import { SubscriptionOrderStatus } from '../../../../constants'
+
 import style from './style.css'
 import { SubscriptionOrder } from './HistoryList'
 

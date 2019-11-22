@@ -6,6 +6,7 @@ import Alert from '../../commons/CustomAlert'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
+
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 import { SubscriptionsGroup } from '.'
