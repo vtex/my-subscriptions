@@ -22,6 +22,7 @@ import {
   PAYMENT_DIV_ID,
   Periodicity,
 } from '../../../constants'
+
 import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'

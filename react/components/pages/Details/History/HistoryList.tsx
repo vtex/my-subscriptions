@@ -3,13 +3,15 @@ import { graphql } from 'react-apollo'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import { SubscriptionsGroup } from '../'
 import { SubscriptionOrderStatus } from '../../../../constants'
+import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
+
 import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
-import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
+
+import { SubscriptionsGroup } from '..'
 
 class HistoryList extends Component<Props> {
   public state = {

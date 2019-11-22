@@ -21,9 +21,10 @@ import Alert from '../../../commons/CustomAlert'
 import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
 import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
+
 import DataSkeleton from './DataSkeleton'
 
-import { SubscriptionsGroup } from '../'
+import { SubscriptionsGroup } from '..'
 
 class EditData extends Component<Props, State> {
   public constructor(props: Props) {

@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { SubscriptionsGroup } from '../'
-import HistoryList from './HistoryList'
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
+
+import HistoryList from './HistoryList'
+
+import { SubscriptionsGroup } from '..'
 
 const SubscriptionGroupHistory: FunctionComponent<Props> = ({ group }) => (
   <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
