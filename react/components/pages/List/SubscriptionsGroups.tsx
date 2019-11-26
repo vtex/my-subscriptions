@@ -6,8 +6,8 @@ import ITEMS from '../../../graphql/groupedSubscriptionsItems.gql'
 import withQuery from '../../hocs/withQuery'
 import EmptyState from './EmptyState'
 import ErrorState from './ErrorState'
+import Loading from './LoadingState'
 import Item from './Item'
-import Loading from './Loading'
 
 function validateEmpty(data: any) {
   if (data.items && data.items.length === 0) {
