@@ -89,7 +89,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         updateName({
           variables: {
             name: this.state.name,
-            orderGroup: subscriptionsGroupId,
+            subscriptionsGroupId,
           },
         }),
     }
