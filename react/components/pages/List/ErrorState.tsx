@@ -4,7 +4,7 @@ import Alert from '../../commons/CustomAlert'
 import { TagTypeEnum } from '../../../constants'
 
 const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
-  data,
+  refetch,
 }) => {
   return (
     <div className="mw7 center">
@@ -13,7 +13,7 @@ const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
         type={TagTypeEnum.Error}
         action={{
           labelId: 'subscription.fallback.error.refresh.message',
-          onClick: () => data && data.refetch(),
+          onClick: () => refetch(),
         }}
         contentId="subscription.fallback.error.message"
       />
@@ -24,9 +24,5 @@ const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
 export default ErrorStateSubscriptionsGroupList
 
 interface Props {
-  data?: GraphqlDataProp
-}
-
-interface GraphqlDataProp {
   refetch: () => void
 }

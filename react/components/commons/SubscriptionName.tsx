@@ -6,7 +6,7 @@ import { IconEdit, Input } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
 import ConfirmationModal from '../commons/ConfirmationModal'
-import { SubscriptionStatusEnum } from '../../constants'
+import { SubscriptionStatus } from '../../constants'
 
 class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public state = {
@@ -22,7 +22,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public handleOpenModal = () => {
     this.setState({
       isModalOpen: true,
-      name: this.props.subscriptionGroup.name,
+      name: this.props.name,
     })
   }
 
@@ -38,30 +38,33 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
 
   public render() {
     const {
-      subscriptionGroup: { name, subscriptions, status },
+      name,
+      status,
       intl,
       updateName,
+      skus,
+      subscriptionsGroupId,
     } = this.props
 
     let content
     if (name) {
       content = name
     } else {
-      if (subscriptions.length === 1) {
+      if (skus.length === 1) {
         content = (
           <a
             className="no-underline c-on-base ttc"
             target="_blank"
             rel="noopener noreferrer"
-            href={subscriptions[0].sku.detailUrl}
+            href={skus[0].detailUrl}
           >
-            {`${subscriptions[0].sku.productName} - ${subscriptions[0].sku.name}`}
+            {`${skus[0].productName} - ${skus[0].name}`}
           </a>
         )
       } else {
         content = intl.formatMessage(
           { id: 'subscription.view.title' },
-          { value: subscriptions.length }
+          { value: skus.length }
         )
       }
     }
@@ -86,12 +89,12 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         updateName({
           variables: {
             name: this.state.name,
-            orderGroup: this.props.subscriptionGroup.orderGroup,
+            orderGroup: subscriptionsGroupId,
           },
         }),
     }
 
-    const canEdit = status === SubscriptionStatusEnum.Active
+    const canEdit = status === SubscriptionStatus.Active
 
     return (
       <Fragment>
@@ -133,11 +136,18 @@ const enhance = compose<InnerProps & OutterProps, OutterProps>(
 export default enhance(SubscriptionNameContainer)
 
 interface OutterProps {
-  subscriptionGroup: SubscriptionsGroupItemType
+  name?: string | null
+  status: SubscriptionStatus
+  subscriptionsGroupId: string
+  skus: {
+    detailUrl: string
+    productName: string
+    name: string
+  }[]
 }
 
 interface InnerProps extends InjectedIntlProps {
-  updateName: (args: object) => Promise<any>
+  updateName: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }
 

@@ -1,16 +1,41 @@
-import React, { Component, Fragment, ReactNode } from 'react'
+import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../constants'
+import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-import { retrieveMessagesByStatus } from '../../utils'
-import ConfirmationModal from '../commons/ConfirmationModal'
+import ConfirmationModal from './ConfirmationModal'
 
+function retrieveMessagesByStatus(status: SubscriptionStatus) {
+  let titleMessageId = ''
+  let bodyMessageId = ''
+
+  switch (status) {
+    case SubscriptionStatus.Active:
+      titleMessageId = 'subscription.restore.title'
+      bodyMessageId = 'subscription.restore.text'
+      break
+    case SubscriptionStatus.Paused:
+      titleMessageId = 'subscription.pause.title'
+      bodyMessageId = 'subscription.pause.text'
+      break
+    case SubscriptionStatus.Canceled:
+      titleMessageId = 'subscription.cancel.title'
+      bodyMessageId = 'subscription.cancel.text'
+      break
+  }
+
+  return {
+    bodyMessageId,
+    cancelationMessageId: 'subscription.change.status.modal.cancelation',
+    confirmationMessageId: 'subscription.change.status.modal.confirmation',
+    titleMessageId,
+  }
+}
 class SubscriptionUpdateStatusButtonContainer extends Component<
-  Props & InnerProps & InjectedIntlProps
+  Props & InnerProps
 > {
   public state = {
     isModalOpen: false,
@@ -31,7 +56,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       targetStatus,
       block,
       updateStatus,
-      orderGroup,
+      subscriptionsGroupId,
     } = this.props
 
     const messages = retrieveMessagesByStatus(targetStatus)
@@ -55,7 +80,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       onSubmit: () =>
         updateStatus({
           variables: {
-            orderGroup,
+            orderGroup: subscriptionsGroupId,
             status: targetStatus,
           },
         }),
@@ -83,21 +108,20 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
   }
 }
 
-const enhance = compose<any, Props>(
+const enhance = compose<Props & InnerProps, Props>(
   injectIntl,
   graphql(UPDATE_STATUS, { name: 'updateStatus' })
 )
 
-export default enhance(SubscriptionUpdateStatusButtonContainer)
-
 interface Props {
-  orderGroup: string
-  targetStatus: SubscriptionStatusEnum
-  children: ReactNode
+  subscriptionsGroupId: string
+  targetStatus: SubscriptionStatus
   block: boolean
 }
 
-interface InnerProps {
-  updateStatus: (args: object) => Promise<any>
+interface InnerProps extends InjectedIntlProps {
+  updateStatus: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }
+
+export default enhance(SubscriptionUpdateStatusButtonContainer)

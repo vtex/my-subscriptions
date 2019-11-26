@@ -6210,9 +6210,9 @@ vtex-tachyons@^3.2.0:
   version "8.73.10"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide#3cbb102a72f2761ab4c22e808b10a749eb389ddd"
 
-"vtex.subscriptions-graphql@https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574774260/public/@types/vtex.subscriptions-graphql":
+"vtex.subscriptions-graphql@https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574793757/public/@types/vtex.subscriptions-graphql":
   version "1.13.0"
-  resolved "https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574774260/public/@types/vtex.subscriptions-graphql#24d41a2cf105ebd8f5f2b7d432c75fe8668d9481"
+  resolved "https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574793757/public/@types/vtex.subscriptions-graphql#06690329db2edf97525d150d76e30631c6dbe2be"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
