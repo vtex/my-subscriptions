@@ -1,0 +1,25 @@
+query CustomerSubscriptionsGroups($statusList: [SubscriptionStatus]) {
+  groups: customerSubscriptionsGroupList(statusList: $statusList)
+    @context(provider: "vtex.subscriptions-graphql") {
+    id
+    cacheId
+    status
+    name
+    nextPurchaseDate
+    lastStatusUpdate
+    subscriptions {
+      sku {
+        imageUrl
+        name
+        detailUrl
+        productName
+      }
+    }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+    }
+  }
+}
