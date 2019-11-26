@@ -1,5 +1,6 @@
 query GetAddresses($orderGroup: String!) {
-  addresses(orderGroup: $orderGroup) {
+  addresses(orderGroup: $orderGroup)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     addressId
     street
     neighborhood

@@ -1,5 +1,6 @@
 mutation updateName($orderGroup: String!, $name: String) {
-  updateName(orderGroup: $orderGroup, name: $name) {
+  updateName(orderGroup: $orderGroup, name: $name)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     orderGroup
     status

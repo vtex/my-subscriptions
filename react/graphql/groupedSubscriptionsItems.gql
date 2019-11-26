@@ -1,5 +1,6 @@
 query GroupedSubscriptionsItems($status: [SubscriptionStatusEnum]) {
-  items: groupedSubscriptions(status: $status) {
+  items: groupedSubscriptions(status: $status)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     orderGroup
     status

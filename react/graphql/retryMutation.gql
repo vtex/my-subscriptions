@@ -1,3 +1,4 @@
 mutation retry($orderGroup: String!, $instanceId: String!) {
   subscriptionsOrderRetry(orderGroup: $orderGroup, instanceId: $instanceId)
+    @context(provider: "vtex.my-subscriptions-graphql")
 }
