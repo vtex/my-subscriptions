@@ -7,7 +7,6 @@
     "@vtex/delivery-packages": "^2.14.1",
     "apollo-client": "^2.6.3",
     "axios": "^0.18.0",
-    "hoist-non-react-statics": "^3.3.0",
     "ramda": "^0.26.1",
     "react": "^16.6.3",
     "react-accessible-accordion": "^2.4.5",
