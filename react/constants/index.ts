@@ -1,3 +1,19 @@
+export const enum SubscriptionStatus {
+  Active = 'ACTIVE',
+  Paused = 'PAUSED',
+  Canceled = 'CANCELED',
+  Expired = 'EXPIRED',
+}
+
+export const enum Periodicity {
+  Daily = 'DAILY',
+  Weekly = 'WEEKLY',
+  Monthly = 'MONTHLY',
+  Yearly = 'YEARLY',
+}
+
+/// TODO: REMOVE THE REST...
+
 export enum SubscriptionStatusEnum {
   Active = 'ACTIVE',
   Canceled = 'CANCELED',

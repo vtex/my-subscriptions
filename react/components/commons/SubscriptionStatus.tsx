@@ -2,11 +2,21 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../constants'
-import { convertStatusInTagType } from '../../utils'
+import { TagTypeEnum, SubscriptionStatus as StatusEnum } from '../../constants'
+
+export function convertStatusInTagType(status: StatusEnum): TagTypeEnum | null {
+  switch (status) {
+    case StatusEnum.Canceled:
+      return TagTypeEnum.Error
+    case StatusEnum.Paused:
+      return TagTypeEnum.Warning
+    default:
+      return null
+  }
+}
 
 interface Props {
-  status: SubscriptionStatusEnum
+  status: StatusEnum
 }
 
 const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
