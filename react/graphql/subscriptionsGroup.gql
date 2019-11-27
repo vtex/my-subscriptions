@@ -1,0 +1,30 @@
+query SubscriptionsGroup($id: ID!) {
+  group: subscriptionsGroup(id: $id)
+    @context(provider: "vtex.subscriptions-graphql") {
+    id
+    cacheId
+    status
+    name
+    isSkipped
+    subscriptions {
+      sku {
+        id
+        imageUrl
+        name
+        detailUrl
+        productName
+      }
+    }
+    purchaseSettings {
+      currencySymbol
+    }
+    lastOrder {
+      id
+      status
+    }
+    totals {
+      id
+      value
+    }
+  }
+}

@@ -3,16 +3,23 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose, renderNothing, branch } from 'recompose'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
-import { ActionMenu, withToast } from 'vtex.styleguide'
 import { withRuntimeContext } from 'vtex.render-runtime'
+import { ActionMenu, withToast, ShowToastArgs } from 'vtex.styleguide'
+import { MutationAddItemArgs } from 'vtex.store-graphql'
+import {
+  MutationUpdateIsSkippedArgs,
+  MutationUpdateStatusArgs,
+  SubscriptionStatus as Status,
+} from 'vtex.subscriptions-graphql'
 
 import ADD_TO_CART from '../../../graphql/addToCart.gql'
 import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
 import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
 import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
-import { SubscriptionStatusEnum, MenuOptionsEnum } from '../../../constants'
+import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
 import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
+import { SubscriptionsGroup } from '.'
 
 class MenuContainer extends Component<InnerProps & OutterProps> {
   public state = {
@@ -39,23 +46,23 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   private handleUpdateSkipped = () => {
     const {
       updateIsSkipped,
-      subscriptionsGroup: { orderGroup, isSkipped },
+      group: { id, isSkipped },
     } = this.props
 
     return updateIsSkipped({
       variables: {
-        orderGroup,
+        subscriptionsGroupId: id,
         isSkipped: !isSkipped,
       },
     })
   }
 
   private handleOrderNow = () => {
-    const { orderFormId, addToCart, subscriptionsGroup, runtime } = this.props
+    const { orderFormId, addToCart, group, runtime } = this.props
 
-    const items = subscriptionsGroup.subscriptions.map(subscription => ({
+    const items = group.subscriptions.map(subscription => ({
       quantity: subscription.quantity,
-      id: parseInt(subscription.sku.skuId, 10),
+      id: parseInt(subscription.sku.id, 10),
       seller: '1',
     }))
 
@@ -65,18 +72,23 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     }
 
     return addToCart({ variables }).then(() => {
-      logOrderNowMetric(runtime.account, subscriptionsGroup.orderGroup)
+      logOrderNowMetric(runtime.account, group.id)
       window.location.href = '/checkout/'
     })
   }
 
-  private handleUpdateStatus(status: SubscriptionStatusEnum) {
+  private handleUpdateStatus(status: SubscriptionStatus) {
     const {
       updateStatus,
-      subscriptionsGroup: { orderGroup },
+      group: { id },
     } = this.props
 
-    return updateStatus({ variables: { status, orderGroup } })
+    return updateStatus({
+      variables: {
+        status: (status as unknown) as Status, // since i can't use the enums from the graphql
+        subscriptionsGroupId: id,
+      },
+    })
   }
 
   private retrieveModalConfig = () => {
@@ -113,8 +125,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     switch (updateType) {
       case MenuOptionsEnum.Cancel:
-        onSubmit = () =>
-          this.handleUpdateStatus(SubscriptionStatusEnum.Canceled)
+        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Canceled)
         confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.cancel.title',
@@ -122,7 +133,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         })
         break
       case MenuOptionsEnum.Pause:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatusEnum.Paused)
+        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Paused)
         confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.pause.title',
@@ -130,7 +141,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         })
         break
       case MenuOptionsEnum.Restore:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatusEnum.Active)
+        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Active)
         confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.restore.title',
@@ -189,16 +200,13 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   }
 
   public render() {
-    const { subscriptionsGroup, intl } = this.props
+    const { group, intl } = this.props
 
-    if (subscriptionsGroup.status === SubscriptionStatusEnum.Canceled) {
+    if (group.status === SubscriptionStatus.Canceled) {
       return null
     }
 
-    const options = retrieveMenuOptions(
-      subscriptionsGroup.isSkipped,
-      subscriptionsGroup.status
-    )
+    const options = retrieveMenuOptions(group.isSkipped, group.status)
 
     const actionOptions = options.map(option => {
       return {
@@ -224,17 +232,31 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   }
 }
 
+interface Variables<T> {
+  variables: T
+}
+
 interface OutterProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
 }
 
 interface InnerProps extends InjectedIntlProps {
-  addToCart: (args: Variables<AddToCarArgs>) => Promise<void>
-  updateIsSkipped: (args: Variables<UpdateIsSkippedArgs>) => Promise<void>
-  updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<void>
+  addToCart: (args: Variables<MutationAddItemArgs>) => Promise<void>
+  updateIsSkipped: (
+    args: Variables<MutationUpdateIsSkippedArgs>
+  ) => Promise<void>
+  updateStatus: (args: Variables<MutationUpdateStatusArgs>) => Promise<void>
   showToast: (args: ShowToastArgs) => void
   orderFormId: string
-  runtime: any
+  runtime: {
+    account: string
+  }
+}
+
+interface Response {
+  orderForm: {
+    orderFormId: string
+  }
 }
 
 const enhance = compose<InnerProps & OutterProps, OutterProps>(
@@ -244,8 +266,8 @@ const enhance = compose<InnerProps & OutterProps, OutterProps>(
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
   graphql(ADD_TO_CART, { name: 'addToCart' }),
-  graphql(ORDER_FORM_ID, {
-    props: ({ data }: any) => ({
+  graphql<{}, Response, {}, { orderFormId?: string }>(ORDER_FORM_ID, {
+    props: ({ data }) => ({
       orderFormId: data && data.orderForm && data.orderForm.orderFormId,
     }),
   }),
