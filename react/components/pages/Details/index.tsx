@@ -20,6 +20,7 @@ import {
   SubscriptionStatus,
   SubscriptionOrderStatus,
   PAYMENT_DIV_ID,
+  Periodicity,
 } from '../../../constants'
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -118,14 +119,15 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
               onClose={() => this.handleSetDisplayAlert(false)}
             />
             <Summary group={group} />
-            {/* <div className="flex flex-row-ns flex-column-s">
+            <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
-                <DataCard subscriptionsGroup={group} />
+                <DataCard group={group} />
               </div>
               <div className="pl4-ns pt6 w-50-ns">
-                <Shipping subscriptionsGroup={group} />
+                {/* <Shipping subscriptionsGroup={group} /> */}
               </div>
             </div>
+            {/*
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
                 <Payment
@@ -150,7 +152,12 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
 export type SubscriptionsGroup = Pick<
   Group,
-  'id' | 'name' | 'isSkipped' | 'totals'
+  | 'id'
+  | 'name'
+  | 'isSkipped'
+  | 'totals'
+  | 'shippingEstimate'
+  | 'nextPurchaseDate'
 > & {
   status: SubscriptionStatus
   subscriptions: {
@@ -160,7 +167,13 @@ export type SubscriptionsGroup = Pick<
   lastOrder: Pick<SubscriptionOrder, 'id'> & {
     status: SubscriptionOrderStatus
   }
-  purchaseSettings: Pick<PurchaseSettings, 'currencySymbol'>
+  purchaseSettings: Pick<PurchaseSettings, 'currencySymbol' | 'purchaseDay'>
+  plan: {
+    frequency: {
+      periodicity: Periodicity
+      interval: number
+    }
+  }
 }
 
 interface Props extends InjectedIntlProps, ChildProps {

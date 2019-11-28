@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { compose } from 'recompose'
-import { Dropdown } from 'vtex.styleguide'
+import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
+import { Dropdown } from 'vtex.styleguide'
+import { MutationUpdateSettingsArgs } from 'vtex.subscriptions-graphql'
 
 import {
   WEEK_OPTIONS,
@@ -11,66 +12,70 @@ import {
   TagTypeEnum,
   CSS,
   BASIC_CARD_WRAPPER,
+  Periodicity,
 } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
-import GetFrequencyOptions from '../../../../graphql/getFrequencyOptions.gql'
-import UpdateSettings from '../../../../graphql/updateSubscriptionSettings.gql'
+import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
+import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
 import DataSkeleton from './DataSkeleton'
+
+import { SubscriptionsGroup } from '../'
 
 class EditData extends Component<Props, State> {
   public constructor(props: Props) {
     super(props)
 
-    const { purchaseSettings, plan } = props.subscriptionsGroup
+    const { purchaseSettings, plan } = props.group
     const { interval, periodicity } = plan.frequency
 
     this.state = {
       isLoading: false,
       showErrorAlert: false,
       errorMessage: '',
-      chargeDay: purchaseSettings.purchaseDay,
-      currentIndex: this.getCurrentFrequencyOption({ periodicity, interval }),
-      periodicity,
-      interval,
+      purchaseDay: purchaseSettings.purchaseDay,
+      frequencyIndex: this.findCurrentFrequencyIndex({ periodicity, interval }),
     }
   }
 
-  public getCurrentFrequencyOption({ periodicity, interval }: Frequency) {
-    const { frequencyOptions } = this.props.options
-    if (!frequencyOptions || !frequencyOptions.length) {
+  private findCurrentFrequencyIndex({ periodicity, interval }: Frequency) {
+    const { frequencies } = this.props
+    if (!frequencies || !frequencies.length) {
       return 0
     }
 
-    return frequencyOptions.findIndex(
+    return frequencies.findIndex(
       option =>
         option.periodicity === periodicity && option.interval === interval
     )
   }
 
-  public getFrequencyOptions() {
-    const { formatMessage } = this.props.intl
-    const { frequencyOptions } = this.props.options
+  private getCurrentFrequency() {
+    return this.props.frequencies[this.state.frequencyIndex]
+  }
 
-    return frequencyOptions.map((option: Frequency, index: number) => ({
-      value: index.toString(),
-      label: formatMessage(
+  private getFrequencyOptions() {
+    const { intl, frequencies } = this.props
+
+    return frequencies.map((frequency: Frequency, index: number) => ({
+      value: index,
+      label: intl.formatMessage(
         {
-          id: `order.subscription.periodicity.${option.periodicity.toLowerCase()}`,
+          id: `order.subscription.periodicity.${frequency.periodicity.toLowerCase()}`,
         },
-        { count: option.interval }
+        { count: frequency.interval }
       ),
     }))
   }
 
-  public getIntervalOptions() {
-    const { formatMessage } = this.props.intl
-    const { periodicity } = this.state
+  private getIntervalOptions() {
+    const { intl } = this.props
+    const { periodicity } = this.getCurrentFrequency()
 
-    if (periodicity === 'WEEKLY') {
+    if (periodicity === Periodicity.Weekly) {
       return WEEK_OPTIONS.map(weekDay => ({
         value: weekDay,
-        label: formatMessage({
+        label: intl.formatMessage({
           id: `subscription.periodicity.${weekDay}`,
         }),
       }))
@@ -78,49 +83,36 @@ class EditData extends Component<Props, State> {
 
     return MONTH_OPTIONS.map(dayOfMonth => ({
       value: dayOfMonth,
-      label: formatMessage(
+      label: intl.formatMessage(
         { id: 'subscription.select.day' },
         { day: dayOfMonth }
       ),
     }))
   }
 
-  public handleFrequencyChange = (e: any) => {
-    const { frequencyOptions } = this.props.options
-    const { periodicity, interval } = frequencyOptions[e.target.value]
-
+  private handleFrequencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
-      chargeDay: '',
-      currentIndex: e.target.value.toString(),
-      interval,
-      periodicity,
+      purchaseDay: '',
+      frequencyIndex: parseInt(e.target.value),
     })
   }
 
-  public handleChargeDayChange = (e: any) => {
-    this.setState({ chargeDay: e.target.value })
-  }
-
-  public componentDidUpdate(prevProps: Props) {
-    if (prevProps.options === this.props.options) {
-      return
-    }
-
-    this.setState({
-      currentIndex: this.getCurrentFrequencyOption(this.state),
-    })
-  }
+  public handlePurchaseDayChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+    this.setState({ purchaseDay: e.target.value })
 
   public handleSaveClick = () => {
+    const { purchaseDay } = this.state
+    const { periodicity, interval } = this.getCurrentFrequency()
+
     this.setState({ isLoading: true })
 
     this.props
       .updateSettings({
         variables: {
-          orderGroup: this.props.subscriptionsGroup.orderGroup,
-          purchaseDay: this.state.chargeDay,
-          periodicity: this.state.periodicity,
-          interval: this.state.interval,
+          subscriptionsGroupId: this.props.group.id,
+          purchaseDay,
+          periodicity,
+          interval,
         },
       })
       .then(() => {
@@ -147,30 +139,25 @@ class EditData extends Component<Props, State> {
   }
 
   public render() {
+    const { intl } = this.props
     const {
-      chargeDay,
-      periodicity,
+      purchaseDay,
       showErrorAlert,
       errorMessage,
       isLoading,
+      frequencyIndex,
     } = this.state
 
-    const {
-      intl: { formatMessage },
-      options: { loading },
-    } = this.props
+    const { periodicity } = this.getCurrentFrequency()
 
-    if (loading) {
-      return <DataSkeleton />
-    }
-
-    const isEditDisabled = chargeDay === '' && periodicity !== 'DAILY'
+    const isEditDisabled =
+      purchaseDay === '' && periodicity !== Periodicity.Daily
 
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex flex-row">
           <div className="db-s di-ns b f4 tl c-on-base">
-            {formatMessage({ id: 'subscription.data' })}
+            {intl.formatMessage({ id: 'subscription.data' })}
           </div>
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">
@@ -182,23 +169,25 @@ class EditData extends Component<Props, State> {
           />
           <div className="w-50-l w-60-m w-100-s">
             <Dropdown
-              label={formatMessage({ id: 'subscription.data.orderAgain' })}
+              label={intl.formatMessage({ id: 'subscription.data.orderAgain' })}
               options={this.getFrequencyOptions()}
-              value={this.state.currentIndex.toString()}
+              value={frequencyIndex}
               onChange={this.handleFrequencyChange}
             />
           </div>
-          <div className="w-50-l w-60-m pt6 pb4">
-            {periodicity !== 'DAILY' && (
+          {periodicity !== Periodicity.Daily && (
+            <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
-                label={formatMessage({ id: 'subscription.data.chargeEvery' })}
-                placeholder={formatMessage({ id: 'subscription.select' })}
+                label={intl.formatMessage({
+                  id: 'subscription.data.chargeEvery',
+                })}
+                placeholder={intl.formatMessage({ id: 'subscription.select' })}
                 options={this.getIntervalOptions()}
-                value={chargeDay.toLowerCase()}
-                onChange={this.handleChargeDayChange}
+                value={purchaseDay.toLowerCase()}
+                onChange={this.handlePurchaseDayChange}
               />
-            )}
-          </div>
+            </div>
+          )}
           <EditionButtons
             isLoading={isLoading}
             onCancel={this.props.onCloseEdit}
@@ -211,44 +200,56 @@ class EditData extends Component<Props, State> {
   }
 }
 
-interface QueryResult {
-  frequencyOptions: Frequency[]
+interface Frequency {
+  periodicity: Periodicity
+  interval: number
+}
+
+interface ChildProps {
+  frequencies: Frequency[]
   loading: boolean
 }
 
-interface Props extends InjectedIntlProps, OutterProps {
-  updateSettings: (args: Variables<UpdateSettingsArgs>) => Promise<void>
-  options: QueryResult
+interface InnerProps extends InjectedIntlProps, ChildProps {
+  updateSettings: (args: {
+    variables: MutationUpdateSettingsArgs
+  }) => Promise<void>
 }
 
 interface OutterProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
   onCloseEdit: () => void
 }
 
+type Props = InnerProps & OutterProps
+
 interface State {
-  chargeDay: string
-  currentIndex: number
-  interval: number
+  purchaseDay: string
+  frequencyIndex: number
   isLoading: boolean
-  periodicity: string
   showErrorAlert: boolean
   errorMessage: string
 }
 
-const optionsQuery = {
-  name: 'options',
-  options({ subscriptionsGroup }: OutterProps) {
-    return {
-      variables: {
-        orderGroup: subscriptionsGroup.orderGroup,
-      },
-    }
-  },
-}
-
 export default compose<Props, OutterProps>(
   injectIntl,
-  graphql(GetFrequencyOptions, optionsQuery),
-  graphql(UpdateSettings, { name: 'updateSettings' })
+  graphql(UPDATE_SETTINGS, { name: 'updateSettings' }),
+  graphql<
+    OutterProps,
+    { frequencies: Frequency[] },
+    { subscriptionsGroupId: string },
+    ChildProps
+  >(FREQUENCY_OPTIONS, {
+    options: ({ group }) => ({
+      variables: {
+        subscriptionsGroupId: group.id,
+      },
+    }),
+    props: ({ data }) => ({
+      frequencies:
+        data && data.frequencies && !data.loading ? data.frequencies : [],
+      loading: data ? data.loading : false,
+    }),
+  }),
+  branch<InnerProps>(props => props.loading, renderComponent(DataSkeleton))
 )(EditData)
