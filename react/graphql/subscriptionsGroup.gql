@@ -15,8 +15,19 @@ query SubscriptionsGroup($id: ID!) {
         productName
       }
     }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+    }
+    shippingEstimate {
+      estimatedDeliveryDate
+    }
+    nextPurchaseDate
     purchaseSettings {
       currencySymbol
+      purchaseDay
     }
     lastOrder {
       id

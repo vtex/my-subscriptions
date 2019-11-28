@@ -6,17 +6,13 @@ import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
 import FrequencyInfo from '../../../commons/FrequencyInfo'
 import LabeledInfo from '../../../commons/LabeledInfo'
+import { SubscriptionsGroup } from '../.'
 
-const DisplayData: FunctionComponent<Props> = ({
-  subscriptionsGroup,
-  intl,
-  onOpenEdit,
-}) => {
+const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
   let displayDelivery = false
-  if (subscriptionsGroup.shippingEstimate.estimatedDeliveryDate) {
+  if (group.shippingEstimate && group.shippingEstimate.estimatedDeliveryDate) {
     displayDelivery =
-      subscriptionsGroup.shippingEstimate.estimatedDeliveryDate >
-      subscriptionsGroup.nextPurchaseDate
+      group.shippingEstimate.estimatedDeliveryDate > group.nextPurchaseDate
   }
 
   return (
@@ -28,23 +24,27 @@ const DisplayData: FunctionComponent<Props> = ({
         <div className="ml-auto">
           <EditButton
             onEdit={onOpenEdit}
-            subscriptionStatus={subscriptionsGroup.status}
+            subscriptionStatus={group.status}
             testId="edit-frequency-button"
           />
         </div>
       </div>
 
       <div className="pt5-s pt5-ns w-100-s mr-auto">
-        <FrequencyInfo subscriptionsGroup={subscriptionsGroup} />
+        <FrequencyInfo
+          periodicity={group.plan.frequency.periodicity}
+          purchaseDay={group.purchaseSettings.purchaseDay}
+          interval={group.plan.frequency.interval}
+        />
 
         <div className="flex-l">
           <div className="w-50-l pt6">
             <LabeledInfo labelId="subscription.nextPurchase">
               <div className="flex flex-row">
                 <span className="db fw3 f5-ns f6-s c-on-base">
-                  {intl.formatDate(subscriptionsGroup.nextPurchaseDate)}
+                  {intl.formatDate(group.nextPurchaseDate)}
                 </span>
-                {subscriptionsGroup.isSkipped && (
+                {group.isSkipped && (
                   <div className="lh-solid mt1 ml3">
                     <Tag type="warning">
                       {intl.formatMessage({ id: 'subscription.skip.confirm' })}
@@ -59,8 +59,8 @@ const DisplayData: FunctionComponent<Props> = ({
             <LabeledInfo labelId="subscription.data.estimatedDelivery">
               {displayDelivery &&
                 intl.formatDate(
-                  subscriptionsGroup.shippingEstimate
-                    .estimatedDeliveryDate as string,
+                  group.shippingEstimate &&
+                    group.shippingEstimate.estimatedDeliveryDate,
                   { timeZone: 'UTC' }
                 )}
             </LabeledInfo>
@@ -72,7 +72,7 @@ const DisplayData: FunctionComponent<Props> = ({
 }
 
 interface Props extends InjectedIntlProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
   onOpenEdit: () => void
 }
 

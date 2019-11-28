@@ -6263,9 +6263,9 @@ vtex-tachyons@^3.2.0:
   version "8.73.10"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide#3cbb102a72f2761ab4c22e808b10a749eb389ddd"
 
-"vtex.subscriptions-graphql@https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574886417/public/@types/vtex.subscriptions-graphql":
+"vtex.subscriptions-graphql@https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574976899/public/@types/vtex.subscriptions-graphql":
   version "1.13.0"
-  resolved "https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574886417/public/@types/vtex.subscriptions-graphql#07c8e03ae831bd60695572e1d2c93bdf891e9dc3"
+  resolved "https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1574976899/public/@types/vtex.subscriptions-graphql#1a7d8f73406b4a0610b48b6288dbde6b08c154e8"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
