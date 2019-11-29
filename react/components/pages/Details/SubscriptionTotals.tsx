@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { Total } from 'vtex.subscriptions-graphql'
 
 import FormattedPrice from '../../commons/FormattedPrice'
 
@@ -41,7 +42,7 @@ const SubscriptionTotals: FunctionComponent<Props> = ({
 }
 
 interface Props extends InjectedIntlProps {
-  totals: TotalType[]
+  totals: Total[]
   currencyCode: string
 }
 

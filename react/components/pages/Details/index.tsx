@@ -139,10 +139,10 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
                 <History group={group} />
               </div>
             </div>
-            {/*
+
             <div className="pt6">
-              <Products orderGroup={group.id} />
-            </div> */}
+              <Products group={group} />
+            </div>
           </div>
         )}
       </ContentWrapper>
@@ -161,10 +161,7 @@ export type SubscriptionsGroup = Pick<
   | 'shippingAddress'
 > & {
   status: SubscriptionStatus
-  subscriptions: {
-    sku: Pick<Sku, 'imageUrl' | 'name' | 'detailUrl' | 'productName' | 'id'>
-    quantity: number
-  }[]
+  subscriptions: Subscription[]
   lastOrder: Pick<SubscriptionOrder, 'id'> & {
     status: SubscriptionOrderStatus
   }
@@ -178,6 +175,18 @@ export type SubscriptionsGroup = Pick<
       interval: number
     }
   }
+}
+
+export interface Subscription {
+  id: string
+  sku: Pick<
+    Sku,
+    'imageUrl' | 'name' | 'detailUrl' | 'productName' | 'id' | 'measurementUnit'
+  > & {
+    variations?: { [key: string]: string }
+  }
+  quantity: number
+  priceAtSubscriptionDate: number
 }
 
 interface Props extends InjectedIntlProps, ChildProps {
