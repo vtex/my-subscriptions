@@ -7,7 +7,7 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
 
-import GROUPS from '../../../graphql/customerGroups.gql'
+import GROUPS from '../../../graphql/customerSubscriptions.gql'
 import {
   SubscriptionDisplayFilterEnum,
   CSS,
