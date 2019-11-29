@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import MediaQuery from 'react-responsive'
 import { utils } from 'vtex.my-account-commons'
-
 const { fixImageUrl } = utils
 
 const Image: FunctionComponent<Props> = ({ items }) => {
@@ -229,7 +228,12 @@ const Image: FunctionComponent<Props> = ({ items }) => {
 }
 
 interface Props {
-  items: SubscriptionType[]
+  items: {
+    sku: {
+      name: string
+      imageUrl: string
+    }
+  }[]
 }
 
 export default Image

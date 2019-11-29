@@ -19,7 +19,6 @@
     "vtex.address-form": "4.x",
     "vtex.styleguide": "9.x",
     "vtex.my-account": "1.x",
-    "vtex.my-orders-app": "3.x",
     "vtex.my-account-commons": "1.x",
     "vtex.payment-flags": "2.x",
     "vtex.my-subscriptions-graphql": "1.x",
