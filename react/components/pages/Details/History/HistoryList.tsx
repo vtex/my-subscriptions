@@ -3,24 +3,21 @@ import { graphql } from 'react-apollo'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
+import { SubscriptionsGroup } from '../'
+import { SubscriptionOrderStatus } from '../../../../constants'
 import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
 
-class HistoryList extends Component<OuterProps & InnerProps> {
+class HistoryList extends Component<Props> {
   public state = {
     page: 1,
   }
 
   private getNextPage = () => {
-    const {
-      perPage,
-      data: {
-        subscriptionOrdersByGroup: { totalCount },
-      },
-    } = this.props
+    const { perPage, totalCount } = this.props
     const { page: currentPage } = this.state
 
     const totalPages = Math.ceil(totalCount / perPage)
@@ -28,9 +25,7 @@ class HistoryList extends Component<OuterProps & InnerProps> {
   }
 
   private loadMore = () => {
-    const {
-      data: { fetchMore },
-    } = this.props
+    const { fetchMore } = this.props
 
     const nextPage = this.getNextPage()
 
@@ -43,12 +38,9 @@ class HistoryList extends Component<OuterProps & InnerProps> {
       updateQuery(prev: any, { fetchMoreResult }: any) {
         return {
           ...prev,
-          subscriptionOrdersByGroup: {
-            ...prev.subscriptionOrdersByGroup,
-            list: [
-              ...prev.subscriptionOrdersByGroup.list,
-              ...fetchMoreResult.subscriptionOrdersByGroup.list,
-            ],
+          orders: {
+            ...prev.orders,
+            list: [...prev.orders.list, ...fetchMoreResult.orders.list],
           },
         }
       },
@@ -58,15 +50,10 @@ class HistoryList extends Component<OuterProps & InnerProps> {
   }
 
   public render() {
-    const {
-      perPage,
-      data: { subscriptionOrdersByGroup },
-    } = this.props
+    const { perPage, orders } = this.props
 
-    if (!subscriptionOrdersByGroup)
-      return <HistoryItemsSkeleton numberOfItems={perPage} />
+    if (!orders) return <HistoryItemsSkeleton numberOfItems={perPage} />
 
-    const { list } = subscriptionOrdersByGroup
     const hasNextPage = this.getNextPage() != null
 
     return (
@@ -82,7 +69,7 @@ class HistoryList extends Component<OuterProps & InnerProps> {
         useWindow={false}
         loader={<HistoryItemsSkeleton numberOfItems={1} key={1} />}
       >
-        {list.map((order: any, i: number) => (
+        {orders.map((order: SubscriptionOrder, i: number) => (
           <HistoryItem key={`${i}_${order.date}`} order={order} />
         ))}
       </InfiniteScroll>
@@ -91,34 +78,62 @@ class HistoryList extends Component<OuterProps & InnerProps> {
 }
 
 interface OuterProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
   perPage: number
 }
 
-interface InnerProps {
-  data: any
+export interface SubscriptionOrder {
+  id: string
+  status: SubscriptionOrderStatus
+  date: string
 }
 
-const enhance = compose<OuterProps & InnerProps, OuterProps>(
-  graphql(SUBSCRIPTION_ORDERS_BY_GROUP, {
-    options({ subscriptionsGroup, perPage }: OuterProps) {
-      return {
-        variables: {
-          orderGroup: subscriptionsGroup.orderGroup,
-          page: 1,
-          perPage,
-        },
-      }
-    },
+interface ChildProps {
+  orders: SubscriptionOrder[]
+  totalCount: number
+  loading: boolean
+  fetchMore: (args: any) => any
+}
+
+type Props = OuterProps & ChildProps
+
+const enhance = compose<Props, OuterProps>(
+  graphql<
+    OuterProps,
+    { orders: { list: SubscriptionOrder[]; totalCount: number } },
+    { subscriptionsGroupId: string; page: number; perPage: number },
+    ChildProps
+  >(SUBSCRIPTION_ORDERS_BY_GROUP, {
+    options: ({ group, perPage }) => ({
+      variables: {
+        subscriptionsGroupId: group.id,
+        page: 1,
+        perPage,
+      },
+    }),
+    props: ({ data }) =>
+      data && data.orders
+        ? {
+            orders: data.orders.list,
+            totalCount: data.orders.totalCount,
+            loading: data.loading,
+            fetchMore: data.fetchMore,
+          }
+        : {
+            orders: [],
+            totalCount: 0,
+            loading: false,
+            fetchMore: () => null,
+          },
   }),
-  branch(
-    ({ data }: InnerProps) => !data.subscriptionOrdersByGroup,
+  branch<ChildProps>(
+    ({ loading }) => loading,
     renderComponent(({ perPage }: OuterProps) => (
       <HistoryItemsSkeleton numberOfItems={perPage} />
     ))
   ),
   branch(
-    ({ data }: InnerProps) => data.subscriptionOrdersByGroup.list.length === 0,
+    ({ orders }: ChildProps) => orders.length === 0,
     renderComponent(HistoryEmpty)
   )
 )

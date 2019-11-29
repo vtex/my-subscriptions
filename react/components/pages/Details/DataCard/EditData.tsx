@@ -4,7 +4,10 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Dropdown } from 'vtex.styleguide'
-import { MutationUpdateSettingsArgs } from 'vtex.subscriptions-graphql'
+import {
+  MutationUpdateSettingsArgs,
+  Periodicity as GraphQLPeriodicity,
+} from 'vtex.subscriptions-graphql'
 
 import {
   WEEK_OPTIONS,
@@ -111,7 +114,7 @@ class EditData extends Component<Props, State> {
         variables: {
           subscriptionsGroupId: this.props.group.id,
           purchaseDay,
-          periodicity,
+          periodicity: (periodicity as unknown) as GraphQLPeriodicity,
           interval,
         },
       })

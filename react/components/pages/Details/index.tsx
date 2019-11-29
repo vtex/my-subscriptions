@@ -135,9 +135,9 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
                   displayRetry={displayRetry}
                 />
               </div>
-              {/* <div className="pt6 pl4-ns w-50-ns">
-                <History subscriptionsGroup={group} />
-              </div> */}
+              <div className="pt6 pl4-ns w-50-ns">
+                <History group={group} />
+              </div>
             </div>
             {/*
             <div className="pt6">
