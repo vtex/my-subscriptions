@@ -124,7 +124,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
                 <DataCard group={group} />
               </div>
               <div className="pl4-ns pt6 w-50-ns">
-                {/* <Shipping subscriptionsGroup={group} /> */}
+                <Shipping group={group} />
               </div>
             </div>
             {/*
@@ -158,6 +158,7 @@ export type SubscriptionsGroup = Pick<
   | 'totals'
   | 'shippingEstimate'
   | 'nextPurchaseDate'
+  | 'shippingAddress'
 > & {
   status: SubscriptionStatus
   subscriptions: {
