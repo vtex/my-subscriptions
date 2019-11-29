@@ -37,5 +37,20 @@ query SubscriptionsGroup($id: ID!) {
       id
       value
     }
+    shippingAddress {
+      id
+      street
+      number
+      complement
+      neighborhood
+      city
+      state
+      country
+      postalCode
+      reference
+      geoCoordinate
+      receiverName
+      addressType
+    }
   }
 }
