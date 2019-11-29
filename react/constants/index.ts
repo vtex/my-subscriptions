@@ -1,3 +1,5 @@
+// Remove it after fix on typings and we are able to import the enums from the graphql app. by Napoli
+
 export const enum SubscriptionStatus {
   Active = 'ACTIVE',
   Paused = 'PAUSED',
@@ -12,7 +14,7 @@ export const enum Periodicity {
   Yearly = 'YEARLY',
 }
 
-export enum SubscriptionOrderStatus {
+export const enum SubscriptionOrderStatus {
   Triggered = 'TRIGGERED',
   InProcess = 'IN_PROCESS',
   Failure = 'FAILURE',
@@ -25,6 +27,16 @@ export enum SubscriptionOrderStatus {
   SuccessWithPartialOrder = 'SUCCESS_WITH_PARTIAL_ORDER',
   ReTriggered = 'RE_TRIGGERED',
 }
+
+export enum PaymentSystemGroup {
+  CreditCard = 'creditCard',
+  Cash = 'cash',
+  BankInvoice = 'bankInvoice',
+  GiftCard = 'giftCard',
+  PayPal = 'payPal',
+}
+
+///
 
 export enum SubscriptionDisplayFilterEnum {
   Active = 'ACTIVE_FILTER',

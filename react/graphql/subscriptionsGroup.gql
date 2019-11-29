@@ -28,6 +28,16 @@ query SubscriptionsGroup($id: ID!) {
     purchaseSettings {
       currencySymbol
       purchaseDay
+      paymentMethod {
+        paymentSystemId
+        paymentSystemName
+        paymentSystemGroup
+        paymentAccount {
+          id
+          cardNumber
+          bin
+        }
+      }
     }
     lastOrder {
       id

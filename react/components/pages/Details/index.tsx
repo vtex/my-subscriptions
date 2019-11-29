@@ -86,16 +86,16 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   private handleMakeRetry = () => {
     const { retry, group } = this.props
 
-    if (group && group.lastOrder) {
-      retry({
-        variables: {
-          subscriptionsGroupId: group.id,
-          subscriptionOrderId: group.lastOrder.id,
-        },
-      }).then(() => {
-        this.mounted && this.handleSetDisplayRetry(true)
-      })
-    }
+    return retry({
+      variables: {
+        subscriptionsGroupId: (group && group.id) as string,
+        subscriptionOrderId: (group &&
+          group.lastOrder &&
+          group.lastOrder.id) as string,
+      },
+    }).then(() => {
+      this.mounted && this.handleSetDisplayRetry(true)
+    })
   }
 
   public render() {
@@ -127,19 +127,19 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
                 <Shipping group={group} />
               </div>
             </div>
-            {/*
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
                 <Payment
-                  subscriptionsGroup={group}
+                  group={group}
                   onMakeRetry={this.handleMakeRetry}
                   displayRetry={displayRetry}
                 />
               </div>
-              <div className="pt6 pl4-ns w-50-ns">
+              {/* <div className="pt6 pl4-ns w-50-ns">
                 <History subscriptionsGroup={group} />
-              </div>
+              </div> */}
             </div>
+            {/*
             <div className="pt6">
               <Products orderGroup={group.id} />
             </div> */}
@@ -168,7 +168,10 @@ export type SubscriptionsGroup = Pick<
   lastOrder: Pick<SubscriptionOrder, 'id'> & {
     status: SubscriptionOrderStatus
   }
-  purchaseSettings: Pick<PurchaseSettings, 'currencySymbol' | 'purchaseDay'>
+  purchaseSettings: Pick<
+    PurchaseSettings,
+    'currencySymbol' | 'purchaseDay' | 'paymentMethod'
+  >
   plan: {
     frequency: {
       periodicity: Periodicity
