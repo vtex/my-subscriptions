@@ -2,8 +2,6 @@ import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
 import ProductsContainer from '../components/pages/Details/Products'
-import OneProduct from '../mocks/OneProduct'
-import TwoProducts from '../mocks/TwoProducts'
 import { generateSubscriptionsGroup } from '../mocks'
 
 describe('Products Scenarios', () => {
