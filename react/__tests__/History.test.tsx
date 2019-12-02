@@ -4,11 +4,8 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import History from '../components/pages/Details/History'
-import {
-  subscriptionHistoryQueryMock,
-  subscriptionGroupMock,
-  orderGroupId,
-} from '../mocks/SubscriptionHistory'
+import { subscriptionHistoryQueryMock as mock } from '../mocks/SubscriptionHistory'
+import { generateSubscriptionsGroup, orderGroup } from '../mocks'
 
 const copyObj = (o: object) => JSON.parse(JSON.stringify(o))
 
@@ -24,16 +21,12 @@ describe('History Scenarios', () => {
   })
 
   test('should display empty state if no recurrent order exists yet', async () => {
-    const queryMock = copyObj(subscriptionHistoryQueryMock)
-    queryMock.result.data.subscriptionOrdersByGroup.list = []
+    const queryMock = copyObj(mock)
+    queryMock.result.data.orders.list = []
 
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: orderGroupId }}>
-        <History
-          subscriptionsGroup={
-            subscriptionGroupMock as SubscriptionsGroupItemType
-          }
-        />
+      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+        <History group={generateSubscriptionsGroup({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
@@ -45,15 +38,11 @@ describe('History Scenarios', () => {
   })
 
   test('should display all possible states', async () => {
-    const queryMock = copyObj(subscriptionHistoryQueryMock)
+    const queryMock = copyObj(mock)
 
     const { queryByText, queryAllByText } = render(
-      <MockRouter params={{ orderGroup: orderGroupId }}>
-        <History
-          subscriptionsGroup={
-            subscriptionGroupMock as SubscriptionsGroupItemType
-          }
-        />
+      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+        <History group={generateSubscriptionsGroup({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
@@ -87,20 +76,16 @@ describe('History Scenarios', () => {
   })
 
   test('should add "isFullyloaded" class to list after loading every item', async () => {
-    const queryMock = copyObj(subscriptionHistoryQueryMock)
-    queryMock.result.data.subscriptionOrdersByGroup.totalCount = 5
-    queryMock.result.data.subscriptionOrdersByGroup.list = queryMock.result.data.subscriptionOrdersByGroup.list.slice(
+    const queryMock = copyObj(mock)
+    queryMock.result.data.orders.totalCount = 5
+    queryMock.result.data.orders.list = queryMock.result.data.orders.list.slice(
       0,
       5
     )
 
     const { container } = render(
-      <MockRouter params={{ orderGroup: orderGroupId }}>
-        <History
-          subscriptionsGroup={
-            subscriptionGroupMock as SubscriptionsGroupItemType
-          }
-        />
+      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+        <History group={generateSubscriptionsGroup({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
