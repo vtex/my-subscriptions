@@ -183,7 +183,7 @@ export interface Subscription {
     Sku,
     'imageUrl' | 'name' | 'detailUrl' | 'productName' | 'id' | 'measurementUnit'
   > & {
-    variations?: { [key: string]: string }
+    variations?: { [key: string]: string } | null
   }
   quantity: number
   priceAtSubscriptionDate: number

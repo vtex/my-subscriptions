@@ -4,15 +4,12 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 import ProductsContainer from '../components/pages/Details/Products'
 import OneProduct from '../mocks/OneProduct'
 import TwoProducts from '../mocks/TwoProducts'
-import { orderGroup } from '../mocks'
+import { generateSubscriptionsGroup } from '../mocks'
 
 describe('Products Scenarios', () => {
   test('Should list one product', async () => {
     const { queryAllByTestId } = render(
-      <ProductsContainer orderGroup={orderGroup} />,
-      {
-        graphql: { mocks: [OneProduct] },
-      }
+      <ProductsContainer group={generateSubscriptionsGroup({})} />
     )
 
     await new Promise(resolve => setTimeout(resolve, 0))
@@ -22,10 +19,9 @@ describe('Products Scenarios', () => {
 
   test('Should list two products', async () => {
     const { queryAllByTestId } = render(
-      <ProductsContainer orderGroup={orderGroup} />,
-      {
-        graphql: { mocks: [TwoProducts] },
-      }
+      <ProductsContainer
+        group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+      />
     )
 
     await new Promise(resolve => setTimeout(resolve, 0))
@@ -35,10 +31,9 @@ describe('Products Scenarios', () => {
 
   test('Should display remove button', async () => {
     const { queryByTestId, queryAllByTestId } = render(
-      <ProductsContainer orderGroup={orderGroup} />,
-      {
-        graphql: { mocks: [TwoProducts] },
-      }
+      <ProductsContainer
+        group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+      />
     )
 
     await new Promise(resolve => setTimeout(resolve, 0))
@@ -50,10 +45,7 @@ describe('Products Scenarios', () => {
 
   test('Shouldnt display remove button', async () => {
     const { queryByTestId, queryAllByTestId } = render(
-      <ProductsContainer orderGroup={orderGroup} />,
-      {
-        graphql: { mocks: [OneProduct] },
-      }
+      <ProductsContainer group={generateSubscriptionsGroup({})} />
     )
 
     await new Promise(resolve => setTimeout(resolve, 0))
