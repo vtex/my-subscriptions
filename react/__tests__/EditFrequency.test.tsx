@@ -24,7 +24,7 @@ describe('Payment Scenarios', () => {
     window.location = location
   })
 
-  test('Should update the ', async () => {
+  test('Should update the dates after editing frequency', async () => {
     const mock = generateDetailMock()
     const periodicity = mock.result.data.group.plan.frequency.periodicity
     const { queryByTestId, queryByText } = render(
