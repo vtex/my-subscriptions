@@ -5,7 +5,7 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { SubscriptionStatus } from '../constants'
-import { orderGroup, generateDetailMock } from '../mocks'
+import { mockRouterParam, generateDetailMock } from '../mocks'
 
 const INVALID_PAYMENT =
   'Invalid payment method, select a new valid payment for this subscription.'
@@ -24,7 +24,7 @@ describe('Payment Scenarios', () => {
 
   test('Shouldnt display payment error', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -39,7 +39,7 @@ describe('Payment Scenarios', () => {
 
   test('Should display payment error', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -54,7 +54,7 @@ describe('Payment Scenarios', () => {
 
   test('Should display payment no-action error when the subscription status is not active', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {

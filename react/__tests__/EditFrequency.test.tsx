@@ -7,7 +7,7 @@ import SubscriptionDetails from '../components/pages/Details'
 import {
   generateDetailMock,
   generateSubscriptionsGroup,
-  orderGroup,
+  orderGroup as subscriptionsGroupId,
 } from '../mocks'
 
 import FREQUENCY_QUERY from '../graphql/frequencyOptions.gql'
@@ -28,7 +28,7 @@ describe('Payment Scenarios', () => {
     const mock = generateDetailMock()
     const periodicity = mock.result.data.group.plan.frequency.periodicity
     const { queryByTestId, queryByText } = render(
-      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
+      <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -38,7 +38,7 @@ describe('Payment Scenarios', () => {
             {
               request: {
                 query: FREQUENCY_QUERY,
-                variables: { subscriptionsGroupId: orderGroup },
+                variables: { subscriptionsGroupId },
               },
               result: {
                 data: {
@@ -55,7 +55,7 @@ describe('Payment Scenarios', () => {
               request: {
                 query: MUTATION,
                 variables: {
-                  subscriptionsGroupId: orderGroup,
+                  subscriptionsGroupId,
                   interval: 1,
                   periodicity,
                   purchaseDay: '10',
