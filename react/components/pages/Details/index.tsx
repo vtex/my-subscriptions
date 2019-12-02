@@ -187,6 +187,7 @@ export interface Subscription {
   }
   quantity: number
   priceAtSubscriptionDate: number
+  __typename: string
 }
 
 interface Props extends InjectedIntlProps, ChildProps {

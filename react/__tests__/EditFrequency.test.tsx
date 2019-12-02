@@ -4,11 +4,13 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { generateSubscriptionsGroup } from '../mocks'
+import {
+  generateDetailMock,
+  generateSubscriptionsGroup,
+  orderGroup,
+} from '../mocks'
 
-import SUBSCRIPTIONS_QUERY from '../graphql/products/listSubscriptions.gql'
-import GROUP_QUERY from '../graphql/groupedSubscription.gql'
-import FREQUENCY_QUERY from '../graphql/getFrequencyOptions.gql'
+import FREQUENCY_QUERY from '../graphql/frequencyOptions.gql'
 import MUTATION from '../graphql/updateSubscriptionSettings.gql'
 
 describe('Payment Scenarios', () => {
@@ -23,36 +25,26 @@ describe('Payment Scenarios', () => {
   })
 
   test('Should update the nextPurchaseDate and estimatedDeliveryDate after editing', async () => {
-    const group = generateSubscriptionsGroup({})
-
+    const mock = generateDetailMock()
+    const periodicity = mock.result.data.group.plan.frequency.periodicity
     const { queryByTestId, queryByText } = render(
-      <MockRouter params={{ orderGroup: group.orderGroup }}>
+      <MockRouter params={{ subscriptionsGroupId: orderGroup }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
         graphql: {
           mocks: [
-            {
-              request: {
-                query: GROUP_QUERY,
-                variables: { orderGroup: group.orderGroup },
-              },
-              result: {
-                data: {
-                  groupedSubscription: group,
-                },
-              },
-            },
+            mock,
             {
               request: {
                 query: FREQUENCY_QUERY,
-                variables: { orderGroup: group.orderGroup },
+                variables: { subscriptionsGroupId: orderGroup },
               },
               result: {
                 data: {
-                  frequencyOptions: [
+                  frequencies: [
                     {
-                      periodicity: 'WEEKLY',
+                      periodicity,
                       interval: 1,
                     },
                   ],
@@ -61,24 +53,11 @@ describe('Payment Scenarios', () => {
             },
             {
               request: {
-                query: SUBSCRIPTIONS_QUERY,
-                variables: {
-                  orderGroup: group.orderGroup,
-                },
-              },
-              result: {
-                data: {
-                  groupedSubscription: group,
-                },
-              },
-            },
-            {
-              request: {
                 query: MUTATION,
                 variables: {
-                  orderGroup: group.orderGroup,
+                  subscriptionsGroupId: orderGroup,
                   interval: 1,
-                  periodicity: 'MONTHLY',
+                  periodicity,
                   purchaseDay: '10',
                 },
               },

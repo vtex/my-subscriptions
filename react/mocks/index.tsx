@@ -60,6 +60,7 @@ export function generateSubscriptionsGroup({
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
 }: GenerationArgs) {
   return {
+    __typename: 'SubscriptionsGroup',
     id: subscriptionsGroupId,
     cacheId: subscriptionsGroupId,
     status: status,
@@ -143,7 +144,7 @@ export function generateDetailMock(args?: GenerationArgs) {
   return {
     request: {
       query: DETAIL_QUERY,
-      variables: { id: orderGroup },
+      variables: { id: args ? args.subscriptionsGroupId : orderGroup },
     },
     result: {
       data: {
