@@ -4,10 +4,11 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatusEnum } from '../constants'
-import RegularSubscription from '../mocks/RegularSubscription'
-import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
-import Products from '../mocks/OneProduct'
+import { SubscriptionStatus } from '../constants'
+import {
+  orderGroup as subscriptionsGroupId,
+  generateDetailMock,
+} from '../mocks'
 
 const ERROR_MESSAGE =
   'Invalid address, select a new valid address for this subscription.'
@@ -26,13 +27,10 @@ describe('Shipping Scenarios', () => {
 
   test('Shouldnt display address error', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
       </MockRouter>,
-      {
-        // @ts-ignore
-        graphql: { mocks: [RegularSubscription, Products] },
-      }
+      { graphql: { mocks: [generateDetailMock()] } }
     )
 
     await new Promise(resolve => setTimeout(resolve, 0))
@@ -41,17 +39,12 @@ describe('Shipping Scenarios', () => {
   })
 
   test('Should display address error', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.shippingAddress = null
-
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [noAddress, Products] },
+        graphql: { mocks: [generateDetailMock({ hasShippingAddress: false })] },
       }
     )
 
@@ -61,19 +54,19 @@ describe('Shipping Scenarios', () => {
   })
 
   test('Should display address no-action error when the subscription status is not active', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.shippingAddress = null
-    noAddress.result.data.groupedSubscription.status =
-      SubscriptionStatusEnum.Paused
-
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [noAddress, Products] },
+        graphql: {
+          mocks: [
+            generateDetailMock({
+              hasShippingAddress: false,
+              status: SubscriptionStatus.Paused,
+            }),
+          ],
+        },
       }
     )
 
