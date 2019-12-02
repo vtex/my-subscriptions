@@ -8,6 +8,8 @@ import DETAIL_QUERY from '../graphql/subscriptionsGroup.gql'
 
 export const orderGroup = 'C842CBFAF3728E8EBDA401836B2ED6D1'
 
+export const mockRouterParam = { subscriptionsGroupId: orderGroup }
+
 const plan = {
   frequency: {
     periodicity: Periodicity.Monthly,

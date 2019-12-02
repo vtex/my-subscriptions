@@ -5,10 +5,7 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { SubscriptionStatus } from '../constants'
-import {
-  orderGroup as subscriptionsGroupId,
-  generateDetailMock,
-} from '../mocks'
+import { mockRouterParam, generateDetailMock } from '../mocks'
 
 describe('Display Address Scenarios', () => {
   const { location } = window
@@ -24,7 +21,7 @@ describe('Display Address Scenarios', () => {
 
   test('Should display edit button disabled', async () => {
     const { queryByTestId } = render(
-      <MockRouter params={{ subscriptionsGroupId }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -47,7 +44,7 @@ describe('Display Address Scenarios', () => {
 
   test('Shouldnt display edit button', async () => {
     const { queryByTestId } = render(
-      <MockRouter params={{ subscriptionsGroupId }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
