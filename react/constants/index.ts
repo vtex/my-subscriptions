@@ -1,20 +1,20 @@
 // Remove it after fix on typings and we are able to import the enums from the graphql app. by Napoli
 
-export const enum SubscriptionStatus {
+export enum SubscriptionStatus {
   Active = 'ACTIVE',
   Paused = 'PAUSED',
   Canceled = 'CANCELED',
   Expired = 'EXPIRED',
 }
 
-export const enum Periodicity {
+export enum Periodicity {
   Daily = 'DAILY',
   Weekly = 'WEEKLY',
   Monthly = 'MONTHLY',
   Yearly = 'YEARLY',
 }
 
-export const enum SubscriptionOrderStatus {
+export enum SubscriptionOrderStatus {
   Triggered = 'TRIGGERED',
   InProcess = 'IN_PROCESS',
   Failure = 'FAILURE',
