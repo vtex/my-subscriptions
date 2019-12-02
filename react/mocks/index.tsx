@@ -51,6 +51,7 @@ interface GenerationArgs {
   nextPurchaseDate?: string
   estimatedDeliveryDate?: string
   hasPaymentMethod?: boolean
+  lastOrderStatus?: SubscriptionOrderStatus
 }
 
 export function generateSubscriptionsGroup({
@@ -59,6 +60,7 @@ export function generateSubscriptionsGroup({
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
   hasPaymentMethod = true,
+  lastOrderStatus = SubscriptionOrderStatus.InProcess,
 }: GenerationArgs) {
   return {
     __typename: 'SubscriptionsGroup',
@@ -116,7 +118,7 @@ export function generateSubscriptionsGroup({
       id: '3748EAF9A6F44F72B899359C92DF6C81',
       cacheId: '3748EAF9A6F44F72B899359C92DF6C81',
       subscriptionsGroupId: orderGroup,
-      status: SubscriptionOrderStatus.InProcess,
+      status: lastOrderStatus,
       date: '2019-06-10T09:04:10.9944376Z',
       customerName: 'ahsudhausda szwarcman',
       customerEmail: 'clara@vtex.com.br',
