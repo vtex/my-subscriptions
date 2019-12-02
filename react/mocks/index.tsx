@@ -50,19 +50,20 @@ interface GenerationArgs {
   subscriptionsAmount?: number
   nextPurchaseDate?: string
   estimatedDeliveryDate?: string
+  hasPaymentMethod?: boolean
 }
 
 export function generateSubscriptionsGroup({
-  subscriptionsGroupId = orderGroup,
   status = SubscriptionStatus.Active,
   subscriptionsAmount = 1,
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
+  hasPaymentMethod = true,
 }: GenerationArgs) {
   return {
     __typename: 'SubscriptionsGroup',
-    id: subscriptionsGroupId,
-    cacheId: subscriptionsGroupId,
+    id: orderGroup,
+    cacheId: orderGroup,
     status: status,
     isSkipped: false,
     name: null,
@@ -85,16 +86,18 @@ export function generateSubscriptionsGroup({
     },
     purchaseSettings: {
       purchaseDay: '10',
-      paymentMethod: {
-        paymentSystemId: '2',
-        paymentSystemName: 'Visa',
-        paymentSystemGroup: PaymentSystemGroup.CreditCard,
-        paymentAccount: {
-          id: '5FE0FD2838AB47BF852E9E43402DE553',
-          cardNumber: '************1111',
-          bin: '444433',
-        },
-      },
+      paymentMethod: hasPaymentMethod
+        ? {
+            paymentSystemId: '2',
+            paymentSystemName: 'Visa',
+            paymentSystemGroup: PaymentSystemGroup.CreditCard,
+            paymentAccount: {
+              id: '5FE0FD2838AB47BF852E9E43402DE553',
+              cardNumber: '************1111',
+              bin: '444433',
+            },
+          }
+        : null,
       currencySymbol: 'BRL',
     },
     nextPurchaseDate,
@@ -112,7 +115,7 @@ export function generateSubscriptionsGroup({
     lastOrder: {
       id: '3748EAF9A6F44F72B899359C92DF6C81',
       cacheId: '3748EAF9A6F44F72B899359C92DF6C81',
-      subscriptionsGroupId,
+      subscriptionsGroupId: orderGroup,
       status: SubscriptionOrderStatus.InProcess,
       date: '2019-06-10T09:04:10.9944376Z',
       customerName: 'ahsudhausda szwarcman',
@@ -144,11 +147,11 @@ export function generateDetailMock(args?: GenerationArgs) {
   return {
     request: {
       query: DETAIL_QUERY,
-      variables: { id: args ? args.subscriptionsGroupId : orderGroup },
+      variables: { id: orderGroup },
     },
     result: {
       data: {
-        group: generateSubscriptionsGroup(args || {}),
+        group: generateSubscriptionsGroup(args ? args : {}),
       },
     },
   }

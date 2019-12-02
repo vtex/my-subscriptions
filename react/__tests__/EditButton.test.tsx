@@ -23,17 +23,14 @@ describe('Display Address Scenarios', () => {
   })
 
   test('Should display edit button disabled', async () => {
-    const mock = {
-      ...generateDetailMock({ status: SubscriptionStatus.Paused }),
-    }
-
     const { queryByTestId } = render(
       <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [mock] },
+        graphql: {
+          mocks: [generateDetailMock({ status: SubscriptionStatus.Paused })],
+        },
       }
     )
 
@@ -49,16 +46,14 @@ describe('Display Address Scenarios', () => {
   })
 
   test('Shouldnt display edit button', async () => {
-    const mock = {
-      ...generateDetailMock({ status: SubscriptionStatus.Canceled }),
-    }
-
     const { queryByTestId } = render(
       <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        graphql: { mocks: [mock] },
+        graphql: {
+          mocks: [generateDetailMock({ status: SubscriptionStatus.Canceled })],
+        },
       }
     )
 
