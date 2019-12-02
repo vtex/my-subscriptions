@@ -51,6 +51,7 @@ interface GenerationArgs {
   nextPurchaseDate?: string
   estimatedDeliveryDate?: string
   hasPaymentMethod?: boolean
+  hasShippingAddress?: boolean
   lastOrderStatus?: SubscriptionOrderStatus
 }
 
@@ -60,6 +61,7 @@ export function generateSubscriptionsGroup({
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
   hasPaymentMethod = true,
+  hasShippingAddress = true,
   lastOrderStatus = SubscriptionOrderStatus.InProcess,
 }: GenerationArgs) {
   return {
@@ -71,21 +73,23 @@ export function generateSubscriptionsGroup({
     name: null,
     subscriptions: generateSubscriptions(subscriptionsAmount),
     plan,
-    shippingAddress: {
-      id: 'b3665b68c9714441bdea54c35a4d0cd6',
-      street: 'Avenida Evandro Lins e Silva',
-      number: '1',
-      complement: null,
-      neighborhood: 'Barra da Tijuca',
-      city: 'Rio de Janeiro',
-      state: 'RJ',
-      country: 'BRA',
-      postalCode: '22631-470',
-      reference: null,
-      geoCoordinate: null,
-      receiverName: 'clara szwarcman',
-      addressType: 'residential',
-    },
+    shippingAddress: hasShippingAddress
+      ? {
+          id: 'b3665b68c9714441bdea54c35a4d0cd6',
+          street: 'Avenida Evandro Lins e Silva',
+          number: '1',
+          complement: null,
+          neighborhood: 'Barra da Tijuca',
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          country: 'BRA',
+          postalCode: '22631-470',
+          reference: null,
+          geoCoordinate: null,
+          receiverName: 'clara szwarcman',
+          addressType: 'residential',
+        }
+      : null,
     purchaseSettings: {
       purchaseDay: '10',
       paymentMethod: hasPaymentMethod
