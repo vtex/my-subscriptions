@@ -4,6 +4,7 @@ import {
   PaymentSystemGroup,
   Periodicity,
 } from '../constants'
+import DETAIL_QUERY from '../graphql/subscriptionsGroup.gql'
 
 export const orderGroup = 'C842CBFAF3728E8EBDA401836B2ED6D1'
 
@@ -43,13 +44,21 @@ function generateSubscriptions(subscriptionsAmount: number) {
   return subscriptions
 }
 
+interface GenerationArgs {
+  subscriptionsGroupId?: string
+  status?: SubscriptionStatus
+  subscriptionsAmount?: number
+  nextPurchaseDate?: string
+  estimatedDeliveryDate?: string
+}
+
 export function generateSubscriptionsGroup({
   subscriptionsGroupId = orderGroup,
   status = SubscriptionStatus.Active,
   subscriptionsAmount = 1,
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
-}) {
+}: GenerationArgs) {
   return {
     id: subscriptionsGroupId,
     cacheId: subscriptionsGroupId,
@@ -126,6 +135,20 @@ export function generateSubscriptionsGroup({
     },
     shippingEstimate: {
       estimatedDeliveryDate,
+    },
+  }
+}
+
+export function generateDetailMock(args?: GenerationArgs) {
+  return {
+    request: {
+      query: DETAIL_QUERY,
+      variables: { id: orderGroup },
+    },
+    result: {
+      data: {
+        group: generateSubscriptionsGroup(args || {}),
+      },
     },
   }
 }
