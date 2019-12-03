@@ -1,5 +1,6 @@
 query getFrequencyOptions($orderGroup: String!) {
-  frequencyOptions(orderGroup: $orderGroup) {
+  frequencyOptions(orderGroup: $orderGroup)
+    @context(provider: "vtex.my-subscriptions-graphql") {
     periodicity
     interval
   }

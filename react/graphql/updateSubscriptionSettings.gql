@@ -9,7 +9,7 @@ mutation updateSettings(
     purchaseDay: $purchaseDay
     periodicity: $periodicity
     interval: $interval
-  ) {
+  ) @context(provider: "vtex.my-subscriptions-graphql") {
     cacheId
     purchaseSettings {
       purchaseDay

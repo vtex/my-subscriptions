@@ -2,41 +2,51 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../../constants'
 import Frequency from '../../commons/FrequencyInfo'
+import { SubscriptionStatus } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
 import UpdateStatusButton from '../../commons/UpdateStatusButton'
 import ItemDate from './ItemDate'
-
-interface Props {
-  item: SubscriptionsGroupItemType
-  onGoToDetails: (orderGroup: string) => void
-}
+import { SubscriptionsGroup } from '.'
 
 const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
-  item,
+  group,
   onGoToDetails,
 }) => {
-  const isPaused = item.status === SubscriptionStatusEnum.Paused
-  const isActive = item.status === SubscriptionStatusEnum.Active
+  const isPaused = group.status === SubscriptionStatus.Paused
+  const isActive = group.status === SubscriptionStatus.Active
 
   return (
     <div className="w-100 flex flex-wrap pv6 pl3-ns pr5-ns">
       <div className="w-50-ns flex flex-row flex-wrap">
         <div className="w-100">
-          <Name subscriptionGroup={item} />
+          <Name
+            skus={group.subscriptions.map(subscriptions => subscriptions.sku)}
+            subscriptionsGroupId={group.id}
+            status={group.status}
+            name={group.name}
+          />
         </div>
         <div className="w-100 mt6-s flex items-end">
           {isActive ? (
-            <Frequency subscriptionsGroup={item} displayLabel={false} />
+            <Frequency
+              displayLabel={false}
+              periodicity={group.plan.frequency.periodicity}
+              interval={group.plan.frequency.interval}
+              purchaseDay={group.purchaseSettings.purchaseDay}
+            />
           ) : (
-            <Status status={item.status} />
+            <Status status={group.status} />
           )}
         </div>
 
         <div className="w-100 mt4-s flex items-center">
-          <ItemDate item={item} />
+          <ItemDate
+            status={group.status}
+            nextPurchaseDate={group.nextPurchaseDate}
+            lastStatusUpdate={group.lastStatusUpdate}
+          />
         </div>
       </div>
 
@@ -44,7 +54,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
         <div className="w-100 mw5-ns self-center">
           <Button
             variation="secondary"
-            onClick={() => onGoToDetails(item.orderGroup)}
+            onClick={() => onGoToDetails(group.id)}
             block
           >
             <FormattedMessage id="subscription.list.button.seeDetails" />
@@ -53,8 +63,8 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           {isPaused && (
             <div className="pt4">
               <UpdateStatusButton
-                targetStatus={SubscriptionStatusEnum.Active}
-                orderGroup={item.orderGroup}
+                targetStatus={SubscriptionStatus.Active}
+                subscriptionsGroupId={group.id}
                 block
               >
                 <FormattedMessage id="subscription.list.button.reactivate" />
@@ -65,6 +75,11 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
       </div>
     </div>
   )
+}
+
+interface Props {
+  group: SubscriptionsGroup
+  onGoToDetails: (subscriptionGroupId: string) => void
 }
 
 export default SubscriptionsGroupItemSummary

@@ -5,7 +5,6 @@ import SplunkEvents from 'splunk-events'
 import {
   SubscriptionDisplayFilterEnum,
   SubscriptionStatusEnum,
-  TagTypeEnum,
   MenuOptionsEnum,
 } from '../constants'
 
@@ -41,46 +40,6 @@ export function convertFilter(
   }
 
   return [SubscriptionStatusEnum.Active, SubscriptionStatusEnum.Paused]
-}
-
-export function convertStatusInTagType(
-  status: SubscriptionStatusEnum
-): TagTypeEnum | null {
-  switch (status) {
-    case SubscriptionStatusEnum.Canceled:
-      return TagTypeEnum.Error
-    case SubscriptionStatusEnum.Paused:
-      return TagTypeEnum.Warning
-    default:
-      return null
-  }
-}
-
-export function retrieveMessagesByStatus(status: SubscriptionStatusEnum) {
-  let titleMessageId = ''
-  let bodyMessageId = ''
-
-  switch (status) {
-    case SubscriptionStatusEnum.Active:
-      titleMessageId = 'subscription.restore.title'
-      bodyMessageId = 'subscription.restore.text'
-      break
-    case SubscriptionStatusEnum.Paused:
-      titleMessageId = 'subscription.pause.title'
-      bodyMessageId = 'subscription.pause.text'
-      break
-    case SubscriptionStatusEnum.Canceled:
-      titleMessageId = 'subscription.cancel.title'
-      bodyMessageId = 'subscription.cancel.text'
-      break
-  }
-
-  return {
-    bodyMessageId,
-    cancelationMessageId: 'subscription.change.status.modal.cancelation',
-    confirmationMessageId: 'subscription.change.status.modal.confirmation',
-    titleMessageId,
-  }
 }
 
 export const makeCancelable = (promise: Promise<unknown>) => {

@@ -1,24 +1,7 @@
-mutation updateName($orderGroup: String!, $name: String) {
-  updateName(orderGroup: $orderGroup, name: $name) {
+mutation updateName($subscriptionsGroupId: ID!, $name: String) {
+  updateName(subscriptionsGroupId: $subscriptionsGroupId, name: $name)
+    @context(provider: "vtex.subscriptions-graphql") {
     cacheId
-    orderGroup
-    status
     name
-    nextPurchaseDate
-    lastStatusUpdate
-    subscriptions {
-      sku {
-        imageUrl
-        name
-        detailUrl
-        productName
-      }
-    }
-    plan {
-      frequency {
-        periodicity
-        interval
-      }
-    }
   }
 }
