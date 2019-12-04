@@ -8,21 +8,21 @@ import { SubscriptionOrder } from './HistoryList'
 const HistoryItem: FunctionComponent<OuterProps> = ({ order }) => {
   const { date, status } = order
 
-  let statusColor = `c-muted-3`
+  let statusColor = 'c-muted-3'
 
   switch (status) {
     case SubscriptionOrderStatus.Success:
     case SubscriptionOrderStatus.SuccessWithPartialOrder:
-      statusColor = `c-success`
+      statusColor = 'c-success'
       break
     case SubscriptionOrderStatus.Skiped:
     case SubscriptionOrderStatus.SuccessWithNoOrder:
-      statusColor = `c-warning`
+      statusColor = 'c-warning'
       break
     case SubscriptionOrderStatus.Failure:
     case SubscriptionOrderStatus.OrderError:
     case SubscriptionOrderStatus.PaymentError:
-      statusColor = `c-danger`
+      statusColor = 'c-danger'
       break
   }
 
