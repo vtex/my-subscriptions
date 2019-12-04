@@ -47,10 +47,12 @@ class EditData extends Component<Props, State> {
       return 0
     }
 
-    return frequencies.findIndex(
+    const index = frequencies.findIndex(
       option =>
         option.periodicity === periodicity && option.interval === interval
     )
+
+    return index >= 0 ? index : 0
   }
 
   private getCurrentFrequency() {
