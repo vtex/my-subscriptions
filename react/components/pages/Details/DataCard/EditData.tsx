@@ -158,10 +158,8 @@ class EditData extends Component<Props, State> {
 
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
-        <div className="flex flex-row">
-          <div className="db-s di-ns b f4 tl c-on-base">
-            {intl.formatMessage({ id: 'subscription.data' })}
-          </div>
+        <div className="db-s di-ns b f4 tl c-on-base">
+          {intl.formatMessage({ id: 'subscription.data' })}
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">
           <Alert
