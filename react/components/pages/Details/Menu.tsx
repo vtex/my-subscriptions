@@ -85,7 +85,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     return updateStatus({
       variables: {
-        status: (status as unknown) as Status, // since i can't use the enums from the graphql
+        status: (status as unknown) as Status, // since enums from the graphql can't be used.
         subscriptionsGroupId: id,
       },
     })
