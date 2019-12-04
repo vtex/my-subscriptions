@@ -6190,13 +6190,9 @@ vtex-tachyons@^3.2.0:
   version "0.11.0"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-account-commons@0.11.0/public/@types/vtex.my-account-commons#9a2164916bec6c4b3c62b0b34ef95d7a50d71531"
 
-"vtex.my-subscriptions-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-subscriptions-graphql@1.13.0/public/@types/vtex.my-subscriptions-graphql":
-  version "1.13.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-subscriptions-graphql@1.13.0/public/@types/vtex.my-subscriptions-graphql#feee666569b34f327f08f98b5c1ef0a9b51461f1"
-
-"vtex.payment-flags@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.0/public/_types/react":
-  version "1.5.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.0/public/_types/react#406e1a9e330641a180945a4a1591ab200faf5dcc"
+"vtex.payment-flags@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.1/public/@types/vtex.payment-flags":
+  version "1.5.1"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.1/public/@types/vtex.payment-flags#2d0dcd2bbcfe103993e047eeab853275af21db20"
 
 "vtex.render-runtime@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react":
   version "7.40.0"
@@ -6210,9 +6206,9 @@ vtex-tachyons@^3.2.0:
   version "8.73.10"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide#3cbb102a72f2761ab4c22e808b10a749eb389ddd"
 
-"vtex.subscriptions-graphql@https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1575019376/public/@types/vtex.subscriptions-graphql":
-  version "1.13.0"
-  resolved "https://felipe--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@1.13.0+build1575019376/public/@types/vtex.subscriptions-graphql#e4807b6e4c30d2d9ad5c7fdf690e126b9cb6f80b"
+"vtex.subscriptions-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.0.0/public/@types/vtex.subscriptions-graphql":
+  version "2.0.0"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.0.0/public/@types/vtex.subscriptions-graphql#6bdedcb9c2acebbc6d201558ef7fe741b2d8b83d"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
