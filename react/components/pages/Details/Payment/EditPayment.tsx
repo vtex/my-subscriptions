@@ -5,13 +5,14 @@ import {
   FormattedMessage,
   InjectedIntl,
 } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
 import { PaymentMethod } from 'vtex.subscriptions-graphql'
+import { withRouter } from 'vtex.my-account-commons/Router'
 
 import {
   PaymentSystemGroup,

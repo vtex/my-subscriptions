@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
-import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
+import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
+import { withRouter } from 'vtex.my-account-commons/Router'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
 

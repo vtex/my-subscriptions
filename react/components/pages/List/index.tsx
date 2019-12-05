@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
+import { withRouter } from 'vtex.my-account-commons/Router'
 import { Dropdown } from 'vtex.styleguide'
 import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
 
@@ -152,9 +153,7 @@ interface QueryResult {
   groups: SubscriptionsGroup[]
 }
 
-interface Props extends InjectedIntlProps {
-  history: any
-}
+interface Props extends InjectedIntlProps, RouteComponentProps {}
 
 const enhance = compose<Props, {}>(injectIntl, withRouter)
 
