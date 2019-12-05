@@ -6096,10 +6096,10 @@ typed-styles@^0.0.7:
   resolved "https://registry.yarnpkg.com/typed-styles/-/typed-styles-0.0.7.tgz#93392a008794c4595119ff62dde6809dbc40a3d9"
   integrity sha512-pzP0PWoZUhsECYjABgCGQlRGL1n7tOHsgwYv3oIiEpJwGhFTuty/YNeduxQYzXXa3Ge5BdT6sHYIQYpl4uJ+5Q==
 
-typescript@3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.2.tgz#a09e1dc69bc9551cadf17dba10ee42cf55e5d56c"
-  integrity sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
+typescript@3.7.3:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
+  integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
 
 typescript@^3.3.3333:
   version "3.6.3"
@@ -6251,9 +6251,9 @@ vtex-tachyons@^3.2.0:
   version "7.40.0"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react#e664a85fb1234ba0f4837a818efad17a351f44b9"
 
-"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.110.0/public/@types/vtex.store-graphql":
-  version "2.110.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.110.0/public/@types/vtex.store-graphql#8eaa8e1e5a8737258a690adc86ba1f1cc23352eb"
+"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.111.0/public/@types/vtex.store-graphql":
+  version "2.111.0"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.111.0/public/@types/vtex.store-graphql#e83562109c819680180590203706343776e78bf3"
 
 "vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide":
   version "8.73.10"

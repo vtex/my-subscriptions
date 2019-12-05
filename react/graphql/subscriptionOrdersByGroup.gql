@@ -9,9 +9,11 @@ query SubscriptionOrdersByGroup(
     perPage: $perPage
   ) @context(provider: "vtex.subscriptions-graphql") {
     list {
-      id
-      status
-      date
+      ... on SubscriptionOrder {
+        id
+        status
+        date
+      }
     }
     totalCount
   }
