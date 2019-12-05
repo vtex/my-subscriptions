@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { RouteComponentProps } from 'react-router-dom'
-import { ContentWrapper } from 'vtex.my-account-commons'
 import { withRouter } from 'vtex.my-account-commons/Router'
 import {
   MutationRetrySubscriptionOrderArgs,
@@ -31,19 +29,6 @@ import Shipping from './Shipping'
 import History from './History'
 import Loader from './Loader'
 import Products from './Products'
-
-export function headerConfig({ intl }: InjectedIntlProps) {
-  const backButton = {
-    title: intl.formatMessage({ id: 'subscription.title.list' }),
-    path: '/subscriptions',
-  }
-
-  return {
-    backButton,
-    title: intl.formatMessage({ id: 'subscription.title.single' }),
-    namespace: 'vtex-account__subscription-details',
-  }
-}
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public state = {
@@ -101,53 +86,49 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   }
 
   public render() {
-    const { group, intl } = this.props
+    const { group } = this.props
     const { displayRetry, displayAlert } = this.state
 
     if (!group) return null
 
     return (
-      <ContentWrapper {...headerConfig({ intl })}>
-        {() => (
-          <div className="mr0 center w-100 pb5">
-            <Alert
-              visible={displayRetry && displayAlert}
-              type={TagTypeEnum.Error}
-              action={{
-                labelId: 'subscription.alert.error.button.message',
-                onClick: this.handleScrollToPayment,
-              }}
-              contentId="subscription.alert.error.message"
-              onClose={() => this.handleSetDisplayAlert(false)}
-            />
-            <Summary group={group} />
-            <div className="flex flex-row-ns flex-column-s">
-              <div className="pt6 pr4-ns w-50-ns">
-                <DataCard group={group} />
-              </div>
-              <div className="pl4-ns pt6 w-50-ns">
-                <Shipping group={group} />
-              </div>
-            </div>
-            <div className="flex flex-row-ns flex-column-s">
-              <div className="pt6 pr4-ns w-50-ns">
-                <Payment
-                  group={group}
-                  onMakeRetry={this.handleMakeRetry}
-                  displayRetry={displayRetry}
-                />
-              </div>
-              <div className="pt6 pl4-ns w-50-ns">
-                <History group={group} />
-              </div>
-            </div>
-
-            <div className="pt6">
-              <Products group={group} />
-            </div>
+      <div className="mr0 center pb5">
+        <Alert
+          visible={displayRetry && displayAlert}
+          type={TagTypeEnum.Error}
+          action={{
+            labelId: 'subscription.alert.error.button.message',
+            onClick: this.handleScrollToPayment,
+          }}
+          contentId="subscription.alert.error.message"
+          onClose={() => this.handleSetDisplayAlert(false)}
+        />
+        <Summary group={group} />
+        <div className="flex flex-row-ns flex-column-s">
+          <div className="pt6 pr4-ns w-50-ns">
+            <DataCard group={group} />
           </div>
-        )}
-      </ContentWrapper>
+          <div className="pl4-ns pt6 w-50-ns">
+            <Shipping group={group} />
+          </div>
+        </div>
+        <div className="flex flex-row-ns flex-column-s">
+          <div className="pt6 pr4-ns w-50-ns">
+            <Payment
+              group={group}
+              onMakeRetry={this.handleMakeRetry}
+              displayRetry={displayRetry}
+            />
+          </div>
+          <div className="pt6 pl4-ns w-50-ns">
+            <History group={group} />
+          </div>
+        </div>
+
+        <div className="pt6">
+          <Products group={group} />
+        </div>
+      </div>
     )
   }
 }
@@ -192,7 +173,7 @@ export interface Subscription {
   priceAtSubscriptionDate: number
 }
 
-interface Props extends InjectedIntlProps, ChildProps {
+interface Props extends ChildProps {
   retry: (args: {
     variables: MutationRetrySubscriptionOrderArgs
   }) => Promise<void>
@@ -213,7 +194,6 @@ interface ChildProps {
 }
 
 const enhance = compose<Props, {}>(
-  injectIntl,
   withRouter,
   graphql(RETRY_MUTATION, { name: 'retry' }),
   graphql<InputProps, Response, Variables, ChildProps>(SUBSCRIPTIONS_GROUP, {

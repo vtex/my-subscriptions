@@ -109,6 +109,6 @@ export const CSS = {
   cardHorizontalPadding: 'ph7-l ph5',
 }
 
-export const BASIC_CARD_WRAPPER = `h-100 ${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding}`
+export const BASIC_CARD_WRAPPER = `${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding}`
 
 export const PAYMENT_DIV_ID = 'subscriptions-payment-div'
