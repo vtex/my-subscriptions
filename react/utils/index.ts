@@ -4,7 +4,7 @@ import SplunkEvents from 'splunk-events'
 
 import {
   SubscriptionDisplayFilterEnum,
-  SubscriptionStatusEnum,
+  SubscriptionStatus,
   MenuOptionsEnum,
 } from '../constants'
 
@@ -34,12 +34,12 @@ export function parseErrorMessageId(error: ApolloError): string {
 
 export function convertFilter(
   filter: SubscriptionDisplayFilterEnum
-): SubscriptionStatusEnum[] {
+): SubscriptionStatus[] {
   if (filter === SubscriptionDisplayFilterEnum.Canceled) {
-    return [SubscriptionStatusEnum.Canceled]
+    return [SubscriptionStatus.Canceled]
   }
 
-  return [SubscriptionStatusEnum.Active, SubscriptionStatusEnum.Paused]
+  return [SubscriptionStatus.Active, SubscriptionStatus.Paused]
 }
 
 export const makeCancelable = (promise: Promise<unknown>) => {
@@ -62,7 +62,7 @@ export const makeCancelable = (promise: Promise<unknown>) => {
 
 export function retrieveMenuOptions(
   isSkipped: boolean,
-  status: SubscriptionStatusEnum
+  status: SubscriptionStatus
 ) {
   return isSkipped
     ? [
@@ -71,7 +71,7 @@ export function retrieveMenuOptions(
         MenuOptionsEnum.Pause,
         MenuOptionsEnum.Cancel,
       ]
-    : status === SubscriptionStatusEnum.Paused
+    : status === SubscriptionStatus.Paused
     ? [
         MenuOptionsEnum.OrderNow,
         MenuOptionsEnum.Restore,

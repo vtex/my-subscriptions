@@ -4,10 +4,8 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import SubscriptionPaymentError from '../mocks/SubscriptionPaymentError'
-import RegularSubscription from '../mocks/RegularSubscription'
-import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
-import Products from '../mocks/OneProduct'
+import { mockRouterParam, generateDetailMock } from '../mocks'
+import { SubscriptionOrderStatus } from '../constants'
 
 const RETRY_BUTTON = 'Try again'
 
@@ -23,14 +21,19 @@ describe('Retry Scenarios', () => {
     window.location = location
   })
 
-  test('should display retry', async () => {
+  test('Should display retry', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [SubscriptionPaymentError, Products] },
+        graphql: {
+          mocks: [
+            generateDetailMock({
+              lastOrderStatus: SubscriptionOrderStatus.PaymentError,
+            }),
+          ],
+        },
       }
     )
 
@@ -41,12 +44,13 @@ describe('Retry Scenarios', () => {
 
   test('Shouldnt display retry', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [RegularSubscription, Products] },
+        graphql: {
+          mocks: [generateDetailMock()],
+        },
       }
     )
 

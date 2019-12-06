@@ -3,22 +3,31 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
-import { withToast } from 'vtex.styleguide'
+import { withToast, ShowToastArgs } from 'vtex.styleguide'
+import { ApolloError } from 'apollo-client'
+import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
+import { SubscriptionsGroup } from '../'
 
-class ShippingContainer extends Component<OutterProps & InnerProps> {
-  public state = {
-    errorMessage: '',
-    isEditMode: false,
-    isLoading: false,
-    selectedAddressId: '',
-    showErrorAlert: false,
+class ShippingContainer extends Component<Props, State> {
+  public constructor(props: Props) {
+    super(props)
+
+    this.state = {
+      errorMessage: '',
+      isEditMode: false,
+      isLoading: false,
+      showErrorAlert: false,
+      selectedAddressId: props.group.shippingAddress
+        ? props.group.shippingAddress.id
+        : '',
+    }
   }
 
-  public handleGoToCreateAddress = () => {
+  private handleGoToCreateAddress = () => {
     const { history } = this.props
 
     const here = history.location.pathname
@@ -29,19 +38,17 @@ class ShippingContainer extends Component<OutterProps & InnerProps> {
     })
   }
 
-  public handleCloseErrorAlert = () => {
-    this.setState({ showErrorAlert: false })
-  }
+  private handleCloseErrorAlert = () => this.setState({ showErrorAlert: false })
 
   public handleSave = () => {
-    const { subscriptionsGroup, showToast, intl } = this.props
+    const { group, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
     this.props
       .updateAddress({
         variables: {
           addressId: this.state.selectedAddressId,
-          orderGroup: subscriptionsGroup.orderGroup,
+          subscriptionsGroupId: group.id,
         },
       })
       .then(() => {
@@ -56,7 +63,7 @@ class ShippingContainer extends Component<OutterProps & InnerProps> {
           isLoading: false,
         })
       })
-      .catch((e: any) => {
+      .catch((e: ApolloError) => {
         this.setState({
           errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
@@ -68,20 +75,22 @@ class ShippingContainer extends Component<OutterProps & InnerProps> {
       })
   }
 
-  public handleAddressChange = (e: any) => {
+  public handleAddressChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     this.setState({ selectedAddressId: e.target.value })
-  }
 
   public handleEditClick = () => {
-    this.setState({ isEditMode: true })
+    const { group } = this.props
+
+    this.setState({
+      isEditMode: true,
+      selectedAddressId: group.shippingAddress ? group.shippingAddress.id : '',
+    })
   }
 
-  public handleCancelClick = () => {
-    this.setState({ isEditMode: false })
-  }
+  public handleCancelClick = () => this.setState({ isEditMode: false })
 
   public render() {
-    const { subscriptionsGroup } = this.props
+    const { group } = this.props
     const {
       isEditMode,
       isLoading,
@@ -101,31 +110,40 @@ class ShippingContainer extends Component<OutterProps & InnerProps> {
         isLoading={isLoading}
         showErrorAlert={showErrorAlert}
         errorMessage={errorMessage}
-        subscriptionsGroup={subscriptionsGroup}
+        group={group}
       />
     ) : (
-      <ShippingCard
-        onEdit={this.handleEditClick}
-        subscriptionsGroup={subscriptionsGroup}
-      />
+      <ShippingCard onEdit={this.handleEditClick} group={group} />
     )
   }
 }
 
 interface OutterProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
 }
 
 interface InnerProps extends RouteComponentProps, InjectedIntlProps {
-  updateAddress: (args: Variables<UpdateAddressArgs>) => Promise<any>
-  showToast: (args: object) => void
+  updateAddress: (args: {
+    variables: MutationUpdateAddressArgs
+  }) => Promise<void>
+  showToast: (args: ShowToastArgs) => void
 }
 
-export default compose<InnerProps & OutterProps, OutterProps>(
+type Props = InnerProps & OutterProps
+
+interface State {
+  errorMessage: string
+  isEditMode: boolean
+  isLoading: boolean
+  showErrorAlert: boolean
+  selectedAddressId: string
+}
+
+export default compose<Props, OutterProps>(
   injectIntl,
+  withToast,
+  withRouter,
   graphql(UPDATE_ADDRESS, {
     name: 'updateAddress',
-  }),
-  withToast,
-  withRouter
+  })
 )(ShippingContainer)

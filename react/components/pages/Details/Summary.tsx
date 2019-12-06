@@ -8,11 +8,10 @@ import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
+import { SubscriptionsGroup } from '.'
 
-const SubscriptionSummary: FunctionComponent<Props> = ({
-  subscriptionsGroup,
-}) => {
-  const { subscriptions, isSkipped, status } = subscriptionsGroup
+const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
+  const { subscriptions, isSkipped, status } = group
 
   const hasMultipleItems = subscriptions.length > 1
 
@@ -37,7 +36,12 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
           </div>
           <div className="pt9-l pt9-m pt4-s ph6-ns flex-grow-1">
             <div className="flex">
-              <Name subscriptionGroup={subscriptionsGroup} />
+              <Name
+                subscriptionsGroupId={group.id}
+                name={group.name}
+                status={group.status}
+                skus={group.subscriptions.map(subscription => subscription.sku)}
+              />
               <div className="pl5-ns pl0-s pt0-ns pt5-s">
                 <SubscriptionsStatus status={status} />
               </div>
@@ -51,21 +55,19 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
                         <FormattedMessage id="subscription.summary.quantity" />
                       </div>
                       <div className="dib f6 fw4 c-muted-1 tr w-60">
-                        {subscriptionsGroup.subscriptions[0].quantity}
+                        {group.subscriptions[0].quantity}
                       </div>
                     </div>
                   )}
                   <SubscriptionTotals
-                    totals={subscriptionsGroup.totals}
-                    currencyCode={
-                      subscriptionsGroup.purchaseSettings.currencySymbol
-                    }
+                    totals={group.totals}
+                    currencyCode={group.purchaseSettings.currencySymbol}
                   />
                 </div>
               </div>
               <div className="w-50-ns w-100 flex justify-end-ns justify-center mt5">
                 <div className="w-90-m w-100-s">
-                  <Menu subscriptionsGroup={subscriptionsGroup} />
+                  <Menu group={group} />
                 </div>
               </div>
             </div>
@@ -77,7 +79,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
 }
 
 interface Props {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
 }
 
 export default SubscriptionSummary

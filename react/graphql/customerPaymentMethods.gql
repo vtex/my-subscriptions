@@ -1,0 +1,13 @@
+query CustomerPaymentMethods {
+  methods: customerPaymentMethods
+    @context(provider: "vtex.subscriptions-graphql") {
+    paymentSystemId
+    paymentSystemName
+    paymentSystemGroup
+    paymentAccount {
+      id
+      cardNumber
+      bin
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-
 import { PaymentFlag, utils } from 'vtex.payment-flags'
+import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
 const PaymentDisplay: FunctionComponent<Props> = ({
   paymentMethod: {
-    paymentSystem,
+    paymentSystemId,
     paymentSystemGroup,
     paymentSystemName,
     paymentAccount,
@@ -14,7 +14,7 @@ const PaymentDisplay: FunctionComponent<Props> = ({
 }) => (
   <div className="flex">
     <div className="h2">
-      <PaymentFlag paymentSystemId={paymentSystem} />
+      <PaymentFlag paymentSystemId={paymentSystemId} />
     </div>
     <span className="t-body pl4 flex items-center">
       {utils.displayPayment({

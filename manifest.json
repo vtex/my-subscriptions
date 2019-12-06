@@ -20,8 +20,7 @@
     "vtex.styleguide": "8.x",
     "vtex.my-account-commons": "0.x",
     "vtex.payment-flags": "1.x",
-    "vtex.my-subscriptions-graphql": "1.x",
-    "vtex.subscriptions-graphql": "1.x",
+    "vtex.subscriptions-graphql": "2.x",
     "vtex.store-graphql": "2.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"

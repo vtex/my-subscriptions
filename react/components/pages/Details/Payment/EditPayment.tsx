@@ -5,21 +5,22 @@ import {
   FormattedMessage,
   InjectedIntl,
 } from 'react-intl'
-import { withRouter } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
+import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
 import {
-  PaymentGroupEnum,
+  PaymentSystemGroup,
   TagTypeEnum,
   CSS,
   BASIC_CARD_WRAPPER,
 } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
-import QUERY from '../../../../graphql/payments/paymentMethods.gql'
+import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 
@@ -32,12 +33,12 @@ function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
         paymentSystemName,
         lastDigits: paymentAccount && paymentAccount.cardNumber.slice(-4),
       }),
-      value: paymentAccount && paymentAccount.accountId,
+      value: paymentAccount && paymentAccount.id,
     })
   )
 }
 
-function goToCreateCard(history: any) {
+function goToCreateCard(history: RouteComponentProps['history']) {
   const here = history.location.pathname
 
   history.push({
@@ -46,20 +47,20 @@ function goToCreateCard(history: any) {
   })
 }
 
-const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
-  data: { methods },
+const EditPayment: FunctionComponent<Props> = ({
   isLoading,
   onCancel,
   onSave,
   onChangePayment,
   onChangeCard,
   onCloseAlert,
-  account,
+  accountId,
   paymentSystemGroup,
   showAlert,
   errorMessage,
   intl,
   history,
+  methods,
 }) => {
   const groupedPayments = groupBy(
     (method: PaymentMethod) => method.paymentSystemGroup
@@ -90,10 +91,10 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
               name={group}
               checked={paymentSystemGroup === group}
               onChange={onChangePayment}
-              value={groupedPayments[group][0].paymentSystem}
+              value={groupedPayments[group][0].paymentSystemId}
             />
             {groupedPayments[group][0].paymentSystemGroup ===
-              PaymentGroupEnum.CreditCard && (
+              PaymentSystemGroup.CreditCard && (
               <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
@@ -102,9 +103,9 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
                       id: 'subscription.payment.chooseOne',
                     })}
                     disabled={
-                      paymentSystemGroup !== PaymentGroupEnum.CreditCard
+                      paymentSystemGroup !== PaymentSystemGroup.CreditCard
                     }
-                    value={account}
+                    value={accountId}
                     onChange={onChangeCard}
                   />
                 </div>
@@ -124,7 +125,7 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
           onCancel={onCancel}
           onSave={onSave}
           disabled={
-            paymentSystemGroup === PaymentGroupEnum.CreditCard && !account
+            paymentSystemGroup === PaymentSystemGroup.CreditCard && !accountId
           }
         />
       </div>
@@ -132,36 +133,39 @@ const EditPayment: FunctionComponent<InnerProps & OuterProps> = ({
   )
 }
 
-interface QueryResults {
+interface ChildProps {
   loading: boolean
   methods: PaymentMethod[]
 }
 
 interface OuterProps {
-  onChangeCard: (e: any) => void
   onSave: () => void
   onCancel: () => void
-  onChangePayment: (e: any) => void
+  onChangeCard: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangePayment: (e: React.ChangeEvent<HTMLSelectElement>) => void
   onCloseAlert: () => void
   isLoading: boolean
   paymentSystemGroup: string | null
-  account: string | null
+  accountId: string | null
   showAlert: boolean
   errorMessage: string
-  orderGroup: string
 }
 
-interface InnerProps extends InjectedIntlProps {
-  data: QueryResults
-  history: any
-}
+interface InnerProps
+  extends InjectedIntlProps,
+    RouteComponentProps,
+    ChildProps {}
 
-export default compose<InnerProps & OuterProps, OuterProps>(
+type Props = InnerProps & OuterProps
+
+export default compose<Props, OuterProps>(
   injectIntl,
   withRouter,
-  graphql(QUERY),
-  branch(
-    ({ data: { loading } }: InnerProps) => loading,
-    renderComponent(PaymentSkeleton)
-  )
+  graphql<{}, { methods: PaymentMethod[] }, {}, ChildProps>(CUSTOMER_PAYMENTS, {
+    props: ({ data }) => ({
+      loading: data ? data.loading : false,
+      methods: (data && data.methods) || [],
+    }),
+  }),
+  branch<ChildProps>(({ loading }) => loading, renderComponent(PaymentSkeleton))
 )(EditPayment)

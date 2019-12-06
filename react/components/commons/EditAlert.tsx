@@ -2,7 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react'
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl'
 import { Alert } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../constants'
+import { SubscriptionStatus } from '../../constants'
 
 const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
   subscriptionStatus,
@@ -12,7 +12,7 @@ const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
   intl,
   children,
 }) => {
-  const canBeEdited = subscriptionStatus === SubscriptionStatusEnum.Active
+  const canBeEdited = subscriptionStatus === SubscriptionStatus.Active
 
   return canBeEdited ? (
     <Alert
@@ -34,7 +34,7 @@ const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
 }
 
 interface Props {
-  subscriptionStatus: SubscriptionStatusEnum
+  subscriptionStatus: SubscriptionStatus
   actionLabelMessage: FormattedMessage.MessageDescriptor
   noActionMessage: FormattedMessage.MessageDescriptor
   onAction: () => void

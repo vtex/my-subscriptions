@@ -1,17 +1,19 @@
 query SubscriptionOrdersByGroup(
-  $orderGroup: String!
-  $page: Int = 1
+  $subscriptionsGroupId: ID!
+  $page: Int
   $perPage: Int
 ) {
-  subscriptionOrdersByGroup(
-    orderGroup: $orderGroup
+  orders: subscriptionOrdersByGroup(
+    subscriptionsGroupId: $subscriptionsGroupId
     page: $page
     perPage: $perPage
-  ) @context(provider: "vtex.my-subscriptions-graphql") {
+  ) @context(provider: "vtex.subscriptions-graphql") {
     list {
-      subscriptionOrderId
-      status
-      date
+      ... on SubscriptionOrder {
+        id
+        status
+        date
+      }
     }
     totalCount
   }

@@ -1,6 +1,9 @@
-mutation updateStatus($orderGroup: String!, $status: String!) {
-  updateStatus(orderGroup: $orderGroup, status: $status)
-    @context(provider: "vtex.my-subscriptions-graphql") {
+mutation updateStatus(
+  $subscriptionsGroupId: ID!
+  $status: SubscriptionStatus!
+) {
+  updateStatus(subscriptionsGroupId: $subscriptionsGroupId, status: $status)
+    @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     status
   }

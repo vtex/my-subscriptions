@@ -2,31 +2,31 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
-import { withToast } from 'vtex.styleguide'
 import { path } from 'ramda'
+import { ApolloError } from 'apollo-client'
+import { withToast, ShowToastArgs } from 'vtex.styleguide'
+import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
-import { PaymentGroupEnum } from '../../../../constants'
+import { PaymentSystemGroup } from '../../../../constants'
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
+import { SubscriptionsGroup } from '../'
 
-class SubscriptionsGroupPaymentContainer extends Component<
-  InnerProps & OuterProps,
-  State
-> {
+class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   private mounted: boolean
 
-  public constructor(props: InnerProps & OuterProps) {
+  public constructor(props: Props) {
     super(props)
     this.state = {
-      account:
+      accountId:
         path(
           [
-            'subscriptionsGroup',
+            'group',
             'purchaseSettings',
             'paymentMethod',
             'paymentAccount',
-            'accountId',
+            'id',
           ],
           props
         ) || null,
@@ -34,26 +34,16 @@ class SubscriptionsGroupPaymentContainer extends Component<
       isEditMode: false,
       isLoading: false,
       isRetryButtonEnabled: true,
-      paymentSystem:
+      paymentSystemId:
         path(
-          [
-            'subscriptionsGroup',
-            'purchaseSettings',
-            'paymentMethod',
-            'paymentSystem',
-          ],
+          ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemId'],
           props
         ) || null,
       paymentSystemGroup:
         path(
-          [
-            'subscriptionsGroup',
-            'purchaseSettings',
-            'paymentMethod',
-            'paymentSystemGroup',
-          ],
+          ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemGroup'],
           props
-        ) || PaymentGroupEnum.CreditCard,
+        ) || PaymentSystemGroup.CreditCard,
       showAlert: false,
     }
 
@@ -87,16 +77,21 @@ class SubscriptionsGroupPaymentContainer extends Component<
   }
 
   public handleSave = () => {
-    const { updatePayment, subscriptionsGroup, intl, showToast } = this.props
-    const { paymentSystemGroup, account, paymentSystem } = this.state
+    const { updatePayment, group, intl, showToast } = this.props
+    const { paymentSystemGroup, accountId, paymentSystemId } = this.state
+
+    if (!paymentSystemId) return null
 
     this.setState({ isLoading: true })
-    updatePayment({
+
+    return updatePayment({
       variables: {
         accountId:
-          paymentSystemGroup === PaymentGroupEnum.CreditCard ? account : null,
-        orderGroup: subscriptionsGroup.orderGroup,
-        payment: paymentSystem as string,
+          paymentSystemGroup === PaymentSystemGroup.CreditCard
+            ? accountId
+            : null,
+        subscriptionsGroupId: group.id,
+        paymentSystemId,
       },
     })
       .then(() => {
@@ -110,7 +105,7 @@ class SubscriptionsGroupPaymentContainer extends Component<
           isLoading: false,
         })
       })
-      .catch(e => {
+      .catch((e: ApolloError) => {
         this.setState({
           errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
@@ -128,50 +123,45 @@ class SubscriptionsGroupPaymentContainer extends Component<
     })
   }
 
-  public handlePaymentChange = (e: any) => {
+  public handlePaymentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
-      paymentSystem: e.target.value,
-      paymentSystemGroup: e.target.name,
+      paymentSystemId: e.target.value,
+      paymentSystemGroup: e.target.name as PaymentSystemGroup,
     })
   }
 
-  public handleCardChange = (e: any) => {
-    this.setState({ account: e.target.value })
+  public handleCardChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ accountId: e.target.value })
   }
 
   public render() {
-    const { subscriptionsGroup, displayRetry } = this.props
+    const { group, displayRetry } = this.props
     const {
       isEditMode,
-      account,
+      accountId,
       isLoading,
       paymentSystemGroup,
       showAlert,
       isRetryButtonEnabled,
     } = this.state
 
-    if (isEditMode) {
-      return (
-        <EditPayment
-          onSave={this.handleSave}
-          onCancel={this.handleCancel}
-          onChangePayment={this.handlePaymentChange}
-          onChangeCard={this.handleCardChange}
-          onCloseAlert={this.handleCloseAlert}
-          paymentSystemGroup={paymentSystemGroup}
-          showAlert={showAlert}
-          errorMessage={this.state.errorMessage}
-          orderGroup={subscriptionsGroup.orderGroup}
-          account={account}
-          isLoading={isLoading}
-        />
-      )
-    }
-
-    return (
+    return isEditMode ? (
+      <EditPayment
+        onSave={this.handleSave}
+        onCancel={this.handleCancel}
+        onChangePayment={this.handlePaymentChange}
+        onChangeCard={this.handleCardChange}
+        onCloseAlert={this.handleCloseAlert}
+        paymentSystemGroup={paymentSystemGroup}
+        showAlert={showAlert}
+        errorMessage={this.state.errorMessage}
+        accountId={accountId}
+        isLoading={isLoading}
+      />
+    ) : (
       <PaymentCard
         onEdit={this.handleEdit}
-        subscriptionsGroup={subscriptionsGroup}
+        group={group}
         onMakeRetry={this.handleMakeRetry}
         displayRetry={displayRetry}
         isRetryButtonEnabled={isRetryButtonEnabled}
@@ -180,34 +170,36 @@ class SubscriptionsGroupPaymentContainer extends Component<
   }
 }
 
-interface OuterProps {
-  subscriptionsGroup: SubscriptionsGroupItemType
+interface OutterProps {
+  group: SubscriptionsGroup
   onMakeRetry: () => Promise<void>
   displayRetry: boolean
 }
 
 interface InnerProps extends InjectedIntlProps {
-  updatePayment: (args: Variables<UpdatePaymentArgs>) => Promise<void>
+  updatePayment: (args: {
+    variables: MutationUpdatePaymentMethodArgs
+  }) => Promise<void>
   showToast: ({ message }: ShowToastArgs) => void
 }
 
+type Props = InnerProps & OutterProps
+
 interface State {
-  account: string | null
+  accountId: string | null
   errorMessage: string
   isEditMode: boolean
   isLoading: boolean
   isRetryButtonEnabled: boolean
-  paymentSystem: string | null
-  paymentSystemGroup: PaymentGroupEnum
+  paymentSystemId: string | null
+  paymentSystemGroup: PaymentSystemGroup
   showAlert: boolean
 }
 
-const paymentMutation = {
-  name: 'updatePayment',
-}
-
-export default compose<InnerProps & OuterProps, OuterProps>(
+export default compose<Props, OutterProps>(
   injectIntl,
   withToast,
-  graphql(UpdatePaymentMethod, paymentMutation)
+  graphql(UpdatePaymentMethod, {
+    name: 'updatePayment',
+  })
 )(SubscriptionsGroupPaymentContainer)

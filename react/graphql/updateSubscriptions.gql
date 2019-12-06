@@ -1,34 +1,30 @@
 mutation UpdateSubscriptions(
-  $subscriptionsGroupId: String!
-  $subscriptions: [SubscriptionInput]!
+  $subscriptionsGroupId: ID!
+  $subscriptions: [SubscriptionInput!]!
 ) {
   updateSubscriptions(
     subscriptionsGroupId: $subscriptionsGroupId
     subscriptions: $subscriptions
-  ) @context(provider: "vtex.my-subscriptions-graphql") {
+  ) @context(provider: "vtex.subscriptions-graphql") {
     cacheId
-    orderGroup
-    status
     totals {
       id
       value
     }
     totalValue
     subscriptions {
-      subscriptionId
-      sku {
-        skuId
-        name
-        productName
-        imageUrl
-        detailUrl
-        nameComplete
-      }
+      id
       quantity
+      sku {
+        id
+        imageUrl
+        name
+        detailUrl
+        productName
+        variations
+        measurementUnit
+      }
       priceAtSubscriptionDate
-    }
-    purchaseSettings {
-      currencySymbol
     }
   }
 }

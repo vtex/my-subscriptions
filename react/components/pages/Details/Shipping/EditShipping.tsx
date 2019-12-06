@@ -1,28 +1,25 @@
-import { FetchPolicy } from 'apollo-client'
 import React, { FunctionComponent } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { branch, compose, renderComponent, withProps } from 'recompose'
+import { branch, compose, renderComponent } from 'recompose'
 import { Button, Dropdown } from 'vtex.styleguide'
+import { Address } from 'vtex.store-graphql'
 
 import Alert from '../../../commons/CustomAlert'
 import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
+import { SubscriptionsGroup } from '../'
 
 function transformAddresses(addresses: Address[]) {
-  return addresses.map(address => {
-    return {
-      label: `${address.street}, ${address.number}`,
-      value: address.addressId,
-    }
-  })
+  return addresses.map(address => ({
+    label: `${address.street}, ${address.number}`,
+    value: address.id,
+  }))
 }
 
-const EditShipping: FunctionComponent<
-  InnerProps & OuterProps & InjectedIntlProps
-> = ({
+const EditShipping: FunctionComponent<Props> = ({
   addresses,
   selectedAddressId,
   onCloseErrorAlert,
@@ -82,52 +79,43 @@ const EditShipping: FunctionComponent<
   )
 }
 
-const addressesQuery = {
-  name: 'addressesData',
-  options({ subscriptionsGroup }: OuterProps) {
-    return {
-      fetchPolicy: 'network-only' as FetchPolicy,
-      variables: {
-        orderGroup: subscriptionsGroup.orderGroup,
-      },
-    }
-  },
-}
-
-interface QueryResults {
+interface ChildProps {
   loading: boolean
   addresses: Address[]
 }
 
-interface InnerProps {
-  addressesData: QueryResults
+interface InnerProps extends InjectedIntlProps {
   addresses: Address[]
 }
 
-interface OuterProps {
+interface OutterProps {
   onSave: () => void
   onCancel: () => void
-  onChangeAddress: (e: any) => void
+  onChangeAddress: (e: React.ChangeEvent<HTMLSelectElement>) => void
   onCloseErrorAlert: () => void
   onGoToCreateAddress: () => void
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
   selectedAddressId: string
   showErrorAlert: boolean
   errorMessage: string
   isLoading: boolean
 }
 
-export default compose<any, OuterProps>(
+type Props = InnerProps & OutterProps
+
+export default compose<Props, OutterProps>(
   injectIntl,
-  graphql(GET_ADDRESSES, addressesQuery),
-  branch(
-    ({ addressesData }: InnerProps) =>
-      addressesData.loading ||
-      !addressesData.addresses ||
-      addressesData.addresses.length === 0,
-    renderComponent(ShippingSkeleton)
+  graphql<OutterProps, { profile: { addresses: Address[] } }, {}, ChildProps>(
+    GET_ADDRESSES,
+    {
+      props: ({ data }) => ({
+        loading: data ? data.loading : false,
+        addresses: data && data.profile ? data.profile.addresses : [],
+      }),
+    }
   ),
-  withProps(({ addressesData }: InnerProps) => ({
-    addresses: addressesData.addresses,
-  }))
+  branch(
+    ({ loading }: ChildProps) => loading,
+    renderComponent(ShippingSkeleton)
+  )
 )(EditShipping)
