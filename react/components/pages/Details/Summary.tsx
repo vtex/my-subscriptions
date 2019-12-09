@@ -16,7 +16,7 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
   const length = totals ? totals.length : 0
 
   return (
-    <div className={BASIC_CARD_WRAPPER}>
+    <section className={BASIC_CARD_WRAPPER}>
       <div className={CSS.cardTitle}>
         <FormattedMessage id="subscription.summary" />
       </div>
@@ -39,7 +39,7 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
         <FormattedMessage id="order.summary.total" />
         <FormattedPrice value={fullPrice} currency={currencyCode} />
       </div>
-    </div>
+    </section>
   )
 }
 
