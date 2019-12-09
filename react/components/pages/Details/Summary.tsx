@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl'
 
-import { BASIC_CARD_WRAPPER } from '../../../constants'
+import { BASIC_CARD_WRAPPER, CSS } from '../../../constants'
 import FormattedPrice from '../../commons/FormattedPrice'
 import { SubscriptionsGroup } from '.'
 
@@ -16,8 +16,8 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
   const length = totals ? totals.length : 0
 
   return (
-    <div className={`${BASIC_CARD_WRAPPER}`}>
-      <div className="t-heading-4 pb7">
+    <div className={BASIC_CARD_WRAPPER}>
+      <div className={CSS.cardTitle}>
         <FormattedMessage id="subscription.summary" />
       </div>
       {totals &&

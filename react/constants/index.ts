@@ -107,6 +107,7 @@ export const CSS = {
   cardBorder: 'bw1 bt bb bl-l br-l b--muted-5',
   cardVerticalPadding: 'pv7-l pv5',
   cardHorizontalPadding: 'ph6-l ph5',
+  cardTitle: 't-heading-4 mb7',
 }
 
 export const BASIC_CARD_WRAPPER = `${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding} ${CSS.cardHorizontalPadding} br3`
