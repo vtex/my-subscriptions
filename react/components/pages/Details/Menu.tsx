@@ -17,12 +17,16 @@ import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
 import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
 import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
 import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
-import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
+import {
+  retrieveMenuOptions,
+  logOrderNowMetric,
+  isEditionEnabled,
+} from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
 
 import { SubscriptionsGroup } from '.'
 
-class MenuContainer extends Component<InnerProps & OutterProps> {
+class MenuContainer extends Component<Props> {
   public state = {
     isModalOpen: false,
     errorMessage: '',
@@ -203,10 +207,6 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   public render() {
     const { group, intl } = this.props
 
-    if (group.status === SubscriptionStatus.Canceled) {
-      return null
-    }
-
     const options = retrieveMenuOptions(group.isSkipped, group.status)
 
     const actionOptions = options.map(option => {
@@ -225,7 +225,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         <ConfirmationModal {...modalProps} />
         <ActionMenu
           label={intl.formatMessage({ id: 'subscription.manage' })}
-          buttonProps={{ variation: 'secondary', block: true, size: 'small' }}
+          buttonProps={{ variation: 'secondary', block: true }}
           options={actionOptions}
         />
       </Fragment>
@@ -237,7 +237,13 @@ interface Variables<T> {
   variables: T
 }
 
-interface OutterProps {
+interface Response {
+  orderForm: {
+    orderFormId: string
+  }
+}
+
+interface OuterProps {
   group: SubscriptionsGroup
 }
 
@@ -254,13 +260,13 @@ interface InnerProps extends InjectedIntlProps {
   }
 }
 
-interface Response {
-  orderForm: {
-    orderFormId: string
-  }
-}
+type Props = InnerProps & OuterProps
 
-const enhance = compose<InnerProps & OutterProps, OutterProps>(
+const enhance = compose<Props, OuterProps>(
+  branch<OuterProps>(
+    ({ group }) => !isEditionEnabled(group.status),
+    renderNothing
+  ),
   injectIntl,
   withToast,
   withRuntimeContext,

@@ -13,22 +13,19 @@ import {
 
 import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
-import Alert from '../../commons/CustomAlert'
+import Name from '../../commons/SubscriptionName'
 import {
-  TagTypeEnum,
   SubscriptionStatus,
   SubscriptionOrderStatus,
   PAYMENT_DIV_ID,
   Periodicity,
 } from '../../../constants'
 
-import DataCard from './DataCard'
-import Summary from './Summary'
-import Payment from './Payment'
-import Shipping from './Shipping'
+import Menu from './Menu'
 import History from './History'
 import Loader from './Loader'
 import Products from './Products'
+import Summary from './Summary'
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public state = {
@@ -87,45 +84,28 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
   public render() {
     const { group } = this.props
-    const { displayRetry, displayAlert } = this.state
 
     if (!group) return null
 
     return (
-      <div className="mr0 center pb5">
-        <Alert
-          visible={displayRetry && displayAlert}
-          type={TagTypeEnum.Error}
-          action={{
-            labelId: 'subscription.alert.error.button.message',
-            onClick: this.handleScrollToPayment,
-          }}
-          contentId="subscription.alert.error.message"
-          onClose={() => this.handleSetDisplayAlert(false)}
-        />
-        <Summary group={group} />
-        <div className="flex flex-row-ns flex-column-s">
-          <div className="pt6 pr4-ns w-50-ns">
-            <DataCard group={group} />
-          </div>
-          <div className="pl4-ns pt6 w-50-ns">
-            <Shipping group={group} />
-          </div>
+      <div className="flex flex-wrap c-on-base">
+        <div className="w-100 flex justify-between pb7">
+          <Name
+            skus={group.subscriptions.map(s => s.sku)}
+            subscriptionsGroupId={group.id}
+            status={group.status}
+            isTitle
+          />
+          <Menu group={group} />
         </div>
-        <div className="flex flex-row-ns flex-column-s">
-          <div className="pt6 pr4-ns w-50-ns">
-            <Payment
-              group={group}
-              onMakeRetry={this.handleMakeRetry}
-              displayRetry={displayRetry}
-            />
-          </div>
-          <div className="pt6 pl4-ns w-50-ns">
-            <History group={group} />
-          </div>
+        <div className="w-two-thirds"></div>
+        <div className="w-third">
+          <Summary group={group} />
         </div>
-
-        <div className="pt6">
+        <div className="w-third">
+          <History group={group} />
+        </div>
+        <div className="w-two-thirds">
           <Products group={group} />
         </div>
       </div>
@@ -205,7 +185,6 @@ const enhance = compose<Props, {}>(
     props: ({ data }) => ({
       loading: data ? data.loading : false,
       group: data && data.group,
-      data,
     }),
   }),
   branch<ChildProps>(props => props.loading, renderComponent(Loader))
