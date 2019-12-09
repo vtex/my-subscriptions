@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate to `subscriptions-graphql`.
+
 ## [1.9.1] - 2019-11-13
 
 ### Fixed

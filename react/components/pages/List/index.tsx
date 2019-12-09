@@ -155,9 +155,6 @@ interface Props extends InjectedIntlProps {
   history: any
 }
 
-const enhance = compose<Props, {}>(
-  injectIntl,
-  withRouter
-)
+const enhance = compose<Props, {}>(injectIntl, withRouter)
 
 export default enhance(SubscriptionsGroupListContainer)
