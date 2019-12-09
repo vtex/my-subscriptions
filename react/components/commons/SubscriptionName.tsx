@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
@@ -6,10 +6,11 @@ import { IconEdit, Input } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
 import { SubscriptionStatus } from '../../constants'
+import { isEditionEnabled } from '../../utils'
 
 import ConfirmationModal from './ConfirmationModal'
 
-class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
+class SubscriptionNameContainer extends Component<Props> {
   public state = {
     isLoading: false,
     isModalOpen: false,
@@ -40,11 +41,12 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public render() {
     const {
       name,
-      status,
       intl,
       updateName,
       skus,
       subscriptionsGroupId,
+      status,
+      isTitle,
     } = this.props
 
     let content
@@ -54,7 +56,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
       if (skus.length === 1) {
         content = (
           <a
-            className="no-underline c-on-base ttc"
+            className="no-underline ttc c-on-base"
             target="_blank"
             rel="noopener noreferrer"
             href={skus[0].detailUrl}
@@ -95,10 +97,10 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         }),
     }
 
-    const canEdit = status === SubscriptionStatus.Active
+    const canEdit = isEditionEnabled(status)
 
     return (
-      <Fragment>
+      <div className={`t-heading-${isTitle ? '2' : '5'}`}>
         <ConfirmationModal {...modalProps}>
           <h2 className="t-heading-5 c-on-base mt0 mb7">
             {intl.formatMessage({
@@ -113,31 +115,27 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
             />
           </div>
         </ConfirmationModal>
-        <div className="t-heading-5 c-on-base">
-          {content}
-          {canEdit && (
-            <button
-              className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
-              onClick={this.handleOpenModal}
-            >
-              <IconEdit solid />
-            </button>
-          )}
-        </div>
-      </Fragment>
+        {content}
+        {canEdit && (
+          <button
+            className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
+            onClick={this.handleOpenModal}
+          >
+            <IconEdit size={isTitle ? 20 : 16} />
+          </button>
+        )}
+      </div>
     )
   }
 }
 
-const enhance = compose<InnerProps & OutterProps, OutterProps>(
-  injectIntl,
-  graphql(UPDATE_NAME, { name: 'updateName' })
-)
+interface InputChangeEvent {
+  target: { value: string }
+}
 
-export default enhance(SubscriptionNameContainer)
-
-interface OutterProps {
+interface OuterProps {
   name?: string | null
+  isTitle?: boolean
   status: SubscriptionStatus
   subscriptionsGroupId: string
   skus: {
@@ -152,6 +150,11 @@ interface InnerProps extends InjectedIntlProps {
   showToast: (args: object) => void
 }
 
-interface InputChangeEvent {
-  target: { value: string }
-}
+type Props = InnerProps & OuterProps
+
+const enhance = compose<Props, OuterProps>(
+  injectIntl,
+  graphql(UPDATE_NAME, { name: 'updateName' })
+)
+
+export default enhance(SubscriptionNameContainer)

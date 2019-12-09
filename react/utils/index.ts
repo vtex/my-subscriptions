@@ -98,3 +98,7 @@ export function logOrderNowMetric(account: string, orderGroup: string) {
     account
   )
 }
+
+export function isEditionEnabled(subscriptionStatus: SubscriptionStatus) {
+  return subscriptionStatus === SubscriptionStatus.Active
+}
