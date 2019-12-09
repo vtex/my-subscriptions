@@ -106,9 +106,9 @@ export const CSS = {
   cardTypograph: 't-body bg-base c-on-base',
   cardBorder: 'bw1 bt bb bl-l br-l b--muted-5',
   cardVerticalPadding: 'pv7-l pv5',
-  cardHorizontalPadding: 'ph7-l ph5',
+  cardHorizontalPadding: 'ph6-l ph5',
 }
 
-export const BASIC_CARD_WRAPPER = `${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding}`
+export const BASIC_CARD_WRAPPER = `${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding} ${CSS.cardHorizontalPadding} br3`
 
 export const PAYMENT_DIV_ID = 'subscriptions-payment-div'

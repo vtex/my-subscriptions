@@ -88,7 +88,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
     if (!group) return null
 
     return (
-      <div className="flex flex-wrap c-on-base">
+      <div className="w-100 flex flex-wrap c-on-base ph7">
         <div className="w-100 flex justify-between pb7">
           <Name
             skus={group.subscriptions.map(s => s.sku)}
@@ -99,14 +99,14 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
           <Menu group={group} />
         </div>
         <div className="w-two-thirds"></div>
-        <div className="w-third">
+        <div className="w-third pl4 pb4">
           <Summary group={group} />
         </div>
-        <div className="w-third">
-          <History group={group} />
-        </div>
-        <div className="w-two-thirds">
+        <div className="w-two-thirds pr4 pt4">
           <Products group={group} />
+        </div>
+        <div className="w-third pl4 pt4">
+          <History group={group} />
         </div>
       </div>
     )
