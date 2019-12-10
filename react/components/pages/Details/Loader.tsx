@@ -44,7 +44,7 @@ const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
 }
 
 interface Props extends InjectedIntlProps {
-  data: any
+  data: unknown
 }
 
 export default injectIntl(SubscriptionDetailsLoader)

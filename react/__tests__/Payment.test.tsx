@@ -4,10 +4,8 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatusEnum } from '../constants'
-import RegularSubscription from '../mocks/RegularSubscription'
-import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
-import Products from '../mocks/OneProduct'
+import { SubscriptionStatus } from '../constants'
+import { mockRouterParam, generateDetailMock } from '../mocks'
 
 const INVALID_PAYMENT =
   'Invalid payment method, select a new valid payment for this subscription.'
@@ -26,12 +24,11 @@ describe('Payment Scenarios', () => {
 
   test('Shouldnt display payment error', async () => {
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [RegularSubscription, Products] },
+        graphql: { mocks: [generateDetailMock()] },
       }
     )
 
@@ -41,17 +38,12 @@ describe('Payment Scenarios', () => {
   })
 
   test('Should display payment error', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.purchaseSettings.paymentMethod = null
-
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [noAddress, Products] },
+        graphql: { mocks: [generateDetailMock({ hasPaymentMethod: false })] },
       }
     )
 
@@ -61,19 +53,19 @@ describe('Payment Scenarios', () => {
   })
 
   test('Should display payment no-action error when the subscription status is not active', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.purchaseSettings.paymentMethod = null
-    noAddress.result.data.groupedSubscription.status =
-      SubscriptionStatusEnum.Paused
-
     const { queryByText } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [noAddress, Products] },
+        graphql: {
+          mocks: [
+            generateDetailMock({
+              hasPaymentMethod: false,
+              status: SubscriptionStatus.Paused,
+            }),
+          ],
+        },
       }
     )
 

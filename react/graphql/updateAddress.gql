@@ -1,9 +1,11 @@
-mutation updateAddress($orderGroup: String!, $addressId: String!) {
-  updateAddress(orderGroup: $orderGroup, addressId: $addressId)
-    @context(provider: "vtex.my-subscriptions-graphql") {
+mutation UpdateAddress($subscriptionsGroupId: ID!, $addressId: ID!) {
+  updateAddress(
+    subscriptionsGroupId: $subscriptionsGroupId
+    addressId: $addressId
+  ) @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     shippingAddress {
-      addressId
+      id
       street
       number
       complement

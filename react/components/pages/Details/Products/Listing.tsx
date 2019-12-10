@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { defineMessages } from 'react-intl'
 
 import {
-  SubscriptionStatusEnum,
+  SubscriptionStatus,
   BASIC_CARD_WRAPPER,
   CSS,
 } from '../../../../constants'
@@ -10,7 +10,7 @@ import EditButton from '../../../commons/EditButton'
 import Header from '../CardHeader'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from './ProductListItem'
-import { SubscriptionProduct } from '.'
+import { Subscription } from '../.'
 
 const messages = defineMessages({
   title: {
@@ -19,7 +19,7 @@ const messages = defineMessages({
   },
 })
 
-function mapVariationsToDesc(product: SubscriptionProduct) {
+function mapVariationsToDesc(product: Subscription) {
   const variations = product.sku.variations
     ? Object.keys(product.sku.variations)
     : []
@@ -77,9 +77,9 @@ const ProductsListing: FunctionComponent<Props> = ({
           currency={currency}
           canRemove={canRemove}
           onChange={(quantity: number) =>
-            onUpdateQuantity(product.subscriptionId, quantity)
+            onUpdateQuantity(product.id, quantity)
           }
-          onRemove={() => onRemoveSubscription(product.subscriptionId)}
+          onRemove={() => onRemoveSubscription(product.id)}
         />
       </div>
     ))}
@@ -104,8 +104,8 @@ interface Props {
   isLoading: boolean
   isEditing: boolean
   canRemove: boolean
-  subscriptionStatus: SubscriptionStatusEnum
-  products: SubscriptionProduct[]
+  subscriptionStatus: SubscriptionStatus
+  products: Subscription[]
   currency: string
 }
 

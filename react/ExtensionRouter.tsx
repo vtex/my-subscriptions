@@ -14,7 +14,7 @@ const ExtensionRouter = () => (
     />
     <Route
       exact
-      path="/subscriptions/:orderGroup"
+      path="/subscriptions/:subscriptionsGroupId"
       component={SubscriptionDetailContainer}
     />
   </Fragment>

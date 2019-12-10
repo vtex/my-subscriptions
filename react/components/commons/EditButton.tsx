@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatusEnum } from '../../constants'
+import { SubscriptionStatus } from '../../constants'
 
 const EditButton: FunctionComponent<Props> = ({
   subscriptionStatus,
@@ -10,15 +10,15 @@ const EditButton: FunctionComponent<Props> = ({
   testId,
 }) => {
   if (
-    subscriptionStatus === SubscriptionStatusEnum.Active ||
-    subscriptionStatus === SubscriptionStatusEnum.Paused
+    subscriptionStatus === SubscriptionStatus.Active ||
+    subscriptionStatus === SubscriptionStatus.Paused
   )
     return (
       <Button
         size="small"
         variation="tertiary"
         onClick={onEdit}
-        disabled={subscriptionStatus === SubscriptionStatusEnum.Paused}
+        disabled={subscriptionStatus === SubscriptionStatus.Paused}
         testId={testId}
       >
         <FormattedMessage id="subscription.actions.edit" />
@@ -29,7 +29,7 @@ const EditButton: FunctionComponent<Props> = ({
 }
 
 interface Props {
-  subscriptionStatus: SubscriptionStatusEnum
+  subscriptionStatus: SubscriptionStatus
   onEdit: () => void
   testId: string
 }

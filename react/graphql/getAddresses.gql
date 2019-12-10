@@ -1,14 +1,21 @@
-query GetAddresses($orderGroup: String!) {
-  addresses(orderGroup: $orderGroup) {
-    addressId
-    street
-    neighborhood
-    number
-    postalCode
-    city
-    state
-    country
-    reference
-    complement
+query UserAddresses {
+  profile @context(provider: "vtex.store-graphql") {
+    cacheId
+    addresses: address {
+      id
+      addressType
+      addressName
+      city
+      complement
+      country
+      neighborhood
+      number
+      postalCode
+      geoCoordinates
+      receiverName
+      reference
+      state
+      street
+    }
   }
 }
