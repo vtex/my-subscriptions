@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl'
+import { Box } from 'vtex.styleguide'
 
-import { BASIC_CARD_WRAPPER, CSS } from '../../../constants'
 import FormattedPrice from '../../commons/FormattedPrice'
+import { CSS } from '../../../constants'
 import { SubscriptionsGroup } from '.'
 
 const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
@@ -16,30 +17,35 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
   const length = totals ? totals.length : 0
 
   return (
-    <section className={BASIC_CARD_WRAPPER}>
-      <div className={CSS.cardTitle}>
-        <FormattedMessage id="subscription.summary" />
-      </div>
-      {totals &&
-        totals.map((total, i) => (
-          <div
-            className={`flex justify-between pb${i === length - 1 ? 5 : 3}`}
-            key={`totals-${total.id}`}
-          >
-            <span>
-              {intl.formatMessage({
-                id: `subscription.summary.${total.id.toLowerCase()}`,
-              })}
-            </span>
-            <FormattedPrice value={total.value} currency={currencyCode} />
-          </div>
-        ))}
+    <Box noPadding>
+      <div className={`${CSS.cardHorizontalPadding} pa7`}>
+        <div className={CSS.cardTitle}>
+          <FormattedMessage id="subscription.summary" />
+        </div>
+        {totals &&
+          totals.map((total, i) => (
+            <div
+              className={`flex justify-between pb${i === length - 1 ? 5 : 3}`}
+              key={`totals-${total.id}`}
+            >
+              <span>
+                {intl.formatMessage({
+                  id: `subscription.summary.${total.id.toLowerCase()}`,
+                })}
+              </span>
+              <FormattedPrice value={total.value} currency={currencyCode} />
+            </div>
+          ))}
 
-      <div className="flex justify-between pt7 bt bw1 b--muted-5 b">
-        <FormattedMessage id="order.summary.total" />
-        <FormattedPrice value={fullPrice} currency={currencyCode} />
+        <div className="flex justify-between pt7 bt b--muted-4 b">
+          <FormattedMessage id="order.summary.total" />
+          <FormattedPrice value={fullPrice} currency={currencyCode} />
+        </div>
       </div>
-    </section>
+      <div className="t-mini c-muted-1 bg-muted-5 ph7 pv5 bt b--muted-4">
+        *Price valid for today.
+      </div>
+    </Box>
   )
 }
 

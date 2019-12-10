@@ -110,6 +110,4 @@ export const CSS = {
   cardTitle: 't-heading-4 mb7',
 }
 
-export const BASIC_CARD_WRAPPER = `${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding} ${CSS.cardHorizontalPadding} br3`
-
 export const PAYMENT_DIV_ID = 'subscriptions-payment-div'

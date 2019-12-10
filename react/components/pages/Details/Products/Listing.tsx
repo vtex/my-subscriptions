@@ -1,11 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { Box } from 'vtex.styleguide'
 
-import {
-  SubscriptionStatus,
-  BASIC_CARD_WRAPPER,
-  CSS,
-} from '../../../../constants'
+import { SubscriptionStatus, CSS } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
 import EditionButtons from '../EditionButtons'
 
@@ -41,8 +38,8 @@ const ProductsListing: FunctionComponent<Props> = ({
   onUpdateQuantity,
   onRemoveSubscription,
 }) => (
-  <section className={BASIC_CARD_WRAPPER}>
-    <div className={`${CSS.cardTitle} flex justify-between`}>
+  <Box>
+    <div className={`${CSS.cardTitle} flex justify-between h2`}>
       <FormattedMessage id="store/subscription.products.card.title" />
       {!isEditing && (
         <EditButton
@@ -85,7 +82,7 @@ const ProductsListing: FunctionComponent<Props> = ({
         />
       </div>
     )}
-  </section>
+  </Box>
 )
 
 interface Props {
