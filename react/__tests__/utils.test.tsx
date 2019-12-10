@@ -1,8 +1,6 @@
-import {
-  SubscriptionDisplayFilterEnum,
-  SubscriptionStatus,
-  TagTypeEnum,
-} from '../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+
+import { SubscriptionDisplayFilterEnum, TagTypeEnum } from '../constants'
 import { convertFilter } from '../utils'
 import { convertStatusInTagType } from '../components/commons/SubscriptionStatus'
 

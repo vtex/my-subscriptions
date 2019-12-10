@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-
-import { SubscriptionStatus } from '../../../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const SubscriptionsGroupItemDate: FunctionComponent<Props &
   InjectedIntlProps> = ({

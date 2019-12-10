@@ -5,11 +5,12 @@ import { compose } from 'recompose'
 import { path } from 'ramda'
 import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
+import {
+  MutationUpdatePaymentMethodArgs,
+  PaymentSystemGroup,
+} from 'vtex.subscriptions-graphql'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
-import { PaymentSystemGroup } from '../../../../constants'
-
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 

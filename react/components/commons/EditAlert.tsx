@@ -1,8 +1,7 @@
 import React, { FunctionComponent, Fragment } from 'react'
 import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl'
 import { Alert } from 'vtex.styleguide'
-
-import { SubscriptionStatus } from '../../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
   subscriptionStatus,

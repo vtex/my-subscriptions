@@ -9,14 +9,14 @@ import { MutationAddItemArgs } from 'vtex.store-graphql'
 import {
   MutationUpdateIsSkippedArgs,
   MutationUpdateStatusArgs,
-  SubscriptionStatus as Status,
+  SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
 
 import ADD_TO_CART from '../../../graphql/addToCart.gql'
 import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
 import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
 import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
-import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
+import { MenuOptionsEnum } from '../../../constants'
 import {
   retrieveMenuOptions,
   logOrderNowMetric,
@@ -90,7 +90,7 @@ class MenuContainer extends Component<Props> {
 
     return updateStatus({
       variables: {
-        status: (status as unknown) as Status, // since enums from the graphql can't be used.
+        status,
         subscriptionsGroupId: id,
       },
     })

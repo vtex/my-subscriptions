@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from '@vtex/test-tools/react'
 // @ts-ignore
 import MockRouter from 'react-mock-router'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatus } from '../constants'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 
 const INVALID_PAYMENT =

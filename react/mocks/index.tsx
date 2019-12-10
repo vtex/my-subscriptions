@@ -3,7 +3,8 @@ import {
   SubscriptionOrderStatus,
   PaymentSystemGroup,
   Periodicity,
-} from '../constants'
+} from 'vtex.subscriptions-graphql'
+
 import DETAIL_QUERY from '../graphql/subscriptionsGroup.gql'
 
 export const orderGroup = 'C842CBFAF3728E8EBDA401836B2ED6D1'

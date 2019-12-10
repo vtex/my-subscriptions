@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Box } from 'vtex.styleguide'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionStatus, CSS } from '../../../../constants'
+import { CSS } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
 import EditionButtons from '../EditionButtons'
 

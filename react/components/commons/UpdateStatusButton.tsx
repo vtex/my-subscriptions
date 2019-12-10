@@ -3,8 +3,8 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { Button } from 'vtex.styleguide'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
 
 import ConfirmationModal from './ConfirmationModal'

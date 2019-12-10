@@ -1,12 +1,9 @@
 import { ApolloError } from 'apollo-client'
 import axios from 'axios'
 import SplunkEvents from 'splunk-events'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import {
-  SubscriptionDisplayFilterEnum,
-  SubscriptionStatus,
-  MenuOptionsEnum,
-} from '../constants'
+import { SubscriptionDisplayFilterEnum, MenuOptionsEnum } from '../constants'
 
 const splunkEvents = new SplunkEvents()
 

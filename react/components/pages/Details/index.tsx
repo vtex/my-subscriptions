@@ -9,18 +9,15 @@ import {
   Sku,
   SubscriptionOrder,
   PurchaseSettings,
+  SubscriptionStatus,
+  SubscriptionOrderStatus,
+  Periodicity,
 } from 'vtex.subscriptions-graphql'
 
 import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Name from '../../commons/SubscriptionName'
-import {
-  SubscriptionStatus,
-  SubscriptionOrderStatus,
-  PAYMENT_DIV_ID,
-  Periodicity,
-} from '../../../constants'
-
+import { PAYMENT_DIV_ID } from '../../../constants'
 import Menu from './Menu'
 import History from './History'
 import Loader from './Loader'
@@ -82,6 +79,8 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
     })
   }
 
+  private handleUpdateStatus(status: SubscriptionStatus) {}
+
   public render() {
     const { group } = this.props
 
@@ -98,7 +97,9 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
           />
           <Menu group={group} />
         </div>
-        <div className="w-two-thirds"></div>
+        <div className="w-two-thirds pr4 pb4">
+          <NotificationBar group={group} />
+        </div>
         <div className="w-third pl4 pb4">
           <Summary group={group} />
         </div>
@@ -122,12 +123,10 @@ export type SubscriptionsGroup = Pick<
   | 'shippingEstimate'
   | 'nextPurchaseDate'
   | 'shippingAddress'
+  | 'status'
 > & {
-  status: SubscriptionStatus
   subscriptions: Subscription[]
-  lastOrder: Pick<SubscriptionOrder, 'id'> & {
-    status: SubscriptionOrderStatus
-  }
+  lastOrder: Pick<SubscriptionOrder, 'id' | 'status'>
   purchaseSettings: Pick<
     PurchaseSettings,
     'currencySymbol' | 'purchaseDay' | 'paymentMethod'

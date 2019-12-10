@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
+import { SubscriptionStatus as StatusEnum } from 'vtex.subscriptions-graphql'
 
-import { TagTypeEnum, SubscriptionStatus as StatusEnum } from '../../constants'
+import { TagTypeEnum } from '../../constants'
 
 export function convertStatusInTagType(status: StatusEnum): TagTypeEnum | null {
   switch (status) {

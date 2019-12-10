@@ -2,10 +2,10 @@ import React from 'react'
 import { render } from '@vtex/test-tools/react'
 // @ts-ignore
 import MockRouter from 'react-mock-router'
+import { SubscriptionOrderStatus } from 'vtex.subscriptions-graphql'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { mockRouterParam, generateDetailMock } from '../mocks'
-import { SubscriptionOrderStatus } from '../constants'
 
 const RETRY_BUTTON = 'Try again'
 

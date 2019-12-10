@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
-
-import { SubscriptionStatus } from '../../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const EditButton: FunctionComponent<Props> = ({
   subscriptionStatus,

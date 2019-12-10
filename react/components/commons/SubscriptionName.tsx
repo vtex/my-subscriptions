@@ -3,9 +3,9 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { IconEdit, Input } from 'vtex.styleguide'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
-import { SubscriptionStatus } from '../../constants'
 import { isEditionEnabled } from '../../utils'
 
 import ConfirmationModal from './ConfirmationModal'

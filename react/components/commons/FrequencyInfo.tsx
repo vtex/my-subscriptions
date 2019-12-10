@@ -1,7 +1,6 @@
 import React, { FunctionComponent, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-
-import { Periodicity } from '../../constants'
+import { Periodicity } from 'vtex.subscriptions-graphql'
 
 import LabeledInfo from './LabeledInfo'
 

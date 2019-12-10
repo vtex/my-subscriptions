@@ -6,15 +6,10 @@ import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { withRouter } from 'vtex.my-account-commons/Router'
 import { Dropdown } from 'vtex.styleguide'
-import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
+import { SubscriptionsGroup as Group, Plan } from 'vtex.subscriptions-graphql'
 
 import GROUPS from '../../../graphql/customerSubscriptions.gql'
-import {
-  SubscriptionDisplayFilterEnum,
-  CSS,
-  SubscriptionStatus,
-  Periodicity,
-} from '../../../constants'
+import { SubscriptionDisplayFilterEnum, CSS } from '../../../constants'
 import { convertFilter } from '../../../utils'
 
 import Loading from './LoadingState'
@@ -127,15 +122,9 @@ class SubscriptionsGroupListContainer extends Component<
 
 export type SubscriptionsGroup = Pick<
   Group,
-  'id' | 'name' | 'nextPurchaseDate' | 'lastStatusUpdate'
+  'id' | 'name' | 'nextPurchaseDate' | 'lastStatusUpdate' | 'status'
 > & {
-  status: SubscriptionStatus
-  plan: {
-    frequency: {
-      periodicity: Periodicity
-      interval: number
-    }
-  }
+  plan: Pick<Plan, 'frequency'>
   subscriptions: {
     sku: {
       imageUrl: string

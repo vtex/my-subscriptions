@@ -11,15 +11,10 @@ import { graphql } from 'react-apollo'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
-import { PaymentMethod } from 'vtex.subscriptions-graphql'
+import { PaymentMethod, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 import { withRouter } from 'vtex.my-account-commons/Router'
 
-import {
-  PaymentSystemGroup,
-  TagTypeEnum,
-  CSS,
-  BASIC_CARD_WRAPPER,
-} from '../../../../constants'
+import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'

@@ -6,7 +6,7 @@ import { ApolloError } from 'apollo-client'
 import { Dropdown } from 'vtex.styleguide'
 import {
   MutationUpdateSettingsArgs,
-  Periodicity as GraphQLPeriodicity,
+  Periodicity,
 } from 'vtex.subscriptions-graphql'
 
 import {
@@ -15,7 +15,6 @@ import {
   TagTypeEnum,
   CSS,
   BASIC_CARD_WRAPPER,
-  Periodicity,
 } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
@@ -117,7 +116,7 @@ class EditData extends Component<Props, State> {
         variables: {
           subscriptionsGroupId: this.props.group.id,
           purchaseDay,
-          periodicity: (periodicity as unknown) as GraphQLPeriodicity,
+          periodicity,
           interval,
         },
       })
