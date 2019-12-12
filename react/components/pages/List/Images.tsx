@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 
-// tslint:disable-next-line:no-var-requires
 const Swiper = window.navigator ? require('react-id-swiper').default : null
 
 import { CSS } from '../../../constants'
@@ -10,7 +9,10 @@ import ProductImage from '../../commons/ProductImage'
 import './global.css'
 
 interface Props {
-  skus: SKUType[]
+  skus: {
+    imageUrl: string
+    productName: string
+  }[]
 }
 
 const iconSize = 17

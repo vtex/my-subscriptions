@@ -12,6 +12,7 @@ import Alert from '../../../commons/CustomAlert'
 import EditAlert from '../../../commons/EditAlert'
 import EditButton from '../../../commons/EditButton'
 import PaymentDisplay from './PaymentDisplay'
+import { SubscriptionsGroup } from '../'
 
 const messages = defineMessages({
   label: {
@@ -25,7 +26,7 @@ const messages = defineMessages({
 })
 
 const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
-  subscriptionsGroup,
+  group,
   onEdit,
   onMakeRetry,
   displayRetry,
@@ -59,7 +60,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
         <div className="ml3">
           <EditButton
             onEdit={onEdit}
-            subscriptionStatus={subscriptionsGroup.status}
+            subscriptionStatus={group.status}
             testId="edit-payment-button"
           />
         </div>
@@ -67,13 +68,13 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
     </div>
     <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
       <div className="f5-ns f6-s pt5 lh-solid dib-ns c-on-base">
-        {subscriptionsGroup.purchaseSettings.paymentMethod ? (
+        {group.purchaseSettings.paymentMethod ? (
           <PaymentDisplay
-            paymentMethod={subscriptionsGroup.purchaseSettings.paymentMethod}
+            paymentMethod={group.purchaseSettings.paymentMethod}
           />
         ) : (
           <EditAlert
-            subscriptionStatus={subscriptionsGroup.status}
+            subscriptionStatus={group.status}
             onAction={onEdit}
             actionLabelMessage={messages.label}
             noActionMessage={messages.noAction}
@@ -87,7 +88,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
 )
 
 interface Props {
-  subscriptionsGroup: SubscriptionsGroupItemType
+  group: SubscriptionsGroup
   onEdit: () => void
   onMakeRetry: () => void
   displayRetry: boolean

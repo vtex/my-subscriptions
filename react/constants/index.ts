@@ -1,29 +1,20 @@
-export enum SubscriptionStatusEnum {
+// Remove it after fix on typings and we are able to import the enums from the graphql app. by Napoli
+
+export enum SubscriptionStatus {
   Active = 'ACTIVE',
+  Paused = 'PAUSED',
   Canceled = 'CANCELED',
   Expired = 'EXPIRED',
-  Paused = 'PAUSED',
 }
 
-export enum SubscriptionDisplayFilterEnum {
-  Active = 'ACTIVE_FILTER',
-  Canceled = 'CANCELED_FILTER',
+export enum Periodicity {
+  Daily = 'DAILY',
+  Weekly = 'WEEKLY',
+  Monthly = 'MONTHLY',
+  Yearly = 'YEARLY',
 }
 
-export enum TagTypeEnum {
-  Error = 'error',
-  Warning = 'warning',
-}
-
-export enum PaymentGroupEnum {
-  BankInvoice = 'bankInvoice',
-  PayPal = 'payPal',
-  GiftCard = 'giftCard',
-  DebitCard = 'debitCard',
-  CreditCard = 'creditCard',
-}
-
-export enum SubscriptionOrderStatusEnum {
+export enum SubscriptionOrderStatus {
   Triggered = 'TRIGGERED',
   InProcess = 'IN_PROCESS',
   Failure = 'FAILURE',
@@ -34,6 +25,27 @@ export enum SubscriptionOrderStatusEnum {
   Skiped = 'SKIPED',
   SuccessWithNoOrder = 'SUCCESS_WITH_NO_ORDER',
   SuccessWithPartialOrder = 'SUCCESS_WITH_PARTIAL_ORDER',
+  ReTriggered = 'RE_TRIGGERED',
+}
+
+export enum PaymentSystemGroup {
+  CreditCard = 'creditCard',
+  Cash = 'cash',
+  BankInvoice = 'bankInvoice',
+  GiftCard = 'giftCard',
+  PayPal = 'payPal',
+}
+
+///
+
+export enum SubscriptionDisplayFilterEnum {
+  Active = 'ACTIVE_FILTER',
+  Canceled = 'CANCELED_FILTER',
+}
+
+export enum TagTypeEnum {
+  Error = 'error',
+  Warning = 'warning',
 }
 
 export enum MenuOptionsEnum {

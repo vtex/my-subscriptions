@@ -1,6 +1,0 @@
-query getFrequencyOptions($orderGroup: String!) {
-  frequencyOptions(orderGroup: $orderGroup) {
-    periodicity
-    interval
-  }
-}

@@ -1,5 +1,8 @@
-mutation updateIsSkipped($orderGroup: String!, $isSkipped: Boolean!) {
-  updateIsSkipped(orderGroup: $orderGroup, isSkipped: $isSkipped) {
+mutation updateIsSkipped($subscriptionsGroupId: ID!, $isSkipped: Boolean!) {
+  updateIsSkipped(
+    subscriptionsGroupId: $subscriptionsGroupId
+    isSkipped: $isSkipped
+  ) @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     isSkipped
   }

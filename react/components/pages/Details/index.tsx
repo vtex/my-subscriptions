@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
-import { compose, branch, renderComponent, withProps } from 'recompose'
+import { compose, branch, renderComponent } from 'recompose'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { ContentWrapper } from 'vtex.my-account-commons'
+import {
+  MutationRetrySubscriptionOrderArgs,
+  SubscriptionsGroup as Group,
+  Sku,
+  SubscriptionOrder,
+  PurchaseSettings,
+} from 'vtex.subscriptions-graphql'
 
-import GROUPED_SUBSCRIPTION from '../../../graphql/groupedSubscription.gql'
+import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Alert from '../../commons/CustomAlert'
 import {
   TagTypeEnum,
-  SubscriptionOrderStatusEnum,
+  SubscriptionStatus,
+  SubscriptionOrderStatus,
   PAYMENT_DIV_ID,
+  Periodicity,
 } from '../../../constants'
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -43,10 +52,10 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   private mounted = false
 
   public static getDerivedStateFromProps(props: Props) {
-    const lastInstance = props.subscriptionsGroup.lastInstance
+    const lastOrder = props.group && props.group.lastOrder
 
-    return lastInstance &&
-      lastInstance.status === SubscriptionOrderStatusEnum.PaymentError
+    return lastOrder &&
+      lastOrder.status === SubscriptionOrderStatus.PaymentError
       ? {
           displayRetry: true,
         }
@@ -75,14 +84,14 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   }
 
   private handleMakeRetry = () => {
-    const { retry, subscriptionsGroup } = this.props
-
-    const lastInstance = subscriptionsGroup.lastInstance
+    const { retry, group } = this.props
 
     return retry({
       variables: {
-        orderGroup: subscriptionsGroup.orderGroup,
-        instanceId: lastInstance.dataInstanceId,
+        subscriptionsGroupId: (group && group.id) as string,
+        subscriptionOrderId: (group &&
+          group.lastOrder &&
+          group.lastOrder.id) as string,
       },
     }).then(() => {
       this.mounted && this.handleSetDisplayRetry(true)
@@ -90,8 +99,10 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   }
 
   public render() {
-    const { subscriptionsGroup, intl, match } = this.props
+    const { group, intl } = this.props
     const { displayRetry, displayAlert } = this.state
+
+    if (!group) return null
 
     return (
       <ContentWrapper {...headerConfig({ intl })}>
@@ -107,29 +118,30 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
               contentId="subscription.alert.error.message"
               onClose={() => this.handleSetDisplayAlert(false)}
             />
-            <Summary subscriptionsGroup={subscriptionsGroup} />
+            <Summary group={group} />
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
-                <DataCard subscriptionsGroup={subscriptionsGroup} />
+                <DataCard group={group} />
               </div>
               <div className="pl4-ns pt6 w-50-ns">
-                <Shipping subscriptionsGroup={subscriptionsGroup} />
+                <Shipping group={group} />
               </div>
             </div>
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">
                 <Payment
-                  subscriptionsGroup={subscriptionsGroup}
+                  group={group}
                   onMakeRetry={this.handleMakeRetry}
                   displayRetry={displayRetry}
                 />
               </div>
               <div className="pt6 pl4-ns w-50-ns">
-                <History subscriptionsGroup={subscriptionsGroup} />
+                <History group={group} />
               </div>
             </div>
+
             <div className="pt6">
-              <Products orderGroup={match.params.orderGroup} />
+              <Products group={group} />
             </div>
           </div>
         )}
@@ -138,37 +150,83 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   }
 }
 
-const subscriptionQuery = {
-  options: (props: Props) => ({
-    variables: {
-      orderGroup: props.match.params.orderGroup,
-    },
-  }),
+export type SubscriptionsGroup = Pick<
+  Group,
+  | 'id'
+  | 'name'
+  | 'isSkipped'
+  | 'totals'
+  | 'shippingEstimate'
+  | 'nextPurchaseDate'
+  | 'shippingAddress'
+> & {
+  status: SubscriptionStatus
+  subscriptions: Subscription[]
+  lastOrder: Pick<SubscriptionOrder, 'id'> & {
+    status: SubscriptionOrderStatus
+  }
+  purchaseSettings: Pick<
+    PurchaseSettings,
+    'currencySymbol' | 'purchaseDay' | 'paymentMethod'
+  >
+  plan: {
+    frequency: {
+      periodicity: Periodicity
+      interval: number
+    }
+  }
+  __typename: string
 }
 
-interface Props
-  extends InjectedIntlProps,
-    RouteComponentProps<{ orderGroup: string }> {
-  retry: (args: Variables<RetryArgs>) => Promise<void>
-  subscriptionsGroup: SubscriptionsGroupItemType
-  data: { groupedSubscription: SubscriptionsGroupItemType }
+export interface Subscription {
+  id: string
+  sku: Pick<
+    Sku,
+    'imageUrl' | 'name' | 'detailUrl' | 'productName' | 'id' | 'measurementUnit'
+  > & {
+    variations?: { [key: string]: string } | null
+  }
+  quantity: number
+  priceAtSubscriptionDate: number
 }
 
-const enhance = compose<Props, any>(
+interface Props extends InjectedIntlProps, ChildProps {
+  retry: (args: {
+    variables: MutationRetrySubscriptionOrderArgs
+  }) => Promise<void>
+}
+
+interface Response {
+  group: SubscriptionsGroup
+}
+interface Variables {
+  id: string
+}
+
+type InputProps = RouteComponentProps<{ subscriptionsGroupId: string }>
+
+interface ChildProps {
+  loading: boolean
+  group?: SubscriptionsGroup
+}
+
+const enhance = compose<Props, {}>(
   injectIntl,
   withRouter,
-  graphql<Props, Variables<{ ordergroup: string }>>(
-    GROUPED_SUBSCRIPTION,
-    subscriptionQuery
-  ),
   graphql(RETRY_MUTATION, { name: 'retry' }),
-  withProps(({ data }: Props) => ({
-    subscriptionsGroup: data.groupedSubscription,
-  })),
-  branch<Props>(
-    ({ subscriptionsGroup }) => !subscriptionsGroup,
-    renderComponent(Loader)
-  )
+  graphql<InputProps, Response, Variables, ChildProps>(SUBSCRIPTIONS_GROUP, {
+    options: input => ({
+      variables: {
+        id: input.match.params.subscriptionsGroupId,
+      },
+    }),
+    props: ({ data }) => ({
+      loading: data ? data.loading : false,
+      group: data && data.group,
+      data,
+    }),
+  }),
+  branch<ChildProps>(props => props.loading, renderComponent(Loader))
 )
 
 export default enhance(SubscriptionsGroupDetailsContainer)

@@ -4,10 +4,8 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatusEnum } from '../constants'
-import RegularSubscription from '../mocks/RegularSubscription'
-import { orderGroup as regularSubscriptionOrderGroup } from '../mocks'
-import Products from '../mocks/OneProduct'
+import { SubscriptionStatus } from '../constants'
+import { mockRouterParam, generateDetailMock } from '../mocks'
 
 describe('Display Address Scenarios', () => {
   const { location } = window
@@ -22,18 +20,14 @@ describe('Display Address Scenarios', () => {
   })
 
   test('Should display edit button disabled', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.status =
-      SubscriptionStatusEnum.Paused
-
     const { queryByTestId } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [noAddress, Products] },
+        graphql: {
+          mocks: [generateDetailMock({ status: SubscriptionStatus.Paused })],
+        },
       }
     )
 
@@ -49,18 +43,14 @@ describe('Display Address Scenarios', () => {
   })
 
   test('Shouldnt display edit button', async () => {
-    const noAddress = { ...RegularSubscription }
-    // @ts-ignore
-    noAddress.result.data.groupedSubscription.status =
-      SubscriptionStatusEnum.Canceled
-
     const { queryByTestId } = render(
-      <MockRouter params={{ orderGroup: regularSubscriptionOrderGroup }}>
+      <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
       </MockRouter>,
       {
-        // @ts-ignore
-        graphql: { mocks: [noAddress, Products] },
+        graphql: {
+          mocks: [generateDetailMock({ status: SubscriptionStatus.Canceled })],
+        },
       }
     )
 

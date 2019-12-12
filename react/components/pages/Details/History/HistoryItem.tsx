@@ -1,27 +1,28 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedDate, FormattedMessage } from 'react-intl'
 
-import { SubscriptionOrderStatusEnum } from '../../../../constants'
+import { SubscriptionOrderStatus } from '../../../../constants'
 import style from './style.css'
+import { SubscriptionOrder } from './HistoryList'
 
 const HistoryItem: FunctionComponent<OuterProps> = ({ order }) => {
   const { date, status } = order
 
-  let statusColor = `c-muted-3`
+  let statusColor = 'c-muted-3'
 
   switch (status) {
-    case SubscriptionOrderStatusEnum.Success:
-    case SubscriptionOrderStatusEnum.SuccessWithPartialOrder:
-      statusColor = `c-success`
+    case SubscriptionOrderStatus.Success:
+    case SubscriptionOrderStatus.SuccessWithPartialOrder:
+      statusColor = 'c-success'
       break
-    case SubscriptionOrderStatusEnum.Skiped:
-    case SubscriptionOrderStatusEnum.SuccessWithNoOrder:
-      statusColor = `c-warning`
+    case SubscriptionOrderStatus.Skiped:
+    case SubscriptionOrderStatus.SuccessWithNoOrder:
+      statusColor = 'c-warning'
       break
-    case SubscriptionOrderStatusEnum.Failure:
-    case SubscriptionOrderStatusEnum.OrderError:
-    case SubscriptionOrderStatusEnum.PaymentError:
-      statusColor = `c-danger`
+    case SubscriptionOrderStatus.Failure:
+    case SubscriptionOrderStatus.OrderError:
+    case SubscriptionOrderStatus.PaymentError:
+      statusColor = 'c-danger'
       break
   }
 

@@ -4,8 +4,7 @@ import SplunkEvents from 'splunk-events'
 
 import {
   SubscriptionDisplayFilterEnum,
-  SubscriptionStatusEnum,
-  TagTypeEnum,
+  SubscriptionStatus,
   MenuOptionsEnum,
 } from '../constants'
 
@@ -35,52 +34,12 @@ export function parseErrorMessageId(error: ApolloError): string {
 
 export function convertFilter(
   filter: SubscriptionDisplayFilterEnum
-): SubscriptionStatusEnum[] {
+): SubscriptionStatus[] {
   if (filter === SubscriptionDisplayFilterEnum.Canceled) {
-    return [SubscriptionStatusEnum.Canceled]
+    return [SubscriptionStatus.Canceled]
   }
 
-  return [SubscriptionStatusEnum.Active, SubscriptionStatusEnum.Paused]
-}
-
-export function convertStatusInTagType(
-  status: SubscriptionStatusEnum
-): TagTypeEnum | null {
-  switch (status) {
-    case SubscriptionStatusEnum.Canceled:
-      return TagTypeEnum.Error
-    case SubscriptionStatusEnum.Paused:
-      return TagTypeEnum.Warning
-    default:
-      return null
-  }
-}
-
-export function retrieveMessagesByStatus(status: SubscriptionStatusEnum) {
-  let titleMessageId = ''
-  let bodyMessageId = ''
-
-  switch (status) {
-    case SubscriptionStatusEnum.Active:
-      titleMessageId = 'subscription.restore.title'
-      bodyMessageId = 'subscription.restore.text'
-      break
-    case SubscriptionStatusEnum.Paused:
-      titleMessageId = 'subscription.pause.title'
-      bodyMessageId = 'subscription.pause.text'
-      break
-    case SubscriptionStatusEnum.Canceled:
-      titleMessageId = 'subscription.cancel.title'
-      bodyMessageId = 'subscription.cancel.text'
-      break
-  }
-
-  return {
-    bodyMessageId,
-    cancelationMessageId: 'subscription.change.status.modal.cancelation',
-    confirmationMessageId: 'subscription.change.status.modal.confirmation',
-    titleMessageId,
-  }
+  return [SubscriptionStatus.Active, SubscriptionStatus.Paused]
 }
 
 export const makeCancelable = (promise: Promise<unknown>) => {
@@ -103,7 +62,7 @@ export const makeCancelable = (promise: Promise<unknown>) => {
 
 export function retrieveMenuOptions(
   isSkipped: boolean,
-  status: SubscriptionStatusEnum
+  status: SubscriptionStatus
 ) {
   return isSkipped
     ? [
@@ -112,7 +71,7 @@ export function retrieveMenuOptions(
         MenuOptionsEnum.Pause,
         MenuOptionsEnum.Cancel,
       ]
-    : status === SubscriptionStatusEnum.Paused
+    : status === SubscriptionStatus.Paused
     ? [
         MenuOptionsEnum.OrderNow,
         MenuOptionsEnum.Restore,

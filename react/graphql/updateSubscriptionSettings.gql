@@ -1,15 +1,15 @@
 mutation updateSettings(
-  $orderGroup: String!
+  $subscriptionsGroupId: ID!
   $purchaseDay: String
   $periodicity: String
-  $interval: String
+  $interval: Int
 ) {
   updateSettings(
-    orderGroup: $orderGroup
+    subscriptionsGroupId: $subscriptionsGroupId
     purchaseDay: $purchaseDay
     periodicity: $periodicity
     interval: $interval
-  ) {
+  ) @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     purchaseSettings {
       purchaseDay

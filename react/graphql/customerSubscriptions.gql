@@ -1,7 +1,8 @@
-query GroupedSubscriptionsItems($status: [SubscriptionStatusEnum]) {
-  items: groupedSubscriptions(status: $status) {
+query CustomerSubscriptionsGroups($statusList: [SubscriptionStatus]) {
+  groups: customerSubscriptionsGroupList(statusList: $statusList)
+    @context(provider: "vtex.subscriptions-graphql") {
+    id
     cacheId
-    orderGroup
     status
     name
     nextPurchaseDate
@@ -19,6 +20,9 @@ query GroupedSubscriptionsItems($status: [SubscriptionStatusEnum]) {
         periodicity
         interval
       }
+    }
+    purchaseSettings {
+      purchaseDay
     }
   }
 }
