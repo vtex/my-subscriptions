@@ -22,6 +22,7 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
         <div className={CSS.cardTitle}>
           <FormattedMessage id="subscription.summary" />
         </div>
+
         {totals &&
           totals.map((total, i) => (
             <div
@@ -37,7 +38,9 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
             </div>
           ))}
 
-        <div className="flex justify-between pt7 bt b--muted-4 b">
+        <div className="bg-light-gray" style={{ height: '1px' }} />
+
+        <div className="flex justify-between pt7 b">
           <FormattedMessage id="order.summary.total" />
           <FormattedPrice value={fullPrice} currency={currencyCode} />
         </div>
