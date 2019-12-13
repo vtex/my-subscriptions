@@ -156,9 +156,11 @@ const NotificationBar: FunctionComponent<Props> = props => {
   return (
     <Box>
       <span className={danger ? 'c-danger' : ''}>{content.title}</span>
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap">
         <span className="t-heading-4 flex items-center">{content.body}</span>
-        {content.actions}
+        <div className="w-auto-l w-100 flex items-center pt0-l pt4">
+          {content.actions}
+        </div>
       </div>
     </Box>
   )

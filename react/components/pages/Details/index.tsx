@@ -89,25 +89,27 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
     return (
       <div className="w-100 flex flex-wrap c-on-base ph7">
-        <div className="w-100 flex justify-between pb7">
+        <div className="w-100 flex flex-wrap justify-between pb7">
           <Name
             skus={group.subscriptions.map(s => s.sku)}
             subscriptionsGroupId={group.id}
             status={group.status}
             isTitle
           />
-          <Menu group={group} />
+          <div className="pt4 pt0-l w-100 w-auto-l">
+            <Menu group={group} />
+          </div>
         </div>
-        <div className="w-two-thirds pr4 pb4">
+        <div className="w-two-thirds-ns w-100 pr4-ns pb4">
           <NotificationBar group={group} />
         </div>
-        <div className="w-third pl4 pb4">
+        <div className="w-third-ns w-100 pl4-ns pb4">
           <Summary group={group} />
         </div>
-        <div className="w-two-thirds pr4 pt4">
+        <div className="w-two-thirds-ns w-100 pr4-ns pv4">
           <Products group={group} />
         </div>
-        <div className="w-third pl4 pt4">
+        <div className="w-third-ns w-100 pl4-ns pt4">
           <History group={group} />
         </div>
       </div>
