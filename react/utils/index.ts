@@ -1,9 +1,17 @@
 import { ApolloError } from 'apollo-client'
 import axios from 'axios'
 import SplunkEvents from 'splunk-events'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import {
+  SubscriptionStatus,
+  SubscriptionOrderStatus,
+  SubscriptionsGroup,
+} from 'vtex.subscriptions-graphql'
 
-import { SubscriptionDisplayFilterEnum, MenuOptionsEnum } from '../constants'
+import {
+  SubscriptionState,
+  SubscriptionDisplayFilterEnum,
+  MenuOptionsEnum,
+} from '../constants'
 
 const splunkEvents = new SplunkEvents()
 
@@ -98,4 +106,31 @@ export function logOrderNowMetric(account: string, orderGroup: string) {
 
 export function isEditionEnabled(subscriptionStatus: SubscriptionStatus) {
   return subscriptionStatus === SubscriptionStatus.Active
+}
+
+type Group = Pick<
+  SubscriptionsGroup,
+  'purchaseSettings' | 'isSkipped' | 'status' | 'shippingAddress'
+> & {
+  lastOrder: {
+    status: SubscriptionOrderStatus
+  } | null
+}
+
+export function retrieveSubscriptionState(group: Group) {
+  if (group.status === SubscriptionStatus.Paused) {
+    return SubscriptionState.Paused
+  } else if (group.status === SubscriptionStatus.Canceled) {
+    return SubscriptionState.Canceled
+  } else if (group.isSkipped) {
+    return SubscriptionState.Skipped
+  } else if (group.shippingAddress === null) {
+    return SubscriptionState.InvalidAddress
+  } else if (group.purchaseSettings.paymentMethod === null) {
+    return SubscriptionState.InvalidPayment
+  } else if (group.lastOrder?.status === SubscriptionOrderStatus.PaymentError) {
+    return SubscriptionState.PaymentError
+  }
+
+  return SubscriptionState.NextDelivery
 }

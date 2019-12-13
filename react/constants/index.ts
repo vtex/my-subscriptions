@@ -1,3 +1,13 @@
+export enum SubscriptionState {
+  NextDelivery = 'NEXT_DELIVERY',
+  InvalidPayment = 'INVALID_PAYMENT',
+  InvalidAddress = 'INVALID_ADDRESS',
+  Paused = 'PAUSED',
+  Skipped = 'SKIPPED',
+  PaymentError = 'PAYMENT_ERROR',
+  Canceled = 'CANCELED',
+}
+
 export enum SubscriptionDisplayFilterEnum {
   Active = 'ACTIVE_FILTER',
   Canceled = 'CANCELED_FILTER',

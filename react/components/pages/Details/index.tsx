@@ -18,6 +18,7 @@ import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Name from '../../commons/SubscriptionName'
 import { PAYMENT_DIV_ID } from '../../../constants'
+
 import Menu from './Menu'
 import History from './History'
 import Loader from './Loader'
@@ -126,7 +127,7 @@ export type SubscriptionsGroup = Pick<
   | 'status'
 > & {
   subscriptions: Subscription[]
-  lastOrder: Pick<SubscriptionOrder, 'id' | 'status'>
+  lastOrder: Pick<SubscriptionOrder, 'id' | 'status'> | null
   purchaseSettings: Pick<
     PurchaseSettings,
     'currencySymbol' | 'purchaseDay' | 'paymentMethod'
