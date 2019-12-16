@@ -24,6 +24,8 @@ import History from './History'
 import Loader from './Loader'
 import Products from './Products'
 import Summary from './Summary'
+import NotificationBar from './NotificationBar'
+import Preferences from './Preferences'
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public state = {
@@ -100,17 +102,18 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
             <Menu group={group} />
           </div>
         </div>
-        <div className="w-two-thirds-ns w-100 pr4-ns pb4">
+        <div className="w-two-thirds-ns w-100 pr4-ns">
           <NotificationBar group={group} />
-        </div>
-        <div className="w-third-ns w-100 pl4-ns pb4">
-          <Summary group={group} />
-        </div>
-        <div className="w-two-thirds-ns w-100 pr4-ns pv4">
+          <div className="pv6">
+            <Preferences group={group} />
+          </div>
           <Products group={group} />
         </div>
-        <div className="w-third-ns w-100 pl4-ns pt4">
-          <History group={group} />
+        <div className="w-third-ns w-100 pl4-ns">
+          <Summary group={group} />
+          <div className="pt6">
+            <History group={group} />
+          </div>
         </div>
       </div>
     )
