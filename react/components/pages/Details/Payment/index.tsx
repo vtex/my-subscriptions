@@ -9,9 +9,11 @@ import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
 import { PaymentSystemGroup } from '../../../../constants'
+
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
-import { SubscriptionsGroup } from '../'
+
+import { SubscriptionsGroup } from '..'
 
 class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   private mounted: boolean

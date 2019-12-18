@@ -22,6 +22,7 @@ import {
 import Alert from '../../../commons/CustomAlert'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
+
 import PaymentSkeleton from './PaymentSkeleton'
 
 function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {

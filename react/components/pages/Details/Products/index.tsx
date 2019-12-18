@@ -16,8 +16,10 @@ import {
 import REMOVE_MUTATION from '../../../../graphql/removeSubscription.gql'
 import UPDATE_MUTATION from '../../../../graphql/updateSubscriptions.gql'
 import ConfirmationModal from '../../../commons/ConfirmationModal'
+
 import Listing from './Listing'
-import { SubscriptionsGroup, Subscription } from '../'
+
+import { SubscriptionsGroup, Subscription } from '..'
 
 function mapSubscriptionsToHashMap(subscriptions: Subscription[]) {
   return subscriptions.reduce(

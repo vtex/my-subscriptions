@@ -8,9 +8,11 @@ import { ApolloError } from 'apollo-client'
 import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
+
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
-import { SubscriptionsGroup } from '../'
+
+import { SubscriptionsGroup } from '..'
 
 class ShippingContainer extends Component<Props, State> {
   public constructor(props: Props) {
