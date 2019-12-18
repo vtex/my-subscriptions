@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage, injectIntl, InjectedIntlProps } from 'react-intl'
-import { Box } from 'vtex.styleguide'
+import { Box, Divider } from 'vtex.styleguide'
 
 import FormattedPrice from '../../commons/FormattedPrice'
 import { CSS } from '../../../constants'
@@ -38,7 +38,7 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
             </div>
           ))}
 
-        <div className="bg-light-gray" style={{ height: '1px' }} />
+        <Divider orientation="horizontal" />
 
         <div className="flex justify-between pt7 b">
           <FormattedMessage id="order.summary.total" />

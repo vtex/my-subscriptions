@@ -16,6 +16,7 @@ declare module 'vtex.styleguide' {
   export const ActionMenu
   export const NumericStepper
   export const Box
+  export const Divider
   export interface ShowToastArgs {
     message: string
   }

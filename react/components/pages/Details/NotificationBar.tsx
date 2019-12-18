@@ -4,7 +4,6 @@ import { Box, Button } from 'vtex.styleguide'
 
 import { SubscriptionState } from '../../../constants'
 import { retrieveSubscriptionState } from '../../../utils'
-
 import { SubscriptionsGroup } from '.'
 
 const messages = defineMessages({
