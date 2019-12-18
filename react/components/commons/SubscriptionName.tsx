@@ -5,8 +5,9 @@ import { compose } from 'recompose'
 import { IconEdit, Input } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
-import ConfirmationModal from '../commons/ConfirmationModal'
 import { SubscriptionStatus } from '../../constants'
+
+import ConfirmationModal from './ConfirmationModal'
 
 class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public state = {

@@ -1,8 +1,9 @@
 import React from 'react'
 
-import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
+
+import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 
 const HistorySkeleton = () => (
   <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>

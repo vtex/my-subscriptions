@@ -6,7 +6,8 @@ import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
 import EditButton from '../../../commons/EditButton'
 import EditAlert from '../../../commons/EditAlert'
-import { SubscriptionsGroup } from '../'
+
+import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
   label: {

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { ModalDialog, withToast } from 'vtex.styleguide'
 
-import Alert from '../commons/CustomAlert'
 import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
+
+import Alert from './CustomAlert'
 
 class ConfirmationModalContainer extends Component<Props> {
   public state = {

@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import MediaQuery from 'react-responsive'
 import { utils } from 'vtex.my-account-commons'
+
 const { fixImageUrl } = utils
 
 const Image: FunctionComponent<Props> = ({ items }) => {

@@ -19,6 +19,7 @@ import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
 import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
 import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
+
 import { SubscriptionsGroup } from '.'
 
 class MenuContainer extends Component<InnerProps & OutterProps> {

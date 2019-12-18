@@ -9,7 +9,6 @@ import {
   generateSubscriptionsGroup,
   orderGroup as subscriptionsGroupId,
 } from '../mocks'
-
 import FREQUENCY_QUERY from '../graphql/frequencyOptions.gql'
 import MUTATION from '../graphql/updateSubscriptionSettings.gql'
 
