@@ -7,11 +7,7 @@ import {
   SubscriptionsGroup,
 } from 'vtex.subscriptions-graphql'
 
-import {
-  SubscriptionState,
-  SubscriptionDisplayFilterEnum,
-  MenuOptionsEnum,
-} from '../constants'
+import { SubscriptionState, SubscriptionDisplayFilterEnum } from '../constants'
 
 const splunkEvents = new SplunkEvents()
 
@@ -63,31 +59,6 @@ export const makeCancelable = (promise: Promise<unknown>) => {
       hasCanceled = true
     },
   }
-}
-
-export function retrieveMenuOptions(
-  isSkipped: boolean,
-  status: SubscriptionStatus
-) {
-  return isSkipped
-    ? [
-        MenuOptionsEnum.OrderNow,
-        MenuOptionsEnum.Unskip,
-        MenuOptionsEnum.Pause,
-        MenuOptionsEnum.Cancel,
-      ]
-    : status === SubscriptionStatus.Paused
-    ? [
-        MenuOptionsEnum.OrderNow,
-        MenuOptionsEnum.Restore,
-        MenuOptionsEnum.Cancel,
-      ]
-    : [
-        MenuOptionsEnum.OrderNow,
-        MenuOptionsEnum.Skip,
-        MenuOptionsEnum.Pause,
-        MenuOptionsEnum.Cancel,
-      ]
 }
 
 export function logOrderNowMetric(account: string, orderGroup: string) {

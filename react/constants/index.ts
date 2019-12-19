@@ -18,7 +18,7 @@ export enum TagTypeEnum {
   Warning = 'warning',
 }
 
-export enum MenuOptionsEnum {
+export enum UpdateAction {
   Skip = 'skip',
   Unskip = 'unskip',
   Pause = 'pause',

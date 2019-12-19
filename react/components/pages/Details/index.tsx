@@ -9,80 +9,35 @@ import {
   Sku,
   SubscriptionOrder,
   PurchaseSettings,
-  SubscriptionStatus,
-  SubscriptionOrderStatus,
   Periodicity,
 } from 'vtex.subscriptions-graphql'
 
 import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Name from '../../commons/SubscriptionName'
-import { PAYMENT_DIV_ID } from '../../../constants'
+import { UpdateAction } from '../../../constants'
 
-import Menu from './Menu'
+import Modal from './UpdateSubscriptionSettingsModal'
 import History from './History'
 import Loader from './Loader'
 import Products from './Products'
 import Summary from './Summary'
 import NotificationBar from './NotificationBar'
 import Preferences from './Preferences'
+import Menu from './Menu'
 
-class SubscriptionsGroupDetailsContainer extends Component<Props> {
-  public state = {
-    displayRetry: false,
-    displayAlert: true,
+class SubscriptionsGroupDetailsContainer extends Component<
+  Props,
+  { updateAction: UpdateAction | null }
+> {
+  state = {
+    updateAction: null,
   }
 
-  private mounted = false
+  private handleCloseModal = () => this.setState({ updateAction: null })
 
-  public static getDerivedStateFromProps(props: Props) {
-    const lastOrder = props.group && props.group.lastOrder
-
-    return lastOrder &&
-      lastOrder.status === SubscriptionOrderStatus.PaymentError
-      ? {
-          displayRetry: true,
-        }
-      : null
-  }
-
-  public componentDidMount = () => {
-    this.mounted = true
-  }
-
-  public componentWillUnmount = () => {
-    this.mounted = false
-  }
-
-  private handleSetDisplayRetry = (displayRetry: boolean) => {
-    this.setState({ displayRetry })
-  }
-
-  private handleSetDisplayAlert = (displayAlert: boolean) => {
-    this.setState({ displayAlert })
-  }
-
-  private handleScrollToPayment = () => {
-    const paymentDiv = document.getElementById(PAYMENT_DIV_ID)
-    paymentDiv && paymentDiv.scrollIntoView()
-  }
-
-  private handleMakeRetry = () => {
-    const { retry, group } = this.props
-
-    return retry({
-      variables: {
-        subscriptionsGroupId: (group && group.id) as string,
-        subscriptionOrderId: (group &&
-          group.lastOrder &&
-          group.lastOrder.id) as string,
-      },
-    }).then(() => {
-      this.mounted && this.handleSetDisplayRetry(true)
-    })
-  }
-
-  private handleUpdateStatus(status: SubscriptionStatus) {}
+  private handleChangeUpdateAction = (updateAction: UpdateAction) =>
+    this.setState({ updateAction })
 
   public render() {
     const { group } = this.props
@@ -91,6 +46,11 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
     return (
       <div className="w-100 flex flex-wrap c-on-base ph7">
+        <Modal
+          group={group}
+          onCloseModal={this.handleCloseModal}
+          updateAction={this.state.updateAction}
+        />
         <div className="w-100 flex flex-wrap justify-between pb7">
           <Name
             skus={group.subscriptions.map(s => s.sku)}
@@ -99,11 +59,18 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
             isTitle
           />
           <div className="pt4 pt0-l w-100 w-auto-l">
-            <Menu group={group} />
+            <Menu
+              isSkipped={group.isSkipped}
+              status={group.status}
+              onChangeUpdateAction={this.handleChangeUpdateAction}
+            />
           </div>
         </div>
         <div className="w-two-thirds-ns w-100 pr4-ns">
-          <NotificationBar group={group} />
+          <NotificationBar
+            group={group}
+            onChangeUpdateType={this.handleChangeUpdateAction}
+          />
           <div className="pv6">
             <Preferences group={group} />
           </div>

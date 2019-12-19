@@ -2,8 +2,9 @@ import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
 import { Box, Button } from 'vtex.styleguide'
 
-import { SubscriptionState } from '../../../constants'
+import { SubscriptionState, UpdateAction } from '../../../constants'
 import { retrieveSubscriptionState } from '../../../utils'
+
 import { SubscriptionsGroup } from '.'
 
 const messages = defineMessages({
@@ -87,7 +88,13 @@ function retrieveContent(option: SubscriptionState, props: Props) {
       return {
         title: formatMessage(messages.pausedTitle),
         body: formatMessage(messages.pausedBody),
-        actions: <Button>{formatMessage(messages.pausedAction)}</Button>,
+        actions: (
+          <Button
+            onClick={() => props.onChangeUpdateType(UpdateAction.Restore)}
+          >
+            {formatMessage(messages.pausedAction)}
+          </Button>
+        ),
       }
     case SubscriptionState.Canceled:
       return {
@@ -100,7 +107,10 @@ function retrieveContent(option: SubscriptionState, props: Props) {
         title: formatMessage(messages.skipTitle),
         body: formatMessage(messages.skipBody),
         actions: (
-          <Button variation="secondary">
+          <Button
+            variation="secondary"
+            onClick={() => props.onChangeUpdateType(UpdateAction.Unskip)}
+          >
             {formatMessage(messages.skipAction)}
           </Button>
         ),
@@ -167,6 +177,7 @@ const NotificationBar: FunctionComponent<Props> = props => {
 
 interface Props extends InjectedIntlProps {
   group: SubscriptionsGroup
+  onChangeUpdateType: (type: UpdateAction) => void
 }
 
 export default injectIntl(NotificationBar)
