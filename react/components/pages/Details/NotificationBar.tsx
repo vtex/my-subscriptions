@@ -7,74 +7,75 @@ import { retrieveSubscriptionState } from '../../../utils'
 
 import { SubscriptionsGroup } from '.'
 
+//TODO
 const messages = defineMessages({
   pausedTitle: {
-    id: 'a',
-    defaultMessage: 'Subscription paused',
+    id: 'Subscription paused',
+    defaultMessage: '',
   },
   pausedBody: {
-    id: 'a',
-    defaultMessage: 'You can resume anytime',
+    id: 'You can resume anytime',
+    defaultMessage: '',
   },
   pausedAction: {
-    id: 'a',
-    defaultMessage: 'You can resume anytime',
+    id: 'You can resume anytime',
+    defaultMessage: '',
   },
   skipTitle: {
-    id: 'a',
-    defaultMessage: 'Skip next order',
+    id: 'Skip next order',
+    defaultMessage: '',
   },
   skipBody: {
-    id: 'a',
-    defaultMessage: 'Your {date} order will be skipped',
+    id: 'Your {date} order will be skipped',
+    defaultMessage: '',
   },
   skipAction: {
-    id: 'a',
-    defaultMessage: 'Cancel skip',
+    id: 'Cancel skip',
+    defaultMessage: '',
   },
   canceledTitle: {
-    id: 'a',
-    defaultMessage: 'Subscription canceled',
+    id: 'Subscription canceled',
+    defaultMessage: '',
   },
   canceledBody: {
-    id: 'a',
-    defaultMessage: 'You can restart anytime',
+    id: 'You can restart anytime',
+    defaultMessage: '',
   },
   canceledAction: {
-    id: 'a',
-    defaultMessage: 'Restart Subscription',
+    id: 'Restart Subscription',
+    defaultMessage: '',
   },
   invalidAdressAction: {
-    id: 'a',
-    defaultMessage: 'Change Address',
+    id: 'Change Address',
+    defaultMessage: '',
   },
   invalidAdressTitle: {
-    id: 'a',
-    defaultMessage: 'Invalid address',
+    id: 'Invalid address',
+    defaultMessage: '',
   },
   invalidAdressBody: {
-    id: 'a',
-    defaultMessage: 'Please, check your shipping address',
+    id: 'Please, check your shipping address',
+    defaultMessage: '',
   },
   invalidPaymentAction: {
-    id: 'a',
-    defaultMessage: 'Change Payment Method',
+    id: 'Change Payment Method',
+    defaultMessage: '',
   },
   invalidPaymentTitle: {
-    id: 'a',
-    defaultMessage: 'Invalid payment',
+    id: 'Invalid payment',
+    defaultMessage: '',
   },
   invalidPaymentBody: {
-    id: 'a',
-    defaultMessage: 'Please, check your payment method',
+    id: 'Please, check your payment method',
+    defaultMessage: '',
   },
   nextDeliveryAction: {
-    id: 'a',
-    defaultMessage: 'See Details',
+    id: 'See Details',
+    defaultMessage: '',
   },
   nextDeliveryTitle: {
-    id: 'a',
-    defaultMessage: 'Next delivery',
+    id: 'Next delivery',
+    defaultMessage: '',
   },
 })
 
@@ -111,7 +112,9 @@ function retrieveContent(option: SubscriptionState, props: Props) {
             variation="secondary"
             onClick={() => props.onChangeUpdateType(UpdateAction.Unskip)}
           >
-            {formatMessage(messages.skipAction)}
+            {formatMessage(messages.skipAction, {
+              date: formatDate(props.group.nextPurchaseDate),
+            })}
           </Button>
         ),
       }

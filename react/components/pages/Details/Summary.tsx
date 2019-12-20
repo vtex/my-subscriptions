@@ -4,6 +4,7 @@ import { Box, Divider } from 'vtex.styleguide'
 
 import FormattedPrice from '../../commons/FormattedPrice'
 import { CSS } from '../../../constants'
+
 import { SubscriptionsGroup } from '.'
 
 const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
@@ -41,7 +42,7 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
         <Divider orientation="horizontal" />
 
         <div className="flex justify-between pt7 b">
-          <FormattedMessage id="order.summary.total" />
+          <FormattedMessage id="order.summary.total" tagName="span" />
           <FormattedPrice value={fullPrice} currency={currencyCode} />
         </div>
       </div>

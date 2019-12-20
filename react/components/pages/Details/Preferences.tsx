@@ -10,6 +10,7 @@ import { AddressRules, AddressSummary } from 'vtex.address-form'
 import { PaymentFlag, utils } from 'vtex.payment-flags'
 
 import { CSS } from '../../../constants'
+import { translatePurchaseDay } from '../../../utils/translations'
 import EditButton from '../../commons/EditButton'
 import LabeledInfo from '../../commons/LabeledInfo'
 import FrequencyInfo from '../../commons/FrequencyInfo'
@@ -26,8 +27,8 @@ const messages = defineMessages({
     defaultMessage: '',
   },
   billing: {
-    id: 'a',
-    defaultMessage: 'Billing day',
+    id: 'Billing day', // TODO
+    defaultMessage: '',
   },
 })
 
@@ -35,10 +36,7 @@ const Preferences: FunctionComponent<Props> = ({ group, intl }) => {
   return (
     <Box>
       <div className={`${CSS.cardTitle} flex justify-between`}>
-        <FormattedMessage
-          id="store/subscriptions.card.preferences.title"
-          defaultMessage="Preferences"
-        />
+        <FormattedMessage id="Preferences" /> {/* TODO */}
         <EditButton
           onEdit={() => null}
           subscriptionStatus={group.status}
@@ -49,7 +47,6 @@ const Preferences: FunctionComponent<Props> = ({ group, intl }) => {
         <div className="w-50-ns w-100 mb6">
           <FrequencyInfo
             periodicity={group.plan.frequency.periodicity}
-            purchaseDay={group.purchaseSettings.purchaseDay}
             interval={group.plan.frequency.interval}
           />
         </div>
@@ -82,7 +79,11 @@ const Preferences: FunctionComponent<Props> = ({ group, intl }) => {
         </div>
         <div className="w-50-ns w-100 mb6">
           <LabeledInfo labelId={messages.billing}>
-            {group.purchaseSettings.purchaseDay}
+            {translatePurchaseDay(
+              intl,
+              group.plan.frequency.periodicity,
+              group.purchaseSettings.purchaseDay
+            )}
           </LabeledInfo>
         </div>
         <div className="w-50-ns w-100 mb6">
