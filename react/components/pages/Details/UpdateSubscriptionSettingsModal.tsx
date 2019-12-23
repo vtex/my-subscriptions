@@ -78,7 +78,7 @@ class UpdateSubscriptionSettingsModal extends Component<Props> {
   }) => (
     <Fragment>
       {titleId && (
-        <div className="b f5">
+        <div className="b t-body">
           {this.props.intl.formatMessage({
             id: titleId,
           })}

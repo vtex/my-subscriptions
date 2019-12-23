@@ -47,7 +47,7 @@ const SubscriptionTotalsSummary: FunctionComponent<Props> = ({
         </div>
       </div>
       <div className="t-mini c-muted-1 bg-muted-5 ph7 pv5 bt b--muted-4">
-        *Price valid for today.
+        *Price valid for today. {/* TODO */}
       </div>
     </Box>
   )

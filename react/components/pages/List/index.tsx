@@ -142,7 +142,7 @@ interface QueryResult {
   groups: SubscriptionsGroup[]
 }
 
-interface Props extends InjectedIntlProps, RouteComponentProps {}
+type Props = InjectedIntlProps & RouteComponentProps
 
 const enhance = compose<Props, {}>(injectIntl, withRouter)
 

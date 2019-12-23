@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
-import { IconEdit, Input } from 'vtex.styleguide'
+import { IconEdit, Input, ButtonWithIcon } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
@@ -117,12 +117,13 @@ class SubscriptionNameContainer extends Component<Props> {
         </ConfirmationModal>
         {content}
         {canEdit && (
-          <button
-            className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
-            onClick={this.handleOpenModal}
-          >
-            <IconEdit size={isTitle ? 20 : 16} />
-          </button>
+          <span className="ml5">
+            <ButtonWithIcon
+              onClick={this.handleOpenModal}
+              variation="tertiary"
+              icon={<IconEdit size={isTitle ? 20 : 16} />}
+            />
+          </span>
         )}
       </div>
     )

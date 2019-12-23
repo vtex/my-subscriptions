@@ -5,6 +5,7 @@ declare module 'vtex.styleguide' {
   export const IconCaretRight
   export const IconDelete
   export const Button
+  export const ButtonWithIcon
   export const Tag
   export const ModalDialog
   export const IconEdit
