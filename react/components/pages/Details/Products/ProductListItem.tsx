@@ -79,7 +79,7 @@ interface Props {
   quantity: number
   price: number
   currency: string
-  measurementUnit: string
+  measurementUnit?: string | null
   isEditing: boolean
   canRemove: boolean
   onRemove?: () => void
