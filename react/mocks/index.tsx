@@ -39,7 +39,7 @@ function generateSubscriptions(subscriptionsAmount: number) {
         measurementUnit: 'un',
       },
       quantity: 1,
-      priceAtSubscriptionDate: 100,
+      currentPrice: 100,
     })
   }
 

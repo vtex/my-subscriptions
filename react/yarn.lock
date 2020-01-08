@@ -6182,33 +6182,25 @@ vtex-tachyons@^3.2.0:
   resolved "https://registry.yarnpkg.com/vtex-tachyons/-/vtex-tachyons-3.2.0.tgz#81cf3491fea110e50ca91c318c02c714b6d0ae62"
   integrity sha512-RUK2HX/Z2+GTrFHcA3+gfl1Tib33WL49i6pnUZhE6/imHmiUBMfWQL7qQbYDhI9Pws57KFgdF+qSnla3Jjg6Fw==
 
-"vtex.address-form@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.4/public/_types/react":
+"vtex.address-form@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.4/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
-
-"vtex.my-account-commons@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-account-commons@0.11.0/public/@types/vtex.my-account-commons":
-  version "0.11.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-account-commons@0.11.0/public/@types/vtex.my-account-commons#9a2164916bec6c4b3c62b0b34ef95d7a50d71531"
-
-"vtex.payment-flags@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.1/public/@types/vtex.payment-flags":
-  version "1.5.1"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.1/public/@types/vtex.payment-flags#2d0dcd2bbcfe103993e047eeab853275af21db20"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
 "vtex.render-runtime@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react":
   version "7.40.0"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react#e664a85fb1234ba0f4837a818efad17a351f44b9"
 
-"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.111.0/public/@types/vtex.store-graphql":
-  version "2.111.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.111.0/public/@types/vtex.store-graphql#e83562109c819680180590203706343776e78bf3"
+"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.113.3/public/@types/vtex.store-graphql":
+  version "2.113.3"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.113.3/public/@types/vtex.store-graphql#5518e18d243582dccc7502ced6269323615a0ce1"
 
-"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide":
-  version "8.73.10"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide#3cbb102a72f2761ab4c22e808b10a749eb389ddd"
+"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.11/public/@types/vtex.styleguide":
+  version "8.73.11"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.11/public/@types/vtex.styleguide#806533020add947e28159d8b7bb9d770c7913f99"
 
-"vtex.subscriptions-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.0.0/public/@types/vtex.subscriptions-graphql":
-  version "2.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.0.0/public/@types/vtex.subscriptions-graphql#6bdedcb9c2acebbc6d201558ef7fe741b2d8b83d"
+"vtex.subscriptions-graphql@https://cabaceiras--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.2.0+build1578506914/public/@types/vtex.subscriptions-graphql":
+  version "2.2.0"
+  resolved "https://cabaceiras--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.2.0+build1578506914/public/@types/vtex.subscriptions-graphql#47d82cf8ab69e2f05c0210c1627c4f812556ac11"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
