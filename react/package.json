@@ -43,10 +43,12 @@
     "prop-types": "^15.7.2",
     "react-mock-router": "^1.0.15",
     "typescript": "3.7.3",
-    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react",
-    "vtex.store-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.113.3/public/@types/vtex.store-graphql",
-    "vtex.address-form": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react",
     "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.11/public/@types/vtex.styleguide",
-    "vtex.subscriptions-graphql": "https://cabaceiras--recorrenciaqa.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.2.0+build1578506914/public/@types/vtex.subscriptions-graphql"
+    "vtex.subscriptions-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.3.0/public/@types/vtex.subscriptions-graphql",
+    "vtex.address-form": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react",
+    "vtex.my-account-commons": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-account-commons@0.11.0/public/@types/vtex.my-account-commons",
+    "vtex.render-runtime": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react",
+    "vtex.payment-flags": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.payment-flags@1.5.1/public/@types/vtex.payment-flags",
+    "vtex.store-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.113.4/public/@types/vtex.store-graphql"
   }
 }
