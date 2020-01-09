@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.16.0] - 2020-01-09
+
+### Changed
+
+- Displaying **currentPrice** on the product list instead of **priceAtSubscriptionDate**.
+
 ## [0.15.0] - 2019-12-18
 
 ### Added

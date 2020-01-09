@@ -24,7 +24,7 @@ mutation RemoveSubscriptionFromGroup(
         variations
         measurementUnit
       }
-      priceAtSubscriptionDate
+      currentPrice
     }
   }
 }

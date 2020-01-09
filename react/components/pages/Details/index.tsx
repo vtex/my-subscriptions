@@ -188,7 +188,7 @@ export interface Subscription {
     variations?: { [key: string]: string } | null
   }
   quantity: number
-  priceAtSubscriptionDate: number
+  currentPrice: number
 }
 
 interface Props extends InjectedIntlProps, ChildProps {
