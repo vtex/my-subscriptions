@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.16.1] - 2020-02-10
+
+### Fixed
+
+- **updateSettings** mutation.
+
 ## [0.16.0] - 2020-01-09
 
 ### Changed
