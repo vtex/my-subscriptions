@@ -1,8 +1,8 @@
 mutation updateSettings(
   $subscriptionsGroupId: ID!
   $purchaseDay: String
-  $periodicity: String
-  $interval: Int
+  $periodicity: Periodicity!
+  $interval: Int!
 ) {
   updateSettings(
     subscriptionsGroupId: $subscriptionsGroupId
