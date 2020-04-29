@@ -75,7 +75,7 @@ const ProductsListing: FunctionComponent<Props> = ({
           imageUrl={product.sku.imageUrl}
           description={mapVariationsToDesc(product)}
           measurementUnit={product.sku.measurementUnit}
-          price={product.priceAtSubscriptionDate}
+          price={product.currentPrice}
           currency={currency}
           canRemove={canRemove}
           onChange={(quantity: number) =>

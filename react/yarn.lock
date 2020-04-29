@@ -6043,10 +6043,10 @@ typed-styles@^0.0.7:
   resolved "https://registry.yarnpkg.com/typed-styles/-/typed-styles-0.0.7.tgz#93392a008794c4595119ff62dde6809dbc40a3d9"
   integrity sha512-pzP0PWoZUhsECYjABgCGQlRGL1n7tOHsgwYv3oIiEpJwGhFTuty/YNeduxQYzXXa3Ge5BdT6sHYIQYpl4uJ+5Q==
 
-typescript@3.7.3:
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
-  integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
+typescript@3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
+  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
 
 typescript@^3.3.3333:
   version "3.7.2"
@@ -6182,9 +6182,9 @@ vtex-tachyons@^3.2.0:
   resolved "https://registry.yarnpkg.com/vtex-tachyons/-/vtex-tachyons-3.2.0.tgz#81cf3491fea110e50ca91c318c02c714b6d0ae62"
   integrity sha512-RUK2HX/Z2+GTrFHcA3+gfl1Tib33WL49i6pnUZhE6/imHmiUBMfWQL7qQbYDhI9Pws57KFgdF+qSnla3Jjg6Fw==
 
-"vtex.address-form@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.4/public/_types/react":
+"vtex.address-form@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.4/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
 "vtex.my-account-commons@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-account-commons@0.11.0/public/@types/vtex.my-account-commons":
   version "0.11.0"
@@ -6198,17 +6198,17 @@ vtex-tachyons@^3.2.0:
   version "7.40.0"
   resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.render-runtime@7.40.0/public/_types/react#e664a85fb1234ba0f4837a818efad17a351f44b9"
 
-"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.111.0/public/@types/vtex.store-graphql":
-  version "2.111.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.111.0/public/@types/vtex.store-graphql#e83562109c819680180590203706343776e78bf3"
+"vtex.store-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.113.4/public/@types/vtex.store-graphql":
+  version "2.113.4"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.store-graphql@2.113.4/public/@types/vtex.store-graphql#e7d73badd0fcdb694bf3082962136899d0f4f617"
 
-"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide":
-  version "8.73.10"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.10/public/@types/vtex.styleguide#3cbb102a72f2761ab4c22e808b10a749eb389ddd"
+"vtex.styleguide@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.11/public/@types/vtex.styleguide":
+  version "8.73.11"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.11/public/@types/vtex.styleguide#806533020add947e28159d8b7bb9d770c7913f99"
 
-"vtex.subscriptions-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.0.0/public/@types/vtex.subscriptions-graphql":
-  version "2.0.0"
-  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.0.0/public/@types/vtex.subscriptions-graphql#6bdedcb9c2acebbc6d201558ef7fe741b2d8b83d"
+"vtex.subscriptions-graphql@http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.3.0/public/@types/vtex.subscriptions-graphql":
+  version "2.3.0"
+  resolved "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.3.0/public/@types/vtex.subscriptions-graphql#2f8b587b5200b573be0927c50a5e0026a160a4b7"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
