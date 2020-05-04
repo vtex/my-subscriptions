@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import { Route } from 'vtex.my-account-commons/Router'
 
 import SubscriptionsListContainer from './components/pages/List'
 import SubscriptionDetailContainer from './components/pages/Details'

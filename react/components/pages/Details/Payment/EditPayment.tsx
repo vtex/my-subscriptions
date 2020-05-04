@@ -5,7 +5,7 @@ import {
   FormattedMessage,
   InjectedIntl,
 } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
 import { groupBy } from 'ramda'
