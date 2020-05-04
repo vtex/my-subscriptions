@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { compose } from 'recompose'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'

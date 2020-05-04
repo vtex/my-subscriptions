@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql } from 'react-apollo'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import {
   MutationRetrySubscriptionOrderArgs,
