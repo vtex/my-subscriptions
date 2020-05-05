@@ -22,6 +22,7 @@ import {
   PAYMENT_DIV_ID,
   Periodicity,
 } from '../../../constants'
+import { scrollToElement } from '../../../utils'
 
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -79,10 +80,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
     this.setState({ displayAlert })
   }
 
-  private handleScrollToPayment = () => {
-    const paymentDiv = document.getElementById(PAYMENT_DIV_ID)
-    paymentDiv && paymentDiv.scrollIntoView()
-  }
+  private handleScrollToPayment = () => scrollToElement(PAYMENT_DIV_ID)
 
   private handleMakeRetry = () => {
     const { retry, group } = this.props

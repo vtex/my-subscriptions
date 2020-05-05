@@ -1,11 +1,14 @@
 import { ApolloError } from 'apollo-client'
 import axios from 'axios'
 import SplunkEvents from 'splunk-events'
+import qs from 'query-string'
+import { RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import {
   SubscriptionDisplayFilterEnum,
   SubscriptionStatus,
   MenuOptionsEnum,
+  EditOptions,
 } from '../constants'
 
 const splunkEvents = new SplunkEvents()
@@ -97,4 +100,37 @@ export function logOrderNowMetric(account: string, orderGroup: string) {
     },
     account
   )
+}
+
+type Location = RouteComponentProps['location']
+
+export function getEditOption(location: Location): EditOptions | null {
+  const parsed = qs.parse(location.search)
+
+  if (parsed.edit) {
+    switch (parsed.edit) {
+      case EditOptions.Payment:
+        return EditOptions.Payment
+      default:
+        return null
+    }
+  }
+
+  return null
+}
+
+export function scrollToElement(id: string) {
+  const div = document.getElementById(id)
+  div && div.scrollIntoView({ block: 'center' })
+}
+
+export function removeElementsFromSearch(
+  elements: string[],
+  location: Location
+) {
+  const parsed = qs.parse(location.search)
+
+  elements.forEach(elementName => delete parsed[elementName])
+
+  return qs.stringify(parsed)
 }

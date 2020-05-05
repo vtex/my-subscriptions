@@ -38,6 +38,10 @@ export enum PaymentSystemGroup {
 
 ///
 
+export enum EditOptions {
+  Payment = 'payment',
+}
+
 export enum SubscriptionDisplayFilterEnum {
   Active = 'ACTIVE_FILTER',
   Canceled = 'CANCELED_FILTER',
