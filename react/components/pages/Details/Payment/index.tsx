@@ -3,17 +3,50 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { path } from 'ramda'
-import { ApolloError } from 'apollo-client'
+import qs from 'query-string'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
-import { PaymentSystemGroup } from '../../../../constants'
+import {
+  PaymentSystemGroup,
+  EditOptions,
+  PAYMENT_DIV_ID,
+  BASIC_CARD_WRAPPER,
+  CSS,
+} from '../../../../constants'
+import {
+  getEditOption,
+  scrollToElement,
+  removeElementsFromSearch,
+} from '../../../../utils'
 
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 
 import { SubscriptionsGroup } from '..'
+
+function isEditMode(location: RouteComponentProps['location']) {
+  const option = getEditOption(location)
+
+  return option ? option === EditOptions.Payment : false
+}
+
+function newPaymentArgs(location: RouteComponentProps['location']) {
+  const args = qs.parse(location.search)
+
+  if (args.newPaymentAccountId && args.newPaymentSystemId) {
+    return {
+      selectedAccountId: args.newPaymentAccountId,
+      selectedPaymentSystemId: args.newPaymentSystemId,
+      selectedPaymentSystemGroup: PaymentSystemGroup.CreditCard,
+      isEditMode: true,
+    }
+  }
+
+  return null
+}
 
 class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   private mounted: boolean
@@ -54,10 +87,56 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
   public componentDidMount = () => {
     this.mounted = true
+    const hasEdited = this.verifyEdit()
+
+    if (!hasEdited) {
+      this.verifyNewPayment()
+    }
   }
 
   public componentWillUnmount = () => {
     this.mounted = false
+  }
+
+  public verifyEdit = () => {
+    const { location } = this.props
+    const shouldOpenEdit = isEditMode(location)
+
+    if (shouldOpenEdit) {
+      this.setState({ isEditMode: shouldOpenEdit }, () => {
+        scrollToElement(PAYMENT_DIV_ID)
+
+        const search = removeElementsFromSearch(['edit'], location)
+
+        this.props.history.push({
+          search,
+        })
+      })
+    }
+
+    return shouldOpenEdit
+  }
+
+  public verifyNewPayment = () => {
+    const { location, history } = this.props
+    const args = newPaymentArgs(location)
+
+    if (args) {
+      this.setState({ ...args }, () => {
+        scrollToElement(PAYMENT_DIV_ID)
+
+        const search = removeElementsFromSearch(
+          ['newPaymentAccountId', 'newPaymentSystemId'],
+          location
+        )
+
+        history.push({
+          search,
+        })
+
+        this.handleSave()
+      })
+    }
   }
 
   public handleMakeRetry = () => {
@@ -109,7 +188,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
           isLoading: false,
         })
       })
-      .catch((e: ApolloError) => {
+      .catch((e: any) => {
         this.setState({
           errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
@@ -156,45 +235,52 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
       isRetryButtonEnabled,
     } = this.state
 
-    return isEditMode ? (
-      <EditPayment
-        onSave={this.handleSave}
-        onCancel={this.handleCancel}
-        onChangePayment={this.handlePaymentChange}
-        onChangePaymentGroup={this.handlePaymentGroupChange}
-        onCloseAlert={this.handleCloseAlert}
-        paymentSystemGroup={selectedPaymentSystemGroup}
-        showAlert={showAlert}
-        errorMessage={this.state.errorMessage}
-        accountId={selectedAccountId}
-        isLoading={isLoading}
-      />
-    ) : (
-      <PaymentCard
-        onEdit={this.handleEdit}
-        group={group}
-        onMakeRetry={this.handleMakeRetry}
-        displayRetry={displayRetry}
-        isRetryButtonEnabled={isRetryButtonEnabled}
-      />
+    return (
+      <div
+        className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}
+        id={PAYMENT_DIV_ID}
+      >
+        {isEditMode ? (
+          <EditPayment
+            onSave={this.handleSave}
+            onCancel={this.handleCancel}
+            onChangePayment={this.handlePaymentChange}
+            onChangePaymentGroup={this.handlePaymentGroupChange}
+            onCloseAlert={this.handleCloseAlert}
+            paymentSystemGroup={selectedPaymentSystemGroup}
+            showAlert={showAlert}
+            errorMessage={this.state.errorMessage}
+            accountId={selectedAccountId}
+            isLoading={isLoading}
+          />
+        ) : (
+          <PaymentCard
+            onEdit={this.handleEdit}
+            group={group}
+            onMakeRetry={this.handleMakeRetry}
+            displayRetry={displayRetry}
+            isRetryButtonEnabled={isRetryButtonEnabled}
+          />
+        )}
+      </div>
     )
   }
 }
 
-interface OutterProps {
+interface OuterProps {
   group: SubscriptionsGroup
   onMakeRetry: () => Promise<void>
   displayRetry: boolean
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends InjectedIntlProps, RouteComponentProps {
   updatePayment: (args: {
     variables: MutationUpdatePaymentMethodArgs
   }) => Promise<void>
   showToast: ({ message }: ShowToastArgs) => void
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
 interface State {
   selectedAccountId: string | null
@@ -207,9 +293,10 @@ interface State {
   showAlert: boolean
 }
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
   withToast,
+  withRouter,
   graphql(UpdatePaymentMethod, {
     name: 'updatePayment',
   })

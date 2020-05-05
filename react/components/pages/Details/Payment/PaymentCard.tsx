@@ -2,12 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import {
-  CSS,
-  PAYMENT_DIV_ID,
-  TagTypeEnum,
-  BASIC_CARD_WRAPPER,
-} from '../../../../constants'
+import { TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import EditAlert from '../../../commons/EditAlert'
 import EditButton from '../../../commons/EditButton'
@@ -34,10 +29,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   displayRetry,
   isRetryButtonEnabled,
 }) => (
-  <div
-    className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}
-    id={PAYMENT_DIV_ID}
-  >
+  <>
     <Alert
       visible={displayRetry}
       type={TagTypeEnum.Warning}
@@ -86,7 +78,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
         )}
       </div>
     </div>
-  </div>
+  </>
 )
 
 interface Props {
