@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.16.3] - 2020-05-07
+
 ### Fixed
 
 - Payment change when the payment method is null.
