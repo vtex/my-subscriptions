@@ -39,9 +39,15 @@ function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
   )
 }
 
-function getCreditCard(accountId: string, cards: PaymentMethod[]): PaymentMethod{
-  // eslint-disable-next-line prettier/prettier
-  return cards.find((card) => card.paymentAccount?.id === accountId) as PaymentMethod
+function getCreditCard(
+  accountId: string,
+  cards: PaymentMethod[]
+): PaymentMethod {
+  return cards.find(card => {
+    const id = card.paymentAccount ? card.paymentAccount.id : null
+
+    return id === accountId
+  }) as PaymentMethod
 }
 
 function goToCreateCard(history: RouteComponentProps['history']) {
@@ -99,10 +105,11 @@ const EditPayment: FunctionComponent<Props> = ({
               onChange={() => {
                 const selectedGroup: PaymentSystemGroup = group as PaymentSystemGroup
 
-                if(selectedGroup === PaymentSystemGroup.CreditCard) {
+                if (selectedGroup === PaymentSystemGroup.CreditCard) {
                   onChangePaymentGroup(group as PaymentSystemGroup)
                 } else {
-                  const selectedSystemId = groupedPayments[group][0].paymentSystemId
+                  const selectedSystemId =
+                    groupedPayments[group][0].paymentSystemId
                   onChangePaymentGroup(selectedGroup, selectedSystemId)
                 }
               }}
@@ -121,12 +128,15 @@ const EditPayment: FunctionComponent<Props> = ({
                     }
                     value={accountId}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                        const selectedAccount = e.target.value
+                      const selectedAccount = e.target.value
 
-                        const card = getCreditCard(selectedAccount, groupedPayments.creditCard)
+                      const card = getCreditCard(
+                        selectedAccount,
+                        groupedPayments.creditCard
+                      )
 
-                        onChangePayment(card.paymentSystemId, selectedAccount)
-                    } }
+                      onChangePayment(card.paymentSystemId, selectedAccount)
+                    }}
                   />
                 </div>
                 <Button
@@ -162,7 +172,10 @@ interface OuterProps {
   onSave: () => void
   onCancel: () => void
   onChangePayment: (paymentSystemId: string, accountId?: string) => void
-  onChangePaymentGroup: (paymentGroup: PaymentSystemGroup, paymentSystemId?: string) => void
+  onChangePaymentGroup: (
+    paymentGroup: PaymentSystemGroup,
+    paymentSystemId?: string
+  ) => void
   onCloseAlert: () => void
   isLoading: boolean
   paymentSystemGroup: PaymentSystemGroup | null
