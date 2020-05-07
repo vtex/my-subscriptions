@@ -42,7 +42,7 @@
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react-mock-router": "^1.0.15",
-    "typescript": "3.7.3",
+    "typescript": "3.8.3",
     "vtex.styleguide": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.styleguide@8.73.11/public/@types/vtex.styleguide",
     "vtex.subscriptions-graphql": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.subscriptions-graphql@2.3.0/public/@types/vtex.subscriptions-graphql",
     "vtex.address-form": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react",

@@ -21,7 +21,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   public constructor(props: Props) {
     super(props)
     this.state = {
-      accountId:
+      selectedAccountId:
         path(
           [
             'group',
@@ -36,12 +36,12 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
       isEditMode: false,
       isLoading: false,
       isRetryButtonEnabled: true,
-      paymentSystemId:
+      selectedPaymentSystemId:
         path(
           ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemId'],
           props
         ) || null,
-      paymentSystemGroup:
+      selectedPaymentSystemGroup:
         path(
           ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemGroup'],
           props
@@ -80,20 +80,22 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
   public handleSave = () => {
     const { updatePayment, group, intl, showToast } = this.props
-    const { paymentSystemGroup, accountId, paymentSystemId } = this.state
-
-    if (!paymentSystemId) return null
+    const {
+      selectedPaymentSystemGroup,
+      selectedAccountId,
+      selectedPaymentSystemId,
+    } = this.state
 
     this.setState({ isLoading: true })
 
     return updatePayment({
       variables: {
         accountId:
-          paymentSystemGroup === PaymentSystemGroup.CreditCard
-            ? accountId
+          selectedPaymentSystemGroup === PaymentSystemGroup.CreditCard
+            ? selectedAccountId
             : null,
         subscriptionsGroupId: group.id,
-        paymentSystemId,
+        paymentSystemId: selectedPaymentSystemId as string,
       },
     })
       .then(() => {
@@ -125,24 +127,31 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     })
   }
 
-  public handlePaymentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  public handlePaymentGroupChange = (
+    newGroup: PaymentSystemGroup,
+    paymentSystemId?: string
+  ) =>
     this.setState({
-      paymentSystemId: e.target.value,
-      paymentSystemGroup: e.target.name as PaymentSystemGroup,
+      selectedPaymentSystemGroup: newGroup,
+      selectedPaymentSystemId: paymentSystemId || null,
     })
-  }
 
-  public handleCardChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ accountId: e.target.value })
-  }
+  public handlePaymentChange = (
+    newPaymentSystemId: string,
+    newAccountID?: string
+  ) =>
+    this.setState({
+      selectedPaymentSystemId: newPaymentSystemId,
+      selectedAccountId: newAccountID || null,
+    })
 
   public render() {
     const { group, displayRetry } = this.props
     const {
       isEditMode,
-      accountId,
       isLoading,
-      paymentSystemGroup,
+      selectedAccountId,
+      selectedPaymentSystemGroup,
       showAlert,
       isRetryButtonEnabled,
     } = this.state
@@ -152,12 +161,12 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
         onSave={this.handleSave}
         onCancel={this.handleCancel}
         onChangePayment={this.handlePaymentChange}
-        onChangeCard={this.handleCardChange}
+        onChangePaymentGroup={this.handlePaymentGroupChange}
         onCloseAlert={this.handleCloseAlert}
-        paymentSystemGroup={paymentSystemGroup}
+        paymentSystemGroup={selectedPaymentSystemGroup}
         showAlert={showAlert}
         errorMessage={this.state.errorMessage}
-        accountId={accountId}
+        accountId={selectedAccountId}
         isLoading={isLoading}
       />
     ) : (
@@ -188,13 +197,13 @@ interface InnerProps extends InjectedIntlProps {
 type Props = InnerProps & OutterProps
 
 interface State {
-  accountId: string | null
+  selectedAccountId: string | null
   errorMessage: string
   isEditMode: boolean
   isLoading: boolean
   isRetryButtonEnabled: boolean
-  paymentSystemId: string | null
-  paymentSystemGroup: PaymentSystemGroup
+  selectedPaymentSystemId: string | null
+  selectedPaymentSystemGroup: PaymentSystemGroup
   showAlert: boolean
 }
 

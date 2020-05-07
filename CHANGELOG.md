@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Payment change when the payment method is null.
+
 ## [0.16.2] - 2020-02-10
 
 ## [0.16.1] - 2020-02-10

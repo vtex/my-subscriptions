@@ -39,6 +39,11 @@ function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
   )
 }
 
+function getCreditCard(accountId: string, cards: PaymentMethod[]): PaymentMethod{
+  // eslint-disable-next-line prettier/prettier
+  return cards.find((card) => card.paymentAccount?.id === accountId) as PaymentMethod
+}
+
 function goToCreateCard(history: RouteComponentProps['history']) {
   const here = history.location.pathname
 
@@ -53,7 +58,7 @@ const EditPayment: FunctionComponent<Props> = ({
   onCancel,
   onSave,
   onChangePayment,
-  onChangeCard,
+  onChangePaymentGroup,
   onCloseAlert,
   accountId,
   paymentSystemGroup,
@@ -91,11 +96,19 @@ const EditPayment: FunctionComponent<Props> = ({
               })}
               name={group}
               checked={paymentSystemGroup === group}
-              onChange={onChangePayment}
-              value={groupedPayments[group][0].paymentSystemId}
+              onChange={() => {
+                const selectedGroup: PaymentSystemGroup = group as PaymentSystemGroup
+
+                if(selectedGroup === PaymentSystemGroup.CreditCard) {
+                  onChangePaymentGroup(group as PaymentSystemGroup)
+                } else {
+                  const selectedSystemId = groupedPayments[group][0].paymentSystemId
+                  onChangePaymentGroup(selectedGroup, selectedSystemId)
+                }
+              }}
+              value={group}
             />
-            {groupedPayments[group][0].paymentSystemGroup ===
-              PaymentSystemGroup.CreditCard && (
+            {group === PaymentSystemGroup.CreditCard && (
               <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
@@ -107,7 +120,13 @@ const EditPayment: FunctionComponent<Props> = ({
                       paymentSystemGroup !== PaymentSystemGroup.CreditCard
                     }
                     value={accountId}
-                    onChange={onChangeCard}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                        const selectedAccount = e.target.value
+
+                        const card = getCreditCard(selectedAccount, groupedPayments.creditCard)
+
+                        onChangePayment(card.paymentSystemId, selectedAccount)
+                    } }
                   />
                 </div>
                 <Button
@@ -142,11 +161,11 @@ interface ChildProps {
 interface OuterProps {
   onSave: () => void
   onCancel: () => void
-  onChangeCard: (e: React.ChangeEvent<HTMLSelectElement>) => void
-  onChangePayment: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangePayment: (paymentSystemId: string, accountId?: string) => void
+  onChangePaymentGroup: (paymentGroup: PaymentSystemGroup, paymentSystemId?: string) => void
   onCloseAlert: () => void
   isLoading: boolean
-  paymentSystemGroup: string | null
+  paymentSystemGroup: PaymentSystemGroup | null
   accountId: string | null
   showAlert: boolean
   errorMessage: string
