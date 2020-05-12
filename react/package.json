@@ -4,9 +4,9 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
-    "@vtex/delivery-packages": "^2.14.1",
     "apollo-client": "^2.6.3",
     "axios": "^0.18.0",
+    "query-string": "5.x",
     "ramda": "^0.26.1",
     "react": "^16.6.3",
     "react-accessible-accordion": "^2.4.5",
@@ -16,15 +16,14 @@
     "react-infinite-scroller": "^1.2.4",
     "react-intl": "^2.7.2",
     "react-responsive": "6.x",
-    "react-router-dom": "^4.3.1",
     "recompose": "^0.30.0",
     "splunk-events": "^1.2.3"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.1",
-    "@types/hoist-non-react-statics": "^3.0.1",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.0.10",
+    "@types/query-string": "5.x",
     "@types/ramda": "^0.26.18",
     "@types/react": "^16.8.22",
     "@types/react-infinite-scroller": "^1.2.1",
@@ -42,6 +41,7 @@
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react-mock-router": "^1.0.15",
+    "react-router-dom": "4.x",
     "typescript": "3.8.3",
     "vtex.address-form": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.address-form@3.8.7/public/_types/react",
     "vtex.my-account-commons": "http://vtex.vteximg.com.br/_v/public/typings/v1/vtex.my-account-commons@0.11.0/public/@types/vtex.my-account-commons",

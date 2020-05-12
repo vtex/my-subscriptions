@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
