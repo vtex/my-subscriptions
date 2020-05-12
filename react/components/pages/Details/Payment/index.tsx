@@ -98,7 +98,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     this.mounted = false
   }
 
-  public verifyEdit = () => {
+  private verifyEdit = () => {
     const { location } = this.props
     const shouldOpenEdit = isEditMode(location)
 
@@ -117,7 +117,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     return shouldOpenEdit
   }
 
-  public verifyNewPayment = () => {
+  private verifyNewPayment = () => {
     const { location, history } = this.props
     const args = newPaymentArgs(location)
 
@@ -139,7 +139,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     }
   }
 
-  public handleMakeRetry = () => {
+  private handleMakeRetry = () => {
     this.props.onMakeRetry().then(() => {
       if (this.mounted) {
         this.setState({
@@ -149,15 +149,15 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     })
   }
 
-  public handleEdit = () => {
+  private handleEdit = () => {
     this.setState({ isEditMode: true })
   }
 
-  public handleCancel = () => {
+  private handleCancel = () => {
     this.setState({ isEditMode: false })
   }
 
-  public handleSave = () => {
+  private handleSave = () => {
     const { updatePayment, group, intl, showToast } = this.props
     const {
       selectedPaymentSystemGroup,
@@ -200,13 +200,13 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
       })
   }
 
-  public handleCloseAlert = () => {
+  private handleCloseAlert = () => {
     this.setState({
       showAlert: false,
     })
   }
 
-  public handlePaymentGroupChange = (
+  private handlePaymentGroupChange = (
     newGroup: PaymentSystemGroup,
     paymentSystemId?: string
   ) =>
@@ -215,7 +215,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
       selectedPaymentSystemId: paymentSystemId || null,
     })
 
-  public handlePaymentChange = (
+  private handlePaymentChange = (
     newPaymentSystemId: string,
     newAccountID?: string
   ) =>

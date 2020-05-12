@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl'
 import { branch, compose, renderComponent } from 'recompose'
 import { Button, Dropdown } from 'vtex.styleguide'
 import { Address } from 'vtex.store-graphql'
 
 import Alert from '../../../commons/CustomAlert'
-import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
+import { TagTypeEnum } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 
@@ -35,12 +35,10 @@ const EditShipping: FunctionComponent<Props> = ({
   intl,
 }) => {
   return (
-    <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
-      <div className="flex flex-row">
+    <>
+      <div className="flex">
         <div className="db-s di-ns b f4 tl c-on-base">
-          {intl.formatMessage({
-            id: 'subscription.shipping',
-          })}
+          <FormattedMessage id="subscription.shipping" />
         </div>
       </div>
       <div className="flex pt5 w-100-s mr-auto flex-column">
@@ -66,9 +64,7 @@ const EditShipping: FunctionComponent<Props> = ({
             variation="tertiary"
             onClick={onGoToCreateAddress}
           >
-            {intl.formatMessage({
-              id: 'subscription.shipping.newAddress',
-            })}
+            <FormattedMessage id="subscription.shipping.newAddress" />
           </Button>
         </div>
         <EditionButtons
@@ -77,7 +73,7 @@ const EditShipping: FunctionComponent<Props> = ({
           onSave={onSave}
         />
       </div>
-    </div>
+    </>
   )
 }
 
@@ -90,7 +86,7 @@ interface InnerProps extends InjectedIntlProps {
   addresses: Address[]
 }
 
-interface OutterProps {
+interface OuterProps {
   onSave: () => void
   onCancel: () => void
   onChangeAddress: (e: React.ChangeEvent<HTMLSelectElement>) => void
@@ -103,11 +99,11 @@ interface OutterProps {
   isLoading: boolean
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
-  graphql<OutterProps, { profile: { addresses: Address[] } }, {}, ChildProps>(
+  graphql<OuterProps, { profile: { addresses: Address[] } }, {}, ChildProps>(
     GET_ADDRESSES,
     {
       props: ({ data }) => ({

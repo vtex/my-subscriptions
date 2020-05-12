@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react'
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
-import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import LabeledInfo from '../../../commons/LabeledInfo'
 import EditButton from '../../../commons/EditButton'
 import EditAlert from '../../../commons/EditAlert'
@@ -21,8 +20,8 @@ const messages = defineMessages({
 })
 
 const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
-  <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
-    <div className="flex flex-row">
+  <>
+    <div className="flex">
       <div className="db-s di-ns b f4 tl c-on-base">
         <FormattedMessage id="subscription.shipping" />
       </div>
@@ -57,7 +56,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
         </EditAlert>
       )}
     </div>
-  </div>
+  </>
 )
 
 interface Props {
