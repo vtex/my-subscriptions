@@ -30,7 +30,7 @@ import { SubscriptionsGroup } from '..'
 function isEditMode(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
 
-  return option ? option === EditOptions.Payment : false
+  return option === EditOptions.Payment
 }
 
 function newPaymentArgs(location: RouteComponentProps['location']) {
