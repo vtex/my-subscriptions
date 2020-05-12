@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Magic link for automatically changing the payment method.
+- Magic link for automatically changing the payment method and address.
 
 ## [0.16.3] - 2020-05-07
 
