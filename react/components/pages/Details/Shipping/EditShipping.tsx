@@ -108,6 +108,9 @@ export default compose<Props, OuterProps>(
         loading: data ? data.loading : false,
         addresses: data && data.profile ? data.profile.addresses : [],
       }),
+      options: {
+        fetchPolicy: 'no-cache',
+      },
     }
   ),
   branch(
