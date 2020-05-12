@@ -29,7 +29,7 @@ import {
 function isEditMode(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
 
-  return option ? option === EditOptions.Address : false
+  return option === EditOptions.Address
 }
 
 function newAddressArgs(location: RouteComponentProps['location']) {

@@ -107,18 +107,14 @@ type Location = RouteComponentProps['location']
 export function getEditOption(location: Location): EditOptions | null {
   const parsed = qs.parse(location.search)
 
-  if (parsed.edit) {
-    switch (parsed.edit) {
-      case EditOptions.Payment:
-        return EditOptions.Payment
-      case EditOptions.Address:
-        return EditOptions.Address
-      default:
-        return null
-    }
+  switch (parsed.edit) {
+    case EditOptions.Payment:
+      return EditOptions.Payment
+    case EditOptions.Address:
+      return EditOptions.Address
+    default:
+      return null
   }
-
-  return null
 }
 
 export function scrollToElement(id: string) {
