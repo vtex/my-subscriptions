@@ -34,7 +34,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
       <div className="pt5-s pt5-ns w-100-s mr-auto">
         <FrequencyInfo
           periodicity={group.plan.frequency.periodicity}
-          purchaseDay={group.purchaseSettings.purchaseDay}
+          purchaseDay={group.purchaseSettings.purchaseDay as string}
           interval={group.plan.frequency.interval}
         />
 

@@ -37,7 +37,7 @@ class EditData extends Component<Props, State> {
       isLoading: false,
       showErrorAlert: false,
       errorMessage: '',
-      purchaseDay: purchaseSettings.purchaseDay,
+      purchaseDay: purchaseSettings.purchaseDay as string,
       frequencyIndex: this.findCurrentFrequencyIndex({ periodicity, interval }),
     }
   }
