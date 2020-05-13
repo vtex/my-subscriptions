@@ -37,7 +37,7 @@ class EditData extends Component<Props, State> {
       isLoading: false,
       showErrorAlert: false,
       errorMessage: '',
-      purchaseDay: purchaseSettings.purchaseDay,
+      purchaseDay: purchaseSettings.purchaseDay as string,
       frequencyIndex: this.findCurrentFrequencyIndex({ periodicity, interval }),
     }
   }
@@ -161,7 +161,7 @@ class EditData extends Component<Props, State> {
 
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
-        <div className="db-s di-ns b f4 tl c-on-base">
+        <div className="db-s di-ns f4 tl c-on-base">
           {intl.formatMessage({ id: 'subscription.data' })}
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">

@@ -5,7 +5,7 @@ import {
   FormattedMessage,
   InjectedIntl,
 } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
 import { groupBy } from 'ramda'
@@ -13,12 +13,7 @@ import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
 import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
-import {
-  PaymentSystemGroup,
-  TagTypeEnum,
-  CSS,
-  BASIC_CARD_WRAPPER,
-} from '../../../../constants'
+import { PaymentSystemGroup, TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
@@ -81,7 +76,7 @@ const EditPayment: FunctionComponent<Props> = ({
   if (methods.length === 0) goToCreateCard(history)
 
   return (
-    <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
+    <>
       <div className="db-s di-ns b f4 tl c-on-base">
         <FormattedMessage id="subscription.payment" />
       </div>
@@ -159,7 +154,7 @@ const EditPayment: FunctionComponent<Props> = ({
           }
         />
       </div>
-    </div>
+    </>
   )
 }
 

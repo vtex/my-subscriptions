@@ -38,6 +38,11 @@ export enum PaymentSystemGroup {
 
 ///
 
+export enum EditOptions {
+  Payment = 'payment',
+  Address = 'address',
+}
+
 export enum SubscriptionDisplayFilterEnum {
   Active = 'ACTIVE_FILTER',
   Canceled = 'CANCELED_FILTER',
@@ -112,3 +117,4 @@ export const CSS = {
 export const BASIC_CARD_WRAPPER = `h-100 ${CSS.cardBorder} ${CSS.cardTypograph} ${CSS.cardVerticalPadding}`
 
 export const PAYMENT_DIV_ID = 'subscriptions-payment-div'
+export const ADDRESS_DIV_ID = 'subscriptions-address-div'

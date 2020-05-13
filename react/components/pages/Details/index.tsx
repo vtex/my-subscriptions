@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql } from 'react-apollo'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import {
   MutationRetrySubscriptionOrderArgs,
@@ -22,6 +22,7 @@ import {
   PAYMENT_DIV_ID,
   Periodicity,
 } from '../../../constants'
+import { scrollToElement } from '../../../utils'
 
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -79,10 +80,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
     this.setState({ displayAlert })
   }
 
-  private handleScrollToPayment = () => {
-    const paymentDiv = document.getElementById(PAYMENT_DIV_ID)
-    paymentDiv && paymentDiv.scrollIntoView()
-  }
+  private handleScrollToPayment = () => scrollToElement(PAYMENT_DIV_ID)
 
   private handleMakeRetry = () => {
     const { retry, group } = this.props

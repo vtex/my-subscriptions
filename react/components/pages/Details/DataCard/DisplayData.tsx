@@ -19,7 +19,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
   return (
     <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
       <div className="flex">
-        <div className="db-s di-ns b f4 tl c-on-base">
+        <div className="db-s di-ns f4 tl c-on-base">
           {intl.formatMessage({ id: 'subscription.data' })}
         </div>
         <div className="ml-auto">
@@ -34,7 +34,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
       <div className="pt5-s pt5-ns w-100-s mr-auto">
         <FrequencyInfo
           periodicity={group.plan.frequency.periodicity}
-          purchaseDay={group.purchaseSettings.purchaseDay}
+          purchaseDay={group.purchaseSettings.purchaseDay as string}
           interval={group.plan.frequency.interval}
         />
 

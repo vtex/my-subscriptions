@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
-import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
+import qs from 'query-string'
+import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
 
@@ -13,6 +14,36 @@ import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 
 import { SubscriptionsGroup } from '..'
+import {
+  BASIC_CARD_WRAPPER,
+  CSS,
+  ADDRESS_DIV_ID,
+  EditOptions,
+} from '../../../../constants'
+import {
+  getEditOption,
+  scrollToElement,
+  removeElementsFromSearch,
+} from '../../../../utils'
+
+function isEditMode(location: RouteComponentProps['location']) {
+  const option = getEditOption(location)
+
+  return option === EditOptions.Address
+}
+
+function newAddressArgs(location: RouteComponentProps['location']) {
+  const args = qs.parse(location.search)
+
+  if (args.newAddressId) {
+    return {
+      selectedAddressId: args.newAddressId,
+      isEditMode: true,
+    }
+  }
+
+  return null
+}
 
 class ShippingContainer extends Component<Props, State> {
   public constructor(props: Props) {
@@ -29,6 +60,52 @@ class ShippingContainer extends Component<Props, State> {
     }
   }
 
+  public componentDidMount = () => {
+    const hasEdited = this.verifyEdit()
+
+    if (!hasEdited) {
+      this.verifyNewAddress()
+    }
+  }
+
+  private verifyEdit = () => {
+    const { location } = this.props
+    const shouldOpenEdit = isEditMode(location)
+
+    if (shouldOpenEdit) {
+      this.setState({ isEditMode: shouldOpenEdit }, () => {
+        scrollToElement(ADDRESS_DIV_ID)
+
+        const search = removeElementsFromSearch(['edit'], location)
+
+        this.props.history.push({
+          search,
+        })
+      })
+    }
+
+    return shouldOpenEdit
+  }
+
+  private verifyNewAddress = () => {
+    const { location, history } = this.props
+    const args = newAddressArgs(location)
+
+    if (args) {
+      this.setState({ ...args }, () => {
+        scrollToElement(ADDRESS_DIV_ID)
+
+        const search = removeElementsFromSearch(['newAddressId'], location)
+
+        history.push({
+          search,
+        })
+
+        this.handleSave()
+      })
+    }
+  }
+
   private handleGoToCreateAddress = () => {
     const { history } = this.props
 
@@ -42,7 +119,7 @@ class ShippingContainer extends Component<Props, State> {
 
   private handleCloseErrorAlert = () => this.setState({ showErrorAlert: false })
 
-  public handleSave = () => {
+  private handleSave = () => {
     const { group, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
@@ -77,10 +154,10 @@ class ShippingContainer extends Component<Props, State> {
       })
   }
 
-  public handleAddressChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+  private handleAddressChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     this.setState({ selectedAddressId: e.target.value })
 
-  public handleEditClick = () => {
+  private handleEditClick = () => {
     const { group } = this.props
 
     this.setState({
@@ -89,7 +166,7 @@ class ShippingContainer extends Component<Props, State> {
     })
   }
 
-  public handleCancelClick = () => this.setState({ isEditMode: false })
+  private handleCancelClick = () => this.setState({ isEditMode: false })
 
   public render() {
     const { group } = this.props
@@ -101,26 +178,33 @@ class ShippingContainer extends Component<Props, State> {
       errorMessage,
     } = this.state
 
-    return isEditMode ? (
-      <EditShipping
-        onSave={this.handleSave}
-        onCancel={this.handleCancelClick}
-        onChangeAddress={this.handleAddressChange}
-        onCloseErrorAlert={this.handleCloseErrorAlert}
-        onGoToCreateAddress={this.handleGoToCreateAddress}
-        selectedAddressId={selectedAddressId}
-        isLoading={isLoading}
-        showErrorAlert={showErrorAlert}
-        errorMessage={errorMessage}
-        group={group}
-      />
-    ) : (
-      <ShippingCard onEdit={this.handleEditClick} group={group} />
+    return (
+      <div
+        className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}
+        id={ADDRESS_DIV_ID}
+      >
+        {isEditMode ? (
+          <EditShipping
+            onSave={this.handleSave}
+            onCancel={this.handleCancelClick}
+            onChangeAddress={this.handleAddressChange}
+            onCloseErrorAlert={this.handleCloseErrorAlert}
+            onGoToCreateAddress={this.handleGoToCreateAddress}
+            selectedAddressId={selectedAddressId}
+            isLoading={isLoading}
+            showErrorAlert={showErrorAlert}
+            errorMessage={errorMessage}
+            group={group}
+          />
+        ) : (
+          <ShippingCard onEdit={this.handleEditClick} group={group} />
+        )}
+      </div>
     )
   }
 }
 
-interface OutterProps {
+interface OuterProps {
   group: SubscriptionsGroup
 }
 
@@ -131,7 +215,7 @@ interface InnerProps extends RouteComponentProps, InjectedIntlProps {
   showToast: (args: ShowToastArgs) => void
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
 interface State {
   errorMessage: string
@@ -141,7 +225,7 @@ interface State {
   selectedAddressId: string
 }
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
   withToast,
   withRouter,
