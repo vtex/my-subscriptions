@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
@@ -20,7 +21,7 @@ describe('History Scenarios', () => {
     window.location = location
   })
 
-  test('should display empty state if no recurrent order exists yet', async () => {
+  it('should display empty state if no recurrent order exists yet', async () => {
     const queryMock = copyObj(mock)
     queryMock.result.data.orders.list = []
 
@@ -31,13 +32,13 @@ describe('History Scenarios', () => {
       { graphql: { mocks: [queryMock] } }
     )
 
-    await new Promise(res => setTimeout(res))
+    await new Promise((res) => setTimeout(res))
 
     expect(queryByText('There are no orders yet')).toBeTruthy()
     expect(queryByText('Awaiting the first cycle')).toBeTruthy()
   })
 
-  test('should display all possible states', async () => {
+  it('should display all possible states', async () => {
     const queryMock = copyObj(mock)
 
     const { queryByText, queryAllByText } = render(
@@ -47,13 +48,12 @@ describe('History Scenarios', () => {
       { graphql: { mocks: [queryMock] } }
     )
 
-    await new Promise(res => setTimeout(res))
+    await new Promise((res) => setTimeout(res))
 
-    expect(queryAllByText('Processing').length).toBe(2)
+    expect(queryAllByText('Processing')).toHaveLength(2)
     expect(
       queryAllByText('A problem has occurred while generating your order')
-        .length
-    ).toBe(2)
+    ).toHaveLength(2)
     expect(queryByText('Order successfully generated')).toBeTruthy()
     expect(queryByText('Subscription expired')).toBeTruthy()
     expect(queryByText('Payment Error')).toBeTruthy()
@@ -75,7 +75,7 @@ describe('History Scenarios', () => {
     ).toBeTruthy()
   })
 
-  test('should add "isFullyloaded" class to list after loading every item', async () => {
+  it('should add "isFullyloaded" class to list after loading every item', async () => {
     const queryMock = copyObj(mock)
     queryMock.result.data.orders.totalCount = 5
     queryMock.result.data.orders.list = queryMock.result.data.orders.list.slice(
@@ -90,7 +90,7 @@ describe('History Scenarios', () => {
       { graphql: { mocks: [queryMock] } }
     )
 
-    await new Promise(res => setTimeout(res))
+    await new Promise((res) => setTimeout(res))
     expect(container.querySelector('.isFullyloaded')).toBeTruthy()
   })
 })

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
+// eslint-disable-next-line no-restricted-imports
 import { path } from 'ramda'
 import qs from 'query-string'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
@@ -21,13 +22,11 @@ import {
   scrollToElement,
   removeElementsFromSearch,
 } from '../../../../utils'
-
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
-
 import { SubscriptionsGroup } from '..'
 
-function isEditMode(location: RouteComponentProps['location']) {
+function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
 
   return option === EditOptions.Payment
@@ -51,7 +50,7 @@ function newPaymentArgs(location: RouteComponentProps['location']) {
 class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   private mounted: boolean
 
-  public constructor(props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       selectedAccountId:
@@ -64,7 +63,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
             'id',
           ],
           props
-        ) || null,
+        ) ?? null,
       errorMessage: '',
       isEditMode: false,
       isLoading: false,
@@ -73,12 +72,12 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
         path(
           ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemId'],
           props
-        ) || null,
+        ) ?? null,
       selectedPaymentSystemGroup:
         path(
           ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemGroup'],
           props
-        ) || PaymentSystemGroup.CreditCard,
+        ) ?? PaymentSystemGroup.CreditCard,
       showAlert: false,
     }
 
@@ -100,7 +99,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
   private verifyEdit = () => {
     const { location } = this.props
-    const shouldOpenEdit = isEditMode(location)
+    const shouldOpenEdit = hasEditOption(location)
 
     if (shouldOpenEdit) {
       this.setState({ isEditMode: shouldOpenEdit }, () => {
@@ -190,10 +189,12 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
       })
       .catch((e: any) => {
         this.setState({
-          errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
+          errorMessage: `subscription.fetch.${
+            e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
             e.graphQLErrors[0].extensions.error &&
-            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()}`,
+            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
+          }`,
           isLoading: false,
           showAlert: true,
         })
@@ -212,7 +213,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   ) =>
     this.setState({
       selectedPaymentSystemGroup: newGroup,
-      selectedPaymentSystemId: paymentSystemId || null,
+      selectedPaymentSystemId: paymentSystemId ?? null,
     })
 
   private handlePaymentChange = (
@@ -221,7 +222,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   ) =>
     this.setState({
       selectedPaymentSystemId: newPaymentSystemId,
-      selectedAccountId: newAccountID || null,
+      selectedAccountId: newAccountID ?? null,
     })
 
   public render() {

@@ -5,7 +5,6 @@ import { AddressRules, AddressSummary } from 'vtex.address-form'
 import LabeledInfo from '../../../commons/LabeledInfo'
 import EditButton from '../../../commons/EditButton'
 import EditAlert from '../../../commons/EditAlert'
-
 import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({

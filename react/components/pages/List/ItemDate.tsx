@@ -3,13 +3,9 @@ import { InjectedIntlProps, injectIntl } from 'react-intl'
 
 import { SubscriptionStatus } from '../../../constants'
 
-const SubscriptionsGroupItemDate: FunctionComponent<Props &
-  InjectedIntlProps> = ({
-  status,
-  nextPurchaseDate,
-  lastStatusUpdate,
-  intl,
-}) => {
+const SubscriptionsGroupItemDate: FunctionComponent<
+  Props & InjectedIntlProps
+> = ({ status, nextPurchaseDate, lastStatusUpdate, intl }) => {
   const content =
     status === SubscriptionStatus.Active
       ? intl.formatMessage(

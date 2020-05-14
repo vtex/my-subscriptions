@@ -15,7 +15,6 @@ import {
   Periodicity,
 } from '../../../constants'
 import { convertFilter } from '../../../utils'
-
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'
@@ -100,14 +99,14 @@ class SubscriptionsGroupListContainer extends Component<
               if (error) return <ErrorState refetch={refetch} />
               if (!data || isEmpty(data)) return <EmptyState />
 
-              return data.groups.map(group => (
+              return data.groups.map((group) => (
                 <article
                   className={CSS.subscriptionGroupItemWrapper}
                   key={group.id}
                 >
                   <Images
                     skus={group.subscriptions.map(
-                      subscription => subscription.sku
+                      (subscription) => subscription.sku
                     )}
                   />
                   <Summary
@@ -135,14 +134,14 @@ export type SubscriptionsGroup = Pick<
       interval: number
     }
   }
-  subscriptions: {
+  subscriptions: Array<{
     sku: {
       imageUrl: string
       name: string
       detailUrl: string
       productName: string
     }
-  }[]
+  }>
   purchaseSettings: {
     purchaseDay: string
   }

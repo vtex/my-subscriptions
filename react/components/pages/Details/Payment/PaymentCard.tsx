@@ -6,9 +6,7 @@ import { TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import EditAlert from '../../../commons/EditAlert'
 import EditButton from '../../../commons/EditButton'
-
 import PaymentDisplay from './PaymentDisplay'
-
 import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({

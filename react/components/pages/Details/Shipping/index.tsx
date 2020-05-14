@@ -9,10 +9,8 @@ import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
-
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
-
 import { SubscriptionsGroup } from '..'
 import {
   BASIC_CARD_WRAPPER,
@@ -26,7 +24,7 @@ import {
   removeElementsFromSearch,
 } from '../../../../utils'
 
-function isEditMode(location: RouteComponentProps['location']) {
+function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
 
   return option === EditOptions.Address
@@ -46,7 +44,7 @@ function newAddressArgs(location: RouteComponentProps['location']) {
 }
 
 class ShippingContainer extends Component<Props, State> {
-  public constructor(props: Props) {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -70,7 +68,7 @@ class ShippingContainer extends Component<Props, State> {
 
   private verifyEdit = () => {
     const { location } = this.props
-    const shouldOpenEdit = isEditMode(location)
+    const shouldOpenEdit = hasEditOption(location)
 
     if (shouldOpenEdit) {
       this.setState({ isEditMode: shouldOpenEdit }, () => {
@@ -144,10 +142,12 @@ class ShippingContainer extends Component<Props, State> {
       })
       .catch((e: ApolloError) => {
         this.setState({
-          errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
+          errorMessage: `subscription.fetch.${
+            e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
             e.graphQLErrors[0].extensions.error &&
-            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()}`,
+            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
+          }`,
           isLoading: false,
           showErrorAlert: true,
         })

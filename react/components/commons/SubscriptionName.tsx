@@ -6,7 +6,6 @@ import { IconEdit, Input } from 'vtex.styleguide'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
 import { SubscriptionStatus } from '../../constants'
-
 import ConfirmationModal from './ConfirmationModal'
 
 class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
@@ -50,24 +49,22 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
     let content
     if (name) {
       content = name
+    } else if (skus.length === 1) {
+      content = (
+        <a
+          className="no-underline c-on-base ttc"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={skus[0].detailUrl}
+        >
+          {`${skus[0].productName} - ${skus[0].name}`}
+        </a>
+      )
     } else {
-      if (skus.length === 1) {
-        content = (
-          <a
-            className="no-underline c-on-base ttc"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={skus[0].detailUrl}
-          >
-            {`${skus[0].productName} - ${skus[0].name}`}
-          </a>
-        )
-      } else {
-        content = intl.formatMessage(
-          { id: 'subscription.view.title' },
-          { value: skus.length }
-        )
-      }
+      content = intl.formatMessage(
+        { id: 'subscription.view.title' },
+        { value: skus.length }
+      )
     }
 
     const modalProps = {
@@ -140,11 +137,11 @@ interface OutterProps {
   name?: string | null
   status: SubscriptionStatus
   subscriptionsGroupId: string
-  skus: {
+  skus: Array<{
     detailUrl: string
     productName: string
     name: string
-  }[]
+  }>
 }
 
 interface InnerProps extends InjectedIntlProps {

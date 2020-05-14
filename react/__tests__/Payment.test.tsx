@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
@@ -15,14 +16,13 @@ describe('Payment Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Shouldnt display payment error', async () => {
+  it('Shouldnt display payment error', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -32,12 +32,12 @@ describe('Payment Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(queryByText(INVALID_PAYMENT)).toBeFalsy()
   })
 
-  test('Should display payment error', async () => {
+  it('Should display payment error', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -47,12 +47,12 @@ describe('Payment Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(queryByText(INVALID_PAYMENT)).toBeTruthy()
   })
 
-  test('Should display payment no-action error when the subscription status is not active', async () => {
+  it('Should display payment no-action error when the subscription status is not active', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -69,7 +69,7 @@ describe('Payment Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(
       queryByText('The selected payment method is not available anymore.')

@@ -116,8 +116,9 @@ const Image: FunctionComponent<Props> = ({ items }) => {
                 src={fixImageUrl(items[0].sku.imageUrl, 72, 75)}
               />
               <div className="relative items-center ba bw1-s b--muted-5 mt2">
-                <div className="absolute f3 b pb1 ph2 right-2 bottom-2">{`+${itemsLength -
-                  3}`}</div>
+                <div className="absolute f3 b pb1 ph2 right-2 bottom-2">{`+${
+                  itemsLength - 3
+                }`}</div>
                 <img
                   alt={items[0].sku.name}
                   className="db-s di-ns o-30 pv4 pl4 pr3"
@@ -174,8 +175,9 @@ const Image: FunctionComponent<Props> = ({ items }) => {
                 src={fixImageUrl(items[1].sku.imageUrl, 72, 75)}
               />
               <div className="relative items-center ba bw1-s b--muted-5 mt2">
-                <div className="absolute f3 b pb1 ph2 right-2 bottom-2">{`+${itemsLength -
-                  3}`}</div>
+                <div className="absolute f3 b pb1 ph2 right-2 bottom-2">{`+${
+                  itemsLength - 3
+                }`}</div>
                 <img
                   alt={items[3].sku.name}
                   className="db-s di-ns o-30 pa4"
@@ -211,8 +213,9 @@ const Image: FunctionComponent<Props> = ({ items }) => {
               />
             </div>
             <div className="w-50 relative items-center bl-ns bt-ns bw1-ns b--muted-5">
-              <div className="absolute f4 b pb2 ph2 right-2 bottom-2">{`+${itemsLength -
-                4}`}</div>
+              <div className="absolute f4 b pb2 ph2 right-2 bottom-2">{`+${
+                itemsLength - 4
+              }`}</div>
               <img
                 alt={items[3].sku.name}
                 className="db-s di-ns o-30 pa4"
@@ -229,12 +232,12 @@ const Image: FunctionComponent<Props> = ({ items }) => {
 }
 
 interface Props {
-  items: {
+  items: Array<{
     sku: {
       name: string
       imageUrl: string
     }
-  }[]
+  }>
 }
 
 export default Image
