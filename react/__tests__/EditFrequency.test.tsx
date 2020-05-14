@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
@@ -23,9 +24,9 @@ describe('Payment Scenarios', () => {
     window.location = location
   })
 
-  test('Should update the dates after editing frequency', async () => {
+  it('Should update the dates after editing frequency', async () => {
     const mock = generateDetailMock()
-    const periodicity = mock.result.data.group.plan.frequency.periodicity
+    const { periodicity } = mock.result.data.group.plan.frequency
     const { queryByTestId, queryByText } = render(
       <MockRouter params={{ subscriptionsGroupId }}>
         <SubscriptionDetails />
@@ -74,7 +75,7 @@ describe('Payment Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     // nextPurchaseDate
     expect(queryByText('7/10/2019')).toBeTruthy()
@@ -83,12 +84,12 @@ describe('Payment Scenarios', () => {
 
     fireEvent.click(queryByTestId('edit-frequency-button') as HTMLElement)
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     fireEvent.click(queryByText('Save') as HTMLElement)
 
-    await new Promise(resolve => setTimeout(resolve, 0))
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     // nextPurchaseDate
     expect(queryByText('11/9/2019')).toBeTruthy()

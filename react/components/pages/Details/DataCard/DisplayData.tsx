@@ -6,7 +6,6 @@ import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
 import FrequencyInfo from '../../../commons/FrequencyInfo'
 import LabeledInfo from '../../../commons/LabeledInfo'
-
 import { SubscriptionsGroup } from '..'
 
 const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {

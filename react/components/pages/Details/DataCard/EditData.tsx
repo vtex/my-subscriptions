@@ -21,13 +21,11 @@ import Alert from '../../../commons/CustomAlert'
 import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
 import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
-
 import DataSkeleton from './DataSkeleton'
-
 import { SubscriptionsGroup } from '..'
 
 class EditData extends Component<Props, State> {
-  public constructor(props: Props) {
+  constructor(props: Props) {
     super(props)
 
     const { purchaseSettings, plan } = props.group
@@ -49,7 +47,7 @@ class EditData extends Component<Props, State> {
     }
 
     const index = frequencies.findIndex(
-      option =>
+      (option) =>
         option.periodicity === periodicity && option.interval === interval
     )
 
@@ -79,7 +77,7 @@ class EditData extends Component<Props, State> {
     const { periodicity } = this.getCurrentFrequency()
 
     if (periodicity === Periodicity.Weekly) {
-      return WEEK_OPTIONS.map(weekDay => ({
+      return WEEK_OPTIONS.map((weekDay) => ({
         value: weekDay,
         label: intl.formatMessage({
           id: `subscription.periodicity.${weekDay}`,
@@ -87,7 +85,7 @@ class EditData extends Component<Props, State> {
       }))
     }
 
-    return MONTH_OPTIONS.map(dayOfMonth => ({
+    return MONTH_OPTIONS.map((dayOfMonth) => ({
       value: dayOfMonth,
       label: intl.formatMessage(
         { id: 'subscription.select.day' },
@@ -99,7 +97,7 @@ class EditData extends Component<Props, State> {
   private handleFrequencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       purchaseDay: '',
-      frequencyIndex: parseInt(e.target.value),
+      frequencyIndex: parseInt(e.target.value, 10),
     })
   }
 
@@ -179,7 +177,7 @@ class EditData extends Component<Props, State> {
               onChange={this.handleFrequencyChange}
             />
           </div>
-          {periodicity !== Periodicity.Daily && (
+          {periodicity !== Periodicity.Daily && purchaseDay && (
             <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
                 label={intl.formatMessage({
@@ -228,7 +226,7 @@ interface OutterProps {
 type Props = InnerProps & OutterProps
 
 interface State {
-  purchaseDay: string
+  purchaseDay: string | null
   frequencyIndex: number
   isLoading: boolean
   showErrorAlert: boolean
@@ -250,10 +248,9 @@ export default compose<Props, OutterProps>(
       },
     }),
     props: ({ data }) => ({
-      frequencies:
-        data && data.frequencies && !data.loading ? data.frequencies : [],
+      frequencies: data?.frequencies && !data.loading ? data.frequencies : [],
       loading: data ? data.loading : false,
     }),
   }),
-  branch<InnerProps>(props => props.loading, renderComponent(DataSkeleton))
+  branch<InnerProps>((props) => props.loading, renderComponent(DataSkeleton))
 )(EditData)

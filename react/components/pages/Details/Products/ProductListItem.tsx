@@ -5,6 +5,7 @@ import { NumericStepper, IconDelete } from 'vtex.styleguide'
 import Image from '../../../commons/ProductImage'
 import Price from '../../../commons/FormattedPrice'
 
+// eslint-disable-next-line react/prefer-stateless-function
 class ProductListItem extends PureComponent<Props> {
   public render() {
     const {
@@ -40,9 +41,7 @@ class ProductListItem extends PureComponent<Props> {
               <NumericStepper
                 minValue={1}
                 value={quantity}
-                onChange={(event: { value: number }) =>
-                  onChange && onChange(event.value)
-                }
+                onChange={(event: { value: number }) => onChange?.(event.value)}
               />
             ) : (
               <span>

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import DisplayData from './DisplayData'
 import EditData from './EditData'
-
 import { SubscriptionsGroup } from '..'
 
 class DataCardContainer extends Component<Props> {

@@ -2,9 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
-
 import HistoryList from './HistoryList'
-
 import { SubscriptionsGroup } from '..'
 
 const SubscriptionGroupHistory: FunctionComponent<Props> = ({ group }) => (

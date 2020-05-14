@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
@@ -15,14 +16,13 @@ describe('Shipping Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Shouldnt display address error', async () => {
+  it('Shouldnt display address error', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -30,12 +30,12 @@ describe('Shipping Scenarios', () => {
       { graphql: { mocks: [generateDetailMock()] } }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(queryByText(ERROR_MESSAGE)).toBeFalsy()
   })
 
-  test('Should display address error', async () => {
+  it('Should display address error', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -45,12 +45,12 @@ describe('Shipping Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(queryByText(ERROR_MESSAGE)).toBeTruthy()
   })
 
-  test('Should display address no-action error when the subscription status is not active', async () => {
+  it('Should display address no-action error when the subscription status is not active', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -67,7 +67,7 @@ describe('Shipping Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(
       queryByText('The selected address is not available anymore.')

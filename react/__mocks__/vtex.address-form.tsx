@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 
-export class AddressSummary extends Component {
-  public render() {
-    return <div>AddressSummary</div>
-  }
+export const AddressSummary = () => {
+  return <div>AddressSummary</div>
 }
 
 export class AddressRules extends Component {

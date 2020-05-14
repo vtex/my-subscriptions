@@ -19,7 +19,6 @@ import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
 import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
 import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
-
 import { SubscriptionsGroup } from '.'
 
 class MenuContainer extends Component<InnerProps & OutterProps> {
@@ -37,10 +36,12 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
   private handleError = (error: ApolloError) => {
     this.setState({
-      errorMessage: `subscription.fetch.${error.graphQLErrors.length > 0 &&
+      errorMessage: `subscription.fetch.${
+        error.graphQLErrors.length > 0 &&
         error.graphQLErrors[0].extensions &&
         error.graphQLErrors[0].extensions.error &&
-        error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()}`,
+        error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
+      }`,
     })
   }
 
@@ -61,7 +62,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   private handleOrderNow = () => {
     const { orderFormId, addToCart, group, runtime } = this.props
 
-    const items = group.subscriptions.map(subscription => ({
+    const items = group.subscriptions.map((subscription) => ({
       quantity: subscription.quantity,
       id: parseInt(subscription.sku.id, 10),
       seller: '1',
@@ -209,7 +210,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     const options = retrieveMenuOptions(group.isSkipped, group.status)
 
-    const actionOptions = options.map(option => {
+    const actionOptions = options.map((option) => {
       return {
         label: intl.formatMessage({
           id: `subscription.manage.${option}`,
@@ -269,7 +270,7 @@ const enhance = compose<InnerProps & OutterProps, OutterProps>(
   graphql(ADD_TO_CART, { name: 'addToCart' }),
   graphql<{}, Response, {}, { orderFormId?: string }>(ORDER_FORM_ID, {
     props: ({ data }) => ({
-      orderFormId: data && data.orderForm && data.orderForm.orderFormId,
+      orderFormId: data?.orderForm?.orderFormId,
     }),
   }),
   branch(({ orderFormId }: InnerProps) => !orderFormId, renderNothing)

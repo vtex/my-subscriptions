@@ -9,13 +9,11 @@ import Alert from '../../../commons/CustomAlert'
 import { TagTypeEnum } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
-
 import ShippingSkeleton from './ShippingSkeleton'
-
 import { SubscriptionsGroup } from '..'
 
 function transformAddresses(addresses: Address[]) {
-  return addresses.map(address => ({
+  return addresses.map((address) => ({
     label: `${address.street}, ${address.number}`,
     value: address.id,
   }))
@@ -106,7 +104,7 @@ export default compose<Props, OuterProps>(
     {
       props: ({ data }) => ({
         loading: data ? data.loading : false,
-        addresses: data && data.profile ? data.profile.addresses : [],
+        addresses: data?.profile ? data.profile.addresses : [],
       }),
       options: {
         fetchPolicy: 'no-cache',

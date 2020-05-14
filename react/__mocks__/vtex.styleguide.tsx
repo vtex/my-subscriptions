@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-ignore
 export { default as Alert } from '@vtex/styleguide/lib/Alert'
 // @ts-ignore

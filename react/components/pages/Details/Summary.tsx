@@ -6,7 +6,6 @@ import Alert from '../../commons/CustomAlert'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
-
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 import { SubscriptionsGroup } from '.'
@@ -41,7 +40,9 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
                 subscriptionsGroupId={group.id}
                 name={group.name}
                 status={group.status}
-                skus={group.subscriptions.map(subscription => subscription.sku)}
+                skus={group.subscriptions.map(
+                  (subscription) => subscription.sku
+                )}
               />
               <div className="pl5-ns pl0-s pt0-ns pt5-s">
                 <SubscriptionsStatus status={status} />
