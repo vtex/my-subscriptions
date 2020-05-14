@@ -6289,9 +6289,9 @@ vtex-tachyons@^3.2.0:
   version "8.100.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.100.4/public/@types/vtex.render-runtime#b94c966be2d1c3d8bc9f1caf2dd9f462d88e98d2"
 
-"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.1/public/@types/vtex.store-graphql":
-  version "2.123.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.1/public/@types/vtex.store-graphql#0d3137dc505f7e1a38cdc8499ad12e6327cac657"
+"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.0/public/@types/vtex.store-graphql":
+  version "2.123.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.0/public/@types/vtex.store-graphql#79f11746c99279e434100f588489023ffdfb0c1e"
 
 "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.116.0/public/@types/vtex.styleguide":
   version "9.116.0"
