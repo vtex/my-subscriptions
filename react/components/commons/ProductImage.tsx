@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */ // Cuz this is a pure component.
+
 import React, { PureComponent } from 'react'
 import { utils } from 'vtex.my-account-commons'
 
@@ -17,7 +19,7 @@ class ProductImage extends PureComponent<Props> {
       <img
         src={fixImageUrl(imageUrl, width, height)}
         alt={productName}
-        style={isFixed ? { width: width, height: height } : {}}
+        style={isFixed ? { width, height } : {}}
       />
     )
   }

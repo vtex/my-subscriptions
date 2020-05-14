@@ -1,10 +1,9 @@
 import React from 'react'
-import { render } from '@vtex/test-tools/react'
-// @ts-ignore
+import { render, wait } from '@vtex/test-tools/react'
+import { act } from 'react-dom/test-utils'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatus } from '../constants'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 
 const ERROR_MESSAGE =
@@ -15,62 +14,67 @@ describe('Shipping Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
+    jest.useFakeTimers()
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Shouldnt display address error', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      { graphql: { mocks: [generateDetailMock()] } }
-    )
+  it('Shouldnt display address error', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        { graphql: { mocks: [generateDetailMock()] } }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryByText(ERROR_MESSAGE)).toBeFalsy()
-  })
+      expect(queryByText(ERROR_MESSAGE)).toBeFalsy()
+    }))
 
-  test('Should display address error', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: { mocks: [generateDetailMock({ hasShippingAddress: false })] },
-      }
-    )
+  it('Should display address error', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [generateDetailMock({ hasShippingAddress: false })],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryByText(ERROR_MESSAGE)).toBeTruthy()
-  })
+      expect(queryByText(ERROR_MESSAGE)).toBeTruthy()
+    }))
 
-  test('Should display address no-action error when the subscription status is not active', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: {
-          mocks: [
-            generateDetailMock({
-              hasShippingAddress: false,
-              status: SubscriptionStatus.Paused,
-            }),
-          ],
-        },
-      }
-    )
+  it('Should display address no-action error when the subscription status is not active', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [
+              generateDetailMock({
+                hasShippingAddress: false,
+                status: 'PAUSED',
+              }),
+            ],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(
-      queryByText('The selected address is not available anymore.')
-    ).toBeTruthy()
-  })
+      expect(
+        queryByText('The selected address is not available anymore.')
+      ).toBeTruthy()
+    }))
 })

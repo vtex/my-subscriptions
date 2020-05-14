@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, WrappedComponentProps } from 'react-intl'
 import { Alert } from 'vtex.styleguide'
 
 import { TagTypeEnum } from '../../constants'
@@ -31,12 +31,13 @@ const CustomAlert: FunctionComponent<Props> = ({
   )
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   visible: boolean
   type: TagTypeEnum
   action?: { labelId: string; onClick: () => void }
   contentId?: string
   onClose?: () => void
+  children?: any
 }
 
 export default injectIntl(CustomAlert)

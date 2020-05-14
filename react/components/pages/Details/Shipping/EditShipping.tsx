@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { branch, compose, renderComponent } from 'recompose'
 import { Button, Dropdown } from 'vtex.styleguide'
 import { Address } from 'vtex.store-graphql'
@@ -9,7 +9,6 @@ import Alert from '../../../commons/CustomAlert'
 import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
-
 import ShippingSkeleton from './ShippingSkeleton'
 
 import { SubscriptionsGroup } from '..'
@@ -23,7 +22,7 @@ function transformAddresses(addresses: Address[]) {
 
 const EditShipping: FunctionComponent<Props> = ({
   addresses,
-  selectedAddressId,
+  selectedAddress,
   onCloseErrorAlert,
   onChangeAddress,
   onGoToCreateAddress,
@@ -36,7 +35,7 @@ const EditShipping: FunctionComponent<Props> = ({
 }) => {
   return (
     <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
-      <div className="flex flex-row">
+      <div className="flex">
         <div className="db-s di-ns b f4 tl c-on-base">
           {intl.formatMessage({
             id: 'subscription.shipping',
@@ -56,8 +55,14 @@ const EditShipping: FunctionComponent<Props> = ({
               id: 'subscription.shipping.address',
             })}
             options={transformAddresses(addresses)}
-            value={selectedAddressId}
-            onChange={onChangeAddress}
+            value={selectedAddress.id}
+            onChange={(_: unknown, id: string) => {
+              const address = addresses.find(item => item.id === id) as Address
+              onChangeAddress(
+                address.id as string,
+                address.addressType as string
+              )
+            }}
           />
         </div>
         <div className="pt3 pb4 nl5">
@@ -86,33 +91,33 @@ interface ChildProps {
   addresses: Address[]
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   addresses: Address[]
 }
 
-interface OutterProps {
+interface OuterProps {
   onSave: () => void
   onCancel: () => void
-  onChangeAddress: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangeAddress: (id: string, type: string) => void
   onCloseErrorAlert: () => void
   onGoToCreateAddress: () => void
   group: SubscriptionsGroup
-  selectedAddressId: string
+  selectedAddress: { id: string; type: string }
   showErrorAlert: boolean
   errorMessage: string
   isLoading: boolean
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
-  graphql<OutterProps, { profile: { addresses: Address[] } }, {}, ChildProps>(
+  graphql<OuterProps, { profile: { addresses: Address[] } }, {}, ChildProps>(
     GET_ADDRESSES,
     {
       props: ({ data }) => ({
         loading: data ? data.loading : false,
-        addresses: data && data.profile ? data.profile.addresses : [],
+        addresses: data?.profile ? data.profile.addresses : [],
       }),
     }
   ),

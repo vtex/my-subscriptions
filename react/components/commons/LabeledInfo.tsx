@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent, ReactNode } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 
-const LabeledInfo: FunctionComponent<Props & InjectedIntlProps> = ({
+const LabeledInfo: FunctionComponent<Props & WrappedComponentProps> = ({
   label,
   labelId,
   children,

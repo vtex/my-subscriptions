@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { IconEdit, Input } from 'vtex.styleguide'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
-import { SubscriptionStatus } from '../../constants'
-
 import ConfirmationModal from './ConfirmationModal'
 
 class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
@@ -50,24 +49,22 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
     let content
     if (name) {
       content = name
+    } else if (skus.length === 1) {
+      content = (
+        <a
+          className="no-underline c-on-base ttc"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={skus[0].detailUrl}
+        >
+          {`${skus[0].productName} - ${skus[0].name}`}
+        </a>
+      )
     } else {
-      if (skus.length === 1) {
-        content = (
-          <a
-            className="no-underline c-on-base ttc"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={skus[0].detailUrl}
-          >
-            {`${skus[0].productName} - ${skus[0].name}`}
-          </a>
-        )
-      } else {
-        content = intl.formatMessage(
-          { id: 'subscription.view.title' },
-          { value: skus.length }
-        )
-      }
+      content = intl.formatMessage(
+        { id: 'subscription.view.title' },
+        { value: skus.length }
+      )
     }
 
     const modalProps = {
@@ -95,7 +92,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         }),
     }
 
-    const canEdit = status === SubscriptionStatus.Active
+    const canEdit = status === 'ACTIVE'
 
     return (
       <Fragment>
@@ -140,14 +137,14 @@ interface OutterProps {
   name?: string | null
   status: SubscriptionStatus
   subscriptionsGroupId: string
-  skus: {
+  skus: Array<{
     detailUrl: string
     productName: string
     name: string
-  }[]
+  }>
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   updateName: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }

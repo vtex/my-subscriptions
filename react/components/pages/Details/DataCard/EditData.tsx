@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Dropdown } from 'vtex.styleguide'
-import {
-  MutationUpdateSettingsArgs,
-  Periodicity as GraphQLPeriodicity,
-} from 'vtex.subscriptions-graphql'
+import { MutationUpdatePlanArgs, Periodicity } from 'vtex.subscriptions-graphql'
 
 import {
   WEEK_OPTIONS,
@@ -15,29 +12,27 @@ import {
   TagTypeEnum,
   CSS,
   BASIC_CARD_WRAPPER,
-  Periodicity,
 } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
-import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
+import UPDATE_PLAN from '../../../../graphql/updatePlan.gql'
 import EditionButtons from '../EditionButtons'
-
 import DataSkeleton from './DataSkeleton'
 
 import { SubscriptionsGroup } from '..'
 
 class EditData extends Component<Props, State> {
-  public constructor(props: Props) {
+  constructor(props: Props) {
     super(props)
 
-    const { purchaseSettings, plan } = props.group
+    const { plan } = props.group
     const { interval, periodicity } = plan.frequency
 
     this.state = {
       isLoading: false,
       showErrorAlert: false,
       errorMessage: '',
-      purchaseDay: purchaseSettings.purchaseDay,
+      purchaseDay: plan.purchaseDay,
       frequencyIndex: this.findCurrentFrequencyIndex({ periodicity, interval }),
     }
   }
@@ -78,7 +73,7 @@ class EditData extends Component<Props, State> {
     const { intl } = this.props
     const { periodicity } = this.getCurrentFrequency()
 
-    if (periodicity === Periodicity.Weekly) {
+    if (periodicity === 'WEEKLY') {
       return WEEK_OPTIONS.map(weekDay => ({
         value: weekDay,
         label: intl.formatMessage({
@@ -99,7 +94,7 @@ class EditData extends Component<Props, State> {
   private handleFrequencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       purchaseDay: '',
-      frequencyIndex: parseInt(e.target.value),
+      frequencyIndex: parseInt(e.target.value, 10),
     })
   }
 
@@ -113,11 +108,11 @@ class EditData extends Component<Props, State> {
     this.setState({ isLoading: true })
 
     this.props
-      .updateSettings({
+      .updatePlan({
         variables: {
           subscriptionsGroupId: this.props.group.id,
           purchaseDay,
-          periodicity: (periodicity as unknown) as GraphQLPeriodicity,
+          periodicity,
           interval,
         },
       })
@@ -125,9 +120,10 @@ class EditData extends Component<Props, State> {
         this.setState({ isLoading: false })
         this.props.onCloseEdit()
       })
-      .catch((error: ApolloError) => {
+      .catch((error?: ApolloError) => {
         const errorCode =
-          error.graphQLErrors.length > 0 &&
+          error &&
+          error.graphQLErrors?.length > 0 &&
           error.graphQLErrors[0].extensions &&
           error.graphQLErrors[0].extensions.statusCode &&
           error.graphQLErrors[0].extensions.statusCode.toLowerCase()
@@ -156,8 +152,7 @@ class EditData extends Component<Props, State> {
 
     const { periodicity } = this.getCurrentFrequency()
 
-    const isEditDisabled =
-      purchaseDay === '' && periodicity !== Periodicity.Daily
+    const isEditDisabled = purchaseDay === '' && periodicity !== 'DAILY'
 
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
@@ -179,7 +174,7 @@ class EditData extends Component<Props, State> {
               onChange={this.handleFrequencyChange}
             />
           </div>
-          {periodicity !== Periodicity.Daily && (
+          {periodicity !== 'DAILY' && (
             <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
                 label={intl.formatMessage({
@@ -214,18 +209,16 @@ interface ChildProps {
   loading: boolean
 }
 
-interface InnerProps extends InjectedIntlProps, ChildProps {
-  updateSettings: (args: {
-    variables: MutationUpdateSettingsArgs
-  }) => Promise<void>
+interface InnerProps extends WrappedComponentProps, ChildProps {
+  updatePlan: (args: { variables: MutationUpdatePlanArgs }) => Promise<void>
 }
 
-interface OutterProps {
+interface OuterProps {
   group: SubscriptionsGroup
   onCloseEdit: () => void
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
 interface State {
   purchaseDay: string
@@ -235,11 +228,11 @@ interface State {
   errorMessage: string
 }
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
-  graphql(UPDATE_SETTINGS, { name: 'updateSettings' }),
+  graphql(UPDATE_PLAN, { name: 'updatePlan' }),
   graphql<
-    OutterProps,
+    OuterProps,
     { frequencies: Frequency[] },
     { subscriptionsGroupId: string },
     ChildProps
@@ -250,8 +243,7 @@ export default compose<Props, OutterProps>(
       },
     }),
     props: ({ data }) => ({
-      frequencies:
-        data && data.frequencies && !data.loading ? data.frequencies : [],
+      frequencies: data?.frequencies && !data.loading ? data.frequencies : [],
       loading: data ? data.loading : false,
     }),
   }),

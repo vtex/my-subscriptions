@@ -1,40 +1,33 @@
 import React, { FunctionComponent } from 'react'
-import {
-  InjectedIntlProps,
-  injectIntl,
-  FormattedMessage,
-  InjectedIntl,
-} from 'react-intl'
+import { WrappedComponentProps, injectIntl, FormattedMessage } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
-import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
-import { PaymentMethod } from 'vtex.subscriptions-graphql'
+import { PaymentMethod, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 
-import {
-  PaymentSystemGroup,
-  TagTypeEnum,
-  CSS,
-  BASIC_CARD_WRAPPER,
-} from '../../../../constants'
+import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
-
 import PaymentSkeleton from './PaymentSkeleton'
 
-function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
+const CREDIT_CARD: PaymentSystemGroup = 'creditCard'
+
+function cardOptions(
+  creditCards: PaymentMethod[],
+  intl: WrappedComponentProps['intl']
+) {
   return creditCards.map(
     ({ paymentSystemGroup, paymentSystemName, paymentAccount }) => ({
       label: utils.displayPayment({
         intl,
         paymentSystemGroup,
         paymentSystemName,
-        lastDigits: paymentAccount && paymentAccount.cardNumber.slice(-4),
+        lastDigits: paymentAccount?.cardNumber.slice(-4),
       }),
-      value: paymentAccount && paymentAccount.id,
+      value: paymentAccount?.id,
     })
   )
 }
@@ -63,9 +56,17 @@ const EditPayment: FunctionComponent<Props> = ({
   history,
   methods,
 }) => {
-  const groupedPayments = groupBy(
-    (method: PaymentMethod) => method.paymentSystemGroup
-  )(methods)
+  const groupedPayments = methods.reduce<GroupedMethods>((groups, method) => {
+    const group = method.paymentSystemGroup
+
+    if (groups[group]) {
+      groups[group].push(method)
+    } else {
+      groups[group] = [method]
+    }
+
+    return { ...groups }
+  }, {} as GroupedMethods)
 
   if (methods.length === 0) goToCreateCard(history)
 
@@ -94,8 +95,7 @@ const EditPayment: FunctionComponent<Props> = ({
               onChange={onChangePayment}
               value={groupedPayments[group][0].paymentSystemId}
             />
-            {groupedPayments[group][0].paymentSystemGroup ===
-              PaymentSystemGroup.CreditCard && (
+            {groupedPayments[group][0].paymentSystemGroup === CREDIT_CARD && (
               <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
@@ -103,9 +103,7 @@ const EditPayment: FunctionComponent<Props> = ({
                     placeholder={intl.formatMessage({
                       id: 'subscription.payment.chooseOne',
                     })}
-                    disabled={
-                      paymentSystemGroup !== PaymentSystemGroup.CreditCard
-                    }
+                    disabled={paymentSystemGroup !== CREDIT_CARD}
                     value={accountId}
                     onChange={onChangeCard}
                   />
@@ -125,9 +123,7 @@ const EditPayment: FunctionComponent<Props> = ({
           isLoading={isLoading}
           onCancel={onCancel}
           onSave={onSave}
-          disabled={
-            paymentSystemGroup === PaymentSystemGroup.CreditCard && !accountId
-          }
+          disabled={paymentSystemGroup === CREDIT_CARD && !accountId}
         />
       </div>
     </div>
@@ -153,9 +149,13 @@ interface OuterProps {
 }
 
 interface InnerProps
-  extends InjectedIntlProps,
+  extends WrappedComponentProps,
     RouteComponentProps,
     ChildProps {}
+
+interface GroupedMethods {
+  [key: string]: PaymentMethod[]
+}
 
 type Props = InnerProps & OuterProps
 
@@ -165,7 +165,7 @@ export default compose<Props, OuterProps>(
   graphql<{}, { methods: PaymentMethod[] }, {}, ChildProps>(CUSTOMER_PAYMENTS, {
     props: ({ data }) => ({
       loading: data ? data.loading : false,
-      methods: (data && data.methods) || [],
+      methods: data?.methods ?? [],
     }),
   }),
   branch<ChildProps>(({ loading }) => loading, renderComponent(PaymentSkeleton))

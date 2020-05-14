@@ -1,55 +1,64 @@
 import React from 'react'
-import { render, fireEvent } from '@vtex/test-tools/react'
+import { render, fireEvent, wait } from '@vtex/test-tools/react'
+import { act } from 'react-dom/test-utils'
 
 import ProductsContainer from '../components/pages/Details/Products'
 import { generateSubscriptionsGroup } from '../mocks'
 
 describe('Products Scenarios', () => {
-  test('Should list one product', async () => {
-    const { queryAllByTestId } = render(
-      <ProductsContainer group={generateSubscriptionsGroup({})} />
-    )
-
-    await new Promise(resolve => setTimeout(resolve, 0))
-
-    expect(queryAllByTestId('products-item').length).toBe(1)
+  beforeAll(() => {
+    jest.useFakeTimers()
   })
 
-  test('Should list two products', async () => {
-    const { queryAllByTestId } = render(
-      <ProductsContainer
-        group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
-      />
-    )
+  it('Should list one product', () =>
+    act(async () => {
+      const { queryAllByTestId } = render(
+        <ProductsContainer group={generateSubscriptionsGroup({})} />
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryAllByTestId('products-item').length).toBe(2)
-  })
+      expect(queryAllByTestId('products-item')).toHaveLength(1)
+    }))
 
-  test('Should display remove button', async () => {
-    const { queryByTestId, queryAllByTestId } = render(
-      <ProductsContainer
-        group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
-      />
-    )
+  it('Should list two products', () =>
+    act(async () => {
+      const { queryAllByTestId } = render(
+        <ProductsContainer
+          group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+        />
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    fireEvent.click(queryByTestId('edit-products-button') as HTMLElement)
+      expect(queryAllByTestId('products-item')).toHaveLength(2)
+    }))
 
-    expect(queryAllByTestId('delete-subscription-button').length).toBe(2)
-  })
+  it('Should display remove button', () =>
+    act(async () => {
+      const { queryByTestId, queryAllByTestId } = render(
+        <ProductsContainer
+          group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+        />
+      )
 
-  test('Shouldnt display remove button', async () => {
-    const { queryByTestId, queryAllByTestId } = render(
-      <ProductsContainer group={generateSubscriptionsGroup({})} />
-    )
+      await wait(() => jest.runAllTimers())
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      fireEvent.click(queryByTestId('edit-products-button') as HTMLElement)
 
-    fireEvent.click(queryByTestId('edit-products-button') as HTMLElement)
+      expect(queryAllByTestId('delete-subscription-button')).toHaveLength(2)
+    }))
 
-    expect(queryAllByTestId('delete-subscription-button').length).toBe(0)
-  })
+  it('Shouldnt display remove button', () =>
+    act(async () => {
+      const { queryByTestId, queryAllByTestId } = render(
+        <ProductsContainer group={generateSubscriptionsGroup({})} />
+      )
+
+      await wait(() => jest.runAllTimers())
+
+      fireEvent.click(queryByTestId('edit-products-button') as HTMLElement)
+
+      expect(queryAllByTestId('delete-subscription-button')).toHaveLength(0)
+    }))
 })

@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React, { FunctionComponent, ReactElement } from 'react'
 
-export class AddressSummary extends Component {
-  public render() {
-    return <div>AddressSummary</div>
-  }
+export const AddressSummary: FunctionComponent = () => {
+  return <div>AddressSummary</div>
 }
 
-export class AddressRules extends Component {
-  public render() {
-    return this.props.children
-  }
+export const AddressRules: FunctionComponent<{ children: ReactElement }> = ({
+  children,
+}) => {
+  return children
 }

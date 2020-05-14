@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, MessageDescriptor } from 'react-intl'
 
 const CardHeader: FunctionComponent<Props> = ({ title, children }) => (
   <div className="flex h2">
@@ -11,7 +11,7 @@ const CardHeader: FunctionComponent<Props> = ({ title, children }) => (
 )
 
 interface Props {
-  title: FormattedMessage.MessageDescriptor
+  title: MessageDescriptor
 }
 
 export default CardHeader

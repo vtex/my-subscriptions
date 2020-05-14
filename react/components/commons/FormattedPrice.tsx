@@ -1,3 +1,5 @@
+/* eslint-disable react/prefer-stateless-function */ // Cuz this is a pure component.
+
 import React, { PureComponent } from 'react'
 import { FormattedNumber } from 'react-intl'
 

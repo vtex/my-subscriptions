@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, WrappedComponentProps } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { ContentWrapper } from 'vtex.my-account-commons'
@@ -9,20 +9,13 @@ import {
   SubscriptionsGroup as Group,
   Sku,
   SubscriptionOrder,
-  PurchaseSettings,
+  PaymentMethod,
 } from 'vtex.subscriptions-graphql'
 
-import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
+import SUBSCRIPTIONS_GROUP from '../../../graphql/detailGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
 import Alert from '../../commons/CustomAlert'
-import {
-  TagTypeEnum,
-  SubscriptionStatus,
-  SubscriptionOrderStatus,
-  PAYMENT_DIV_ID,
-  Periodicity,
-} from '../../../constants'
-
+import { TagTypeEnum, PAYMENT_DIV_ID } from '../../../constants'
 import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
@@ -31,7 +24,7 @@ import History from './History'
 import Loader from './Loader'
 import Products from './Products'
 
-export function headerConfig({ intl }: InjectedIntlProps) {
+export function headerConfig({ intl }: WrappedComponentProps) {
   const backButton = {
     title: intl.formatMessage({ id: 'subscription.title.list' }),
     path: '/subscriptions',
@@ -55,8 +48,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public static getDerivedStateFromProps(props: Props) {
     const lastOrder = props.group && props.group.lastOrder
 
-    return lastOrder &&
-      lastOrder.status === SubscriptionOrderStatus.PaymentError
+    return lastOrder && lastOrder.status === 'PAYMENT_ERROR'
       ? {
           displayRetry: true,
         }
@@ -81,7 +73,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
   private handleScrollToPayment = () => {
     const paymentDiv = document.getElementById(PAYMENT_DIV_ID)
-    paymentDiv && paymentDiv.scrollIntoView()
+    paymentDiv?.scrollIntoView()
   }
 
   private handleMakeRetry = () => {
@@ -89,10 +81,8 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
     return retry({
       variables: {
-        subscriptionsGroupId: (group && group.id) as string,
-        subscriptionOrderId: (group &&
-          group.lastOrder &&
-          group.lastOrder.id) as string,
+        subscriptionsGroupId: group?.id as string,
+        subscriptionOrderId: group?.lastOrder?.id as string,
       },
     }).then(() => {
       this.mounted && this.handleSetDisplayRetry(true)
@@ -154,44 +144,35 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 export type SubscriptionsGroup = Pick<
   Group,
   | 'id'
+  | 'cacheId'
   | 'name'
   | 'isSkipped'
   | 'totals'
-  | 'shippingEstimate'
   | 'nextPurchaseDate'
   | 'shippingAddress'
+  | 'status'
+  | 'estimatedDeliveryDate'
+  | 'plan'
 > & {
-  status: SubscriptionStatus
   subscriptions: Subscription[]
-  lastOrder: Pick<SubscriptionOrder, 'id'> & {
-    status: SubscriptionOrderStatus
-  }
-  purchaseSettings: Pick<
-    PurchaseSettings,
-    'currencySymbol' | 'purchaseDay' | 'paymentMethod'
-  >
-  plan: {
-    frequency: {
-      periodicity: Periodicity
-      interval: number
-    }
+  lastOrder: Pick<SubscriptionOrder, 'id' | 'status'>
+  purchaseSettings: {
+    currencyCode: string
+    paymentMethod: PaymentMethod | null
   }
   __typename: string
 }
 
 export interface Subscription {
   id: string
-  sku: Pick<
-    Sku,
-    'imageUrl' | 'name' | 'detailUrl' | 'productName' | 'id' | 'measurementUnit'
-  > & {
+  sku: Sku & {
     variations?: { [key: string]: string } | null
   }
   quantity: number
-  priceAtSubscriptionDate: number
+  currentPrice: number
 }
 
-interface Props extends InjectedIntlProps, ChildProps {
+interface Props extends WrappedComponentProps, ChildProps {
   retry: (args: {
     variables: MutationRetrySubscriptionOrderArgs
   }) => Promise<void>
@@ -223,7 +204,7 @@ const enhance = compose<Props, {}>(
     }),
     props: ({ data }) => ({
       loading: data ? data.loading : false,
-      group: data && data.group,
+      group: data?.group,
       data,
     }),
   }),

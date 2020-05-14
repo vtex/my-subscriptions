@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
@@ -65,4 +65,4 @@ interface Props {
   onEdit: () => void
 }
 
-export default injectIntl(ShippingCard)
+export default ShippingCard

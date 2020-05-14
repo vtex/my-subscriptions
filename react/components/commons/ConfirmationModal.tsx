@@ -3,7 +3,6 @@ import { ModalDialog, withToast } from 'vtex.styleguide'
 
 import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
-
 import Alert from './CustomAlert'
 
 class ConfirmationModalContainer extends Component<Props> {
@@ -39,7 +38,7 @@ class ConfirmationModalContainer extends Component<Props> {
         })
         .catch(error => {
           this.setState({ shouldDisplayError: true })
-          onError && onError(error)
+          onError?.(error)
         })
         .finally(() => this.handleLoading(false))
     )

@@ -1,5 +1,4 @@
 import HISTORY_QUERY from '../graphql/subscriptionOrdersByGroup.gql'
-
 import { orderGroup } from '.'
 
 export const subscriptionHistoryQueryMock = {

@@ -6,7 +6,6 @@ import Alert from '../../commons/CustomAlert'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
-
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
 import { SubscriptionsGroup } from '.'
@@ -62,7 +61,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
                   )}
                   <SubscriptionTotals
                     totals={group.totals}
-                    currencyCode={group.purchaseSettings.currencySymbol}
+                    currencyCode={group.purchaseSettings.currencyCode}
                   />
                 </div>
               </div>

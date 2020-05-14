@@ -1,28 +1,24 @@
-mutation updateSettings(
+mutation updatePlan(
   $subscriptionsGroupId: ID!
   $purchaseDay: String
   $periodicity: Periodicity!
   $interval: Int!
 ) {
-  updateSettings(
+  updatePlan(
     subscriptionsGroupId: $subscriptionsGroupId
     purchaseDay: $purchaseDay
     periodicity: $periodicity
     interval: $interval
   ) @context(provider: "vtex.subscriptions-graphql") {
     cacheId
-    purchaseSettings {
-      purchaseDay
-    }
     plan {
       frequency {
         periodicity
         interval
       }
+      purchaseDay
     }
     nextPurchaseDate
-    shippingEstimate {
-      estimatedDeliveryDate
-    }
+    estimatedDeliveryDate
   }
 }

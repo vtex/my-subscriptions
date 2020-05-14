@@ -1,16 +1,14 @@
-import {
-  SubscriptionDisplayFilterEnum,
-  SubscriptionStatus,
-  TagTypeEnum,
-} from '../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+
+import { SubscriptionDisplayFilterEnum, TagTypeEnum } from '../constants'
 import { convertFilter } from '../utils'
 import { convertStatusInTagType } from '../components/commons/SubscriptionStatus'
 
 describe('Utils test Scenarios', () => {
   it('should convert active filter', () => {
-    const active = SubscriptionStatus.Active
+    const active: SubscriptionStatus = 'ACTIVE'
 
-    const expectedResult = [active, SubscriptionStatus.Paused]
+    const expectedResult: SubscriptionStatus[] = [active, 'PAUSED']
     const result = convertFilter(SubscriptionDisplayFilterEnum.Active)
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
@@ -19,29 +17,25 @@ describe('Utils test Scenarios', () => {
 
   it('should convert canceled filter', () => {
     const result = convertFilter(SubscriptionDisplayFilterEnum.Canceled)
-    const expectedResult = [SubscriptionStatus.Canceled]
+    const expectedResult: SubscriptionStatus[] = ['CANCELED']
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
-    expect(result.length).toEqual(expectedResult.length)
+    expect(result).toHaveLength(expectedResult.length)
 
-    expectedResult.push(SubscriptionStatus.Active)
+    expectedResult.push('ACTIVE')
 
     expect(result).not.toEqual(expect.arrayContaining(expectedResult))
   })
 
   it('should convert status canceled into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatus.Canceled)).toEqual(
-      TagTypeEnum.Error
-    )
+    expect(convertStatusInTagType('CANCELED')).toEqual(TagTypeEnum.Error)
   })
 
   it('should convert status paused into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatus.Paused)).toEqual(
-      TagTypeEnum.Warning
-    )
+    expect(convertStatusInTagType('PAUSED')).toEqual(TagTypeEnum.Warning)
   })
 
   it('should convert status active into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatus.Active)).toEqual(null)
+    expect(convertStatusInTagType('ACTIVE')).toBeNull()
   })
 })

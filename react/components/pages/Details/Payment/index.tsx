@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
-import { path } from 'ramda'
 import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
+import {
+  MutationUpdatePaymentMethodArgs,
+  PaymentSystemGroup,
+} from 'vtex.subscriptions-graphql'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
-import { PaymentSystemGroup } from '../../../../constants'
-
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 
@@ -18,34 +18,20 @@ import { SubscriptionsGroup } from '..'
 class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   private mounted: boolean
 
-  public constructor(props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       accountId:
-        path(
-          [
-            'group',
-            'purchaseSettings',
-            'paymentMethod',
-            'paymentAccount',
-            'id',
-          ],
-          props
-        ) || null,
+        props.group.purchaseSettings.paymentMethod?.paymentAccount?.id ?? null,
       errorMessage: '',
       isEditMode: false,
       isLoading: false,
       isRetryButtonEnabled: true,
       paymentSystemId:
-        path(
-          ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemId'],
-          props
-        ) || null,
+        props.group.purchaseSettings.paymentMethod?.paymentSystemId ?? null,
       paymentSystemGroup:
-        path(
-          ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemGroup'],
-          props
-        ) || PaymentSystemGroup.CreditCard,
+        props.group.purchaseSettings.paymentMethod?.paymentSystemGroup ??
+        'creditCard',
       showAlert: false,
     }
 
@@ -88,10 +74,8 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
     return updatePayment({
       variables: {
-        accountId:
-          paymentSystemGroup === PaymentSystemGroup.CreditCard
-            ? accountId
-            : null,
+        paymentAccountId:
+          paymentSystemGroup === 'creditCard' ? accountId : null,
         subscriptionsGroupId: group.id,
         paymentSystemId,
       },
@@ -109,10 +93,12 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
       })
       .catch((e: ApolloError) => {
         this.setState({
-          errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
+          errorMessage: `subscription.fetch.${
+            e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
             e.graphQLErrors[0].extensions.error &&
-            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()}`,
+            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
+          }`,
           isLoading: false,
           showAlert: true,
         })
@@ -178,7 +164,7 @@ interface OutterProps {
   displayRetry: boolean
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   updatePayment: (args: {
     variables: MutationUpdatePaymentMethodArgs
   }) => Promise<void>

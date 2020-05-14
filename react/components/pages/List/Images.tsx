@@ -9,10 +9,10 @@ import './global.css'
 const Swiper = window.navigator ? require('react-id-swiper').default : null
 
 interface Props {
-  skus: {
+  skus: Array<{
     imageUrl: string
     productName: string
-  }[]
+  }>
 }
 
 const iconSize = 17
@@ -40,13 +40,13 @@ function getParams(imagesLength: number) {
             el: '.swiper-pagination',
           }
         : {},
-    //eslint-disable-next-line react/display-name
+    // eslint-disable-next-line react/display-name
     renderNextButton: () => (
       <span className={`swiper-caret-next pl7 right-1 ${caretClassName}`}>
         <IconCaretRight size={iconSize} />
       </span>
     ),
-    //eslint-disable-next-line react/display-name
+    // eslint-disable-next-line react/display-name
     renderPrevButton: () => (
       <span className={`swiper-caret-prev pr7 left-1 ${caretClassName}`}>
         <IconCaretLeft size={iconSize} />

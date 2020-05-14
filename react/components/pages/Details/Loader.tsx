@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { BaseLoading } from 'vtex.my-account-commons'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, WrappedComponentProps } from 'react-intl'
 
 import { parseErrorMessageId } from '../../../utils'
-
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
 import HistorySkeleton from './History/HistorySkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'
@@ -44,7 +43,7 @@ const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
   )
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   data: unknown
 }
 

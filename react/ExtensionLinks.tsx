@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactElement } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 
 const ExtensionLinks: FunctionComponent<Props> = ({ render, intl }) => {
   return render([
@@ -15,7 +15,7 @@ interface RenderArgs {
   path: string
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   render: (args: RenderArgs[]) => ReactElement
 }
 

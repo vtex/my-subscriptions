@@ -1,13 +1,12 @@
 query CustomerPaymentMethods {
   methods: customerPaymentMethods
-    @context(provider: "vtex.subscriptions-graphql") {
+    @context(provider: "vtex.subscriptions-graphql", scope: PRIVATE) {
     paymentSystemId
     paymentSystemName
     paymentSystemGroup
     paymentAccount {
       id
       cardNumber
-      bin
     }
   }
 }

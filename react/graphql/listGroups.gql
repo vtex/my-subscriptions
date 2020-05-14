@@ -1,4 +1,4 @@
-query CustomerSubscriptionsGroups($statusList: [SubscriptionStatus]) {
+query ListSubscriptionsGroups($statusList: [SubscriptionStatus]) {
   groups: customerSubscriptionsGroupList(statusList: $statusList)
     @context(provider: "vtex.subscriptions-graphql") {
     id
@@ -6,7 +6,7 @@ query CustomerSubscriptionsGroups($statusList: [SubscriptionStatus]) {
     status
     name
     nextPurchaseDate
-    lastStatusUpdate
+    lastUpdate
     subscriptions {
       sku {
         imageUrl
@@ -20,8 +20,6 @@ query CustomerSubscriptionsGroups($statusList: [SubscriptionStatus]) {
         periodicity
         interval
       }
-    }
-    purchaseSettings {
       purchaseDay
     }
   }

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { compose } from 'recompose'
 import { graphql } from 'react-apollo'
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   defineMessages,
   FormattedMessage,
@@ -10,13 +10,12 @@ import {
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import {
   MutationRemoveSubscriptionArgs,
-  MutationUpdateSubscriptionsArgs,
+  MutationUpdateItemsArgs,
 } from 'vtex.subscriptions-graphql'
 
 import REMOVE_MUTATION from '../../../../graphql/removeSubscription.gql'
-import UPDATE_MUTATION from '../../../../graphql/updateSubscriptions.gql'
+import UPDATE_MUTATION from '../../../../graphql/updateItems.gql'
 import ConfirmationModal from '../../../commons/ConfirmationModal'
-
 import Listing from './Listing'
 
 import { SubscriptionsGroup, Subscription } from '..'
@@ -119,19 +118,19 @@ class ProductsContainer extends Component<Props, State> {
     })
 
   private handleSave = () => {
-    const { group, updateSubscriptions, showToast, intl } = this.props
+    const { group, updateItems, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
 
-    const subscriptions = this.getProducts().map(subscription => ({
-      skuId: subscription.sku.id,
-      quantity: subscription.quantity,
+    const items = this.getProducts().map(({ id, quantity }) => ({
+      id,
+      quantity,
     }))
 
-    updateSubscriptions({
+    updateItems({
       variables: {
-        subscriptionsGroupId: group.id,
-        subscriptions,
+        id: group.id,
+        items,
       },
     })
       .then(() =>
@@ -142,14 +141,13 @@ class ProductsContainer extends Component<Props, State> {
       })
   }
 
-  private handleUpdateQuantity = (id: string, quantity: number) => {
-    const updatedProducts = {
-      ...this.state.products,
-      [id]: { ...(this.state.products as State['products'])[id], quantity },
-    }
-
-    this.setState({ products: updatedProducts })
-  }
+  private handleUpdateQuantity = (id: string, quantity: number) =>
+    this.setState(prevState => ({
+      products: {
+        ...prevState.products,
+        [id]: { ...(prevState.products as State['products'])[id], quantity },
+      },
+    }))
 
   private getProducts = () => Object.values<Subscription>(this.state.products)
 
@@ -188,7 +186,7 @@ class ProductsContainer extends Component<Props, State> {
           onUpdateQuantity={this.handleUpdateQuantity}
           subscriptionStatus={group.status}
           products={products}
-          currency={group.purchaseSettings.currencySymbol}
+          currency={group.purchaseSettings.currencyCode}
           canRemove={canRemove}
         />
       </Fragment>
@@ -204,13 +202,11 @@ interface State {
   products: { [subscriptionId: string]: Subscription }
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   removeSubscription: (args: {
     variables: MutationRemoveSubscriptionArgs
   }) => Promise<void>
-  updateSubscriptions: (args: {
-    variables: MutationUpdateSubscriptionsArgs
-  }) => Promise<void>
+  updateItems: (args: { variables: MutationUpdateItemsArgs }) => Promise<void>
   showToast: (args: ShowToastArgs) => void
 }
 
@@ -224,7 +220,7 @@ const enhance = compose<Props, OuterProps>(
   injectIntl,
   withToast,
   graphql(REMOVE_MUTATION, { name: 'removeSubscription' }),
-  graphql(UPDATE_MUTATION, { name: 'updateSubscriptions' })
+  graphql(UPDATE_MUTATION, { name: 'updateItems' })
 )
 
 export default enhance(ProductsContainer)

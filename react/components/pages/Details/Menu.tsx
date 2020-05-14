@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { compose, renderNothing, branch } from 'recompose'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
@@ -9,17 +9,16 @@ import { MutationAddItemArgs } from 'vtex.store-graphql'
 import {
   MutationUpdateIsSkippedArgs,
   MutationUpdateStatusArgs,
-  SubscriptionStatus as Status,
+  SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
 
 import ADD_TO_CART from '../../../graphql/addToCart.gql'
 import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
 import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
 import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
-import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
+import { MenuOptionsEnum } from '../../../constants'
 import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
 import ConfirmationModal from '../../commons/ConfirmationModal'
-
 import { SubscriptionsGroup } from '.'
 
 class MenuContainer extends Component<InnerProps & OutterProps> {
@@ -37,10 +36,12 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
   private handleError = (error: ApolloError) => {
     this.setState({
-      errorMessage: `subscription.fetch.${error.graphQLErrors.length > 0 &&
+      errorMessage: `subscription.fetch.${
+        error.graphQLErrors.length > 0 &&
         error.graphQLErrors[0].extensions &&
         error.graphQLErrors[0].extensions.error &&
-        error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()}`,
+        error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
+      }`,
     })
   }
 
@@ -86,7 +87,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     return updateStatus({
       variables: {
-        status: (status as unknown) as Status, // since enums from the graphql can't be used.
+        status,
         subscriptionsGroupId: id,
       },
     })
@@ -126,7 +127,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     switch (updateType) {
       case MenuOptionsEnum.Cancel:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Canceled)
+        onSubmit = () => this.handleUpdateStatus('CANCELED')
         confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.cancel.title',
@@ -134,7 +135,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         })
         break
       case MenuOptionsEnum.Pause:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Paused)
+        onSubmit = () => this.handleUpdateStatus('PAUSED')
         confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.pause.title',
@@ -142,7 +143,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
         })
         break
       case MenuOptionsEnum.Restore:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Active)
+        onSubmit = () => this.handleUpdateStatus('ACTIVE')
         confirmationLabel = intl.formatMessage({ id: 'commons.yes' })
         children = modalBody({
           titleId: 'subscription.restore.title',
@@ -203,7 +204,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   public render() {
     const { group, intl } = this.props
 
-    if (group.status === SubscriptionStatus.Canceled) {
+    if (group.status === 'CANCELED') {
       return null
     }
 
@@ -241,7 +242,7 @@ interface OutterProps {
   group: SubscriptionsGroup
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   addToCart: (args: Variables<MutationAddItemArgs>) => Promise<void>
   updateIsSkipped: (
     args: Variables<MutationUpdateIsSkippedArgs>
@@ -269,7 +270,7 @@ const enhance = compose<InnerProps & OutterProps, OutterProps>(
   graphql(ADD_TO_CART, { name: 'addToCart' }),
   graphql<{}, Response, {}, { orderFormId?: string }>(ORDER_FORM_ID, {
     props: ({ data }) => ({
-      orderFormId: data && data.orderForm && data.orderForm.orderFormId,
+      orderFormId: data?.orderForm?.orderFormId,
     }),
   }),
   branch(({ orderFormId }: InnerProps) => !orderFormId, renderNothing)

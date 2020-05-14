@@ -1,15 +1,11 @@
 import React, { FunctionComponent } from 'react'
 import { defineMessages } from 'react-intl'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import {
-  SubscriptionStatus,
-  BASIC_CARD_WRAPPER,
-  CSS,
-} from '../../../../constants'
+import { BASIC_CARD_WRAPPER, CSS } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
 import Header from '../CardHeader'
 import EditionButtons from '../EditionButtons'
-
 import ProductListItem from './ProductListItem'
 
 import { Subscription } from '..'
@@ -28,10 +24,9 @@ function mapVariationsToDesc(product: Subscription) {
 
   return variations.reduce(
     (description, variationKey, index) =>
-      `${description} ${variationKey}: ${product.sku.variations &&
-        product.sku.variations[variationKey]}${
-        index === variations.length - 1 ? '' : ';'
-      }`,
+      `${description} ${variationKey}: ${
+        product.sku.variations && product.sku.variations[variationKey]
+      }${index === variations.length - 1 ? '' : ';'}`,
     ''
   )
 }
@@ -75,7 +70,7 @@ const ProductsListing: FunctionComponent<Props> = ({
           imageUrl={product.sku.imageUrl}
           description={mapVariationsToDesc(product)}
           measurementUnit={product.sku.measurementUnit}
-          price={product.priceAtSubscriptionDate}
+          price={product.currentPrice}
           currency={currency}
           canRemove={canRemove}
           onChange={(quantity: number) =>

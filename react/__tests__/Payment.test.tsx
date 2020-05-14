@@ -1,10 +1,9 @@
 import React from 'react'
-import { render } from '@vtex/test-tools/react'
-// @ts-ignore
 import MockRouter from 'react-mock-router'
+import { render, wait } from '@vtex/test-tools/react'
+import { act } from 'react-dom/test-utils'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatus } from '../constants'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 
 const INVALID_PAYMENT =
@@ -15,64 +14,67 @@ describe('Payment Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
+    jest.useFakeTimers()
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Shouldnt display payment error', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: { mocks: [generateDetailMock()] },
-      }
-    )
+  it('Shouldnt display payment error', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: { mocks: [generateDetailMock()] },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryByText(INVALID_PAYMENT)).toBeFalsy()
-  })
+      expect(queryByText(INVALID_PAYMENT)).toBeFalsy()
+    }))
 
-  test('Should display payment error', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: { mocks: [generateDetailMock({ hasPaymentMethod: false })] },
-      }
-    )
+  it('Should display payment error', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: { mocks: [generateDetailMock({ hasPaymentMethod: false })] },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryByText(INVALID_PAYMENT)).toBeTruthy()
-  })
+      expect(queryByText(INVALID_PAYMENT)).toBeTruthy()
+    }))
 
-  test('Should display payment no-action error when the subscription status is not active', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: {
-          mocks: [
-            generateDetailMock({
-              hasPaymentMethod: false,
-              status: SubscriptionStatus.Paused,
-            }),
-          ],
-        },
-      }
-    )
+  it('Should display payment no-action error when the subscription status is not active', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [
+              generateDetailMock({
+                hasPaymentMethod: false,
+                status: 'PAUSED',
+              }),
+            ],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(
-      queryByText('The selected payment method is not available anymore.')
-    ).toBeTruthy()
-  })
+      expect(
+        queryByText('The selected payment method is not available anymore.')
+      ).toBeTruthy()
+    }))
 })

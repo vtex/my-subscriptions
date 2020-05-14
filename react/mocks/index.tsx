@@ -1,28 +1,26 @@
 import {
   SubscriptionStatus,
   SubscriptionOrderStatus,
-  PaymentSystemGroup,
-  Periodicity,
-} from '../constants'
-import DETAIL_QUERY from '../graphql/subscriptionsGroup.gql'
+} from 'vtex.subscriptions-graphql'
+
+import DETAIL_QUERY from '../graphql/detailGroup.gql'
+import { SubscriptionsGroup } from '../components/pages/Details'
 
 export const orderGroup = 'C842CBFAF3728E8EBDA401836B2ED6D1'
 
 export const mockRouterParam = { subscriptionsGroupId: orderGroup }
 
-const plan = {
+const plan: SubscriptionsGroup['plan'] = {
   frequency: {
-    periodicity: Periodicity.Monthly,
+    periodicity: 'MONTHLY',
     interval: 1,
   },
-  validity: {
-    begin: '2018-12-10T00:00:00Z',
-    end: '2021-12-10T00:00:00Z',
-  },
-  type: 'RECURRING_PAYMENT',
+  purchaseDay: '10',
 }
 
-function generateSubscriptions(subscriptionsAmount: number) {
+function generateSubscriptions(
+  subscriptionsAmount: number
+): SubscriptionsGroup['subscriptions'] {
   const subscriptions = []
   for (let i = 0; i < subscriptionsAmount; i++) {
     subscriptions.push({
@@ -34,12 +32,11 @@ function generateSubscriptions(subscriptionsAmount: number) {
         imageUrl:
           'http://recorrenciaqa.vteximg.com.br/arquivos/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000',
         detailUrl: '/racaoparapeixe/p',
-        nameComplete: 'Ração para peixe',
         variations: null,
         measurementUnit: 'un',
       },
       quantity: 1,
-      priceAtSubscriptionDate: 100,
+      currentPrice: 100,
     })
   }
 
@@ -58,19 +55,19 @@ interface GenerationArgs {
 }
 
 export function generateSubscriptionsGroup({
-  status = SubscriptionStatus.Active,
+  status = 'ACTIVE',
   subscriptionsAmount = 1,
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
   hasPaymentMethod = true,
   hasShippingAddress = true,
-  lastOrderStatus = SubscriptionOrderStatus.InProcess,
-}: GenerationArgs) {
+  lastOrderStatus = 'IN_PROCESS',
+}: GenerationArgs): SubscriptionsGroup {
   return {
     __typename: 'SubscriptionsGroup',
     id: orderGroup,
     cacheId: orderGroup,
-    status: status,
+    status,
     isSkipped: false,
     name: null,
     subscriptions: generateSubscriptions(subscriptionsAmount),
@@ -93,20 +90,19 @@ export function generateSubscriptionsGroup({
         }
       : null,
     purchaseSettings: {
-      purchaseDay: '10',
       paymentMethod: hasPaymentMethod
         ? {
             paymentSystemId: '2',
             paymentSystemName: 'Visa',
-            paymentSystemGroup: PaymentSystemGroup.CreditCard,
+            paymentSystemGroup: 'creditCard',
             paymentAccount: {
               id: '5FE0FD2838AB47BF852E9E43402DE553',
               cardNumber: '************1111',
-              bin: '444433',
+              bin: '',
             },
           }
         : null,
-      currencySymbol: 'BRL',
+      currencyCode: 'BRL',
     },
     nextPurchaseDate,
     totals: [
@@ -119,35 +115,11 @@ export function generateSubscriptionsGroup({
         value: 300,
       },
     ],
-    totalValue: 400,
     lastOrder: {
       id: '3748EAF9A6F44F72B899359C92DF6C81',
-      cacheId: '3748EAF9A6F44F72B899359C92DF6C81',
-      subscriptionsGroupId: orderGroup,
       status: lastOrderStatus,
-      date: '2019-06-10T09:04:10.9944376Z',
-      customerName: 'ahsudhausda szwarcman',
-      customerEmail: 'clara@vtex.com.br',
-      message: 'Checkout failure on gateway callback',
-      context: {
-        items: [
-          {
-            skuId: '18',
-            name: 'Ração para peixe',
-            imageUrl:
-              'http://recorrenciaqa.vteximg.com.br/arquivos/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000',
-            quantity: 1,
-            price: null,
-          },
-        ],
-        plan,
-        value: 0,
-        paymentSystemName: 'Visa',
-      },
     },
-    shippingEstimate: {
-      estimatedDeliveryDate,
-    },
+    estimatedDeliveryDate,
   }
 }
 
@@ -159,7 +131,7 @@ export function generateDetailMock(args?: GenerationArgs) {
     },
     result: {
       data: {
-        group: generateSubscriptionsGroup(args ? args : {}),
+        group: generateSubscriptionsGroup(args ?? {}),
       },
     },
   }

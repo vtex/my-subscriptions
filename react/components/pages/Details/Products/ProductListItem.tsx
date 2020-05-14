@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */ // Cuz this is a pure component.
 import React, { PureComponent } from 'react'
 import { FormattedNumber } from 'react-intl'
 import { NumericStepper, IconDelete } from 'vtex.styleguide'
@@ -40,9 +41,7 @@ class ProductListItem extends PureComponent<Props> {
               <NumericStepper
                 minValue={1}
                 value={quantity}
-                onChange={(event: { value: number }) =>
-                  onChange && onChange(event.value)
-                }
+                onChange={(event: { value: number }) => onChange?.(event.value)}
               />
             ) : (
               <span>
@@ -79,7 +78,7 @@ interface Props {
   quantity: number
   price: number
   currency: string
-  measurementUnit: string
+  measurementUnit?: string | null
   isEditing: boolean
   canRemove: boolean
   onRemove?: () => void

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { compose } from 'recompose'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
@@ -8,25 +8,21 @@ import { ApolloError } from 'apollo-client'
 import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
-
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 
 import { SubscriptionsGroup } from '..'
 
 class ShippingContainer extends Component<Props, State> {
-  public constructor(props: Props) {
-    super(props)
-
-    this.state = {
-      errorMessage: '',
-      isEditMode: false,
-      isLoading: false,
-      showErrorAlert: false,
-      selectedAddressId: props.group.shippingAddress
-        ? props.group.shippingAddress.id
-        : '',
-    }
+  public state = {
+    errorMessage: '',
+    isEditMode: false,
+    isLoading: false,
+    showErrorAlert: false,
+    selectedAddress: {
+      id: '',
+      type: '',
+    },
   }
 
   private handleGoToCreateAddress = () => {
@@ -44,12 +40,15 @@ class ShippingContainer extends Component<Props, State> {
 
   public handleSave = () => {
     const { group, showToast, intl } = this.props
+    const { selectedAddress } = this.state
 
     this.setState({ isLoading: true })
+
     this.props
       .updateAddress({
         variables: {
-          addressId: this.state.selectedAddressId,
+          addressType: selectedAddress.type,
+          addressId: selectedAddress.id,
           subscriptionsGroupId: group.id,
         },
       })
@@ -67,25 +66,32 @@ class ShippingContainer extends Component<Props, State> {
       })
       .catch((e: ApolloError) => {
         this.setState({
-          errorMessage: `subscription.fetch.${e.graphQLErrors.length > 0 &&
+          errorMessage: `subscription.fetch.${
+            e.graphQLErrors.length > 0 &&
             e.graphQLErrors[0].extensions &&
             e.graphQLErrors[0].extensions.error &&
-            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()}`,
+            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
+          }`,
           isLoading: false,
           showErrorAlert: true,
         })
       })
   }
 
-  public handleAddressChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    this.setState({ selectedAddressId: e.target.value })
+  public handleAddressChange = (id: string, type: string) =>
+    this.setState({ selectedAddress: { id, type } })
 
   public handleEditClick = () => {
     const { group } = this.props
 
     this.setState({
       isEditMode: true,
-      selectedAddressId: group.shippingAddress ? group.shippingAddress.id : '',
+      selectedAddress: {
+        id: group.shippingAddress ? group.shippingAddress.id : '',
+        type: group.shippingAddress
+          ? (group.shippingAddress.addressType as string)
+          : '',
+      },
     })
   }
 
@@ -96,7 +102,7 @@ class ShippingContainer extends Component<Props, State> {
     const {
       isEditMode,
       isLoading,
-      selectedAddressId,
+      selectedAddress,
       showErrorAlert,
       errorMessage,
     } = this.state
@@ -108,7 +114,7 @@ class ShippingContainer extends Component<Props, State> {
         onChangeAddress={this.handleAddressChange}
         onCloseErrorAlert={this.handleCloseErrorAlert}
         onGoToCreateAddress={this.handleGoToCreateAddress}
-        selectedAddressId={selectedAddressId}
+        selectedAddress={selectedAddress}
         isLoading={isLoading}
         showErrorAlert={showErrorAlert}
         errorMessage={errorMessage}
@@ -120,28 +126,31 @@ class ShippingContainer extends Component<Props, State> {
   }
 }
 
-interface OutterProps {
+interface OuterProps {
   group: SubscriptionsGroup
 }
 
-interface InnerProps extends RouteComponentProps, InjectedIntlProps {
+interface InnerProps extends RouteComponentProps, WrappedComponentProps {
   updateAddress: (args: {
     variables: MutationUpdateAddressArgs
   }) => Promise<void>
   showToast: (args: ShowToastArgs) => void
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
 interface State {
   errorMessage: string
   isEditMode: boolean
   isLoading: boolean
   showErrorAlert: boolean
-  selectedAddressId: string
+  selectedAddress: {
+    id: string
+    type: string
+  }
 }
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
   withToast,
   withRouter,

@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { EmptyState } from 'vtex.styleguide'
 
-const EmptyStateSubscriptionsGroupList: FunctionComponent<InjectedIntlProps> = ({
+const EmptyStateSubscriptionsGroupList: FunctionComponent<WrappedComponentProps> = ({
   intl,
 }) => {
   return (

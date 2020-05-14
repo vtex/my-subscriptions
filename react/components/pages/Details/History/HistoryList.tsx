@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
+import { SubscriptionOrderStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionOrderStatus } from '../../../../constants'
 import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../../graphql/subscriptionOrdersByGroup.gql'
-
 import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import style from './style.css'
@@ -114,7 +113,7 @@ const enhance = compose<Props, OuterProps>(
       },
     }),
     props: ({ data }) =>
-      data && data.orders
+      data?.orders
         ? {
             orders: data.orders.list,
             totalCount: data.orders.totalCount,

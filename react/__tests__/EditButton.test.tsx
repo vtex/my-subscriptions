@@ -1,10 +1,9 @@
 import React from 'react'
-import { render } from '@vtex/test-tools/react'
-// @ts-ignore
 import MockRouter from 'react-mock-router'
+import { render, wait } from '@vtex/test-tools/react'
+import { act } from 'react-dom/test-utils'
 
 import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatus } from '../constants'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 
 describe('Display Address Scenarios', () => {
@@ -12,56 +11,58 @@ describe('Display Address Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
+    jest.useFakeTimers()
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Should display edit button disabled', async () => {
-    const { queryByTestId } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: {
-          mocks: [generateDetailMock({ status: SubscriptionStatus.Paused })],
-        },
-      }
-    )
+  it('Should display edit button disabled', () =>
+    act(async () => {
+      const { queryByTestId } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [generateDetailMock({ status: 'PAUSED' })],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    const paymentButton = queryByTestId('edit-payment-button')
-    const addressButton = queryByTestId('edit-address-button')
-    const frequencyButton = queryByTestId('edit-frequency-button')
+      const paymentButton = queryByTestId('edit-payment-button')
+      const addressButton = queryByTestId('edit-address-button')
+      const frequencyButton = queryByTestId('edit-frequency-button')
 
-    expect((paymentButton as any).disabled).toBe(true)
-    expect((addressButton as any).disabled).toBe(true)
-    expect((frequencyButton as any).disabled).toBe(true)
-  })
+      expect((paymentButton as any).disabled).toBe(true)
+      expect((addressButton as any).disabled).toBe(true)
+      expect((frequencyButton as any).disabled).toBe(true)
+    }))
 
-  test('Shouldnt display edit button', async () => {
-    const { queryByTestId } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: {
-          mocks: [generateDetailMock({ status: SubscriptionStatus.Canceled })],
-        },
-      }
-    )
+  it('Shouldnt display edit button', () =>
+    act(async () => {
+      const { queryByTestId } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [generateDetailMock({ status: 'CANCELED' })],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    const paymentButton = queryByTestId('edit-payment-button')
-    const addressButton = queryByTestId('edit-address-button')
-    const frequencyButton = queryByTestId('edit-frequency-button')
+      const paymentButton = queryByTestId('edit-payment-button')
+      const addressButton = queryByTestId('edit-address-button')
+      const frequencyButton = queryByTestId('edit-frequency-button')
 
-    expect(paymentButton).toBe(null)
-    expect(addressButton).toBe(null)
-    expect(frequencyButton).toBe(null)
-  })
+      expect(paymentButton).toBeNull()
+      expect(addressButton).toBeNull()
+      expect(frequencyButton).toBeNull()
+    }))
 })

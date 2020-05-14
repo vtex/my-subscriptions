@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
@@ -11,9 +11,8 @@ import { SubscriptionsGroup } from '..'
 
 const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
   let displayDelivery = false
-  if (group.shippingEstimate && group.shippingEstimate.estimatedDeliveryDate) {
-    displayDelivery =
-      group.shippingEstimate.estimatedDeliveryDate > group.nextPurchaseDate
+  if (group.estimatedDeliveryDate) {
+    displayDelivery = group.estimatedDeliveryDate > group.nextPurchaseDate
   }
 
   return (
@@ -34,7 +33,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
       <div className="pt5-s pt5-ns w-100-s mr-auto">
         <FrequencyInfo
           periodicity={group.plan.frequency.periodicity}
-          purchaseDay={group.purchaseSettings.purchaseDay}
+          purchaseDay={group.plan.purchaseDay}
           interval={group.plan.frequency.interval}
         />
 
@@ -59,11 +58,9 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
           <div className="w-50-l pt6">
             <LabeledInfo labelId="subscription.data.estimatedDelivery">
               {displayDelivery &&
-                intl.formatDate(
-                  group.shippingEstimate &&
-                    group.shippingEstimate.estimatedDeliveryDate,
-                  { timeZone: 'UTC' }
-                )}
+                intl.formatDate(group.estimatedDeliveryDate, {
+                  timeZone: 'UTC',
+                })}
             </LabeledInfo>
           </div>
         </div>
@@ -72,7 +69,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
   )
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   group: SubscriptionsGroup
   onOpenEdit: () => void
 }

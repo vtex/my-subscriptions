@@ -1,17 +1,12 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionStatus } from '../../../constants'
-
-const SubscriptionsGroupItemDate: FunctionComponent<Props &
-  InjectedIntlProps> = ({
-  status,
-  nextPurchaseDate,
-  lastStatusUpdate,
-  intl,
-}) => {
+const SubscriptionsGroupItemDate: FunctionComponent<
+  Props & WrappedComponentProps
+> = ({ status, nextPurchaseDate, lastUpdate, intl }) => {
   const content =
-    status === SubscriptionStatus.Active
+    status === 'ACTIVE'
       ? intl.formatMessage(
           { id: 'subscription.list.item.date.next.purchase' },
           {
@@ -21,7 +16,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<Props &
       : intl.formatMessage(
           { id: 'subscription.list.item.date.since' },
           {
-            date: intl.formatDate(lastStatusUpdate),
+            date: intl.formatDate(lastUpdate),
             status: intl.formatMessage({
               id: `subscription.status.${status.toLowerCase()}`,
             }),
@@ -34,7 +29,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<Props &
 interface Props {
   status: SubscriptionStatus
   nextPurchaseDate: string
-  lastStatusUpdate: string
+  lastUpdate: string
 }
 
 export default injectIntl(SubscriptionsGroupItemDate)

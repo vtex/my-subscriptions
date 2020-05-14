@@ -3,11 +3,9 @@ import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
 import Frequency from '../../commons/FrequencyInfo'
-import { SubscriptionStatus } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
 import UpdateStatusButton from '../../commons/UpdateStatusButton'
-
 import ItemDate from './ItemDate'
 import { SubscriptionsGroup } from '.'
 
@@ -15,8 +13,8 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
   group,
   onGoToDetails,
 }) => {
-  const isPaused = group.status === SubscriptionStatus.Paused
-  const isActive = group.status === SubscriptionStatus.Active
+  const isPaused = group.status === 'PAUSED'
+  const isActive = group.status === 'ACTIVE'
 
   return (
     <div className="w-100 flex flex-wrap pv6 pl3-ns pr5-ns">
@@ -35,7 +33,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
               displayLabel={false}
               periodicity={group.plan.frequency.periodicity}
               interval={group.plan.frequency.interval}
-              purchaseDay={group.purchaseSettings.purchaseDay}
+              purchaseDay={group.plan.purchaseDay}
             />
           ) : (
             <Status status={group.status} />
@@ -46,7 +44,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           <ItemDate
             status={group.status}
             nextPurchaseDate={group.nextPurchaseDate}
-            lastStatusUpdate={group.lastStatusUpdate}
+            lastUpdate={group.lastUpdate}
           />
         </div>
       </div>
@@ -64,7 +62,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           {isPaused && (
             <div className="pt4">
               <UpdateStatusButton
-                targetStatus={SubscriptionStatus.Active}
+                targetStatus="ACTIVE"
                 subscriptionsGroupId={group.id}
                 block
               >

@@ -1,30 +1,32 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
 import { Button } from 'vtex.styleguide'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-
 import ConfirmationModal from './ConfirmationModal'
 
 function retrieveMessagesByStatus(status: SubscriptionStatus) {
-  let titleMessageId = ''
-  let bodyMessageId = ''
-
+  let titleMessageId
+  let bodyMessageId
   switch (status) {
-    case SubscriptionStatus.Active:
+    case 'ACTIVE':
       titleMessageId = 'subscription.restore.title'
       bodyMessageId = 'subscription.restore.text'
       break
-    case SubscriptionStatus.Paused:
+    case 'PAUSED':
       titleMessageId = 'subscription.pause.title'
       bodyMessageId = 'subscription.pause.text'
       break
-    case SubscriptionStatus.Canceled:
+    case 'CANCELED':
       titleMessageId = 'subscription.cancel.title'
       bodyMessageId = 'subscription.cancel.text'
+      break
+    default:
+      titleMessageId = ''
+      bodyMessageId = ''
       break
   }
 
@@ -35,6 +37,7 @@ function retrieveMessagesByStatus(status: SubscriptionStatus) {
     titleMessageId,
   }
 }
+
 class SubscriptionUpdateStatusButtonContainer extends Component<
   Props & InnerProps
 > {
@@ -120,7 +123,7 @@ interface Props {
   block: boolean
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   updateStatus: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }

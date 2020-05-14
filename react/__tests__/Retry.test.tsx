@@ -1,11 +1,10 @@
 import React from 'react'
-import { render } from '@vtex/test-tools/react'
-// @ts-ignore
+import { render, wait } from '@vtex/test-tools/react'
+import { act } from 'react-dom/test-utils'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/pages/Details'
 import { mockRouterParam, generateDetailMock } from '../mocks'
-import { SubscriptionOrderStatus } from '../constants'
 
 const RETRY_BUTTON = 'Try again'
 
@@ -14,48 +13,50 @@ describe('Retry Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
+    jest.useFakeTimers()
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Should display retry', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: {
-          mocks: [
-            generateDetailMock({
-              lastOrderStatus: SubscriptionOrderStatus.PaymentError,
-            }),
-          ],
-        },
-      }
-    )
+  it('Should display retry', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [
+              generateDetailMock({
+                lastOrderStatus: 'PAYMENT_ERROR',
+              }),
+            ],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryByText(RETRY_BUTTON)).toBeTruthy()
-  })
+      expect(queryByText(RETRY_BUTTON)).toBeTruthy()
+    }))
 
-  test('Shouldnt display retry', async () => {
-    const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <SubscriptionDetails />
-      </MockRouter>,
-      {
-        graphql: {
-          mocks: [generateDetailMock()],
-        },
-      }
-    )
+  it('Shouldnt display retry', () =>
+    act(async () => {
+      const { queryByText } = render(
+        <MockRouter params={mockRouterParam}>
+          <SubscriptionDetails />
+        </MockRouter>,
+        {
+          graphql: {
+            mocks: [generateDetailMock()],
+          },
+        }
+      )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+      await wait(() => jest.runAllTimers())
 
-    expect(queryByText(RETRY_BUTTON)).toBeFalsy()
-  })
+      expect(queryByText(RETRY_BUTTON)).toBeFalsy()
+    }))
 })

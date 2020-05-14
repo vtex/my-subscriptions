@@ -1,11 +1,10 @@
 import React, { FunctionComponent, Fragment } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
-
-import { Periodicity } from '../../constants'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
+import { Periodicity } from 'vtex.subscriptions-graphql'
 
 import LabeledInfo from './LabeledInfo'
 
-const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
+const FrequencyInfo: FunctionComponent<Props & WrappedComponentProps> = ({
   intl,
   displayLabel = true,
   periodicity,
@@ -20,13 +19,13 @@ const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
   let frequencyText = periodicityText
 
   if (
-    periodicity !== Periodicity.Daily &&
+    periodicity !== 'DAILY' &&
     purchaseDay != null &&
     purchaseDay !== 'Not_Applicable'
   ) {
     let moment = purchaseDay.toLowerCase()
 
-    if (periodicity === Periodicity.Weekly) {
+    if (periodicity === 'WEEKLY') {
       moment = intl
         .formatMessage({ id: `subscription.periodicity.${moment}` })
         .toLocaleLowerCase()

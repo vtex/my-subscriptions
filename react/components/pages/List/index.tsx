@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
@@ -7,15 +7,9 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
 
-import GROUPS from '../../../graphql/customerSubscriptions.gql'
-import {
-  SubscriptionDisplayFilterEnum,
-  CSS,
-  SubscriptionStatus,
-  Periodicity,
-} from '../../../constants'
+import GROUPS from '../../../graphql/listGroups.gql'
+import { SubscriptionDisplayFilterEnum, CSS } from '../../../constants'
 import { convertFilter } from '../../../utils'
-
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'
@@ -31,7 +25,7 @@ function isEmpty(data: QueryResult) {
 }
 
 class SubscriptionsGroupListContainer extends Component<
-  Props & InjectedIntlProps
+  Props & WrappedComponentProps
 > {
   public state = {
     filter: SubscriptionDisplayFilterEnum.Active,
@@ -100,22 +94,26 @@ class SubscriptionsGroupListContainer extends Component<
               if (error) return <ErrorState refetch={refetch} />
               if (!data || isEmpty(data)) return <EmptyState />
 
-              return data.groups.map(group => (
-                <article
-                  className={CSS.subscriptionGroupItemWrapper}
-                  key={group.id}
-                >
-                  <Images
-                    skus={group.subscriptions.map(
-                      subscription => subscription.sku
-                    )}
-                  />
-                  <Summary
-                    group={group}
-                    onGoToDetails={this.handleGoToDetails}
-                  />
-                </article>
-              ))
+              return (
+                <>
+                  {data.groups.map(group => (
+                    <article
+                      className={CSS.subscriptionGroupItemWrapper}
+                      key={group.id}
+                    >
+                      <Images
+                        skus={group.subscriptions.map(
+                          subscription => subscription.sku
+                        )}
+                      />
+                      <Summary
+                        group={group}
+                        onGoToDetails={this.handleGoToDetails}
+                      />
+                    </article>
+                  ))}
+                </>
+              )
             }}
           </Query>
         )}
@@ -126,33 +124,23 @@ class SubscriptionsGroupListContainer extends Component<
 
 export type SubscriptionsGroup = Pick<
   Group,
-  'id' | 'name' | 'nextPurchaseDate' | 'lastStatusUpdate'
+  'id' | 'name' | 'nextPurchaseDate' | 'lastUpdate' | 'status' | 'plan'
 > & {
-  status: SubscriptionStatus
-  plan: {
-    frequency: {
-      periodicity: Periodicity
-      interval: number
-    }
-  }
-  subscriptions: {
+  subscriptions: Array<{
     sku: {
       imageUrl: string
       name: string
       detailUrl: string
       productName: string
     }
-  }[]
-  purchaseSettings: {
-    purchaseDay: string
-  }
+  }>
 }
 
 interface QueryResult {
   groups: SubscriptionsGroup[]
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   history: any
 }
 

@@ -1,8 +1,9 @@
-import { Component } from 'react'
+import { Component, ReactElement } from 'react'
 
-export class ContentWrapper extends Component {
+export class ContentWrapper extends Component<{
+  children: () => ReactElement
+}> {
   public render() {
-    // @ts-ignore
     return this.props.children && this.props.children()
   }
 }
