@@ -1,8 +1,8 @@
 import React, { FunctionComponent, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { Alert } from 'vtex.styleguide'
 
-import { TagTypeEnum, CSS, BASIC_CARD_WRAPPER } from '../../../constants'
-import Alert from '../../commons/CustomAlert'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import ItemsImage from '../../commons/ItemsImage'
 import SubscriptionsStatus from '../../commons/SubscriptionStatus'
@@ -17,11 +17,11 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
 
   return (
     <Fragment>
-      <Alert
-        visible={isSkipped}
-        type={TagTypeEnum.Warning}
-        contentId="subscription.skip.alert"
-      />
+      {isSkipped && (
+        <Alert type="warning">
+          <FormattedMessage id="subscription.skip.alert" />
+        </Alert>
+      )}
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex-ns items-center-s items-start-ns">
           <div className="flex flex-column">
