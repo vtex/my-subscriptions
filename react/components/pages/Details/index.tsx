@@ -9,7 +9,7 @@ import {
   SubscriptionsGroup as Group,
   Sku,
   SubscriptionOrder,
-  PurchaseSettings,
+  PaymentMethod,
 } from 'vtex.subscriptions-graphql'
 
 import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
@@ -23,7 +23,6 @@ import {
   Periodicity,
 } from '../../../constants'
 import { scrollToElement } from '../../../utils'
-
 import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
@@ -87,10 +86,8 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
 
     return retry({
       variables: {
-        subscriptionsGroupId: (group && group.id) as string,
-        subscriptionOrderId: (group &&
-          group.lastOrder &&
-          group.lastOrder.id) as string,
+        subscriptionsGroupId: group?.id as string,
+        subscriptionOrderId: group?.lastOrder?.id as string,
       },
     }).then(() => {
       this.mounted && this.handleSetDisplayRetry(true)
@@ -164,10 +161,11 @@ export type SubscriptionsGroup = Pick<
   lastOrder: Pick<SubscriptionOrder, 'id'> & {
     status: SubscriptionOrderStatus
   }
-  purchaseSettings: Pick<
-    PurchaseSettings,
-    'currencySymbol' | 'purchaseDay' | 'paymentMethod'
-  >
+  purchaseSettings: {
+    currencySymbol: string
+    purchaseDay: string | null
+    paymentMethod: PaymentMethod | null
+  }
   plan: {
     frequency: {
       periodicity: Periodicity
@@ -214,18 +212,18 @@ const enhance = compose<Props, {}>(
   withRouter,
   graphql(RETRY_MUTATION, { name: 'retry' }),
   graphql<InputProps, Response, Variables, ChildProps>(SUBSCRIPTIONS_GROUP, {
-    options: input => ({
+    options: (input) => ({
       variables: {
         id: input.match.params.subscriptionsGroupId,
       },
     }),
     props: ({ data }) => ({
       loading: data ? data.loading : false,
-      group: data && data.group,
+      group: data?.group,
       data,
     }),
   }),
-  branch<ChildProps>(props => props.loading, renderComponent(Loader))
+  branch<ChildProps>((props) => props.loading, renderComponent(Loader))
 )
 
 export default enhance(SubscriptionsGroupDetailsContainer)

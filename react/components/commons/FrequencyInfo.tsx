@@ -2,7 +2,6 @@ import React, { FunctionComponent, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 
 import { Periodicity } from '../../constants'
-
 import LabeledInfo from './LabeledInfo'
 
 const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
@@ -55,7 +54,7 @@ const FrequencyInfo: FunctionComponent<Props & InjectedIntlProps> = ({
 
 interface Props {
   interval: number
-  purchaseDay: string
+  purchaseDay: string | null
   periodicity: Periodicity
   displayLabel?: boolean
 }
