@@ -3,6 +3,7 @@ import { utils } from 'vtex.my-account-commons'
 
 const { fixImageUrl } = utils
 
+// eslint-disable-next-line react/prefer-stateless-function
 class ProductImage extends PureComponent<Props> {
   public static defaultProps = {
     width: 300,
@@ -17,7 +18,7 @@ class ProductImage extends PureComponent<Props> {
       <img
         src={fixImageUrl(imageUrl, width, height)}
         alt={productName}
-        style={isFixed ? { width: width, height: height } : {}}
+        style={isFixed ? { width, height } : {}}
       />
     )
   }

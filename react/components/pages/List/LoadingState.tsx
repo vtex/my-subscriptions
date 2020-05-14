@@ -6,7 +6,7 @@ import SkeletonLoader from '../../commons/SkeletonLoader'
 const SubscriptionsGroupsLoading: FunctionComponent = () => {
   return (
     <div className="w-100">
-      {[0, 1].map(index => (
+      {[0, 1].map((index) => (
         <div className={CSS.subscriptionGroupItemWrapper} key={index}>
           <div className={CSS.subscriptionGroupImageWrapper}>
             <SkeletonLoader />

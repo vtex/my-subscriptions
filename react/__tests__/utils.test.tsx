@@ -22,7 +22,7 @@ describe('Utils test Scenarios', () => {
     const expectedResult = [SubscriptionStatus.Canceled]
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
-    expect(result.length).toEqual(expectedResult.length)
+    expect(result).toHaveLength(expectedResult.length)
 
     expectedResult.push(SubscriptionStatus.Active)
 
@@ -42,6 +42,6 @@ describe('Utils test Scenarios', () => {
   })
 
   it('should convert status active into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatus.Active)).toEqual(null)
+    expect(convertStatusInTagType(SubscriptionStatus.Active)).toBeNull()
   })
 })

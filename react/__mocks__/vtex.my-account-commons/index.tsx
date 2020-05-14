@@ -2,6 +2,7 @@ import { Component } from 'react'
 
 export class ContentWrapper extends Component {
   public render() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     return this.props.children && this.props.children()
   }

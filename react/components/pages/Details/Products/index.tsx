@@ -16,9 +16,7 @@ import {
 import REMOVE_MUTATION from '../../../../graphql/removeSubscription.gql'
 import UPDATE_MUTATION from '../../../../graphql/updateSubscriptions.gql'
 import ConfirmationModal from '../../../commons/ConfirmationModal'
-
 import Listing from './Listing'
-
 import { SubscriptionsGroup, Subscription } from '..'
 
 function mapSubscriptionsToHashMap(subscriptions: Subscription[]) {
@@ -123,7 +121,7 @@ class ProductsContainer extends Component<Props, State> {
 
     this.setState({ isLoading: true })
 
-    const subscriptions = this.getProducts().map(subscription => ({
+    const subscriptions = this.getProducts().map((subscription) => ({
       skuId: subscription.sku.id,
       quantity: subscription.quantity,
     }))
@@ -142,14 +140,14 @@ class ProductsContainer extends Component<Props, State> {
       })
   }
 
-  private handleUpdateQuantity = (id: string, quantity: number) => {
-    const updatedProducts = {
-      ...this.state.products,
-      [id]: { ...(this.state.products as State['products'])[id], quantity },
-    }
-
-    this.setState({ products: updatedProducts })
-  }
+  private handleUpdateQuantity = (id: string, quantity: number) =>
+    this.setState((prevState) => {
+      const updatedProducts = {
+        ...prevState.products,
+        [id]: { ...(prevState.products as State['products'])[id], quantity },
+      }
+      return { products: updatedProducts }
+    })
 
   private getProducts = () => Object.values<Subscription>(this.state.products)
 

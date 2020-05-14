@@ -6,7 +6,6 @@ import { Button } from 'vtex.styleguide'
 
 import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-
 import ConfirmationModal from './ConfirmationModal'
 
 function retrieveMessagesByStatus(status: SubscriptionStatus) {
@@ -14,10 +13,6 @@ function retrieveMessagesByStatus(status: SubscriptionStatus) {
   let bodyMessageId = ''
 
   switch (status) {
-    case SubscriptionStatus.Active:
-      titleMessageId = 'subscription.restore.title'
-      bodyMessageId = 'subscription.restore.text'
-      break
     case SubscriptionStatus.Paused:
       titleMessageId = 'subscription.pause.title'
       bodyMessageId = 'subscription.pause.text'
@@ -25,6 +20,10 @@ function retrieveMessagesByStatus(status: SubscriptionStatus) {
     case SubscriptionStatus.Canceled:
       titleMessageId = 'subscription.cancel.title'
       bodyMessageId = 'subscription.cancel.text'
+      break
+    default:
+      titleMessageId = 'subscription.restore.title'
+      bodyMessageId = 'subscription.restore.text'
       break
   }
 
@@ -35,6 +34,7 @@ function retrieveMessagesByStatus(status: SubscriptionStatus) {
     titleMessageId,
   }
 }
+
 class SubscriptionUpdateStatusButtonContainer extends Component<
   Props & InnerProps
 > {
