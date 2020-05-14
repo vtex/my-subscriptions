@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
-import { Dropdown } from 'vtex.styleguide'
+import { Dropdown, Alert } from 'vtex.styleguide'
 import {
   MutationUpdateSettingsArgs,
   Periodicity as GraphQLPeriodicity,
@@ -13,12 +13,10 @@ import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import {
   WEEK_OPTIONS,
   MONTH_OPTIONS,
-  TagTypeEnum,
   CSS,
   BASIC_CARD_WRAPPER,
   Periodicity,
 } from '../../../../constants'
-import Alert from '../../../commons/CustomAlert'
 import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
 import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
@@ -175,12 +173,16 @@ class EditData extends Component<Props, State> {
           {intl.formatMessage({ id: 'subscription.data' })}
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">
-          <Alert
-            visible={showErrorAlert}
-            type={TagTypeEnum.Error}
-            onClose={() => this.setState({ showErrorAlert: false })}
-            contentId={errorMessage}
-          />
+          {showErrorAlert && (
+            <div className="mb5">
+              <Alert
+                type="error"
+                onClose={() => this.setState({ showErrorAlert: false })}
+              >
+                {errorMessage}
+              </Alert>
+            </div>
+          )}
           <div className="w-50-l w-60-m w-100-s">
             <Dropdown
               label={intl.formatMessage({ id: 'subscription.data.orderAgain' })}

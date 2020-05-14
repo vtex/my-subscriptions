@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { ContentWrapper } from 'vtex.my-account-commons'
@@ -12,13 +12,12 @@ import {
   PaymentMethod,
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
+import { Alert } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
 import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
-import Alert from '../../commons/CustomAlert'
 import {
-  TagTypeEnum,
   SubscriptionStatus,
   SubscriptionOrderStatus,
   PAYMENT_DIV_ID,
@@ -48,6 +47,17 @@ export function headerConfig({ intl }: InjectedIntlProps) {
 }
 
 const INSTANCE = 'SubscriptionsDetails'
+
+const messages = defineMessages({
+  errorMessageButton: {
+    id: 'subscription.alert.error.button.message',
+    defaultMessage: '',
+  },
+  errorMessage: {
+    id: 'subscription.alert.error.message',
+    defaultMessage: '',
+  },
+})
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public state = {
@@ -131,16 +141,20 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
       <ContentWrapper {...headerConfig({ intl })}>
         {() => (
           <div className="mr0 center w-100 pb5">
-            <Alert
-              visible={displayRetry && displayAlert}
-              type={TagTypeEnum.Error}
-              action={{
-                labelId: 'subscription.alert.error.button.message',
-                onClick: this.handleScrollToPayment,
-              }}
-              contentId="subscription.alert.error.message"
-              onClose={() => this.handleSetDisplayAlert(false)}
-            />
+            {displayRetry && displayAlert && (
+              <div className="mb5">
+                <Alert
+                  type="error"
+                  action={{
+                    label: intl.formatMessage(messages.errorMessageButton),
+                    onClick: this.handleScrollToPayment,
+                  }}
+                  onClose={() => this.handleSetDisplayAlert(false)}
+                >
+                  {intl.formatMessage(messages.errorMessage)}
+                </Alert>
+              </div>
+            )}
             <Summary group={group} />
             <div className="flex flex-row-ns flex-column-s">
               <div className="pt6 pr4-ns w-50-ns">

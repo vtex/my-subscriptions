@@ -1,16 +1,26 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl'
+import {
+  InjectedIntlProps,
+  injectIntl,
+  FormattedMessage,
+  defineMessages,
+} from 'react-intl'
 import { branch, compose, renderComponent } from 'recompose'
-import { Button, Dropdown } from 'vtex.styleguide'
+import { Button, Dropdown, Alert } from 'vtex.styleguide'
 import { Address } from 'vtex.store-graphql'
 
-import Alert from '../../../commons/CustomAlert'
-import { TagTypeEnum } from '../../../../constants'
 import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
 import { SubscriptionsGroup } from '..'
 import { queryWrapper } from '../../../../tracking'
+
+const messages = defineMessages({
+  address: {
+    id: 'subscription.shipping.address',
+    defaultMessage: '',
+  },
+})
 
 function transformAddresses(addresses: Address[]) {
   return addresses.map((address) => ({
@@ -40,17 +50,16 @@ const EditShipping: FunctionComponent<Props> = ({
         <FormattedMessage id="subscription.shipping" />
       </div>
       <div className="flex pt5 w-100-s mr-auto flex-column">
-        <Alert
-          visible={showErrorAlert}
-          type={TagTypeEnum.Error}
-          onClose={onCloseErrorAlert}
-          contentId={errorMessage}
-        />
+        {showErrorAlert && (
+          <div className="mb5">
+            <Alert type="error" onClose={onCloseErrorAlert}>
+              {errorMessage}
+            </Alert>
+          </div>
+        )}
         <div className="w-100">
           <Dropdown
-            label={intl.formatMessage({
-              id: 'subscription.shipping.address',
-            })}
+            label={intl.formatMessage(messages.address)}
             options={transformAddresses(addresses)}
             value={selectedAddressId}
             onChange={onChangeAddress}

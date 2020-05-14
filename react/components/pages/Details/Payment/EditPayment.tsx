@@ -9,12 +9,11 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
 // eslint-disable-next-line no-restricted-imports
 import { groupBy } from 'ramda'
-import { Button, Dropdown, Radio } from 'vtex.styleguide'
+import { Button, Dropdown, Radio, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
 import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
-import { PaymentSystemGroup, TagTypeEnum } from '../../../../constants'
-import Alert from '../../../commons/CustomAlert'
+import { PaymentSystemGroup } from '../../../../constants'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
@@ -83,12 +82,13 @@ const EditPayment: FunctionComponent<Props> = ({
         <FormattedMessage id="subscription.payment" />
       </div>
       <div className="flex flex-column justify-center mt5">
-        <Alert
-          type={TagTypeEnum.Error}
-          onClose={onCloseAlert}
-          visible={showAlert}
-          contentId={errorMessage}
-        />
+        {showAlert && (
+          <div className="mb5">
+            <Alert type="error" onClose={onCloseAlert}>
+              {errorMessage}
+            </Alert>
+          </div>
+        )}
         {Object.keys(groupedPayments).map((group) => (
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio

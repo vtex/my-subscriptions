@@ -1,9 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
-import { Button } from 'vtex.styleguide'
+import { Button, Alert } from 'vtex.styleguide'
 
-import { TagTypeEnum } from '../../../../constants'
-import Alert from '../../../commons/CustomAlert'
 import EditAlert from '../../../commons/EditAlert'
 import EditButton from '../../../commons/EditButton'
 import PaymentDisplay from './PaymentDisplay'
@@ -28,12 +26,13 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   isRetryButtonEnabled,
 }) => (
   <>
-    <Alert
-      visible={displayRetry}
-      type={TagTypeEnum.Warning}
-      contentId="subscription.payment.alert.info.message"
-      onClose={() => null}
-    />
+    {displayRetry && (
+      <div className="mb5">
+        <Alert type="warning">
+          <FormattedMessage id="subscription.payment.alert.info.message" />
+        </Alert>
+      </div>
+    )}
     <div className="flex flex-row">
       <div className="db-s di-ns b f4 tl c-on-base">
         <FormattedMessage id="subscription.payment" />

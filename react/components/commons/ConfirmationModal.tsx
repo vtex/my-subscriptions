@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { ModalDialog, withToast } from 'vtex.styleguide'
+import { ModalDialog, withToast, Alert } from 'vtex.styleguide'
 
-import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
-import Alert from './CustomAlert'
 
 class ConfirmationModalContainer extends Component<Props> {
   public state = {
@@ -82,13 +80,13 @@ class ConfirmationModalContainer extends Component<Props> {
         }}
       >
         <div className="mt7">
-          <Alert
-            type={TagTypeEnum.Error}
-            onClose={this.handleDismissError}
-            visible={this.state.shouldDisplayError}
-          >
-            {errorMessage}
-          </Alert>
+          {this.state.shouldDisplayError && (
+            <div className="mb5">
+              <Alert type="error" onClose={this.handleDismissError}>
+                {errorMessage}
+              </Alert>
+            </div>
+          )}
           {children}
         </div>
       </ModalDialog>

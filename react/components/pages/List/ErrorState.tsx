@@ -1,28 +1,39 @@
 import React, { FunctionComponent } from 'react'
+import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl'
+import { Alert } from 'vtex.styleguide'
 
-import Alert from '../../commons/CustomAlert'
-import { TagTypeEnum } from '../../../constants'
+const messages = defineMessages({
+  label: {
+    id: 'subscription.fallback.error.refresh.message',
+    defaultMessage: '',
+  },
+  content: {
+    id: 'subscription.fallback.error.message',
+    defaultMessage: '',
+  },
+})
 
 const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
   refetch,
+  intl,
 }) => {
   return (
     <div className="mw7 center">
       <Alert
-        visible
-        type={TagTypeEnum.Error}
+        type="error"
         action={{
-          labelId: 'subscription.fallback.error.refresh.message',
+          label: intl.formatMessage(messages.label),
           onClick: () => refetch(),
         }}
-        contentId="subscription.fallback.error.message"
-      />
+      >
+        {intl.formatMessage(messages.content)}
+      </Alert>
     </div>
   )
 }
 
-export default ErrorStateSubscriptionsGroupList
-
-interface Props {
+interface Props extends InjectedIntlProps {
   refetch: () => void
 }
+
+export default injectIntl(ErrorStateSubscriptionsGroupList)
