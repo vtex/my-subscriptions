@@ -9,9 +9,7 @@ import {
 import EditButton from '../../../commons/EditButton'
 import Header from '../CardHeader'
 import EditionButtons from '../EditionButtons'
-
 import ProductListItem from './ProductListItem'
-
 import { Subscription } from '..'
 
 const messages = defineMessages({
@@ -28,10 +26,9 @@ function mapVariationsToDesc(product: Subscription) {
 
   return variations.reduce(
     (description, variationKey, index) =>
-      `${description} ${variationKey}: ${product.sku.variations &&
-        product.sku.variations[variationKey]}${
-        index === variations.length - 1 ? '' : ';'
-      }`,
+      `${description} ${variationKey}: ${
+        product.sku.variations && product.sku.variations[variationKey]
+      }${index === variations.length - 1 ? '' : ';'}`,
     ''
   )
 }

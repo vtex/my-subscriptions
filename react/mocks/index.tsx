@@ -70,7 +70,7 @@ export function generateSubscriptionsGroup({
     __typename: 'SubscriptionsGroup',
     id: orderGroup,
     cacheId: orderGroup,
-    status: status,
+    status,
     isSkipped: false,
     name: null,
     subscriptions: generateSubscriptions(subscriptionsAmount),
@@ -159,7 +159,7 @@ export function generateDetailMock(args?: GenerationArgs) {
     },
     result: {
       data: {
-        group: generateSubscriptionsGroup(args ? args : {}),
+        group: generateSubscriptionsGroup(args ?? {}),
       },
     },
   }

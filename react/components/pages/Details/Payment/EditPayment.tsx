@@ -8,6 +8,7 @@ import {
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
 import { graphql } from 'react-apollo'
+// eslint-disable-next-line no-restricted-imports
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
@@ -17,7 +18,6 @@ import { PaymentSystemGroup, TagTypeEnum } from '../../../../constants'
 import Alert from '../../../commons/CustomAlert'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
-
 import PaymentSkeleton from './PaymentSkeleton'
 
 function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
@@ -27,9 +27,9 @@ function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
         intl,
         paymentSystemGroup,
         paymentSystemName,
-        lastDigits: paymentAccount && paymentAccount.cardNumber.slice(-4),
+        lastDigits: paymentAccount?.cardNumber.slice(-4),
       }),
-      value: paymentAccount && paymentAccount.id,
+      value: paymentAccount?.id,
     })
   )
 }
@@ -38,7 +38,7 @@ function getCreditCard(
   accountId: string,
   cards: PaymentMethod[]
 ): PaymentMethod {
-  return cards.find(card => {
+  return cards.find((card) => {
     const id = card.paymentAccount ? card.paymentAccount.id : null
 
     return id === accountId
@@ -87,7 +87,7 @@ const EditPayment: FunctionComponent<Props> = ({
           visible={showAlert}
           contentId={errorMessage}
         />
-        {Object.keys(groupedPayments).map(group => (
+        {Object.keys(groupedPayments).map((group) => (
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio
               id={group}
@@ -192,7 +192,7 @@ export default compose<Props, OuterProps>(
   graphql<{}, { methods: PaymentMethod[] }, {}, ChildProps>(CUSTOMER_PAYMENTS, {
     props: ({ data }) => ({
       loading: data ? data.loading : false,
-      methods: (data && data.methods) || [],
+      methods: data?.methods ?? [],
     }),
   }),
   branch<ChildProps>(({ loading }) => loading, renderComponent(PaymentSkeleton))

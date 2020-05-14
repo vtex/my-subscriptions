@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
@@ -12,14 +13,13 @@ describe('Display Address Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Should display edit button disabled', async () => {
+  it('Should display edit button disabled', async () => {
     const { queryByTestId } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -31,7 +31,7 @@ describe('Display Address Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     const paymentButton = queryByTestId('edit-payment-button')
     const addressButton = queryByTestId('edit-address-button')
@@ -42,7 +42,7 @@ describe('Display Address Scenarios', () => {
     expect((frequencyButton as any).disabled).toBe(true)
   })
 
-  test('Shouldnt display edit button', async () => {
+  it('Shouldnt display edit button', async () => {
     const { queryByTestId } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -54,14 +54,14 @@ describe('Display Address Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     const paymentButton = queryByTestId('edit-payment-button')
     const addressButton = queryByTestId('edit-address-button')
     const frequencyButton = queryByTestId('edit-frequency-button')
 
-    expect(paymentButton).toBe(null)
-    expect(addressButton).toBe(null)
-    expect(frequencyButton).toBe(null)
+    expect(paymentButton).toBeNull()
+    expect(addressButton).toBeNull()
+    expect(frequencyButton).toBeNull()
   })
 })

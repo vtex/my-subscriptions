@@ -3,7 +3,6 @@ import { BaseLoading } from 'vtex.my-account-commons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
 import { parseErrorMessageId } from '../../../utils'
-
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
 import HistorySkeleton from './History/HistorySkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'

@@ -26,10 +26,12 @@ export function parseErrorMessageId(error: ApolloError): string {
     error.graphQLErrors[0].extensions &&
     error.graphQLErrors[0].extensions
   ) {
-    return `subscription.fetch.${(error.graphQLErrors[0].extensions.error &&
-      error.graphQLErrors[0].extensions.error.statusCode &&
-      error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()) ||
-      'timeout'}`
+    return `subscription.fetch.${
+      (error.graphQLErrors[0].extensions.error &&
+        error.graphQLErrors[0].extensions.error.statusCode &&
+        error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()) ||
+      'timeout'
+    }`
   }
 
   return ''
@@ -50,8 +52,8 @@ export const makeCancelable = (promise: Promise<unknown>) => {
 
   const wrappedPromise = new Promise((resolve, reject) => {
     promise.then(
-      val => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
-      error => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
+      (val) => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
+      (error) => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
     )
   })
 
@@ -96,7 +98,7 @@ export function logOrderNowMetric(account: string, orderGroup: string) {
     orderGroup,
     {
       // eslint-disable-next-line no-undef
-      ['app_version']: process.env.VTEX_APP_ID,
+      app_version: process.env.VTEX_APP_ID,
     },
     account
   )
@@ -119,7 +121,7 @@ export function getEditOption(location: Location): EditOptions | null {
 
 export function scrollToElement(id: string) {
   const div = document.getElementById(id)
-  div && div.scrollIntoView({ block: 'center' })
+  div?.scrollIntoView({ block: 'center' })
 }
 
 export function removeElementsFromSearch(
@@ -128,7 +130,7 @@ export function removeElementsFromSearch(
 ) {
   const parsed = qs.parse(location.search)
 
-  elements.forEach(elementName => delete parsed[elementName])
+  elements.forEach((elementName) => delete parsed[elementName])
 
   return qs.stringify(parsed)
 }

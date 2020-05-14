@@ -97,7 +97,7 @@ class EditData extends Component<Props, State> {
   private handleFrequencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       purchaseDay: '',
-      frequencyIndex: parseInt(e.target.value),
+      frequencyIndex: parseInt(e.target.value, 10),
     })
   }
 

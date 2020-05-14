@@ -21,7 +21,7 @@ const PaymentDisplay: FunctionComponent<Props> = ({
         intl,
         paymentSystemGroup,
         paymentSystemName,
-        lastDigits: paymentAccount && paymentAccount.cardNumber.slice(-4),
+        lastDigits: paymentAccount?.cardNumber.slice(-4),
       })}
     </span>
   </div>

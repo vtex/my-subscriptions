@@ -2,7 +2,6 @@ import React from 'react'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
 import SkeletonLoader from '../../../commons/SkeletonLoader'
-
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 
 const HistorySkeleton = () => (

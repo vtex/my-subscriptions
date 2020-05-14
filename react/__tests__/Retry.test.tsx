@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
@@ -14,14 +15,13 @@ describe('Retry Scenarios', () => {
 
   beforeAll(() => {
     delete window.location
-    // @ts-ignore
   })
 
   afterAll(() => {
     window.location = location
   })
 
-  test('Should display retry', async () => {
+  it('Should display retry', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -37,12 +37,12 @@ describe('Retry Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(queryByText(RETRY_BUTTON)).toBeTruthy()
   })
 
-  test('Shouldnt display retry', async () => {
+  it('Shouldnt display retry', async () => {
     const { queryByText } = render(
       <MockRouter params={mockRouterParam}>
         <SubscriptionDetails />
@@ -54,7 +54,7 @@ describe('Retry Scenarios', () => {
       }
     )
 
-    await new Promise(resolve => setTimeout(resolve, 0))
+    await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(queryByText(RETRY_BUTTON)).toBeFalsy()
   })

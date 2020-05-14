@@ -7,7 +7,6 @@ import { SubscriptionStatus } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
 import UpdateStatusButton from '../../commons/UpdateStatusButton'
-
 import ItemDate from './ItemDate'
 import { SubscriptionsGroup } from '.'
 
@@ -23,7 +22,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
       <div className="w-50-ns flex flex-row flex-wrap">
         <div className="w-100">
           <Name
-            skus={group.subscriptions.map(subscriptions => subscriptions.sku)}
+            skus={group.subscriptions.map((subscriptions) => subscriptions.sku)}
             subscriptionsGroupId={group.id}
             status={group.status}
             name={group.name}
