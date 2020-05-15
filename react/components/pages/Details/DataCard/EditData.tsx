@@ -8,6 +8,7 @@ import {
   MutationUpdateSettingsArgs,
   Periodicity as GraphQLPeriodicity,
 } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
 import {
   WEEK_OPTIONS,
@@ -23,6 +24,9 @@ import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
 import DataSkeleton from './DataSkeleton'
 import { SubscriptionsGroup } from '..'
+import { logGraphqlError, queryWrapper } from '../../../../tracking'
+
+const INSTANCE = 'SubscriptionsDetails/FrequencyOptions'
 
 class EditData extends Component<Props, State> {
   constructor(props: Props) {
@@ -109,15 +113,16 @@ class EditData extends Component<Props, State> {
     const { periodicity, interval } = this.getCurrentFrequency()
 
     this.setState({ isLoading: true })
+    const variables = {
+      subscriptionsGroupId: this.props.group.id,
+      purchaseDay,
+      periodicity: (periodicity as unknown) as GraphQLPeriodicity,
+      interval,
+    }
 
     this.props
       .updateSettings({
-        variables: {
-          subscriptionsGroupId: this.props.group.id,
-          purchaseDay,
-          periodicity: (periodicity as unknown) as GraphQLPeriodicity,
-          interval,
-        },
+        variables,
       })
       .then(() => {
         this.setState({ isLoading: false })
@@ -134,6 +139,13 @@ class EditData extends Component<Props, State> {
           ? `subscription.fetch.${errorCode}`
           : 'global.unknownError'
 
+        logGraphqlError({
+          error,
+          variables,
+          runtime: this.props.runtime,
+          type: 'MutationError',
+          instance: 'UpdateSettings',
+        })
         this.setState({
           isLoading: false,
           showErrorAlert: true,
@@ -212,7 +224,10 @@ interface ChildProps {
   loading: boolean
 }
 
-interface InnerProps extends InjectedIntlProps, ChildProps {
+interface InnerProps
+  extends InjectedIntlProps,
+    ChildProps,
+    InjectedRuntimeContext {
   updateSettings: (args: {
     variables: MutationUpdateSettingsArgs
   }) => Promise<void>
@@ -236,12 +251,12 @@ interface State {
 export default compose<Props, OutterProps>(
   injectIntl,
   graphql(UPDATE_SETTINGS, { name: 'updateSettings' }),
-  graphql<
+  queryWrapper<
     OutterProps,
     { frequencies: Frequency[] },
     { subscriptionsGroupId: string },
     ChildProps
-  >(FREQUENCY_OPTIONS, {
+  >(INSTANCE, FREQUENCY_OPTIONS, {
     options: ({ group }) => ({
       variables: {
         subscriptionsGroupId: group.id,
@@ -252,5 +267,6 @@ export default compose<Props, OutterProps>(
       loading: data ? data.loading : false,
     }),
   }),
-  branch<InnerProps>((props) => props.loading, renderComponent(DataSkeleton))
+  branch<InnerProps>((props) => props.loading, renderComponent(DataSkeleton)),
+  withRuntimeContext
 )(EditData)

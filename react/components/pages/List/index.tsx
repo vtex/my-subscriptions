@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ErrorInfo } from 'react'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { withRouter } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
@@ -6,6 +6,7 @@ import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
 import GROUPS from '../../../graphql/customerSubscriptions.gql'
 import {
@@ -15,6 +16,7 @@ import {
   Periodicity,
 } from '../../../constants'
 import { convertFilter } from '../../../utils'
+import { logError, logGraphqlError } from '../../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'
@@ -29,11 +31,22 @@ function isEmpty(data: QueryResult) {
   return false
 }
 
+const INSTANCE = 'SubscriptionsList'
+
 class SubscriptionsGroupListContainer extends Component<
   Props & InjectedIntlProps
 > {
   public state = {
     filter: SubscriptionDisplayFilterEnum.Active,
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    logError({
+      error,
+      errorInfo,
+      runtime: this.props.runtime,
+      instance: INSTANCE,
+    })
   }
 
   private handleGoToDetails = (subscriptionsGroupId: string) => {
@@ -86,17 +99,24 @@ class SubscriptionsGroupListContainer extends Component<
     }
 
     const resultFilter = convertFilter(filter)
+    const variables = { statusList: resultFilter }
 
     return (
       <ContentWrapper {...headerConfig}>
         {() => (
-          <Query<QueryResult>
-            query={GROUPS}
-            variables={{ statusList: resultFilter }}
-          >
+          <Query<QueryResult> query={GROUPS} variables={variables}>
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
-              if (error) return <ErrorState refetch={refetch} />
+              if (error) {
+                logGraphqlError({
+                  error,
+                  variables,
+                  type: 'QueryError',
+                  instance: INSTANCE,
+                  runtime: this.props.runtime,
+                })
+                return <ErrorState refetch={refetch} />
+              }
               if (!data || isEmpty(data)) return <EmptyState />
 
               return data.groups.map((group) => (
@@ -151,10 +171,10 @@ interface QueryResult {
   groups: SubscriptionsGroup[]
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends InjectedIntlProps, InjectedRuntimeContext {
   history: any
 }
 
-const enhance = compose<Props, {}>(injectIntl, withRouter)
+const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
 
 export default enhance(SubscriptionsGroupListContainer)

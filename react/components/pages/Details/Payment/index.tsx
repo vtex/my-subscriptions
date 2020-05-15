@@ -5,9 +5,11 @@ import { compose } from 'recompose'
 // eslint-disable-next-line no-restricted-imports
 import { path } from 'ramda'
 import qs from 'query-string'
+import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
 import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
 import {
@@ -25,6 +27,7 @@ import {
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 import { SubscriptionsGroup } from '..'
+import { logGraphqlError } from '../../../../tracking'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
@@ -166,15 +169,17 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
     this.setState({ isLoading: true })
 
+    const variables = {
+      accountId:
+        selectedPaymentSystemGroup === PaymentSystemGroup.CreditCard
+          ? selectedAccountId
+          : null,
+      subscriptionsGroupId: group.id,
+      paymentSystemId: selectedPaymentSystemId as string,
+    }
+
     return updatePayment({
-      variables: {
-        accountId:
-          selectedPaymentSystemGroup === PaymentSystemGroup.CreditCard
-            ? selectedAccountId
-            : null,
-        subscriptionsGroupId: group.id,
-        paymentSystemId: selectedPaymentSystemId as string,
-      },
+      variables,
     })
       .then(() => {
         showToast({
@@ -187,7 +192,14 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
           isLoading: false,
         })
       })
-      .catch((e: any) => {
+      .catch((e: ApolloError) => {
+        logGraphqlError({
+          error: e,
+          variables,
+          runtime: this.props.runtime,
+          type: 'MutationError',
+          instance: 'UpdatePayment',
+        })
         this.setState({
           errorMessage: `subscription.fetch.${
             e.graphQLErrors.length > 0 &&
@@ -274,7 +286,10 @@ interface OuterProps {
   displayRetry: boolean
 }
 
-interface InnerProps extends InjectedIntlProps, RouteComponentProps {
+interface InnerProps
+  extends InjectedIntlProps,
+    RouteComponentProps,
+    InjectedRuntimeContext {
   updatePayment: (args: {
     variables: MutationUpdatePaymentMethodArgs
   }) => Promise<void>
@@ -300,5 +315,6 @@ export default compose<Props, OuterProps>(
   withRouter,
   graphql(UpdatePaymentMethod, {
     name: 'updatePayment',
-  })
+  }),
+  withRuntimeContext
 )(SubscriptionsGroupPaymentContainer)

@@ -17,6 +17,8 @@ export { default as NumericStepper } from '@vtex/styleguide/lib/NumericStepper'
 export { default as Tag } from '@vtex/styleguide/lib/Tag'
 // @ts-ignore
 export { default as Dropdown } from '@vtex/styleguide/lib/Dropdown'
+// @ts-ignore
+export { default as ActionMenu } from '@vtex/styleguide/lib/ActionMenu'
 
 export function withToast(children: any) {
   return children

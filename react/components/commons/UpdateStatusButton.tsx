@@ -2,11 +2,14 @@ import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
+import { ApolloError } from 'apollo-client'
+import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 import { Button } from 'vtex.styleguide'
 
 import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
 import ConfirmationModal from './ConfirmationModal'
+import { logGraphqlError } from '../../tracking'
 
 function retrieveMessagesByStatus(status: SubscriptionStatus) {
   let titleMessageId = ''
@@ -78,13 +81,24 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       successMessage: intl.formatMessage({
         id: 'store/subscription.editition.success',
       }),
-      onSubmit: () =>
-        updateStatus({
-          variables: {
-            orderGroup: subscriptionsGroupId,
-            status: targetStatus,
-          },
-        }),
+      onSubmit: () => {
+        const variables = {
+          orderGroup: subscriptionsGroupId,
+          status: targetStatus,
+        }
+        return updateStatus({
+          variables,
+        }).catch((error: ApolloError) => {
+          logGraphqlError({
+            error,
+            variables,
+            runtime: this.props.runtime,
+            type: 'MutationError',
+            instance: 'UpdateStatus',
+          })
+          throw error
+        })
+      },
     }
 
     return (
@@ -111,7 +125,8 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
 
 const enhance = compose<Props & InnerProps, Props>(
   injectIntl,
-  graphql(UPDATE_STATUS, { name: 'updateStatus' })
+  graphql(UPDATE_STATUS, { name: 'updateStatus' }),
+  withRuntimeContext
 )
 
 interface Props {
@@ -120,7 +135,7 @@ interface Props {
   block: boolean
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
   updateStatus: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }

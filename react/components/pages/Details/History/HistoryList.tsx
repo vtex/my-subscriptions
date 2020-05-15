@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -10,6 +9,9 @@ import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
 import { SubscriptionsGroup } from '..'
+import { queryWrapper } from '../../../../tracking'
+
+const INSTANCE = 'SubscriptionsDetails/SubscriptionsOrdersList'
 
 class HistoryList extends Component<Props> {
   public state = {
@@ -98,12 +100,12 @@ interface ChildProps {
 type Props = OuterProps & ChildProps
 
 const enhance = compose<Props, OuterProps>(
-  graphql<
+  queryWrapper<
     OuterProps,
     { orders: { list: SubscriptionOrder[]; totalCount: number } },
     { subscriptionsGroupId: string; page: number; perPage: number },
     ChildProps
-  >(SUBSCRIPTION_ORDERS_BY_GROUP, {
+  >(INSTANCE, SUBSCRIPTION_ORDERS_BY_GROUP, {
     options: ({ group, perPage }) => ({
       variables: {
         subscriptionsGroupId: group.id,
