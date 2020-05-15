@@ -7,7 +7,6 @@ import {
 } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
-import { graphql } from 'react-apollo'
 // eslint-disable-next-line no-restricted-imports
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio } from 'vtex.styleguide'
@@ -19,6 +18,7 @@ import Alert from '../../../commons/CustomAlert'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
+import { queryWrapper } from '../../../../tracking'
 
 function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
   return creditCards.map(
@@ -53,6 +53,8 @@ function goToCreateCard(history: RouteComponentProps['history']) {
     search: `?returnUrl=${here}`,
   })
 }
+
+const INSTANCE = 'SubscriptionsDetails/CustomerPaymentMethods'
 
 const EditPayment: FunctionComponent<Props> = ({
   isLoading,
@@ -189,11 +191,15 @@ type Props = InnerProps & OuterProps
 export default compose<Props, OuterProps>(
   injectIntl,
   withRouter,
-  graphql<{}, { methods: PaymentMethod[] }, {}, ChildProps>(CUSTOMER_PAYMENTS, {
-    props: ({ data }) => ({
-      loading: data ? data.loading : false,
-      methods: data?.methods ?? [],
-    }),
-  }),
+  queryWrapper<{}, { methods: PaymentMethod[] }, {}, ChildProps>(
+    INSTANCE,
+    CUSTOMER_PAYMENTS,
+    {
+      props: ({ data }) => ({
+        loading: data ? data.loading : false,
+        methods: data?.methods ?? [],
+      }),
+    }
+  ),
   branch<ChildProps>(({ loading }) => loading, renderComponent(PaymentSkeleton))
 )(EditPayment)
