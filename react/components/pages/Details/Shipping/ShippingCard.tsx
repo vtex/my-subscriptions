@@ -1,5 +1,10 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
+import {
+  injectIntl,
+  FormattedMessage,
+  defineMessages,
+  InjectedIntlProps,
+} from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import LabeledInfo from '../../../commons/LabeledInfo'
@@ -18,7 +23,7 @@ const messages = defineMessages({
   },
 })
 
-const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
+const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
   <>
     <div className="flex">
       <div className="db-s di-ns b f4 tl c-on-base">
@@ -48,8 +53,8 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
         <EditAlert
           subscriptionStatus={group.status}
           onAction={onEdit}
-          actionLabelMessage={messages.label}
-          noActionMessage={messages.noAction}
+          actionLabelMessage={intl.formatMessage(messages.label)}
+          noActionMessage={intl.formatMessage(messages.noAction)}
         >
           <FormattedMessage id="subscription.shipping-address.error.message" />
         </EditAlert>
@@ -58,7 +63,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
   </>
 )
 
-interface Props {
+interface Props extends InjectedIntlProps {
   group: SubscriptionsGroup
   onEdit: () => void
 }

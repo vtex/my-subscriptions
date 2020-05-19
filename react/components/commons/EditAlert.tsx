@@ -1,15 +1,13 @@
-import React, { FunctionComponent, Fragment } from 'react'
-import { injectIntl, InjectedIntlProps, FormattedMessage } from 'react-intl'
+import React, { FunctionComponent } from 'react'
 import { Alert } from 'vtex.styleguide'
 
 import { SubscriptionStatus } from '../../constants'
 
-const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
+const EditAlert: FunctionComponent<Props> = ({
   subscriptionStatus,
   actionLabelMessage,
   noActionMessage,
   onAction,
-  intl,
   children,
 }) => {
   const canBeEdited = subscriptionStatus === SubscriptionStatus.Active
@@ -20,7 +18,7 @@ const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
       action={
         canBeEdited
           ? {
-              label: intl.formatMessage(actionLabelMessage),
+              label: actionLabelMessage,
               onClick: () => onAction(),
             }
           : undefined
@@ -29,15 +27,15 @@ const EditAlert: FunctionComponent<Props & InjectedIntlProps> = ({
       {children}
     </Alert>
   ) : (
-    <Fragment>{intl.formatMessage(noActionMessage)}</Fragment>
+    <>{noActionMessage}</>
   )
 }
 
 interface Props {
   subscriptionStatus: SubscriptionStatus
-  actionLabelMessage: FormattedMessage.MessageDescriptor
-  noActionMessage: FormattedMessage.MessageDescriptor
+  actionLabelMessage: string
+  noActionMessage: string
   onAction: () => void
 }
 
-export default injectIntl(EditAlert)
+export default EditAlert
