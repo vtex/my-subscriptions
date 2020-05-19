@@ -40,7 +40,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
     <div className="flex pt3-s pt5-ns w-100">
       {group.shippingAddress ? (
         <div className="w-100">
-          <LabeledInfo labelId={messages.label.id}>
+          <LabeledInfo label={intl.formatMessage(messages.label)}>
             <AddressRules
               country={group.shippingAddress.country}
               shouldUseIOFetching

@@ -1,26 +1,15 @@
-import React, { Fragment, FunctionComponent, ReactNode } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import React, { FunctionComponent, ReactNode } from 'react'
 
-const LabeledInfo: FunctionComponent<Props & InjectedIntlProps> = ({
-  label,
-  labelId,
-  children,
-  intl,
-}) => {
-  return (
-    <Fragment>
-      <span className="b db f5-ns f6-s c-on-base">
-        {labelId ? intl.formatMessage({ id: labelId }) : label}
-      </span>
-      <span className="db fw3 f5-ns f6-s c-on-base mt2">{children}</span>
-    </Fragment>
-  )
-}
+const LabeledInfo: FunctionComponent<Props> = ({ label, children }) => (
+  <>
+    <span className="b db f5-ns f6-s c-on-base">{label}</span>
+    <span className="db fw3 f5-ns f6-s c-on-base mt2">{children}</span>
+  </>
+)
 
 interface Props {
-  label?: ReactNode
-  labelId?: string
+  label: string
   children: ReactNode
 }
 
-export default injectIntl(LabeledInfo)
+export default LabeledInfo
