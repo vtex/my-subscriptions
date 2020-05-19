@@ -39,8 +39,10 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
 
         <div className="flex-l">
           <div className="w-50-l pt6">
-            <LabeledInfo labelId="subscription.nextPurchase">
-              <div className="flex flex-row">
+            <LabeledInfo
+              label={intl.formatMessage({ id: 'subscription.nextPurchase' })}
+            >
+              <div className="flex">
                 <span className="db fw3 f5-ns f6-s c-on-base">
                   {intl.formatDate(group.nextPurchaseDate)}
                 </span>
@@ -56,7 +58,11 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
           </div>
 
           <div className="w-50-l pt6">
-            <LabeledInfo labelId="subscription.data.estimatedDelivery">
+            <LabeledInfo
+              label={intl.formatMessage({
+                id: 'subscription.data.estimatedDelivery',
+              })}
+            >
               {displayDelivery &&
                 intl.formatDate(
                   group.shippingEstimate &&
