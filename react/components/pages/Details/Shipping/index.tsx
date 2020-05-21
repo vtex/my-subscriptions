@@ -7,6 +7,7 @@ import qs from 'query-string'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
 import EditShipping from './EditShipping'
@@ -23,6 +24,7 @@ import {
   scrollToElement,
   removeElementsFromSearch,
 } from '../../../../utils'
+import { logGraphqlError } from '../../../../tracking'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
@@ -121,12 +123,15 @@ class ShippingContainer extends Component<Props, State> {
     const { group, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
+
+    const variables = {
+      addressId: this.state.selectedAddressId,
+      subscriptionsGroupId: group.id,
+    }
+
     this.props
       .updateAddress({
-        variables: {
-          addressId: this.state.selectedAddressId,
-          subscriptionsGroupId: group.id,
-        },
+        variables,
       })
       .then(() => {
         showToast({
@@ -141,6 +146,14 @@ class ShippingContainer extends Component<Props, State> {
         })
       })
       .catch((e: ApolloError) => {
+        logGraphqlError({
+          error: e,
+          variables,
+          runtime: this.props.runtime,
+          type: 'MutationError',
+          instance: 'UpdateAddress',
+        })
+
         this.setState({
           errorMessage: `subscription.fetch.${
             e.graphQLErrors.length > 0 &&
@@ -208,7 +221,10 @@ interface OuterProps {
   group: SubscriptionsGroup
 }
 
-interface InnerProps extends RouteComponentProps, InjectedIntlProps {
+interface InnerProps
+  extends RouteComponentProps,
+    InjectedIntlProps,
+    InjectedRuntimeContext {
   updateAddress: (args: {
     variables: MutationUpdateAddressArgs
   }) => Promise<void>
@@ -231,5 +247,6 @@ export default compose<Props, OuterProps>(
   withRouter,
   graphql(UPDATE_ADDRESS, {
     name: 'updateAddress',
-  })
+  }),
+  withRuntimeContext
 )(ShippingContainer)

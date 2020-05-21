@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ErrorInfo } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { graphql } from 'react-apollo'
@@ -11,6 +11,8 @@ import {
   SubscriptionOrder,
   PaymentMethod,
 } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
+import { ApolloError } from 'apollo-client'
 
 import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
@@ -30,6 +32,7 @@ import Shipping from './Shipping'
 import History from './History'
 import Loader from './Loader'
 import Products from './Products'
+import { logError, logGraphqlError, queryWrapper } from '../../../tracking'
 
 export function headerConfig({ intl }: InjectedIntlProps) {
   const backButton = {
@@ -43,6 +46,8 @@ export function headerConfig({ intl }: InjectedIntlProps) {
     namespace: 'vtex-account__subscription-details',
   }
 }
+
+const INSTANCE = 'SubscriptionsDetails'
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public state = {
@@ -84,13 +89,35 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   private handleMakeRetry = () => {
     const { retry, group } = this.props
 
+    const variables = {
+      subscriptionsGroupId: group?.id as string,
+      subscriptionOrderId: group?.lastOrder?.id as string,
+    }
+
     return retry({
-      variables: {
-        subscriptionsGroupId: group?.id as string,
-        subscriptionOrderId: group?.lastOrder?.id as string,
-      },
-    }).then(() => {
-      this.mounted && this.handleSetDisplayRetry(true)
+      variables,
+    })
+      .then(() => {
+        this.mounted && this.handleSetDisplayRetry(true)
+      })
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime: this.props.runtime,
+          type: 'MutationError',
+          instance: 'Retry',
+        })
+        throw error
+      })
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    logError({
+      error,
+      errorInfo,
+      runtime: this.props.runtime,
+      instance: INSTANCE,
     })
   }
 
@@ -187,7 +214,7 @@ export interface Subscription {
   currentPrice: number
 }
 
-interface Props extends InjectedIntlProps, ChildProps {
+interface Props extends InjectedIntlProps, ChildProps, InjectedRuntimeContext {
   retry: (args: {
     variables: MutationRetrySubscriptionOrderArgs
   }) => Promise<void>
@@ -200,7 +227,8 @@ interface Variables {
   id: string
 }
 
-type InputProps = RouteComponentProps<{ subscriptionsGroupId: string }>
+type InputProps = RouteComponentProps<{ subscriptionsGroupId: string }> &
+  InjectedRuntimeContext
 
 interface ChildProps {
   loading: boolean
@@ -210,19 +238,24 @@ interface ChildProps {
 const enhance = compose<Props, {}>(
   injectIntl,
   withRouter,
+  withRuntimeContext,
   graphql(RETRY_MUTATION, { name: 'retry' }),
-  graphql<InputProps, Response, Variables, ChildProps>(SUBSCRIPTIONS_GROUP, {
-    options: (input) => ({
-      variables: {
-        id: input.match.params.subscriptionsGroupId,
-      },
-    }),
-    props: ({ data }) => ({
-      loading: data ? data.loading : false,
-      group: data?.group,
-      data,
-    }),
-  }),
+  queryWrapper<InputProps, Response, Variables, ChildProps>(
+    INSTANCE,
+    SUBSCRIPTIONS_GROUP,
+    {
+      options: (input) => ({
+        variables: {
+          id: input.match.params.subscriptionsGroupId,
+        },
+      }),
+      props: ({ data }) => ({
+        loading: data ? data.loading : false,
+        group: data?.group,
+        data,
+      }),
+    }
+  ),
   branch<ChildProps>((props) => props.loading, renderComponent(Loader))
 )
 

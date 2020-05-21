@@ -3,6 +3,7 @@ import { Route } from 'vtex.my-account-commons/Router'
 
 import SubscriptionsListContainer from './components/pages/List'
 import SubscriptionDetailContainer from './components/pages/Details'
+import { withAppInfo } from './tracking'
 
 const ExtensionRouter = () => (
   <Fragment>
@@ -20,4 +21,4 @@ const ExtensionRouter = () => (
   </Fragment>
 )
 
-export default ExtensionRouter
+export default withAppInfo(ExtensionRouter)

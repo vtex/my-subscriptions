@@ -7,17 +7,20 @@ import {
   defineMessages,
   FormattedMessage,
 } from 'react-intl'
+import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import {
   MutationRemoveSubscriptionArgs,
   MutationUpdateSubscriptionsArgs,
 } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import REMOVE_MUTATION from '../../../../graphql/removeSubscription.gql'
 import UPDATE_MUTATION from '../../../../graphql/updateSubscriptions.gql'
 import ConfirmationModal from '../../../commons/ConfirmationModal'
 import Listing from './Listing'
 import { SubscriptionsGroup, Subscription } from '..'
+import { logGraphqlError } from '../../../../tracking'
 
 function mapSubscriptionsToHashMap(subscriptions: Subscription[]) {
   return subscriptions.reduce(
@@ -89,19 +92,31 @@ class ProductsContainer extends Component<Props, State> {
     const { removeSubscription, group, showToast, intl } = this.props
     const { subscriptionId } = this.state
 
+    const variables = {
+      subscriptionsGroupId: group.id,
+      subscriptionId,
+    }
+
     return removeSubscription({
-      variables: {
-        subscriptionsGroupId: group.id,
-        subscriptionId,
-      },
-    }).then(() => {
-      this.setState({
-        isModalOpen: false,
-      })
-      showToast({
-        message: intl.formatMessage(messages.removeSuccess),
-      })
+      variables,
     })
+      .then(() => {
+        this.setState({
+          isModalOpen: false,
+        })
+        showToast({
+          message: intl.formatMessage(messages.removeSuccess),
+        })
+      })
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime: this.props.runtime,
+          type: 'MutationError',
+          instance: 'RemoveSubscription',
+        })
+      })
   }
 
   private handleOpenRemoveModal = (subscriptionId: string) =>
@@ -121,20 +136,29 @@ class ProductsContainer extends Component<Props, State> {
 
     this.setState({ isLoading: true })
 
-    const subscriptions = this.getProducts().map((subscription) => ({
-      skuId: subscription.sku.id,
-      quantity: subscription.quantity,
-    }))
+    const variables = {
+      subscriptionsGroupId: group.id,
+      subscriptions: this.getProducts().map((subscription) => ({
+        skuId: subscription.sku.id,
+        quantity: subscription.quantity,
+      })),
+    }
 
     updateSubscriptions({
-      variables: {
-        subscriptionsGroupId: group.id,
-        subscriptions,
-      },
+      variables,
     })
       .then(() =>
         showToast({ message: intl.formatMessage(messages.editionSuccess) })
       )
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime: this.props.runtime,
+          type: 'MutationError',
+          instance: 'UpdateSubscriptions',
+        })
+      })
       .finally(() => {
         this.setState({ isLoading: false, isEditMode: false })
       })
@@ -202,7 +226,7 @@ interface State {
   products: { [subscriptionId: string]: Subscription }
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
   removeSubscription: (args: {
     variables: MutationRemoveSubscriptionArgs
   }) => Promise<void>
@@ -222,7 +246,8 @@ const enhance = compose<Props, OuterProps>(
   injectIntl,
   withToast,
   graphql(REMOVE_MUTATION, { name: 'removeSubscription' }),
-  graphql(UPDATE_MUTATION, { name: 'updateSubscriptions' })
+  graphql(UPDATE_MUTATION, { name: 'updateSubscriptions' }),
+  withRuntimeContext
 )
 
 export default enhance(ProductsContainer)
