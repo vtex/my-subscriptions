@@ -1,6 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import {
+  InjectedIntlProps,
+  injectIntl,
+  defineMessages,
+  FormattedMessage,
+} from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
@@ -8,33 +13,76 @@ import { Button } from 'vtex.styleguide'
 
 import { SubscriptionStatus } from '../../constants'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-import ConfirmationModal from './ConfirmationModal'
+import ConfirmationModal, {
+  messages as modalMessages,
+} from './ConfirmationModal'
 import { logGraphqlError } from '../../tracking'
 
-function retrieveMessagesByStatus(status: SubscriptionStatus) {
-  let titleMessageId = ''
-  let bodyMessageId = ''
+const messages = defineMessages({
+  pauseTitle: {
+    id: 'subscription.pause.title',
+    defaultMessage: '',
+  },
+  pauseDescription: {
+    id: 'subscription.pause.text',
+    defaultMessage: '',
+  },
+  cancelTitle: {
+    id: 'subscription.cancel.title',
+    defaultMessage: '',
+  },
+  cancelDescription: {
+    id: 'subscription.cancel.text',
+    defaultMessage: '',
+  },
+  restoreTitle: {
+    id: 'subscription.restore.title',
+    defaultMessage: '',
+  },
+  restoreDescription: {
+    id: 'subscription.restore.text',
+    defaultMessage: '',
+  },
+  cancelationMessage: {
+    id: 'subscription.change.status.modal.cancelation',
+    defaultMessage: '',
+  },
+  confirmationMessage: {
+    id: 'subscription.change.status.modal.confirmation',
+    defaultMessage: '',
+  },
+})
 
+function retrieveMessagesByStatus(
+  status: SubscriptionStatus
+): {
+  titleMessage: FormattedMessage.MessageDescriptor
+  bodyMessage: FormattedMessage.MessageDescriptor
+  cancelationMessage: FormattedMessage.MessageDescriptor
+  confirmationMessage: FormattedMessage.MessageDescriptor
+} {
+  let titleMessage: FormattedMessage.MessageDescriptor
+  let bodyMessage: FormattedMessage.MessageDescriptor
   switch (status) {
     case SubscriptionStatus.Paused:
-      titleMessageId = 'subscription.pause.title'
-      bodyMessageId = 'subscription.pause.text'
+      titleMessage = messages.pauseTitle
+      bodyMessage = messages.pauseDescription
       break
     case SubscriptionStatus.Canceled:
-      titleMessageId = 'subscription.cancel.title'
-      bodyMessageId = 'subscription.cancel.text'
+      titleMessage = messages.cancelTitle
+      bodyMessage = messages.cancelDescription
       break
     default:
-      titleMessageId = 'subscription.restore.title'
-      bodyMessageId = 'subscription.restore.text'
+      titleMessage = messages.restoreTitle
+      bodyMessage = messages.restoreDescription
       break
   }
 
   return {
-    bodyMessageId,
-    cancelationMessageId: 'subscription.change.status.modal.cancelation',
-    confirmationMessageId: 'subscription.change.status.modal.confirmation',
-    titleMessageId,
+    titleMessage,
+    bodyMessage,
+    cancelationMessage: messages.cancelationMessage,
+    confirmationMessage: messages.confirmationMessage,
   }
 }
 
@@ -63,24 +111,20 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       subscriptionsGroupId,
     } = this.props
 
-    const messages = retrieveMessagesByStatus(targetStatus)
+    const {
+      cancelationMessage,
+      confirmationMessage,
+      titleMessage,
+      bodyMessage,
+    } = retrieveMessagesByStatus(targetStatus)
 
     const modalProps = {
-      cancelationLabel: intl.formatMessage({
-        id: messages.cancelationMessageId,
-      }),
-      confirmationLabel: intl.formatMessage({
-        id: messages.confirmationMessageId,
-      }),
-      errorMessage: intl.formatMessage({
-        id: 'subscription.fallback.error.message',
-      }),
+      cancelationLabel: intl.formatMessage(cancelationMessage),
+      confirmationLabel: intl.formatMessage(confirmationMessage),
+      errorMessage: intl.formatMessage(modalMessages.errorMessage),
       isModalOpen: this.state.isModalOpen,
-
       onCloseModal: this.handleCloseModal,
-      successMessage: intl.formatMessage({
-        id: 'store/subscription.editition.success',
-      }),
+      successMessage: intl.formatMessage(modalMessages.successMessage),
       onSubmit: () => {
         const variables = {
           orderGroup: subscriptionsGroupId,
@@ -104,12 +148,8 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
     return (
       <Fragment>
         <ConfirmationModal {...modalProps}>
-          <h2 className="heading-2">
-            {intl.formatMessage({ id: messages.titleMessageId })}
-          </h2>
-          <p className="t-body">
-            {intl.formatMessage({ id: messages.bodyMessageId })}
-          </p>
+          <h2 className="heading-2">{intl.formatMessage(titleMessage)}</h2>
+          <p className="t-body">{intl.formatMessage(bodyMessage)}</p>
         </ConfirmationModal>
         <Button
           variation="secondary"
@@ -123,12 +163,6 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
   }
 }
 
-const enhance = compose<Props & InnerProps, Props>(
-  injectIntl,
-  graphql(UPDATE_STATUS, { name: 'updateStatus' }),
-  withRuntimeContext
-)
-
 interface Props {
   subscriptionsGroupId: string
   targetStatus: SubscriptionStatus
@@ -139,5 +173,11 @@ interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
   updateStatus: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }
+
+const enhance = compose<Props & InnerProps, Props>(
+  injectIntl,
+  graphql(UPDATE_STATUS, { name: 'updateStatus' }),
+  withRuntimeContext
+)
 
 export default enhance(SubscriptionUpdateStatusButtonContainer)

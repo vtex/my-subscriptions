@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
 import { TagTypeEnum, SubscriptionStatus as StatusEnum } from '../../constants'
@@ -15,9 +15,16 @@ export function convertStatusInTagType(status: StatusEnum): TagTypeEnum | null {
   }
 }
 
-interface Props {
-  status: StatusEnum
-}
+defineMessages({
+  paused: {
+    id: 'subscription.status.paused',
+    defaultMessage: '',
+  },
+  canceled: {
+    id: 'subscription.status.canceled',
+    defaultMessage: '',
+  },
+})
 
 const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
   const type = convertStatusInTagType(status)
@@ -31,6 +38,10 @@ const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
       <FormattedMessage id={`subscription.status.${status.toLowerCase()}`} />
     </Tag>
   )
+}
+
+interface Props {
+  status: StatusEnum
 }
 
 export default SubscriptionStatus

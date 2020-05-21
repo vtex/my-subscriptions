@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
 import { ModalDialog, withToast, Alert } from 'vtex.styleguide'
+import { defineMessages } from 'react-intl'
 
 import { makeCancelable } from '../../utils'
+
+export const messages = defineMessages({
+  cancelationLabel: {
+    id: 'subscription.editition.cancel',
+    defaultMessage: '',
+  },
+  errorMessage: {
+    id: 'subscription.fallback.error.message',
+    defaultMessage: '',
+  },
+  successMessage: {
+    id: 'store/subscription.editition.success',
+    defaultMessage: '',
+  },
+})
 
 class ConfirmationModalContainer extends Component<Props> {
   public state = {
@@ -94,8 +110,6 @@ class ConfirmationModalContainer extends Component<Props> {
   }
 }
 
-export default withToast(ConfirmationModalContainer)
-
 interface Props {
   onSubmit: () => Promise<unknown>
   onCloseModal: () => void
@@ -108,3 +122,5 @@ interface Props {
   isModalOpen: boolean
   showToast: (args: object) => void
 }
+
+export default withToast(ConfirmationModalContainer)
