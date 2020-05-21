@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react'
-import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl, FormattedMessage } from 'react-intl'
 import { branch, compose, renderComponent } from 'recompose'
 import { Button, Dropdown } from 'vtex.styleguide'
@@ -11,6 +10,7 @@ import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
 import { SubscriptionsGroup } from '..'
+import { queryWrapper } from '../../../../tracking'
 
 function transformAddresses(addresses: Address[]) {
   return addresses.map((address) => ({
@@ -18,6 +18,8 @@ function transformAddresses(addresses: Address[]) {
     value: address.id,
   }))
 }
+
+const INSTANCE = 'SubscriptionsDetails/CustomerAddresses'
 
 const EditShipping: FunctionComponent<Props> = ({
   addresses,
@@ -99,18 +101,20 @@ type Props = InnerProps & OuterProps
 
 export default compose<Props, OuterProps>(
   injectIntl,
-  graphql<OuterProps, { profile: { addresses: Address[] } }, {}, ChildProps>(
-    GET_ADDRESSES,
-    {
-      props: ({ data }) => ({
-        loading: data ? data.loading : false,
-        addresses: data?.profile ? data.profile.addresses : [],
-      }),
-      options: {
-        fetchPolicy: 'no-cache',
-      },
-    }
-  ),
+  queryWrapper<
+    OuterProps,
+    { profile: { addresses: Address[] } },
+    {},
+    ChildProps
+  >(INSTANCE, GET_ADDRESSES, {
+    props: ({ data }) => ({
+      loading: data ? data.loading : false,
+      addresses: data?.profile ? data.profile.addresses : [],
+    }),
+    options: {
+      fetchPolicy: 'no-cache',
+    },
+  }),
   branch(
     ({ loading }: ChildProps) => loading,
     renderComponent(ShippingSkeleton)

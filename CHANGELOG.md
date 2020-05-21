@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.18.0] - 2020-05-21
+
+### Added
+
+- Splunk tracking.
+
 ## [0.17.0] - 2020-05-12
 
 ### Added

@@ -2,11 +2,14 @@ import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import { InjectedIntlProps, injectIntl } from 'react-intl'
 import { compose } from 'recompose'
+import { ApolloError } from 'apollo-client'
 import { IconEdit, Input } from 'vtex.styleguide'
+import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
 import { SubscriptionStatus } from '../../constants'
 import ConfirmationModal from './ConfirmationModal'
+import { logGraphqlError } from '../../tracking'
 
 class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public state = {
@@ -83,13 +86,24 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
       successMessage: intl.formatMessage({
         id: 'store/subscription.editition.success',
       }),
-      onSubmit: () =>
-        updateName({
-          variables: {
-            name: this.state.name,
-            subscriptionsGroupId,
-          },
-        }),
+      onSubmit: () => {
+        const variables = {
+          name: this.state.name,
+          subscriptionsGroupId,
+        }
+        return updateName({
+          variables,
+        }).catch((error: ApolloError) => {
+          logGraphqlError({
+            error,
+            variables,
+            runtime: this.props.runtime,
+            type: 'MutationError',
+            instance: 'UpdateName',
+          })
+          throw error
+        })
+      },
     }
 
     const canEdit = status === SubscriptionStatus.Active
@@ -128,7 +142,8 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
 
 const enhance = compose<InnerProps & OutterProps, OutterProps>(
   injectIntl,
-  graphql(UPDATE_NAME, { name: 'updateName' })
+  graphql(UPDATE_NAME, { name: 'updateName' }),
+  withRuntimeContext
 )
 
 export default enhance(SubscriptionNameContainer)
@@ -144,7 +159,7 @@ interface OutterProps {
   }>
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
   updateName: (args: object) => Promise<unknown>
   showToast: (args: object) => void
 }
