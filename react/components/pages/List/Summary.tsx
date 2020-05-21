@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import Frequency from '../../commons/FrequencyInfo'
+import Frequency from '../../Frequency/Info'
 import { SubscriptionStatus } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'

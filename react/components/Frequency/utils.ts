@@ -1,10 +1,8 @@
-import React, { FunctionComponent, Fragment } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { defineMessages, InjectedIntlProps } from 'react-intl'
 
 import { Periodicity } from '../../constants'
-import LabeledInfo from './LabeledInfo'
 
-const messages = defineMessages({
+defineMessages({
   day: {
     id: 'order.subscription.periodicity.day',
     defaultMessage: '',
@@ -105,19 +103,18 @@ const messages = defineMessages({
     id: 'subscription.periodicity.monthly', // TODO remove duplicated string
     defaultMessage: '',
   },
-  frequency: {
-    id: 'subscription.frequency',
-    defaultMessage: '',
-  },
 })
 
-const FrequencyInfo: FunctionComponent<Props> = ({
-  intl,
-  displayLabel = true,
-  periodicity,
+export function displayFrequency({
   interval,
   purchaseDay,
-}) => {
+  periodicity,
+  intl,
+}: {
+  interval: number
+  purchaseDay: string | null
+  periodicity: Periodicity
+} & InjectedIntlProps): string {
   const periodicityText = intl.formatMessage(
     { id: `order.subscription.periodicity.${periodicity.toLowerCase()}` },
     { count: interval }
@@ -148,22 +145,5 @@ const FrequencyInfo: FunctionComponent<Props> = ({
     frequencyText = `${periodicityText}, ${purchaseDayText}`
   }
 
-  if (displayLabel) {
-    return (
-      <LabeledInfo label={intl.formatMessage(messages.frequency)}>
-        {frequencyText}
-      </LabeledInfo>
-    )
-  }
-
-  return <Fragment>{frequencyText}</Fragment>
+  return frequencyText
 }
-
-interface Props extends InjectedIntlProps {
-  interval: number
-  purchaseDay: string | null
-  periodicity: Periodicity
-  displayLabel?: boolean
-}
-
-export default injectIntl(FrequencyInfo)
