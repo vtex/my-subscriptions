@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Dropdown, Alert } from 'vtex.styleguide'
@@ -23,6 +23,24 @@ import {
   WEEK_OPTIONS,
   MONTH_OPTIONS,
 } from '../../../Frequency/utils'
+
+const messages = defineMessages({
+  cardTitle: {
+    id: 'subscription.data',
+    defaultMessage: '',
+  },
+  selectDay: { id: 'subscription.select.day', defaultMessage: '' },
+  orderAgain: { id: 'subscription.data.orderAgain', defaultMessage: '' },
+  chargeEvery: {
+    id: 'subscription.data.chargeEvery',
+    defaultMessage: '',
+  },
+  select: { id: 'subscription.select', defaultMessage: '' },
+  errorMessage: {
+    id: 'subscription.fallback.error.message',
+    defaultMessage: '',
+  },
+})
 
 const INSTANCE = 'SubscriptionsDetails/FrequencyOptions'
 
@@ -82,10 +100,7 @@ class EditData extends Component<Props, State> {
 
     return MONTH_OPTIONS.map((dayOfMonth) => ({
       value: dayOfMonth,
-      label: intl.formatMessage(
-        { id: 'subscription.select.day' },
-        { day: dayOfMonth }
-      ),
+      label: intl.formatMessage(messages.selectDay, { day: dayOfMonth }),
     }))
   }
 
@@ -120,15 +135,9 @@ class EditData extends Component<Props, State> {
         this.props.onCloseEdit()
       })
       .catch((error: ApolloError) => {
-        const errorCode =
-          error.graphQLErrors.length > 0 &&
-          error.graphQLErrors[0].extensions &&
-          error.graphQLErrors[0].extensions.statusCode &&
-          error.graphQLErrors[0].extensions.statusCode.toLowerCase()
-
-        const errorMessage = errorCode
-          ? `subscription.fetch.${errorCode}`
-          : 'global.unknownError'
+        const errorMessage = this.props.intl.formatMessage(
+          messages.errorMessage
+        )
 
         logGraphqlError({
           error,
@@ -163,7 +172,7 @@ class EditData extends Component<Props, State> {
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="db-s di-ns f4 tl c-on-base">
-          {intl.formatMessage({ id: 'subscription.data' })}
+          {intl.formatMessage(messages.cardTitle)}
         </div>
         <div className="flex pt5 w-100-s mr-auto flex-column">
           {showErrorAlert && (
@@ -178,7 +187,7 @@ class EditData extends Component<Props, State> {
           )}
           <div className="w-50-l w-60-m w-100-s">
             <Dropdown
-              label={intl.formatMessage({ id: 'subscription.data.orderAgain' })}
+              label={intl.formatMessage(messages.orderAgain)}
               options={this.getFrequencyOptions()}
               value={frequencyIndex}
               onChange={this.handleFrequencyChange}
@@ -187,10 +196,8 @@ class EditData extends Component<Props, State> {
           {periodicity !== Periodicity.Daily && purchaseDay && (
             <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
-                label={intl.formatMessage({
-                  id: 'subscription.data.chargeEvery',
-                })}
-                placeholder={intl.formatMessage({ id: 'subscription.select' })}
+                label={intl.formatMessage(messages.chargeEvery)}
+                placeholder={intl.formatMessage(messages.select)}
                 options={this.getIntervalOptions()}
                 value={purchaseDay.toLowerCase()}
                 onChange={this.handlePurchaseDayChange}
