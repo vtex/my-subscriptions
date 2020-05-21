@@ -3,7 +3,6 @@ import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
-import { commonMessages } from './utils'
 import EditButton from '../../../commons/EditButton'
 import FrequencyInfo from '../../../Frequency/Info'
 import LabeledInfo from '../../../commons/LabeledInfo'
@@ -19,6 +18,10 @@ const messages = defineMessages({
     id: 'subscription.data.estimatedDelivery',
     defaultMessage: '',
   },
+  cardTitle: {
+    id: 'subscription.data',
+    defaultMessage: '',
+  },
 })
 
 const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
@@ -32,7 +35,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
     <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
       <div className="flex">
         <div className="db-s di-ns f4 tl c-on-base">
-          {intl.formatMessage(commonMessages.cardTitle)}
+          {intl.formatMessage(messages.cardTitle)}
         </div>
         <div className="ml-auto">
           <EditButton
