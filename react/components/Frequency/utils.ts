@@ -39,10 +39,6 @@ defineMessages({
     id: 'order.subscription.periodicity.bimonthly',
     defaultMessage: '',
   },
-  quaterly: {
-    id: 'order.subscription.periodicity.quaterly',
-    defaultMessage: '',
-  },
   semiannual: {
     id: 'order.subscription.periodicity.semiannual',
     defaultMessage: '',
@@ -105,6 +101,28 @@ defineMessages({
   },
 })
 
+export function displayWeekDay({
+  intl,
+  weekDay,
+}: { weekDay: string } & InjectedIntlProps) {
+  return intl.formatMessage({
+    id: `subscription.periodicity.${weekDay}`,
+  })
+}
+
+export function displayPeriodicity({
+  intl,
+  periodicity,
+  interval,
+}: { periodicity: Periodicity; interval: number } & InjectedIntlProps) {
+  return intl.formatMessage(
+    {
+      id: `order.subscription.periodicity.${periodicity.toLowerCase()}`,
+    },
+    { count: interval }
+  )
+}
+
 export function displayFrequency({
   interval,
   purchaseDay,
@@ -115,10 +133,7 @@ export function displayFrequency({
   purchaseDay: string | null
   periodicity: Periodicity
 } & InjectedIntlProps): string {
-  const periodicityText = intl.formatMessage(
-    { id: `order.subscription.periodicity.${periodicity.toLowerCase()}` },
-    { count: interval }
-  )
+  const periodicityText = displayPeriodicity({ intl, periodicity, interval })
 
   let frequencyText = periodicityText
 
@@ -130,9 +145,7 @@ export function displayFrequency({
     let moment = purchaseDay.toLowerCase()
 
     if (periodicity === Periodicity.Weekly) {
-      moment = intl
-        .formatMessage({ id: `subscription.periodicity.${moment}` })
-        .toLocaleLowerCase()
+      moment = displayWeekDay({ weekDay: moment, intl }).toLocaleLowerCase()
     }
 
     const purchaseDayText = intl.formatMessage(
@@ -147,3 +160,44 @@ export function displayFrequency({
 
   return frequencyText
 }
+
+export const WEEK_OPTIONS = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday',
+]
+
+export const MONTH_OPTIONS = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+  '13',
+  '14',
+  '15',
+  '16',
+  '17',
+  '18',
+  '19',
+  '20',
+  '21',
+  '22',
+  '23',
+  '24',
+  '25',
+  '26',
+  '27',
+  '28',
+]

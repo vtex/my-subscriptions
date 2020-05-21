@@ -10,19 +10,19 @@ import {
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import {
-  WEEK_OPTIONS,
-  MONTH_OPTIONS,
-  CSS,
-  BASIC_CARD_WRAPPER,
-  Periodicity,
-} from '../../../../constants'
+import { CSS, BASIC_CARD_WRAPPER, Periodicity } from '../../../../constants'
 import FREQUENCY_OPTIONS from '../../../../graphql/frequencyOptions.gql'
 import UPDATE_SETTINGS from '../../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
 import DataSkeleton from './DataSkeleton'
 import { SubscriptionsGroup } from '..'
 import { logGraphqlError, queryWrapper } from '../../../../tracking'
+import {
+  displayWeekDay,
+  displayPeriodicity,
+  WEEK_OPTIONS,
+  MONTH_OPTIONS,
+} from '../../../Frequency/utils'
 
 const INSTANCE = 'SubscriptionsDetails/FrequencyOptions'
 
@@ -65,12 +65,7 @@ class EditData extends Component<Props, State> {
 
     return frequencies.map((frequency: Frequency, index: number) => ({
       value: index,
-      label: intl.formatMessage(
-        {
-          id: `order.subscription.periodicity.${frequency.periodicity.toLowerCase()}`,
-        },
-        { count: frequency.interval }
-      ),
+      label: displayPeriodicity({ intl, ...frequency }),
     }))
   }
 
@@ -81,9 +76,7 @@ class EditData extends Component<Props, State> {
     if (periodicity === Periodicity.Weekly) {
       return WEEK_OPTIONS.map((weekDay) => ({
         value: weekDay,
-        label: intl.formatMessage({
-          id: `subscription.periodicity.${weekDay}`,
-        }),
+        label: displayWeekDay({ weekDay, intl }),
       }))
     }
 
