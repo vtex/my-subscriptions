@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 // eslint-disable-next-line no-restricted-imports
 import { path } from 'ramda'
@@ -49,6 +49,17 @@ function newPaymentArgs(location: RouteComponentProps['location']) {
 
   return null
 }
+
+const messages = defineMessages({
+  success: {
+    id: 'subscription.edit.success',
+    defaultMessage: '',
+  },
+  errorMessage: {
+    id: 'subscription.fallback.error.message',
+    defaultMessage: '',
+  },
+})
 
 class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   private mounted: boolean
@@ -183,9 +194,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     })
       .then(() => {
         showToast({
-          message: intl.formatMessage({
-            id: 'subscription.edit.success',
-          }),
+          message: intl.formatMessage(messages.success),
         })
         this.setState({
           isEditMode: false,
@@ -201,12 +210,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
           instance: 'UpdatePayment',
         })
         this.setState({
-          errorMessage: `subscription.fetch.${
-            e.graphQLErrors.length > 0 &&
-            e.graphQLErrors[0].extensions &&
-            e.graphQLErrors[0].extensions.error &&
-            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
-          }`,
+          errorMessage: intl.formatMessage(messages.errorMessage),
           isLoading: false,
           showAlert: true,
         })
