@@ -4,6 +4,7 @@ import {
   injectIntl,
   FormattedMessage,
   InjectedIntl,
+  defineMessages,
 } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
@@ -54,6 +55,13 @@ function goToCreateCard(history: RouteComponentProps['history']) {
 }
 
 const INSTANCE = 'SubscriptionsDetails/CustomerPaymentMethods'
+
+const messages = defineMessages({
+  chooseOne: {
+    id: 'subscription.payment.chooseOne',
+    defaultMessage: '',
+  },
+})
 
 const EditPayment: FunctionComponent<Props> = ({
   isLoading,
@@ -117,9 +125,7 @@ const EditPayment: FunctionComponent<Props> = ({
                 <div className="w-50 mr4">
                   <Dropdown
                     options={cardOptions(groupedPayments.creditCard, intl)}
-                    placeholder={intl.formatMessage({
-                      id: 'subscription.payment.chooseOne',
-                    })}
+                    placeholder={intl.formatMessage(messages.chooseOne)}
                     disabled={
                       paymentSystemGroup !== PaymentSystemGroup.CreditCard
                     }
