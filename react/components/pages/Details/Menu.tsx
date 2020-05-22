@@ -34,44 +34,62 @@ const INSTANCE = 'SubscriptionsDetails/OrderForm'
 
 const messages = defineMessages({
   errorMessage: {
-    id: 'subscription.fallback.error.message',
+    id: 'store/subscription.fallback.error.message',
     defaultMessage: '',
   },
   confirmationMessage: {
-    id: 'subscription.change.status.modal.confirmation',
+    id: 'store/subscription.change.status.modal.confirmation',
     defaultMessage: '',
   },
   cancelationMessage: {
-    id: 'subscription.change.status.modal.cancelation',
+    id: 'store/subscription.change.status.modal.cancelation',
     defaultMessage: '',
   },
   orderAgainConfirmation: {
-    id: 'subscription.order.again.confirmation',
+    id: 'store/subscription.order.again.confirmation',
     defaultMessage: '',
   },
   orderAgainDescription: {
-    id: 'subscription.order.again.description',
+    id: 'store/subscription.order.again.description',
     defaultMessage: '',
   },
   skipConfirm: {
-    id: 'subscription.skip.confirm',
+    id: 'store/subscription.skip.confirm',
     defaultMessage: '',
   },
   unskipConfirm: {
-    id: 'subscription.unskip.confirm',
+    id: 'store/subscription.unskip.confirm',
     defaultMessage: '',
   },
-  skipTitle: { id: 'subscription.skip.title', defaultMessage: '' },
-  skipDesc: { id: 'subscription.skip.text', defaultMessage: '' },
-  unSkipTitle: { id: 'subscription.unskip.title', defaultMessage: '' },
-  unSkipDesc: { id: 'subscription.unskip.text', defaultMessage: '' },
-  skipOption: { id: 'subscription.manage.skip', defaultMessage: '' },
-  unskipOption: { id: 'subscription.manage.unskip', defaultMessage: '' },
-  cancelOption: { id: 'subscription.manage.cancel', defaultMessage: '' },
-  pauseOption: { id: 'subscription.manage.pause', defaultMessage: '' },
-  restoreOption: { id: 'subscription.manage.restore', defaultMessage: '' },
-  orderNowOption: { id: 'subscription.manage.orderNow', defaultMessage: '' },
-  manage: { id: 'subscription.manage', defaultMessage: '' },
+  skipTitle: { id: 'store/subscription.skip.title', defaultMessage: '' },
+  skipDesc: { id: 'store/subscription.skip.text', defaultMessage: '' },
+  unSkipTitle: { id: 'store/subscription.unskip.title', defaultMessage: '' },
+  unSkipDesc: { id: 'store/subscription.unskip.text', defaultMessage: '' },
+  skipOption: {
+    id: 'store/subscription.manage.skip',
+    defaultMessage: '',
+  },
+  unskipOption: {
+    id: 'store/subscription.manage.unskip',
+    defaultMessage: '',
+  },
+  cancelOption: {
+    id: 'store/subscription.manage.cancel',
+    defaultMessage: '',
+  },
+  pauseOption: {
+    id: 'store/subscription.manage.pause',
+    defaultMessage: '',
+  },
+  restoreOption: {
+    id: 'store/subscription.manage.restore',
+    defaultMessage: '',
+  },
+  orderNowOption: {
+    id: 'store/subscription.manage.orderNow',
+    defaultMessage: '',
+  },
+  manage: { id: 'store/subscription.manage', defaultMessage: '' },
 })
 
 class MenuContainer extends Component<InnerProps & OutterProps> {
@@ -276,7 +294,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     const actionOptions = options.map((option) => {
       return {
         label: intl.formatMessage({
-          id: `subscription.manage.${option}`,
+          id: `store/subscription.manage.${option}`,
         }),
         onClick: () => this.handleOpenModal(option),
       }

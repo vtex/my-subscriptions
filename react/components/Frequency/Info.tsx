@@ -7,7 +7,7 @@ import { displayFrequency } from './utils'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.frequency',
+    id: 'store/subscription.frequency',
     defaultMessage: '',
   },
 })
