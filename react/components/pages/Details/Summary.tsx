@@ -19,14 +19,14 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
     <Fragment>
       {isSkipped && (
         <Alert type="warning">
-          <FormattedMessage id="subscription.skip.alert" />
+          <FormattedMessage id="store/subscription.skip.alert" />
         </Alert>
       )}
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
         <div className="flex-ns items-center-s items-start-ns">
           <div className="flex flex-column">
             <span className="mb4 db b f4 tl c-on-base">
-              <FormattedMessage id="subscription.summary" />
+              <FormattedMessage id="store/subscription.summary" />
             </span>
             <div className="pt5">
               <div className="myo-subscription__image-size relative items-center ba-ns bw1-ns b--muted-5">
@@ -54,7 +54,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
                   {!hasMultipleItems && (
                     <div className="pt2">
                       <div className="dib f6 fw4 c-muted-1 w-40">
-                        <FormattedMessage id="subscription.summary.quantity" />
+                        <FormattedMessage id="store/subscription.summary.quantity" />
                       </div>
                       <div className="dib f6 fw4 c-muted-1 tr w-60">
                         {group.subscriptions[0].quantity}

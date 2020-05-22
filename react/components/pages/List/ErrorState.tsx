@@ -4,11 +4,11 @@ import { Alert } from 'vtex.styleguide'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.fallback.error.refresh.message',
+    id: 'store/subscription.fallback.error.refresh.message',
     defaultMessage: '',
   },
   content: {
-    id: 'subscription.fallback.error.message',
+    id: 'store/subscription.fallback.error.message',
     defaultMessage: '',
   },
 })

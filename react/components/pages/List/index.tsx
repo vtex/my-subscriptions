@@ -32,17 +32,17 @@ function isEmpty(data: QueryResult) {
 }
 
 const messages = defineMessages({
-  filterLabel: { id: 'subscription.list.display', defaultMessage: '' },
+  filterLabel: { id: 'store/subscription.list.display', defaultMessage: '' },
   activeFilter: {
-    id: 'subscription.list.display.active_filter',
+    id: 'store/subscription.list.display.active_filter',
     defaultMessage: '',
   },
   canceledFilter: {
-    id: 'subscription.list.display.canceled_filter',
+    id: 'store/subscription.list.display.canceled_filter',
     defaultMessage: '',
   },
   title: {
-    id: 'subscription.title.list',
+    id: 'store/subscription.title.list',
     defaultMessage: '',
   },
 })

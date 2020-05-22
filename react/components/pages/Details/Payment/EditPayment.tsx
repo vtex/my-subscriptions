@@ -58,7 +58,7 @@ const INSTANCE = 'SubscriptionsDetails/CustomerPaymentMethods'
 
 const messages = defineMessages({
   chooseOne: {
-    id: 'subscription.payment.chooseOne',
+    id: 'store/subscription.payment.chooseOne',
     defaultMessage: '',
   },
 })
@@ -87,7 +87,7 @@ const EditPayment: FunctionComponent<Props> = ({
   return (
     <>
       <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.payment" />
+        <FormattedMessage id="store/subscription.payment" />
       </div>
       <div className="flex flex-column justify-center mt5">
         {showAlert && (
@@ -147,7 +147,7 @@ const EditPayment: FunctionComponent<Props> = ({
                   size="small"
                   onClick={() => goToCreateCard(history)}
                 >
-                  <FormattedMessage id="subcription.add.new.card" />
+                  <FormattedMessage id="store/subcription.add.new.card" />
                 </Button>
               </div>
             )}

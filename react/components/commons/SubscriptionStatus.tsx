@@ -17,11 +17,11 @@ export function convertStatusInTagType(status: StatusEnum): TagTypeEnum | null {
 
 defineMessages({
   paused: {
-    id: 'subscription.status.paused',
+    id: 'store/subscription.status.paused',
     defaultMessage: '',
   },
   canceled: {
-    id: 'subscription.status.canceled',
+    id: 'store/subscription.status.canceled',
     defaultMessage: '',
   },
 })

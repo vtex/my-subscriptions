@@ -14,11 +14,11 @@ import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.purchase-settings.error.action',
+    id: 'store/subscription.purchase-settings.error.action',
     defaultMessage: '',
   },
   noAction: {
-    id: 'subscription.purchase-settings.error.no-action',
+    id: 'store/subscription.purchase-settings.error.no-action',
     defaultMessage: '',
   },
 })
@@ -35,13 +35,13 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
     {displayRetry && (
       <div className="mb5">
         <Alert type="warning">
-          <FormattedMessage id="subscription.payment.alert.info.message" />
+          <FormattedMessage id="store/subscription.payment.alert.info.message" />
         </Alert>
       </div>
     )}
     <div className="flex">
       <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.payment" />
+        <FormattedMessage id="store/subscription.payment" />
       </div>
       <div className="ml-auto flex">
         {displayRetry && (
@@ -51,7 +51,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
             onClick={onMakeRetry}
             disabled={!isRetryButtonEnabled}
           >
-            <FormattedMessage id="subscription.retry.button.message" />
+            <FormattedMessage id="store/subscription.retry.button.message" />
           </Button>
         )}
         <div className="ml3">
@@ -76,7 +76,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
             actionLabelMessage={intl.formatMessage(messages.label)}
             noActionMessage={intl.formatMessage(messages.noAction)}
           >
-            <FormattedMessage id="subscription.purchase-settings.error.message" />
+            <FormattedMessage id="store/subscription.purchase-settings.error.message" />
           </EditAlert>
         )}
       </div>

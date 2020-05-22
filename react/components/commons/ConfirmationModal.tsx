@@ -6,15 +6,15 @@ import { makeCancelable } from '../../utils'
 
 export const messages = defineMessages({
   cancelationLabel: {
-    id: 'subscription.editition.cancel',
+    id: 'store/subscription.editition.cancel',
     defaultMessage: '',
   },
   errorMessage: {
-    id: 'subscription.fallback.error.message',
+    id: 'store/subscription.fallback.error.message',
     defaultMessage: '',
   },
   successMessage: {
-    id: 'store/subscription.editition.success', // TODO: use subscription.edit.success instead
+    id: 'store/subscription.edit.success',
     defaultMessage: '',
   },
 })

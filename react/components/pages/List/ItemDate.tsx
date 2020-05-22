@@ -5,19 +5,19 @@ import { SubscriptionStatus } from '../../../constants'
 
 const messages = defineMessages({
   nextPurchase: {
-    id: 'subscription.list.item.date.next.purchase',
+    id: 'store/subscription.list.item.date.next.purchase',
     defaultMessage: '',
   },
   since: {
-    id: 'subscription.list.item.date.since',
+    id: 'store/subscription.list.item.date.since',
     defaultMessage: '',
   },
   paused: {
-    id: 'subscription.status.paused',
+    id: 'store/subscription.status.paused',
     defaultMessage: '',
   },
   canceled: {
-    id: 'subscription.status.canceled',
+    id: 'store/subscription.status.canceled',
     defaultMessage: '',
   },
 })
