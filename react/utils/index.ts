@@ -1,5 +1,4 @@
 import { RuntimeContext } from 'vtex.render-runtime'
-import { ApolloError } from 'apollo-client'
 import qs from 'query-string'
 import { RouteComponentProps } from 'vtex.my-account-commons/Router'
 
@@ -10,24 +9,6 @@ import {
   EditOptions,
 } from '../constants'
 import { logMetric } from '../tracking'
-
-export function parseErrorMessageId(error: ApolloError): string {
-  if (
-    error &&
-    error.graphQLErrors.length > 0 &&
-    error.graphQLErrors[0].extensions &&
-    error.graphQLErrors[0].extensions
-  ) {
-    return `subscription.fetch.${
-      (error.graphQLErrors[0].extensions.error &&
-        error.graphQLErrors[0].extensions.error.statusCode &&
-        error.graphQLErrors[0].extensions.error.statusCode.toLowerCase()) ||
-      'timeout'
-    }`
-  }
-
-  return ''
-}
 
 export function convertFilter(
   filter: SubscriptionDisplayFilterEnum

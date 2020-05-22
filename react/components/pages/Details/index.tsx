@@ -33,22 +33,11 @@ import Loader from './Loader'
 import Products from './Products'
 import { logError, logGraphqlError, queryWrapper } from '../../../tracking'
 
-export function headerConfig({ intl }: InjectedIntlProps) {
-  const backButton = {
-    title: intl.formatMessage({ id: 'subscription.title.list' }),
-    path: '/subscriptions',
-  }
-
-  return {
-    backButton,
-    title: intl.formatMessage({ id: 'subscription.title.single' }),
-    namespace: 'vtex-account__subscription-details',
-  }
-}
-
 const INSTANCE = 'SubscriptionsDetails'
 
 const messages = defineMessages({
+  detailsTitle: { id: 'subscription.title.single', defaultMessage: '' },
+  listTitle: { id: 'subscription.title.list', defaultMessage: '' },
   errorMessageButton: {
     id: 'subscription.alert.error.button.message',
     defaultMessage: '',
@@ -58,6 +47,19 @@ const messages = defineMessages({
     defaultMessage: '',
   },
 })
+
+export function headerConfig({ intl }: InjectedIntlProps) {
+  const backButton = {
+    title: intl.formatMessage(messages.listTitle),
+    path: '/subscriptions',
+  }
+
+  return {
+    backButton,
+    title: intl.formatMessage(messages.detailsTitle),
+    namespace: 'vtex-account__subscription-details',
+  }
+}
 
 class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public state = {
