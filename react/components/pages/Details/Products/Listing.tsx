@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { defineMessages } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import {
   SubscriptionStatus,
@@ -7,17 +7,9 @@ import {
   CSS,
 } from '../../../../constants'
 import EditButton from '../../../commons/EditButton'
-import Header from '../CardHeader'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from './ProductListItem'
 import { Subscription } from '..'
-
-const messages = defineMessages({
-  title: {
-    id: 'store/subscription.products.card.title',
-    defaultMessage: '',
-  },
-})
 
 function mapVariationsToDesc(product: Subscription) {
   const variations = product.sku.variations
@@ -48,15 +40,20 @@ const ProductsListing: FunctionComponent<Props> = ({
 }) => (
   <section className={BASIC_CARD_WRAPPER}>
     <div className={CSS.cardHorizontalPadding}>
-      <Header title={messages.title}>
-        {!isEditing && (
-          <EditButton
-            onEdit={onGoToEdition}
-            subscriptionStatus={subscriptionStatus}
-            testId="edit-products-button"
-          />
-        )}
-      </Header>
+      <div className="flex h2">
+        <div className="db-s di-ns b f4 tl c-on-base">
+          <FormattedMessage id="store/subscription.products.card.title" />
+        </div>
+        <div className="ml-auto">
+          {!isEditing && (
+            <EditButton
+              onEdit={onGoToEdition}
+              subscriptionStatus={subscriptionStatus}
+              testId="edit-products-button"
+            />
+          )}
+        </div>
+      </div>
     </div>
     {products.map((product, i) => (
       <div
