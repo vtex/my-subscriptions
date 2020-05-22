@@ -238,7 +238,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
         children = modalBody({
           title: unskip ? messages.unSkipTitle : messages.skipTitle,
-          desc: unskip ? messages.unSkipDesc : messages.skipTitle,
+          desc: unskip ? messages.unSkipDesc : messages.skipDesc,
         })
         break
     }
