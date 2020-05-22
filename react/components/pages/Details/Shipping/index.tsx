@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import qs from 'query-string'
@@ -44,6 +44,17 @@ function newAddressArgs(location: RouteComponentProps['location']) {
 
   return null
 }
+
+const messages = defineMessages({
+  success: {
+    id: 'subscription.edit.success',
+    defaultMessage: '',
+  },
+  errorMessage: {
+    id: 'subscription.fallback.error.message',
+    defaultMessage: '',
+  },
+})
 
 class ShippingContainer extends Component<Props, State> {
   constructor(props: Props) {
@@ -135,9 +146,7 @@ class ShippingContainer extends Component<Props, State> {
       })
       .then(() => {
         showToast({
-          message: intl.formatMessage({
-            id: 'subscription.edit.success',
-          }),
+          message: intl.formatMessage(messages.success),
         })
 
         this.setState({
@@ -155,12 +164,7 @@ class ShippingContainer extends Component<Props, State> {
         })
 
         this.setState({
-          errorMessage: `subscription.fetch.${
-            e.graphQLErrors.length > 0 &&
-            e.graphQLErrors[0].extensions &&
-            e.graphQLErrors[0].extensions.error &&
-            e.graphQLErrors[0].extensions.error.statusCode.toLowerCase()
-          }`,
+          errorMessage: intl.formatMessage(messages.errorMessage),
           isLoading: false,
           showErrorAlert: true,
         })
