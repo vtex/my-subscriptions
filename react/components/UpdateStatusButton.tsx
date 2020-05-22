@@ -11,14 +11,14 @@ import { ApolloError } from 'apollo-client'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatus } from '../../constants'
-import UPDATE_STATUS from '../../graphql/updateStatus.gql'
+import { SubscriptionStatus } from '../constants'
+import UPDATE_STATUS from '../graphql/updateStatus.gql'
 import ConfirmationModal, {
   messages as modalMessages,
-} from './ConfirmationModal'
-import { logGraphqlError } from '../../tracking'
+} from './commons/ConfirmationModal'
+import { logGraphqlError } from '../tracking'
 
-const messages = defineMessages({
+export const messages = defineMessages({
   pauseTitle: {
     id: 'subscription.pause.title',
     defaultMessage: '',

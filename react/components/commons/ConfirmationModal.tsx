@@ -14,7 +14,7 @@ export const messages = defineMessages({
     defaultMessage: '',
   },
   successMessage: {
-    id: 'store/subscription.editition.success',
+    id: 'store/subscription.editition.success', // TODO: use subscription.edit.success instead
     defaultMessage: '',
   },
 })

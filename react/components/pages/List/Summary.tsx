@@ -6,7 +6,7 @@ import Frequency from '../../Frequency/Info'
 import { SubscriptionStatus } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
-import UpdateStatusButton from '../../commons/UpdateStatusButton'
+import UpdateStatusButton from '../../UpdateStatusButton'
 import ItemDate from './ItemDate'
 import { SubscriptionsGroup } from '.'
 
