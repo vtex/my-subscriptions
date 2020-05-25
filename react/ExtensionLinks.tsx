@@ -3,7 +3,7 @@ import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 
 const messages = defineMessages({
   title: {
-    id: 'subscription.title.list',
+    id: 'store/subscription.title.list',
     defaultMessage: '',
   },
 })

@@ -47,11 +47,11 @@ function newAddressArgs(location: RouteComponentProps['location']) {
 
 const messages = defineMessages({
   success: {
-    id: 'subscription.edit.success',
+    id: 'store/subscription.edit.success',
     defaultMessage: '',
   },
   errorMessage: {
-    id: 'subscription.fallback.error.message',
+    id: 'store/subscription.fallback.error.message',
     defaultMessage: '',
   },
 })

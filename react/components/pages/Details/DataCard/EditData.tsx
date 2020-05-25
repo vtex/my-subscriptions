@@ -26,18 +26,18 @@ import {
 
 const messages = defineMessages({
   cardTitle: {
-    id: 'subscription.data',
+    id: 'store/subscription.data',
     defaultMessage: '',
   },
-  selectDay: { id: 'subscription.select.day', defaultMessage: '' },
-  orderAgain: { id: 'subscription.data.orderAgain', defaultMessage: '' },
+  selectDay: { id: 'store/subscription.select.day', defaultMessage: '' },
+  orderAgain: { id: 'store/subscription.data.orderAgain', defaultMessage: '' },
   chargeEvery: {
-    id: 'subscription.data.chargeEvery',
+    id: 'store/subscription.data.chargeEvery',
     defaultMessage: '',
   },
-  select: { id: 'subscription.select', defaultMessage: '' },
+  select: { id: 'store/subscription.select', defaultMessage: '' },
   errorMessage: {
-    id: 'subscription.fallback.error.message',
+    id: 'store/subscription.fallback.error.message',
     defaultMessage: '',
   },
 })

@@ -14,11 +14,11 @@ import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.shipping-address.error.action',
+    id: 'store/subscription.shipping-address.error.action',
     defaultMessage: '',
   },
   noAction: {
-    id: 'subscription.shipping-address.error.no-action',
+    id: 'store/subscription.shipping-address.error.no-action',
     defaultMessage: '',
   },
 })
@@ -27,7 +27,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
   <>
     <div className="flex">
       <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.shipping" />
+        <FormattedMessage id="store/subscription.shipping" />
       </div>
       <div className="ml-auto">
         <EditButton
@@ -56,7 +56,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
           actionLabelMessage={intl.formatMessage(messages.label)}
           noActionMessage={intl.formatMessage(messages.noAction)}
         >
-          <FormattedMessage id="subscription.shipping-address.error.message" />
+          <FormattedMessage id="store/subscription.shipping-address.error.message" />
         </EditAlert>
       )}
     </div>

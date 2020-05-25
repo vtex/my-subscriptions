@@ -14,10 +14,13 @@ import ConfirmationModal, {
 import { logGraphqlError } from '../../tracking'
 
 const messages = defineMessages({
-  title: { id: 'subscription.view.title', defaultMessage: '' },
-  choose: { id: 'subscription.name.editition.name.title', defaultMessage: '' },
+  title: { id: 'store/subscription.view.title', defaultMessage: '' },
+  choose: {
+    id: 'store/subscription.name.editition.name.title',
+    defaultMessage: '',
+  },
   confirmationLabel: {
-    id: 'subscription.name.editition.edit',
+    id: 'store/subscription.name.editition.edit',
     defaultMessage: '',
   },
 })

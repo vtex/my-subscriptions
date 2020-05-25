@@ -36,14 +36,14 @@ import { logError, logGraphqlError, queryWrapper } from '../../../tracking'
 const INSTANCE = 'SubscriptionsDetails'
 
 const messages = defineMessages({
-  detailsTitle: { id: 'subscription.title.single', defaultMessage: '' },
-  listTitle: { id: 'subscription.title.list', defaultMessage: '' },
+  detailsTitle: { id: 'store/subscription.title.single', defaultMessage: '' },
+  listTitle: { id: 'store/subscription.title.list', defaultMessage: '' },
   errorMessageButton: {
-    id: 'subscription.alert.error.button.message',
+    id: 'store/subscription.alert.error.button.message',
     defaultMessage: '',
   },
   errorMessage: {
-    id: 'subscription.alert.error.message',
+    id: 'store/subscription.alert.error.message',
     defaultMessage: '',
   },
 })

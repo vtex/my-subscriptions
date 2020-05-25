@@ -21,7 +21,7 @@ const EditButton: FunctionComponent<Props> = ({
         disabled={subscriptionStatus === SubscriptionStatus.Paused}
         testId={testId}
       >
-        <FormattedMessage id="subscription.actions.edit" />
+        <FormattedMessage id="store/subscription.actions.edit" />
       </Button>
     )
 
