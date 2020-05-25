@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
+import { SubscriptionStatus as StatusType } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionStatus as StatusEnum } from '../constants'
-
-export function convertStatusInTagType(status: StatusEnum): string | null {
+export function convertStatusInTagType(status: StatusType): string | null {
   switch (status) {
-    case StatusEnum.Canceled:
+    case 'CANCELED':
       return 'error'
-    case StatusEnum.Paused:
+    case 'PAUSED':
       return 'warning'
     default:
       return null
@@ -41,7 +40,7 @@ const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
 }
 
 interface Props {
-  status: StatusEnum
+  status: StatusType
 }
 
 export default SubscriptionStatus

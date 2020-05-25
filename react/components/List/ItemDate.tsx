@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
-
-import { SubscriptionStatus } from '../../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const messages = defineMessages({
   nextPurchase: {
@@ -26,7 +25,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<
   Props & InjectedIntlProps
 > = ({ status, nextPurchaseDate, lastStatusUpdate, intl }) => {
   const content =
-    status === SubscriptionStatus.Active
+    status === 'ACTIVE'
       ? intl.formatMessage(messages.nextPurchase, {
           date: intl.formatDate(nextPurchaseDate),
         })

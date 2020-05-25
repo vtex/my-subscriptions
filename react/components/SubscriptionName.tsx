@@ -5,9 +5,9 @@ import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { IconEdit, Input } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import UPDATE_NAME from '../graphql/updateName.gql'
-import { SubscriptionStatus } from '../constants'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
@@ -109,7 +109,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
       },
     }
 
-    const canEdit = status === SubscriptionStatus.Active
+    const canEdit = status === 'ACTIVE'
 
     return (
       <Fragment>
