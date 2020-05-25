@@ -7,8 +7,8 @@ import {
 } from 'react-intl'
 import { Button, Alert } from 'vtex.styleguide'
 
-import EditAlert from '../../EditAlert'
-import EditButton from '../../EditButton'
+import EditAlert from '../EditAlert'
+import EditButton from '../EditButton'
 import PaymentDisplay from './PaymentDisplay'
 import { SubscriptionsGroup } from '..'
 

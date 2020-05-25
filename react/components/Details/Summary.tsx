@@ -4,7 +4,7 @@ import { Alert } from 'vtex.styleguide'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../constants'
 import Name from '../SubscriptionName'
-import ItemsImage from '../ItemsImage'
+import ItemsImage from './ItemsImage'
 import SubscriptionsStatus from '../SubscriptionStatus'
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
