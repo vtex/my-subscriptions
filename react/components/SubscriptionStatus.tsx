@@ -34,7 +34,9 @@ const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
 
   return (
     <Tag type={type}>
-      <FormattedMessage id={`subscription.status.${status.toLowerCase()}`} />
+      <FormattedMessage
+        id={`store/subscription.status.${status.toLowerCase()}`}
+      />
     </Tag>
   )
 }
