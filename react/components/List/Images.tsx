@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 
-import { CSS } from '../../../constants'
-import ProductImage from '../../commons/ProductImage'
+import { CSS } from '../../constants'
+import ProductImage from '../ProductImage'
 
 import './global.css'
 

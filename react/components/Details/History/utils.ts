@@ -1,6 +1,6 @@
 import { defineMessages, InjectedIntlProps } from 'react-intl'
 
-import { SubscriptionOrderStatus } from '../../../../constants'
+import { SubscriptionOrderStatus } from '../../../constants'
 
 defineMessages({
   triggered: {

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import { SubscriptionStatus } from '../../constants'
+import { SubscriptionStatus } from '../constants'
 
 const EditButton: FunctionComponent<Props> = ({
   subscriptionStatus,

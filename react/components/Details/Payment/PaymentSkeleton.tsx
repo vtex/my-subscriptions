@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SkeletonLoader from '../../../commons/SkeletonLoader'
+import SkeletonLoader from '../../SkeletonLoader'
 
 const PaymentSkeleton = () => (
   <>

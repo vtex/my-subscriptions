@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 
-import { SubscriptionStatus } from '../../../constants'
+import { SubscriptionStatus } from '../../constants'
 
 const messages = defineMessages({
   nextPurchase: {

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { BASIC_CARD_WRAPPER, CSS } from '../../../../constants'
-import SkeletonLoader from '../../../commons/SkeletonLoader'
+import { BASIC_CARD_WRAPPER, CSS } from '../../../constants'
+import SkeletonLoader from '../../SkeletonLoader'
 
 const DataSkeleton = () => (
   <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>

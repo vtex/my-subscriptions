@@ -15,12 +15,12 @@ import {
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import REMOVE_MUTATION from '../../../../graphql/removeSubscription.gql'
-import UPDATE_MUTATION from '../../../../graphql/updateSubscriptions.gql'
-import ConfirmationModal from '../../../commons/ConfirmationModal'
+import REMOVE_MUTATION from '../../../graphql/removeSubscription.gql'
+import UPDATE_MUTATION from '../../../graphql/updateSubscriptions.gql'
+import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
 import { SubscriptionsGroup, Subscription } from '..'
-import { logGraphqlError } from '../../../../tracking'
+import { logGraphqlError } from '../../../tracking'
 
 function mapSubscriptionsToHashMap(subscriptions: Subscription[]) {
   return subscriptions.reduce(

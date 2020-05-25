@@ -11,23 +11,23 @@ import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import UpdatePaymentMethod from '../../../../graphql/updatePaymentMethod.gql'
+import UpdatePaymentMethod from '../../../graphql/updatePaymentMethod.gql'
 import {
   PaymentSystemGroup,
   EditOptions,
   PAYMENT_DIV_ID,
   BASIC_CARD_WRAPPER,
   CSS,
-} from '../../../../constants'
+} from '../../../constants'
 import {
   getEditOption,
   scrollToElement,
   removeElementsFromSearch,
-} from '../../../../utils'
+} from '../../../utils'
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 import { SubscriptionsGroup } from '..'
-import { logGraphqlError } from '../../../../tracking'
+import { logGraphqlError } from '../../../tracking'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)

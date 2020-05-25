@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 
-import { CSS } from '../../../constants'
-import SkeletonLoader from '../../commons/SkeletonLoader'
+import { CSS } from '../../constants'
+import SkeletonLoader from '../SkeletonLoader'
 
 const SubscriptionsGroupsLoading: FunctionComponent = () => {
   return (

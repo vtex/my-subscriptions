@@ -7,9 +7,9 @@ import {
 } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
-import LabeledInfo from '../../../commons/LabeledInfo'
-import EditButton from '../../../commons/EditButton'
-import EditAlert from '../../../commons/EditAlert'
+import LabeledInfo from '../../LabeledInfo'
+import EditButton from '../../EditButton'
+import EditAlert from '../../EditAlert'
 import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({

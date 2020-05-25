@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react'
 import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
-import { CSS, BASIC_CARD_WRAPPER } from '../../../../constants'
-import EditButton from '../../../commons/EditButton'
-import FrequencyInfo from '../../../Frequency/Info'
-import LabeledInfo from '../../../commons/LabeledInfo'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../constants'
+import EditButton from '../../EditButton'
+import FrequencyInfo from '../../Frequency/Info'
+import LabeledInfo from '../../LabeledInfo'
 import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({

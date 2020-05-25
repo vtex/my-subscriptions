@@ -15,15 +15,15 @@ import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 import { Alert } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
-import SUBSCRIPTIONS_GROUP from '../../../graphql/subscriptionsGroup.gql'
-import RETRY_MUTATION from '../../../graphql/retryMutation.gql'
+import SUBSCRIPTIONS_GROUP from '../../graphql/subscriptionsGroup.gql'
+import RETRY_MUTATION from '../../graphql/retryMutation.gql'
 import {
   SubscriptionStatus,
   SubscriptionOrderStatus,
   PAYMENT_DIV_ID,
   Periodicity,
-} from '../../../constants'
-import { scrollToElement } from '../../../utils'
+} from '../../constants'
+import { scrollToElement } from '../../utils'
 import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
@@ -31,7 +31,7 @@ import Shipping from './Shipping'
 import History from './History'
 import Loader from './Loader'
 import Products from './Products'
-import { logError, logGraphqlError, queryWrapper } from '../../../tracking'
+import { logError, logGraphqlError, queryWrapper } from '../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails'
 

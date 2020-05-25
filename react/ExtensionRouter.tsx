@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { Route } from 'vtex.my-account-commons/Router'
 
-import SubscriptionsListContainer from './components/pages/List'
-import SubscriptionDetailContainer from './components/pages/Details'
+import SubscriptionsListContainer from './components/List'
+import SubscriptionDetailContainer from './components/Details'
 import { withAppInfo } from './tracking'
 
 const ExtensionRouter = () => (

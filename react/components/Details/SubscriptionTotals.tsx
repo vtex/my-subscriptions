@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
 import { Total } from 'vtex.subscriptions-graphql'
 
-import FormattedPrice from '../../commons/FormattedPrice'
+import FormattedPrice from '../FormattedPrice'
 
 const messages = defineMessages({
   total: { id: 'store/subscription.summary.total', defaultMessage: '' },

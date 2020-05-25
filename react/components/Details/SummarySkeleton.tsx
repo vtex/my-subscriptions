@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SkeletonLoader from '../../commons/SkeletonLoader'
+import SkeletonLoader from '../SkeletonLoader'
 
 const SummarySkeleton = () => (
   <div className="card bg-base pa6 ba bw1 b--muted-5">

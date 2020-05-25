@@ -8,7 +8,7 @@ import DataSkeleton from './DataCard/DataSkeleton'
 import SummarySkeleton from './SummarySkeleton'
 import PaymentSkeleton from './Payment/PaymentSkeleton'
 import { headerConfig } from '.'
-import { BASIC_CARD_WRAPPER, CSS } from '../../../constants'
+import { BASIC_CARD_WRAPPER, CSS } from '../../constants'
 
 const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
   data,

@@ -9,7 +9,7 @@ import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import UPDATE_ADDRESS from '../../../../graphql/updateAddress.gql'
+import UPDATE_ADDRESS from '../../../graphql/updateAddress.gql'
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 import { SubscriptionsGroup } from '..'
@@ -18,13 +18,13 @@ import {
   CSS,
   ADDRESS_DIV_ID,
   EditOptions,
-} from '../../../../constants'
+} from '../../../constants'
 import {
   getEditOption,
   scrollToElement,
   removeElementsFromSearch,
-} from '../../../../utils'
-import { logGraphqlError } from '../../../../tracking'
+} from '../../../utils'
+import { logGraphqlError } from '../../../tracking'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
