@@ -6,11 +6,11 @@ import { ApolloError } from 'apollo-client'
 import { Dropdown, Alert } from 'vtex.styleguide'
 import {
   MutationUpdateSettingsArgs,
-  Periodicity as GraphQLPeriodicity,
+  Periodicity,
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import { CSS, BASIC_CARD_WRAPPER, Periodicity } from '../../../constants'
+import { CSS, BASIC_CARD_WRAPPER } from '../../../constants'
 import FREQUENCY_OPTIONS from '../../../graphql/frequencyOptions.gql'
 import UPDATE_SETTINGS from '../../../graphql/updateSubscriptionSettings.gql'
 import EditionButtons from '../EditionButtons'
@@ -91,7 +91,7 @@ class EditData extends Component<Props, State> {
     const { intl } = this.props
     const { periodicity } = this.getCurrentFrequency()
 
-    if (periodicity === Periodicity.Weekly) {
+    if (periodicity === 'WEEKLY') {
       return WEEK_OPTIONS.map((weekDay) => ({
         value: weekDay,
         label: displayWeekDay({ weekDay, intl }),
@@ -122,7 +122,7 @@ class EditData extends Component<Props, State> {
     const variables = {
       subscriptionsGroupId: this.props.group.id,
       purchaseDay,
-      periodicity: (periodicity as unknown) as GraphQLPeriodicity,
+      periodicity,
       interval,
     }
 
@@ -166,8 +166,7 @@ class EditData extends Component<Props, State> {
 
     const { periodicity } = this.getCurrentFrequency()
 
-    const isEditDisabled =
-      purchaseDay === '' && periodicity !== Periodicity.Daily
+    const isEditDisabled = purchaseDay === '' && periodicity !== 'DAILY'
 
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
@@ -193,7 +192,7 @@ class EditData extends Component<Props, State> {
               onChange={this.handleFrequencyChange}
             />
           </div>
-          {periodicity !== Periodicity.Daily && purchaseDay && (
+          {periodicity !== 'DAILY' && purchaseDay && (
             <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
                 label={intl.formatMessage(messages.chargeEvery)}

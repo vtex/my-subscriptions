@@ -4,25 +4,19 @@ import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { ContentWrapper } from 'vtex.my-account-commons'
-import {
-  MutationRetrySubscriptionOrderArgs,
-  SubscriptionsGroup as Group,
-  Sku,
-  SubscriptionOrder,
-  PaymentMethod,
-} from 'vtex.subscriptions-graphql'
+import { MutationRetrySubscriptionOrderArgs } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { Alert } from 'vtex.styleguide'
 import { ApolloError } from 'apollo-client'
 
-import SUBSCRIPTIONS_GROUP from '../../graphql/subscriptionsGroup.gql'
+import SUBSCRIPTIONS_GROUP, {
+  SubscriptionsGroup,
+  Subscription,
+  Result,
+  Args,
+} from '../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../graphql/retryMutation.gql'
-import {
-  SubscriptionStatus,
-  SubscriptionOrderStatus,
-  PAYMENT_DIV_ID,
-  Periodicity,
-} from '../../constants'
+import { SubscriptionOrderStatus, PAYMENT_DIV_ID } from '../../constants'
 import { scrollToElement } from '../../utils'
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -189,58 +183,10 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   }
 }
 
-export type SubscriptionsGroup = Pick<
-  Group,
-  | 'id'
-  | 'name'
-  | 'isSkipped'
-  | 'totals'
-  | 'shippingEstimate'
-  | 'nextPurchaseDate'
-  | 'shippingAddress'
-> & {
-  status: SubscriptionStatus
-  subscriptions: Subscription[]
-  lastOrder: Pick<SubscriptionOrder, 'id'> & {
-    status: SubscriptionOrderStatus
-  }
-  purchaseSettings: {
-    currencySymbol: string
-    purchaseDay: string | null
-    paymentMethod: PaymentMethod | null
-  }
-  plan: {
-    frequency: {
-      periodicity: Periodicity
-      interval: number
-    }
-  }
-  __typename: string
-}
-
-export interface Subscription {
-  id: string
-  sku: Pick<
-    Sku,
-    'imageUrl' | 'name' | 'detailUrl' | 'productName' | 'id' | 'measurementUnit'
-  > & {
-    variations?: { [key: string]: string } | null
-  }
-  quantity: number
-  currentPrice: number
-}
-
 interface Props extends InjectedIntlProps, ChildProps, InjectedRuntimeContext {
   retry: (args: {
     variables: MutationRetrySubscriptionOrderArgs
   }) => Promise<void>
-}
-
-interface Response {
-  group: SubscriptionsGroup
-}
-interface Variables {
-  id: string
 }
 
 type InputProps = RouteComponentProps<{ subscriptionsGroupId: string }> &
@@ -256,7 +202,7 @@ const enhance = compose<Props, {}>(
   withRouter,
   withRuntimeContext,
   graphql(RETRY_MUTATION, { name: 'retry' }),
-  queryWrapper<InputProps, Response, Variables, ChildProps>(
+  queryWrapper<InputProps, Result, Args, ChildProps>(
     INSTANCE,
     SUBSCRIPTIONS_GROUP,
     {
@@ -274,5 +220,7 @@ const enhance = compose<Props, {}>(
   ),
   branch<ChildProps>((props) => props.loading, renderComponent(Loader))
 )
+
+export { SubscriptionsGroup, Subscription }
 
 export default enhance(SubscriptionsGroupDetailsContainer)

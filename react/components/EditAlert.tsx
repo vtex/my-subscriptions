@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { Alert } from 'vtex.styleguide'
-
-import { SubscriptionStatus } from '../constants'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const EditAlert: FunctionComponent<Props> = ({
   subscriptionStatus,
@@ -10,7 +9,7 @@ const EditAlert: FunctionComponent<Props> = ({
   onAction,
   children,
 }) => {
-  const canBeEdited = subscriptionStatus === SubscriptionStatus.Active
+  const canBeEdited = subscriptionStatus === 'ACTIVE'
 
   return canBeEdited ? (
     <Alert
