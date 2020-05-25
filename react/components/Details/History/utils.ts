@@ -1,6 +1,5 @@
 import { defineMessages, InjectedIntlProps } from 'react-intl'
-
-import { SubscriptionOrderStatus } from '../../../constants'
+import { SubscriptionOrderStatus } from 'vtex.subscriptions-graphql'
 
 defineMessages({
   triggered: {

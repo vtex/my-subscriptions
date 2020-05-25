@@ -16,7 +16,7 @@ import SUBSCRIPTIONS_GROUP, {
   Args,
 } from '../../graphql/subscriptionsGroup.gql'
 import RETRY_MUTATION from '../../graphql/retryMutation.gql'
-import { SubscriptionOrderStatus, PAYMENT_DIV_ID } from '../../constants'
+import { PAYMENT_DIV_ID } from '../../constants'
 import { scrollToElement } from '../../utils'
 import DataCard from './DataCard'
 import Summary from './Summary'
@@ -66,8 +66,7 @@ class SubscriptionsGroupDetailsContainer extends Component<Props> {
   public static getDerivedStateFromProps(props: Props) {
     const lastOrder = props.group && props.group.lastOrder
 
-    return lastOrder &&
-      lastOrder.status === SubscriptionOrderStatus.PaymentError
+    return lastOrder && lastOrder.status === 'PAYMENT_ERROR'
       ? {
           displayRetry: true,
         }

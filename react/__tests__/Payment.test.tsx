@@ -5,7 +5,6 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
-import { SubscriptionStatus } from '../constants'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 
 const INVALID_PAYMENT =
@@ -62,7 +61,7 @@ describe('Payment Scenarios', () => {
           mocks: [
             generateDetailMock({
               hasPaymentMethod: false,
-              status: SubscriptionStatus.Paused,
+              status: 'PAUSED',
             }),
           ],
         },

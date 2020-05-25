@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
-import { SubscriptionOrderStatus } from '../../../constants'
 import style from './style.css'
 import { SubscriptionOrder } from './HistoryList'
 import { displayOrderStatus } from './utils'
@@ -12,17 +11,17 @@ const HistoryItem: FunctionComponent<Props> = ({ order, intl }) => {
   let statusColor = ''
 
   switch (status) {
-    case SubscriptionOrderStatus.Success:
-    case SubscriptionOrderStatus.SuccessWithPartialOrder:
+    case 'SUCCESS':
+    case 'SUCCESS_WITH_PARTIAL_ORDER':
       statusColor = 'c-success'
       break
-    case SubscriptionOrderStatus.Skiped:
-    case SubscriptionOrderStatus.SuccessWithNoOrder:
+    case 'SKIPED':
+    case 'SUCCESS_WITH_NO_ORDER':
       statusColor = 'c-warning'
       break
-    case SubscriptionOrderStatus.Failure:
-    case SubscriptionOrderStatus.OrderError:
-    case SubscriptionOrderStatus.PaymentError:
+    case 'FAILURE':
+    case 'ORDER_ERROR':
+    case 'PAYMENT_ERROR':
       statusColor = 'c-danger'
       break
     default:

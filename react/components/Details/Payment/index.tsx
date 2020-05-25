@@ -7,13 +7,15 @@ import { path } from 'ramda'
 import qs from 'query-string'
 import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { MutationUpdatePaymentMethodArgs } from 'vtex.subscriptions-graphql'
+import {
+  MutationUpdatePaymentMethodArgs,
+  PaymentSystemGroup,
+} from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import UpdatePaymentMethod from '../../../graphql/updatePaymentMethod.gql'
 import {
-  PaymentSystemGroup,
   EditOptions,
   PAYMENT_DIV_ID,
   BASIC_CARD_WRAPPER,
@@ -42,7 +44,7 @@ function newPaymentArgs(location: RouteComponentProps['location']) {
     return {
       selectedAccountId: args.newPaymentAccountId,
       selectedPaymentSystemId: args.newPaymentSystemId,
-      selectedPaymentSystemGroup: PaymentSystemGroup.CreditCard,
+      selectedPaymentSystemGroup: 'creditCard' as PaymentSystemGroup,
       isEditMode: true,
     }
   }
@@ -91,7 +93,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
         path(
           ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemGroup'],
           props
-        ) ?? PaymentSystemGroup.CreditCard,
+        ) ?? 'creditCard',
       showAlert: false,
     }
 
@@ -182,9 +184,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
     const variables = {
       accountId:
-        selectedPaymentSystemGroup === PaymentSystemGroup.CreditCard
-          ? selectedAccountId
-          : null,
+        selectedPaymentSystemGroup === 'creditCard' ? selectedAccountId : null,
       subscriptionsGroupId: group.id,
       paymentSystemId: selectedPaymentSystemId as string,
     }

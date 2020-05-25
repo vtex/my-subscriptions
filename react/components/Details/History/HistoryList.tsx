@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
+import { SubscriptionOrderStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionOrderStatus } from '../../../constants'
 import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../graphql/subscriptionOrdersByGroup.gql'
 import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
