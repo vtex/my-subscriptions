@@ -2,101 +2,81 @@ import { defineMessages, InjectedIntlProps } from 'react-intl'
 
 import { Periodicity } from '../../constants'
 
-defineMessages({
+const messages = defineMessages({
   day: {
-    id: 'order.subscription.periodicity.day',
+    id: 'store/subscription.periodicity.day',
     defaultMessage: '',
   },
   week: {
-    id: 'order.subscription.periodicity.week',
+    id: 'store/subscription.periodicity.week',
     defaultMessage: '',
   },
   month: {
-    id: 'order.subscription.periodicity.month',
+    id: 'store/subscription.periodicity.month',
     defaultMessage: '',
   },
   year: {
-    id: 'order.subscription.periodicity.year',
-    defaultMessage: '',
-  },
-  daily: {
-    id: 'order.subscription.periodicity.daily',
-    defaultMessage: '',
-  },
-  weekly: {
-    id: 'order.subscription.periodicity.weekly',
-    defaultMessage: '',
-  },
-  monthly: {
-    id: 'order.subscription.periodicity.monthly',
+    id: 'store/subscription.periodicity.year',
     defaultMessage: '',
   },
   biweekly: {
-    id: 'order.subscription.periodicity.biweekly',
+    id: 'store/subscription.periodicity.biweekly',
     defaultMessage: '',
   },
   bimonthly: {
-    id: 'order.subscription.periodicity.bimonthly',
+    id: 'store/subscription.periodicity.bimonthly',
     defaultMessage: '',
   },
   semiannual: {
-    id: 'order.subscription.periodicity.semiannual',
+    id: 'store/subscription.periodicity.semiannual',
     defaultMessage: '',
   },
   yearly: {
-    id: 'order.subscription.periodicity.yearly',
+    id: 'store/subscription.periodicity.yearly',
     defaultMessage: '',
   },
-  weeklyStep: {
-    id: 'order.subscription.periodicity.weekly.step',
-    defaultMessage: '',
-  },
-  monthlyStep: {
-    id: 'order.subscription.periodicity.monthly.step',
-    defaultMessage: '',
-  },
-  yearlyStep: {
-    id: 'order.subscription.periodicity.yearly.step',
+  every: {
+    id: 'store/subscription.periodicity.every',
     defaultMessage: '',
   },
   monday: {
-    id: 'subscription.periodicity.monday',
+    id: 'store/subscription.periodicity.monday',
     defaultMessage: '',
   },
   tuesday: {
-    id: 'subscription.periodicity.tuesday',
+    id: 'store/subscription.periodicity.tuesday',
     defaultMessage: '',
   },
   wednesday: {
-    id: 'subscription.periodicity.wednesday',
+    id: 'store/subscription.periodicity.wednesday',
     defaultMessage: '',
   },
   thursday: {
-    id: 'subscription.periodicity.thursday',
+    id: 'store/subscription.periodicity.thursday',
     defaultMessage: '',
   },
   friday: {
-    id: 'subscription.periodicity.friday',
+    id: 'store/subscription.periodicity.friday',
     defaultMessage: '',
   },
   saturday: {
-    id: 'subscription.periodicity.saturday',
+    id: 'store/subscription.periodicity.saturday',
     defaultMessage: '',
   },
   sunday: {
-    id: 'subscription.periodicity.sunday',
+    id: 'store/subscription.periodicity.sunday',
     defaultMessage: '',
   },
-  weekly2: {
-    id: 'subscription.periodicity.weekly', // TODO remove duplicated string
+  weekly: {
+    id: 'store/subscription.periodicity.weekly',
     defaultMessage: '',
   },
-  daily2: {
-    id: 'subscription.periodicity.daily', // TODO remove duplicated string
+  daily: {
+    id: 'store/subscription.periodicity.daily',
     defaultMessage: '',
   },
-  monthly2: {
-    id: 'subscription.periodicity.monthly', // TODO remove duplicated string
+  monthly: {
+    id: 'store/subscription.periodicity.monthly',
     defaultMessage: '',
   },
 })
@@ -106,7 +86,7 @@ export function displayWeekDay({
   weekDay,
 }: { weekDay: string } & InjectedIntlProps) {
   return intl.formatMessage({
-    id: `subscription.periodicity.${weekDay}`,
+    id: `store/subscription.periodicity.${weekDay}`,
   })
 }
 
@@ -117,7 +97,7 @@ export function displayPeriodicity({
 }: { periodicity: Periodicity; interval: number } & InjectedIntlProps) {
   return intl.formatMessage(
     {
-      id: `order.subscription.periodicity.${periodicity.toLowerCase()}`,
+      id: `store/subscription.periodicity.${periodicity.toLowerCase()}`,
     },
     { count: interval }
   )
@@ -148,12 +128,7 @@ export function displayFrequency({
       moment = displayWeekDay({ weekDay: moment, intl }).toLocaleLowerCase()
     }
 
-    const purchaseDayText = intl.formatMessage(
-      {
-        id: `order.subscription.periodicity.${periodicity.toLowerCase()}.step`,
-      },
-      { moment }
-    )
+    const purchaseDayText = intl.formatMessage(messages.every, { moment })
 
     frequencyText = `${periodicityText}, ${purchaseDayText}`
   }

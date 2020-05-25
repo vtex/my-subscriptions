@@ -10,16 +10,16 @@ import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
   nextPurchase: {
-    id: 'subscription.nextPurchase',
+    id: 'store/subscription.nextPurchase',
     defaultMessage: '',
   },
-  skip: { id: 'subscription.skip.confirm', defaultMessage: '' },
+  skip: { id: 'store/subscription.skip.confirm', defaultMessage: '' },
   estimatedDelivery: {
-    id: 'subscription.data.estimatedDelivery',
+    id: 'store/subscription.data.estimatedDelivery',
     defaultMessage: '',
   },
   cardTitle: {
-    id: 'subscription.data',
+    id: 'store/subscription.data',
     defaultMessage: '',
   },
 })

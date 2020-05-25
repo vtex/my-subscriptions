@@ -17,7 +17,7 @@ import { queryWrapper } from '../../../../tracking'
 
 const messages = defineMessages({
   address: {
-    id: 'subscription.shipping.address',
+    id: 'store/subscription.shipping.address',
     defaultMessage: '',
   },
 })
@@ -47,7 +47,7 @@ const EditShipping: FunctionComponent<Props> = ({
   return (
     <>
       <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.shipping" />
+        <FormattedMessage id="store/subscription.shipping" />
       </div>
       <div className="flex pt5 w-100-s mr-auto flex-column">
         {showErrorAlert && (
@@ -71,7 +71,7 @@ const EditShipping: FunctionComponent<Props> = ({
             variation="tertiary"
             onClick={onGoToCreateAddress}
           >
-            <FormattedMessage id="subscription.shipping.newAddress" />
+            <FormattedMessage id="store/subscription.shipping.newAddress" />
           </Button>
         </div>
         <EditionButtons
