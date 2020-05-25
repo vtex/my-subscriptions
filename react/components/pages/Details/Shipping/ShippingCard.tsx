@@ -1,5 +1,10 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
+import {
+  injectIntl,
+  FormattedMessage,
+  defineMessages,
+  InjectedIntlProps,
+} from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import LabeledInfo from '../../../commons/LabeledInfo'
@@ -9,20 +14,20 @@ import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.shipping-address.error.action',
+    id: 'store/subscription.shipping-address.error.action',
     defaultMessage: '',
   },
   noAction: {
-    id: 'subscription.shipping-address.error.no-action',
+    id: 'store/subscription.shipping-address.error.no-action',
     defaultMessage: '',
   },
 })
 
-const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
+const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
   <>
     <div className="flex">
       <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.shipping" />
+        <FormattedMessage id="store/subscription.shipping" />
       </div>
       <div className="ml-auto">
         <EditButton
@@ -35,7 +40,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
     <div className="flex pt3-s pt5-ns w-100">
       {group.shippingAddress ? (
         <div className="w-100">
-          <LabeledInfo labelId={messages.label.id}>
+          <LabeledInfo label={intl.formatMessage(messages.label)}>
             <AddressRules
               country={group.shippingAddress.country}
               shouldUseIOFetching
@@ -48,17 +53,17 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group }) => (
         <EditAlert
           subscriptionStatus={group.status}
           onAction={onEdit}
-          actionLabelMessage={messages.label}
-          noActionMessage={messages.noAction}
+          actionLabelMessage={intl.formatMessage(messages.label)}
+          noActionMessage={intl.formatMessage(messages.noAction)}
         >
-          <FormattedMessage id="subscription.shipping-address.error.message" />
+          <FormattedMessage id="store/subscription.shipping-address.error.message" />
         </EditAlert>
       )}
     </div>
   </>
 )
 
-interface Props {
+interface Props extends InjectedIntlProps {
   group: SubscriptionsGroup
   onEdit: () => void
 }

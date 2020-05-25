@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { withRouter } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
@@ -30,6 +30,22 @@ function isEmpty(data: QueryResult) {
 
   return false
 }
+
+const messages = defineMessages({
+  filterLabel: { id: 'store/subscription.list.display', defaultMessage: '' },
+  activeFilter: {
+    id: 'store/subscription.list.display.active_filter',
+    defaultMessage: '',
+  },
+  canceledFilter: {
+    id: 'store/subscription.list.display.canceled_filter',
+    defaultMessage: '',
+  },
+  title: {
+    id: 'store/subscription.title.list',
+    defaultMessage: '',
+  },
+})
 
 const INSTANCE = 'SubscriptionsList'
 
@@ -64,18 +80,14 @@ class SubscriptionsGroupListContainer extends Component<
     const { intl } = this.props
     const { filter } = this.state
 
-    const filterLabel = intl.formatMessage({ id: 'subscription.list.display' })
+    const filterLabel = intl.formatMessage(messages.filterLabel)
     const filterOptions = [
       {
-        label: intl.formatMessage({
-          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Active.toLowerCase()}`,
-        }),
+        label: intl.formatMessage(messages.activeFilter),
         value: SubscriptionDisplayFilterEnum.Active,
       },
       {
-        label: intl.formatMessage({
-          id: `subscription.list.display.${SubscriptionDisplayFilterEnum.Canceled.toLowerCase()}`,
-        }),
+        label: intl.formatMessage(messages.canceledFilter),
         value: SubscriptionDisplayFilterEnum.Canceled,
       },
     ]
@@ -95,7 +107,7 @@ class SubscriptionsGroupListContainer extends Component<
     const headerConfig = {
       headerContent,
       namespace: 'vtex-account__subscriptions-list',
-      titleId: 'subscription.title.list',
+      titleId: messages.title.id,
     }
 
     const resultFilter = convertFilter(filter)

@@ -50,7 +50,7 @@ const messages = defineMessages({
     defaultMessage: '',
   },
   editionSuccess: {
-    id: 'store/subscription.editition.success',
+    id: 'store/subscription.edit.success',
     defaultMessage: '',
   },
 })

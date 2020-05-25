@@ -1,9 +1,12 @@
 import React, { FunctionComponent } from 'react'
-import { FormattedMessage, defineMessages } from 'react-intl'
-import { Button } from 'vtex.styleguide'
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  InjectedIntlProps,
+} from 'react-intl'
+import { Button, Alert } from 'vtex.styleguide'
 
-import { TagTypeEnum } from '../../../../constants'
-import Alert from '../../../commons/CustomAlert'
 import EditAlert from '../../../commons/EditAlert'
 import EditButton from '../../../commons/EditButton'
 import PaymentDisplay from './PaymentDisplay'
@@ -11,11 +14,11 @@ import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
   label: {
-    id: 'subscription.purchase-settings.error.action',
+    id: 'store/subscription.purchase-settings.error.action',
     defaultMessage: '',
   },
   noAction: {
-    id: 'subscription.purchase-settings.error.no-action',
+    id: 'store/subscription.purchase-settings.error.no-action',
     defaultMessage: '',
   },
 })
@@ -26,19 +29,21 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   onMakeRetry,
   displayRetry,
   isRetryButtonEnabled,
+  intl,
 }) => (
   <>
-    <Alert
-      visible={displayRetry}
-      type={TagTypeEnum.Warning}
-      contentId="subscription.payment.alert.info.message"
-      onClose={() => null}
-    />
-    <div className="flex flex-row">
-      <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.payment" />
+    {displayRetry && (
+      <div className="mb5">
+        <Alert type="warning">
+          <FormattedMessage id="store/subscription.payment.alert.info.message" />
+        </Alert>
       </div>
-      <div className="ml-auto flex flex-row">
+    )}
+    <div className="flex">
+      <div className="db-s di-ns b f4 tl c-on-base">
+        <FormattedMessage id="store/subscription.payment" />
+      </div>
+      <div className="ml-auto flex">
         {displayRetry && (
           <Button
             size="small"
@@ -46,7 +51,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
             onClick={onMakeRetry}
             disabled={!isRetryButtonEnabled}
           >
-            <FormattedMessage id="subscription.retry.button.message" />
+            <FormattedMessage id="store/subscription.retry.button.message" />
           </Button>
         )}
         <div className="ml3">
@@ -68,10 +73,10 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
           <EditAlert
             subscriptionStatus={group.status}
             onAction={onEdit}
-            actionLabelMessage={messages.label}
-            noActionMessage={messages.noAction}
+            actionLabelMessage={intl.formatMessage(messages.label)}
+            noActionMessage={intl.formatMessage(messages.noAction)}
           >
-            <FormattedMessage id="subscription.purchase-settings.error.message" />
+            <FormattedMessage id="store/subscription.purchase-settings.error.message" />
           </EditAlert>
         )}
       </div>
@@ -79,7 +84,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
   </>
 )
 
-interface Props {
+interface Props extends InjectedIntlProps {
   group: SubscriptionsGroup
   onEdit: () => void
   onMakeRetry: () => void
@@ -87,4 +92,4 @@ interface Props {
   isRetryButtonEnabled: boolean
 }
 
-export default SubscriptionsGroupPaymentCard
+export default injectIntl(SubscriptionsGroupPaymentCard)

@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
-import { ModalDialog, withToast } from 'vtex.styleguide'
+import { ModalDialog, withToast, Alert } from 'vtex.styleguide'
+import { defineMessages } from 'react-intl'
 
-import { TagTypeEnum } from '../../constants'
 import { makeCancelable } from '../../utils'
-import Alert from './CustomAlert'
+
+export const messages = defineMessages({
+  cancelationLabel: {
+    id: 'store/subscription.editition.cancel',
+    defaultMessage: '',
+  },
+  errorMessage: {
+    id: 'store/subscription.fallback.error.message',
+    defaultMessage: '',
+  },
+  successMessage: {
+    id: 'store/subscription.edit.success',
+    defaultMessage: '',
+  },
+})
 
 class ConfirmationModalContainer extends Component<Props> {
   public state = {
@@ -82,21 +96,19 @@ class ConfirmationModalContainer extends Component<Props> {
         }}
       >
         <div className="mt7">
-          <Alert
-            type={TagTypeEnum.Error}
-            onClose={this.handleDismissError}
-            visible={this.state.shouldDisplayError}
-          >
-            {errorMessage}
-          </Alert>
+          {this.state.shouldDisplayError && (
+            <div className="mb5">
+              <Alert type="error" onClose={this.handleDismissError}>
+                {errorMessage}
+              </Alert>
+            </div>
+          )}
           {children}
         </div>
       </ModalDialog>
     )
   }
 }
-
-export default withToast(ConfirmationModalContainer)
 
 interface Props {
   onSubmit: () => Promise<unknown>
@@ -110,3 +122,5 @@ interface Props {
   isModalOpen: boolean
   showToast: (args: object) => void
 }
+
+export default withToast(ConfirmationModalContainer)

@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react'
 import { BaseLoading } from 'vtex.my-account-commons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
-import { parseErrorMessageId } from '../../../utils'
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
 import HistorySkeleton from './History/HistorySkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'
@@ -16,11 +15,7 @@ const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
   intl,
 }) => {
   return (
-    <BaseLoading
-      queryData={data}
-      headerConfig={headerConfig({ intl })}
-      parseError={parseErrorMessageId}
-    >
+    <BaseLoading queryData={data} headerConfig={headerConfig({ intl })}>
       <div className="mr0 center w-100 pb5">
         <SummarySkeleton />
         <div className="flex flex-row-ns flex-column-s">

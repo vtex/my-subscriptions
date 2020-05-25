@@ -1,8 +1,23 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
 import { Total } from 'vtex.subscriptions-graphql'
 
 import FormattedPrice from '../../commons/FormattedPrice'
+
+const messages = defineMessages({
+  total: { id: 'store/subscription.summary.total', defaultMessage: '' },
+  // TODO: use Totatlizer translation
+  orderId: { id: 'store/subscription.summary.orderId', defaultMessage: '' },
+  value: { id: 'store/subscription.summary.value', defaultMessage: '' },
+  totalValue: {
+    id: 'store/subscription.summary.totalValue',
+    defaultMessage: '',
+  },
+  items: { id: 'store/subscription.summary.items', defaultMessage: '' },
+  shipping: { id: 'store/subscription.summary.shipping', defaultMessage: '' },
+  discounts: { id: 'store/subscription.summary.discounts', defaultMessage: '' },
+  quantity: { id: 'store/subscription.summary.quantity', defaultMessage: '' },
+})
 
 const SubscriptionTotals: FunctionComponent<Props> = ({
   totals,
@@ -18,7 +33,7 @@ const SubscriptionTotals: FunctionComponent<Props> = ({
           <div className="cf pt2" key={total.id}>
             <div className="dib f6 fw4 c-muted-1 w-40">
               {intl.formatMessage({
-                id: `subscription.summary.${total.id.toLowerCase()}`,
+                id: `store/subscription.summary.${total.id.toLowerCase()}`,
               })}
             </div>
             <div className="dib f6 fw4 c-muted-1 tr w-60">
@@ -30,7 +45,7 @@ const SubscriptionTotals: FunctionComponent<Props> = ({
 
       <div className="pt2">
         <div className="dib fl f6 fw5 c-muted-1 w-40">
-          {intl.formatMessage({ id: 'order.summary.total' })}
+          {intl.formatMessage(messages.total)}
         </div>
         <div className="dib f6 fw5 c-muted-1 w-60 tr">
           <FormattedPrice value={fullPrice} currency={currencyCode} />

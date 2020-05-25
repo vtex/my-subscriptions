@@ -23,7 +23,7 @@ const EditionButtons: FunctionComponent<Props> = ({
           isLoading={isLoading}
           disabled={disabled}
         >
-          <FormattedMessage id="subscription.edition.button.save" />
+          <FormattedMessage id="store/subscription.edition.button.save" />
         </Button>
       </div>
     </div>
