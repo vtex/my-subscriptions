@@ -10,8 +10,8 @@ import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 import { Button } from 'vtex.styleguide'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionStatus } from '../constants'
 import UPDATE_STATUS from '../graphql/updateStatus.gql'
 import ConfirmationModal, {
   messages as modalMessages,
@@ -64,11 +64,11 @@ function retrieveMessagesByStatus(
   let titleMessage: FormattedMessage.MessageDescriptor
   let bodyMessage: FormattedMessage.MessageDescriptor
   switch (status) {
-    case SubscriptionStatus.Paused:
+    case 'PAUSED':
       titleMessage = messages.pauseTitle
       bodyMessage = messages.pauseDescription
       break
-    case SubscriptionStatus.Canceled:
+    case 'CANCELED':
       titleMessage = messages.cancelTitle
       bodyMessage = messages.cancelDescription
       break

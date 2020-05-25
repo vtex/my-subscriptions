@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
 import Frequency from '../Frequency/Info'
-import { SubscriptionStatus } from '../../constants'
 import Name from '../SubscriptionName'
 import Status from '../SubscriptionStatus'
 import UpdateStatusButton from '../UpdateStatusButton'
@@ -14,8 +13,8 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
   group,
   onGoToDetails,
 }) => {
-  const isPaused = group.status === SubscriptionStatus.Paused
-  const isActive = group.status === SubscriptionStatus.Active
+  const isPaused = group.status === 'PAUSED'
+  const isActive = group.status === 'ACTIVE'
 
   return (
     <div className="w-100 flex flex-wrap pv6 pl3-ns pr5-ns">
@@ -63,7 +62,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
           {isPaused && (
             <div className="pt4">
               <UpdateStatusButton
-                targetStatus={SubscriptionStatus.Active}
+                targetStatus="ACTIVE"
                 subscriptionsGroupId={group.id}
                 block
               >

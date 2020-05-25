@@ -1,20 +1,17 @@
 import React, { Component, ErrorInfo } from 'react'
 import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
-import { withRouter } from 'vtex.my-account-commons/Router'
+import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
-import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import GROUPS from '../../graphql/customerSubscriptions.gql'
-import {
-  SubscriptionDisplayFilterEnum,
-  CSS,
-  SubscriptionStatus,
-  Periodicity,
-} from '../../constants'
+import GROUPS, {
+  Result,
+  SubscriptionsGroup,
+} from '../../graphql/customerSubscriptions.gql'
+import { SubscriptionDisplayFilterEnum, CSS } from '../../constants'
 import { convertFilter } from '../../utils'
 import { logError, logGraphqlError } from '../../tracking'
 import Loading from './LoadingState'
@@ -23,7 +20,7 @@ import EmptyState from './EmptyState'
 import Images from './Images'
 import Summary from './Summary'
 
-function isEmpty(data: QueryResult) {
+function isEmpty(data: Result) {
   if (!data.groups || data.groups.length === 0) {
     return true
   }
@@ -116,7 +113,7 @@ class SubscriptionsGroupListContainer extends Component<
     return (
       <ContentWrapper {...headerConfig}>
         {() => (
-          <Query<QueryResult> query={GROUPS} variables={variables}>
+          <Query<Result> query={GROUPS} variables={variables}>
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
               if (error) {
@@ -155,38 +152,10 @@ class SubscriptionsGroupListContainer extends Component<
   }
 }
 
-export type SubscriptionsGroup = Pick<
-  Group,
-  'id' | 'name' | 'nextPurchaseDate' | 'lastStatusUpdate'
-> & {
-  status: SubscriptionStatus
-  plan: {
-    frequency: {
-      periodicity: Periodicity
-      interval: number
-    }
-  }
-  subscriptions: Array<{
-    sku: {
-      imageUrl: string
-      name: string
-      detailUrl: string
-      productName: string
-    }
-  }>
-  purchaseSettings: {
-    purchaseDay: string
-  }
-}
-
-interface QueryResult {
-  groups: SubscriptionsGroup[]
-}
-
-interface Props extends InjectedIntlProps, InjectedRuntimeContext {
-  history: any
-}
+type Props = InjectedIntlProps & InjectedRuntimeContext & RouteComponentProps
 
 const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
+
+export { SubscriptionsGroup }
 
 export default enhance(SubscriptionsGroupListContainer)
