@@ -1,12 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import {
-  SubscriptionStatus,
-  BASIC_CARD_WRAPPER,
-  CSS,
-} from '../../../../constants'
-import EditButton from '../../../commons/EditButton'
+import { SubscriptionStatus, BASIC_CARD_WRAPPER, CSS } from '../../../constants'
+import EditButton from '../../EditButton'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from './ProductListItem'
 import { Subscription } from '..'

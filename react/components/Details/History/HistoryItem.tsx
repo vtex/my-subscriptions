@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
-import { SubscriptionOrderStatus } from '../../../../constants'
+import { SubscriptionOrderStatus } from '../../../constants'
 import style from './style.css'
 import { SubscriptionOrder } from './HistoryList'
 import { displayOrderStatus } from './utils'

@@ -6,12 +6,12 @@ import { ApolloError } from 'apollo-client'
 import { IconEdit, Input } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import UPDATE_NAME from '../../graphql/updateName.gql'
-import { SubscriptionStatus } from '../../constants'
+import UPDATE_NAME from '../graphql/updateName.gql'
+import { SubscriptionStatus } from '../constants'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
-import { logGraphqlError } from '../../tracking'
+import { logGraphqlError } from '../tracking'
 
 const messages = defineMessages({
   title: { id: 'store/subscription.view.title', defaultMessage: '' },

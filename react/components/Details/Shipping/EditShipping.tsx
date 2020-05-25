@@ -9,11 +9,11 @@ import { branch, compose, renderComponent } from 'recompose'
 import { Button, Dropdown, Alert } from 'vtex.styleguide'
 import { Address } from 'vtex.store-graphql'
 
-import GET_ADDRESSES from '../../../../graphql/getAddresses.gql'
+import GET_ADDRESSES from '../../../graphql/getAddresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
 import { SubscriptionsGroup } from '..'
-import { queryWrapper } from '../../../../tracking'
+import { queryWrapper } from '../../../tracking'
 
 const messages = defineMessages({
   address: {

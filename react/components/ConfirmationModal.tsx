@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ModalDialog, withToast, Alert } from 'vtex.styleguide'
 import { defineMessages } from 'react-intl'
 
-import { makeCancelable } from '../../utils'
+import { makeCancelable } from '../utils'
 
 export const messages = defineMessages({
   cancelationLabel: {

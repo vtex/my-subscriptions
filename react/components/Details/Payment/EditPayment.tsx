@@ -14,11 +14,11 @@ import { Button, Dropdown, Radio, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
 import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
-import { PaymentSystemGroup } from '../../../../constants'
-import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
+import { PaymentSystemGroup } from '../../../constants'
+import CUSTOMER_PAYMENTS from '../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
-import { queryWrapper } from '../../../../tracking'
+import { queryWrapper } from '../../../tracking'
 
 function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
   return creditCards.map(

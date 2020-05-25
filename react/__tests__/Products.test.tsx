@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
-import ProductsContainer from '../components/pages/Details/Products'
+import ProductsContainer from '../components/Details/Products'
 import { generateSubscriptionsGroup } from '../mocks'
 
 describe('Products Scenarios', () => {

@@ -4,7 +4,7 @@ import {
   TagTypeEnum,
 } from '../constants'
 import { convertFilter } from '../utils'
-import { convertStatusInTagType } from '../components/commons/SubscriptionStatus'
+import { convertStatusInTagType } from '../components/SubscriptionStatus'
 
 describe('Utils test Scenarios', () => {
   it('should convert active filter', () => {

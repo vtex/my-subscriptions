@@ -1,6 +1,6 @@
 import React, { FunctionComponent, Fragment } from 'react'
 
-import SkeletonLoader from '../../../commons/SkeletonLoader'
+import SkeletonLoader from '../../SkeletonLoader'
 
 const SummarySkeleton: FunctionComponent<Props> = ({ numberOfItems = 3 }) => (
   <Fragment>

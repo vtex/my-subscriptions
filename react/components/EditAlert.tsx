@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Alert } from 'vtex.styleguide'
 
-import { SubscriptionStatus } from '../../constants'
+import { SubscriptionStatus } from '../constants'
 
 const EditAlert: FunctionComponent<Props> = ({
   subscriptionStatus,

@@ -15,7 +15,7 @@ import { SubscriptionStatus } from '../constants'
 import UPDATE_STATUS from '../graphql/updateStatus.gql'
 import ConfirmationModal, {
   messages as modalMessages,
-} from './commons/ConfirmationModal'
+} from './ConfirmationModal'
 import { logGraphqlError } from '../tracking'
 
 export const messages = defineMessages({

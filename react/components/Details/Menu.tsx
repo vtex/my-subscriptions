@@ -17,18 +17,18 @@ import {
   SubscriptionStatus as Status,
 } from 'vtex.subscriptions-graphql'
 
-import ADD_TO_CART from '../../../graphql/addToCart.gql'
-import ORDER_FORM_ID from '../../../graphql/orderFormId.gql'
-import UPDATE_STATUS from '../../../graphql/updateStatus.gql'
-import UPDATE_IS_SKIPPED from '../../../graphql/updateIsSkipped.gql'
-import { SubscriptionStatus, MenuOptionsEnum } from '../../../constants'
-import { retrieveMenuOptions, logOrderNowMetric } from '../../../utils'
+import ADD_TO_CART from '../../graphql/addToCart.gql'
+import ORDER_FORM_ID from '../../graphql/orderFormId.gql'
+import UPDATE_STATUS from '../../graphql/updateStatus.gql'
+import UPDATE_IS_SKIPPED from '../../graphql/updateIsSkipped.gql'
+import { SubscriptionStatus, MenuOptionsEnum } from '../../constants'
+import { retrieveMenuOptions, logOrderNowMetric } from '../../utils'
 import ConfirmationModal, {
   messages as modalMessage,
-} from '../../commons/ConfirmationModal'
-import { messages as statusMessages } from '../../UpdateStatusButton'
+} from '../ConfirmationModal'
+import { messages as statusMessages } from '../UpdateStatusButton'
 import { SubscriptionsGroup } from '.'
-import { logGraphqlError, queryWrapper } from '../../../tracking'
+import { logGraphqlError, queryWrapper } from '../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails/OrderForm'
 

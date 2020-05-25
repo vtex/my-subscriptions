@@ -8,15 +8,15 @@ import { Dropdown } from 'vtex.styleguide'
 import { SubscriptionsGroup as Group } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import GROUPS from '../../../graphql/customerSubscriptions.gql'
+import GROUPS from '../../graphql/customerSubscriptions.gql'
 import {
   SubscriptionDisplayFilterEnum,
   CSS,
   SubscriptionStatus,
   Periodicity,
-} from '../../../constants'
-import { convertFilter } from '../../../utils'
-import { logError, logGraphqlError } from '../../../tracking'
+} from '../../constants'
+import { convertFilter } from '../../utils'
+import { logError, logGraphqlError } from '../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'

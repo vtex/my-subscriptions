@@ -4,7 +4,7 @@ import { render } from '@vtex/test-tools/react'
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
-import SubscriptionDetails from '../components/pages/Details'
+import SubscriptionDetails from '../components/Details'
 import { SubscriptionStatus } from '../constants'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 

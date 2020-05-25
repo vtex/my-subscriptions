@@ -2,7 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react'
 import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 
 import { Periodicity } from '../../constants'
-import LabeledInfo from '../commons/LabeledInfo'
+import LabeledInfo from '../LabeledInfo'
 import { displayFrequency } from './utils'
 
 const messages = defineMessages({
