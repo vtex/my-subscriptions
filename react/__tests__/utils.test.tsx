@@ -1,8 +1,4 @@
-import {
-  SubscriptionDisplayFilterEnum,
-  SubscriptionStatus,
-  TagTypeEnum,
-} from '../constants'
+import { SubscriptionDisplayFilterEnum, SubscriptionStatus } from '../constants'
 import { convertFilter } from '../utils'
 import { convertStatusInTagType } from '../components/SubscriptionStatus'
 
@@ -30,15 +26,11 @@ describe('Utils test Scenarios', () => {
   })
 
   it('should convert status canceled into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatus.Canceled)).toEqual(
-      TagTypeEnum.Error
-    )
+    expect(convertStatusInTagType(SubscriptionStatus.Canceled)).toEqual('error')
   })
 
   it('should convert status paused into correct tag type', () => {
-    expect(convertStatusInTagType(SubscriptionStatus.Paused)).toEqual(
-      TagTypeEnum.Warning
-    )
+    expect(convertStatusInTagType(SubscriptionStatus.Paused)).toEqual('warning')
   })
 
   it('should convert status active into correct tag type', () => {
