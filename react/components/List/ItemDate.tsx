@@ -32,7 +32,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<
       : intl.formatMessage(messages.since, {
           date: intl.formatDate(lastStatusUpdate),
           status: intl.formatMessage({
-            id: `subscription.status.${status.toLowerCase()}`,
+            id: `store/subscription.status.${status.toLowerCase()}`,
           }),
         })
 
