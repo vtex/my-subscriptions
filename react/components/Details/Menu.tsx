@@ -92,7 +92,7 @@ const messages = defineMessages({
   manage: { id: 'store/subscription.manage', defaultMessage: '' },
 })
 
-class MenuContainer extends Component<InnerProps & OutterProps> {
+class MenuContainer extends Component<InnerProps & OuterProps> {
   public state = {
     isModalOpen: false,
     errorMessage: '',
@@ -319,7 +319,7 @@ interface Variables<T> {
   variables: T
 }
 
-interface OutterProps {
+interface OuterProps {
   group: SubscriptionsGroup
 }
 
@@ -349,7 +349,7 @@ interface ChildProps {
   data: DataValue<Response, {}>
 }
 
-const enhance = compose<InnerProps & OutterProps, OutterProps>(
+const enhance = compose<InnerProps & OuterProps, OuterProps>(
   injectIntl,
   withToast,
   withRuntimeContext,

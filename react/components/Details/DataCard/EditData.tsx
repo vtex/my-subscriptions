@@ -234,12 +234,12 @@ interface InnerProps
   }) => Promise<void>
 }
 
-interface OutterProps {
+interface OuterProps {
   group: SubscriptionsGroup
   onCloseEdit: () => void
 }
 
-type Props = InnerProps & OutterProps
+type Props = InnerProps & OuterProps
 
 interface State {
   purchaseDay: string | null
@@ -249,11 +249,11 @@ interface State {
   errorMessage: string
 }
 
-export default compose<Props, OutterProps>(
+export default compose<Props, OuterProps>(
   injectIntl,
   graphql(UPDATE_SETTINGS, { name: 'updateSettings' }),
   queryWrapper<
-    OutterProps,
+    OuterProps,
     { frequencies: Frequency[] },
     { subscriptionsGroupId: string },
     ChildProps

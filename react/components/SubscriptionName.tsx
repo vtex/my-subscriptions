@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
 })
 
-class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
+class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
   public state = {
     isLoading: false,
     isModalOpen: false,
@@ -141,7 +141,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   }
 }
 
-interface OutterProps {
+interface OuterProps {
   name?: string | null
   status: SubscriptionStatus
   subscriptionsGroupId: string
@@ -161,7 +161,7 @@ interface InputChangeEvent {
   target: { value: string }
 }
 
-const enhance = compose<InnerProps & OutterProps, OutterProps>(
+const enhance = compose<InnerProps & OuterProps, OuterProps>(
   injectIntl,
   graphql(UPDATE_NAME, { name: 'updateName' }),
   withRuntimeContext
