@@ -48,11 +48,6 @@ export enum SubscriptionDisplayFilterEnum {
   Canceled = 'CANCELED_FILTER',
 }
 
-export enum TagTypeEnum {
-  Error = 'error',
-  Warning = 'warning',
-}
-
 export enum MenuOptionsEnum {
   Skip = 'skip',
   Unskip = 'unskip',
