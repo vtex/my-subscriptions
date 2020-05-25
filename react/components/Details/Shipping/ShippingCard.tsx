@@ -8,8 +8,8 @@ import {
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import LabeledInfo from '../../LabeledInfo'
-import EditButton from '../../EditButton'
-import EditAlert from '../../EditAlert'
+import EditButton from '../EditButton'
+import EditAlert from '../EditAlert'
 import { SubscriptionsGroup } from '..'
 
 const messages = defineMessages({
