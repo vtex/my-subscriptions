@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
-import Frequency from '../../commons/FrequencyInfo'
+import Frequency from '../../Frequency/Info'
 import { SubscriptionStatus } from '../../../constants'
 import Name from '../../commons/SubscriptionName'
 import Status from '../../commons/SubscriptionStatus'
-import UpdateStatusButton from '../../commons/UpdateStatusButton'
+import UpdateStatusButton from '../../UpdateStatusButton'
 import ItemDate from './ItemDate'
 import { SubscriptionsGroup } from '.'
 
@@ -57,7 +57,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
             onClick={() => onGoToDetails(group.id)}
             block
           >
-            <FormattedMessage id="subscription.list.button.seeDetails" />
+            <FormattedMessage id="store/subscription.list.button.seeDetails" />
           </Button>
 
           {isPaused && (
@@ -67,7 +67,7 @@ const SubscriptionsGroupItemSummary: FunctionComponent<Props> = ({
                 subscriptionsGroupId={group.id}
                 block
               >
-                <FormattedMessage id="subscription.list.button.reactivate" />
+                <FormattedMessage id="store/subscription.list.button.reactivate" />
               </UpdateStatusButton>
             </div>
           )}

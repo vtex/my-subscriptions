@@ -4,17 +4,17 @@ import {
   injectIntl,
   FormattedMessage,
   InjectedIntl,
+  defineMessages,
 } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { branch, compose, renderComponent } from 'recompose'
 // eslint-disable-next-line no-restricted-imports
 import { groupBy } from 'ramda'
-import { Button, Dropdown, Radio } from 'vtex.styleguide'
+import { Button, Dropdown, Radio, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
 import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
-import { PaymentSystemGroup, TagTypeEnum } from '../../../../constants'
-import Alert from '../../../commons/CustomAlert'
+import { PaymentSystemGroup } from '../../../../constants'
 import CUSTOMER_PAYMENTS from '../../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
@@ -56,6 +56,13 @@ function goToCreateCard(history: RouteComponentProps['history']) {
 
 const INSTANCE = 'SubscriptionsDetails/CustomerPaymentMethods'
 
+const messages = defineMessages({
+  chooseOne: {
+    id: 'store/subscription.payment.chooseOne',
+    defaultMessage: '',
+  },
+})
+
 const EditPayment: FunctionComponent<Props> = ({
   isLoading,
   onCancel,
@@ -80,15 +87,16 @@ const EditPayment: FunctionComponent<Props> = ({
   return (
     <>
       <div className="db-s di-ns b f4 tl c-on-base">
-        <FormattedMessage id="subscription.payment" />
+        <FormattedMessage id="store/subscription.payment" />
       </div>
       <div className="flex flex-column justify-center mt5">
-        <Alert
-          type={TagTypeEnum.Error}
-          onClose={onCloseAlert}
-          visible={showAlert}
-          contentId={errorMessage}
-        />
+        {showAlert && (
+          <div className="mb5">
+            <Alert type="error" onClose={onCloseAlert}>
+              {errorMessage}
+            </Alert>
+          </div>
+        )}
         {Object.keys(groupedPayments).map((group) => (
           <div className="pb4-ns pb3-s pt3-s pt0-ns" key={group}>
             <Radio
@@ -117,9 +125,7 @@ const EditPayment: FunctionComponent<Props> = ({
                 <div className="w-50 mr4">
                   <Dropdown
                     options={cardOptions(groupedPayments.creditCard, intl)}
-                    placeholder={intl.formatMessage({
-                      id: 'subscription.payment.chooseOne',
-                    })}
+                    placeholder={intl.formatMessage(messages.chooseOne)}
                     disabled={
                       paymentSystemGroup !== PaymentSystemGroup.CreditCard
                     }
@@ -141,7 +147,7 @@ const EditPayment: FunctionComponent<Props> = ({
                   size="small"
                   onClick={() => goToCreateCard(history)}
                 >
-                  <FormattedMessage id="subcription.add.new.card" />
+                  <FormattedMessage id="store/subcription.add.new.card" />
                 </Button>
               </div>
             )}

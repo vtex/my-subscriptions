@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Messages by using the defineMessages.
+
 ## [0.18.0] - 2020-05-21
 
 ### Added

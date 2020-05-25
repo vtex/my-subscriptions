@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { IconEdit, Input } from 'vtex.styleguide'
@@ -8,8 +8,22 @@ import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
 import UPDATE_NAME from '../../graphql/updateName.gql'
 import { SubscriptionStatus } from '../../constants'
-import ConfirmationModal from './ConfirmationModal'
+import ConfirmationModal, {
+  messages as modalMessages,
+} from './ConfirmationModal'
 import { logGraphqlError } from '../../tracking'
+
+const messages = defineMessages({
+  title: { id: 'store/subscription.view.title', defaultMessage: '' },
+  choose: {
+    id: 'store/subscription.name.editition.name.title',
+    defaultMessage: '',
+  },
+  confirmationLabel: {
+    id: 'store/subscription.name.editition.edit',
+    defaultMessage: '',
+  },
+})
 
 class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   public state = {
@@ -64,28 +78,17 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
         </a>
       )
     } else {
-      content = intl.formatMessage(
-        { id: 'subscription.view.title' },
-        { value: skus.length }
-      )
+      content = intl.formatMessage(messages.title, { value: skus.length })
     }
 
     const modalProps = {
-      cancelationLabel: intl.formatMessage({
-        id: 'subscription.editition.cancel',
-      }),
-      confirmationLabel: intl.formatMessage({
-        id: 'subscription.name.editition.edit',
-      }),
-      errorMessage: intl.formatMessage({
-        id: 'subscription.fallback.error.message',
-      }),
+      cancelationLabel: intl.formatMessage(modalMessages.cancelationLabel),
+      confirmationLabel: intl.formatMessage(messages.confirmationLabel),
+      errorMessage: intl.formatMessage(modalMessages.errorMessage),
       isModalOpen: this.state.isModalOpen,
       onCloseModal: this.handleCloseModal,
       onLoading: this.handleLoading,
-      successMessage: intl.formatMessage({
-        id: 'store/subscription.editition.success',
-      }),
+      successMessage: intl.formatMessage(modalMessages.successMessage),
       onSubmit: () => {
         const variables = {
           name: this.state.name,
@@ -112,9 +115,7 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
       <Fragment>
         <ConfirmationModal {...modalProps}>
           <h2 className="t-heading-5 c-on-base mt0 mb7">
-            {intl.formatMessage({
-              id: 'subscription.name.editition.name.title',
-            })}
+            {intl.formatMessage(messages.choose)}
           </h2>
           <div className="w-100">
             <Input
@@ -140,14 +141,6 @@ class SubscriptionNameContainer extends Component<OutterProps & InnerProps> {
   }
 }
 
-const enhance = compose<InnerProps & OutterProps, OutterProps>(
-  injectIntl,
-  graphql(UPDATE_NAME, { name: 'updateName' }),
-  withRuntimeContext
-)
-
-export default enhance(SubscriptionNameContainer)
-
 interface OutterProps {
   name?: string | null
   status: SubscriptionStatus
@@ -167,3 +160,11 @@ interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
 interface InputChangeEvent {
   target: { value: string }
 }
+
+const enhance = compose<InnerProps & OutterProps, OutterProps>(
+  injectIntl,
+  graphql(UPDATE_NAME, { name: 'updateName' }),
+  withRuntimeContext
+)
+
+export default enhance(SubscriptionNameContainer)

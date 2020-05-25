@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react'
-import { FormattedDate, FormattedMessage } from 'react-intl'
+import { injectIntl, InjectedIntlProps } from 'react-intl'
 
 import { SubscriptionOrderStatus } from '../../../../constants'
 import style from './style.css'
 import { SubscriptionOrder } from './HistoryList'
+import { displayOrderStatus } from './utils'
 
-const HistoryItem: FunctionComponent<OuterProps> = ({ order }) => {
+const HistoryItem: FunctionComponent<Props> = ({ order, intl }) => {
   const { date, status } = order
 
   let statusColor = ''
@@ -33,27 +34,24 @@ const HistoryItem: FunctionComponent<OuterProps> = ({ order }) => {
     <li className={`${style.historyListItem} pb5 f5 c-on-base lh-copy`}>
       <div className={`${style.historyListItemDot} ${statusColor}`} />
       <div className={`${style.historyListItemContent}`}>
-        <FormattedMessage id={`store/subscription.order.status.${status}`}>
-          {(text) => (
-            <span className={style.historyListItemStatus}>{text}</span>
-          )}
-        </FormattedMessage>
-        <FormattedDate
-          value={date}
-          year="numeric"
-          month="long"
-          day="2-digit"
-          timeZone="UTC"
-        >
-          {(text) => <time className="db f6 c-muted-2 lh-title">{text}</time>}
-        </FormattedDate>
+        <span className={style.historyListItemStatus}>
+          {displayOrderStatus({ status, intl })}
+        </span>
+        <time className="db f6 c-muted-2 lh-title">
+          {intl.formatDate(date, {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit',
+            timeZone: 'UTC',
+          })}
+        </time>
       </div>
     </li>
   )
 }
 
-interface OuterProps {
+interface Props extends InjectedIntlProps {
   order: SubscriptionOrder
 }
 
-export default HistoryItem
+export default injectIntl(HistoryItem)

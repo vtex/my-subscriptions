@@ -1,10 +1,17 @@
 import { FunctionComponent, ReactElement } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+
+const messages = defineMessages({
+  title: {
+    id: 'store/subscription.title.list',
+    defaultMessage: '',
+  },
+})
 
 const ExtensionLinks: FunctionComponent<Props> = ({ render, intl }) => {
   return render([
     {
-      name: intl.formatMessage({ id: 'subscription.title.list' }),
+      name: intl.formatMessage(messages.title),
       path: '/subscriptions',
     },
   ])
