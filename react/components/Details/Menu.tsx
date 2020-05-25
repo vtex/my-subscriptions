@@ -14,14 +14,14 @@ import { MutationAddItemArgs } from 'vtex.store-graphql'
 import {
   MutationUpdateIsSkippedArgs,
   MutationUpdateStatusArgs,
-  SubscriptionStatus as Status,
+  SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
 
 import ADD_TO_CART from '../../graphql/addToCart.gql'
 import ORDER_FORM_ID from '../../graphql/orderFormId.gql'
 import UPDATE_STATUS from '../../graphql/updateStatus.gql'
 import UPDATE_IS_SKIPPED from '../../graphql/updateIsSkipped.gql'
-import { SubscriptionStatus, MenuOptionsEnum } from '../../constants'
+import { MenuOptionsEnum } from '../../constants'
 import { retrieveMenuOptions, logOrderNowMetric } from '../../utils'
 import ConfirmationModal, {
   messages as modalMessage,
@@ -173,7 +173,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
     } = this.props
 
     const variables = {
-      status: (status as unknown) as Status, // since enums from the graphql can't be used.
+      status,
       subscriptionsGroupId: id,
     }
 
@@ -219,21 +219,21 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
 
     switch (updateType) {
       case MenuOptionsEnum.Cancel:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Canceled)
+        onSubmit = () => this.handleUpdateStatus('CANCELED')
         children = modalBody({
           title: statusMessages.cancelTitle,
           desc: statusMessages.cancelDescription,
         })
         break
       case MenuOptionsEnum.Pause:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Paused)
+        onSubmit = () => this.handleUpdateStatus('PAUSED')
         children = modalBody({
           title: statusMessages.pauseTitle,
           desc: statusMessages.pauseDescription,
         })
         break
       case MenuOptionsEnum.Restore:
-        onSubmit = () => this.handleUpdateStatus(SubscriptionStatus.Active)
+        onSubmit = () => this.handleUpdateStatus('ACTIVE')
         children = modalBody({
           title: statusMessages.restoreTitle,
           desc: statusMessages.restoreDescription,
@@ -281,7 +281,7 @@ class MenuContainer extends Component<InnerProps & OutterProps> {
   public render() {
     const { group, intl, orderFormId } = this.props
 
-    if (group.status === SubscriptionStatus.Canceled) {
+    if (group.status === 'CANCELED') {
       return null
     }
 
