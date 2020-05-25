@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 
 export class ContentWrapper extends Component {
   public render() {
@@ -12,6 +12,10 @@ export class BaseLoading extends Component {
   public render() {
     return this.props.children
   }
+}
+
+export const SkeletonPiece = () => {
+  return <>Loading</>
 }
 
 export const utils = {
