@@ -12,9 +12,8 @@ import { branch, compose, renderComponent } from 'recompose'
 import { groupBy } from 'ramda'
 import { Button, Dropdown, Radio, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
-import { PaymentMethod } from 'vtex.subscriptions-graphql'
+import { PaymentMethod, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 
-import { PaymentSystemGroup } from '../../../constants'
 import CUSTOMER_PAYMENTS from '../../../graphql/customerPaymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
@@ -110,7 +109,7 @@ const EditPayment: FunctionComponent<Props> = ({
               onChange={() => {
                 const selectedGroup: PaymentSystemGroup = group as PaymentSystemGroup
 
-                if (selectedGroup === PaymentSystemGroup.CreditCard) {
+                if (selectedGroup === 'creditCard') {
                   onChangePaymentGroup(group as PaymentSystemGroup)
                 } else {
                   const selectedSystemId =
@@ -120,15 +119,13 @@ const EditPayment: FunctionComponent<Props> = ({
               }}
               value={group}
             />
-            {group === PaymentSystemGroup.CreditCard && (
+            {group === 'creditCard' && (
               <div className="flex ml6">
                 <div className="w-50 mr4">
                   <Dropdown
                     options={cardOptions(groupedPayments.creditCard, intl)}
                     placeholder={intl.formatMessage(messages.chooseOne)}
-                    disabled={
-                      paymentSystemGroup !== PaymentSystemGroup.CreditCard
-                    }
+                    disabled={paymentSystemGroup !== 'creditCard'}
                     value={accountId}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                       const selectedAccount = e.target.value
@@ -157,9 +154,7 @@ const EditPayment: FunctionComponent<Props> = ({
           isLoading={isLoading}
           onCancel={onCancel}
           onSave={onSave}
-          disabled={
-            paymentSystemGroup === PaymentSystemGroup.CreditCard && !accountId
-          }
+          disabled={paymentSystemGroup === 'creditCard' && !accountId}
         />
       </div>
     </>

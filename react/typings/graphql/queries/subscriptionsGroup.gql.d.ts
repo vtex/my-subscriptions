@@ -31,6 +31,7 @@ declare module '*/subscriptionsGroup.gql' {
   type SubscriptionsGroup = Pick<
     Group,
     | 'id'
+    | 'cacheId'
     | 'name'
     | 'isSkipped'
     | 'totals'
@@ -40,7 +41,7 @@ declare module '*/subscriptionsGroup.gql' {
   > & {
     status: SubscriptionStatus
     subscriptions: Subscription[]
-    lastOrder: Pick<SubscriptionOrder, 'id'> & {
+    lastOrder: Pick<SubscriptionOrder, 'id' | 'cacheId'> & {
       status: SubscriptionOrderStatus
     }
     purchaseSettings: {

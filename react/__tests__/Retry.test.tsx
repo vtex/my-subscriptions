@@ -6,7 +6,6 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
 import { mockRouterParam, generateDetailMock } from '../mocks'
-import { SubscriptionOrderStatus } from '../constants'
 
 const RETRY_BUTTON = 'Try again'
 
@@ -30,7 +29,7 @@ describe('Retry Scenarios', () => {
         graphql: {
           mocks: [
             generateDetailMock({
-              lastOrderStatus: SubscriptionOrderStatus.PaymentError,
+              lastOrderStatus: 'PAYMENT_ERROR',
             }),
           ],
         },
