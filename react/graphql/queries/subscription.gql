@@ -1,5 +1,5 @@
 query Subscription($id: ID!) {
-  group: subscriptionsGroup(id: $id)
+  subscription: subscriptionsGroup(id: $id)
     @context(provider: "vtex.subscriptions-graphql", scope: PRIVATE) {
     id
     cacheId

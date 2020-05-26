@@ -3,12 +3,12 @@ import { SkeletonPiece } from 'vtex.my-account-commons'
 
 import { CSS } from '../../constants'
 
-const SubscriptionsGroupsLoading: FunctionComponent = () => {
+const SubscriptionsLoading: FunctionComponent = () => {
   return (
     <div className="w-100">
       {[0, 1].map((index) => (
-        <div className={CSS.subscriptionGroupItemWrapper} key={index}>
-          <div className={CSS.subscriptionGroupImageWrapper}>
+        <div className={CSS.subscriptionItemWrapper} key={index}>
+          <div className={CSS.subscriptionImageWrapper}>
             <SkeletonPiece />
           </div>
           <div className="ml6-ns ml0-s mt0-ns mt3-s w-100 mb3">
@@ -32,4 +32,4 @@ const SubscriptionsGroupsLoading: FunctionComponent = () => {
   )
 }
 
-export default SubscriptionsGroupsLoading
+export default SubscriptionsLoading

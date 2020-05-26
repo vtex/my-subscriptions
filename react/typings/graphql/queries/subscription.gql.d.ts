@@ -11,58 +11,42 @@ declare module '*/subscription.gql' {
     QuerySubscriptionsGroupArgs as Args,
   } from 'vtex.subscriptions-graphql'
 
-  interface Subscription {
+  interface Item {
     id: string
-    sku: Pick<
-      Sku,
-      | 'imageUrl'
-      | 'name'
-      | 'detailUrl'
-      | 'productName'
-      | 'id'
-      | 'measurementUnit'
-    > & {
+    sku: Sku & {
       variations?: { [key: string]: string } | null
     }
     quantity: number
     currentPrice: number
   }
 
-  type SubscriptionsGroup = Pick<
+  type Subscription = Pick<
     Group,
     | 'id'
     | 'cacheId'
     | 'name'
     | 'isSkipped'
     | 'totals'
-    | 'shippingEstimate'
     | 'nextPurchaseDate'
     | 'shippingAddress'
+    | 'status'
+    | 'estimatedDeliveryDate'
+    | 'plan'
   > & {
-    status: SubscriptionStatus
-    subscriptions: Subscription[]
-    lastOrder: Pick<SubscriptionOrder, 'id' | 'cacheId'> & {
-      status: SubscriptionOrderStatus
-    }
+    subscriptions: Item[]
+    lastOrder: Pick<SubscriptionOrder, 'id' | 'status'>
     purchaseSettings: {
-      currencySymbol: string
-      purchaseDay: string | null
+      currencyCode: string
       paymentMethod: PaymentMethod | null
-    }
-    plan: {
-      frequency: {
-        periodicity: Periodicity
-        interval: number
-      }
     }
     __typename: string
   }
 
   interface Result {
-    group: SubscriptionsGroup
+    subscription: Subscription
   }
 
-  export { SubscriptionsGroup, Subscription, Args, Result }
+  export { Subscription, Item, Args, Result }
 
   const value: DocumentNode
   export default value

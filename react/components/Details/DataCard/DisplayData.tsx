@@ -6,7 +6,7 @@ import { CSS, BASIC_CARD_WRAPPER } from '../../../constants'
 import EditButton from '../EditButton'
 import FrequencyInfo from '../../Frequency/Info'
 import LabeledInfo from '../../LabeledInfo'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 
 const messages = defineMessages({
   nextPurchase: {
@@ -24,11 +24,15 @@ const messages = defineMessages({
   },
 })
 
-const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
+const DisplayData: FunctionComponent<Props> = ({
+  subscription,
+  intl,
+  onOpenEdit,
+}) => {
   let displayDelivery = false
-  if (group.shippingEstimate && group.shippingEstimate.estimatedDeliveryDate) {
+  if (subscription.estimatedDeliveryDate) {
     displayDelivery =
-      group.shippingEstimate.estimatedDeliveryDate > group.nextPurchaseDate
+      subscription.estimatedDeliveryDate > subscription.nextPurchaseDate
   }
 
   return (
@@ -40,25 +44,25 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
         <div className="ml-auto">
           <EditButton
             onEdit={onOpenEdit}
-            subscriptionStatus={group.status}
+            subscriptionStatus={subscription.status}
             testId="edit-frequency-button"
           />
         </div>
       </div>
       <div className="pt5-s pt5-ns w-100-s mr-auto">
         <FrequencyInfo
-          periodicity={group.plan.frequency.periodicity}
-          purchaseDay={group.purchaseSettings.purchaseDay}
-          interval={group.plan.frequency.interval}
+          periodicity={subscription.plan.frequency.periodicity}
+          purchaseDay={subscription.plan.purchaseDay}
+          interval={subscription.plan.frequency.interval}
         />
         <div className="flex-l">
           <div className="w-50-l pt6">
             <LabeledInfo label={intl.formatMessage(messages.nextPurchase)}>
               <div className="flex">
                 <span className="db fw3 f5-ns f6-s c-on-base">
-                  {intl.formatDate(group.nextPurchaseDate)}
+                  {intl.formatDate(subscription.nextPurchaseDate)}
                 </span>
-                {group.isSkipped && (
+                {subscription.isSkipped && (
                   <div className="lh-solid mt1 ml3">
                     <Tag type="warning">
                       {intl.formatMessage(messages.skip)}
@@ -73,12 +77,9 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
               <LabeledInfo
                 label={intl.formatMessage(messages.estimatedDelivery)}
               >
-                {intl.formatDate(
-                  group.shippingEstimate?.estimatedDeliveryDate,
-                  {
-                    timeZone: 'UTC',
-                  }
-                )}
+                {intl.formatDate(subscription.estimatedDeliveryDate, {
+                  timeZone: 'UTC',
+                })}
               </LabeledInfo>
             </div>
           )}
@@ -89,7 +90,7 @@ const DisplayData: FunctionComponent<Props> = ({ group, intl, onOpenEdit }) => {
 }
 
 interface Props extends InjectedIntlProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
   onOpenEdit: () => void
 }
 

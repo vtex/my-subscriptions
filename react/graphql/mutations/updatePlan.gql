@@ -1,11 +1,11 @@
 mutation UpdatePlan(
-  $id: ID!
+  $subscriptionId: ID!
   $purchaseDay: String
   $periodicity: Periodicity!
   $interval: Int!
 ) {
   updatePlan(
-    subscriptionsGroupId: $id
+    subscriptionsGroupId: $subscriptionId
     purchaseDay: $purchaseDay
     periodicity: $periodicity
     interval: $interval

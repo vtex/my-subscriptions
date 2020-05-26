@@ -5,14 +5,15 @@ import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import qs from 'query-string'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { MutationUpdateAddressArgs } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import UPDATE_ADDRESS from '../../../graphql/updateAddress.gql'
+import UPDATE_ADDRESS, {
+  Args,
+} from '../../../graphql/mutations/updateAddress.gql'
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 import {
   BASIC_CARD_WRAPPER,
   CSS,
@@ -37,7 +38,7 @@ function newAddressArgs(location: RouteComponentProps['location']) {
 
   if (args.newAddressId) {
     return {
-      selectedAddressId: args.newAddressId,
+      selectedAddress: { id: args.newAddressId, type: 'residential' }, // todo verify address type
       isEditMode: true,
     }
   }
@@ -65,9 +66,12 @@ class ShippingContainer extends Component<Props, State> {
       isEditMode: false,
       isLoading: false,
       showErrorAlert: false,
-      selectedAddressId: props.group.shippingAddress
-        ? props.group.shippingAddress.id
-        : '',
+      selectedAddress: props.subscription.shippingAddress
+        ? {
+            id: props.subscription.shippingAddress.id,
+            type: props.subscription.shippingAddress.addressType as string,
+          }
+        : null,
     }
   }
 
@@ -131,13 +135,14 @@ class ShippingContainer extends Component<Props, State> {
   private handleCloseErrorAlert = () => this.setState({ showErrorAlert: false })
 
   private handleSave = () => {
-    const { group, showToast, intl } = this.props
+    const { subscription, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
 
     const variables = {
-      addressId: this.state.selectedAddressId,
-      subscriptionsGroupId: group.id,
+      addressId: this.state.selectedAddress?.id as string,
+      subscriptionId: subscription.id,
+      addressType: this.state.selectedAddress?.type as string,
     }
 
     this.props
@@ -171,26 +176,31 @@ class ShippingContainer extends Component<Props, State> {
       })
   }
 
-  private handleAddressChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
-    this.setState({ selectedAddressId: e.target.value })
+  private handleAddressChange = (id: string, type: string) =>
+    this.setState({ selectedAddress: { id, type } })
 
   private handleEditClick = () => {
-    const { group } = this.props
+    const { subscription } = this.props
 
     this.setState({
       isEditMode: true,
-      selectedAddressId: group.shippingAddress ? group.shippingAddress.id : '',
+      selectedAddress: subscription.shippingAddress
+        ? {
+            id: subscription.shippingAddress.id,
+            type: subscription.shippingAddress.addressType as string,
+          }
+        : { id: '', type: '' },
     })
   }
 
   private handleCancelClick = () => this.setState({ isEditMode: false })
 
   public render() {
-    const { group } = this.props
+    const { subscription } = this.props
     const {
       isEditMode,
       isLoading,
-      selectedAddressId,
+      selectedAddress,
       showErrorAlert,
       errorMessage,
     } = this.state
@@ -207,14 +217,17 @@ class ShippingContainer extends Component<Props, State> {
             onChangeAddress={this.handleAddressChange}
             onCloseErrorAlert={this.handleCloseErrorAlert}
             onGoToCreateAddress={this.handleGoToCreateAddress}
-            selectedAddressId={selectedAddressId}
+            selectedAddress={selectedAddress}
             isLoading={isLoading}
             showErrorAlert={showErrorAlert}
             errorMessage={errorMessage}
-            group={group}
+            subscription={subscription}
           />
         ) : (
-          <ShippingCard onEdit={this.handleEditClick} group={group} />
+          <ShippingCard
+            onEdit={this.handleEditClick}
+            subscription={subscription}
+          />
         )}
       </div>
     )
@@ -222,16 +235,14 @@ class ShippingContainer extends Component<Props, State> {
 }
 
 interface OuterProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
 }
 
 interface InnerProps
   extends RouteComponentProps,
     InjectedIntlProps,
     InjectedRuntimeContext {
-  updateAddress: (args: {
-    variables: MutationUpdateAddressArgs
-  }) => Promise<void>
+  updateAddress: (args: { variables: Args }) => Promise<void>
   showToast: (args: ShowToastArgs) => void
 }
 
@@ -242,7 +253,7 @@ interface State {
   isEditMode: boolean
   isLoading: boolean
   showErrorAlert: boolean
-  selectedAddressId: string
+  selectedAddress: { id: string; type: string } | null
 }
 
 export default compose<Props, OuterProps>(

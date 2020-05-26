@@ -2,9 +2,9 @@ declare module '*/updatePaymentMethod.gql' {
   import { DocumentNode } from 'graphql'
 
   export interface Args {
-    id: string
+    subscriptionId: string
     paymentSystemId: string
-    paymentAccountId?: string
+    paymentAccountId: string | null
   }
 
   const value: DocumentNode

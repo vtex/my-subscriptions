@@ -3,8 +3,8 @@ declare module '*/updateItems.gql' {
   import { ItemInput } from 'vtex.subscriptions-graphql'
 
   export interface Args {
-    id: string
-    items: ItemInput[] // TODO fix typing
+    subscriptionId: string
+    items: ItemInput[]
   }
 
   const value: DocumentNode

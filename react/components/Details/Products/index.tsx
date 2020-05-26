@@ -9,21 +9,21 @@ import {
 } from 'react-intl'
 import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import {
-  MutationRemoveSubscriptionArgs,
-  MutationUpdateSubscriptionsArgs,
-} from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import REMOVE_MUTATION from '../../../graphql/removeSubscription.gql'
-import UPDATE_MUTATION from '../../../graphql/updateSubscriptions.gql'
+import REMOVE_MUTATION, {
+  Args as RemoveArgs,
+} from '../../../graphql/mutations/removeItem.gql'
+import UPDATE_MUTATION, {
+  Args as UpdateArgs,
+} from '../../../graphql/mutations/updateItems.gql'
 import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
-import { SubscriptionsGroup, Subscription } from '..'
+import { Subscription, Item } from '..'
 import { logGraphqlError } from '../../../tracking'
 
-function mapSubscriptionsToHashMap(subscriptions: Subscription[]) {
-  return subscriptions.reduce(
+function mapItemsToHashMap(items: Item[]) {
+  return items.reduce(
     (previous, current) => ({
       ...previous,
       [current.id]: current,
@@ -57,7 +57,7 @@ const messages = defineMessages({
 
 class ProductsContainer extends Component<Props, State> {
   public state = {
-    subscriptionId: '',
+    itemId: '',
     isEditMode: false,
     isLoading: false,
     isModalOpen: false,
@@ -66,11 +66,12 @@ class ProductsContainer extends Component<Props, State> {
 
   public static getDerivedStateFromProps(props: Props, state: State) {
     const shouldUpdate =
-      props.group.subscriptions.length !== Object.values(state.products).length
+      props.subscription.subscriptions.length !==
+      Object.values(state.products).length
 
     if (!shouldUpdate) return null
 
-    const products = mapSubscriptionsToHashMap(props.group.subscriptions)
+    const products = mapItemsToHashMap(props.subscription.subscriptions)
 
     return {
       products,
@@ -84,20 +85,20 @@ class ProductsContainer extends Component<Props, State> {
   private handleCancel = () => {
     this.setState({
       isEditMode: false,
-      products: mapSubscriptionsToHashMap(this.props.group.subscriptions),
+      products: mapItemsToHashMap(this.props.subscription.subscriptions),
     })
   }
 
-  private handleRemoveSubscription = () => {
-    const { removeSubscription, group, showToast, intl } = this.props
-    const { subscriptionId } = this.state
+  private handleRemoveItem = () => {
+    const { removeItem, subscription, showToast, intl } = this.props
+    const { itemId } = this.state
 
     const variables = {
-      subscriptionsGroupId: group.id,
-      subscriptionId,
+      subscriptionId: subscription.id,
+      itemId,
     }
 
-    return removeSubscription({
+    return removeItem({
       variables,
     })
       .then(() => {
@@ -114,37 +115,37 @@ class ProductsContainer extends Component<Props, State> {
           variables,
           runtime: this.props.runtime,
           type: 'MutationError',
-          instance: 'RemoveSubscription',
+          instance: 'RemoveItem',
         })
       })
   }
 
-  private handleOpenRemoveModal = (subscriptionId: string) =>
+  private handleOpenRemoveModal = (itemId: string) =>
     this.setState({
       isModalOpen: true,
-      subscriptionId,
+      itemId,
     })
 
   private handleCloseModal = () =>
     this.setState({
       isModalOpen: false,
-      subscriptionId: '',
+      itemId: '',
     })
 
   private handleSave = () => {
-    const { group, updateSubscriptions, showToast, intl } = this.props
+    const { subscription, updateItems, showToast, intl } = this.props
 
     this.setState({ isLoading: true })
 
     const variables = {
-      subscriptionsGroupId: group.id,
-      subscriptions: this.getProducts().map((subscription) => ({
-        skuId: subscription.sku.id,
-        quantity: subscription.quantity,
+      subscriptionId: subscription.id,
+      items: this.getProducts().map((item) => ({
+        id: item.sku.id,
+        quantity: item.quantity,
       })),
     }
 
-    updateSubscriptions({
+    updateItems({
       variables,
     })
       .then(() =>
@@ -156,7 +157,7 @@ class ProductsContainer extends Component<Props, State> {
           variables,
           runtime: this.props.runtime,
           type: 'MutationError',
-          instance: 'UpdateSubscriptions',
+          instance: 'UpdateItems',
         })
       })
       .finally(() => {
@@ -173,10 +174,10 @@ class ProductsContainer extends Component<Props, State> {
       return { products: updatedProducts }
     })
 
-  private getProducts = () => Object.values<Subscription>(this.state.products)
+  private getProducts = () => Object.values<Item>(this.state.products)
 
   public render() {
-    const { group, intl } = this.props
+    const { subscription, intl } = this.props
     const { isEditMode, isLoading, isModalOpen } = this.state
 
     const products = this.getProducts()
@@ -191,7 +192,7 @@ class ProductsContainer extends Component<Props, State> {
           errorMessage={intl.formatMessage(messages.removeError)}
           isModalOpen={isModalOpen}
           onCloseModal={this.handleCloseModal}
-          onSubmit={this.handleRemoveSubscription}
+          onSubmit={this.handleRemoveItem}
         >
           <h4 className="t-heading-4">
             <FormattedMessage id="store/subscription.products.card.remove.title" />
@@ -208,9 +209,9 @@ class ProductsContainer extends Component<Props, State> {
           onGoToEdition={this.handleGoToEdition}
           onRemoveSubscription={this.handleOpenRemoveModal}
           onUpdateQuantity={this.handleUpdateQuantity}
-          subscriptionStatus={group.status}
+          subscriptionStatus={subscription.status}
           products={products}
-          currency={group.purchaseSettings.currencySymbol}
+          currency={subscription.purchaseSettings.currencyCode}
           canRemove={canRemove}
         />
       </Fragment>
@@ -222,22 +223,18 @@ interface State {
   isEditMode: boolean
   isLoading: boolean
   isModalOpen: boolean
-  subscriptionId: string
-  products: { [subscriptionId: string]: Subscription }
+  itemId: string
+  products: { [itemId: string]: Item }
 }
 
 interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
-  removeSubscription: (args: {
-    variables: MutationRemoveSubscriptionArgs
-  }) => Promise<void>
-  updateSubscriptions: (args: {
-    variables: MutationUpdateSubscriptionsArgs
-  }) => Promise<void>
+  removeItem: (args: { variables: RemoveArgs }) => Promise<void>
+  updateItems: (args: { variables: UpdateArgs }) => Promise<void>
   showToast: (args: ShowToastArgs) => void
 }
 
 interface OuterProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
 }
 
 type Props = InnerProps & OuterProps
@@ -245,8 +242,8 @@ type Props = InnerProps & OuterProps
 const enhance = compose<Props, OuterProps>(
   injectIntl,
   withToast,
-  graphql(REMOVE_MUTATION, { name: 'removeSubscription' }),
-  graphql(UPDATE_MUTATION, { name: 'updateSubscriptions' }),
+  graphql(REMOVE_MUTATION, { name: 'removeItem' }),
+  graphql(UPDATE_MUTATION, { name: 'updateItems' }),
   withRuntimeContext
 )
 

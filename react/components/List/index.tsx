@@ -7,7 +7,7 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import GROUPS, {
+import QUERY, {
   Result,
   Subscription,
 } from '../../graphql/queries/subscriptions.gql'
@@ -60,8 +60,8 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
     })
   }
 
-  private handleGoToDetails = (subscriptionsGroupId: string) => {
-    this.props.history.push(`/subscriptions/${subscriptionsGroupId}`)
+  private handleGoToDetails = (subscriptionId: string) => {
+    this.props.history.push(`/subscriptions/${subscriptionId}`)
   }
 
   private handleChangeFilter = (
@@ -111,7 +111,7 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
     return (
       <ContentWrapper {...headerConfig}>
         {() => (
-          <Query<Result> query={GROUPS} variables={variables}>
+          <Query<Result> query={QUERY} variables={variables}>
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
               if (error) {
@@ -128,7 +128,7 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
 
               return data.list.map((subscription) => (
                 <article
-                  className={CSS.subscriptionGroupItemWrapper}
+                  className={CSS.subscriptionItemWrapper}
                   key={subscription.id}
                 >
                   <Images

@@ -75,7 +75,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
 
 interface Props {
   subscription: Subscription
-  onGoToDetails: (subscriptionGroupId: string) => void
+  onGoToDetails: (subscriptionId: string) => void
 }
 
 export default SubscriptionSummary

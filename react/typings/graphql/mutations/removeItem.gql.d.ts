@@ -2,7 +2,7 @@ declare module '*/removeItem.gql' {
   import { DocumentNode } from 'graphql'
 
   export interface Args {
-    id: string
+    subscriptionId: string
     itemId: string
   }
 

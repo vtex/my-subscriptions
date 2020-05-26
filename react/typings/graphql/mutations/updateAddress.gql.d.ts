@@ -2,7 +2,7 @@ declare module '*/updateAddress.gql' {
   import { DocumentNode } from 'graphql'
 
   export interface Args {
-    id: string
+    subscriptionId: string
     addressId: string
     addressType: string
   }

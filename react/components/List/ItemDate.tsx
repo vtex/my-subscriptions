@@ -21,9 +21,12 @@ const messages = defineMessages({
   },
 })
 
-const SubscriptionsGroupItemDate: FunctionComponent<
-  Props & InjectedIntlProps
-> = ({ status, nextPurchaseDate, lastUpdate, intl }) => {
+const SubscriptionsItemDate: FunctionComponent<Props & InjectedIntlProps> = ({
+  status,
+  nextPurchaseDate,
+  lastUpdate,
+  intl,
+}) => {
   const content =
     status === 'ACTIVE'
       ? intl.formatMessage(messages.nextPurchase, {
@@ -45,4 +48,4 @@ interface Props {
   lastUpdate: string
 }
 
-export default injectIntl(SubscriptionsGroupItemDate)
+export default injectIntl(SubscriptionsItemDate)

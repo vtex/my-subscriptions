@@ -3,8 +3,8 @@ declare module '*/updatePlan.gql' {
   import { Periodicity } from 'vtex.subscriptions-graphql'
 
   export interface Args {
-    id: string
-    purchaseDay?: string
+    subscriptionId: string
+    purchaseDay: string | null
     periodicity: Periodicity
     interval: number
   }
