@@ -1,5 +1,5 @@
 query Subscriptions($filter: [SubscriptionStatus]) {
-  groups: customerSubscriptionsGroupList(statusList: $filter)
+  list: customerSubscriptionsGroupList(statusList: $filter)
     @context(provider: "vtex.subscriptions-graphql") {
     id
     cacheId

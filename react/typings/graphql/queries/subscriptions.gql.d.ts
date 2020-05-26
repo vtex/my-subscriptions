@@ -7,17 +7,10 @@ declare module '*/subscriptions.gql' {
     Periodicity,
   } from 'vtex.subscriptions-graphql'
 
-  export type SubscriptionsGroup = Pick<
+  export type Subscription = Pick<
     Group,
-    'id' | 'name' | 'nextPurchaseDate' | 'lastStatusUpdate'
+    'id' | 'name' | 'nextPurchaseDate' | 'lastUpdate' | 'status' | 'plan'
   > & {
-    status: SubscriptionStatus
-    plan: {
-      frequency: {
-        periodicity: Periodicity
-        interval: number
-      }
-    }
     subscriptions: Array<{
       sku: {
         imageUrl: string
@@ -26,12 +19,10 @@ declare module '*/subscriptions.gql' {
         productName: string
       }
     }>
-    purchaseSettings: {
-      purchaseDay: string
-    }
   }
+
   export interface Result {
-    groups: SubscriptionsGroup[]
+    list: Subscription[]
   }
 
   const value: DocumentNode
