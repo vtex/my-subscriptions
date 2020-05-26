@@ -1,4 +1,4 @@
-query UserAddresses {
+query Addresses {
   profile @context(provider: "vtex.store-graphql") {
     cacheId
     addresses: address {
