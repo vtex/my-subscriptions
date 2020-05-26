@@ -1,4 +1,4 @@
-mutation addItem($orderFormId: String, $items: [OrderFormItemInput]) {
+mutation OrderNow($orderFormId: String, $items: [OrderFormItemInput]) {
   addItem(orderFormId: $orderFormId, items: $items)
     @context(provider: "vtex.store-graphql") {
     cacheId

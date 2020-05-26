@@ -1,6 +1,6 @@
-mutation Retry($subscriptionsGroupId: ID!, $subscriptionOrderId: ID!) {
+mutation Retry($id: ID!, $subscriptionOrderId: ID!) {
   retrySubscriptionOrder(
-    subscriptionsGroupId: $subscriptionsGroupId
+    subscriptionsGroupId: $id
     subscriptionOrderId: $subscriptionOrderId
   ) @context(provider: "vtex.subscriptions-graphql")
 }

@@ -1,0 +1,7 @@
+mutation UpdateIsSkipped($id: ID!, $isSkipped: Boolean!) {
+  updateIsSkipped(subscriptionsGroupId: $id, isSkipped: $isSkipped)
+    @context(provider: "vtex.subscriptions-graphql") {
+    cacheId
+    isSkipped
+  }
+}
