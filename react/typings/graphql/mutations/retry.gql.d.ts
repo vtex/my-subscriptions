@@ -1,9 +1,9 @@
-declare module '*/updateIsSkipped.gql' {
+declare module '*/retry.gql' {
   import { DocumentNode } from 'graphql'
 
   export interface Args {
     id: string
-    isSkipped: boolean
+    subscriptionOrderId: string
   }
 
   const value: DocumentNode

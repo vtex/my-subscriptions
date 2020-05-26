@@ -1,4 +1,4 @@
-declare module '*/customerSubscriptions.gql' {
+declare module '*/subscriptions.gql' {
   import { DocumentNode } from 'graphql'
 
   import {
