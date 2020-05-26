@@ -1,4 +1,4 @@
-declare module '*/updateSubscriptionSettings.gql' {
+declare module '*/subscriptionOrders.gql' {
   import { DocumentNode } from 'graphql'
 
   const value: DocumentNode

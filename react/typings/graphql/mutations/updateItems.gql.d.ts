@@ -1,9 +1,10 @@
-declare module '*/updateIsSkipped.gql' {
+declare module '*/updateItems.gql' {
   import { DocumentNode } from 'graphql'
+  import { ItemInput } from 'vtex.subscriptions-graphql'
 
   export interface Args {
     id: string
-    isSkipped: boolean
+    items: ItemInput[] // TODO fix typing
   }
 
   const value: DocumentNode

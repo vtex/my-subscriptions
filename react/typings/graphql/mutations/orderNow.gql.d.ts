@@ -1,4 +1,4 @@
-declare module '*/customerPaymentMethods.gql' {
+declare module '*/orderNow.gql' {
   import { DocumentNode } from 'graphql'
 
   const value: DocumentNode
