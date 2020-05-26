@@ -4,18 +4,20 @@ import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Dropdown, Alert } from 'vtex.styleguide'
-import {
-  MutationUpdateSettingsArgs,
-  Periodicity,
-} from 'vtex.subscriptions-graphql'
+import { Periodicity } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../constants'
-import FREQUENCY_OPTIONS from '../../../graphql/frequencyOptions.gql'
-import UPDATE_SETTINGS from '../../../graphql/updateSubscriptionSettings.gql'
+import FREQUENCY_OPTIONS, {
+  Args as QueryArgs,
+  Result as QueryResult,
+} from '../../../graphql/queries/frequencyOptions.gql'
+import UPDATE_PLAN, {
+  Args as UpdatePlanArgs,
+} from '../../../graphql/mutations/updatePlan.gql'
 import EditionButtons from '../EditionButtons'
 import DataSkeleton from './DataSkeleton'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 import { logGraphqlError, queryWrapper } from '../../../tracking'
 import {
   displayWeekDay,
@@ -48,14 +50,14 @@ class EditData extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
-    const { purchaseSettings, plan } = props.group
+    const { plan } = props.subscription
     const { interval, periodicity } = plan.frequency
 
     this.state = {
       isLoading: false,
       showErrorAlert: false,
       errorMessage: '',
-      purchaseDay: purchaseSettings.purchaseDay as string,
+      purchaseDay: plan.purchaseDay,
       frequencyIndex: this.findCurrentFrequencyIndex({ periodicity, interval }),
     }
   }
@@ -120,14 +122,14 @@ class EditData extends Component<Props, State> {
 
     this.setState({ isLoading: true })
     const variables = {
-      subscriptionsGroupId: this.props.group.id,
+      subscriptionId: this.props.subscription.id,
       purchaseDay,
       periodicity,
       interval,
     }
 
     this.props
-      .updateSettings({
+      .updatePlan({
         variables,
       })
       .then(() => {
@@ -229,13 +231,11 @@ interface InnerProps
   extends InjectedIntlProps,
     ChildProps,
     InjectedRuntimeContext {
-  updateSettings: (args: {
-    variables: MutationUpdateSettingsArgs
-  }) => Promise<void>
+  updatePlan: (args: { variables: UpdatePlanArgs }) => Promise<void>
 }
 
 interface OuterProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
   onCloseEdit: () => void
 }
 
@@ -251,23 +251,22 @@ interface State {
 
 export default compose<Props, OuterProps>(
   injectIntl,
-  graphql(UPDATE_SETTINGS, { name: 'updateSettings' }),
-  queryWrapper<
-    OuterProps,
-    { frequencies: Frequency[] },
-    { subscriptionsGroupId: string },
-    ChildProps
-  >(INSTANCE, FREQUENCY_OPTIONS, {
-    options: ({ group }) => ({
-      variables: {
-        subscriptionsGroupId: group.id,
-      },
-    }),
-    props: ({ data }) => ({
-      frequencies: data?.frequencies && !data.loading ? data.frequencies : [],
-      loading: data ? data.loading : false,
-    }),
-  }),
+  graphql(UPDATE_PLAN, { name: 'updatePlan' }),
+  queryWrapper<OuterProps, QueryResult, QueryArgs, ChildProps>(
+    INSTANCE,
+    FREQUENCY_OPTIONS,
+    {
+      options: ({ subscription }) => ({
+        variables: {
+          subscriptionId: subscription.id,
+        },
+      }),
+      props: ({ data }) => ({
+        frequencies: data?.frequencies && !data.loading ? data.frequencies : [],
+        loading: data ? data.loading : false,
+      }),
+    }
+  ),
   branch<InnerProps>((props) => props.loading, renderComponent(DataSkeleton)),
   withRuntimeContext
 )(EditData)

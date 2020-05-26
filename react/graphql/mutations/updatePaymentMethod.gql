@@ -1,10 +1,10 @@
 mutation UpdatePaymentMethod(
-  $id: ID!
+  $subscriptionId: ID!
   $paymentSystemId: ID!
   $paymentAccountId: ID
 ) {
   updatePaymentMethod(
-    subscriptionsGroupId: $id
+    subscriptionsGroupId: $subscriptionId
     paymentSystemId: $paymentSystemId
     paymentAccountId: $paymentAccountId
   ) @context(provider: "vtex.subscriptions-graphql") {

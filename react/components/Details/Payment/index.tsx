@@ -7,14 +7,13 @@ import { path } from 'ramda'
 import qs from 'query-string'
 import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import {
-  MutationUpdatePaymentMethodArgs,
-  PaymentSystemGroup,
-} from 'vtex.subscriptions-graphql'
+import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import UpdatePaymentMethod from '../../../graphql/updatePaymentMethod.gql'
+import MUTATION, {
+  Args,
+} from '../../../graphql/mutations/updatePaymentMethod.gql'
 import {
   EditOptions,
   PAYMENT_DIV_ID,
@@ -28,7 +27,7 @@ import {
 } from '../../../utils'
 import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 import { logGraphqlError } from '../../../tracking'
 
 function hasEditOption(location: RouteComponentProps['location']) {
@@ -63,7 +62,7 @@ const messages = defineMessages({
   },
 })
 
-class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
+class SubscriptionPaymentContainer extends Component<Props, State> {
   private mounted: boolean
 
   constructor(props: Props) {
@@ -173,7 +172,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
   }
 
   private handleSave = () => {
-    const { updatePayment, group, intl, showToast } = this.props
+    const { updatePayment, subscription, intl, showToast } = this.props
     const {
       selectedPaymentSystemGroup,
       selectedAccountId,
@@ -182,10 +181,10 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 
     this.setState({ isLoading: true })
 
-    const variables = {
-      accountId:
+    const variables: Args = {
+      paymentAccountId:
         selectedPaymentSystemGroup === 'creditCard' ? selectedAccountId : null,
-      subscriptionsGroupId: group.id,
+      subscriptionId: subscription.id,
       paymentSystemId: selectedPaymentSystemId as string,
     }
 
@@ -242,7 +241,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
     })
 
   public render() {
-    const { group, displayRetry } = this.props
+    const { subscription, displayRetry } = this.props
     const {
       isEditMode,
       isLoading,
@@ -273,7 +272,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
         ) : (
           <PaymentCard
             onEdit={this.handleEdit}
-            group={group}
+            subscription={subscription}
             onMakeRetry={this.handleMakeRetry}
             displayRetry={displayRetry}
             isRetryButtonEnabled={isRetryButtonEnabled}
@@ -285,7 +284,7 @@ class SubscriptionsGroupPaymentContainer extends Component<Props, State> {
 }
 
 interface OuterProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
   onMakeRetry: () => Promise<void>
   displayRetry: boolean
 }
@@ -294,9 +293,7 @@ interface InnerProps
   extends InjectedIntlProps,
     RouteComponentProps,
     InjectedRuntimeContext {
-  updatePayment: (args: {
-    variables: MutationUpdatePaymentMethodArgs
-  }) => Promise<void>
+  updatePayment: (args: { variables: Args }) => Promise<void>
   showToast: ({ message }: ShowToastArgs) => void
 }
 
@@ -317,8 +314,8 @@ export default compose<Props, OuterProps>(
   injectIntl,
   withToast,
   withRouter,
-  graphql(UpdatePaymentMethod, {
+  graphql(MUTATION, {
     name: 'updatePayment',
   }),
   withRuntimeContext
-)(SubscriptionsGroupPaymentContainer)
+)(SubscriptionPaymentContainer)

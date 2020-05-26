@@ -6,9 +6,9 @@ import { BASIC_CARD_WRAPPER, CSS } from '../../../constants'
 import EditButton from '../EditButton'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from './ProductListItem'
-import { Subscription } from '..'
+import { Item } from '..'
 
-function mapVariationsToDesc(product: Subscription) {
+function mapVariationsToDesc(product: Item) {
   const variations = product.sku.variations
     ? Object.keys(product.sku.variations)
     : []
@@ -98,7 +98,7 @@ interface Props {
   isEditing: boolean
   canRemove: boolean
   subscriptionStatus: SubscriptionStatus
-  products: Subscription[]
+  products: Item[]
   currency: string
 }
 

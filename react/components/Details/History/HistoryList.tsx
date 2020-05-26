@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
-import { SubscriptionOrderStatus } from 'vtex.subscriptions-graphql'
 
-import SUBSCRIPTION_ORDERS_BY_GROUP from '../../../graphql/subscriptionOrdersByGroup.gql'
+import SUBSCRIPTION_ORDERS, {
+  Result,
+  Args,
+  SubscriptionOrder,
+} from '../../../graphql/queries/subscriptionOrders.gql'
 import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 import { queryWrapper } from '../../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails/SubscriptionsOrdersList'
@@ -80,14 +83,8 @@ class HistoryList extends Component<Props> {
 }
 
 interface OuterProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
   perPage: number
-}
-
-export interface SubscriptionOrder {
-  id: string
-  status: SubscriptionOrderStatus
-  date: string
 }
 
 interface ChildProps {
@@ -100,34 +97,33 @@ interface ChildProps {
 type Props = OuterProps & ChildProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<
-    OuterProps,
-    { orders: { list: SubscriptionOrder[]; totalCount: number } },
-    { subscriptionsGroupId: string; page: number; perPage: number },
-    ChildProps
-  >(INSTANCE, SUBSCRIPTION_ORDERS_BY_GROUP, {
-    options: ({ group, perPage }) => ({
-      variables: {
-        subscriptionsGroupId: group.id,
-        page: 1,
-        perPage,
-      },
-    }),
-    props: ({ data }) =>
-      data?.orders
-        ? {
-            orders: data.orders.list,
-            totalCount: data.orders.totalCount,
-            loading: data.loading,
-            fetchMore: data.fetchMore,
-          }
-        : {
-            orders: [],
-            totalCount: 0,
-            loading: false,
-            fetchMore: () => null,
-          },
-  }),
+  queryWrapper<OuterProps, Result, Args, ChildProps>(
+    INSTANCE,
+    SUBSCRIPTION_ORDERS,
+    {
+      options: ({ subscription, perPage }) => ({
+        variables: {
+          subscriptionId: subscription.id,
+          page: 1,
+          perPage,
+        },
+      }),
+      props: ({ data }) =>
+        data?.orders
+          ? {
+              orders: data.orders.list,
+              totalCount: data.orders.totalCount,
+              loading: data.loading,
+              fetchMore: data.fetchMore,
+            }
+          : {
+              orders: [],
+              totalCount: 0,
+              loading: false,
+              fetchMore: () => null,
+            },
+    }
+  ),
   branch<ChildProps>(
     ({ loading }) => loading,
     renderComponent(({ perPage }: OuterProps) => (
@@ -139,5 +135,7 @@ const enhance = compose<Props, OuterProps>(
     renderComponent(HistoryEmpty)
   )
 )
+
+export { SubscriptionOrder }
 
 export default enhance(HistoryList)

@@ -56,10 +56,10 @@ function getParams(imagesLength: number) {
   }
 }
 
-const SubscriptionGroupImages: FunctionComponent<Props> = ({ skus }) => {
+const SubscriptionImages: FunctionComponent<Props> = ({ skus }) => {
   const params = getParams(skus.length)
   return (
-    <div className={CSS.subscriptionGroupImageWrapper}>
+    <div className={CSS.subscriptionImageWrapper}>
       <Swiper {...params}>
         {skus.map((sku, i) => (
           <div key={i} className="swiper-slide center-all pa6 w-100">
@@ -74,4 +74,4 @@ const SubscriptionGroupImages: FunctionComponent<Props> = ({ skus }) => {
   )
 }
 
-export default SubscriptionGroupImages
+export default SubscriptionImages

@@ -9,10 +9,10 @@ import { branch, compose, renderComponent } from 'recompose'
 import { Button, Dropdown, Alert } from 'vtex.styleguide'
 import { Address } from 'vtex.store-graphql'
 
-import GET_ADDRESSES from '../../../graphql/getAddresses.gql'
+import QUERY, { Result } from '../../../graphql/queries/addresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 import { queryWrapper } from '../../../tracking'
 
 const messages = defineMessages({
@@ -33,7 +33,7 @@ const INSTANCE = 'SubscriptionsDetails/CustomerAddresses'
 
 const EditShipping: FunctionComponent<Props> = ({
   addresses,
-  selectedAddressId,
+  selectedAddress,
   onCloseErrorAlert,
   onChangeAddress,
   onGoToCreateAddress,
@@ -61,8 +61,16 @@ const EditShipping: FunctionComponent<Props> = ({
           <Dropdown
             label={intl.formatMessage(messages.address)}
             options={transformAddresses(addresses)}
-            value={selectedAddressId}
-            onChange={onChangeAddress}
+            value={selectedAddress?.id}
+            onChange={(_: unknown, id: string) => {
+              const address = addresses.find(
+                (item) => item.id === id
+              ) as Address
+              onChangeAddress(
+                address.id as string,
+                address.addressType as string
+              )
+            }}
           />
         </div>
         <div className="pt3 pb4 nl5">
@@ -96,11 +104,11 @@ interface InnerProps extends InjectedIntlProps {
 interface OuterProps {
   onSave: () => void
   onCancel: () => void
-  onChangeAddress: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangeAddress: (id: string, type: string) => void
   onCloseErrorAlert: () => void
   onGoToCreateAddress: () => void
-  group: SubscriptionsGroup
-  selectedAddressId: string
+  subscription: Subscription
+  selectedAddress: { id: string; type: string } | null
   showErrorAlert: boolean
   errorMessage: string
   isLoading: boolean
@@ -110,12 +118,7 @@ type Props = InnerProps & OuterProps
 
 export default compose<Props, OuterProps>(
   injectIntl,
-  queryWrapper<
-    OuterProps,
-    { profile: { addresses: Address[] } },
-    {},
-    ChildProps
-  >(INSTANCE, GET_ADDRESSES, {
+  queryWrapper<OuterProps, Result, {}, ChildProps>(INSTANCE, QUERY, {
     props: ({ data }) => ({
       loading: data ? data.loading : false,
       addresses: data?.profile ? data.profile.addresses : [],

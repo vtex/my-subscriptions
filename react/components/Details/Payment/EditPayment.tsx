@@ -14,7 +14,9 @@ import { Button, Dropdown, Radio, Alert } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
 import { PaymentMethod, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 
-import CUSTOMER_PAYMENTS from '../../../graphql/customerPaymentMethods.gql'
+import CUSTOMER_PAYMENTS, {
+  Result,
+} from '../../../graphql/queries/paymentMethods.gql'
 import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 import { queryWrapper } from '../../../tracking'
@@ -192,15 +194,11 @@ type Props = InnerProps & OuterProps
 export default compose<Props, OuterProps>(
   injectIntl,
   withRouter,
-  queryWrapper<{}, { methods: PaymentMethod[] }, {}, ChildProps>(
-    INSTANCE,
-    CUSTOMER_PAYMENTS,
-    {
-      props: ({ data }) => ({
-        loading: data ? data.loading : false,
-        methods: data?.methods ?? [],
-      }),
-    }
-  ),
+  queryWrapper<{}, Result, {}, ChildProps>(INSTANCE, CUSTOMER_PAYMENTS, {
+    props: ({ data }) => ({
+      loading: data ? data.loading : false,
+      methods: data?.methods ?? [],
+    }),
+  }),
   branch<ChildProps>(({ loading }) => loading, renderComponent(PaymentSkeleton))
 )(EditPayment)

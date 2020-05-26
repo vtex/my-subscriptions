@@ -1,5 +1,8 @@
-mutation UpdateItemsOnSubscription($id: ID!, $items: [ItemInput!]!) {
-  updateItems(id: $id, items: $items)
+mutation UpdateItemsOnSubscription(
+  $subscriptionId: ID!
+  $items: [ItemInput!]!
+) {
+  updateItems(id: $subscriptionId, items: $items)
     @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     totals {

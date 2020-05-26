@@ -11,23 +11,23 @@ import { ApolloError } from 'apollo-client'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { ActionMenu, withToast, ShowToastArgs } from 'vtex.styleguide'
 import { MutationAddItemArgs } from 'vtex.store-graphql'
-import {
-  MutationUpdateIsSkippedArgs,
-  MutationUpdateStatusArgs,
-  SubscriptionStatus,
-} from 'vtex.subscriptions-graphql'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import ADD_TO_CART from '../../graphql/addToCart.gql'
-import ORDER_FORM_ID from '../../graphql/orderFormId.gql'
-import UPDATE_STATUS from '../../graphql/updateStatus.gql'
-import UPDATE_IS_SKIPPED from '../../graphql/updateIsSkipped.gql'
+import ORDER_NOW from '../../graphql/mutations/orderNow.gql'
+import ORDER_FORM_ID from '../../graphql/queries/orderFormId.gql'
+import UPDATE_STATUS, {
+  Args as UpdateStatusArgs,
+} from '../../graphql/mutations/updateStatus.gql'
+import UPDATE_IS_SKIPPED, {
+  Args as UpdateIsSkippedArgs,
+} from '../../graphql/mutations/updateIsSkipped.gql'
 import { MenuOptionsEnum } from '../../constants'
 import { retrieveMenuOptions, logOrderNowMetric } from '../../utils'
 import ConfirmationModal, {
   messages as modalMessage,
 } from '../ConfirmationModal'
 import { messages as statusMessages } from '../UpdateStatusButton'
-import { SubscriptionsGroup } from '.'
+import { Subscription } from '.'
 import { logGraphqlError, queryWrapper } from '../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails/OrderForm'
@@ -113,11 +113,11 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
   private handleUpdateSkipped = () => {
     const {
       updateIsSkipped,
-      group: { id, isSkipped },
+      subscription: { id, isSkipped },
     } = this.props
 
     const variables = {
-      subscriptionsGroupId: id,
+      id,
       isSkipped: !isSkipped,
     }
 
@@ -136,11 +136,11 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
   }
 
   private handleOrderNow = () => {
-    const { orderFormId, addToCart, group, runtime } = this.props
+    const { orderFormId, orderNow, subscription, runtime } = this.props
 
-    const items = group.subscriptions.map((subscription) => ({
-      quantity: subscription.quantity,
-      id: parseInt(subscription.sku.id, 10),
+    const items = subscription.subscriptions.map((item) => ({
+      quantity: item.quantity,
+      id: parseInt(item.sku.id, 10),
       seller: '1',
     }))
 
@@ -149,9 +149,9 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
       items,
     }
 
-    return addToCart({ variables })
+    return orderNow({ variables })
       .then(() => {
-        logOrderNowMetric(runtime, group.id)
+        logOrderNowMetric(runtime, subscription.id)
         window.location.href = '/checkout/'
       })
       .catch((error: ApolloError) => {
@@ -169,12 +169,12 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
   private handleUpdateStatus(status: SubscriptionStatus) {
     const {
       updateStatus,
-      group: { id },
+      subscription: { id },
     } = this.props
 
     const variables = {
       status,
-      subscriptionsGroupId: id,
+      id,
     }
 
     return updateStatus({
@@ -279,15 +279,15 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
   }
 
   public render() {
-    const { group, intl, orderFormId } = this.props
+    const { subscription, intl, orderFormId } = this.props
 
-    if (group.status === 'CANCELED') {
+    if (subscription.status === 'CANCELED') {
       return null
     }
 
     const options = retrieveMenuOptions(
-      group.isSkipped,
-      group.status,
+      subscription.isSkipped,
+      subscription.status,
       orderFormId
     )
 
@@ -320,20 +320,18 @@ interface Variables<T> {
 }
 
 interface OuterProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
 }
 
 interface InnerProps
   extends InjectedIntlProps,
     InjectedRuntimeContext,
     ChildProps {
-  addToCart: (args: Variables<MutationAddItemArgs>) => Promise<MutationResult>
+  orderNow: (args: Variables<MutationAddItemArgs>) => Promise<MutationResult>
   updateIsSkipped: (
-    args: Variables<MutationUpdateIsSkippedArgs>
+    args: Variables<UpdateIsSkippedArgs>
   ) => Promise<MutationResult>
-  updateStatus: (
-    args: Variables<MutationUpdateStatusArgs>
-  ) => Promise<MutationResult>
+  updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<MutationResult>
   showToast: (args: ShowToastArgs) => void
 }
 
@@ -355,7 +353,7 @@ const enhance = compose<InnerProps & OuterProps, OuterProps>(
   withRuntimeContext,
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
-  graphql(ADD_TO_CART, { name: 'addToCart' }),
+  graphql(ORDER_NOW, { name: 'orderNow' }),
   queryWrapper<{}, Response, {}, ChildProps>(INSTANCE, ORDER_FORM_ID, {
     props: ({ data }) => ({
       orderFormId: data?.orderForm?.orderFormId,

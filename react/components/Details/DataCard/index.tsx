@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import DisplayData from './DisplayData'
 import EditData from './EditData'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 
 class DataCardContainer extends Component<Props> {
   public state = {
@@ -18,19 +18,25 @@ class DataCardContainer extends Component<Props> {
   }
 
   public render() {
-    const { group } = this.props
+    const { subscription } = this.props
     const { isEditMode } = this.state
 
     return isEditMode ? (
-      <EditData onCloseEdit={this.handleCloseEdit} group={group} />
+      <EditData
+        onCloseEdit={this.handleCloseEdit}
+        subscription={subscription}
+      />
     ) : (
-      <DisplayData onOpenEdit={this.handleOpenEdit} group={group} />
+      <DisplayData
+        onOpenEdit={this.handleOpenEdit}
+        subscription={subscription}
+      />
     )
   }
 }
 
 interface Props {
-  group: SubscriptionsGroup
+  subscription: Subscription
 }
 
 export default DataCardContainer

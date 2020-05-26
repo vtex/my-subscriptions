@@ -1,6 +1,10 @@
-mutation UpdateAddress($id: ID!, $addressId: ID!, $addressType: String!) {
+mutation UpdateAddress(
+  $subscriptionId: ID!
+  $addressId: ID!
+  $addressType: String!
+) {
   updateAddress(
-    subscriptionsGroupId: $id
+    subscriptionsGroupId: $subscriptionId
     addressId: $addressId
     addressType: $addressType
   ) @context(provider: "vtex.subscriptions-graphql") {

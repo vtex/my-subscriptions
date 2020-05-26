@@ -8,10 +8,10 @@ import ItemsImage from './ItemsImage'
 import SubscriptionsStatus from '../SubscriptionStatus'
 import SubscriptionTotals from './SubscriptionTotals'
 import Menu from './Menu'
-import { SubscriptionsGroup } from '.'
+import { Subscription } from '.'
 
-const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
-  const { subscriptions, isSkipped, status } = group
+const SubscriptionSummary: FunctionComponent<Props> = ({ subscription }) => {
+  const { subscriptions, isSkipped, status } = subscription
 
   const hasMultipleItems = subscriptions.length > 1
 
@@ -37,12 +37,10 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
           <div className="pt9-l pt9-m pt4-s ph6-ns flex-grow-1">
             <div className="flex">
               <Name
-                subscriptionsGroupId={group.id}
-                name={group.name}
-                status={group.status}
-                skus={group.subscriptions.map(
-                  (subscription) => subscription.sku
-                )}
+                subscriptionId={subscription.id}
+                name={subscription.name}
+                status={subscription.status}
+                skus={subscription.subscriptions.map((subs) => subs.sku)}
               />
               <div className="pl5-ns pl0-s pt0-ns pt5-s">
                 <SubscriptionsStatus status={status} />
@@ -57,19 +55,19 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
                         <FormattedMessage id="store/subscription.summary.quantity" />
                       </div>
                       <div className="dib f6 fw4 c-muted-1 tr w-60">
-                        {group.subscriptions[0].quantity}
+                        {subscription.subscriptions[0].quantity}
                       </div>
                     </div>
                   )}
                   <SubscriptionTotals
-                    totals={group.totals}
-                    currencyCode={group.purchaseSettings.currencySymbol}
+                    totals={subscription.totals}
+                    currencyCode={subscription.purchaseSettings.currencyCode}
                   />
                 </div>
               </div>
               <div className="w-50-ns w-100 flex justify-end-ns justify-center mt5">
                 <div className="w-90-m w-100-s">
-                  <Menu group={group} />
+                  <Menu subscription={subscription} />
                 </div>
               </div>
             </div>
@@ -81,7 +79,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({ group }) => {
 }
 
 interface Props {
-  group: SubscriptionsGroup
+  subscription: Subscription
 }
 
 export default SubscriptionSummary

@@ -13,7 +13,7 @@ const messages = defineMessages({
   },
 })
 
-const ErrorStateSubscriptionsGroupList: FunctionComponent<Props> = ({
+const ErrorStateSubscriptionsList: FunctionComponent<Props> = ({
   refetch,
   intl,
 }) => {
@@ -36,4 +36,4 @@ interface Props extends InjectedIntlProps {
   refetch: () => void
 }
 
-export default injectIntl(ErrorStateSubscriptionsGroupList)
+export default injectIntl(ErrorStateSubscriptionsList)
