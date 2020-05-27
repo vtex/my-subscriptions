@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Using `SkeletonPiece` component from `vtex.my-account-commons`.
+- Using `TranslateTotalizer` component from `vtex.totalizer-translator`.
+
+### Fixed
+
+- Message typo.
+
 ## [1.14.1] - 2020-05-25
 
 ### Fixed

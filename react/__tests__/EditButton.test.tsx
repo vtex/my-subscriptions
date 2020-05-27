@@ -4,8 +4,7 @@ import { render } from '@vtex/test-tools/react'
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
-import SubscriptionDetails from '../components/pages/Details'
-import { SubscriptionStatus } from '../constants'
+import SubscriptionDetails from '../components/Details'
 import { mockRouterParam, generateDetailMock } from '../mocks'
 
 describe('Display Address Scenarios', () => {
@@ -26,7 +25,7 @@ describe('Display Address Scenarios', () => {
       </MockRouter>,
       {
         graphql: {
-          mocks: [generateDetailMock({ status: SubscriptionStatus.Paused })],
+          mocks: [generateDetailMock({ status: 'PAUSED' })],
         },
       }
     )
@@ -49,7 +48,7 @@ describe('Display Address Scenarios', () => {
       </MockRouter>,
       {
         graphql: {
-          mocks: [generateDetailMock({ status: SubscriptionStatus.Canceled })],
+          mocks: [generateDetailMock({ status: 'CANCELED' })],
         },
       }
     )
