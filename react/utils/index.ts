@@ -1,10 +1,10 @@
 import { RuntimeContext } from 'render'
 import qs from 'query-string'
 import { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import {
   SubscriptionDisplayFilterEnum,
-  SubscriptionStatus,
   MenuOptionsEnum,
   EditOptions,
 } from '../constants'
@@ -14,10 +14,10 @@ export function convertFilter(
   filter: SubscriptionDisplayFilterEnum
 ): SubscriptionStatus[] {
   if (filter === SubscriptionDisplayFilterEnum.Canceled) {
-    return [SubscriptionStatus.Canceled]
+    return ['CANCELED']
   }
 
-  return [SubscriptionStatus.Active, SubscriptionStatus.Paused]
+  return ['ACTIVE', 'PAUSED']
 }
 
 export const makeCancelable = (promise: Promise<unknown>) => {
@@ -45,7 +45,7 @@ export function retrieveMenuOptions(
 ) {
   const options = isSkipped
     ? [MenuOptionsEnum.Unskip, MenuOptionsEnum.Pause, MenuOptionsEnum.Cancel]
-    : status === SubscriptionStatus.Paused
+    : status === 'PAUSED'
     ? [MenuOptionsEnum.Restore, MenuOptionsEnum.Cancel]
     : [MenuOptionsEnum.Skip, MenuOptionsEnum.Pause, MenuOptionsEnum.Cancel]
 

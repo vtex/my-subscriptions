@@ -1,10 +1,12 @@
 import {
   SubscriptionStatus,
   SubscriptionOrderStatus,
-  PaymentSystemGroup,
   Periodicity,
-} from '../constants'
-import DETAIL_QUERY from '../graphql/subscriptionsGroup.gql'
+} from 'vtex.subscriptions-graphql'
+
+import DETAIL_QUERY, {
+  SubscriptionsGroup,
+} from '../graphql/subscriptionsGroup.gql'
 
 export const orderGroup = 'C842CBFAF3728E8EBDA401836B2ED6D1'
 
@@ -12,7 +14,7 @@ export const mockRouterParam = { subscriptionsGroupId: orderGroup }
 
 const plan = {
   frequency: {
-    periodicity: Periodicity.Monthly,
+    periodicity: 'MONTHLY' as Periodicity,
     interval: 1,
   },
   validity: {
@@ -58,14 +60,14 @@ interface GenerationArgs {
 }
 
 export function generateSubscriptionsGroup({
-  status = SubscriptionStatus.Active,
+  status = 'ACTIVE',
   subscriptionsAmount = 1,
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
   hasPaymentMethod = true,
   hasShippingAddress = true,
-  lastOrderStatus = SubscriptionOrderStatus.InProcess,
-}: GenerationArgs) {
+  lastOrderStatus = 'IN_PROCESS',
+}: GenerationArgs): SubscriptionsGroup {
   return {
     __typename: 'SubscriptionsGroup',
     id: orderGroup,
@@ -98,7 +100,7 @@ export function generateSubscriptionsGroup({
         ? {
             paymentSystemId: '2',
             paymentSystemName: 'Visa',
-            paymentSystemGroup: PaymentSystemGroup.CreditCard,
+            paymentSystemGroup: 'creditCard',
             paymentAccount: {
               id: '5FE0FD2838AB47BF852E9E43402DE553',
               cardNumber: '************1111',
@@ -119,31 +121,10 @@ export function generateSubscriptionsGroup({
         value: 300,
       },
     ],
-    totalValue: 400,
     lastOrder: {
       id: '3748EAF9A6F44F72B899359C92DF6C81',
       cacheId: '3748EAF9A6F44F72B899359C92DF6C81',
-      subscriptionsGroupId: orderGroup,
       status: lastOrderStatus,
-      date: '2019-06-10T09:04:10.9944376Z',
-      customerName: 'ahsudhausda szwarcman',
-      customerEmail: 'clara@vtex.com.br',
-      message: 'Checkout failure on gateway callback',
-      context: {
-        items: [
-          {
-            skuId: '18',
-            name: 'Ração para peixe',
-            imageUrl:
-              'http://recorrenciaqa.vteximg.com.br/arquivos/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000',
-            quantity: 1,
-            price: null,
-          },
-        ],
-        plan,
-        value: 0,
-        paymentSystemName: 'Visa',
-      },
     },
     shippingEstimate: {
       estimatedDeliveryDate,

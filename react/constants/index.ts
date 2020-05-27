@@ -1,43 +1,3 @@
-// Remove it after fix on typings and we are able to import the enums from the graphql app. by Napoli
-
-export enum SubscriptionStatus {
-  Active = 'ACTIVE',
-  Paused = 'PAUSED',
-  Canceled = 'CANCELED',
-  Expired = 'EXPIRED',
-}
-
-export enum Periodicity {
-  Daily = 'DAILY',
-  Weekly = 'WEEKLY',
-  Monthly = 'MONTHLY',
-  Yearly = 'YEARLY',
-}
-
-export enum SubscriptionOrderStatus {
-  Triggered = 'TRIGGERED',
-  InProcess = 'IN_PROCESS',
-  Failure = 'FAILURE',
-  Success = 'SUCCESS',
-  Expired = 'EXPIRED',
-  OrderError = 'ORDER_ERROR',
-  PaymentError = 'PAYMENT_ERROR',
-  Skiped = 'SKIPED',
-  SuccessWithNoOrder = 'SUCCESS_WITH_NO_ORDER',
-  SuccessWithPartialOrder = 'SUCCESS_WITH_PARTIAL_ORDER',
-  ReTriggered = 'RE_TRIGGERED',
-}
-
-export enum PaymentSystemGroup {
-  CreditCard = 'creditCard',
-  Cash = 'cash',
-  BankInvoice = 'bankInvoice',
-  GiftCard = 'giftCard',
-  PayPal = 'payPal',
-}
-
-// /
-
 export enum EditOptions {
   Payment = 'payment',
   Address = 'address',
@@ -46,11 +6,6 @@ export enum EditOptions {
 export enum SubscriptionDisplayFilterEnum {
   Active = 'ACTIVE_FILTER',
   Canceled = 'CANCELED_FILTER',
-}
-
-export enum TagTypeEnum {
-  Error = 'error',
-  Warning = 'warning',
 }
 
 export enum MenuOptionsEnum {

@@ -4,7 +4,7 @@ import { render } from '@vtex/test-tools/react'
 // @ts-ignore
 import MockRouter from 'react-mock-router'
 
-import History from '../components/pages/Details/History'
+import History from '../components/Details/History'
 import { subscriptionHistoryQueryMock as mock } from '../mocks/SubscriptionHistory'
 import { generateSubscriptionsGroup, mockRouterParam } from '../mocks'
 

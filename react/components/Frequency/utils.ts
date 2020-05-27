@@ -1,6 +1,5 @@
 import { defineMessages, InjectedIntlProps } from 'react-intl'
-
-import { Periodicity } from '../../constants'
+import { Periodicity } from 'vtex.subscriptions-graphql'
 
 const messages = defineMessages({
   day: {
@@ -118,13 +117,13 @@ export function displayFrequency({
   let frequencyText = periodicityText
 
   if (
-    periodicity !== Periodicity.Daily &&
+    periodicity !== 'DAILY' &&
     purchaseDay != null &&
     purchaseDay !== 'Not_Applicable'
   ) {
     let moment = purchaseDay.toLowerCase()
 
-    if (periodicity === Periodicity.Weekly) {
+    if (periodicity === 'WEEKLY') {
       moment = displayWeekDay({ weekDay: moment, intl }).toLocaleLowerCase()
     }
 
