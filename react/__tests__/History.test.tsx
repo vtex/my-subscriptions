@@ -6,7 +6,7 @@ import MockRouter from 'react-mock-router'
 
 import History from '../components/Details/History'
 import { subscriptionHistoryQueryMock as mock } from '../mocks/SubscriptionHistory'
-import { generateSubscriptionsGroup, mockRouterParam } from '../mocks'
+import { generateSubscriptionsGroup, MOCK_ROUTER_PARAM } from '../mocks'
 
 const copyObj = (o: object) => JSON.parse(JSON.stringify(o))
 
@@ -26,8 +26,8 @@ describe('History Scenarios', () => {
     queryMock.result.data.orders.list = []
 
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <History group={generateSubscriptionsGroup({})} />
+      <MockRouter params={MOCK_ROUTER_PARAM}>
+        <History subscription={generateSubscriptionsGroup({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
@@ -42,8 +42,8 @@ describe('History Scenarios', () => {
     const queryMock = copyObj(mock)
 
     const { queryByText, queryAllByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <History group={generateSubscriptionsGroup({})} />
+      <MockRouter params={MOCK_ROUTER_PARAM}>
+        <History subscription={generateSubscriptionsGroup({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
@@ -84,8 +84,8 @@ describe('History Scenarios', () => {
     )
 
     const { container } = render(
-      <MockRouter params={mockRouterParam}>
-        <History group={generateSubscriptionsGroup({})} />
+      <MockRouter params={MOCK_ROUTER_PARAM}>
+        <History subscription={generateSubscriptionsGroup({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )

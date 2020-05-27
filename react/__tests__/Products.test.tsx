@@ -7,7 +7,7 @@ import { generateSubscriptionsGroup } from '../mocks'
 describe('Products Scenarios', () => {
   it('Should list one product', async () => {
     const { queryAllByTestId } = render(
-      <ProductsContainer group={generateSubscriptionsGroup({})} />
+      <ProductsContainer subscription={generateSubscriptionsGroup({})} />
     )
 
     await new Promise((resolve) => setTimeout(resolve, 0))
@@ -18,7 +18,7 @@ describe('Products Scenarios', () => {
   it('Should list two products', async () => {
     const { queryAllByTestId } = render(
       <ProductsContainer
-        group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+        subscription={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
       />
     )
 
@@ -30,7 +30,7 @@ describe('Products Scenarios', () => {
   it('Should display remove button', async () => {
     const { queryByTestId, queryAllByTestId } = render(
       <ProductsContainer
-        group={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+        subscription={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
       />
     )
 
@@ -43,7 +43,7 @@ describe('Products Scenarios', () => {
 
   it('Shouldnt display remove button', async () => {
     const { queryByTestId, queryAllByTestId } = render(
-      <ProductsContainer group={generateSubscriptionsGroup({})} />
+      <ProductsContainer subscription={generateSubscriptionsGroup({})} />
     )
 
     await new Promise((resolve) => setTimeout(resolve, 0))

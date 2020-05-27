@@ -1,14 +1,16 @@
-import HISTORY_QUERY from '../graphql/subscriptionOrdersByGroup.gql'
-import { orderGroup } from '.'
+import HISTORY_QUERY, { Args } from '../graphql/queries/subscriptionOrders.gql'
+import { SUBSCRIPTION_ID } from '.'
+
+const variables: Args = {
+  subscriptionId: SUBSCRIPTION_ID,
+  page: 1,
+  perPage: 5,
+}
 
 export const subscriptionHistoryQueryMock = {
   request: {
     query: HISTORY_QUERY,
-    variables: {
-      subscriptionsGroupId: orderGroup,
-      page: 1,
-      perPage: 5,
-    },
+    variables,
   },
   result: {
     data: {

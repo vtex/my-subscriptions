@@ -5,7 +5,7 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
-import { mockRouterParam, generateDetailMock } from '../mocks'
+import { MOCK_ROUTER_PARAM, generateDetailMock } from '../mocks'
 
 const RETRY_BUTTON = 'Try again'
 
@@ -22,7 +22,7 @@ describe('Retry Scenarios', () => {
 
   it('Should display retry', async () => {
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -43,7 +43,7 @@ describe('Retry Scenarios', () => {
 
   it('Shouldnt display retry', async () => {
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {
