@@ -50,5 +50,5 @@
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.116.0/public/@types/vtex.styleguide",
     "vtex.subscriptions-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@2.7.3/public/@types/vtex.subscriptions-graphql"
   },
-  "version": "1.14.1"
+  "version": "1.14.2"
 }
