@@ -7,7 +7,7 @@ import MockRouter from 'react-mock-router'
 import SubscriptionDetails from '../components/Details'
 import {
   generateDetailMock,
-  generateSubscriptionsGroup,
+  generateSubscription,
   MOCK_ROUTER_PARAM,
   SUBSCRIPTION_ID,
 } from '../mocks'
@@ -70,7 +70,7 @@ describe('Payment Scenarios', () => {
               },
               result: {
                 data: {
-                  updatePlan: generateSubscriptionsGroup({
+                  updatePlan: generateSubscription({
                     nextPurchaseDate: '2019-11-09T09:10:04Z',
                     estimatedDeliveryDate: '2019-11-14T00:00:00Z',
                   }),

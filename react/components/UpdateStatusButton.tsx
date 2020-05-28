@@ -127,7 +127,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       successMessage: intl.formatMessage(modalMessages.successMessage),
       onSubmit: () => {
         const variables = {
-          id: subscriptionId,
+          subscriptionId,
           status: targetStatus,
         }
         return updateStatus({

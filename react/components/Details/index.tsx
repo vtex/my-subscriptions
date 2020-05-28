@@ -96,7 +96,7 @@ class SubscriptionsDetailsContainer extends Component<Props> {
     const { retry, subscription } = this.props
 
     const variables = {
-      id: subscription?.id as string,
+      subscriptionId: subscription?.id as string,
       subscriptionOrderId: subscription?.lastOrder?.id as string,
     }
 

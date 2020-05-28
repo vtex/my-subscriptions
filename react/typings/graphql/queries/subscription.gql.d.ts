@@ -2,13 +2,13 @@ declare module '*/subscription.gql' {
   import { DocumentNode } from 'graphql'
   import {
     Sku,
-    SubscriptionsGroup as Group,
+    Subscription as Subs,
     SubscriptionStatus,
     SubscriptionOrder,
     SubscriptionOrderStatus,
     PaymentMethod,
     Periodicity,
-    QuerySubscriptionsGroupArgs as Args,
+    QuerySubscriptionArgs as Args,
   } from 'vtex.subscriptions-graphql'
 
   interface Item {
@@ -21,7 +21,7 @@ declare module '*/subscription.gql' {
   }
 
   type Subscription = Pick<
-    Group,
+    Subs,
     | 'id'
     | 'cacheId'
     | 'name'
@@ -33,7 +33,7 @@ declare module '*/subscription.gql' {
     | 'estimatedDeliveryDate'
     | 'plan'
   > & {
-    subscriptions: Item[]
+    items: Item[]
     lastOrder: Pick<SubscriptionOrder, 'id' | 'status'>
     purchaseSettings: {
       currencyCode: string

@@ -66,12 +66,11 @@ class ProductsContainer extends Component<Props, State> {
 
   public static getDerivedStateFromProps(props: Props, state: State) {
     const shouldUpdate =
-      props.subscription.subscriptions.length !==
-      Object.values(state.products).length
+      props.subscription.items.length !== Object.values(state.products).length
 
     if (!shouldUpdate) return null
 
-    const products = mapItemsToHashMap(props.subscription.subscriptions)
+    const products = mapItemsToHashMap(props.subscription.items)
 
     return {
       products,
@@ -85,7 +84,7 @@ class ProductsContainer extends Component<Props, State> {
   private handleCancel = () => {
     this.setState({
       isEditMode: false,
-      products: mapItemsToHashMap(this.props.subscription.subscriptions),
+      products: mapItemsToHashMap(this.props.subscription.items),
     })
   }
 
@@ -140,7 +139,7 @@ class ProductsContainer extends Component<Props, State> {
     const variables = {
       subscriptionId: subscription.id,
       items: this.getProducts().map((item) => ({
-        id: item.sku.id,
+        id: item.id,
         quantity: item.quantity,
       })),
     }

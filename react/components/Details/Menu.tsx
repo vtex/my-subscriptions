@@ -117,7 +117,7 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
     } = this.props
 
     const variables = {
-      id,
+      subscriptionId: id,
       isSkipped: !isSkipped,
     }
 
@@ -138,7 +138,7 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
   private handleOrderNow = () => {
     const { orderFormId, orderNow, subscription, runtime } = this.props
 
-    const items = subscription.subscriptions.map((item) => ({
+    const items = subscription.items.map((item) => ({
       quantity: item.quantity,
       id: parseInt(item.sku.id, 10),
       seller: '1',
@@ -174,7 +174,7 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
 
     const variables = {
       status,
-      id,
+      subscriptionId: id,
     }
 
     return updateStatus({

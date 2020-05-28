@@ -1,6 +1,6 @@
 query SubscriptionOrders($subscriptionId: ID!, $page: Int, $perPage: Int) {
-  orders: subscriptionOrdersByGroup(
-    subscriptionsGroupId: $subscriptionId
+  orders: subscriptionOrdersBySubscription(
+    subscriptionId: $subscriptionId
     page: $page
     perPage: $perPage
   ) @context(provider: "vtex.subscriptions-graphql") {

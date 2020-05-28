@@ -1,5 +1,5 @@
-query Subscriptions($filter: [SubscriptionStatus]) {
-  list: customerSubscriptionsGroupList(statusList: $filter)
+query Subscriptions($filter: [SubscriptionStatus!]) {
+  list: customerSubscriptions(statusList: $filter)
     @context(provider: "vtex.subscriptions-graphql") {
     id
     cacheId
@@ -7,7 +7,7 @@ query Subscriptions($filter: [SubscriptionStatus]) {
     name
     nextPurchaseDate
     lastUpdate
-    subscriptions {
+    items {
       sku {
         imageUrl
         name

@@ -131,9 +131,7 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
                   className={CSS.subscriptionItemWrapper}
                   key={subscription.id}
                 >
-                  <Images
-                    skus={subscription.subscriptions.map((item) => item.sku)}
-                  />
+                  <Images skus={subscription.items.map((item) => item.sku)} />
                   <Summary
                     subscription={subscription}
                     onGoToDetails={this.handleGoToDetails}

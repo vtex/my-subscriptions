@@ -4,7 +4,7 @@ mutation UpdateAddress(
   $addressType: String!
 ) {
   updateAddress(
-    subscriptionsGroupId: $subscriptionId
+    subscriptionId: $subscriptionId
     addressId: $addressId
     addressType: $addressType
   ) @context(provider: "vtex.subscriptions-graphql") {
