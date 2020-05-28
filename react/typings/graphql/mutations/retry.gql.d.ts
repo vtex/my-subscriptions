@@ -1,10 +1,8 @@
 declare module '*/retry.gql' {
   import { DocumentNode } from 'graphql'
+  import { MutationRetrySubscriptionOrderArgs as Args } from 'vtex.subscriptions-graphql'
 
-  export interface Args {
-    id: string
-    subscriptionOrderId: string
-  }
+  export { Args }
 
   const value: DocumentNode
   export default value

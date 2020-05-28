@@ -2,14 +2,14 @@ mutation UpdateItemsOnSubscription(
   $subscriptionId: ID!
   $items: [ItemInput!]!
 ) {
-  updateItems(id: $subscriptionId, items: $items)
+  updateItems(subscriptionId: $subscriptionId, items: $items)
     @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     totals {
       id
       value
     }
-    subscriptions {
+    items {
       id
       quantity
       sku {

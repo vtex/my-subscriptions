@@ -1,10 +1,9 @@
 declare module '*/updateName.gql' {
   import { DocumentNode } from 'graphql'
+  import { MutationUpdateNameArgs as Args } from 'vtex.subscriptions-graphql'
 
-  export interface Args {
-    id: string
-    name: string
-  }
+  export { Args }
+
   const value: DocumentNode
   export default value
 }

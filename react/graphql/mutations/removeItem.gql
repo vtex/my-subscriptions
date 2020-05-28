@@ -1,15 +1,13 @@
 mutation RemoveItemFromSubscription($subscriptionId: ID!, $itemId: ID!) {
-  removeSubscription(
-    subscriptionsGroupId: $subscriptionId
-    subscriptionId: $itemId
-  ) @context(provider: "vtex.subscriptions-graphql") {
+  removeItem(subscriptionId: $subscriptionId, itemId: $itemId)
+    @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     totals {
       id
       value
     }
     totalValue
-    subscriptions {
+    items {
       id
       quantity
       sku {
@@ -21,7 +19,7 @@ mutation RemoveItemFromSubscription($subscriptionId: ID!, $itemId: ID!) {
         variations
         measurementUnit
       }
-      priceAtSubscriptionDate
+      currentPrice
     }
   }
 }

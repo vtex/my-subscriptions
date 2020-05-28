@@ -18,12 +18,10 @@ const PLAN: Subscription['plan'] = {
   purchaseDay: '10',
 }
 
-function generateSubscriptions(
-  subscriptionsAmount: number
-): Subscription['subscriptions'] {
-  const subscriptions = []
-  for (let i = 0; i < subscriptionsAmount; i++) {
-    subscriptions.push({
+function generateItems(itemsAmount: number): Subscription['items'] {
+  const items = []
+  for (let i = 0; i < itemsAmount; i++) {
+    items.push({
       id: `0A19A86877B04D149D314D7453F538${i}C`,
       sku: {
         id: `1${i}`,
@@ -40,13 +38,13 @@ function generateSubscriptions(
     })
   }
 
-  return subscriptions
+  return items
 }
 
 interface GenerationArgs {
-  subscriptionsGroupId?: string
+  subscriptionId?: string
   status?: SubscriptionStatus
-  subscriptionsAmount?: number
+  numberOfItems?: number
   nextPurchaseDate?: string
   estimatedDeliveryDate?: string
   hasPaymentMethod?: boolean
@@ -54,9 +52,10 @@ interface GenerationArgs {
   lastOrderStatus?: SubscriptionOrderStatus
 }
 
-export function generateSubscriptionsGroup({
+export function generateSubscription({
   status = 'ACTIVE',
-  subscriptionsAmount = 1,
+  subscriptionId = SUBSCRIPTION_ID,
+  numberOfItems = 1,
   nextPurchaseDate = '2019-07-10T09:00:57Z',
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
   hasPaymentMethod = true,
@@ -64,13 +63,13 @@ export function generateSubscriptionsGroup({
   lastOrderStatus = 'IN_PROCESS',
 }: GenerationArgs): Subscription {
   return {
-    __typename: 'SubscriptionsGroup',
-    id: SUBSCRIPTION_ID,
-    cacheId: SUBSCRIPTION_ID,
+    __typename: 'Subscription',
+    id: subscriptionId,
+    cacheId: subscriptionId,
     status,
     isSkipped: false,
     name: null,
-    subscriptions: generateSubscriptions(subscriptionsAmount),
+    items: generateItems(numberOfItems),
     plan: PLAN,
     shippingAddress: hasShippingAddress
       ? {
@@ -133,7 +132,7 @@ export function generateDetailMock(args?: GenerationArgs) {
     },
     result: {
       data: {
-        subscription: generateSubscriptionsGroup(args ?? {}),
+        subscription: generateSubscription(args ?? {}),
       },
     },
   }

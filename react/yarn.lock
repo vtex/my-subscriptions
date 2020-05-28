@@ -5719,9 +5719,9 @@ vtex-tachyons@^3.2.0:
   version "9.119.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.0/public/@types/vtex.styleguide#e403de99f313f6ac4b065afad0079711b0992163"
 
-"vtex.subscriptions-graphql@https://felipe--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.7.3+build1590612123/public/@types/vtex.subscriptions-graphql":
+"vtex.subscriptions-graphql@https://felipe--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.7.3+build1590697837/public/@types/vtex.subscriptions-graphql":
   version "2.7.3"
-  resolved "https://felipe--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.7.3+build1590612123/public/@types/vtex.subscriptions-graphql#77c1871b9cd7e5dbe939afdcabd341afd5650835"
+  resolved "https://felipe--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.7.3+build1590697837/public/@types/vtex.subscriptions-graphql#62970cca6a7d482d70e55583c6dc4d09d4e931f8"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.1.0/public/_types/react":
   version "0.0.0"

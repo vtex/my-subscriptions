@@ -1,12 +1,12 @@
 query Subscription($id: ID!) {
-  subscription: subscriptionsGroup(id: $id)
+  subscription(id: $id)
     @context(provider: "vtex.subscriptions-graphql", scope: PRIVATE) {
     id
     cacheId
     status
     name
     isSkipped
-    subscriptions {
+    items {
       id
       quantity
       sku {

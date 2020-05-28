@@ -85,7 +85,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
       onSubmit: () => {
         const variables = {
           name: this.state.name,
-          id: subscriptionId,
+          subscriptionId,
         }
         return updateName({
           variables,

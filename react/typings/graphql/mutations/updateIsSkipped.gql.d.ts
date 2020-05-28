@@ -1,10 +1,8 @@
 declare module '*/updateIsSkipped.gql' {
   import { DocumentNode } from 'graphql'
+  import { MutationUpdateIsSkippedArgs as Args } from 'vtex.subscriptions-graphql'
 
-  export interface Args {
-    id: string
-    isSkipped: boolean
-  }
+  export { Args }
 
   const value: DocumentNode
   export default value

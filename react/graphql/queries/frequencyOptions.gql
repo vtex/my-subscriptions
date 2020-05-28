@@ -1,5 +1,5 @@
 query FrequencyOptions($subscriptionId: ID!) {
-  frequencies: frequencyOptions(subscriptionsGroupId: $subscriptionId)
+  frequencies: frequencyOptions(subscriptionId: $subscriptionId)
     @context(provider: "vtex.subscriptions-graphql") {
     periodicity
     interval

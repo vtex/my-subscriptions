@@ -1,13 +1,11 @@
 declare module '*/updatePlan.gql' {
   import { DocumentNode } from 'graphql'
-  import { Periodicity } from 'vtex.subscriptions-graphql'
+  import {
+    Periodicity,
+    MutationUpdatePlanArgs as Args,
+  } from 'vtex.subscriptions-graphql'
 
-  export interface Args {
-    subscriptionId: string
-    purchaseDay: string | null
-    periodicity: Periodicity
-    interval: number
-  }
+  export { Args }
 
   const value: DocumentNode
   export default value

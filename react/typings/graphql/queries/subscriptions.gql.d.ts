@@ -2,16 +2,16 @@ declare module '*/subscriptions.gql' {
   import { DocumentNode } from 'graphql'
 
   import {
-    SubscriptionsGroup as Group,
+    Subscription as Subs,
     SubscriptionStatus,
     Periodicity,
   } from 'vtex.subscriptions-graphql'
 
   export type Subscription = Pick<
-    Group,
+    Subs,
     'id' | 'name' | 'nextPurchaseDate' | 'lastUpdate' | 'status' | 'plan'
   > & {
-    subscriptions: Array<{
+    items: Array<{
       sku: {
         imageUrl: string
         name: string

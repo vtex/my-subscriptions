@@ -21,7 +21,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
       <div className="w-50-ns flex flex-row flex-wrap">
         <div className="w-100">
           <Name
-            skus={subscription.subscriptions.map((sub) => sub.sku)}
+            skus={subscription.items.map((item) => item.sku)}
             subscriptionId={subscription.id}
             status={subscription.status}
             name={subscription.name}

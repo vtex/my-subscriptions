@@ -71,7 +71,7 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
       selectedAccountId:
         path(
           [
-            'group',
+            'subscription',
             'purchaseSettings',
             'paymentMethod',
             'paymentAccount',
@@ -85,12 +85,22 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
       isRetryButtonEnabled: true,
       selectedPaymentSystemId:
         path(
-          ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemId'],
+          [
+            'subscription',
+            'purchaseSettings',
+            'paymentMethod',
+            'paymentSystemId',
+          ],
           props
         ) ?? null,
       selectedPaymentSystemGroup:
         path(
-          ['group', 'purchaseSettings', 'paymentMethod', 'paymentSystemGroup'],
+          [
+            'subscription',
+            'purchaseSettings',
+            'paymentMethod',
+            'paymentSystemGroup',
+          ],
           props
         ) ?? 'creditCard',
       showAlert: false,

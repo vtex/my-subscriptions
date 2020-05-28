@@ -1,5 +1,5 @@
-mutation UpdateStatus($id: ID!, $status: SubscriptionStatus!) {
-  updateStatus(subscriptionsGroupId: $id, status: $status)
+mutation UpdateStatus($subscriptionId: ID!, $status: SubscriptionStatus!) {
+  updateStatus(subscriptionId: $subscriptionId, status: $status)
     @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     status

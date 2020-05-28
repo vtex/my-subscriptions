@@ -2,12 +2,12 @@ import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
 import ProductsContainer from '../components/Details/Products'
-import { generateSubscriptionsGroup } from '../mocks'
+import { generateSubscription } from '../mocks'
 
 describe('Products Scenarios', () => {
   it('Should list one product', async () => {
     const { queryAllByTestId } = render(
-      <ProductsContainer subscription={generateSubscriptionsGroup({})} />
+      <ProductsContainer subscription={generateSubscription({})} />
     )
 
     await new Promise((resolve) => setTimeout(resolve, 0))
@@ -18,7 +18,7 @@ describe('Products Scenarios', () => {
   it('Should list two products', async () => {
     const { queryAllByTestId } = render(
       <ProductsContainer
-        subscription={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+        subscription={generateSubscription({ numberOfItems: 2 })}
       />
     )
 
@@ -30,7 +30,7 @@ describe('Products Scenarios', () => {
   it('Should display remove button', async () => {
     const { queryByTestId, queryAllByTestId } = render(
       <ProductsContainer
-        subscription={generateSubscriptionsGroup({ subscriptionsAmount: 2 })}
+        subscription={generateSubscription({ numberOfItems: 2 })}
       />
     )
 
@@ -43,7 +43,7 @@ describe('Products Scenarios', () => {
 
   it('Shouldnt display remove button', async () => {
     const { queryByTestId, queryAllByTestId } = render(
-      <ProductsContainer subscription={generateSubscriptionsGroup({})} />
+      <ProductsContainer subscription={generateSubscription({})} />
     )
 
     await new Promise((resolve) => setTimeout(resolve, 0))
