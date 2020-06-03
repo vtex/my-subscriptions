@@ -41,7 +41,7 @@ query Subscription($id: ID!) {
         }
       }
     }
-    lastOrder {
+    lastExecution {
       id
       status
     }

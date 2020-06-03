@@ -46,11 +46,11 @@ const messages = defineMessages({
     defaultMessage: '',
   },
   orderAgainConfirmation: {
-    id: 'store/subscription.order.again.confirmation',
+    id: 'store/subscription.execution.again.confirmation',
     defaultMessage: '',
   },
   orderAgainDescription: {
-    id: 'store/subscription.order.again.description',
+    id: 'store/subscription.execution.again.description',
     defaultMessage: '',
   },
   skipConfirm: {

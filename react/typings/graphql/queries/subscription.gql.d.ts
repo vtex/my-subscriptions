@@ -3,11 +3,8 @@ declare module '*/subscription.gql' {
   import {
     Sku,
     Subscription as Subs,
-    SubscriptionStatus,
-    SubscriptionOrder,
-    SubscriptionOrderStatus,
+    SubscriptionExecution,
     PaymentMethod,
-    Periodicity,
     QuerySubscriptionArgs as Args,
   } from 'vtex.subscriptions-graphql'
 
@@ -34,7 +31,7 @@ declare module '*/subscription.gql' {
     | 'plan'
   > & {
     items: Item[]
-    lastOrder: Pick<SubscriptionOrder, 'id' | 'status'>
+    lastExecution: Pick<SubscriptionExecution, 'id' | 'status'> | null
     purchaseSettings: {
       currencyCode: string
       paymentMethod: PaymentMethod | null

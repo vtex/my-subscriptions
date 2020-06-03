@@ -23,7 +23,7 @@ describe('History Scenarios', () => {
 
   it('should display empty state if no recurrent order exists yet', async () => {
     const queryMock = copyObj(mock)
-    queryMock.result.data.orders.list = []
+    queryMock.result.data.executions.list = []
 
     const { queryByText } = render(
       <MockRouter params={MOCK_ROUTER_PARAM}>
@@ -77,8 +77,8 @@ describe('History Scenarios', () => {
 
   it('should add "isFullyloaded" class to list after loading every item', async () => {
     const queryMock = copyObj(mock)
-    queryMock.result.data.orders.totalCount = 5
-    queryMock.result.data.orders.list = queryMock.result.data.orders.list.slice(
+    queryMock.result.data.executions.totalCount = 5
+    queryMock.result.data.executions.list = queryMock.result.data.executions.list.slice(
       0,
       5
     )

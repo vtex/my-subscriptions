@@ -29,7 +29,7 @@ describe('Retry Scenarios', () => {
         graphql: {
           mocks: [
             generateDetailMock({
-              lastOrderStatus: 'PAYMENT_ERROR',
+              lastExecutionStatus: 'PAYMENT_ERROR',
             }),
           ],
         },

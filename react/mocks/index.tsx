@@ -1,6 +1,6 @@
 import {
   SubscriptionStatus,
-  SubscriptionOrderStatus,
+  SubscriptionExecutionStatus,
 } from 'vtex.subscriptions-graphql'
 
 import DETAIL_QUERY, { Args } from '../graphql/queries/subscription.gql'
@@ -49,7 +49,7 @@ interface GenerationArgs {
   estimatedDeliveryDate?: string
   hasPaymentMethod?: boolean
   hasShippingAddress?: boolean
-  lastOrderStatus?: SubscriptionOrderStatus
+  lastExecutionStatus?: SubscriptionExecutionStatus
 }
 
 export function generateSubscription({
@@ -60,7 +60,7 @@ export function generateSubscription({
   estimatedDeliveryDate = '2019-07-16T00:00:00Z',
   hasPaymentMethod = true,
   hasShippingAddress = true,
-  lastOrderStatus = 'IN_PROCESS',
+  lastExecutionStatus = 'IN_PROCESS',
 }: GenerationArgs): Subscription {
   return {
     __typename: 'Subscription',
@@ -114,9 +114,9 @@ export function generateSubscription({
         value: 300,
       },
     ],
-    lastOrder: {
+    lastExecution: {
       id: '3748EAF9A6F44F72B899359C92DF6C81',
-      status: lastOrderStatus,
+      status: lastExecutionStatus,
     },
     estimatedDeliveryDate,
   }

@@ -65,9 +65,9 @@ class SubscriptionsDetailsContainer extends Component<Props> {
   private mounted = false
 
   public static getDerivedStateFromProps(props: Props) {
-    const lastOrder = props.subscription && props.subscription.lastOrder
+    const lastExecution = props.subscription && props.subscription.lastExecution
 
-    return lastOrder && lastOrder.status === 'PAYMENT_ERROR'
+    return lastExecution && lastExecution.status === 'PAYMENT_ERROR'
       ? {
           displayRetry: true,
         }
@@ -97,7 +97,7 @@ class SubscriptionsDetailsContainer extends Component<Props> {
 
     const variables = {
       subscriptionId: subscription?.id as string,
-      subscriptionOrderId: subscription?.lastOrder?.id as string,
+      subscriptionExecutionId: subscription?.lastExecution?.id as string,
     }
 
     return retry({

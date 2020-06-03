@@ -1,4 +1,6 @@
-import HISTORY_QUERY, { Args } from '../graphql/queries/subscriptionOrders.gql'
+import HISTORY_QUERY, {
+  Args,
+} from '../graphql/queries/subscriptionExecutions.gql'
 import { SUBSCRIPTION_ID } from '.'
 
 const variables: Args = {
@@ -14,7 +16,7 @@ export const subscriptionHistoryQueryMock = {
   },
   result: {
     data: {
-      orders: {
+      executions: {
         list: [
           {
             id: '6923FC5B61A7404B915AF68B29358431',
