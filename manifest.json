@@ -11,9 +11,7 @@
     "messages": "1.x"
   },
   "mustUpdateAt": "2019-04-02",
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -22,7 +20,7 @@
     "vtex.styleguide": "8.x",
     "vtex.my-account-commons": "0.x",
     "vtex.payment-flags": "1.x",
-    "vtex.subscriptions-graphql": "2.x",
+    "vtex.subscriptions-graphql": "3.x",
     "vtex.store-graphql": "2.x",
     "vtex.totalizer-translator": "1.x"
   },

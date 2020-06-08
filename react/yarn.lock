@@ -5718,6 +5718,7 @@ vtex-tachyons@^3.2.0:
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@1.5.1/public/@types/vtex.payment-flags#2d0dcd2bbcfe103993e047eeab853275af21db20"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@7.41.1/public/@types/vtex.render-runtime":
   version "7.41.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@7.41.1/public/@types/vtex.render-runtime#3695d40d1d538b10f95616db096b258df7cb8c8a"
@@ -5726,18 +5727,23 @@ vtex-tachyons@^3.2.0:
   version "8.103.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.103.1/public/@types/vtex.render-runtime#b044e7d74d38d4255f7ab3116a915180abe0cd33"
 >>>>>>> f445a41... Migrate from SubscriptionOrder to SubscriptionExecution
+=======
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.104.2/public/@types/vtex.render-runtime":
+  version "8.104.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.104.2/public/@types/vtex.render-runtime#29b2a0a9dde322909af6c32ba6bd13cb04093b11"
+>>>>>>> ccb584d... Update to graphQL v3
 
 "vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.3/public/@types/vtex.store-graphql":
   version "2.123.3"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.3/public/@types/vtex.store-graphql#7c69b7386cf95d31625054e1ee0681652aae8bd3"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.1/public/@types/vtex.styleguide":
-  version "9.119.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.119.1/public/@types/vtex.styleguide#ccec3b84707088971c0c800e363bddac42b85353"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.120.1/public/@types/vtex.styleguide":
+  version "9.120.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.120.1/public/@types/vtex.styleguide#d3c34389637b106a07b95e285b1402593768974d"
 
-"vtex.subscriptions-graphql@https://felipe--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.7.3+build1591217463/public/@types/vtex.subscriptions-graphql":
-  version "2.7.3"
-  resolved "https://felipe--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@2.7.3+build1591217463/public/@types/vtex.subscriptions-graphql#f906fd0c564f777df7b4da66e4504ad633d6d07f"
+"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.0.0/public/@types/vtex.subscriptions-graphql":
+  version "3.0.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.0.0/public/@types/vtex.subscriptions-graphql#f5e478f87ed4d1c1fcae09e291fbf3c804cb6237"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.1.0/public/_types/react":
   version "0.0.0"
