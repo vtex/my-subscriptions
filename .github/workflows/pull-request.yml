@@ -2,7 +2,11 @@ name: PR actions
 'on':
   pull_request:
     branches:
+      - 4.x
+      - 3.x
+      - 2.x
       - 1.x
+      - master
 jobs:
   io-app-test:
     name: IO app test
