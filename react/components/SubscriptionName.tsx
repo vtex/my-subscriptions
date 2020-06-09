@@ -7,7 +7,7 @@ import { IconEdit, Input } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import UPDATE_NAME from '../graphql/updateName.gql'
+import UPDATE_NAME, { Args } from '../graphql/mutations/updateName.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
@@ -54,14 +54,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
   }
 
   public render() {
-    const {
-      name,
-      status,
-      intl,
-      updateName,
-      skus,
-      subscriptionsGroupId,
-    } = this.props
+    const { name, status, intl, updateName, skus, subscriptionId } = this.props
 
     let content
     if (name) {
@@ -92,7 +85,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
       onSubmit: () => {
         const variables = {
           name: this.state.name,
-          subscriptionsGroupId,
+          subscriptionId,
         }
         return updateName({
           variables,
@@ -144,7 +137,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
 interface OuterProps {
   name?: string | null
   status: SubscriptionStatus
-  subscriptionsGroupId: string
+  subscriptionId: string
   skus: Array<{
     detailUrl: string
     productName: string
@@ -153,7 +146,7 @@ interface OuterProps {
 }
 
 interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
-  updateName: (args: object) => Promise<unknown>
+  updateName: (args: { variables: Args }) => Promise<unknown>
   showToast: (args: object) => void
 }
 

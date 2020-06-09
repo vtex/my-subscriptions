@@ -7,11 +7,16 @@ import MockRouter from 'react-mock-router'
 import SubscriptionDetails from '../components/Details'
 import {
   generateDetailMock,
-  generateSubscriptionsGroup,
-  orderGroup as subscriptionsGroupId,
+  generateSubscription,
+  MOCK_ROUTER_PARAM,
+  SUBSCRIPTION_ID,
 } from '../mocks'
-import FREQUENCY_QUERY from '../graphql/frequencyOptions.gql'
-import MUTATION from '../graphql/updateSubscriptionSettings.gql'
+import FREQUENCY_QUERY, {
+  Args as QueryArgs,
+} from '../graphql/queries/frequencyOptions.gql'
+import MUTATION, {
+  Args as UpdateArgs,
+} from '../graphql/mutations/updatePlan.gql'
 
 describe('Payment Scenarios', () => {
   const { location } = window
@@ -39,9 +44,16 @@ describe('Payment Scenarios', () => {
 
   it('Should update the dates after editing frequency', async () => {
     const mock = generateDetailMock()
-    const { periodicity } = mock.result.data.group.plan.frequency
+    const { periodicity } = mock.result.data.subscription.plan.frequency
+    const queryVariables: QueryArgs = { subscriptionId: SUBSCRIPTION_ID }
+    const mutationVariables: UpdateArgs = {
+      subscriptionId: SUBSCRIPTION_ID,
+      interval: 1,
+      periodicity,
+      purchaseDay: '10',
+    }
     const { queryByTestId, queryByText } = render(
-      <MockRouter params={{ subscriptionsGroupId }}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -51,7 +63,7 @@ describe('Payment Scenarios', () => {
             {
               request: {
                 query: FREQUENCY_QUERY,
-                variables: { subscriptionsGroupId },
+                variables: queryVariables,
               },
               result: {
                 data: {
@@ -67,16 +79,11 @@ describe('Payment Scenarios', () => {
             {
               request: {
                 query: MUTATION,
-                variables: {
-                  subscriptionsGroupId,
-                  interval: 1,
-                  periodicity,
-                  purchaseDay: '10',
-                },
+                variables: mutationVariables,
               },
               result: {
                 data: {
-                  updateSettings: generateSubscriptionsGroup({
+                  updatePlan: generateSubscription({
                     nextPurchaseDate: '2019-11-09T09:10:04Z',
                     estimatedDeliveryDate: '2019-11-14T00:00:00Z',
                   }),

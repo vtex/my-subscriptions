@@ -10,7 +10,7 @@ import { Button, Alert } from 'vtex.styleguide'
 import EditAlert from '../EditAlert'
 import EditButton from '../EditButton'
 import PaymentDisplay from './PaymentDisplay'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 
 const messages = defineMessages({
   label: {
@@ -23,8 +23,8 @@ const messages = defineMessages({
   },
 })
 
-const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
-  group,
+const SubscriptionPaymentCard: FunctionComponent<Props> = ({
+  subscription,
   onEdit,
   onMakeRetry,
   displayRetry,
@@ -57,7 +57,7 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
         <div className="ml3">
           <EditButton
             onEdit={onEdit}
-            subscriptionStatus={group.status}
+            subscriptionStatus={subscription.status}
             testId="edit-payment-button"
           />
         </div>
@@ -65,13 +65,13 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
     </div>
     <div className="flex pt3-s pt0-ns w-100 mr-auto flex-row-ns flex-column-s">
       <div className="f5-ns f6-s pt5 lh-solid dib-ns c-on-base">
-        {group.purchaseSettings.paymentMethod ? (
+        {subscription.purchaseSettings.paymentMethod ? (
           <PaymentDisplay
-            paymentMethod={group.purchaseSettings.paymentMethod}
+            paymentMethod={subscription.purchaseSettings.paymentMethod}
           />
         ) : (
           <EditAlert
-            subscriptionStatus={group.status}
+            subscriptionStatus={subscription.status}
             onAction={onEdit}
             actionLabelMessage={intl.formatMessage(messages.label)}
             noActionMessage={intl.formatMessage(messages.noAction)}
@@ -85,11 +85,11 @@ const SubscriptionsGroupPaymentCard: FunctionComponent<Props> = ({
 )
 
 interface Props extends InjectedIntlProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
   onEdit: () => void
   onMakeRetry: () => void
   displayRetry: boolean
   isRetryButtonEnabled: boolean
 }
 
-export default injectIntl(SubscriptionsGroupPaymentCard)
+export default injectIntl(SubscriptionPaymentCard)

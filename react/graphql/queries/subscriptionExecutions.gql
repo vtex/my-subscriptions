@@ -1,0 +1,16 @@
+query Executions($subscriptionId: ID!, $page: Int, $perPage: Int) {
+  executions: executionsBySubscription(
+    subscriptionId: $subscriptionId
+    page: $page
+    perPage: $perPage
+  ) @context(provider: "vtex.subscriptions-graphql") {
+    list {
+      ... on SubscriptionExecution {
+        id
+        status
+        date
+      }
+    }
+    totalCount
+  }
+}

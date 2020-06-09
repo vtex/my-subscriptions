@@ -1,12 +1,12 @@
-mutation updatePaymentMethod(
-  $subscriptionsGroupId: ID!
+mutation UpdatePaymentMethod(
+  $subscriptionId: ID!
   $paymentSystemId: ID!
-  $accountId: ID
+  $paymentAccountId: ID
 ) {
   updatePaymentMethod(
-    subscriptionsGroupId: $subscriptionsGroupId
+    subscriptionId: $subscriptionId
     paymentSystemId: $paymentSystemId
-    accountId: $accountId
+    paymentAccountId: $paymentAccountId
   ) @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     purchaseSettings {
@@ -17,7 +17,6 @@ mutation updatePaymentMethod(
         paymentAccount {
           id
           cardNumber
-          bin
         }
       }
     }

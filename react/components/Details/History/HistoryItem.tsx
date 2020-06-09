@@ -2,12 +2,13 @@ import React, { FunctionComponent } from 'react'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
 import style from './style.css'
-import { SubscriptionOrder } from './HistoryList'
+import { SubscriptionExecution } from './HistoryList'
 import { displayOrderStatus } from './utils'
 
-const HistoryItem: FunctionComponent<Props> = ({ order, intl }) => {
-  const { date, status } = order
-
+const HistoryItem: FunctionComponent<Props> = ({
+  execution: { date, status },
+  intl,
+}) => {
   let statusColor = ''
 
   switch (status) {
@@ -50,7 +51,7 @@ const HistoryItem: FunctionComponent<Props> = ({ order, intl }) => {
 }
 
 interface Props extends InjectedIntlProps {
-  order: SubscriptionOrder
+  execution: SubscriptionExecution
 }
 
 export default injectIntl(HistoryItem)

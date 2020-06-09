@@ -12,7 +12,7 @@ import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import UPDATE_STATUS from '../graphql/updateStatus.gql'
+import UPDATE_STATUS, { Args } from '../graphql/mutations/updateStatus.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
@@ -108,7 +108,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       targetStatus,
       block,
       updateStatus,
-      subscriptionsGroupId,
+      subscriptionId,
     } = this.props
 
     const {
@@ -127,7 +127,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       successMessage: intl.formatMessage(modalMessages.successMessage),
       onSubmit: () => {
         const variables = {
-          orderGroup: subscriptionsGroupId,
+          subscriptionId,
           status: targetStatus,
         }
         return updateStatus({
@@ -164,13 +164,13 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
 }
 
 interface Props {
-  subscriptionsGroupId: string
+  subscriptionId: string
   targetStatus: SubscriptionStatus
   block: boolean
 }
 
 interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
-  updateStatus: (args: object) => Promise<unknown>
+  updateStatus: (args: { variables: Args }) => Promise<unknown>
   showToast: (args: object) => void
 }
 
