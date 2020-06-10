@@ -18,9 +18,9 @@ export enum MenuOptionsEnum {
 }
 
 export const CSS = {
-  subscriptionGroupImageWrapper:
+  subscriptionImageWrapper:
     'vtex-subscriptions-custom-image-size flex-none center overflow-hidden mb4',
-  subscriptionGroupItemWrapper:
+  subscriptionItemWrapper:
     'subscription__listing-card mb4 bg-base pa0-ns pa3-s bb b--muted-5 flex flex-row-ns flex-column-s',
   cardTypograph: 't-body bg-base c-on-base',
   cardBorder: 'bw1 bt bb bl-l br-l b--muted-5',

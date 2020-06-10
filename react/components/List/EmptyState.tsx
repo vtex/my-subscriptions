@@ -7,7 +7,7 @@ const messages = defineMessages({
   body: { id: 'store/subscription.notFound.text', defaultMessage: '' },
 })
 
-const EmptyStateSubscriptionsGroupList: FunctionComponent<InjectedIntlProps> = ({
+const EmptyStateSubscriptionsList: FunctionComponent<InjectedIntlProps> = ({
   intl,
 }) => {
   return (
@@ -17,4 +17,4 @@ const EmptyStateSubscriptionsGroupList: FunctionComponent<InjectedIntlProps> = (
   )
 }
 
-export default injectIntl(EmptyStateSubscriptionsGroupList)
+export default injectIntl(EmptyStateSubscriptionsList)

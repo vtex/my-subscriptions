@@ -6,7 +6,7 @@ import MockRouter from 'react-mock-router'
 
 import History from '../components/Details/History'
 import { subscriptionHistoryQueryMock as mock } from '../mocks/SubscriptionHistory'
-import { generateSubscriptionsGroup, mockRouterParam } from '../mocks'
+import { generateSubscription, MOCK_ROUTER_PARAM } from '../mocks'
 
 const copyObj = (o: object) => JSON.parse(JSON.stringify(o))
 
@@ -23,11 +23,11 @@ describe('History Scenarios', () => {
 
   it('should display empty state if no recurrent order exists yet', async () => {
     const queryMock = copyObj(mock)
-    queryMock.result.data.orders.list = []
+    queryMock.result.data.executions.list = []
 
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <History group={generateSubscriptionsGroup({})} />
+      <MockRouter params={MOCK_ROUTER_PARAM}>
+        <History subscription={generateSubscription({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
@@ -42,8 +42,8 @@ describe('History Scenarios', () => {
     const queryMock = copyObj(mock)
 
     const { queryByText, queryAllByText } = render(
-      <MockRouter params={mockRouterParam}>
-        <History group={generateSubscriptionsGroup({})} />
+      <MockRouter params={MOCK_ROUTER_PARAM}>
+        <History subscription={generateSubscription({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )
@@ -77,15 +77,15 @@ describe('History Scenarios', () => {
 
   it('should add "isFullyloaded" class to list after loading every item', async () => {
     const queryMock = copyObj(mock)
-    queryMock.result.data.orders.totalCount = 5
-    queryMock.result.data.orders.list = queryMock.result.data.orders.list.slice(
+    queryMock.result.data.executions.totalCount = 5
+    queryMock.result.data.executions.list = queryMock.result.data.executions.list.slice(
       0,
       5
     )
 
     const { container } = render(
-      <MockRouter params={mockRouterParam}>
-        <History group={generateSubscriptionsGroup({})} />
+      <MockRouter params={MOCK_ROUTER_PARAM}>
+        <History subscription={generateSubscription({})} />
       </MockRouter>,
       { graphql: { mocks: [queryMock] } }
     )

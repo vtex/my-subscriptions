@@ -1,18 +1,15 @@
-mutation RemoveSubscriptionFromGroup(
-  $subscriptionsGroupId: ID!
+mutation UpdateItemsOnSubscription(
   $subscriptionId: ID!
+  $items: [ItemInput!]!
 ) {
-  removeSubscription(
-    subscriptionsGroupId: $subscriptionsGroupId
-    subscriptionId: $subscriptionId
-  ) @context(provider: "vtex.subscriptions-graphql") {
+  updateItems(subscriptionId: $subscriptionId, items: $items)
+    @context(provider: "vtex.subscriptions-graphql") {
     cacheId
     totals {
       id
       value
     }
-    totalValue
-    subscriptions {
+    items {
       id
       quantity
       sku {

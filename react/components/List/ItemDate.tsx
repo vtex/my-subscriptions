@@ -21,16 +21,19 @@ const messages = defineMessages({
   },
 })
 
-const SubscriptionsGroupItemDate: FunctionComponent<
-  Props & InjectedIntlProps
-> = ({ status, nextPurchaseDate, lastStatusUpdate, intl }) => {
+const SubscriptionsItemDate: FunctionComponent<Props & InjectedIntlProps> = ({
+  status,
+  nextPurchaseDate,
+  lastUpdate,
+  intl,
+}) => {
   const content =
     status === 'ACTIVE'
       ? intl.formatMessage(messages.nextPurchase, {
           date: intl.formatDate(nextPurchaseDate),
         })
       : intl.formatMessage(messages.since, {
-          date: intl.formatDate(lastStatusUpdate),
+          date: intl.formatDate(lastUpdate),
           status: intl.formatMessage({
             id: `store/subscription.status.${status.toLowerCase()}`,
           }),
@@ -42,7 +45,7 @@ const SubscriptionsGroupItemDate: FunctionComponent<
 interface Props {
   status: SubscriptionStatus
   nextPurchaseDate: string
-  lastStatusUpdate: string
+  lastUpdate: string
 }
 
-export default injectIntl(SubscriptionsGroupItemDate)
+export default injectIntl(SubscriptionsItemDate)

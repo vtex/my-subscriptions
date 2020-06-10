@@ -1,4 +1,4 @@
-query CustomerPaymentMethods {
+query PaymentMethods {
   methods: customerPaymentMethods
     @context(provider: "vtex.subscriptions-graphql") {
     paymentSystemId
@@ -7,7 +7,6 @@ query CustomerPaymentMethods {
     paymentAccount {
       id
       cardNumber
-      bin
     }
   }
 }

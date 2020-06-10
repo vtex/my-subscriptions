@@ -1,12 +1,12 @@
-query SubscriptionsGroup($id: ID!) {
-  group: subscriptionsGroup(id: $id)
-    @context(provider: "vtex.subscriptions-graphql") {
+query Subscription($id: ID!) {
+  subscription(id: $id)
+    @context(provider: "vtex.subscriptions-graphql", scope: PRIVATE) {
     id
     cacheId
     status
     name
     isSkipped
-    subscriptions {
+    items {
       id
       quantity
       sku {
@@ -25,14 +25,12 @@ query SubscriptionsGroup($id: ID!) {
         periodicity
         interval
       }
-    }
-    shippingEstimate {
-      estimatedDeliveryDate
+      purchaseDay
     }
     nextPurchaseDate
+    estimatedDeliveryDate
     purchaseSettings {
-      currencySymbol
-      purchaseDay
+      currencyCode
       paymentMethod {
         paymentSystemId
         paymentSystemName
@@ -40,11 +38,10 @@ query SubscriptionsGroup($id: ID!) {
         paymentAccount {
           id
           cardNumber
-          bin
         }
       }
     }
-    lastOrder {
+    lastExecution {
       id
       status
     }

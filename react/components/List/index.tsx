@@ -7,10 +7,10 @@ import { ContentWrapper } from 'vtex.my-account-commons'
 import { Dropdown } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-import GROUPS, {
+import QUERY, {
   Result,
-  SubscriptionsGroup,
-} from '../../graphql/customerSubscriptions.gql'
+  Subscription,
+} from '../../graphql/queries/subscriptions.gql'
 import { SubscriptionDisplayFilterEnum, CSS } from '../../constants'
 import { convertFilter } from '../../utils'
 import { logError, logGraphqlError } from '../../tracking'
@@ -21,7 +21,7 @@ import Images from './Images'
 import Summary from './Summary'
 
 function isEmpty(data: Result) {
-  if (!data.groups || data.groups.length === 0) {
+  if (!data.list || data.list.length === 0) {
     return true
   }
 
@@ -46,9 +46,7 @@ const messages = defineMessages({
 
 const INSTANCE = 'SubscriptionsList'
 
-class SubscriptionsGroupListContainer extends Component<
-  Props & InjectedIntlProps
-> {
+class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
   public state = {
     filter: SubscriptionDisplayFilterEnum.Active,
   }
@@ -62,8 +60,8 @@ class SubscriptionsGroupListContainer extends Component<
     })
   }
 
-  private handleGoToDetails = (subscriptionsGroupId: string) => {
-    this.props.history.push(`/subscriptions/${subscriptionsGroupId}`)
+  private handleGoToDetails = (subscriptionId: string) => {
+    this.props.history.push(`/subscriptions/${subscriptionId}`)
   }
 
   private handleChangeFilter = (
@@ -108,12 +106,12 @@ class SubscriptionsGroupListContainer extends Component<
     }
 
     const resultFilter = convertFilter(filter)
-    const variables = { statusList: resultFilter }
+    const variables = { filter: resultFilter }
 
     return (
       <ContentWrapper {...headerConfig}>
         {() => (
-          <Query<Result> query={GROUPS} variables={variables}>
+          <Query<Result> query={QUERY} variables={variables}>
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
               if (error) {
@@ -128,18 +126,14 @@ class SubscriptionsGroupListContainer extends Component<
               }
               if (!data || isEmpty(data)) return <EmptyState />
 
-              return data.groups.map((group) => (
+              return data.list.map((subscription) => (
                 <article
-                  className={CSS.subscriptionGroupItemWrapper}
-                  key={group.id}
+                  className={CSS.subscriptionItemWrapper}
+                  key={subscription.id}
                 >
-                  <Images
-                    skus={group.subscriptions.map(
-                      (subscription) => subscription.sku
-                    )}
-                  />
+                  <Images skus={subscription.items.map((item) => item.sku)} />
                   <Summary
-                    group={group}
+                    subscription={subscription}
                     onGoToDetails={this.handleGoToDetails}
                   />
                 </article>
@@ -156,6 +150,6 @@ type Props = InjectedIntlProps & InjectedRuntimeContext & RouteComponentProps
 
 const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
 
-export { SubscriptionsGroup }
+export { Subscription }
 
-export default enhance(SubscriptionsGroupListContainer)
+export default enhance(SubscriptionsListContainer)

@@ -5,7 +5,7 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
-import { mockRouterParam, generateDetailMock } from '../mocks'
+import { MOCK_ROUTER_PARAM, generateDetailMock } from '../mocks'
 
 describe('Display Address Scenarios', () => {
   const { location } = window
@@ -20,7 +20,7 @@ describe('Display Address Scenarios', () => {
 
   it('Should display edit button disabled', async () => {
     const { queryByTestId } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -43,7 +43,7 @@ describe('Display Address Scenarios', () => {
 
   it('Shouldnt display edit button', async () => {
     const { queryByTestId } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {

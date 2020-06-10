@@ -5,7 +5,7 @@ import { render } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
-import { mockRouterParam, generateDetailMock } from '../mocks'
+import { MOCK_ROUTER_PARAM, generateDetailMock } from '../mocks'
 
 const ERROR_MESSAGE =
   'Invalid address, select a new valid address for this subscription.'
@@ -23,7 +23,7 @@ describe('Shipping Scenarios', () => {
 
   it('Shouldnt display address error', async () => {
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       { graphql: { mocks: [generateDetailMock()] } }
@@ -36,7 +36,7 @@ describe('Shipping Scenarios', () => {
 
   it('Should display address error', async () => {
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {
@@ -51,7 +51,7 @@ describe('Shipping Scenarios', () => {
 
   it('Should display address no-action error when the subscription status is not active', async () => {
     const { queryByText } = render(
-      <MockRouter params={mockRouterParam}>
+      <MockRouter params={MOCK_ROUTER_PARAM}>
         <SubscriptionDetails />
       </MockRouter>,
       {

@@ -1,7 +1,0 @@
-mutation updateName($subscriptionsGroupId: ID!, $name: String) {
-  updateName(subscriptionsGroupId: $subscriptionsGroupId, name: $name)
-    @context(provider: "vtex.subscriptions-graphql") {
-    cacheId
-    name
-  }
-}

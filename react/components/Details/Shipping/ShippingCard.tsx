@@ -10,7 +10,7 @@ import { AddressRules, AddressSummary } from 'vtex.address-form'
 import LabeledInfo from '../../LabeledInfo'
 import EditButton from '../EditButton'
 import EditAlert from '../EditAlert'
-import { SubscriptionsGroup } from '..'
+import { Subscription } from '..'
 
 const messages = defineMessages({
   label: {
@@ -23,7 +23,11 @@ const messages = defineMessages({
   },
 })
 
-const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
+const ShippingCard: FunctionComponent<Props> = ({
+  onEdit,
+  subscription,
+  intl,
+}) => (
   <>
     <div className="flex">
       <div className="db-s di-ns b f4 tl c-on-base">
@@ -31,27 +35,27 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
       </div>
       <div className="ml-auto">
         <EditButton
-          subscriptionStatus={group.status}
+          subscriptionStatus={subscription.status}
           onEdit={onEdit}
           testId="edit-address-button"
         />
       </div>
     </div>
     <div className="flex pt3-s pt5-ns w-100">
-      {group.shippingAddress ? (
+      {subscription.shippingAddress ? (
         <div className="w-100">
           <LabeledInfo label={intl.formatMessage(messages.label)}>
             <AddressRules
-              country={group.shippingAddress.country}
+              country={subscription.shippingAddress.country}
               shouldUseIOFetching
             >
-              <AddressSummary address={group.shippingAddress} />
+              <AddressSummary address={subscription.shippingAddress} />
             </AddressRules>
           </LabeledInfo>
         </div>
       ) : (
         <EditAlert
-          subscriptionStatus={group.status}
+          subscriptionStatus={subscription.status}
           onAction={onEdit}
           actionLabelMessage={intl.formatMessage(messages.label)}
           noActionMessage={intl.formatMessage(messages.noAction)}
@@ -64,7 +68,7 @@ const ShippingCard: FunctionComponent<Props> = ({ onEdit, group, intl }) => (
 )
 
 interface Props extends InjectedIntlProps {
-  group: SubscriptionsGroup
+  subscription: Subscription
   onEdit: () => void
 }
 
