@@ -51,5 +51,5 @@
     "vtex.subscriptions-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.0.0/public/@types/vtex.subscriptions-graphql",
     "vtex.totalizer-translator": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.1.0/public/_types/react"
   },
-  "version": "0.19.0"
+  "version": "2.0.0"
 }
