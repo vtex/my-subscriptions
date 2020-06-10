@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [4.0.0] - 2020-06-09
-
 ### Changed
 
 - Migration to GraphQL V3.
