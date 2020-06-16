@@ -25,6 +25,23 @@ const messages = defineMessages({
   },
 })
 
+export function getName(
+  intl: InnerProps['intl'],
+  name: OuterProps['name'],
+  skus: OuterProps['skus']
+) {
+  let content: string
+  if (name) {
+    content = name
+  } else if (skus.length === 1) {
+    content = skus[0].name
+  } else {
+    content = intl.formatMessage(messages.title, { value: skus.length })
+  }
+
+  return content
+}
+
 class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
   public state = {
     isLoading: false,
@@ -57,9 +74,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
     const { name, status, intl, updateName, skus, subscriptionId } = this.props
 
     let content
-    if (name) {
-      content = name
-    } else if (skus.length === 1) {
+    if (skus.length === 1) {
       content = (
         <a
           className="no-underline c-on-base ttc"
@@ -67,11 +82,11 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
           rel="noopener noreferrer"
           href={skus[0].detailUrl}
         >
-          {`${skus[0].productName} - ${skus[0].name}`}
+          {getName(intl, name, skus)}
         </a>
       )
     } else {
-      content = intl.formatMessage(messages.title, { value: skus.length })
+      content = getName(intl, name, skus)
     }
 
     const modalProps = {
@@ -140,7 +155,6 @@ interface OuterProps {
   subscriptionId: string
   skus: Array<{
     detailUrl: string
-    productName: string
     name: string
   }>
 }
