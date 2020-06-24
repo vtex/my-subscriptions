@@ -1,0 +1,21 @@
+query CustomerListBy($value: String!, $option: GroupOption!) {
+  list: customerListByOption(value: $value, option: $option) {
+    id
+    name
+    status
+    items {
+      sku {
+        name
+        imageUrl
+        detailUrl
+      }
+    }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+      purchaseDay
+    }
+  }
+}

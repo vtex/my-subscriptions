@@ -14,6 +14,7 @@ import UPDATE_ADDRESS, {
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 import { Subscription } from '..'
+import BatchModal from '../BatchModal'
 import {
   BASIC_CARD_WRAPPER,
   CSS,
@@ -63,6 +64,7 @@ class ShippingContainer extends Component<Props, State> {
 
     this.state = {
       errorMessage: '',
+      isBatchModalOpen: false,
       isEditMode: false,
       isLoading: false,
       showErrorAlert: false,
@@ -157,6 +159,7 @@ class ShippingContainer extends Component<Props, State> {
         this.setState({
           isEditMode: false,
           isLoading: false,
+          isBatchModalOpen: true,
         })
       })
       .catch((e: ApolloError) => {
@@ -195,6 +198,8 @@ class ShippingContainer extends Component<Props, State> {
 
   private handleCancelClick = () => this.setState({ isEditMode: false })
 
+  private handleOnCloseBatch = () => this.setState({ isBatchModalOpen: false })
+
   public render() {
     const { subscription } = this.props
     const {
@@ -203,6 +208,7 @@ class ShippingContainer extends Component<Props, State> {
       selectedAddress,
       showErrorAlert,
       errorMessage,
+      isBatchModalOpen,
     } = this.state
 
     return (
@@ -224,10 +230,20 @@ class ShippingContainer extends Component<Props, State> {
             subscription={subscription}
           />
         ) : (
-          <ShippingCard
-            onEdit={this.handleEditClick}
-            subscription={subscription}
-          />
+          <>
+            {isBatchModalOpen && (
+              <BatchModal
+                onClose={this.handleOnCloseBatch}
+                currentSubscription={subscription}
+                option="ADDRESS"
+                value={subscription.shippingAddress?.id ?? ''}
+              />
+            )}
+            <ShippingCard
+              onEdit={this.handleEditClick}
+              subscription={subscription}
+            />
+          </>
         )}
       </div>
     )
@@ -249,6 +265,7 @@ interface InnerProps
 type Props = InnerProps & OuterProps
 
 interface State {
+  isBatchModalOpen: boolean
   errorMessage: string
   isEditMode: boolean
   isLoading: boolean

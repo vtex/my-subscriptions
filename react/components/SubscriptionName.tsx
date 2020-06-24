@@ -19,16 +19,12 @@ const messages = defineMessages({
     id: 'store/subscription.name.editition.name.title',
     defaultMessage: '',
   },
-  confirmationLabel: {
-    id: 'store/subscription.name.editition.edit',
-    defaultMessage: '',
-  },
 })
 
 export function getName(
   intl: InnerProps['intl'],
-  name: OuterProps['name'],
-  skus: OuterProps['skus']
+  name: string | null | undefined,
+  skus: Array<{ name: string }>
 ) {
   let content: string
   if (name) {
@@ -91,7 +87,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
 
     const modalProps = {
       cancelationLabel: intl.formatMessage(modalMessages.cancelationLabel),
-      confirmationLabel: intl.formatMessage(messages.confirmationLabel),
+      confirmationLabel: intl.formatMessage(modalMessages.confirmationLabel),
       errorMessage: intl.formatMessage(modalMessages.errorMessage),
       isModalOpen: this.state.isModalOpen,
       onCloseModal: this.handleCloseModal,

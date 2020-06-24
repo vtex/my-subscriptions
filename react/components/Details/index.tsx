@@ -28,7 +28,7 @@ import Loader from './Loader'
 import Products from './Products'
 import { logError, logGraphqlError, queryWrapper } from '../../tracking'
 
-const INSTANCE = 'SubscriptionsDetails'
+export const INSTANCE = 'SubscriptionsDetails'
 
 const messages = defineMessages({
   detailsTitle: { id: 'store/subscription.title.single', defaultMessage: '' },
