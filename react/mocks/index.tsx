@@ -119,6 +119,7 @@ export function generateSubscription({
       status: lastExecutionStatus,
     },
     estimatedDeliveryDate,
+    addressId: 'b3665b68c9714441bdea54c35a4d0cd6',
   }
 }
 

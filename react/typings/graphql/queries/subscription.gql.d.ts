@@ -29,6 +29,8 @@ declare module '*/subscription.gql' {
     | 'status'
     | 'estimatedDeliveryDate'
     | 'plan'
+    | 'addressId'
+    | 'paymentAccountId'
   > & {
     items: Item[]
     lastExecution: Pick<SubscriptionExecution, 'id' | 'status'> | null

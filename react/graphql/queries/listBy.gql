@@ -1,5 +1,5 @@
 query CustomerListBy($value: String!, $option: GroupOption!) {
-  list: customerListByOption(value: $value, option: $option) {
+  list: customerListByOption(value: $value, option: $option, status: [ACTIVE]) {
     id
     name
     status

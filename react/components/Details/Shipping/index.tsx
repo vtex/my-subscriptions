@@ -139,7 +139,9 @@ class ShippingContainer extends Component<Props, State> {
   private handleSave = () => {
     const { subscription, showToast, intl } = this.props
 
-    this.setState({ isLoading: true })
+    this.setState({
+      isLoading: true,
+    })
 
     const variables = {
       addressId: this.state.selectedAddress?.id as string,
@@ -236,7 +238,7 @@ class ShippingContainer extends Component<Props, State> {
                 onClose={this.handleOnCloseBatch}
                 currentSubscription={subscription}
                 option="ADDRESS"
-                value={subscription.shippingAddress?.id ?? ''}
+                value={subscription.addressId}
               />
             )}
             <ShippingCard

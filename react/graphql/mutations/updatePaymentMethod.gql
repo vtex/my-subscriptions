@@ -20,5 +20,6 @@ mutation UpdatePaymentMethod(
         }
       }
     }
+    paymentAccountId
   }
 }
