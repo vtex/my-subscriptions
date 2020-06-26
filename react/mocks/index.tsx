@@ -120,6 +120,7 @@ export function generateSubscription({
     },
     estimatedDeliveryDate,
     addressId: 'b3665b68c9714441bdea54c35a4d0cd6',
+    paymentAccountId: null,
   }
 }
 
