@@ -111,5 +111,7 @@
   "store/subscription.products.card.remove.error": "An error occurred trying to remove this product, try again later.",
   "store/subscription.products.card.remove.confirm": "Remove",
   "store/subscription.products.card.remove.title": "Remove this product?",
-  "store/subscription.products.card.remove.desc": "If you remove it, it won't be ordered anymore on subscription."
+  "store/subscription.products.card.remove.desc": "If you remove it, it won't be ordered anymore on subscription.",
+  "store/subscription.batch.modal.all": "All",
+  "store/subscription.batch.modal.desc": "Would you like to apply this change for these other subscriptions as well?"
 }

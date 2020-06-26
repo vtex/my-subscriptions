@@ -111,5 +111,7 @@
   "store/subscription.products.card.remove.error": "Beim Entfernen des Produktes ist ein Fehler aufgetreten: Versuchejn Sie es später noch einmal.",
   "store/subscription.products.card.remove.confirm": "Entfernen",
   "store/subscription.products.card.remove.title": "Dieses Produkt entfernen?",
-  "store/subscription.products.card.remove.desc": "Bei Entfernung wird es im Abonnement nicht mehr bestellt."
+  "store/subscription.products.card.remove.desc": "Bei Entfernung wird es im Abonnement nicht mehr bestellt.",
+  "store/subscription.batch.modal.all": "Alles",
+  "store/subscription.batch.modal.desc": "Möchten Sie diese Änderung auch für diese anderen Abonnements anwenden?"
 }

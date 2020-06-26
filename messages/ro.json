@@ -111,5 +111,7 @@
   "store/subscription.products.card.remove.error": "A apărut o eroare la încercarea de a elimina acest produs, încercați din nou mai târziu.",
   "store/subscription.products.card.remove.confirm": "Elimina",
   "store/subscription.products.card.remove.title": "Ștergeți acest produs?",
-  "store/subscription.products.card.remove.desc": "Dacă îl eliminați, nu va mai fi comandat la abonament."
+  "store/subscription.products.card.remove.desc": "Dacă îl eliminați, nu va mai fi comandat la abonament.",
+  "store/subscription.batch.modal.all": "Toate",
+  "store/subscription.batch.modal.desc": "Doriți să aplicați și această modificare pentru aceste alte abonamente?"
 }

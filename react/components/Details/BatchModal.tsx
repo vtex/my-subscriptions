@@ -35,6 +35,14 @@ const messages = defineMessages({
     id: 'store/subscription.fallback.error.message',
     defaultMessage: '',
   },
+  all: {
+    id: 'store/subscription.batch.modal.all',
+    defaultMessage: '',
+  },
+  description: {
+    id: 'store/subscription.batch.modal.desc',
+    defaultMessage: '',
+  },
 })
 
 class BatchModal extends Component<Props, State> {
@@ -45,7 +53,7 @@ class BatchModal extends Component<Props, State> {
 
     props.targetSubscriptions.forEach((subs) => {
       // Remove the current subscription from the list, because it isnt indexed yet
-      // with the new id
+      // with the new id TODO: Use the id filter on the listBy endpoint....
       if (subs.id === props.currentSubscription.id) return
 
       const skus = subs.items.map((item) => item.sku)
@@ -75,16 +83,7 @@ class BatchModal extends Component<Props, State> {
     }
   }
 
-  // private handleFailure = (id: string) =>
-  //   this.setState(({ selectionItems }) => {
-  //     const newMap = new Map(selectionItems)
-
-  //     newMap.set(id, { selected: true, loading: false })
-
-  //     return {
-  //       selectionItems: newMap,
-  //     }
-  //   })
+  // private handleFailure = () => this.setState({ displayError: true })
 
   private handleCloseError = () => this.setState({ displayError: false })
 
@@ -119,7 +118,7 @@ class BatchModal extends Component<Props, State> {
 
     this.setState({ loading: true })
 
-    let promises: Promise<any>
+    let promises: Promise<unknown>
     if (option === 'ADDRESS') {
       promises = Promise.all(
         selectedIds.map((id) =>
@@ -188,8 +187,7 @@ class BatchModal extends Component<Props, State> {
       >
         <form className="t-body" onSubmit={this.handleSubmit}>
           <h5 className="t-heading-5">
-            Would you like to apply this change for these other subscriptions as
-            well?
+            {intl.formatMessage(messages.description)}
           </h5>
           {displayError && (
             <div className="mb5">
@@ -201,7 +199,7 @@ class BatchModal extends Component<Props, State> {
           <CheckboxGroup
             name="selectedSubscriptions"
             id="selectedSubscriptions"
-            label="All Subscriptions"
+            label={intl.formatMessage(messages.all)}
             value=""
             disabled={loading}
             checkedMap={selectionItems}
