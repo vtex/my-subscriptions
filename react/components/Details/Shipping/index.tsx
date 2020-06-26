@@ -68,6 +68,7 @@ class ShippingContainer extends Component<Props, State> {
       isEditMode: false,
       isLoading: false,
       showErrorAlert: false,
+      previousAddress: null,
       selectedAddress: props.subscription.shippingAddress
         ? {
             id: props.subscription.shippingAddress.id,
@@ -141,6 +142,7 @@ class ShippingContainer extends Component<Props, State> {
 
     this.setState({
       isLoading: true,
+      previousAddress: subscription.addressId,
     })
 
     const variables = {
@@ -211,6 +213,7 @@ class ShippingContainer extends Component<Props, State> {
       showErrorAlert,
       errorMessage,
       isBatchModalOpen,
+      previousAddress,
     } = this.state
 
     return (
@@ -229,16 +232,16 @@ class ShippingContainer extends Component<Props, State> {
             isLoading={isLoading}
             showErrorAlert={showErrorAlert}
             errorMessage={errorMessage}
-            subscription={subscription}
+            currentAddressId={subscription.addressId}
           />
         ) : (
           <>
-            {isBatchModalOpen && (
+            {isBatchModalOpen && previousAddress && (
               <BatchModal
                 onClose={this.handleOnCloseBatch}
                 currentSubscription={subscription}
                 option="ADDRESS"
-                value={subscription.addressId}
+                value={previousAddress}
               />
             )}
             <ShippingCard
@@ -273,6 +276,7 @@ interface State {
   isLoading: boolean
   showErrorAlert: boolean
   selectedAddress: { id: string; type: string } | null
+  previousAddress: string | null
 }
 
 export default compose<Props, OuterProps>(

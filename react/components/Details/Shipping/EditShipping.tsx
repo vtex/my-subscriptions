@@ -12,7 +12,6 @@ import { Address } from 'vtex.store-graphql'
 import QUERY, { Result } from '../../../graphql/queries/addresses.gql'
 import EditionButtons from '../EditionButtons'
 import ShippingSkeleton from './ShippingSkeleton'
-import { Subscription } from '..'
 import { queryWrapper } from '../../../tracking'
 
 const messages = defineMessages({
@@ -42,6 +41,7 @@ const EditShipping: FunctionComponent<Props> = ({
   showErrorAlert,
   errorMessage,
   isLoading,
+  currentAddressId,
   intl,
 }) => {
   return (
@@ -83,6 +83,7 @@ const EditShipping: FunctionComponent<Props> = ({
           </Button>
         </div>
         <EditionButtons
+          disabled={currentAddressId === selectedAddress?.id}
           isLoading={isLoading}
           onCancel={onCancel}
           onSave={onSave}
@@ -107,7 +108,7 @@ interface OuterProps {
   onChangeAddress: (id: string, type: string) => void
   onCloseErrorAlert: () => void
   onGoToCreateAddress: () => void
-  subscription: Subscription
+  currentAddressId: string
   selectedAddress: { id: string; type: string } | null
   showErrorAlert: boolean
   errorMessage: string

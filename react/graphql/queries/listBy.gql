@@ -1,5 +1,6 @@
 query CustomerListBy($value: String!, $option: GroupOption!) {
-  list: customerListByOption(value: $value, option: $option, status: [ACTIVE]) {
+  list: customerListByOption(value: $value, option: $option, status: [ACTIVE])
+    @context(provider: "vtex.subscriptions-graphql") {
     id
     name
     status

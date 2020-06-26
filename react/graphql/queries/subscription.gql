@@ -64,7 +64,7 @@ query Subscription($id: ID!) {
       receiverName
       addressType
     }
+    addressId
+    paymentAccountId
   }
-  addressId
-  paymentAccountId
 }

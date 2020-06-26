@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, ReactNode } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
 import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
@@ -43,30 +43,35 @@ class BatchModal extends Component<Props, State> {
 
     const selectionItems: State['selectionItems'] = {}
 
-    if (props.targetSubscriptions.size === 0) {
-      // props.onClose()
-    } else {
-      props.targetSubscriptions.forEach((subs) => {
-        const skus = subs.items.map((item) => item.sku)
-        selectionItems[subs.id] = {
-          label: (
-            <Thumbnail
-              skus={skus}
-              name={subs.name}
-              periodicity={subs.plan.frequency.periodicity}
-              interval={subs.plan.frequency.interval}
-              purchaseDay={subs.plan.purchaseDay}
-            />
-          ),
-          checked: true,
-        }
-      })
+    props.targetSubscriptions.forEach((subs) => {
+      // Remove the current subscription from the list, because it isnt indexed yet
+      // with the new id
+      if (subs.id === props.currentSubscription.id) return
+
+      const skus = subs.items.map((item) => item.sku)
+      selectionItems[subs.id] = {
+        label: (
+          <Thumbnail
+            skus={skus}
+            name={subs.name}
+            periodicity={subs.plan.frequency.periodicity}
+            interval={subs.plan.frequency.interval}
+            purchaseDay={subs.plan.purchaseDay}
+          />
+        ),
+        checked: true,
+      }
+    })
+
+    if (Object.keys(selectionItems).length === 0) {
+      props.onClose()
     }
 
     this.state = {
       selectionItems,
       loading: false,
       displayError: false,
+      completed: [],
     }
   }
 
@@ -84,11 +89,11 @@ class BatchModal extends Component<Props, State> {
   private handleCloseError = () => this.setState({ displayError: false })
 
   private handleSuccess = (id: string) =>
-    this.setState(({ selectionItems }) => {
-      delete selectionItems[id]
+    this.setState(({ completed }) => {
+      completed.push(id)
 
       return {
-        selectionItems,
+        completed,
       }
     })
 
@@ -151,7 +156,14 @@ class BatchModal extends Component<Props, State> {
         showToast({ message: intl.formatMessage(messages.success) })
       })
       .finally(() => {
-        this.setState({ loading: false })
+        this.setState((finalState) => {
+          finalState.completed.map((id) => delete finalState.selectionItems[id])
+
+          return {
+            selectionItems: finalState.selectionItems,
+            loading: false,
+          }
+        })
       })
   }
 
@@ -191,6 +203,7 @@ class BatchModal extends Component<Props, State> {
             id="selectedSubscriptions"
             label="All Subscriptions"
             value=""
+            disabled={loading}
             checkedMap={selectionItems}
             onGroupChange={(newCheckedMap: State['selectionItems']) =>
               this.setState({ selectionItems: newCheckedMap })
@@ -204,13 +217,14 @@ class BatchModal extends Component<Props, State> {
 }
 
 interface State {
-  selectionItems: { [key: string]: { label: any; checked: boolean } }
+  selectionItems: { [key: string]: { label: ReactNode; checked: boolean } }
   loading: boolean
   displayError: boolean
+  completed: string[]
 }
 
 interface MappedProps {
-  targetSubscriptions: Map<string, TargetSubscripton>
+  targetSubscriptions: TargetSubscripton[]
   loading: boolean
 }
 
@@ -235,12 +249,7 @@ const enhance = compose<Props, OuterProps>(
     {
       props: ({ data }) => ({
         loading: data ? data.loading : false,
-        targetSubscriptions: data?.list
-          ? data.list.reduce(
-              (map, subs) => map.set(subs.id, subs),
-              new Map<string, TargetSubscripton>()
-            )
-          : new Map<string, TargetSubscripton>(),
+        targetSubscriptions: data?.list ? data.list : [],
       }),
     }
   ),
