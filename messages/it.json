@@ -111,5 +111,7 @@
   "store/subscription.products.card.remove.error": "Si è verificato un errore cercando di rimuovere questo prodotto. Riprova più tardi.",
   "store/subscription.products.card.remove.confirm": "Rimuovi",
   "store/subscription.products.card.remove.title": "Rimuovere questo prodotto?",
-  "store/subscription.products.card.remove.desc": "Se rimuovi il prodotto, questo non verrà più ordinato con la tua sottoscrizione."
+  "store/subscription.products.card.remove.desc": "Se rimuovi il prodotto, questo non verrà più ordinato con la tua sottoscrizione.",
+  "store/subscription.batch.modal.all": "Tutti",
+  "store/subscription.batch.modal.desc": "Desideri applicare questa modifica anche per questi altri abbonamenti?"
 }
