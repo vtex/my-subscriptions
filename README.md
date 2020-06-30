@@ -1,5 +1,20 @@
 # My Subscriptions
 
+## Installing this app using VTEX IO
+
+Currently, we install this app manually in the accounts that request to have the VTEX subscription system. So, run this command to switch to the target account: `vtex switch <account-name>`.
+
+First of all, one must know in which Subscriptions API version the target account is. As of the writing of this, we have v2 and v3. To get this information, speak to the Subscription API team.
+
+Secondly, the following rules must be followed in order to make this app work properly in the VTEX admin:
+
+- If the account is provisioned by the Subscriptions API v2:
+    - If this account uses the Portal (old VTEX CMS), you must run the following command: `vtex install vtex.my-subscriptions@0.x`
+    - If it uses the Store v2, you must run the following command: `vtex install vtex.my-subscriptions@1.x`
+- If the account is provisioned by the Subscriptions API v3:
+    - If this account uses the Portal (old VTEX CMS), you must run the following command: `vtex install vtex.my-subscriptions@2.x`
+    - If it uses the Store v2, you must run the following command: `vtex install vtex.my-subscriptions@3.x`
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
