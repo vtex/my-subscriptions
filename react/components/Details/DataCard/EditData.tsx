@@ -192,13 +192,13 @@ class EditData extends Component<Props, State> {
               onChange={this.handleFrequencyChange}
             />
           </div>
-          {periodicity !== 'DAILY' && purchaseDay && (
+          {periodicity !== 'DAILY' && (
             <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
                 label={intl.formatMessage(messages.chargeEvery)}
                 placeholder={intl.formatMessage(messages.select)}
                 options={this.getIntervalOptions()}
-                value={purchaseDay.toLowerCase()}
+                value={purchaseDay ? purchaseDay.toLowerCase() : ''}
                 onChange={this.handlePurchaseDayChange}
               />
             </div>
