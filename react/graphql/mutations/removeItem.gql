@@ -6,7 +6,6 @@ mutation RemoveItemFromSubscription($subscriptionId: ID!, $itemId: ID!) {
       id
       value
     }
-    totalValue
     items {
       id
       quantity
