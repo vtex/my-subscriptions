@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
 import ProductsContainer from '../components/Details/Products'
-import { generateSubscription } from '../mocks'
+import { generateSubscription } from '../mocks/subscriptionFactory'
 
 describe('Products Scenarios', () => {
   it('Should list one product', async () => {
