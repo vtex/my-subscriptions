@@ -2,6 +2,7 @@ import React, { Component, ReactNode } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
 import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
+import { ApolloError } from 'apollo-client'
 import {
   ModalDialog,
   CheckboxGroup,
@@ -9,6 +10,7 @@ import {
   ShowToastArgs,
   Alert,
 } from 'vtex.styleguide'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import { Subscription, INSTANCE } from '.'
 import QUERY, {
@@ -22,7 +24,7 @@ import UPDATE_ADDRESS, {
 import UPDATE_PAYMENT, {
   Args as UpdatePaymentArgs,
 } from '../../graphql/mutations/updatePaymentMethod.gql'
-import { queryWrapper } from '../../tracking'
+import { queryWrapper, logGraphqlError } from '../../tracking'
 import { messages as modalMessages } from '../ConfirmationModal'
 import Thumbnail from '../Thumbnail'
 
@@ -53,7 +55,7 @@ class BatchModal extends Component<Props, State> {
 
     props.targetSubscriptions.forEach((subs) => {
       // Remove the current subscription from the list, because it isnt indexed yet
-      // with the new id TODO: Use the id filter on the listBy endpoint....
+      // with the new id.
       if (subs.id === props.currentSubscription.id) return
 
       const skus = subs.items.map((item) => item.sku)
@@ -83,7 +85,20 @@ class BatchModal extends Component<Props, State> {
     }
   }
 
-  // private handleFailure = () => this.setState({ displayError: true })
+  private handleFailure = (
+    error: ApolloError,
+    variables: UpdateAddressArgs | UpdatePaymentArgs
+  ) => {
+    const { option, runtime } = this.props
+
+    logGraphqlError({
+      error,
+      variables,
+      runtime,
+      type: 'MutationError',
+      instance: `Batch/Update${option === 'ADDRESS' ? 'Address' : 'Payment'}`,
+    })
+  }
 
   private handleCloseError = () => this.setState({ displayError: false })
 
@@ -121,31 +136,39 @@ class BatchModal extends Component<Props, State> {
     let promises: Promise<unknown>
     if (option === 'ADDRESS') {
       promises = Promise.all(
-        selectedIds.map((id) =>
-          updateAddress({
-            variables: {
-              subscriptionId: id,
-              addressId: currentSubscription.shippingAddress?.id as string,
-              addressType: currentSubscription.shippingAddress
-                ?.addressType as string,
-            },
-          }).then(() => this.handleSuccess(id))
-        )
+        selectedIds.map((id) => {
+          const variables = {
+            subscriptionId: id,
+            addressId: currentSubscription.shippingAddress?.id as string,
+            addressType: currentSubscription.shippingAddress
+              ?.addressType as string,
+          }
+
+          return updateAddress({
+            variables,
+          })
+            .then(() => this.handleSuccess(id))
+            .catch((e: ApolloError) => this.handleFailure(e, variables))
+        })
       )
     } else {
       promises = Promise.all(
-        selectedIds.map((id) =>
-          updatePayment({
-            variables: {
-              subscriptionId: id,
-              paymentSystemId: currentSubscription.purchaseSettings
-                .paymentMethod?.paymentSystemId as string,
-              paymentAccountId:
-                currentSubscription.purchaseSettings.paymentMethod
-                  ?.paymentAccount?.id,
-            },
-          }).then(() => this.handleSuccess(id))
-        )
+        selectedIds.map((id) => {
+          const variables = {
+            subscriptionId: id,
+            paymentSystemId: currentSubscription.purchaseSettings.paymentMethod
+              ?.paymentSystemId as string,
+            paymentAccountId:
+              currentSubscription.purchaseSettings.paymentMethod?.paymentAccount
+                ?.id,
+          }
+
+          return updatePayment({
+            variables,
+          })
+            .then(() => this.handleSuccess(id))
+            .catch((e: ApolloError) => this.handleFailure(e, variables))
+        })
       )
     }
 
@@ -161,6 +184,9 @@ class BatchModal extends Component<Props, State> {
           return {
             selectionItems: finalState.selectionItems,
             loading: false,
+            // If some subscription isn't on the finalState
+            // it means that some error has ocurred
+            displayError: Object.keys(finalState.selectionItems).length > 0,
           }
         })
       })
@@ -227,7 +253,8 @@ interface MappedProps {
 }
 
 type InnerProps = InjectedIntlProps &
-  MappedProps & {
+  MappedProps &
+  InjectedRuntimeContext & {
     updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
     updatePayment: (args: { variables: UpdatePaymentArgs }) => Promise<void>
     showToast: (args: ShowToastArgs) => void
@@ -259,6 +286,7 @@ const enhance = compose<Props, OuterProps>(
     name: 'updatePayment',
   }),
   withToast,
+  withRuntimeContext,
   injectIntl
 )
 
