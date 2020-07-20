@@ -1,4 +1,9 @@
-import DETAIL_QUERY, { Args } from '../graphql/queries/subscription.gql'
+import DETAIL_QUERY, {
+  Args as DetailArgs,
+} from '../graphql/queries/subscription.gql'
+import LIST_BY_QUERY, {
+  Args as ListByArgs,
+} from '../graphql/queries/listBy.gql'
 import {
   DEFAULT_SUBSCRIPTION_ID,
   GenerationArgs,
@@ -7,17 +12,39 @@ import {
 
 export const MOCK_ROUTER_PARAM = { subscriptionId: DEFAULT_SUBSCRIPTION_ID }
 
-const variables: Args = { id: DEFAULT_SUBSCRIPTION_ID }
+const DETAIL_VARIABLES: DetailArgs = { id: DEFAULT_SUBSCRIPTION_ID }
 
 export function generateDetailMock(args?: GenerationArgs) {
   return {
     request: {
       query: DETAIL_QUERY,
-      variables,
+      variables: DETAIL_VARIABLES,
     },
     result: {
       data: {
         subscription: generateSubscription(args ?? {}),
+      },
+    },
+  }
+}
+
+export function generateListByMock({
+  args,
+  result,
+}: {
+  args?: ListByArgs
+  result: Array<ReturnType<typeof generateSubscription>>
+}) {
+  const variables: ListByArgs = args ?? { value: '', option: 'ADDRESS' }
+
+  return {
+    request: {
+      query: LIST_BY_QUERY,
+      variables,
+    },
+    result: {
+      data: {
+        list: result,
       },
     },
   }

@@ -50,6 +50,7 @@ export interface GenerationArgs {
   hasPaymentMethod?: boolean
   hasShippingAddress?: boolean
   lastExecutionStatus?: SubscriptionExecutionStatus
+  name?: string
 }
 
 export function generateSubscription({
@@ -61,6 +62,7 @@ export function generateSubscription({
   hasPaymentMethod = true,
   hasShippingAddress = true,
   lastExecutionStatus = 'IN_PROCESS',
+  name,
 }: GenerationArgs): Subscription {
   const items = generateItems(numberOfItems)
 
@@ -70,7 +72,7 @@ export function generateSubscription({
     cacheId: subscriptionId,
     status,
     isSkipped: false,
-    name: null,
+    name: name ?? null,
     items,
     plan: PLAN,
     shippingAddress: hasShippingAddress
