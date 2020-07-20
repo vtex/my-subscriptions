@@ -1,3 +1,5 @@
+import React, { ComponentType } from 'react'
+
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
 // @ts-ignore
 export { default as Alert } from '@vtex/styleguide/lib/Alert'
@@ -22,6 +24,8 @@ export { default as ActionMenu } from '@vtex/styleguide/lib/ActionMenu'
 // @ts-ignore
 export { default as CheckboxGroup } from '@vtex/styleguide/lib/CheckboxGroup'
 
-export function withToast(children: any) {
-  return children
+export function withToast(Component: ComponentType) {
+  return function WithToast(props: any) {
+    return <Component {...props} showToast={() => null} />
+  }
 }

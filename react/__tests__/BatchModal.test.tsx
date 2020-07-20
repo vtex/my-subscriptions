@@ -1,9 +1,10 @@
 import React from 'react'
-import { render } from '@vtex/test-tools/react'
+import { render, fireEvent } from '@vtex/test-tools/react'
 
 import BatchModal from '../components/Details/BatchModal'
 import { generateSubscription } from '../mocks/subscriptionFactory'
-import { generateListByMock } from '../mocks'
+import { generateListByMock, generateUpdateAddressMock } from '../mocks'
+import { requestLoad } from './utils'
 
 describe('BatchModal Scenarios', () => {
   it('Shouldnt display the target subscription on the list', async () => {
@@ -35,7 +36,7 @@ describe('BatchModal Scenarios', () => {
       }
     )
 
-    await new Promise((resolve) => setTimeout(resolve, 0))
+    await requestLoad()
 
     const target = queryByText(targetSubscription.name as string)
     const one = queryByText(name1)
@@ -46,5 +47,45 @@ describe('BatchModal Scenarios', () => {
     expect(two).toBeDefined()
     expect(three).toBeDefined()
     expect(target).toBeNull()
+  })
+
+  it('Should close after finish all requests with success', async () => {
+    const currentSubscription = generateSubscription({ name: 'Target Subs' })
+    const targetSubscription = generateSubscription({ subscriptionId: 'Id1' })
+    const onClose = jest.fn()
+
+    const { queryByText } = render(
+      <BatchModal
+        currentSubscription={currentSubscription}
+        onClose={onClose}
+        value=""
+        option="ADDRESS"
+      />,
+      {
+        graphql: {
+          mocks: [
+            generateListByMock({
+              result: [generateSubscription({ subscriptionId: '1' })],
+            }),
+            generateUpdateAddressMock({
+              variables: {
+                subscriptionId: targetSubscription.id,
+                addressId: targetSubscription.addressId,
+                addressType: targetSubscription.shippingAddress
+                  ?.addressType as string,
+              },
+            }),
+          ],
+        },
+      }
+    )
+
+    await requestLoad()
+
+    fireEvent.click(queryByText('Save') as HTMLElement)
+
+    await requestLoad()
+
+    expect(onClose).toHaveBeenCalled()
   })
 })

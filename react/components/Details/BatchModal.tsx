@@ -218,7 +218,7 @@ class BatchModal extends Component<Props, State> {
           {displayError && (
             <div className="mb5">
               <Alert type="error" onClose={this.handleCloseError}>
-                {modalMessages.errorMessage}
+                {intl.formatMessage(modalMessages.errorMessage)}
               </Alert>
             </div>
           )}

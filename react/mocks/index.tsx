@@ -4,6 +4,9 @@ import DETAIL_QUERY, {
 import LIST_BY_QUERY, {
   Args as ListByArgs,
 } from '../graphql/queries/listBy.gql'
+import UPDATE_ADDRESS_MUTATION, {
+  Args as UpdateAddressArgs,
+} from '../graphql/mutations/updateAddress.gql'
 import {
   DEFAULT_SUBSCRIPTION_ID,
   GenerationArgs,
@@ -45,6 +48,24 @@ export function generateListByMock({
     result: {
       data: {
         list: result,
+      },
+    },
+  }
+}
+
+export function generateUpdateAddressMock({
+  variables,
+}: {
+  variables: UpdateAddressArgs
+}) {
+  return {
+    request: {
+      query: UPDATE_ADDRESS_MUTATION,
+      variables,
+    },
+    result: {
+      data: {
+        updateAddress: null,
       },
     },
   }
