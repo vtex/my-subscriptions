@@ -172,12 +172,13 @@ class BatchModal extends Component<Props, State> {
       )
     }
 
-    promises
-      .then(() => {
-        onClose()
+    promises.then(() => {
+      const displayError = this.state.completed.length !== selectedIds.length
+
+      if (!displayError) {
         showToast({ message: intl.formatMessage(messages.success) })
-      })
-      .finally(() => {
+        onClose()
+      } else {
         this.setState((finalState) => {
           finalState.completed.map((id) => delete finalState.selectionItems[id])
 
@@ -186,10 +187,11 @@ class BatchModal extends Component<Props, State> {
             loading: false,
             // If some subscription isn't on the finalState
             // it means that some error has ocurred
-            displayError: Object.keys(finalState.selectionItems).length > 0,
+            displayError,
           }
         })
-      })
+      }
+    })
   }
 
   public render() {

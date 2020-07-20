@@ -4,7 +4,7 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 import BatchModal from '../components/Details/BatchModal'
 import { generateSubscription } from '../mocks/subscriptionFactory'
 import { generateListByMock, generateUpdateAddressMock } from '../mocks'
-import { requestLoad } from './utils'
+import { requestLoad } from '../utils/tests'
 
 describe('BatchModal Scenarios', () => {
   it('Shouldnt display the target subscription on the list', async () => {
@@ -53,6 +53,7 @@ describe('BatchModal Scenarios', () => {
     const currentSubscription = generateSubscription({ name: 'Target Subs' })
     const targetSubscription = generateSubscription({ subscriptionId: 'Id1' })
     const onClose = jest.fn()
+    const showToast = jest.fn()
 
     const { queryByText } = render(
       <BatchModal
@@ -60,12 +61,13 @@ describe('BatchModal Scenarios', () => {
         onClose={onClose}
         value=""
         option="ADDRESS"
+        {...{ showToast }} // To avoid eslint error...
       />,
       {
         graphql: {
           mocks: [
             generateListByMock({
-              result: [generateSubscription({ subscriptionId: '1' })],
+              result: [targetSubscription],
             }),
             generateUpdateAddressMock({
               variables: {
@@ -87,5 +89,61 @@ describe('BatchModal Scenarios', () => {
     await requestLoad()
 
     expect(onClose).toHaveBeenCalled()
+    expect(showToast).toHaveBeenCalled()
+  })
+
+  it('Should handle error on one or more subscriptions', async () => {
+    const currentSubscription = generateSubscription({ name: 'Target Subs' })
+    const targetSubscription = generateSubscription({ subscriptionId: 'Id1' })
+    const targetSubscription2 = generateSubscription({ subscriptionId: 'Id2' })
+    const onClose = jest.fn()
+    const showToast = jest.fn()
+
+    const { queryByText } = render(
+      <BatchModal
+        currentSubscription={currentSubscription}
+        onClose={onClose}
+        value=""
+        option="ADDRESS"
+        {...{ showToast }} // To avoid eslint error...
+      />,
+      {
+        graphql: {
+          mocks: [
+            generateListByMock({
+              result: [targetSubscription, targetSubscription2],
+            }),
+            generateUpdateAddressMock({
+              variables: {
+                subscriptionId: targetSubscription.id,
+                addressId: targetSubscription.addressId,
+                addressType: targetSubscription.shippingAddress
+                  ?.addressType as string,
+              },
+            }),
+            generateUpdateAddressMock({
+              variables: {
+                subscriptionId: targetSubscription2.id,
+                addressId: targetSubscription2.addressId,
+                addressType: targetSubscription2.shippingAddress
+                  ?.addressType as string,
+              },
+              displayError: true,
+            }),
+          ],
+        },
+      }
+    )
+
+    await requestLoad()
+
+    fireEvent.click(queryByText('Save') as HTMLElement)
+
+    await requestLoad()
+
+    // Still open
+    expect(onClose).toHaveBeenCalledTimes(0)
+    expect(showToast).toHaveBeenCalledTimes(0)
+    expect(queryByText('Something went wrong, try again later!')).toBeDefined()
   })
 })

@@ -55,18 +55,26 @@ export function generateListByMock({
 
 export function generateUpdateAddressMock({
   variables,
+  displayError = false,
 }: {
   variables: UpdateAddressArgs
+  displayError?: boolean
 }) {
   return {
     request: {
       query: UPDATE_ADDRESS_MUTATION,
       variables,
     },
-    result: {
-      data: {
-        updateAddress: null,
-      },
-    },
+    ...(displayError
+      ? {
+          error: new Error('Error on update Address!'),
+        }
+      : {
+          result: {
+            data: {
+              updateAddress: null,
+            },
+          },
+        }),
   }
 }

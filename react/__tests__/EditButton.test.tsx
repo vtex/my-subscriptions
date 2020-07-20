@@ -6,7 +6,7 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
 import { MOCK_ROUTER_PARAM, generateDetailMock } from '../mocks'
-import { requestLoad } from './utils'
+import { requestLoad } from '../utils/tests'
 
 describe('Display Address Scenarios', () => {
   const { location } = window
