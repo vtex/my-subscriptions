@@ -111,5 +111,7 @@
   "store/subscription.products.card.remove.error": "Se produjo un error al intentar eliminar este producto, ¡intente nuevamente más tarde.",
   "store/subscription.products.card.remove.confirm": "Retirar",
   "store/subscription.products.card.remove.title": "Eliminar este producto?",
-  "store/subscription.products.card.remove.desc": "Si lo elimina, ya no se pedirá en la suscripción."
+  "store/subscription.products.card.remove.desc": "Si lo elimina, ya no se pedirá en la suscripción.",
+  "store/subscription.batch.modal.all": "Todas",
+  "store/subscription.batch.modal.desc": "¿Desea aplicar este cambio también para estas otras suscripciones?"
 }

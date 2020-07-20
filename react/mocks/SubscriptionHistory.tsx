@@ -1,10 +1,10 @@
 import HISTORY_QUERY, {
   Args,
 } from '../graphql/queries/subscriptionExecutions.gql'
-import { SUBSCRIPTION_ID } from '.'
+import { DEFAULT_SUBSCRIPTION_ID } from './subscriptionFactory'
 
 const variables: Args = {
-  subscriptionId: SUBSCRIPTION_ID,
+  subscriptionId: DEFAULT_SUBSCRIPTION_ID,
   page: 1,
   perPage: 5,
 }

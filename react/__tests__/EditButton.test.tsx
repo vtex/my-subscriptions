@@ -6,6 +6,7 @@ import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
 import { MOCK_ROUTER_PARAM, generateDetailMock } from '../mocks'
+import { requestLoad } from '../utils/tests'
 
 describe('Display Address Scenarios', () => {
   const { location } = window
@@ -53,7 +54,7 @@ describe('Display Address Scenarios', () => {
       }
     )
 
-    await new Promise((resolve) => setTimeout(resolve, 0))
+    await requestLoad()
 
     const paymentButton = queryByTestId('edit-payment-button')
     const addressButton = queryByTestId('edit-address-button')

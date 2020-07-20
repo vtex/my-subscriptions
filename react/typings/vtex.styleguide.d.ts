@@ -15,6 +15,7 @@ declare module 'vtex.styleguide' {
   export const Radio
   export const ActionMenu
   export const NumericStepper
+  export const CheckboxGroup
   export interface ShowToastArgs {
     message: string
   }

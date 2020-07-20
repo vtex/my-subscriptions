@@ -29,6 +29,7 @@ import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 import { Subscription } from '..'
 import { logGraphqlError } from '../../../tracking'
+import BatchModal from '../BatchModal'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
@@ -63,8 +64,6 @@ const messages = defineMessages({
 })
 
 class SubscriptionPaymentContainer extends Component<Props, State> {
-  private mounted: boolean
-
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -104,22 +103,17 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
           props
         ) ?? 'creditCard',
       showAlert: false,
+      isBatchModalOpen: false,
+      previousAccountId: null,
     }
-
-    this.mounted = false
   }
 
   public componentDidMount = () => {
-    this.mounted = true
     const hasEdited = this.verifyEdit()
 
     if (!hasEdited) {
       this.verifyNewPayment()
     }
-  }
-
-  public componentWillUnmount = () => {
-    this.mounted = false
   }
 
   private verifyEdit = () => {
@@ -163,15 +157,12 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
     }
   }
 
-  private handleMakeRetry = () => {
-    this.props.onMakeRetry().then(() => {
-      if (this.mounted) {
-        this.setState({
-          isRetryButtonEnabled: false,
-        })
-      }
-    })
-  }
+  private handleMakeRetry = () =>
+    this.props.onMakeRetry().then(() =>
+      this.setState({
+        isRetryButtonEnabled: false,
+      })
+    )
 
   private handleEdit = () => {
     this.setState({ isEditMode: true })
@@ -189,7 +180,10 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
       selectedPaymentSystemId,
     } = this.state
 
-    this.setState({ isLoading: true })
+    this.setState({
+      isLoading: true,
+      previousAccountId: subscription.paymentAccountId ?? null,
+    })
 
     const variables: Args = {
       paymentAccountId:
@@ -208,6 +202,7 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
         this.setState({
           isEditMode: false,
           isLoading: false,
+          isBatchModalOpen: !!selectedAccountId,
         })
       })
       .catch((e: ApolloError) => {
@@ -250,6 +245,8 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
       selectedAccountId: newAccountID ?? null,
     })
 
+  private handleOnCloseBatch = () => this.setState({ isBatchModalOpen: false })
+
   public render() {
     const { subscription, displayRetry } = this.props
     const {
@@ -259,6 +256,8 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
       selectedPaymentSystemGroup,
       showAlert,
       isRetryButtonEnabled,
+      isBatchModalOpen,
+      previousAccountId,
     } = this.state
 
     return (
@@ -280,13 +279,23 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
             isLoading={isLoading}
           />
         ) : (
-          <PaymentCard
-            onEdit={this.handleEdit}
-            subscription={subscription}
-            onMakeRetry={this.handleMakeRetry}
-            displayRetry={displayRetry}
-            isRetryButtonEnabled={isRetryButtonEnabled}
-          />
+          <>
+            {isBatchModalOpen && previousAccountId && (
+              <BatchModal
+                onClose={this.handleOnCloseBatch}
+                currentSubscription={subscription}
+                option="PAYMENT"
+                value={previousAccountId}
+              />
+            )}
+            <PaymentCard
+              onEdit={this.handleEdit}
+              subscription={subscription}
+              onMakeRetry={this.handleMakeRetry}
+              displayRetry={displayRetry}
+              isRetryButtonEnabled={isRetryButtonEnabled}
+            />
+          </>
         )}
       </div>
     )
@@ -318,6 +327,8 @@ interface State {
   selectedPaymentSystemId: string | null
   selectedPaymentSystemGroup: PaymentSystemGroup
   showAlert: boolean
+  isBatchModalOpen: boolean
+  previousAccountId: string | null
 }
 
 export default compose<Props, OuterProps>(

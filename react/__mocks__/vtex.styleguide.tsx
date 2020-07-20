@@ -19,7 +19,9 @@ export { default as Tag } from '@vtex/styleguide/lib/Tag'
 export { default as Dropdown } from '@vtex/styleguide/lib/Dropdown'
 // @ts-ignore
 export { default as ActionMenu } from '@vtex/styleguide/lib/ActionMenu'
+// @ts-ignore
+export { default as CheckboxGroup } from '@vtex/styleguide/lib/CheckboxGroup'
 
-export function withToast(children: any) {
+export function withToast(children: unknown) {
   return children
 }

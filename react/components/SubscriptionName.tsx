@@ -19,11 +19,24 @@ const messages = defineMessages({
     id: 'store/subscription.name.editition.name.title',
     defaultMessage: '',
   },
-  confirmationLabel: {
-    id: 'store/subscription.name.editition.edit',
-    defaultMessage: '',
-  },
 })
+
+export function getName(
+  intl: InnerProps['intl'],
+  name: string | null | undefined,
+  skus: Array<{ name: string }>
+) {
+  let content: string
+  if (name) {
+    content = name
+  } else if (skus.length === 1) {
+    content = skus[0].name
+  } else {
+    content = intl.formatMessage(messages.title, { value: skus.length })
+  }
+
+  return content
+}
 
 class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
   public state = {
@@ -57,9 +70,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
     const { name, status, intl, updateName, skus, subscriptionId } = this.props
 
     let content
-    if (name) {
-      content = name
-    } else if (skus.length === 1) {
+    if (skus.length === 1) {
       content = (
         <a
           className="no-underline c-on-base ttc"
@@ -67,16 +78,16 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
           rel="noopener noreferrer"
           href={skus[0].detailUrl}
         >
-          {`${skus[0].productName} - ${skus[0].name}`}
+          {getName(intl, name, skus)}
         </a>
       )
     } else {
-      content = intl.formatMessage(messages.title, { value: skus.length })
+      content = getName(intl, name, skus)
     }
 
     const modalProps = {
       cancelationLabel: intl.formatMessage(modalMessages.cancelationLabel),
-      confirmationLabel: intl.formatMessage(messages.confirmationLabel),
+      confirmationLabel: intl.formatMessage(modalMessages.confirmationLabel),
       errorMessage: intl.formatMessage(modalMessages.errorMessage),
       isModalOpen: this.state.isModalOpen,
       onCloseModal: this.handleCloseModal,
@@ -140,7 +151,6 @@ interface OuterProps {
   subscriptionId: string
   skus: Array<{
     detailUrl: string
-    productName: string
     name: string
   }>
 }

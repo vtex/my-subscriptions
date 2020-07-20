@@ -5,12 +5,11 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 import MockRouter from 'react-mock-router'
 
 import SubscriptionDetails from '../components/Details'
+import { generateDetailMock, MOCK_ROUTER_PARAM } from '../mocks'
 import {
-  generateDetailMock,
   generateSubscription,
-  MOCK_ROUTER_PARAM,
-  SUBSCRIPTION_ID,
-} from '../mocks'
+  DEFAULT_SUBSCRIPTION_ID,
+} from '../mocks/subscriptionFactory'
 import FREQUENCY_QUERY, {
   Args as QueryArgs,
 } from '../graphql/queries/frequencyOptions.gql'
@@ -45,9 +44,11 @@ describe('Payment Scenarios', () => {
   it('Should update the dates after editing frequency', async () => {
     const mock = generateDetailMock()
     const { periodicity } = mock.result.data.subscription.plan.frequency
-    const queryVariables: QueryArgs = { subscriptionId: SUBSCRIPTION_ID }
+    const queryVariables: QueryArgs = {
+      subscriptionId: DEFAULT_SUBSCRIPTION_ID,
+    }
     const mutationVariables: UpdateArgs = {
-      subscriptionId: SUBSCRIPTION_ID,
+      subscriptionId: DEFAULT_SUBSCRIPTION_ID,
       interval: 1,
       periodicity,
       purchaseDay: '10',

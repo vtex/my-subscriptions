@@ -6,7 +6,8 @@ import MockRouter from 'react-mock-router'
 
 import History from '../components/Details/History'
 import { subscriptionHistoryQueryMock as mock } from '../mocks/SubscriptionHistory'
-import { generateSubscription, MOCK_ROUTER_PARAM } from '../mocks'
+import { MOCK_ROUTER_PARAM } from '../mocks'
+import { generateSubscription } from '../mocks/subscriptionFactory'
 
 const copyObj = (o: object) => JSON.parse(JSON.stringify(o))
 

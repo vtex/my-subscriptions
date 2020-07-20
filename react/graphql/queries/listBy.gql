@@ -1,0 +1,22 @@
+query CustomerListBy($value: String!, $option: GroupOption!) {
+  list: customerListByOption(value: $value, option: $option, status: [ACTIVE])
+    @context(provider: "vtex.subscriptions-graphql") {
+    id
+    name
+    status
+    items {
+      sku {
+        name
+        imageUrl
+        detailUrl
+      }
+    }
+    plan {
+      frequency {
+        periodicity
+        interval
+      }
+      purchaseDay
+    }
+  }
+}

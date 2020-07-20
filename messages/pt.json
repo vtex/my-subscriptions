@@ -111,5 +111,7 @@
   "store/subscription.products.card.remove.error": "Ocorreu um erro ao remover esse produto, tente novamente mais tarde.",
   "store/subscription.products.card.remove.confirm": "Remover",
   "store/subscription.products.card.remove.title": "Remover este produto?",
-  "store/subscription.products.card.remove.desc": "Ao removê-lo, este produto deixará de ser pedido nesta assinatura."
+  "store/subscription.products.card.remove.desc": "Ao removê-lo, este produto deixará de ser pedido nesta assinatura.",
+  "store/subscription.batch.modal.all": "Todas",
+  "store/subscription.batch.modal.desc": "Gostaria de aplicar essas alterações a essas outras assinaturas também?"
 }

@@ -14,6 +14,7 @@ import UPDATE_ADDRESS, {
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 import { Subscription } from '..'
+import BatchModal from '../BatchModal'
 import {
   BASIC_CARD_WRAPPER,
   CSS,
@@ -63,9 +64,11 @@ class ShippingContainer extends Component<Props, State> {
 
     this.state = {
       errorMessage: '',
+      isBatchModalOpen: false,
       isEditMode: false,
       isLoading: false,
       showErrorAlert: false,
+      previousAddress: null,
       selectedAddress: props.subscription.shippingAddress
         ? {
             id: props.subscription.shippingAddress.id,
@@ -137,7 +140,10 @@ class ShippingContainer extends Component<Props, State> {
   private handleSave = () => {
     const { subscription, showToast, intl } = this.props
 
-    this.setState({ isLoading: true })
+    this.setState({
+      isLoading: true,
+      previousAddress: subscription.addressId,
+    })
 
     const variables = {
       addressId: this.state.selectedAddress?.id as string,
@@ -157,6 +163,7 @@ class ShippingContainer extends Component<Props, State> {
         this.setState({
           isEditMode: false,
           isLoading: false,
+          isBatchModalOpen: true,
         })
       })
       .catch((e: ApolloError) => {
@@ -195,6 +202,8 @@ class ShippingContainer extends Component<Props, State> {
 
   private handleCancelClick = () => this.setState({ isEditMode: false })
 
+  private handleOnCloseBatch = () => this.setState({ isBatchModalOpen: false })
+
   public render() {
     const { subscription } = this.props
     const {
@@ -203,6 +212,8 @@ class ShippingContainer extends Component<Props, State> {
       selectedAddress,
       showErrorAlert,
       errorMessage,
+      isBatchModalOpen,
+      previousAddress,
     } = this.state
 
     return (
@@ -221,13 +232,23 @@ class ShippingContainer extends Component<Props, State> {
             isLoading={isLoading}
             showErrorAlert={showErrorAlert}
             errorMessage={errorMessage}
-            subscription={subscription}
+            currentAddressId={subscription.addressId}
           />
         ) : (
-          <ShippingCard
-            onEdit={this.handleEditClick}
-            subscription={subscription}
-          />
+          <>
+            {isBatchModalOpen && previousAddress && (
+              <BatchModal
+                onClose={this.handleOnCloseBatch}
+                currentSubscription={subscription}
+                option="ADDRESS"
+                value={previousAddress}
+              />
+            )}
+            <ShippingCard
+              onEdit={this.handleEditClick}
+              subscription={subscription}
+            />
+          </>
         )}
       </div>
     )
@@ -249,11 +270,13 @@ interface InnerProps
 type Props = InnerProps & OuterProps
 
 interface State {
+  isBatchModalOpen: boolean
   errorMessage: string
   isEditMode: boolean
   isLoading: boolean
   showErrorAlert: boolean
   selectedAddress: { id: string; type: string } | null
+  previousAddress: string | null
 }
 
 export default compose<Props, OuterProps>(

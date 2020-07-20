@@ -5,6 +5,10 @@ import { defineMessages } from 'react-intl'
 import { makeCancelable } from '../utils'
 
 export const messages = defineMessages({
+  confirmationLabel: {
+    id: 'store/subscription.name.editition.edit',
+    defaultMessage: '',
+  },
   cancelationLabel: {
     id: 'store/subscription.editition.cancel',
     defaultMessage: '',
