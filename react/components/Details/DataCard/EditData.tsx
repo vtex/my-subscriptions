@@ -200,7 +200,7 @@ class EditData extends Component<Props, State> {
                 label={intl.formatMessage(messages.chargeEvery)}
                 placeholder={intl.formatMessage(messages.select)}
                 options={this.getIntervalOptions()}
-                value={purchaseDay.toLowerCase()}
+                value={purchaseDay ?? ''}
                 onChange={this.handlePurchaseDayChange}
               />
             </div>
