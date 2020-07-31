@@ -41,15 +41,16 @@
     "react-mock-router": "^1.0.15",
     "react-router-dom": "4.x",
     "typescript": "3.8.3",
-    "vtex.address-form": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.2/public/_types/react",
-    "vtex.my-account": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account@1.15.0/public/@types/vtex.my-account",
-    "vtex.my-account-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.4.0/public/@types/vtex.my-account-commons",
-    "vtex.payment-flags": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.4.0/public/_types/react",
-    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.109.0/public/@types/vtex.render-runtime",
-    "vtex.store-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.123.4/public/@types/vtex.store-graphql",
-    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.121.0/public/@types/vtex.styleguide",
-    "vtex.subscriptions-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.1.0/public/@types/vtex.subscriptions-graphql",
-    "vtex.totalizer-translator": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.1.0/public/_types/react"
+    "vtex.address-form": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.3/public/_types/react",
+    "vtex.my-account": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account@1.17.0/public/@types/vtex.my-account",
+    "vtex.my-account-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.5.0/public/@types/vtex.my-account-commons",
+    "vtex.payment-flags": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.5.0/public/@types/vtex.payment-flags",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.111.1/public/@types/vtex.render-runtime",
+    "vtex.store-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.127.0/public/@types/vtex.store-graphql",
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.125.0/public/@types/vtex.styleguide",
+    "vtex.subscriptions-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons",
+    "vtex.subscriptions-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.1.1/public/@types/vtex.subscriptions-graphql",
+    "vtex.totalizer-translator": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.0/public/_types/react"
   },
   "version": "3.2.0"
 }
