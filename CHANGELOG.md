@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Using **subscriptions-commons**.
+- Using **subscriptions-commons** for frequency translations.
 
 ## [3.2.0] - 2020-07-20
 
