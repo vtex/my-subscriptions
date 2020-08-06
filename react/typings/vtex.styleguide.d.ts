@@ -16,6 +16,10 @@ declare module 'vtex.styleguide' {
   export const ActionMenu
   export const NumericStepper
   export const CheckboxGroup
+  export const ButtonWithIcon
+  export const IconPlus
+  export const Modal
+  export const InputSearch
   export interface ShowToastArgs {
     message: string
   }

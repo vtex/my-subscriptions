@@ -7,6 +7,7 @@ import EditButton from '../EditButton'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from './ProductListItem'
 import { Item } from '..'
+import AddItemButton from '../AddItemButton'
 
 function mapVariationsToDesc(product: Item) {
   const variations = product.sku.variations
@@ -51,6 +52,9 @@ const ProductsListing: FunctionComponent<Props> = ({
           )}
         </div>
       </div>
+    </div>
+    <div className="pa4">
+      <AddItemButton />
     </div>
     {products.map((product, i) => (
       <div
