@@ -37,14 +37,16 @@ class AddItemContainer extends Component<Props> {
   }
 
   public render() {
-    const { intl } = this.props
-    const { isModalOpen, searchInput } = this.state
+    const { intl, currency } = this.props
+    const { isModalOpen, searchInput, searchTerm } = this.state
 
     return (
       <>
         <Modal
           isModalOpen={isModalOpen}
           searchInput={searchInput}
+          searchTerm={searchTerm}
+          currency={currency}
           onCloseModal={this.handleCloseModal}
           onChangeSearch={this.handleChangeSearch}
         />
@@ -61,8 +63,12 @@ class AddItemContainer extends Component<Props> {
   }
 }
 
-type Props = InjectedIntlProps
+interface OuterProps {
+  currency: string
+}
 
-const enhance = compose<Props, {}>(injectIntl)
+type Props = InjectedIntlProps & OuterProps
+
+const enhance = compose<Props, OuterProps>(injectIntl)
 
 export default enhance(AddItemContainer)

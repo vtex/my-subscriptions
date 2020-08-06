@@ -225,12 +225,12 @@ export function queryWrapper<
     (ChildComp: ComponentType) => {
       class QueryTracker extends Component<{
         runtime: RuntimeContext
-        trackedData: DataValue<unknown>
+        trackedData?: DataValue<unknown>
       }> {
         private callBack = () => {
           const { runtime, trackedData } = this.props
 
-          if (!trackedData.error) return
+          if (!trackedData || !trackedData.error) return
 
           logGraphqlError({
             error: trackedData.error,

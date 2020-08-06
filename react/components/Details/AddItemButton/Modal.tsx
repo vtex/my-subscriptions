@@ -1,7 +1,16 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
 import { compose } from 'recompose'
-import { Modal, InputSearch } from 'vtex.styleguide'
+import { Modal, InputSearch, Spinner } from 'vtex.styleguide'
+
+import { INSTANCE as PAGE } from '..'
+import { queryWrapper } from '../../../tracking'
+import SEARCH_QUERY, {
+  Args as SearchArgs,
+  Result as SearchResult,
+  SubscribableItem,
+} from '../../../graphql/queries/search.gql'
+import Item from './SearchItem'
 
 const messages = defineMessages({
   title: {
@@ -18,12 +27,25 @@ const messages = defineMessages({
   },
 })
 
+const INSTANCE = `${PAGE}/SearchSubscribableProducts`
+
+const LOADING = (
+  <div className="w-100 flex justify-center">
+    <Spinner />
+  </div>
+)
+
+const EMPTY = <div>empty</div>
+
 const AddItemModal: FunctionComponent<Props> = ({
   onCloseModal,
   onChangeSearch,
   isModalOpen,
   searchInput,
   intl,
+  loading,
+  items,
+  currency,
 }) => {
   return (
     <Modal
@@ -35,10 +57,31 @@ const AddItemModal: FunctionComponent<Props> = ({
       <InputSearch
         label={intl.formatMessage(messages.searchLabel)}
         placeholder={intl.formatMessage(messages.placeholder)}
-        onChange={(e: any) => onChangeSearch(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChangeSearch(e.target.value)
+        }
         size="regular"
         value={searchInput}
       />
+      <div className="mt8">
+        {loading
+          ? LOADING
+          : items && items.length > 0
+          ? items.map((item) => (
+              <div key={item.skuId} className="mb4">
+                <Item
+                  name={item.name}
+                  price={item.price}
+                  currency={currency}
+                  imageUrl={item.imageUrl}
+                  brand={item.brand}
+                  measurementUnit={item.measurementUnit}
+                  unitMultiplier={item.unitMultiplier}
+                />
+              </div>
+            ))
+          : EMPTY}
+      </div>
     </Modal>
   )
 }
@@ -49,10 +92,30 @@ interface OuterProps {
   onCloseModal: () => void
   onChangeSearch: (term: string) => void
   searchInput: string
+  searchTerm: string
+  currency: string
 }
 
-type Props = InnerProps & OuterProps
+interface MappedProps {
+  loading?: boolean
+  items?: SubscribableItem[]
+}
 
-const enhance = compose<Props, OuterProps>(injectIntl)
+type Props = InnerProps & OuterProps & MappedProps
+
+const enhance = compose<Props, OuterProps>(
+  injectIntl,
+  queryWrapper<OuterProps, SearchResult, SearchArgs, MappedProps>(
+    INSTANCE,
+    SEARCH_QUERY,
+    {
+      skip: ({ searchTerm }) => searchTerm.length < 2,
+      props: ({ data }) => ({
+        loading: data?.loading,
+        items: data?.search,
+      }),
+    }
+  )
+)
 
 export default enhance(AddItemModal)

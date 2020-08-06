@@ -1,0 +1,13 @@
+query SearchSubscribableProducts($searchTerm: String!) {
+  search(searchTerm: $searchTerm)
+    @context(provider: "vtex.subscriptions-graphql") {
+    skuId
+    name
+    imageUrl
+    variations
+    price
+    unitMultiplier
+    measurementUnit
+    brand
+  }
+}
