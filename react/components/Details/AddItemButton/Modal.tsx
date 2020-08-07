@@ -68,7 +68,7 @@ const AddItemModal: FunctionComponent<Props> = ({
           ? LOADING
           : items && items.length > 0
           ? items.map((item) => (
-              <div key={item.skuId} className="mb4">
+              <div key={item.skuId} className="mb6">
                 <Item
                   name={item.name}
                   price={item.price}
