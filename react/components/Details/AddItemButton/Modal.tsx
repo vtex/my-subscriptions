@@ -11,6 +11,7 @@ import SEARCH_QUERY, {
   SubscribableItem,
 } from '../../../graphql/queries/search.gql'
 import Item from './SearchItem'
+import EmptyState from './EmptyState'
 
 const messages = defineMessages({
   title: {
@@ -34,8 +35,6 @@ const LOADING = (
     <Spinner />
   </div>
 )
-
-const EMPTY = <div>empty</div>
 
 const AddItemModal: FunctionComponent<Props> = ({
   onCloseModal,
@@ -64,23 +63,27 @@ const AddItemModal: FunctionComponent<Props> = ({
         value={searchInput}
       />
       <div className="mt8">
-        {loading
-          ? LOADING
-          : items && items.length > 0
-          ? items.map((item) => (
-              <div key={item.skuId} className="mb6">
-                <Item
-                  name={item.name}
-                  price={item.price}
-                  currency={currency}
-                  imageUrl={item.imageUrl}
-                  brand={item.brand}
-                  measurementUnit={item.measurementUnit}
-                  unitMultiplier={item.unitMultiplier}
-                />
-              </div>
-            ))
-          : EMPTY}
+        {loading ? (
+          LOADING
+        ) : items && items.length > 0 ? (
+          items.map((item) => (
+            <div key={item.skuId} className="mb6">
+              <Item
+                name={item.name}
+                price={item.price}
+                currency={currency}
+                imageUrl={item.imageUrl}
+                brand={item.brand}
+                measurementUnit={item.measurementUnit}
+                unitMultiplier={item.unitMultiplier}
+              />
+            </div>
+          ))
+        ) : (
+          <EmptyState
+            state={searchInput.length === 0 ? 'empty' : 'no-results'}
+          />
+        )}
       </div>
     </Modal>
   )
