@@ -54,7 +54,10 @@ const ProductsListing: FunctionComponent<Props> = ({
       </div>
     </div>
     <div className="pa4">
-      <AddItemButton currency={currency} />
+      <AddItemButton
+        currency={currency}
+        subscribedSkus={products.map((product) => product.sku.id)}
+      />
     </div>
     {products.map((product, i) => (
       <div

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
 import { compose } from 'recompose'
+import memoize from 'memoize-one'
 import { ButtonWithIcon, IconPlus } from 'vtex.styleguide'
 
 import Modal from './Modal'
@@ -12,11 +13,20 @@ const messages = defineMessages({
   },
 })
 
+const buildSet = memoize((subscribedSkus: OuterProps['subscribedSkus']) => {
+  const set = new Set<string>()
+
+  subscribedSkus.forEach((skuId) => set.add(skuId))
+
+  return set
+})
+
 class AddItemContainer extends Component<Props> {
   public state = {
     isModalOpen: false,
     searchTerm: '',
     searchInput: '',
+    subscribedSkus: new Set<string>(),
   }
 
   private debounceCall: NodeJS.Timeout | null | number = null
@@ -36,6 +46,12 @@ class AddItemContainer extends Component<Props> {
     this.setState({ searchInput })
   }
 
+  private isProductAvailable = (skuId: string) => {
+    const set = buildSet(this.props.subscribedSkus)
+
+    return set.has(skuId)
+  }
+
   public render() {
     const { intl, currency } = this.props
     const { isModalOpen, searchInput, searchTerm } = this.state
@@ -49,6 +65,7 @@ class AddItemContainer extends Component<Props> {
           currency={currency}
           onCloseModal={this.handleCloseModal}
           onChangeSearch={this.handleChangeSearch}
+          isProductAvailable={this.isProductAvailable}
         />
         <ButtonWithIcon
           icon={<IconPlus />}
@@ -65,6 +82,7 @@ class AddItemContainer extends Component<Props> {
 
 interface OuterProps {
   currency: string
+  subscribedSkus: string[]
 }
 
 type Props = InjectedIntlProps & OuterProps

@@ -45,6 +45,7 @@ const AddItemModal: FunctionComponent<Props> = ({
   loading,
   items,
   currency,
+  isProductAvailable,
 }) => {
   return (
     <Modal
@@ -76,6 +77,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                 brand={item.brand}
                 measurementUnit={item.measurementUnit}
                 unitMultiplier={item.unitMultiplier}
+                disabled={isProductAvailable(item.skuId)}
               />
             </div>
           ))
@@ -94,6 +96,7 @@ interface OuterProps {
   isModalOpen: boolean
   onCloseModal: () => void
   onChangeSearch: (term: string) => void
+  isProductAvailable: (term: string) => boolean
   searchInput: string
   searchTerm: string
   currency: string

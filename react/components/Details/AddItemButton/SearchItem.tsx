@@ -12,6 +12,7 @@ const SearchItem: FunctionComponent<Props> = ({
   measurementUnit,
   unitMultiplier,
   brand,
+  disabled,
 }) => {
   const [quantity, setQuantity] = useState(1)
 
@@ -44,9 +45,12 @@ const SearchItem: FunctionComponent<Props> = ({
             minValue={1}
             size="small"
             value={quantity}
+            readOnly={disabled}
             onChange={(event: { value: number }) => setQuantity(event.value)}
           />
-          <Button variation="tertiary">Adicionar</Button>
+          <Button variation="tertiary" disabled={disabled}>
+            Adicionar
+          </Button>
         </div>
       </div>
     </article>
@@ -61,6 +65,7 @@ interface Props {
   measurementUnit: string
   unitMultiplier: number
   brand: string
+  disabled: boolean
 }
 
 export default SearchItem
