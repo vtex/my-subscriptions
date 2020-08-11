@@ -94,5 +94,13 @@
   "store/subscription.products.card.remove.title": "Remove this product?",
   "store/subscription.products.card.remove.desc": "If you remove it, it won't be ordered anymore on subscription.",
   "store/subscription.batch.modal.all": "All",
-  "store/subscription.batch.modal.desc": "Would you like to apply this change for these other subscriptions as well?"
+  "store/subscription.batch.modal.desc": "Would you like to apply this change for these other subscriptions as well?",
+  "store/add-item-button.add-product": "Add Product",
+  "store/add-item.success": "Product added",
+  "store/add-item-modal.empty-message": "Find your products and with one click add them to your subscription",
+  "store/add-item-modal.no-results-message": "It seems that there is no product with this name",
+  "store/add-item-modal.title": "Add new product",
+  "store/add-item-modal.search-placeholder": "Search",
+  "store/add-item-modal.search-label": "What are you looking for?",
+  "store/add-item-modal.add-item": "Add"
 }

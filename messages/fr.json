@@ -94,5 +94,13 @@
   "store/subscription.products.card.remove.title": "Retirer ce produit?",
   "store/subscription.products.card.remove.desc": "Si vous le supprimez, il ne sera plus commandé lors de l'abonnement.",
   "store/subscription.batch.modal.all": "Tout sélectionner",
-  "store/subscription.batch.modal.desc": "Souhaitez-vous également appliquer cette modification à ces autres abonnements?"
+  "store/subscription.batch.modal.desc": "Souhaitez-vous également appliquer cette modification à ces autres abonnements?",
+  "store/add-item-button.add-product": "Ajouter un produit",
+  "store/add-item.success": "Produit ajouté",
+  "store/add-item-modal.empty-message": "Trouvez vos produits et ajoutez-les en un clic à votre abonnement",
+  "store/add-item-modal.no-results-message": "Il semble qu'il n'y ait pas de produit avec ce nom",
+  "store/add-item-modal.title": "Ajouter un nouveau produit",
+  "store/add-item-modal.search-placeholder": "Chercher",
+  "store/add-item-modal.search-label": "Que cherchez-vous?",
+  "store/add-item-modal.add-item": "Ajouter"
 }

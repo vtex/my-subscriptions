@@ -20,11 +20,11 @@ import { INSTANCE } from '..'
 const messages = defineMessages({
   addProduct: {
     id: 'store/add-item-button.add-product',
-    defaultMessage: 'Add Product',
+    defaultMessage: '',
   },
   success: {
     id: 'store/add-item.success',
-    defaultMessage: 'Product added',
+    defaultMessage: '',
   },
 })
 

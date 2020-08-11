@@ -94,5 +94,13 @@
   "store/subscription.products.card.remove.title": "Ștergeți acest produs?",
   "store/subscription.products.card.remove.desc": "Dacă îl eliminați, nu va mai fi comandat la abonament.",
   "store/subscription.batch.modal.all": "Toate",
-  "store/subscription.batch.modal.desc": "Doriți să aplicați și această modificare pentru aceste alte abonamente?"
+  "store/subscription.batch.modal.desc": "Doriți să aplicați și această modificare pentru aceste alte abonamente?",
+  "store/add-item-button.add-product": "Adaugă produs",
+  "store/add-item.success": "Produs adăugat",
+  "store/add-item-modal.empty-message": "Găsiți produsele dvs. și cu un singur clic adăugați-le la abonament",
+  "store/add-item-modal.no-results-message": "Se pare că nu există niciun produs cu acest nume",
+  "store/add-item-modal.title": "Adăugați un produs nou",
+  "store/add-item-modal.search-placeholder": "Căutare",
+  "store/add-item-modal.search-label": "Ce cauti?",
+  "store/add-item-modal.add-item": "Adăuga"
 }

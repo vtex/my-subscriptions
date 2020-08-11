@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react'
-import { FormattedNumber } from 'react-intl'
+import { FormattedNumber, FormattedMessage } from 'react-intl'
 import { NumericStepper, Button } from 'vtex.styleguide'
 
 import Image from '../../ProductImage'
@@ -58,7 +58,7 @@ const SearchItem: FunctionComponent<Props> = ({
             disabled={disabled}
             onClick={() => onAddItem({ skuId: id, quantity, setLoading })}
           >
-            Adicionar
+            <FormattedMessage id="store/add-item-modal.add-item" />
           </Button>
         </div>
       </div>

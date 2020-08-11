@@ -94,5 +94,13 @@
   "store/subscription.products.card.remove.title": "Remover este produto?",
   "store/subscription.products.card.remove.desc": "Ao removê-lo, este produto deixará de ser pedido nesta assinatura.",
   "store/subscription.batch.modal.all": "Todas",
-  "store/subscription.batch.modal.desc": "Gostaria de aplicar essas alterações a essas outras assinaturas também?"
+  "store/subscription.batch.modal.desc": "Gostaria de aplicar essas alterações a essas outras assinaturas também?",
+  "store/add-item-button.add-product": "Adicinar produto",
+  "store/add-item.success": "Produto adicionado",
+  "store/add-item-modal.empty-message": "Encontre seus produtos e com um clique adicione na sua assinatura",
+  "store/add-item-modal.no-results-message": "Parece que não existe nenhum produto com esse nome",
+  "store/add-item-modal.title": "Adicionar novo produto",
+  "store/add-item-modal.search-placeholder": "Busca",
+  "store/add-item-modal.search-label": "O que você está procurando?",
+  "store/add-item-modal.add-item": "Adicionar"
 }
