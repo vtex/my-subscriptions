@@ -212,6 +212,7 @@ class ProductsContainer extends Component<Props, State> {
           products={products}
           currency={subscription.purchaseSettings.currencyCode}
           canRemove={canRemove}
+          subscriptionId={subscription.id}
         />
       </Fragment>
     )

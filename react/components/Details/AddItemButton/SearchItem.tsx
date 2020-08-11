@@ -3,6 +3,7 @@ import { FormattedNumber } from 'react-intl'
 import { NumericStepper, Button } from 'vtex.styleguide'
 
 import Image from '../../ProductImage'
+import { AddItemArgs } from '.'
 
 const SearchItem: FunctionComponent<Props> = ({
   imageUrl,
@@ -13,8 +14,11 @@ const SearchItem: FunctionComponent<Props> = ({
   unitMultiplier,
   brand,
   disabled,
+  onAddItem,
+  id,
 }) => {
   const [quantity, setQuantity] = useState(1)
+  const [loading, setLoading] = useState(false)
 
   return (
     <article className="flex">
@@ -48,7 +52,12 @@ const SearchItem: FunctionComponent<Props> = ({
             readOnly={disabled}
             onChange={(event: { value: number }) => setQuantity(event.value)}
           />
-          <Button variation="tertiary" disabled={disabled}>
+          <Button
+            variation="tertiary"
+            isLoading={loading}
+            disabled={disabled}
+            onClick={() => onAddItem({ skuId: id, quantity, setLoading })}
+          >
             Adicionar
           </Button>
         </div>
@@ -58,6 +67,7 @@ const SearchItem: FunctionComponent<Props> = ({
 }
 
 interface Props {
+  id: string
   imageUrl: string
   name: string
   price: number
@@ -66,6 +76,7 @@ interface Props {
   unitMultiplier: number
   brand: string
   disabled: boolean
+  onAddItem: (args: AddItemArgs) => void
 }
 
 export default SearchItem

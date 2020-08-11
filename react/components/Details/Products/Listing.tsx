@@ -35,6 +35,7 @@ const ProductsListing: FunctionComponent<Props> = ({
   onGoToEdition,
   onUpdateQuantity,
   onRemoveSubscription,
+  subscriptionId,
 }) => (
   <section className={BASIC_CARD_WRAPPER}>
     <div className={CSS.cardHorizontalPadding}>
@@ -55,6 +56,7 @@ const ProductsListing: FunctionComponent<Props> = ({
     </div>
     <div className="pa4">
       <AddItemButton
+        subscriptionId={subscriptionId}
         currency={currency}
         subscribedSkus={products.map((product) => product.sku.id)}
       />
@@ -107,6 +109,7 @@ interface Props {
   subscriptionStatus: SubscriptionStatus
   products: Item[]
   currency: string
+  subscriptionId: string
 }
 
 export default ProductsListing

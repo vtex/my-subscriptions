@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
 import { compose } from 'recompose'
-import { Modal, InputSearch, Spinner } from 'vtex.styleguide'
+import { Modal, InputSearch, Spinner, Alert } from 'vtex.styleguide'
 
 import { INSTANCE as PAGE } from '..'
 import { queryWrapper } from '../../../tracking'
@@ -12,6 +12,7 @@ import SEARCH_QUERY, {
 } from '../../../graphql/queries/search.gql'
 import Item from './SearchItem'
 import EmptyState from './EmptyState'
+import { AddItemArgs } from '.'
 
 const messages = defineMessages({
   title: {
@@ -25,6 +26,10 @@ const messages = defineMessages({
   searchLabel: {
     id: 'store/add-item-modal.search-label',
     defaultMessage: 'What are you looking for?',
+  },
+  errorMessage: {
+    id: 'store/subscription.fallback.error.message',
+    defaultMessage: '',
   },
 })
 
@@ -46,6 +51,9 @@ const AddItemModal: FunctionComponent<Props> = ({
   items,
   currency,
   isProductAvailable,
+  onAddItem,
+  displayError,
+  onDismissError,
 }) => {
   return (
     <Modal
@@ -63,13 +71,21 @@ const AddItemModal: FunctionComponent<Props> = ({
         size="regular"
         value={searchInput}
       />
-      <div className="mt8">
+      {displayError && (
+        <div className="mt7">
+          <Alert type="error" onClose={onDismissError}>
+            {intl.formatMessage(messages.errorMessage)}
+          </Alert>
+        </div>
+      )}
+      <div className="mt7">
         {loading ? (
           LOADING
         ) : items && items.length > 0 ? (
           items.map((item) => (
             <div key={item.skuId} className="mb6">
               <Item
+                id={item.skuId}
                 name={item.name}
                 price={item.price}
                 currency={currency}
@@ -78,6 +94,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                 measurementUnit={item.measurementUnit}
                 unitMultiplier={item.unitMultiplier}
                 disabled={isProductAvailable(item.skuId)}
+                onAddItem={onAddItem}
               />
             </div>
           ))
@@ -100,6 +117,9 @@ interface OuterProps {
   searchInput: string
   searchTerm: string
   currency: string
+  onAddItem: (args: AddItemArgs) => void
+  displayError: boolean
+  onDismissError: () => void
 }
 
 interface MappedProps {
