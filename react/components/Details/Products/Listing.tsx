@@ -54,7 +54,7 @@ const ProductsListing: FunctionComponent<Props> = ({
         </div>
       </div>
     </div>
-    <div className="pa4">
+    <div className="ph7-l pa5">
       <AddItemButton
         subscriptionId={subscriptionId}
         currency={currency}
