@@ -34,11 +34,7 @@ const messages = defineMessages({
 
 const INSTANCE = `SearchSubscribableProducts`
 
-const LOADING = (
-  <div className="w-100 flex justify-center">
-    <Spinner />
-  </div>
-)
+type State = 'loading' | 'results' | 'empty' | 'no-results'
 
 const AddItemModal: FunctionComponent<Props> = ({
   onCloseModal,
@@ -54,6 +50,15 @@ const AddItemModal: FunctionComponent<Props> = ({
   displayError,
   onDismissError,
 }) => {
+  let state: State
+  if (loading) {
+    state = 'loading'
+  } else if (items && items.length > 0) {
+    state = 'results'
+  } else {
+    state = searchInput.length === 0 ? 'empty' : 'no-results'
+  }
+
   return (
     <Modal
       title={intl.formatMessage(messages.title)}
@@ -77,11 +82,14 @@ const AddItemModal: FunctionComponent<Props> = ({
           </Alert>
         </div>
       )}
-      <div className="mt7">
-        {loading ? (
-          LOADING
-        ) : items && items.length > 0 ? (
-          items.map((item) => (
+      <div
+        className={`mt7 ${
+          state !== 'results' ? 'flex items-center justify-center' : ''
+        }`}
+        style={{ minHeight: '450px' }}
+      >
+        {state === 'results' ? (
+          items?.map((item) => (
             <div key={item.skuId} className="mb6">
               <Item
                 id={item.skuId}
@@ -97,10 +105,10 @@ const AddItemModal: FunctionComponent<Props> = ({
               />
             </div>
           ))
+        ) : state === 'loading' ? (
+          <Spinner />
         ) : (
-          <EmptyState
-            state={searchInput.length === 0 ? 'empty' : 'no-results'}
-          />
+          <EmptyState state={state} />
         )}
       </div>
     </Modal>
