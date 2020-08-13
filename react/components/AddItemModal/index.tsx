@@ -40,7 +40,7 @@ class AddItemContainer extends Component<Props> {
 
     this.debounceCall = setTimeout(
       () => this.setState({ searchTerm: searchInput }),
-      1000
+      400
     )
 
     this.setState({ searchInput })
