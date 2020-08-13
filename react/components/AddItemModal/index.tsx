@@ -1,29 +1,13 @@
 import React, { Component } from 'react'
 import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
-import { compose } from 'recompose'
 import memoize from 'memoize-one'
-import { graphql } from 'react-apollo'
-import { ApolloError } from 'apollo-client'
-import {
-  ButtonWithIcon,
-  IconPlus,
-  withToast,
-  ShowToastArgs,
-} from 'vtex.styleguide'
-import { withRuntimeContext, RuntimeContext } from 'vtex.render-runtime'
+import { ButtonWithIcon, IconPlus } from 'vtex.styleguide'
 
 import Modal from './Modal'
-import ADD_ITEM_MUTATION, { Args } from '../../../graphql/mutations/addItem.gql'
-import { logGraphqlError } from '../../../tracking'
-import { INSTANCE } from '..'
 
 const messages = defineMessages({
   addProduct: {
     id: 'store/add-item-button.add-product',
-    defaultMessage: '',
-  },
-  success: {
-    id: 'store/add-item.success',
     defaultMessage: '',
   },
 })
@@ -69,31 +53,14 @@ class AddItemContainer extends Component<Props> {
   }
 
   private handleAddItem = ({ skuId, quantity, setLoading }: AddItemArgs) => {
-    const { showToast, subscriptionId, addItem, intl, runtime } = this.props
-
     setLoading(true)
 
-    const variables = {
-      item: { id: skuId, quantity },
-      subscriptionId,
-    }
-
-    addItem({
-      variables,
+    this.props.onAddItem({
+      skuId,
+      quantity,
+      onError: () => this.setState({ displayError: true }),
+      onFinish: () => setLoading(false),
     })
-      .then(() => showToast({ message: intl.formatMessage(messages.success) }))
-      .catch((error: ApolloError) => {
-        this.setState({ displayError: true })
-
-        logGraphqlError({
-          error,
-          variables,
-          runtime,
-          type: 'MutationError',
-          instance: `${INSTANCE}/AddItem`,
-        })
-      })
-      .finally(() => setLoading(false))
   }
 
   private handleDismissError = () => this.setState({ displayError: false })
@@ -135,27 +102,20 @@ export interface AddItemArgs {
   setLoading: (loadingStatus: boolean) => void
 }
 
+export interface OnAddItemArgs {
+  skuId: string
+  quantity: number
+  onError: () => void
+  onFinish: () => void
+}
+
 interface OuterProps {
   subscriptionId: string
   currency: string
   subscribedSkus: string[]
+  onAddItem: (args: OnAddItemArgs) => void
 }
 
-type InnerProps = {
-  addItem: (args: { variables: Args }) => Promise<void>
-  showToast: (args: ShowToastArgs) => void
-  runtime: RuntimeContext
-} & InjectedIntlProps
+type Props = InjectedIntlProps & OuterProps
 
-type Props = InnerProps & OuterProps
-
-const enhance = compose<Props, OuterProps>(
-  injectIntl,
-  withToast,
-  withRuntimeContext,
-  graphql(ADD_ITEM_MUTATION, {
-    name: 'addItem',
-  })
-)
-
-export default enhance(AddItemContainer)
+export default injectIntl(AddItemContainer)

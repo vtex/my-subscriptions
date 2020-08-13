@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react'
 import { FormattedNumber, FormattedMessage } from 'react-intl'
 import { NumericStepper, Button } from 'vtex.styleguide'
 
-import Image from '../../ProductImage'
+import Image from '../ProductImage'
 import { AddItemArgs } from '.'
 
 const SearchItem: FunctionComponent<Props> = ({

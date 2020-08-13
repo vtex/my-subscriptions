@@ -17,10 +17,14 @@ import REMOVE_MUTATION, {
 import UPDATE_MUTATION, {
   Args as UpdateArgs,
 } from '../../../graphql/mutations/updateItems.gql'
+import ADD_ITEM_MUTATION, {
+  Args as AddArgs,
+} from '../../../graphql/mutations/addItem.gql'
 import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
-import { Subscription, Item } from '..'
+import { Subscription, Item, INSTANCE } from '..'
 import { logGraphqlError } from '../../../tracking'
+import { OnAddItemArgs } from '../../AddItemModal'
 
 function mapItemsToHashMap(items: Item[]) {
   return items.reduce(
@@ -51,6 +55,10 @@ const messages = defineMessages({
   },
   editionSuccess: {
     id: 'store/subscription.edit.success',
+    defaultMessage: '',
+  },
+  success: {
+    id: 'store/add-item.success',
     defaultMessage: '',
   },
 })
@@ -175,6 +183,36 @@ class ProductsContainer extends Component<Props, State> {
 
   private getProducts = () => Object.values<Item>(this.state.products)
 
+  private handleAddItem = ({
+    skuId,
+    quantity,
+    onError,
+    onFinish,
+  }: OnAddItemArgs) => {
+    const { subscription, showToast, addItem, intl, runtime } = this.props
+
+    const variables = {
+      item: { id: skuId, quantity },
+      subscriptionId: subscription.id,
+    }
+
+    addItem({
+      variables,
+    })
+      .then(() => showToast({ message: intl.formatMessage(messages.success) }))
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime,
+          type: 'MutationError',
+          instance: `${INSTANCE}/AddItem`,
+        })
+        onError()
+      })
+      .finally(() => onFinish())
+  }
+
   public render() {
     const { subscription, intl } = this.props
     const { isEditMode, isLoading, isModalOpen } = this.state
@@ -213,6 +251,7 @@ class ProductsContainer extends Component<Props, State> {
           currency={subscription.purchaseSettings.currencyCode}
           canRemove={canRemove}
           subscriptionId={subscription.id}
+          onAddItem={this.handleAddItem}
         />
       </Fragment>
     )
@@ -230,6 +269,7 @@ interface State {
 interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
   removeItem: (args: { variables: RemoveArgs }) => Promise<void>
   updateItems: (args: { variables: UpdateArgs }) => Promise<void>
+  addItem: (args: { variables: AddArgs }) => Promise<void>
   showToast: (args: ShowToastArgs) => void
 }
 
@@ -244,6 +284,9 @@ const enhance = compose<Props, OuterProps>(
   withToast,
   graphql(REMOVE_MUTATION, { name: 'removeItem' }),
   graphql(UPDATE_MUTATION, { name: 'updateItems' }),
+  graphql(ADD_ITEM_MUTATION, {
+    name: 'addItem',
+  }),
   withRuntimeContext
 )
 

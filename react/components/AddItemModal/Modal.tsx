@@ -3,13 +3,12 @@ import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
 import { compose } from 'recompose'
 import { Modal, InputSearch, Spinner, Alert } from 'vtex.styleguide'
 
-import { INSTANCE as PAGE } from '..'
-import { queryWrapper } from '../../../tracking'
+import { queryWrapper } from '../../tracking'
 import SEARCH_QUERY, {
   Args as SearchArgs,
   Result as SearchResult,
   SubscribableItem,
-} from '../../../graphql/queries/search.gql'
+} from '../../graphql/queries/search.gql'
 import Item from './SearchItem'
 import EmptyState from './EmptyState'
 import { AddItemArgs } from '.'
@@ -33,7 +32,7 @@ const messages = defineMessages({
   },
 })
 
-const INSTANCE = `${PAGE}/SearchSubscribableProducts`
+const INSTANCE = `SearchSubscribableProducts`
 
 const LOADING = (
   <div className="w-100 flex justify-center">
