@@ -1,0 +1,11 @@
+@media screen and (max-width: 39.9em) {
+  .quantitySelector {
+    width: 4.4rem;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .quantity {
+    width: 5.6rem;
+  }
+}

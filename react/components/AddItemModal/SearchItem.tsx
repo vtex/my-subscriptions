@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useState } from 'react'
 import { FormattedNumber, FormattedMessage } from 'react-intl'
-import { NumericStepper } from 'vtex.styleguide'
 
 import Image from '../ProductImage'
 import { AddItemArgs } from '.'
 import Button from '../AddToButton'
 import { subscribed, subscribable } from '../AddToButton/utils'
+import QuantitySelector from '../QuantitySelector'
 
 const SearchItem: FunctionComponent<Props> = ({
   imageUrl,
@@ -42,22 +42,19 @@ const SearchItem: FunctionComponent<Props> = ({
           </div>
         </div>
         <div className="w-60-l w-100 flex items-center justify-between">
-          <NumericStepper
-            label={
-              <FormattedNumber
-                currency={currency}
-                style="currency"
-                value={price * quantity}
-              />
-            }
-            minValue={1}
-            size="small"
+          <QuantitySelector
+            id="search-modal"
             value={quantity}
-            readOnly={
-              !subscribable({ targetPlan, availablePlans }) ||
-              !subscribed({ skuId: id, subscribedSkus })
+            onChange={setQuantity}
+            disabled={
+              subscribed({ skuId: id, subscribedSkus }) ||
+              !subscribable({ targetPlan, availablePlans })
             }
-            onChange={(event: { value: number }) => setQuantity(event.value)}
+          />
+          <FormattedNumber
+            currency={currency}
+            style="currency"
+            value={price * quantity}
           />
           <Button
             skuId={id}
