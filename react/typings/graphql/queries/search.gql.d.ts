@@ -9,6 +9,7 @@ declare module '*/search.gql' {
     unitMultiplier: number
     measurementUnit: string
     brand: string
+    plans: string[]
   }
 
   export interface Result {

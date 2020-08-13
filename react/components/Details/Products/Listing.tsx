@@ -35,7 +35,7 @@ const ProductsListing: FunctionComponent<Props> = ({
   onGoToEdition,
   onUpdateQuantity,
   onRemoveSubscription,
-  subscriptionId,
+  currentPlan,
   onAddItem,
 }) => (
   <section className={BASIC_CARD_WRAPPER}>
@@ -57,7 +57,7 @@ const ProductsListing: FunctionComponent<Props> = ({
     </div>
     <div className="ph7-l pa5">
       <AddItemModal
-        subscriptionId={subscriptionId}
+        targetPlan={currentPlan}
         currency={currency}
         subscribedSkus={products.map((product) => product.sku.id)}
         onAddItem={onAddItem}
@@ -111,8 +111,8 @@ interface Props {
   subscriptionStatus: SubscriptionStatus
   products: Item[]
   currency: string
-  subscriptionId: string
   onAddItem: (args: OnAddItemArgs) => void
+  currentPlan: string
 }
 
 export default ProductsListing

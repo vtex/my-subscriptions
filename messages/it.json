@@ -102,5 +102,6 @@
   "store/add-item-modal.title": "Aggiungi nuovo prodotto",
   "store/add-item-modal.search-placeholder": "Ricerca",
   "store/add-item-modal.search-label": "Che cosa sta cercando?",
-  "store/add-item-modal.add-item": "Inserisci"
+  "store/add-item-modal.subscribe": "Sottoscrivi",
+  "store/add-to-button.frequency-not-available": "Non può essere sottoscritto con questa frequenza"
 }

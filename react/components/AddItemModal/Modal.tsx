@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
 })
 
-const INSTANCE = `SearchSubscribableProducts`
+const INSTANCE = 'SearchSubscribableProducts'
 
 type State = 'loading' | 'results' | 'empty' | 'no-results'
 
@@ -45,10 +45,11 @@ const AddItemModal: FunctionComponent<Props> = ({
   loading,
   items,
   currency,
-  isProductAvailable,
   onAddItem,
   displayError,
   onDismissError,
+  subscribedSkus,
+  targetPlan,
 }) => {
   let state: State
   if (loading) {
@@ -100,8 +101,10 @@ const AddItemModal: FunctionComponent<Props> = ({
                 brand={item.brand}
                 measurementUnit={item.measurementUnit}
                 unitMultiplier={item.unitMultiplier}
-                disabled={isProductAvailable(item.skuId)}
                 onAddItem={onAddItem}
+                subscribedSkus={subscribedSkus}
+                targetPlan={targetPlan}
+                availablePlans={item.plans}
               />
             </div>
           ))
@@ -120,13 +123,14 @@ interface OuterProps {
   isModalOpen: boolean
   onCloseModal: () => void
   onChangeSearch: (term: string) => void
-  isProductAvailable: (term: string) => boolean
   searchInput: string
   searchTerm: string
   currency: string
   onAddItem: (args: AddItemArgs) => void
   displayError: boolean
   onDismissError: () => void
+  subscribedSkus: string[]
+  targetPlan: string
 }
 
 interface MappedProps {

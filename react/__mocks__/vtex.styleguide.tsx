@@ -29,6 +29,10 @@ export { default as IconPlus } from '@vtex/styleguide/lib/icon/Plus'
 export { default as Modal } from '@vtex/styleguide/lib/Modal'
 // @ts-ignore
 export { default as InputSearch } from '@vtex/styleguide/lib/InputSearch'
+// @ts-ignore
+export { default as ButtonPlain } from '@vtex/styleguide/lib/ButtonPlain'
+// @ts-ignore
+export { default as Tooltip } from '@vtex/styleguide/lib/Tooltip'
 
 export function withToast(children: unknown) {
   return children

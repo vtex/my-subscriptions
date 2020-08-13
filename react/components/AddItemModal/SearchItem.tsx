@@ -1,9 +1,11 @@
 import React, { FunctionComponent, useState } from 'react'
 import { FormattedNumber, FormattedMessage } from 'react-intl'
-import { NumericStepper, Button } from 'vtex.styleguide'
+import { NumericStepper } from 'vtex.styleguide'
 
 import Image from '../ProductImage'
 import { AddItemArgs } from '.'
+import Button from '../AddToButton'
+import { subscribed, subscribable } from '../AddToButton/utils'
 
 const SearchItem: FunctionComponent<Props> = ({
   imageUrl,
@@ -13,8 +15,10 @@ const SearchItem: FunctionComponent<Props> = ({
   measurementUnit,
   unitMultiplier,
   brand,
-  disabled,
   onAddItem,
+  subscribedSkus,
+  targetPlan,
+  availablePlans,
   id,
 }) => {
   const [quantity, setQuantity] = useState(1)
@@ -49,16 +53,22 @@ const SearchItem: FunctionComponent<Props> = ({
             minValue={1}
             size="small"
             value={quantity}
-            readOnly={disabled}
+            readOnly={
+              !subscribable({ targetPlan, availablePlans }) ||
+              !subscribed({ skuId: id, subscribedSkus })
+            }
             onChange={(event: { value: number }) => setQuantity(event.value)}
           />
           <Button
-            variation="tertiary"
+            skuId={id}
+            availablePlans={availablePlans}
+            targetPlan={targetPlan}
+            subscribedSkus={subscribedSkus}
+            buttonType="plain"
             isLoading={loading}
-            disabled={disabled}
             onClick={() => onAddItem({ skuId: id, quantity, setLoading })}
           >
-            <FormattedMessage id="store/add-item-modal.add-item" />
+            <FormattedMessage id="store/add-item-modal.subscribe" />
           </Button>
         </div>
       </div>
@@ -75,8 +85,10 @@ interface Props {
   measurementUnit: string
   unitMultiplier: number
   brand: string
-  disabled: boolean
   onAddItem: (args: AddItemArgs) => void
+  subscribedSkus: string[]
+  availablePlans: string[]
+  targetPlan: string
 }
 
 export default SearchItem

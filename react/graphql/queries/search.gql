@@ -9,5 +9,6 @@ query SearchSubscribableProducts($searchTerm: String!) {
     unitMultiplier
     measurementUnit
     brand
+    plans
   }
 }

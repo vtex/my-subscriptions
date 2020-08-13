@@ -250,7 +250,7 @@ class ProductsContainer extends Component<Props, State> {
           products={products}
           currency={subscription.purchaseSettings.currencyCode}
           canRemove={canRemove}
-          subscriptionId={subscription.id}
+          currentPlan="basic" // todo query the plan from subscription query
           onAddItem={this.handleAddItem}
         />
       </Fragment>

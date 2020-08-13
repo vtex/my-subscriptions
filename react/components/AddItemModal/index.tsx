@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
-import memoize from 'memoize-one'
 import { ButtonWithIcon, IconPlus } from 'vtex.styleguide'
 
 import Modal from './Modal'
@@ -10,14 +9,6 @@ const messages = defineMessages({
     id: 'store/add-item-button.add-product',
     defaultMessage: '',
   },
-})
-
-const buildSet = memoize((subscribedSkus: OuterProps['subscribedSkus']) => {
-  const set = new Set<string>()
-
-  subscribedSkus.forEach((skuId) => set.add(skuId))
-
-  return set
 })
 
 class AddItemContainer extends Component<Props> {
@@ -46,12 +37,6 @@ class AddItemContainer extends Component<Props> {
     this.setState({ searchInput })
   }
 
-  private isProductAvailable = (skuId: string) => {
-    const set = buildSet(this.props.subscribedSkus)
-
-    return set.has(skuId)
-  }
-
   private handleAddItem = ({ skuId, quantity, setLoading }: AddItemArgs) => {
     setLoading(true)
 
@@ -66,19 +51,20 @@ class AddItemContainer extends Component<Props> {
   private handleDismissError = () => this.setState({ displayError: false })
 
   public render() {
-    const { intl, currency } = this.props
+    const { intl, currency, targetPlan, subscribedSkus } = this.props
     const { isModalOpen, searchInput, searchTerm, displayError } = this.state
 
     return (
       <>
         <Modal
+          targetPlan={targetPlan}
+          subscribedSkus={subscribedSkus}
           isModalOpen={isModalOpen}
           searchInput={searchInput}
           searchTerm={searchTerm}
           currency={currency}
           onCloseModal={this.handleCloseModal}
           onChangeSearch={this.handleChangeSearch}
-          isProductAvailable={this.isProductAvailable}
           onAddItem={this.handleAddItem}
           onDismissError={this.handleDismissError}
           displayError={displayError}
@@ -110,8 +96,8 @@ export interface OnAddItemArgs {
 }
 
 interface OuterProps {
-  subscriptionId: string
   currency: string
+  targetPlan: string
   subscribedSkus: string[]
   onAddItem: (args: OnAddItemArgs) => void
 }

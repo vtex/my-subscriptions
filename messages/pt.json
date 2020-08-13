@@ -102,5 +102,6 @@
   "store/add-item-modal.title": "Adicionar novo produto",
   "store/add-item-modal.search-placeholder": "Busca",
   "store/add-item-modal.search-label": "O que você está procurando?",
-  "store/add-item-modal.add-item": "Adicionar"
+  "store/add-item-modal.subscribe": "Assinar",
+  "store/add-to-button.frequency-not-available": "Não pode ser assinado nesta frequência"
 }

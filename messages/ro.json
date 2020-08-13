@@ -102,5 +102,6 @@
   "store/add-item-modal.title": "Adăugați un produs nou",
   "store/add-item-modal.search-placeholder": "Căutare",
   "store/add-item-modal.search-label": "Ce cauti?",
-  "store/add-item-modal.add-item": "Adăuga"
+  "store/add-item-modal.subscribe": "Abonati-va",
+  "store/add-to-button.frequency-not-available": "Nu poate fi abonat în această frecvență"
 }
