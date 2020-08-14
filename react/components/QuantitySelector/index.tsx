@@ -121,7 +121,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
             size="small"
             value={normalizedValue}
             onChange={(event: any) => handleDropdownChange(event.target.value)}
-            placeholder=""
+            placeholder="1"
             disabled={disabled}
           />
         </div>
@@ -132,7 +132,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
             options={dropdownOptions}
             value={normalizedValue}
             onChange={(event: any) => handleDropdownChange(event.target.value)}
-            placeholder=""
+            placeholder="1"
             disabled={disabled}
           />
         </div>
