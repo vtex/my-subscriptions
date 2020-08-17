@@ -33,6 +33,8 @@ export { default as InputSearch } from '@vtex/styleguide/lib/InputSearch'
 export { default as ButtonPlain } from '@vtex/styleguide/lib/ButtonPlain'
 // @ts-ignore
 export { default as Tooltip } from '@vtex/styleguide/lib/Tooltip'
+// @ts-ignore
+export { default as Box } from '@vtex/styleguide/lib/Box'
 
 export function withToast(children: unknown) {
   return children

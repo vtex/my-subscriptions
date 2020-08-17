@@ -22,6 +22,7 @@ declare module 'vtex.styleguide' {
   export const InputSearch
   export const ButtonPlain
   export const Tooltip
+  export const Box
   export interface ShowToastArgs {
     message: string
   }

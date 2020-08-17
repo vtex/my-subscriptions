@@ -3,6 +3,7 @@ import { Route } from 'vtex.my-account-commons/Router'
 
 import SubscriptionsListContainer from './components/List'
 import SubscriptionDetailContainer from './components/Details'
+import SubscribePageContainer from './components/SubscribePage'
 import { withAppInfo } from './tracking'
 
 const ExtensionRouter = () => (
@@ -17,6 +18,11 @@ const ExtensionRouter = () => (
       exact
       path="/subscriptions/:subscriptionId"
       component={SubscriptionDetailContainer}
+    />
+    <Route
+      exact
+      path="/subscriptions/subscribe/:skuId"
+      component={SubscribePageContainer}
     />
   </Fragment>
 )
