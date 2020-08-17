@@ -41,7 +41,7 @@ const SearchItem: FunctionComponent<Props> = ({
             {`${unitMultiplier} ${measurementUnit}`}
           </div>
         </div>
-        <div className="w-60-l w-100 flex items-center justify-between">
+        <div className="w-60-l w-100 flex flex-column flex-row-l items-center-l justify-between-l">
           <QuantitySelector
             id="search-modal"
             value={quantity}
@@ -51,11 +51,13 @@ const SearchItem: FunctionComponent<Props> = ({
               !subscribable({ targetPlan, availablePlans })
             }
           />
-          <FormattedNumber
-            currency={currency}
-            style="currency"
-            value={price * quantity}
-          />
+          <span className="mv4 mv0-l">
+            <FormattedNumber
+              currency={currency}
+              style="currency"
+              value={price * quantity}
+            />
+          </span>
           <Button
             skuId={id}
             availablePlans={availablePlans}
