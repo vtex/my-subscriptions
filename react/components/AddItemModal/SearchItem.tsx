@@ -3,8 +3,8 @@ import { FormattedNumber, FormattedMessage } from 'react-intl'
 
 import Image from '../ProductImage'
 import { AddItemArgs } from '.'
-import Button from '../AddToButton'
-import { subscribed, subscribable } from '../AddToButton/utils'
+import Button from '../SubscribeButton'
+import { subscribed, subscribable } from '../SubscribeButton/utils'
 import QuantitySelector from '../QuantitySelector'
 
 const SearchItem: FunctionComponent<Props> = ({

@@ -6,12 +6,12 @@ import { subscribable, subscribed } from './utils'
 
 const messages = defineMessages({
   frequencyNotAvailable: {
-    id: 'store/add-to-button.frequency-not-available',
+    id: 'store/subscribe-button.frequency-not-available',
     defaultMessage: '',
   },
 })
 
-const AddToButton: FunctionComponent<Props> = ({
+const SubscribeButton: FunctionComponent<Props> = ({
   skuId,
   targetPlan,
   subscribedSkus,
@@ -59,4 +59,4 @@ type Props = {
   buttonType: 'plain' | 'secondary'
 } & InjectedIntlProps
 
-export default injectIntl(AddToButton)
+export default injectIntl(SubscribeButton)

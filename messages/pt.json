@@ -103,5 +103,5 @@
   "store/add-item-modal.search-placeholder": "Busca",
   "store/add-item-modal.search-label": "O que você está procurando?",
   "store/add-item-modal.subscribe": "Assinar",
-  "store/add-to-button.frequency-not-available": "Não pode ser assinado nesta frequência"
+  "store/subscribe-button.frequency-not-available": "Não pode ser assinado nesta frequência"
 }

@@ -103,5 +103,5 @@
   "store/add-item-modal.search-placeholder": "Căutare",
   "store/add-item-modal.search-label": "Ce cauti?",
   "store/add-item-modal.subscribe": "Abonati-va",
-  "store/add-to-button.frequency-not-available": "Nu poate fi abonat în această frecvență"
+  "store/subscribe-button.frequency-not-available": "Nu poate fi abonat în această frecvență"
 }
