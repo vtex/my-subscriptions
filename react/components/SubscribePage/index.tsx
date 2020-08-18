@@ -16,6 +16,7 @@ import { queryWrapper } from '../../tracking'
 import Box from './CustomBox'
 import Loading from './Loading'
 import Empty from './Empty'
+import SubscriptionBox from './SubscriptionBox'
 
 const messages = defineMessages({
   orderNowTitle: {
@@ -50,11 +51,42 @@ const messages = defineMessages({
 const INSTANCE = 'SubscribePage'
 
 class SubscribePageContainer extends Component<Props> {
+  public state = {
+    isLoading: false,
+  }
+
   private handleOrderNow = () => null
+
   private handleCreate = () => null
 
+  private handleAdd = (subscriptionId: string) => {
+    console.warn(subscriptionId)
+  }
+
   public render() {
-    const { loading, item } = this.props
+    const { loading, item, subscriptions } = this.props
+
+    const SubscriptionList =
+      item && subscriptions && subscriptions.length > 0 ? (
+        <>
+          <h4 className="t-heading-4 ml0-l ml4 mb4 mt8">
+            <FormattedMessage {...messages.addToExistingTitle} />
+          </h4>
+          <p className="t-body c-muted-1 ml0-l ml4 mb5">
+            <FormattedMessage {...messages.addToExistingDescription} />
+          </p>
+          {subscriptions.map((subscription) => (
+            <div className="mb4" key={subscription.id}>
+              <SubscriptionBox
+                subscription={subscription}
+                item={item}
+                isLoading={this.state.isLoading}
+                onAdd={this.handleAdd}
+              />
+            </div>
+          ))}
+        </>
+      ) : null
 
     const Body = (
       <>
@@ -70,12 +102,7 @@ class SubscribePageContainer extends Component<Props> {
           description={messages.createDescription}
           onClick={this.handleCreate}
         />
-        <h4 className="t-heading-4 ma0 mb4 mt8">
-          <FormattedMessage {...messages.addToExistingTitle} />
-        </h4>
-        <p className="t-body c-muted-1 ma0 mb5">
-          <FormattedMessage {...messages.addToExistingDescription} />
-        </p>
+        {SubscriptionList}
       </>
     )
 

@@ -16,7 +16,7 @@ declare module '*/subscribePage.gql' {
     }>
   }
 
-  type SubscribableItem = {
+  export type SubscribableItem = {
     skuId: string
     plans: string[]
   }
