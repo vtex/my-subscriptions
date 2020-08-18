@@ -1,0 +1,29 @@
+query SubscribePage($skuId: ID!) {
+  subscriptions: customerSubscriptions(statusList: [ACTIVE, PAUSED])
+    @context(provider: "vtex.subscriptions-graphql") {
+    id
+    name
+    status
+    nextPurchaseDate
+    plan {
+      id
+      frequency {
+        periodicity
+        interval
+      }
+      purchaseDay
+    }
+    items {
+      sku {
+        id
+        name
+        imageUrl
+      }
+    }
+  }
+  item: subscribableItem(id: $skuId)
+    @context(provider: "vtex.subscriptions-graphql") {
+    skuId
+    plans
+  }
+}
