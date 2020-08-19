@@ -119,6 +119,7 @@ const AddItemModal: FunctionComponent<Props> = ({
 }
 
 type InnerProps = InjectedIntlProps
+
 interface OuterProps {
   isModalOpen: boolean
   onCloseModal: () => void
