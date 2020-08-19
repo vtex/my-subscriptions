@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { graphql } from 'react-apollo'
 import {
@@ -222,7 +222,7 @@ class ProductsContainer extends Component<Props, State> {
     const canRemove = products.length > 1
 
     return (
-      <Fragment>
+      <>
         <ConfirmationModal
           confirmationLabel={intl.formatMessage(messages.confirm)}
           cancelationLabel={intl.formatMessage(messages.cancel)}
@@ -250,10 +250,10 @@ class ProductsContainer extends Component<Props, State> {
           products={products}
           currency={subscription.purchaseSettings.currencyCode}
           canRemove={canRemove}
-          currentPlan="basic" // todo query the plan from subscription query
+          currentPlan={subscription.plan.id}
           onAddItem={this.handleAddItem}
         />
-      </Fragment>
+      </>
     )
   }
 }
