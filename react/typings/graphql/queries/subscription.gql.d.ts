@@ -14,7 +14,7 @@ declare module '*/subscription.gql' {
       variations?: { [key: string]: string } | null
     }
     quantity: number
-    currentPrice: number
+    currentPrice?: number
   }
 
   type Subscription = Pick<
