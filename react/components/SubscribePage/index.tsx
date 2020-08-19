@@ -7,12 +7,18 @@ import {
 } from 'react-intl'
 import { compose } from 'recompose'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { InjectedRuntimeContext, withRuntimeContext } from 'vtex.render-runtime'
+import { ApolloError } from 'apollo-client'
+import { graphql } from 'react-apollo'
 
 import QUERY, {
   Result,
   Args as QueryArgs,
 } from '../../graphql/queries/subscribePage.gql'
-import { queryWrapper } from '../../tracking'
+import ORDER_NOW, {
+  Args as OrderNowArgs,
+} from '../../graphql/mutations/orderNow.gql'
+import { queryWrapper, logGraphqlError } from '../../tracking'
 import Box from './CustomBox'
 import Loading from './Loading'
 import Empty from './Empty'
@@ -55,7 +61,39 @@ class SubscribePageContainer extends Component<Props> {
     isLoading: false,
   }
 
-  private handleOrderNow = () => null
+  private handleOrderNow = () => {
+    const { orderFormId, orderNow, runtime, item } = this.props
+
+    const items = [
+      {
+        quantity: 1,
+        id: parseInt(item?.skuId as string, 10),
+        seller: '1',
+      },
+    ]
+
+    const variables = {
+      orderFormId,
+      items,
+    }
+
+    this.setState({ isLoading: true })
+
+    orderNow({ variables })
+      .then(() => {
+        window.location.href = '/checkout/'
+      })
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime,
+          type: 'MutationError',
+          instance: `${INSTANCE}/OrderNow`,
+        })
+      })
+      .finally(() => this.setState({ isLoading: false }))
+  }
 
   private handleCreate = () => null
 
@@ -125,12 +163,16 @@ class SubscribePageContainer extends Component<Props> {
 
 type InputProps = RouteComponentProps<{ skuId: string }>
 
-type InnerProps = {} & InjectedIntlProps
+type InnerProps = {
+  orderNow: (args: { variables: OrderNowArgs }) => Promise<void>
+} & InjectedIntlProps &
+  InjectedRuntimeContext
 
 interface ChildProps {
   loading: boolean
   subscriptions?: Result['subscriptions']
   item?: Result['item']
+  orderFormId?: string
 }
 
 type Props = InnerProps & ChildProps
@@ -138,6 +180,8 @@ type Props = InnerProps & ChildProps
 const enhance = compose<Props, {}>(
   injectIntl,
   withRouter,
+  withRuntimeContext,
+  graphql(ORDER_NOW, { name: 'orderNow' }),
   queryWrapper<InputProps, Result, QueryArgs, ChildProps>(INSTANCE, QUERY, {
     options: (input) => ({
       variables: {
@@ -148,6 +192,7 @@ const enhance = compose<Props, {}>(
       loading: data?.loading ?? false,
       subscriptions: data?.subscriptions,
       item: data?.item,
+      orderFormId: data?.orderForm?.orderFormId,
     }),
   })
 )

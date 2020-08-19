@@ -24,6 +24,9 @@ declare module '*/subscribePage.gql' {
   export interface Result {
     subscriptions: Subscription[]
     item: SubscribableItem
+    orderForm: {
+      orderFormId: string
+    }
   }
 
   export interface Args {

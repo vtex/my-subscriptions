@@ -26,4 +26,7 @@ query SubscribePage($skuId: ID!) {
     skuId
     plans
   }
+  orderForm @context(provider: "vtex.store-graphql") {
+    orderFormId
+  }
 }
