@@ -147,7 +147,6 @@ const enhance = compose<Props, OuterProps>(
     INSTANCE,
     SEARCH_QUERY,
     {
-      skip: ({ searchTerm }) => searchTerm.length < 2,
       props: ({ data }) => ({
         loading: data?.loading,
         items: data?.search,
