@@ -23,6 +23,7 @@ const SearchItem: FunctionComponent<Props> = ({
 }) => {
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
+  const canAdd = subscribable({ targetPlan, availablePlans })
 
   return (
     <article className="flex">
@@ -42,22 +43,26 @@ const SearchItem: FunctionComponent<Props> = ({
           </div>
         </div>
         <div className="w-60-l w-100 flex flex-column flex-row-l items-center-l justify-between-l">
-          <QuantitySelector
-            id="search-modal"
-            value={quantity}
-            onChange={setQuantity}
-            disabled={
-              subscribed({ skuId: id, subscribedSkus }) ||
-              !subscribable({ targetPlan, availablePlans })
-            }
-          />
-          <span className="mv4 mv0-l">
-            <FormattedNumber
-              currency={currency}
-              style="currency"
-              value={price * quantity}
-            />
-          </span>
+          {canAdd && (
+            <>
+              <QuantitySelector
+                id="search-modal"
+                value={quantity}
+                onChange={setQuantity}
+                disabled={
+                  subscribed({ skuId: id, subscribedSkus }) ||
+                  !subscribable({ targetPlan, availablePlans })
+                }
+              />
+              <span className="mv4 mv0-l">
+                <FormattedNumber
+                  currency={currency}
+                  style="currency"
+                  value={price * quantity}
+                />
+              </span>
+            </>
+          )}
           <Button
             skuId={id}
             availablePlans={availablePlans}

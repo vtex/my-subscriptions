@@ -103,5 +103,6 @@
   "store/add-item-modal.search-placeholder": "Buscar",
   "store/add-item-modal.search-label": "¿Qué estás buscando?",
   "store/add-item-modal.subscribe": "Suscribir",
-  "store/subscribe-button.frequency-not-available": "No se puede suscribir en esta frecuencia"
+  "store/subscribe-button.frequency-not-available": "Este producto no se puede suscribir en esta frecuencia",
+  "store/subscribe-button.added": "Añadido"
 }
