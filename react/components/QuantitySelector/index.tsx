@@ -139,6 +139,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
       </div>
     )
   }
+
   return (
     <div className={`${styles.quantity} ${styles.quantitySelector}`}>
       <div className="dn-m">
