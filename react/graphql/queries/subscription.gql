@@ -21,6 +21,7 @@ query Subscription($id: ID!) {
       currentPrice
     }
     plan {
+      id
       frequency {
         periodicity
         interval
