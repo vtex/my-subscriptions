@@ -10,9 +10,10 @@ function isQueryCompleted(networkStatus: number): boolean {
 
 export function subscribe(
   workflowInstance: string,
-  data: DataValue<unknown>,
+  data: DataValue<unknown> | undefined,
   callBack: () => void
 ) {
+  if (!data) return
   const currentNetwork = data.networkStatus
   const previousNetwork = events[workflowInstance]
 

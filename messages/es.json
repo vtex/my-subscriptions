@@ -94,5 +94,14 @@
   "store/subscription.products.card.remove.title": "Eliminar este producto?",
   "store/subscription.products.card.remove.desc": "Si lo elimina, ya no se pedirá en la suscripción.",
   "store/subscription.batch.modal.all": "Todas",
-  "store/subscription.batch.modal.desc": "¿Desea aplicar este cambio también para estas otras suscripciones?"
+  "store/subscription.batch.modal.desc": "¿Desea aplicar este cambio también para estas otras suscripciones?",
+  "store/add-item-button.add-product": "Añadir Producto",
+  "store/add-item.success": "Producto añadido",
+  "store/add-item-modal.empty-message": "Encuentra tus productos y con un clic agrégalos a tu suscripción",
+  "store/add-item-modal.no-results-message": "Parece que no hay ningún producto con este nombre.",
+  "store/add-item-modal.title": "Agregar nuevo producto",
+  "store/add-item-modal.search-placeholder": "Buscar",
+  "store/add-item-modal.search-label": "¿Qué estás buscando?",
+  "store/add-item-modal.subscribe": "Suscribir",
+  "store/subscribe-button.frequency-not-available": "No se puede suscribir en esta frecuencia"
 }

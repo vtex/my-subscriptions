@@ -21,6 +21,18 @@ export { default as Dropdown } from '@vtex/styleguide/lib/Dropdown'
 export { default as ActionMenu } from '@vtex/styleguide/lib/ActionMenu'
 // @ts-ignore
 export { default as CheckboxGroup } from '@vtex/styleguide/lib/CheckboxGroup'
+// @ts-ignore
+export { default as ButtonWithIcon } from '@vtex/styleguide/lib/ButtonWithIcon'
+// @ts-ignore
+export { default as IconPlus } from '@vtex/styleguide/lib/icon/Plus'
+// @ts-ignore
+export { default as Modal } from '@vtex/styleguide/lib/Modal'
+// @ts-ignore
+export { default as InputSearch } from '@vtex/styleguide/lib/InputSearch'
+// @ts-ignore
+export { default as ButtonPlain } from '@vtex/styleguide/lib/ButtonPlain'
+// @ts-ignore
+export { default as Tooltip } from '@vtex/styleguide/lib/Tooltip'
 
 export function withToast(children: unknown) {
   return children

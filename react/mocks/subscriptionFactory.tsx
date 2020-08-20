@@ -1,13 +1,12 @@
 import {
   SubscriptionStatus,
   SubscriptionExecutionStatus,
-  SubscriptionItem,
   Plan,
 } from 'vtex.subscriptions-graphql'
 
 import { Subscription } from '../graphql/queries/subscription.gql'
 
-function generateItems(itemsAmount: number): SubscriptionItem[] {
+function generateItems(itemsAmount: number): Subscription['items'] {
   const items = []
   for (let i = 0; i < itemsAmount; i++) {
     items.push({
@@ -24,7 +23,6 @@ function generateItems(itemsAmount: number): SubscriptionItem[] {
       },
       quantity: 1,
       currentPrice: 100,
-      priceAtSubscriptionDate: 100,
     })
   }
 
@@ -32,6 +30,7 @@ function generateItems(itemsAmount: number): SubscriptionItem[] {
 }
 
 const PLAN: Plan = {
+  id: 'vtex.subscription.basic',
   frequency: {
     periodicity: 'MONTHLY',
     interval: 1,

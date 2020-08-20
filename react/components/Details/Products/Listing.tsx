@@ -7,6 +7,7 @@ import EditButton from '../EditButton'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from './ProductListItem'
 import { Item } from '..'
+import AddItemModal, { OnAddItemArgs } from '../../AddItemModal'
 
 function mapVariationsToDesc(product: Item) {
   const variations = product.sku.variations
@@ -34,6 +35,8 @@ const ProductsListing: FunctionComponent<Props> = ({
   onGoToEdition,
   onUpdateQuantity,
   onRemoveSubscription,
+  currentPlan,
+  onAddItem,
 }) => (
   <section className={BASIC_CARD_WRAPPER}>
     <div className={CSS.cardHorizontalPadding}>
@@ -51,6 +54,14 @@ const ProductsListing: FunctionComponent<Props> = ({
           )}
         </div>
       </div>
+    </div>
+    <div className="ph7-l pa5">
+      <AddItemModal
+        targetPlan={currentPlan}
+        currency={currency}
+        subscribedSkus={products.map((product) => product.sku.id)}
+        onAddItem={onAddItem}
+      />
     </div>
     {products.map((product, i) => (
       <div
@@ -100,6 +111,8 @@ interface Props {
   subscriptionStatus: SubscriptionStatus
   products: Item[]
   currency: string
+  onAddItem: (args: OnAddItemArgs) => void
+  currentPlan: string
 }
 
 export default ProductsListing
