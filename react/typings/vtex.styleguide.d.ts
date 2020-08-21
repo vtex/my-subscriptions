@@ -24,5 +24,9 @@ declare module 'vtex.styleguide' {
   export const Tooltip
   export interface ShowToastArgs {
     message: string
+    action?: {
+      label: string
+      onClick: () => void
+    }
   }
 }

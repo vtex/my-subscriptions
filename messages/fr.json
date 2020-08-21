@@ -104,5 +104,6 @@
   "store/add-item-modal.search-label": "Que cherchez-vous ?",
   "store/add-item-modal.subscribe": "Souscrire",
   "store/subscribe-button.frequency-not-available": "Ce produit ne peut pas être abonné à cette fréquence",
-  "store/subscribe-button.added": "Ajoutée"
+  "store/subscribe-button.added": "Ajoutée",
+  "store/subscription.products.undo": "Annuler"
 }

@@ -104,5 +104,6 @@
   "store/add-item-modal.search-label": "Ce cauti?",
   "store/add-item-modal.subscribe": "Abonati-va",
   "store/subscribe-button.frequency-not-available": "Acest produs nu poate fi abonat în această frecvență",
-  "store/subscribe-button.added": "Adăugat"
+  "store/subscribe-button.added": "Adăugat",
+  "store/subscription.products.undo": "Anula"
 }
