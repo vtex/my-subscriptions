@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   defineMessages,
-  FormattedMessage,
+  MessageDescriptor,
 } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
@@ -56,13 +56,13 @@ export const messages = defineMessages({
 function retrieveMessagesByStatus(
   status: SubscriptionStatus
 ): {
-  titleMessage: FormattedMessage.MessageDescriptor
-  bodyMessage: FormattedMessage.MessageDescriptor
-  cancelationMessage: FormattedMessage.MessageDescriptor
-  confirmationMessage: FormattedMessage.MessageDescriptor
+  titleMessage: MessageDescriptor
+  bodyMessage: MessageDescriptor
+  cancelationMessage: MessageDescriptor
+  confirmationMessage: MessageDescriptor
 } {
-  let titleMessage: FormattedMessage.MessageDescriptor
-  let bodyMessage: FormattedMessage.MessageDescriptor
+  let titleMessage: MessageDescriptor
+  let bodyMessage: MessageDescriptor
   switch (status) {
     case 'PAUSED':
       titleMessage = messages.pauseTitle
@@ -169,7 +169,7 @@ interface Props {
   block: boolean
 }
 
-interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
+interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
   updateStatus: (args: { variables: Args }) => Promise<unknown>
   showToast: (args: object) => void
 }

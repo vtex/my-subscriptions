@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, WrappedComponentProps } from 'react-intl'
 import { Periodicity } from 'vtex.subscriptions-graphql'
 
 import { getName } from '../SubscriptionName'
@@ -32,6 +32,6 @@ type Props = {
   interval: number
   purchaseDay: string | null
   periodicity: Periodicity
-} & InjectedIntlProps
+} & WrappedComponentProps
 
 export default injectIntl(SubscriptionThumbnail)

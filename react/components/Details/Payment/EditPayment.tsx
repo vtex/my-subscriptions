@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   FormattedMessage,
-  InjectedIntl,
+  IntlShape,
   defineMessages,
 } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
@@ -21,7 +21,7 @@ import EditionButtons from '../EditionButtons'
 import PaymentSkeleton from './PaymentSkeleton'
 import { queryWrapper } from '../../../tracking'
 
-function cardOptions(creditCards: PaymentMethod[], intl: InjectedIntl) {
+function cardOptions(creditCards: PaymentMethod[], intl: IntlShape) {
   return creditCards.map(
     ({ paymentSystemGroup, paymentSystemName, paymentAccount }) => ({
       label: utils.displayPayment({
@@ -185,7 +185,7 @@ interface OuterProps {
 }
 
 interface InnerProps
-  extends InjectedIntlProps,
+  extends WrappedComponentProps,
     RouteComponentProps,
     ChildProps {}
 

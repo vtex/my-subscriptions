@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { graphql, MutationResult } from 'react-apollo'
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   defineMessages,
   FormattedMessage,
@@ -290,7 +290,7 @@ interface State {
   products: { [itemId: string]: Item }
 }
 
-interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
+interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
   removeItem: (args: { variables: RemoveArgs }) => Promise<void>
   updateItems: (args: { variables: UpdateArgs }) => Promise<void>
   addItem: (args: { variables: AddArgs }) => Promise<MutationResult<AddResult>>

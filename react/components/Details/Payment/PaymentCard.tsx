@@ -3,7 +3,7 @@ import {
   FormattedMessage,
   defineMessages,
   injectIntl,
-  InjectedIntlProps,
+  WrappedComponentProps,
 } from 'react-intl'
 import { Button, Alert } from 'vtex.styleguide'
 
@@ -84,7 +84,7 @@ const SubscriptionPaymentCard: FunctionComponent<Props> = ({
   </>
 )
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   subscription: Subscription
   onEdit: () => void
   onMakeRetry: () => void

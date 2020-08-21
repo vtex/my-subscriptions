@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
+import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { ButtonWithIcon, IconPlus } from 'vtex.styleguide'
 
 import Modal from './Modal'
@@ -102,6 +102,6 @@ interface OuterProps {
   onAddItem: (args: OnAddItemArgs) => void
 }
 
-type Props = InjectedIntlProps & OuterProps
+type Props = WrappedComponentProps & OuterProps
 
 export default injectIntl(AddItemContainer)

@@ -1,5 +1,5 @@
 import { FunctionComponent, ReactElement } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 
 const messages = defineMessages({
   title: {
@@ -22,7 +22,7 @@ interface RenderArgs {
   path: string
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   render: (args: RenderArgs[]) => ReactElement
 }
 

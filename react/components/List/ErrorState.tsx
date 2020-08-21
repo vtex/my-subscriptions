@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { defineMessages, injectIntl, InjectedIntlProps } from 'react-intl'
+import { defineMessages, injectIntl, WrappedComponentProps } from 'react-intl'
 import { Alert } from 'vtex.styleguide'
 
 const messages = defineMessages({
@@ -32,7 +32,7 @@ const ErrorStateSubscriptionsList: FunctionComponent<Props> = ({
   )
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   refetch: () => void
 }
 

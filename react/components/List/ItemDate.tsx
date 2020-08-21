@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const messages = defineMessages({
@@ -21,12 +21,9 @@ const messages = defineMessages({
   },
 })
 
-const SubscriptionsItemDate: FunctionComponent<Props & InjectedIntlProps> = ({
-  status,
-  nextPurchaseDate,
-  lastUpdate,
-  intl,
-}) => {
+const SubscriptionsItemDate: FunctionComponent<
+  Props & WrappedComponentProps
+> = ({ status, nextPurchaseDate, lastUpdate, intl }) => {
   const content =
     status === 'ACTIVE'
       ? intl.formatMessage(messages.nextPurchase, {

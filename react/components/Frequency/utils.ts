@@ -1,4 +1,4 @@
-import { InjectedIntlProps } from 'react-intl'
+import { WrappedComponentProps } from 'react-intl'
 import { Periodicity } from 'vtex.subscriptions-graphql'
 import { translations } from 'vtex.subscriptions-commons'
 import { WeekDay } from 'vtex.subscriptions-commons/react/utils/frequency'
@@ -6,7 +6,7 @@ import { WeekDay } from 'vtex.subscriptions-commons/react/utils/frequency'
 export function displayWeekDay({
   intl,
   weekDay,
-}: { weekDay: WeekDay } & InjectedIntlProps) {
+}: { weekDay: WeekDay } & WrappedComponentProps) {
   return translations.translateWeekDay({ intl, day: weekDay })
 }
 
@@ -14,7 +14,7 @@ export function displayPeriodicity({
   intl,
   periodicity,
   interval,
-}: { periodicity: Periodicity; interval: number } & InjectedIntlProps) {
+}: { periodicity: Periodicity; interval: number } & WrappedComponentProps) {
   return translations.translatePeriodicity(intl, periodicity, interval)
 }
 
@@ -27,7 +27,7 @@ export function displayFrequency({
   interval: number
   purchaseDay: string | null
   periodicity: Periodicity
-} & InjectedIntlProps): string {
+} & WrappedComponentProps): string {
   const periodicityText = translations.translatePeriodicity(
     intl,
     periodicity,

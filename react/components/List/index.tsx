@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
@@ -46,7 +46,9 @@ const messages = defineMessages({
 
 const INSTANCE = 'SubscriptionsList'
 
-class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
+class SubscriptionsListContainer extends Component<
+  Props & WrappedComponentProps
+> {
   public state = {
     filter: SubscriptionDisplayFilterEnum.Active,
   }
@@ -126,18 +128,24 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
               }
               if (!data || isEmpty(data)) return <EmptyState />
 
-              return data.list.map((subscription) => (
-                <article
-                  className={CSS.subscriptionItemWrapper}
-                  key={subscription.id}
-                >
-                  <Images skus={subscription.items.map((item) => item.sku)} />
-                  <Summary
-                    subscription={subscription}
-                    onGoToDetails={this.handleGoToDetails}
-                  />
-                </article>
-              ))
+              return (
+                <>
+                  {data.list.map((subscription) => (
+                    <article
+                      className={CSS.subscriptionItemWrapper}
+                      key={subscription.id}
+                    >
+                      <Images
+                        skus={subscription.items.map((item) => item.sku)}
+                      />
+                      <Summary
+                        subscription={subscription}
+                        onGoToDetails={this.handleGoToDetails}
+                      />
+                    </article>
+                  ))}
+                </>
+              )
             }}
           </Query>
         )}
@@ -146,7 +154,9 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
   }
 }
 
-type Props = InjectedIntlProps & InjectedRuntimeContext & RouteComponentProps
+type Props = WrappedComponentProps &
+  InjectedRuntimeContext &
+  RouteComponentProps
 
 const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
 

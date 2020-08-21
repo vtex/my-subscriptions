@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
 
 import { CSS, BASIC_CARD_WRAPPER } from '../../../constants'
@@ -89,7 +89,7 @@ const DisplayData: FunctionComponent<Props> = ({
   )
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   subscription: Subscription
   onOpenEdit: () => void
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import qs from 'query-string'
@@ -261,7 +261,7 @@ interface OuterProps {
 
 interface InnerProps
   extends RouteComponentProps,
-    InjectedIntlProps,
+    WrappedComponentProps,
     InjectedRuntimeContext {
   updateAddress: (args: { variables: Args }) => Promise<void>
   showToast: (args: ShowToastArgs) => void
