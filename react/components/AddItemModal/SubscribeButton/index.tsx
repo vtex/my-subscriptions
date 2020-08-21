@@ -47,7 +47,7 @@ const SubscribeButton: FunctionComponent<Props> = ({
   }
 
   return (
-    <span className="t-samll c-muted-1">
+    <span className="c-muted-1">
       {intl.formatMessage(messages.frequencyNotAvailable)}
     </span>
   )
