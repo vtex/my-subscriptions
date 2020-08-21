@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
-import { graphql } from 'react-apollo'
+import { graphql, MutationResult } from 'react-apollo'
 import {
   InjectedIntlProps,
   injectIntl,
@@ -19,6 +19,7 @@ import UPDATE_MUTATION, {
 } from '../../../graphql/mutations/updateItems.gql'
 import ADD_ITEM_MUTATION, {
   Args as AddArgs,
+  Result as AddResult,
 } from '../../../graphql/mutations/addItem.gql'
 import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
@@ -61,6 +62,10 @@ const messages = defineMessages({
     id: 'store/add-item.success',
     defaultMessage: '',
   },
+  undo: {
+    id: 'store/subscription.products.undo',
+    defaultMessage: '',
+  },
 })
 
 class ProductsContainer extends Component<Props, State> {
@@ -96,13 +101,12 @@ class ProductsContainer extends Component<Props, State> {
     })
   }
 
-  private handleRemoveItem = () => {
+  private handleRemoveItem = (itemId?: string) => {
     const { removeItem, subscription, showToast, intl } = this.props
-    const { itemId } = this.state
 
     const variables = {
       subscriptionId: subscription.id,
-      itemId,
+      itemId: itemId ?? this.state.itemId,
     }
 
     return removeItem({
@@ -199,7 +203,27 @@ class ProductsContainer extends Component<Props, State> {
     addItem({
       variables,
     })
-      .then(() => showToast({ message: intl.formatMessage(messages.success) }))
+      .then(({ data }) => {
+        if (!data) return
+
+        const item = data.addItem.items.find(
+          (subsItem) => subsItem.sku.id === skuId
+        )
+
+        if (!item) return
+
+        showToast({
+          message: intl.formatMessage(messages.success),
+          ...(item
+            ? {
+                action: {
+                  label: intl.formatMessage(messages.undo),
+                  onClick: () => this.handleRemoveItem(item.id),
+                },
+              }
+            : {}),
+        })
+      })
       .catch((error: ApolloError) => {
         logGraphqlError({
           error,
@@ -269,7 +293,7 @@ interface State {
 interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
   removeItem: (args: { variables: RemoveArgs }) => Promise<void>
   updateItems: (args: { variables: UpdateArgs }) => Promise<void>
-  addItem: (args: { variables: AddArgs }) => Promise<void>
+  addItem: (args: { variables: AddArgs }) => Promise<MutationResult<AddResult>>
   showToast: (args: ShowToastArgs) => void
 }
 

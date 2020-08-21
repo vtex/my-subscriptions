@@ -88,7 +88,7 @@
   "store/subscription.execution.no-order": "Não há nenhum pedido",
   "store/subscription.execution.awaiting-first-cycle": "Aguardando o primeiro ciclo",
   "store/subscription.products.card.title": "Produtos Assinados",
-  "store/subscription.products.card.remove.success": "Produto removido com suscesso!",
+  "store/subscription.products.card.remove.success": "Produto removido com sucesso!",
   "store/subscription.products.card.remove.error": "Ocorreu um erro ao remover esse produto, tente novamente mais tarde.",
   "store/subscription.products.card.remove.confirm": "Remover",
   "store/subscription.products.card.remove.title": "Remover este produto?",
@@ -103,5 +103,7 @@
   "store/add-item-modal.search-placeholder": "Busca",
   "store/add-item-modal.search-label": "O que você está procurando?",
   "store/add-item-modal.subscribe": "Assinar",
-  "store/subscribe-button.frequency-not-available": "Não pode ser assinado nesta frequência"
+  "store/subscribe-button.frequency-not-available": "Este produto não pode ser assinado nessa frequência",
+  "store/subscribe-button.added": "Adicionado",
+  "store/subscription.products.undo": "Desfazer"
 }

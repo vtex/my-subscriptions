@@ -21,8 +21,11 @@ declare module 'vtex.styleguide' {
   export const Modal
   export const InputSearch
   export const ButtonPlain
-  export const Tooltip
   export interface ShowToastArgs {
     message: string
+    action?: {
+      label: string
+      onClick: () => void
+    }
   }
 }

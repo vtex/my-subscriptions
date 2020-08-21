@@ -1,12 +1,16 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
-import { Button, ButtonPlain, Tooltip } from 'vtex.styleguide'
+import { Button, ButtonPlain } from 'vtex.styleguide'
 
 import { subscribable, subscribed } from './utils'
 
 const messages = defineMessages({
   frequencyNotAvailable: {
     id: 'store/subscribe-button.frequency-not-available',
+    defaultMessage: '',
+  },
+  added: {
+    id: 'store/subscribe-button.added',
     defaultMessage: '',
   },
 })
@@ -34,7 +38,7 @@ const SubscribeButton: FunctionComponent<Props> = ({
       disabled={!isSubscribable || isSubscribed}
       variation={buttonType === 'secondary' ? buttonType : undefined}
     >
-      {children}
+      {isSubscribed ? intl.formatMessage(messages.added) : children}
     </TargetButton>
   )
 
@@ -43,9 +47,9 @@ const SubscribeButton: FunctionComponent<Props> = ({
   }
 
   return (
-    <Tooltip label={intl.formatMessage(messages.frequencyNotAvailable)}>
-      {FinalButton}
-    </Tooltip>
+    <span className="c-muted-1">
+      {intl.formatMessage(messages.frequencyNotAvailable)}
+    </span>
   )
 }
 
