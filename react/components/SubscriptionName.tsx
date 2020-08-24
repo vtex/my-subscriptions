@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
 import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
@@ -116,7 +116,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
     const canEdit = status === 'ACTIVE'
 
     return (
-      <Fragment>
+      <>
         <ConfirmationModal {...modalProps}>
           <h2 className="t-heading-5 c-on-base mt0 mb7">
             {intl.formatMessage(messages.choose)}
@@ -129,18 +129,16 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
             />
           </div>
         </ConfirmationModal>
-        <div className="t-heading-5 c-on-base">
-          {content}
-          {canEdit && (
-            <button
-              className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
-              onClick={this.handleOpenModal}
-            >
-              <IconEdit solid />
-            </button>
-          )}
-        </div>
-      </Fragment>
+        {content}
+        {canEdit && (
+          <button
+            className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
+            onClick={this.handleOpenModal}
+          >
+            <IconEdit solid />
+          </button>
+        )}
+      </>
     )
   }
 }
