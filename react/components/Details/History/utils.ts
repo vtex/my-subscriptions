@@ -1,4 +1,4 @@
-import { defineMessages, InjectedIntlProps } from 'react-intl'
+import { defineMessages, WrappedComponentProps } from 'react-intl'
 import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 
 defineMessages({
@@ -53,7 +53,7 @@ export function displayOrderStatus({
   status,
 }: {
   status: SubscriptionExecutionStatus
-} & InjectedIntlProps) {
+} & WrappedComponentProps) {
   return intl.formatMessage({
     id: `store/subscription.execution.status.${status}`,
   })

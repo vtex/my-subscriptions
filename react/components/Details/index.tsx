@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
+import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { ContentWrapper } from 'vtex.my-account-commons'
@@ -43,7 +43,7 @@ const messages = defineMessages({
   },
 })
 
-export function headerConfig({ intl }: InjectedIntlProps) {
+export function headerConfig({ intl }: WrappedComponentProps) {
   const backButton = {
     title: intl.formatMessage(messages.listTitle),
     path: '/subscriptions',
@@ -182,7 +182,10 @@ class SubscriptionsDetailsContainer extends Component<Props> {
   }
 }
 
-interface Props extends InjectedIntlProps, ChildProps, InjectedRuntimeContext {
+interface Props
+  extends WrappedComponentProps,
+    ChildProps,
+    InjectedRuntimeContext {
   retry: (args: { variables: RetryArgs }) => Promise<void>
 }
 

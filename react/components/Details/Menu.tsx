@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   defineMessages,
-  FormattedMessage,
+  MessageDescriptor,
 } from 'react-intl'
 import { compose, branch, renderNothing } from 'recompose'
 import { graphql, MutationResult, DataValue } from 'react-apollo'
@@ -204,8 +204,8 @@ class MenuContainer extends Component<InnerProps & OuterProps> {
       title,
       desc,
     }: {
-      title?: FormattedMessage.MessageDescriptor
-      desc: FormattedMessage.MessageDescriptor
+      title?: MessageDescriptor
+      desc: MessageDescriptor
     }) => (
       <Fragment>
         {title && (
@@ -324,7 +324,7 @@ interface OuterProps {
 }
 
 interface InnerProps
-  extends InjectedIntlProps,
+  extends WrappedComponentProps,
     InjectedRuntimeContext,
     ChildProps {
   orderNow: (args: Variables<MutationAddItemArgs>) => Promise<MutationResult>

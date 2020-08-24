@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Dropdown, Alert } from 'vtex.styleguide'
@@ -228,7 +228,7 @@ interface ChildProps {
 }
 
 interface InnerProps
-  extends InjectedIntlProps,
+  extends WrappedComponentProps,
     ChildProps,
     InjectedRuntimeContext {
   updatePlan: (args: { variables: UpdatePlanArgs }) => Promise<void>

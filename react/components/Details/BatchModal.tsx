@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
-import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
+import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import {
@@ -254,7 +254,7 @@ interface MappedProps {
   loading: boolean
 }
 
-type InnerProps = InjectedIntlProps &
+type InnerProps = WrappedComponentProps &
   MappedProps &
   InjectedRuntimeContext & {
     updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>

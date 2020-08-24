@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { IconEdit, Input } from 'vtex.styleguide'
@@ -155,7 +155,7 @@ interface OuterProps {
   }>
 }
 
-interface InnerProps extends InjectedIntlProps, InjectedRuntimeContext {
+interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
   updateName: (args: { variables: Args }) => Promise<unknown>
   showToast: (args: object) => void
 }

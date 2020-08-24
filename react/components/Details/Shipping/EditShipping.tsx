@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import {
-  InjectedIntlProps,
+  WrappedComponentProps,
   injectIntl,
   FormattedMessage,
   defineMessages,
@@ -98,7 +98,7 @@ interface ChildProps {
   addresses: Address[]
 }
 
-interface InnerProps extends InjectedIntlProps {
+interface InnerProps extends WrappedComponentProps {
   addresses: Address[]
 }
 

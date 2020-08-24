@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { injectIntl, WrappedComponentProps } from 'react-intl'
 
 import style from './style.css'
 import { SubscriptionExecution } from './HistoryList'
@@ -50,7 +50,7 @@ const HistoryItem: FunctionComponent<Props> = ({
   )
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   execution: SubscriptionExecution
 }
 

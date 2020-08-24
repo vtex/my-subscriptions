@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, InjectedIntlProps, defineMessages } from 'react-intl'
+import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { Button, ButtonPlain } from 'vtex.styleguide'
 
 import { subscribable, subscribed } from './utils'
@@ -15,7 +15,7 @@ const messages = defineMessages({
   },
 })
 
-const SubscribeButton: FunctionComponent<Props> = ({
+const SubscribeButton: FunctionComponent<Props & WrappedComponentProps> = ({
   skuId,
   targetPlan,
   subscribedSkus,
@@ -61,6 +61,8 @@ type Props = {
   availablePlans: string[]
   onClick: () => void
   buttonType: 'plain' | 'secondary'
-} & InjectedIntlProps
+}
 
-export default injectIntl(SubscribeButton)
+export default injectIntl<'intl', Props & WrappedComponentProps>(
+  SubscribeButton
+)

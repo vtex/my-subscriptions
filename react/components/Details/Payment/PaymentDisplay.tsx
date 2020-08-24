@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl } from 'react-intl'
+import { WrappedComponentProps, injectIntl } from 'react-intl'
 import { PaymentFlag, utils } from 'vtex.payment-flags'
 import { PaymentMethod } from 'vtex.subscriptions-graphql'
 
@@ -27,7 +27,7 @@ const PaymentDisplay: FunctionComponent<Props> = ({
   </div>
 )
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   paymentMethod: PaymentMethod
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 // eslint-disable-next-line no-restricted-imports
 import { path } from 'ramda'
@@ -309,7 +309,7 @@ interface OuterProps {
 }
 
 interface InnerProps
-  extends InjectedIntlProps,
+  extends WrappedComponentProps,
     RouteComponentProps,
     InjectedRuntimeContext {
   updatePayment: (args: { variables: Args }) => Promise<void>

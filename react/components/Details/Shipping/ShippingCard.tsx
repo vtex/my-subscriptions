@@ -3,7 +3,7 @@ import {
   injectIntl,
   FormattedMessage,
   defineMessages,
-  InjectedIntlProps,
+  WrappedComponentProps,
 } from 'react-intl'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
@@ -67,7 +67,7 @@ const ShippingCard: FunctionComponent<Props> = ({
   </>
 )
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   subscription: Subscription
   onEdit: () => void
 }
