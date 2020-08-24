@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
-import { IconEdit, Input } from 'vtex.styleguide'
+import { Input } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
@@ -12,6 +12,7 @@ import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
 import { logGraphqlError } from '../tracking'
+import EditButton from './EditButton'
 
 const messages = defineMessages({
   title: { id: 'store/subscription.view.title', defaultMessage: '' },
@@ -45,6 +46,10 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
     name: '',
   }
 
+  public static defaultProps = {
+    withIconBackground: false,
+  }
+
   public handleLoading = (value: boolean) => {
     this.setState({ isLoading: value })
   }
@@ -67,7 +72,15 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
   }
 
   public render() {
-    const { name, status, intl, updateName, skus, subscriptionId } = this.props
+    const {
+      name,
+      status,
+      intl,
+      updateName,
+      skus,
+      subscriptionId,
+      withIconBackground,
+    } = this.props
 
     let content
     if (skus.length === 1) {
@@ -116,11 +129,11 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
     const canEdit = status === 'ACTIVE'
 
     return (
-      <>
+      <div className="flex items-center">
         <ConfirmationModal {...modalProps}>
-          <h2 className="t-heading-5 c-on-base mt0 mb7">
+          <div className="t-heading-5 mb4">
             {intl.formatMessage(messages.choose)}
-          </h2>
+          </div>
           <div className="w-100">
             <Input
               value={this.state.name}
@@ -129,16 +142,14 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
             />
           </div>
         </ConfirmationModal>
-        {content}
+        <span className="mr4">{content}</span>
         {canEdit && (
-          <button
-            className="ml5 c-action-primary hover-c-action-primary pointer bn bg-transparent"
+          <EditButton
             onClick={this.handleOpenModal}
-          >
-            <IconEdit solid />
-          </button>
+            withBackground={withIconBackground}
+          />
         )}
-      </>
+      </div>
     )
   }
 }
@@ -151,6 +162,7 @@ interface OuterProps {
     detailUrl: string
     name: string
   }>
+  withIconBackground?: boolean
 }
 
 interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
