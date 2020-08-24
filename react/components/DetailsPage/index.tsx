@@ -4,13 +4,14 @@ import { injectIntl, WrappedComponentProps } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import SUBSCRIPTION, {
+import DETAILS_PAGE_QUERY, {
   Subscription,
   Item,
   Result,
   Args as QueryArgs,
-} from '../../graphql/queries/subscription.gql'
+} from '../../graphql/queries/detailsPage.gql'
 import { logError, queryWrapper } from '../../tracking'
+import Header from './PageHeader'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
@@ -25,11 +26,27 @@ class SubscriptionsDetailsContainer extends Component<Props> {
   }
 
   public render() {
-    const { subscription } = this.props
+    const { subscription, orderformId } = this.props
 
     if (!subscription) return null
 
-    return <>hey</>
+    return (
+      <>
+        <Header
+          name={subscription.name}
+          status={subscription.status}
+          subscriptionId={subscription.id}
+          orderFormId={orderformId}
+          skus={subscription.items.map((item) => ({
+            id: item.sku.id,
+            quantity: item.quantity,
+            detailUrl: item.sku.detailUrl,
+            name: item.sku.name,
+          }))}
+          isSkipped={subscription.isSkipped}
+        />
+      </>
+    )
   }
 }
 
@@ -44,6 +61,7 @@ type InputProps = RouteComponentProps<{ subscriptionId: string }> &
 interface ChildProps {
   loading: boolean
   subscription?: Subscription
+  orderformId?: string
 }
 
 const enhance = compose<Props, {}>(
@@ -52,7 +70,7 @@ const enhance = compose<Props, {}>(
   withRuntimeContext,
   queryWrapper<InputProps, Result, QueryArgs, ChildProps>(
     INSTANCE,
-    SUBSCRIPTION,
+    DETAILS_PAGE_QUERY,
     {
       options: (input) => ({
         variables: {
@@ -62,7 +80,7 @@ const enhance = compose<Props, {}>(
       props: ({ data }) => ({
         loading: data ? data.loading : false,
         subscription: data?.subscription,
-        data,
+        orderformId: data?.orderForm?.orderFormId,
       }),
     }
   )

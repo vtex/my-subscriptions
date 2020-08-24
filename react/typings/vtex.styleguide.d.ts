@@ -21,6 +21,7 @@ declare module 'vtex.styleguide' {
   export const Modal
   export const InputSearch
   export const ButtonPlain
+  export const PageHeader
   export interface ShowToastArgs {
     message: string
     action?: {
