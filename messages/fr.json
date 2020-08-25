@@ -64,7 +64,7 @@
   "store/subscription.change.status.modal.confirmation": "Oui",
   "store/subscription.change.status.modal.cancelation": "Non",
   "store/subcription.add.new.card": "Ajouter une nouvelle carte",
-  "store/subscription.manage.orderNow": "Nouvelle commande",
+  "store/subscription.manage.orderNow": "Générer une commande séparée",
   "store/subscription.execution.again.description": "Cette commande n'interférera pas avec vos prochains abonnements et ses dates",
   "store/subscription.execution.again.confirmation": "Finaliser l'achat",
   "store/subscription.shipping-address.error.message": "Adresse invalide, sélectionnez une nouvelle adresse valide pour cet abonnement.",

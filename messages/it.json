@@ -64,7 +64,7 @@
   "store/subscription.change.status.modal.confirmation": "Sì",
   "store/subscription.change.status.modal.cancelation": "No",
   "store/subcription.add.new.card": "Aggiungi nuova carta",
-  "store/subscription.manage.orderNow": "Ordina nuovamente",
+  "store/subscription.manage.orderNow": "Genera un ordine separato",
   "store/subscription.execution.again.description": "Questo ordine non interferirà con i successivi acquisti relativi alle tue sottoscrizioni e le relative date.",
   "store/subscription.execution.again.confirmation": "Vai alla cassa",
   "store/subscription.shipping-address.error.message": "Indirizzo non valido, seleziona un indirizzo valido per questa sottoscrizione.",

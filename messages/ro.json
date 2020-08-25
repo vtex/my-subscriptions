@@ -64,7 +64,7 @@
   "store/subscription.change.status.modal.confirmation": "Da",
   "store/subscription.change.status.modal.cancelation": "Nu",
   "store/subcription.add.new.card": "Adăugați o nouă carte",
-  "store/subscription.manage.orderNow": "Comandă din nou",
+  "store/subscription.manage.orderNow": "Generați ordine separată",
   "store/subscription.execution.again.description": "Această comandă nu va interfera în achizițiile viitoare abonamentele și datele dvs.",
   "store/subscription.execution.again.confirmation": "Mergeți la checkout",
   "store/subscription.shipping-address.error.message": "Adresă nevalidă, selectați o nouă adresă validă pentru acest abonament.",

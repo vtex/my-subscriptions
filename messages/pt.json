@@ -64,7 +64,7 @@
   "store/subscription.change.status.modal.confirmation": "Sim",
   "store/subscription.change.status.modal.cancelation": "Não",
   "store/subcription.add.new.card": "Adicionar novo cartão",
-  "store/subscription.manage.orderNow": "Fechar um Pedido Agora",
+  "store/subscription.manage.orderNow": "Gerar pedido avulso",
   "store/subscription.execution.again.description": "Este pedido não irá alterar as datas das próximas compras ou dados da assinatura.",
   "store/subscription.execution.again.confirmation": "Finalizar compra",
   "store/subscription.shipping-address.error.message": "Endereço inválido, associe um novo endereço válido a essa assinatura.",

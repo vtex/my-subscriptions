@@ -64,7 +64,7 @@
   "store/subscription.change.status.modal.confirmation": "Sí",
   "store/subscription.change.status.modal.cancelation": "No",
   "store/subcription.add.new.card": "Agregar nueva tarjeta",
-  "store/subscription.manage.orderNow": "Solicitar de nuevo",
+  "store/subscription.manage.orderNow": "Generar orden separada",
   "store/subscription.execution.again.description": "Este pedido no interferirá en sus próximas compras y sus fechas.",
   "store/subscription.execution.again.confirmation": "Ir al proceso de pago",
   "store/subscription.shipping-address.error.message": "Dirección no válida, seleccione una nueva dirección válida para esta suscripción.",
