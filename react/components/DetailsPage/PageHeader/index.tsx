@@ -6,6 +6,7 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import Name from '../../SubscriptionName'
 import Menu from './Menu'
+import Status from './Status'
 
 const PageHeader: FunctionComponent<Props> = ({
   name,
@@ -39,14 +40,17 @@ const PageHeader: FunctionComponent<Props> = ({
       }
       onLinkClick={() => history.push('/subscriptions')}
     >
-      <div>
-        <Menu
-          orderFormId={orderFormId}
-          status={status}
-          isSkipped={isSkipped}
-          subscriptionId={subscriptionId}
-          skus={skus}
-        />
+      <div className="flex">
+        <Status status={status} />
+        <div className="ml4">
+          <Menu
+            orderFormId={orderFormId}
+            status={status}
+            isSkipped={isSkipped}
+            subscriptionId={subscriptionId}
+            skus={skus}
+          />
+        </div>
       </div>
     </Header>
   )
