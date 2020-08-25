@@ -105,5 +105,10 @@
   "store/add-item-modal.subscribe": "Assinar",
   "store/subscribe-button.frequency-not-available": "Este produto não pode ser assinado nessa frequência",
   "store/subscribe-button.added": "Adicionado",
-  "store/subscription.products.undo": "Desfazer"
+  "store/subscription.products.undo": "Desfazer",
+  "store/details-page.page-header.back-button": "Todas as Assinaturas",
+  "store/details-page.page-header.history": "Histórico",
+  "store/details-page.page-header.status.active": "Assinatura Ativa",
+  "store/details-page.page-header.status.paused": "Assinatura Pausada",
+  "store/details-page.page-header.status.canceled": "Assinatura Cancelada"
 }

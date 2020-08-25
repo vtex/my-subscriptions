@@ -105,5 +105,10 @@
   "store/add-item-modal.subscribe": "Suscribir",
   "store/subscribe-button.frequency-not-available": "Este producto no se puede suscribir en esta frecuencia",
   "store/subscribe-button.added": "Añadido",
-  "store/subscription.products.undo": "Deshacer"
+  "store/subscription.products.undo": "Deshacer",
+  "store/details-page.page-header.back-button": "Todas las suscripciones",
+  "store/details-page.page-header.history": "Historia",
+  "store/details-page.page-header.status.active": "Suscripción activa",
+  "store/details-page.page-header.status.paused": "Suscripción pausada",
+  "store/details-page.page-header.status.canceled": "Suscripción cancelada"
 }

@@ -105,5 +105,10 @@
   "store/add-item-modal.subscribe": "Souscrire",
   "store/subscribe-button.frequency-not-available": "Ce produit ne peut pas être abonné à cette fréquence",
   "store/subscribe-button.added": "Ajoutée",
-  "store/subscription.products.undo": "Annuler"
+  "store/subscription.products.undo": "Annuler",
+  "store/details-page.page-header.back-button": "Tous les abonnements",
+  "store/details-page.page-header.history": "L'histoire",
+  "store/details-page.page-header.status.active": "Abonnement actif",
+  "store/details-page.page-header.status.paused": "Abonnement suspendu",
+  "store/details-page.page-header.status.canceled": "Abonnement annulé"
 }

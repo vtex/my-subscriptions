@@ -105,5 +105,10 @@
   "store/add-item-modal.subscribe": "Abonati-va",
   "store/subscribe-button.frequency-not-available": "Acest produs nu poate fi abonat în această frecvență",
   "store/subscribe-button.added": "Adăugat",
-  "store/subscription.products.undo": "Anula"
+  "store/subscription.products.undo": "Anula",
+  "store/details-page.page-header.back-button": "Toate abonamentele",
+  "store/details-page.page-header.history": "Istorie",
+  "store/details-page.page-header.status.active": "Abonament activ",
+  "store/details-page.page-header.status.paused": "Abonament în pauză",
+  "store/details-page.page-header.status.canceled": "Abonament anulat"
 }

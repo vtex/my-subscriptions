@@ -7,15 +7,15 @@ import styles from './styles.css'
 const messages = defineMessages({
   active: {
     id: 'store/details-page.page-header.status.active',
-    defaultMessage: 'Assinatura Ativa',
+    defaultMessage: '',
   },
   paused: {
     id: 'store/details-page.page-header.status.paused',
-    defaultMessage: 'Assinatura Pausada',
+    defaultMessage: '',
   },
   canceled: {
     id: 'store/details-page.page-header.status.canceled',
-    defaultMessage: 'Assinatura Cancelada',
+    defaultMessage: '',
   },
 })
 

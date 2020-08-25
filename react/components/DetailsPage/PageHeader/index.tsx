@@ -34,10 +34,7 @@ const PageHeader: FunctionComponent<Props> = ({
     <Header
       title={Title}
       linkLabel={
-        <FormattedMessage
-          id="store/details-page.page-header.back-button"
-          defaultMessage="Todas as Assinaturas"
-        />
+        <FormattedMessage id="store/details-page.page-header.back-button" />
       }
       onLinkClick={() => history.push('/subscriptions')}
     >
@@ -50,10 +47,7 @@ const PageHeader: FunctionComponent<Props> = ({
               history.push(`/subscriptions/${subscriptionId}/history`)
             }
           >
-            <FormattedMessage
-              id="store/details-page.page-header.history"
-              defaultMessage="Histórico"
-            />
+            <FormattedMessage id="store/details-page.page-header.history" />
           </ButtonWithIcon>
         </div>
         <Status status={status} />
