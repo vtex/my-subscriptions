@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { PageHeader as Header } from 'vtex.styleguide'
+import { PageHeader as Header, ButtonWithIcon } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import Name from '../../SubscriptionName'
 import Menu from './Menu'
 import Status from './Status'
+import Icon from './IconHistory'
 
 const PageHeader: FunctionComponent<Props> = ({
   name,
@@ -34,13 +35,27 @@ const PageHeader: FunctionComponent<Props> = ({
       title={Title}
       linkLabel={
         <FormattedMessage
-          id="store/details-page.header-back-button"
+          id="store/details-page.page-header.back-button"
           defaultMessage="Todas as Assinaturas"
         />
       }
       onLinkClick={() => history.push('/subscriptions')}
     >
       <div className="flex">
+        <div className="mr4">
+          <ButtonWithIcon
+            icon={<Icon />}
+            variation="tertiary"
+            onClick={() =>
+              history.push(`/subscriptions/${subscriptionId}/history`)
+            }
+          >
+            <FormattedMessage
+              id="store/details-page.page-header.history"
+              defaultMessage="Histórico"
+            />
+          </ButtonWithIcon>
+        </div>
         <Status status={status} />
         <div className="ml4">
           <Menu
