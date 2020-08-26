@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import {
-  WrappedComponentProps,
-  injectIntl,
-  defineMessages,
-  MessageDescriptor,
-} from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { graphql, MutationResult } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
@@ -20,71 +15,54 @@ import UPDATE_STATUS, {
 import UPDATE_IS_SKIPPED, {
   Args as UpdateIsSkippedArgs,
 } from '../../../graphql/mutations/updateIsSkipped.gql'
-import { retrieveMenuOptions, MenuOption } from './utils'
-import ConfirmationModal, {
-  messages as modalMessage,
-} from '../../ConfirmationModal'
-import { messages as statusMessages } from '../../UpdateStatusButton'
+import { SubscriptionAction, retrieveModalConfig } from '../utils'
 import { logGraphqlError } from '../../../tracking'
+import ConfirmationModal from '../../ConfirmationModal'
 
 const messages = defineMessages({
   errorMessage: {
     id: 'store/subscription.fallback.error.message',
-    defaultMessage: '',
-  },
-  confirmationMessage: {
-    id: 'store/subscription.change.status.modal.confirmation',
-    defaultMessage: '',
   },
   cancelationMessage: {
     id: 'store/subscription.change.status.modal.cancelation',
-    defaultMessage: '',
   },
-  orderAgainConfirmation: {
-    id: 'store/subscription.execution.again.confirmation',
-    defaultMessage: '',
-  },
-  orderAgainDescription: {
-    id: 'store/subscription.execution.again.description',
-    defaultMessage: '',
-  },
-  skipConfirm: {
-    id: 'store/subscription.skip.confirm',
-    defaultMessage: '',
-  },
-  unskipConfirm: {
-    id: 'store/subscription.unskip.confirm',
-    defaultMessage: '',
-  },
-  skipTitle: { id: 'store/subscription.skip.title', defaultMessage: '' },
-  skipDesc: { id: 'store/subscription.skip.text', defaultMessage: '' },
-  unSkipTitle: { id: 'store/subscription.unskip.title', defaultMessage: '' },
-  unSkipDesc: { id: 'store/subscription.unskip.text', defaultMessage: '' },
   skipOption: {
     id: 'store/subscription.manage.skip',
-    defaultMessage: '',
   },
   unskipOption: {
     id: 'store/subscription.manage.unskip',
-    defaultMessage: '',
   },
   cancelOption: {
     id: 'store/subscription.manage.cancel',
-    defaultMessage: '',
   },
   pauseOption: {
     id: 'store/subscription.manage.pause',
-    defaultMessage: '',
   },
   restoreOption: {
     id: 'store/subscription.manage.restore',
-    defaultMessage: '',
   },
   orderNowOption: {
     id: 'store/subscription.manage.orderNow',
-    defaultMessage: '',
   },
 })
+
+function retrieveMenuOptions(
+  isSkipped: boolean,
+  status: SubscriptionStatus,
+  orderFormId: string | undefined
+): SubscriptionAction[] {
+  const options: SubscriptionAction[] = isSkipped
+    ? ['unskip', 'pause', 'cancel']
+    : status === 'PAUSED'
+    ? ['restore', 'cancel']
+    : ['skip', 'pause', 'cancel']
+
+  if (orderFormId) {
+    options.push('orderNow')
+  }
+
+  return options
+}
 
 class MenuContainer extends Component<InnerProps & OuterProps, State> {
   public state = {
@@ -93,7 +71,7 @@ class MenuContainer extends Component<InnerProps & OuterProps, State> {
     updateType: null,
   }
 
-  private handleOpenModal = (updateType: MenuOption) =>
+  private handleOpenModal = (updateType: SubscriptionAction) =>
     this.setState({ isModalOpen: true, updateType })
 
   private handleCloseModal = () => this.setState({ isModalOpen: false })
@@ -175,93 +153,9 @@ class MenuContainer extends Component<InnerProps & OuterProps, State> {
     })
   }
 
-  private retrieveModalConfig = () => {
-    const { intl } = this.props
-    const { isModalOpen, updateType, errorMessage } = this.state
-
-    let children
-    let confirmationLabel = intl.formatMessage(messages.confirmationMessage)
-    let onSubmit
-    let displaySuccess = true
-
-    const modalBody = ({
-      title,
-      desc,
-    }: {
-      title?: MessageDescriptor
-      desc: MessageDescriptor
-    }) => (
-      <>
-        {title && (
-          <div className="t-heading-4">{intl.formatMessage(title)}</div>
-        )}
-        <div className="pt6">{intl.formatMessage(desc)}</div>
-      </>
-    )
-
-    switch ((updateType as unknown) as MenuOption) {
-      case 'cancel':
-        onSubmit = () => this.handleUpdateStatus('CANCELED')
-        children = modalBody({
-          title: statusMessages.cancelTitle,
-          desc: statusMessages.cancelDescription,
-        })
-        break
-      case 'pause':
-        onSubmit = () => this.handleUpdateStatus('PAUSED')
-        children = modalBody({
-          title: statusMessages.pauseTitle,
-          desc: statusMessages.pauseDescription,
-        })
-        break
-      case 'restore':
-        onSubmit = () => this.handleUpdateStatus('ACTIVE')
-        children = modalBody({
-          title: statusMessages.restoreTitle,
-          desc: statusMessages.restoreDescription,
-        })
-        break
-      case 'orderNow':
-        displaySuccess = false
-
-        onSubmit = this.handleOrderNow
-        confirmationLabel = intl.formatMessage(messages.orderAgainConfirmation)
-        children = modalBody({ desc: messages.orderAgainDescription })
-        break
-      default:
-        // eslint-disable-next-line no-case-declarations
-        const unskip = updateType === 'unskip'
-        onSubmit = this.handleUpdateSkipped
-        confirmationLabel = intl.formatMessage(
-          unskip ? messages.unskipConfirm : messages.skipConfirm
-        )
-
-        children = modalBody({
-          title: unskip ? messages.unSkipTitle : messages.skipTitle,
-          desc: unskip ? messages.unSkipDesc : messages.skipDesc,
-        })
-        break
-    }
-
-    const modalConfigs = {
-      onSubmit,
-      onCloseModal: this.handleCloseModal,
-      onError: this.handleError,
-      confirmationLabel,
-      children,
-      cancelationLabel: intl.formatMessage(modalMessage.cancelationLabel),
-      errorMessage,
-      successMessage: displaySuccess
-        ? intl.formatMessage(modalMessage.successMessage)
-        : undefined,
-      isModalOpen,
-    }
-
-    return modalConfigs
-  }
-
   public render() {
     const { status, intl, orderFormId, isSkipped } = this.props
+    const { updateType, isModalOpen, errorMessage } = this.state
 
     if (status === 'CANCELED') {
       return null
@@ -278,7 +172,17 @@ class MenuContainer extends Component<InnerProps & OuterProps, State> {
       }
     })
 
-    const modalProps = this.retrieveModalConfig()
+    const modalProps = retrieveModalConfig({
+      orderNow: this.handleOrderNow,
+      onCloseModal: this.handleCloseModal,
+      onError: this.handleError,
+      updateSkip: this.handleUpdateSkipped,
+      updateStatus: this.handleUpdateStatus,
+      intl,
+      action: updateType,
+      isModalOpen,
+      errorMessage,
+    })
 
     return (
       <>
@@ -319,7 +223,7 @@ interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
 type State = {
   isModalOpen: boolean
   errorMessage: string | null
-  updateType: MenuOption | null
+  updateType: SubscriptionAction | null
 }
 
 const enhance = compose<InnerProps & OuterProps, OuterProps>(
