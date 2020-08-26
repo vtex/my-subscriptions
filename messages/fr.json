@@ -107,7 +107,7 @@
   "store/subscribe-button.added": "Ajoutée",
   "store/subscription.products.undo": "Annuler",
   "store/details-page.page-header.back-button": "Tous les abonnements",
-  "store/details-page.page-header.history": "L'histoire",
+  "store/details-page.page-header.history": "Historique",
   "store/details-page.page-header.status.active": "Abonnement actif",
   "store/details-page.page-header.status.paused": "Abonnement suspendu",
   "store/details-page.page-header.status.canceled": "Abonnement annulé"
