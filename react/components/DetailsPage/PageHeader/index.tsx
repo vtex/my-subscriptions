@@ -8,6 +8,7 @@ import Name from '../../SubscriptionName'
 import Menu from './Menu'
 import Status from './Status'
 import Icon from './IconHistory'
+import { SubscriptionAction } from '../utils'
 
 const PageHeader: FunctionComponent<Props> = ({
   name,
@@ -17,6 +18,7 @@ const PageHeader: FunctionComponent<Props> = ({
   history,
   orderFormId,
   isSkipped,
+  onOpenModal,
 }) => {
   const Title = (
     <span className="normal">
@@ -56,8 +58,7 @@ const PageHeader: FunctionComponent<Props> = ({
             orderFormId={orderFormId}
             status={status}
             isSkipped={isSkipped}
-            subscriptionId={subscriptionId}
-            skus={skus}
+            onOpenModal={onOpenModal}
           />
         </div>
       </div>
@@ -71,11 +72,10 @@ type Props = {
   status: SubscriptionStatus
   isSkipped: boolean
   subscriptionId: string
+  onOpenModal: (action: SubscriptionAction) => void
   skus: Array<{
-    id: string
     detailUrl: string
     name: string
-    quantity: number
   }>
 } & RouteComponentProps
 

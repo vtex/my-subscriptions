@@ -1,21 +1,46 @@
 import React, { Component, ErrorInfo } from 'react'
 import { compose } from 'recompose'
-import { injectIntl, WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
+import { graphql, MutationResult } from 'react-apollo'
+import { ApolloError } from 'apollo-client'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
+import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import DETAILS_PAGE_QUERY, {
   Subscription,
-  Item,
   Result,
   Args as QueryArgs,
 } from '../../graphql/queries/detailsPage.gql'
-import { logError, queryWrapper } from '../../tracking'
+import ORDER_NOW, {
+  Args as AddItemArgs,
+} from '../../graphql/mutations/orderNow.gql'
+import UPDATE_STATUS, {
+  Args as UpdateStatusArgs,
+} from '../../graphql/mutations/updateStatus.gql'
+import UPDATE_IS_SKIPPED, {
+  Args as UpdateIsSkippedArgs,
+} from '../../graphql/mutations/updateIsSkipped.gql'
+import { logError, queryWrapper, logGraphqlError } from '../../tracking'
 import Header from './PageHeader'
+import { SubscriptionAction, retrieveModalConfig } from './utils'
+import ConfirmationModal from '../ConfirmationModal'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
-class SubscriptionsDetailsContainer extends Component<Props> {
+const messages = defineMessages({
+  errorMessage: {
+    id: 'store/subscription.fallback.error.message',
+  },
+})
+
+class SubscriptionsDetailsContainer extends Component<Props, State> {
+  public state = {
+    isModalOpen: false,
+    errorMessage: null,
+    updateType: null,
+  }
+
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError({
       error,
@@ -25,49 +50,167 @@ class SubscriptionsDetailsContainer extends Component<Props> {
     })
   }
 
-  public render() {
-    const { subscription, orderformId } = this.props
+  private handleUpdateStatus = (status: SubscriptionStatus) => {
+    const { updateStatus, subscription, runtime } = this.props
 
     if (!subscription) return null
 
+    const variables = {
+      status,
+      subscriptionId: subscription.id,
+    }
+
+    return updateStatus({
+      variables,
+    }).catch((error: ApolloError) => {
+      logGraphqlError({
+        error,
+        variables,
+        runtime,
+        type: 'MutationError',
+        instance: 'UpdateStatus',
+      })
+      throw error
+    })
+  }
+
+  private handleOpenModal = (updateType: SubscriptionAction) =>
+    this.setState({ isModalOpen: true, updateType })
+
+  private handleCloseModal = () => this.setState({ isModalOpen: false })
+
+  private handleError = () =>
+    this.setState({
+      errorMessage: this.props.intl.formatMessage(messages.errorMessage),
+    })
+
+  private handleUpdateSkipped = () => {
+    const { updateIsSkipped, subscription, runtime } = this.props
+
+    if (!subscription) return null
+
+    const variables = {
+      subscriptionId: subscription.id,
+      isSkipped: !subscription.isSkipped,
+    }
+
+    return updateIsSkipped({
+      variables,
+    }).catch((error: ApolloError) => {
+      logGraphqlError({
+        error,
+        variables,
+        runtime,
+        type: 'MutationError',
+        instance: 'UpdateIsSkipped',
+      })
+      throw error
+    })
+  }
+
+  private handleOrderNow = () => {
+    const { orderFormId, orderNow, subscription, runtime } = this.props
+
+    if (!subscription) return null
+
+    const items = subscription.items.map((item) => ({
+      quantity: item.quantity,
+      id: parseInt(item.id, 10),
+      seller: '1',
+    }))
+
+    const variables = {
+      orderFormId,
+      items,
+    }
+
+    return orderNow({ variables })
+      .then(() => (window.location.href = '/checkout/'))
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime,
+          type: 'MutationError',
+          instance: 'OrderNow',
+        })
+        throw error
+      })
+  }
+
+  public render() {
+    const { subscription, orderFormId, intl } = this.props
+    const { updateType, isModalOpen, errorMessage } = this.state
+
+    if (!subscription) return null
+
+    const modalProps = retrieveModalConfig({
+      orderNow: this.handleOrderNow,
+      onCloseModal: this.handleCloseModal,
+      onError: this.handleError,
+      updateSkip: this.handleUpdateSkipped,
+      updateStatus: this.handleUpdateStatus,
+      intl,
+      action: updateType,
+      isModalOpen,
+      errorMessage,
+    })
+
     return (
       <>
+        <ConfirmationModal {...modalProps} />
         <Header
           name={subscription.name}
           status={subscription.status}
           subscriptionId={subscription.id}
-          orderFormId={orderformId}
+          orderFormId={orderFormId}
           skus={subscription.items.map((item) => ({
-            id: item.sku.id,
-            quantity: item.quantity,
             detailUrl: item.sku.detailUrl,
             name: item.sku.name,
           }))}
           isSkipped={subscription.isSkipped}
+          onOpenModal={this.handleOpenModal}
         />
       </>
     )
   }
 }
 
-interface Props
-  extends WrappedComponentProps,
-    ChildProps,
-    InjectedRuntimeContext {}
+interface Variables<T> {
+  variables: T
+}
 
-type InputProps = RouteComponentProps<{ subscriptionId: string }> &
-  InjectedRuntimeContext
+type State = {
+  isModalOpen: boolean
+  errorMessage: string | null
+  updateType: SubscriptionAction | null
+}
+
+type Props = {
+  orderNow: (args: Variables<AddItemArgs>) => Promise<MutationResult>
+  updateIsSkipped: (
+    args: Variables<UpdateIsSkippedArgs>
+  ) => Promise<MutationResult>
+  updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<MutationResult>
+} & InjectedRuntimeContext &
+  WrappedComponentProps &
+  ChildProps
+
+type InputProps = RouteComponentProps<{ subscriptionId: string }>
 
 interface ChildProps {
   loading: boolean
   subscription?: Subscription
-  orderformId?: string
+  orderFormId?: string
 }
 
 const enhance = compose<Props, {}>(
   injectIntl,
   withRouter,
   withRuntimeContext,
+  graphql(UPDATE_STATUS, { name: 'updateStatus' }),
+  graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
+  graphql(ORDER_NOW, { name: 'orderNow' }),
   queryWrapper<InputProps, Result, QueryArgs, ChildProps>(
     INSTANCE,
     DETAILS_PAGE_QUERY,
@@ -80,12 +223,10 @@ const enhance = compose<Props, {}>(
       props: ({ data }) => ({
         loading: data ? data.loading : false,
         subscription: data?.subscription,
-        orderformId: data?.orderForm?.orderFormId,
+        orderFormId: data?.orderForm?.orderFormId,
       }),
     }
   )
 )
-
-export { Subscription, Item }
 
 export default enhance(SubscriptionsDetailsContainer)
