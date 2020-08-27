@@ -8,13 +8,11 @@ const EditButton: FunctionComponent<Props> = ({
   <button
     className={`c-action-primary hover-c-action-primary pointer br-pill bn bg-${
       withBackground ? 'action-secondary' : 'transparent'
-    }`}
+    } flex items-center`}
     onClick={onClick}
     style={{ padding: '.40rem' }}
   >
-    <div className="flex items-center">
-      <IconEdit solid size={10} />
-    </div>
+    <IconEdit solid size={10} />
   </button>
 )
 
