@@ -38,7 +38,6 @@ declare module '*/detailsPage.gql' {
       currencyCode: string
       paymentMethod: PaymentMethod | null
     }
-    __typename: string
   }
 
   interface Result {
