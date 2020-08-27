@@ -64,7 +64,7 @@
   "store/subscription.change.status.modal.confirmation": "Yes",
   "store/subscription.change.status.modal.cancelation": "No",
   "store/subcription.add.new.card": "Add new card",
-  "store/subscription.manage.orderNow": "Order Again",
+  "store/subscription.manage.orderNow": "Generate separate order",
   "store/subscription.execution.again.description": "This order won't interfere in your subscriptions next purchases and its dates.",
   "store/subscription.execution.again.confirmation": "Go to checkout",
   "store/subscription.shipping-address.error.message": "Invalid address, select a new valid address for this subscription.",
@@ -105,5 +105,10 @@
   "store/add-item-modal.subscribe": "Subscribe",
   "store/subscribe-button.frequency-not-available": "This product can not be subscribed in this frequency",
   "store/subscribe-button.added": "Added",
-  "store/subscription.products.undo": "Undo"
+  "store/subscription.products.undo": "Undo",
+  "store/details-page.page-header.back-button": "All Subscriptions",
+  "store/details-page.page-header.history": "History",
+  "store/details-page.page-header.status.active": "Active Subscription",
+  "store/details-page.page-header.status.paused": "Paused Subscription",
+  "store/details-page.page-header.status.canceled": "Canceled Subscription"
 }
