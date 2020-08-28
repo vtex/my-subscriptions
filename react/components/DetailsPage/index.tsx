@@ -172,14 +172,19 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           isSkipped={subscription.isSkipped}
           onOpenModal={this.handleOpenModal}
         />
-        <ActionBar
-          status={subscription.status}
-          isSkipped={subscription.isSkipped}
-          address={subscription.shippingAddress}
-          payment={subscription.purchaseSettings.paymentMethod}
-          onOpenModal={this.handleOpenModal}
-          nextPurchaseDate={subscription.nextPurchaseDate}
-        />
+        <div className="pa5 pa7-l">
+          <div className="w-100 w-60-l">
+            <ActionBar
+              status={subscription.status}
+              isSkipped={subscription.isSkipped}
+              address={subscription.shippingAddress}
+              payment={subscription.purchaseSettings.paymentMethod}
+              onOpenModal={this.handleOpenModal}
+              nextPurchaseDate={subscription.nextPurchaseDate}
+            />
+          </div>
+          <div className="w-100 w-40-l pt0 pt4-l pl0 pl4-l" />
+        </div>
       </>
     )
   }
