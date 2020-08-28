@@ -44,6 +44,30 @@ defineMessages({
     id: 'store/details-page.action-bar.button.unskip',
     defaultMessage: 'Cancelar',
   },
+  changeAddressLabel: {
+    id: 'store/details-page.action-bar.label.changeAddress',
+    defaultMessage: 'Endereço inválido ou inexistente',
+  },
+  changeAddressBody: {
+    id: 'store/details-page.action-bar.text.changeAddress',
+    defaultMessage: 'Por favor, altere seu endereço de entrega',
+  },
+  changeAddressButton: {
+    id: 'store/details-page.action-bar.button.changeAddress',
+    defaultMessage: 'Alterar',
+  },
+  changePaymentLabel: {
+    id: 'store/details-page.action-bar.label.changePayment',
+    defaultMessage: 'Erro de pagamento',
+  },
+  changePaymentBody: {
+    id: 'store/details-page.action-bar.text.changePayment',
+    defaultMessage: 'Por favor, altere seu método de pagamento',
+  },
+  changePaymentButton: {
+    id: 'store/details-page.action-bar.button.changePayment',
+    defaultMessage: 'Alterar',
+  },
 })
 
 class ActionBarContainer extends Component<Props> {
@@ -73,7 +97,10 @@ class ActionBarContainer extends Component<Props> {
     }
 
     let onClick
-    if (action && ['restore', 'unskip'].includes(action)) {
+    if (
+      action &&
+      ['restore', 'unskip', 'changeAddress', 'changePayment'].includes(action)
+    ) {
       onClick = () => onOpenModal(action as SubscriptionAction)
     }
 
@@ -93,7 +120,9 @@ class ActionBarContainer extends Component<Props> {
     return (
       <Box>
         <div
-          className={`mb2 t-body ${displayDanger ? 'c-danger' : 'c-muted-1'}`}
+          className={`mb2 t-body ${
+            displayDanger ? 'c-danger fw5' : 'c-muted-1'
+          }`}
         >
           <FormattedMessage
             id={`store/details-page.action-bar.label.${action}`}
@@ -114,7 +143,7 @@ class ActionBarContainer extends Component<Props> {
               }}
             />
           </div>
-          <div className="t-heading-4 mw5-l w-100 mt4 w-40-l mt0-l">
+          <div className="mw5-l w-100 mt4 w-40-l mt0-l">
             <Button variation={buttonVariation} onClick={onClick} block>
               <FormattedMessage
                 id={`store/details-page.action-bar.button.${action}`}
