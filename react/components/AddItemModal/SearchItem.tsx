@@ -5,7 +5,7 @@ import Thumbnail from '../SkuThumbnail'
 import { AddItemArgs } from '.'
 import Button from './SubscribeButton'
 import { subscribed, subscribable } from './SubscribeButton/utils'
-import QuantitySelector from './QuantitySelector'
+import QuantitySelector from '../QuantitySelector'
 
 const SearchItem: FunctionComponent<Props> = ({
   imageUrl,
