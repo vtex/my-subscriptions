@@ -9,51 +9,39 @@ import { SubscriptionAction } from './utils'
 defineMessages({
   restoreLabel: {
     id: 'store/details-page.action-bar.label.restore',
-    defaultMessage: 'Assinatura pausada',
   },
   restoreBody: {
     id: 'store/details-page.action-bar.text.restore',
-    defaultMessage: 'Retome a qualquer momento',
   },
   restoreButton: {
     id: 'store/details-page.action-bar.button.restore',
-    defaultMessage: 'Retomar Assinatura',
   },
   unskipLabel: {
     id: 'store/details-page.action-bar.label.unskip',
-    defaultMessage: 'Pular próximo pedido',
   },
   unskipBody: {
     id: 'store/details-page.action-bar.text.unskip',
-    defaultMessage: 'Seu pedido de {day} será pulado',
   },
   unskipButton: {
     id: 'store/details-page.action-bar.button.unskip',
-    defaultMessage: 'Cancelar',
   },
   changeAddressLabel: {
     id: 'store/details-page.action-bar.label.changeAddress',
-    defaultMessage: 'Endereço inválido ou inexistente',
   },
   changeAddressBody: {
     id: 'store/details-page.action-bar.text.changeAddress',
-    defaultMessage: 'Por favor, altere seu endereço de entrega',
   },
   changeAddressButton: {
     id: 'store/details-page.action-bar.button.changeAddress',
-    defaultMessage: 'Alterar',
   },
   changePaymentLabel: {
     id: 'store/details-page.action-bar.label.changePayment',
-    defaultMessage: 'Erro de pagamento',
   },
   changePaymentBody: {
     id: 'store/details-page.action-bar.text.changePayment',
-    defaultMessage: 'Por favor, altere seu método de pagamento',
   },
   changePaymentButton: {
     id: 'store/details-page.action-bar.button.changePayment',
-    defaultMessage: 'Alterar',
   },
 })
 

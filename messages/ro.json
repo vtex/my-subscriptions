@@ -110,5 +110,17 @@
   "store/details-page.page-header.history": "Istorie",
   "store/details-page.page-header.status.active": "Abonament activ",
   "store/details-page.page-header.status.paused": "Abonament în pauză",
-  "store/details-page.page-header.status.canceled": "Abonament anulat"
+  "store/details-page.page-header.status.canceled": "Abonament anulat",
+  "store/details-page.action-bar.label.restore": "Abonament în pauză",
+  "store/details-page.action-bar.text.restore": "Reluați oricând",
+  "store/details-page.action-bar.button.restore": "Reluați abonamentul",
+  "store/details-page.action-bar.label.unskip": "Treci la următoarea comandă",
+  "store/details-page.action-bar.text.unskip": "Comanda dvs. de {day} va fi omisă",
+  "store/details-page.action-bar.button.unskip": "Anulare",
+  "store/details-page.action-bar.label.changeAddress": "Adresa nevalidă sau lipsește",
+  "store/details-page.action-bar.text.changeAddress": "Vă rugăm, schimbați adresa de expediere",
+  "store/details-page.action-bar.button.changeAddress": "Schimbare",
+  "store/details-page.action-bar.label.changePayment": "Eroare de plata",
+  "store/details-page.action-bar.text.changePayment": "Vă rugăm, schimbați metoda de plată",
+  "store/details-page.action-bar.button.changePayment": "Schimbare"
 }
