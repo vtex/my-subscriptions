@@ -112,7 +112,7 @@
   "store/details-page.page-header.status.paused": "Abonnement suspendu",
   "store/details-page.page-header.status.canceled": "Abonnement annulé",
   "store/details-page.action-bar.label.restore": "Abonnement suspendu",
-  "store/details-page.action-bar.text.restore": "Reprenez à tout moment",
+  "store/details-page.action-bar.text.restore": "Reprendre à tout moment",
   "store/details-page.action-bar.button.restore": "Reprendre l'abonnement",
   "store/details-page.action-bar.label.unskip": "Passer la prochaine commande",
   "store/details-page.action-bar.text.unskip": "Votre commande {day} sera ignorée",
