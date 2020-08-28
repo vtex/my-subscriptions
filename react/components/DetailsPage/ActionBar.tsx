@@ -7,19 +7,6 @@ import { Subscription } from '../../graphql/queries/detailsPage.gql'
 import { SubscriptionAction } from './utils'
 
 defineMessages({
-  recreateLabel: {
-    id: 'store/details-page.action-bar.label.recreate',
-    defaultMessage: 'Assinatura cancelada',
-  },
-  recreateBody: {
-    id: 'store/details-page.action-bar.text.recreate',
-    defaultMessage:
-      'Para retomar essa assinatura, você pode recriá-la a qualquer momento',
-  },
-  recreateButton: {
-    id: 'store/details-page.action-bar.button.recreate',
-    defaultMessage: 'Recriar Assinatura',
-  },
   restoreLabel: {
     id: 'store/details-page.action-bar.label.restore',
     defaultMessage: 'Assinatura pausada',
@@ -78,10 +65,7 @@ class ActionBarContainer extends Component<Props> {
     let buttonVariation: 'primary' | 'secondary' = 'primary'
     let displayDanger = false
 
-    // set action
-    if (status === 'CANCELED' || status === 'EXPIRED') {
-      action = 'recreate'
-    } else if (status === 'PAUSED') {
+    if (status === 'PAUSED') {
       action = 'restore'
     } else if (!address) {
       action = 'changeAddress'
