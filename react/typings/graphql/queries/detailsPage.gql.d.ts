@@ -6,16 +6,10 @@ declare module '*/detailsPage.gql' {
     SubscriptionExecution,
     PaymentMethod,
     QuerySubscriptionArgs as Args,
+    SubscriptionItem,
   } from 'vtex.subscriptions-graphql'
 
-  interface Item {
-    id: string
-    sku: Sku & {
-      variations?: { [key: string]: string } | null
-    }
-    quantity: number
-    currentPrice: number
-  }
+  type Item = Pick<SubscriptionItem, 'id' | 'currentPrice' | 'quantity' | 'sku'>
 
   type Subscription = Pick<
     Subs,

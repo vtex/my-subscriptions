@@ -9,23 +9,21 @@ const EditionButtons: FunctionComponent<Props> = ({
   disabled,
 }) => {
   return (
-    <div className="pt4 flex">
-      <div className="flex ml-auto">
-        <div className="pr3">
-          <Button size="small" onClick={onCancel} variation="secondary">
-            <FormattedMessage id="store/subscription.edition.button.cancel" />
-          </Button>
-        </div>
-        <Button
-          size="small"
-          onClick={onSave}
-          variation="primary"
-          isLoading={isLoading}
-          disabled={disabled}
-        >
-          <FormattedMessage id="store/subscription.edition.button.save" />
+    <div className="flex">
+      <div className="pr3">
+        <Button size="small" onClick={onCancel} variation="secondary">
+          <FormattedMessage id="store/subscription.edition.button.cancel" />
         </Button>
       </div>
+      <Button
+        size="small"
+        onClick={onSave}
+        variation="primary"
+        isLoading={isLoading}
+        disabled={disabled}
+      >
+        <FormattedMessage id="store/subscription.edition.button.save" />
+      </Button>
     </div>
   )
 }
