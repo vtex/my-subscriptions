@@ -25,6 +25,7 @@ import { logError, queryWrapper, logGraphqlError } from '../../tracking'
 import Header from './PageHeader'
 import { SubscriptionAction, retrieveModalConfig } from './utils'
 import ConfirmationModal from '../ConfirmationModal'
+import ActionBar from './ActionBar'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
@@ -170,6 +171,14 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           }))}
           isSkipped={subscription.isSkipped}
           onOpenModal={this.handleOpenModal}
+        />
+        <ActionBar
+          status={subscription.status}
+          isSkipped={subscription.isSkipped}
+          address={subscription.shippingAddress}
+          payment={subscription.purchaseSettings.paymentMethod}
+          onOpenModal={this.handleOpenModal}
+          nextPurchaseDate={subscription.nextPurchaseDate}
         />
       </>
     )

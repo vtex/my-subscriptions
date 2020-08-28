@@ -34,6 +34,9 @@ export type SubscriptionAction =
   | 'cancel'
   | 'restore'
   | 'orderNow'
+  | 'changeAddress'
+  | 'changePayment'
+  | 'recreate'
 
 export function retrieveModalConfig({
   intl,
