@@ -200,6 +200,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               payment={subscription.purchaseSettings}
               address={subscription.shippingAddress}
               subscriptionId={subscription.id}
+              lastExecutionStatus={subscription.lastExecution?.status}
             />
           </div>
         </div>

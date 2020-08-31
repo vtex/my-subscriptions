@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactNode } from 'react'
 
 const LabeledInfo: FunctionComponent<Props> = ({ label, children }) => (
   <>
-    <div className="t-small c-muted-1 mb2">{label}</div>
+    <div className="t-small c-muted-1 mb4">{label}</div>
     <div className="t-body">{children}</div>
   </>
 )

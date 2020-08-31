@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { Box } from 'vtex.styleguide'
+import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
@@ -33,6 +34,7 @@ type Props = {
   plan: Subscription['plan']
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']
+  lastExecutionStatus?: SubscriptionExecutionStatus
 } & WrappedComponentProps
 
 export default injectIntl(PreferencesContainer)
