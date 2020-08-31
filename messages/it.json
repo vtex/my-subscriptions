@@ -110,5 +110,17 @@
   "store/details-page.page-header.history": "Storia",
   "store/details-page.page-header.status.active": "Abbonamento attivo",
   "store/details-page.page-header.status.paused": "Abbonamento sospeso",
-  "store/details-page.page-header.status.canceled": "Abbonamento annullato"
+  "store/details-page.page-header.status.canceled": "Abbonamento annullato",
+  "store/details-page.action-bar.label.restore": "Abbonamento sospeso",
+  "store/details-page.action-bar.text.restore": "Riprendi in qualsiasi momento",
+  "store/details-page.action-bar.button.restore": "Riprendi abbonamento",
+  "store/details-page.action-bar.label.unskip": "Salta l'ordine successivo",
+  "store/details-page.action-bar.text.unskip": "Il tuo ordine di {day} verrà ignorato",
+  "store/details-page.action-bar.button.unskip": "Annulla",
+  "store/details-page.action-bar.label.changeAddress": "Indirizzo non valido o mancante",
+  "store/details-page.action-bar.text.changeAddress": "Per favore, cambia il tuo indirizzo di spedizione",
+  "store/details-page.action-bar.button.changeAddress": "Modificare",
+  "store/details-page.action-bar.label.changePayment": "Errore di pagamento",
+  "store/details-page.action-bar.text.changePayment": "Per favore, cambia il tuo metodo di pagamento",
+  "store/details-page.action-bar.button.changePayment": "Modificare"
 }

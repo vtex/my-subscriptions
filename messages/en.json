@@ -110,5 +110,17 @@
   "store/details-page.page-header.history": "History",
   "store/details-page.page-header.status.active": "Active Subscription",
   "store/details-page.page-header.status.paused": "Paused Subscription",
-  "store/details-page.page-header.status.canceled": "Canceled Subscription"
+  "store/details-page.page-header.status.canceled": "Canceled Subscription",
+  "store/details-page.action-bar.label.restore": "Paused Subscription",
+  "store/details-page.action-bar.text.restore": "Resume at anytime",
+  "store/details-page.action-bar.button.restore": "Resume Subscription",
+  "store/details-page.action-bar.label.unskip": "Skip next order",
+  "store/details-page.action-bar.text.unskip": "Your {day} order will be skipped",
+  "store/details-page.action-bar.button.unskip": "Cancel",
+  "store/details-page.action-bar.label.changeAddress": "Address invalid or missing",
+  "store/details-page.action-bar.text.changeAddress": "Please, change your shipping address",
+  "store/details-page.action-bar.button.changeAddress": "Change",
+  "store/details-page.action-bar.label.changePayment": "Payment Error",
+  "store/details-page.action-bar.text.changePayment": "Please, change your payment method",
+  "store/details-page.action-bar.button.changePayment": "Change"
 }

@@ -110,5 +110,17 @@
   "store/details-page.page-header.history": "Histórico",
   "store/details-page.page-header.status.active": "Assinatura Ativa",
   "store/details-page.page-header.status.paused": "Assinatura Pausada",
-  "store/details-page.page-header.status.canceled": "Assinatura Cancelada"
+  "store/details-page.page-header.status.canceled": "Assinatura Cancelada",
+  "store/details-page.action-bar.label.restore": "Assinatura Pausada",
+  "store/details-page.action-bar.text.restore": "Retome a qualquer momento",
+  "store/details-page.action-bar.button.restore": "Retomar Assinatura",
+  "store/details-page.action-bar.label.unskip": "Pular próximo pedido",
+  "store/details-page.action-bar.text.unskip": "Seu pedido de {day} será pulado",
+  "store/details-page.action-bar.button.unskip": "Cancelar",
+  "store/details-page.action-bar.label.changeAddress": "Endereço inválido ou inexistente",
+  "store/details-page.action-bar.text.changeAddress": "Por favor, altere seu endereço de entrega",
+  "store/details-page.action-bar.button.changeAddress": "Alterar",
+  "store/details-page.action-bar.label.changePayment": "Erro de pagamento",
+  "store/details-page.action-bar.text.changePayment": "Por favor, altere seu método de pagamento",
+  "store/details-page.action-bar.button.changePayment": "Alterar"
 }
