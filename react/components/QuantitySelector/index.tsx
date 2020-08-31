@@ -178,7 +178,7 @@ type Props = {
   value: number
   maxValue?: number
   onChange: (value: number) => void
-  disabled: boolean
+  disabled?: boolean
 }
 
 export default QuantitySelector

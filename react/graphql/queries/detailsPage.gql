@@ -15,8 +15,9 @@ query SubscriptionDetailsPage($id: ID!) {
         name
         detailUrl
         productName
-        variations
+        brandName
         measurementUnit
+        unitMultiplier
       }
       currentPrice
     }
