@@ -42,31 +42,24 @@ function mapItemsToHashMap(items: Item[]) {
 const messages = defineMessages({
   removeSuccess: {
     id: 'store/subscription.products.card.remove.success',
-    defaultMessage: '',
   },
   removeError: {
     id: 'store/subscription.products.card.remove.error',
-    defaultMessage: '',
   },
   cancel: {
     id: 'store/subscription.edition.button.cancel',
-    defaultMessage: '',
   },
   confirm: {
     id: 'store/subscription.products.card.remove.confirm',
-    defaultMessage: '',
   },
   editionSuccess: {
     id: 'store/subscription.edit.success',
-    defaultMessage: '',
   },
   success: {
     id: 'store/add-item.success',
-    defaultMessage: '',
   },
   undo: {
     id: 'store/subscription.products.undo',
-    defaultMessage: '',
   },
 })
 
