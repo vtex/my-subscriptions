@@ -9,7 +9,6 @@ import Display from './DisplayData'
 const messages = defineMessages({
   title: {
     id: 'store/details-page.preferences.title',
-    defaultMessage: 'Preferences',
   },
 })
 

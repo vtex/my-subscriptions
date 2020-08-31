@@ -122,5 +122,11 @@
   "store/details-page.action-bar.button.changeAddress": "Change",
   "store/details-page.action-bar.label.changePayment": "Payment Error",
   "store/details-page.action-bar.text.changePayment": "Please, change your payment method",
-  "store/details-page.action-bar.button.changePayment": "Change"
+  "store/details-page.action-bar.button.changePayment": "Change",
+  "store/details-page.preferences.title": "Preferences",
+  "store/display-address.label": "Shipping address",
+  "store/display-address.deleted-error-message": "Your address was removed, please select another one.",
+  "store/display-payment.label": "Payment Method",
+  "store/display-payment.deleted-error-message": "Your payment method was removed, please select another one.",
+  "store/display-payment.payment-error-message": "Your payment method doesn't seem to be working."
 }

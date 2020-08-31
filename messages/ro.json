@@ -122,5 +122,11 @@
   "store/details-page.action-bar.button.changeAddress": "Schimbare",
   "store/details-page.action-bar.label.changePayment": "Eroare de plata",
   "store/details-page.action-bar.text.changePayment": "Vă rugăm, schimbați metoda de plată",
-  "store/details-page.action-bar.button.changePayment": "Schimbare"
+  "store/details-page.action-bar.button.changePayment": "Schimbare",
+  "store/details-page.preferences.title": "Preferințe",
+  "store/display-address.label": "Adresa de transport",
+  "store/display-address.deleted-error-message": "Adresa dvs. a fost eliminată, vă rugăm să selectați alta.",
+  "store/display-payment.label": "Modalitate de plată",
+  "store/display-payment.deleted-error-message": "Metoda dvs. de plată a fost eliminată, selectați alta.",
+  "store/display-payment.payment-error-message": "Metoda dvs. de plată nu pare să funcționeze."
 }

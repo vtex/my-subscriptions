@@ -122,5 +122,11 @@
   "store/details-page.action-bar.button.changeAddress": "Veränderung",
   "store/details-page.action-bar.label.changePayment": "Zahlungsfehler",
   "store/details-page.action-bar.text.changePayment": "Bitte ändern Sie Ihre Zahlungsmethode",
-  "store/details-page.action-bar.button.changePayment": "Veränderung"
+  "store/details-page.action-bar.button.changePayment": "Veränderung",
+  "store/details-page.preferences.title": "Einstellungen",
+  "store/display-address.label": "Lieferanschrift",
+  "store/display-address.deleted-error-message": "Ihre Adresse wurde entfernt, bitte wählen Sie eine andere aus.",
+  "store/display-payment.label": "Bezahlverfahren",
+  "store/display-payment.deleted-error-message": "Ihre Zahlungsmethode wurde entfernt, bitte wählen Sie eine andere aus.",
+  "store/display-payment.payment-error-message": "Ihre Zahlungsmethode scheint nicht zu funktionieren."
 }

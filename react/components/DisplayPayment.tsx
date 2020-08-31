@@ -12,16 +12,12 @@ import Error from './CustomErrorAlert'
 const messages = defineMessages({
   label: {
     id: 'store/display-payment.label',
-    defaultMessage: 'Payment Method',
   },
   deletedError: {
     id: 'store/display-payment.deleted-error-message',
-    defaultMessage:
-      'Your payment method was removed, please select another one.',
   },
   paymentError: {
     id: 'store/display-payment.payment-error-message',
-    defaultMessage: "Your payment method doesn't seem to be working.",
   },
 })
 

@@ -9,11 +9,9 @@ import Error from './CustomErrorAlert'
 const messages = defineMessages({
   label: {
     id: 'store/display-address.label',
-    defaultMessage: 'Shipping address',
   },
   deletedError: {
     id: 'store/display-address.deleted-error-message',
-    defaultMessage: 'Your address was removed, please select another one.',
   },
 })
 
