@@ -184,7 +184,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               onOpenModal={this.handleOpenModal}
               nextPurchaseDate={subscription.nextPurchaseDate}
             />
-            <div className="mt4">
+            <div className="mt6">
               <Products
                 subscriptionId={subscription.id}
                 status={subscription.status}
@@ -194,7 +194,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               />
             </div>
           </div>
-          <div className="w-100 w-40-l pt4 pt0-l pl0 pl4-l">
+          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
             <Preferences
               plan={subscription.plan}
               payment={subscription.purchaseSettings}
