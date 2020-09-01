@@ -1,4 +1,6 @@
 import React, { FunctionComponent } from 'react'
+import { FormattedMessage } from 'react-intl'
+import { Box } from 'vtex.styleguide'
 import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
@@ -13,7 +15,7 @@ const DisplayData: FunctionComponent<Props> = ({
   lastExecutionStatus,
 }) => {
   return (
-    <>
+    <Box title={<FormattedMessage id="store/details-page.preferences.title" />}>
       <Frequency
         periodicity={plan.frequency.periodicity}
         purchaseDay={plan.purchaseDay}
@@ -28,7 +30,7 @@ const DisplayData: FunctionComponent<Props> = ({
       <div className="mt7">
         <Address address={address ?? null} />
       </div>
-    </>
+    </Box>
   )
 }
 

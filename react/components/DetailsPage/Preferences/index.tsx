@@ -1,29 +1,38 @@
 import React, { Component } from 'react'
-import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
-import { Box } from 'vtex.styleguide'
 import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
-
-const messages = defineMessages({
-  title: {
-    id: 'store/details-page.preferences.title',
-  },
-})
+import Edit from './Edit'
 
 class PreferencesContainer extends Component<Props> {
   public state = {
-    isEditMode: false,
+    isEditMode: true,
+    isLoading: false,
   }
 
+  private handleClose = () => this.setState({ isEditMode: false })
+
+  private handleSave = () => null
+
   public render() {
-    const { plan, address, payment, intl } = this.props
+    const { plan, address, payment, subscriptionId } = this.props
+    const { isEditMode, isLoading } = this.state
 
     return (
-      <Box title={intl.formatMessage(messages.title)}>
-        <Display plan={plan} address={address} payment={payment} />
-      </Box>
+      <>
+        {isEditMode ? (
+          <Edit
+            subscriptionId={subscriptionId}
+            plan={plan}
+            isLoading={isLoading}
+            onCancel={this.handleClose}
+            onSave={this.handleSave}
+          />
+        ) : (
+          <Display plan={plan} address={address} payment={payment} />
+        )}
+      </>
     )
   }
 }
@@ -34,6 +43,6 @@ type Props = {
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']
   lastExecutionStatus?: SubscriptionExecutionStatus
-} & WrappedComponentProps
+}
 
-export default injectIntl(PreferencesContainer)
+export default PreferencesContainer
