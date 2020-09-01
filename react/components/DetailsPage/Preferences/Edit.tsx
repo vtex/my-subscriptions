@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { Subscription, Frequency } from 'vtex.subscriptions-graphql'
-import { Dropdown } from 'vtex.styleguide'
+import { Dropdown, Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
@@ -101,7 +101,13 @@ class EditPreferences extends Component<Props, State> {
   private handleSave = () => null
 
   public render() {
-    const { intl, isLoading, onCancel } = this.props
+    const {
+      intl,
+      isLoading,
+      onCancel,
+      onDismissError,
+      errorMessage,
+    } = this.props
     const { frequencyIndex, purchaseDay } = this.state
 
     const currentFrequency = this.getCurrentFrequency()
@@ -109,6 +115,13 @@ class EditPreferences extends Component<Props, State> {
     return (
       <Box title={intl.formatMessage(messages.title)}>
         <Section borderTop>
+          {errorMessage && (
+            <div className="mb6">
+              <Alert type="error" onClose={onDismissError}>
+                {errorMessage}
+              </Alert>
+            </div>
+          )}
           <Dropdown
             label={intl.formatMessage(messages.orderAgain)}
             placeholder={intl.formatMessage(messages.select)}
@@ -148,7 +161,9 @@ type OuterProps = {
   plan: Subscription['plan']
   onSave: () => void
   onCancel: () => void
+  onDismissError: () => void
   isLoading: boolean
+  errorMessage: string | null
 }
 
 type ChildProps = {
