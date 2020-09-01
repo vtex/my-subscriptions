@@ -4,12 +4,22 @@ import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
 import Edit from './Edit'
+import { frequencyIndex } from './utils'
 
 class PreferencesContainer extends Component<Props, State> {
-  public state = {
-    isEditMode: true,
-    isLoading: false,
-    errorMessage: null,
+  constructor(props: Props) {
+    super(props)
+
+    const { plan } = props
+    const { interval, periodicity } = plan.frequency
+
+    this.state = {
+      isEditMode: true,
+      isLoading: false,
+      errorMessage: null,
+      selectedFrequency: frequencyIndex({ interval, periodicity }),
+      selectedPurchaseDay: plan.purchaseDay,
+    }
   }
 
   private handleClose = () => this.setState({ isEditMode: false })
@@ -18,9 +28,21 @@ class PreferencesContainer extends Component<Props, State> {
 
   private handleDismissError = () => this.setState({ errorMessage: null })
 
+  private handleChangeFrequency = (selectedFrequency: string) =>
+    this.setState({ selectedFrequency })
+
+  private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
+    this.setState({ selectedPurchaseDay })
+
   public render() {
     const { plan, address, payment, subscriptionId } = this.props
-    const { isEditMode, isLoading, errorMessage } = this.state
+    const {
+      isEditMode,
+      isLoading,
+      errorMessage,
+      selectedFrequency,
+      selectedPurchaseDay,
+    } = this.state
 
     return (
       <>
@@ -33,6 +55,10 @@ class PreferencesContainer extends Component<Props, State> {
             onSave={this.handleSave}
             errorMessage={errorMessage}
             onDismissError={this.handleDismissError}
+            onChangeFrequency={this.handleChangeFrequency}
+            selectedFrequency={selectedFrequency}
+            onChangePurchaseDay={this.handleChangePurchaseDay}
+            selectedPurchaseDay={selectedPurchaseDay}
           />
         ) : (
           <Display plan={plan} address={address} payment={payment} />
@@ -46,6 +72,8 @@ type State = {
   isEditMode: boolean
   isLoading: boolean
   errorMessage: string | null
+  selectedPurchaseDay: string
+  selectedFrequency: string
 }
 
 type Props = {
