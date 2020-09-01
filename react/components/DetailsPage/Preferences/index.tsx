@@ -34,6 +34,8 @@ class PreferencesContainer extends Component<Props, State> {
   private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
     this.setState({ selectedPurchaseDay })
 
+  private handleGoToEdition = () => this.setState({ isEditMode: true })
+
   public render() {
     const { plan, address, payment, subscriptionId } = this.props
     const {
@@ -61,7 +63,12 @@ class PreferencesContainer extends Component<Props, State> {
             selectedPurchaseDay={selectedPurchaseDay}
           />
         ) : (
-          <Display plan={plan} address={address} payment={payment} />
+          <Display
+            plan={plan}
+            address={address}
+            payment={payment}
+            onGoToEdition={this.handleGoToEdition}
+          />
         )}
       </>
     )

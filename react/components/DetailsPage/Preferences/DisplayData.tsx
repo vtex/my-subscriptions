@@ -7,15 +7,24 @@ import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Frequency from '../../Frequency/Info'
 import Payment from '../../DisplayPayment'
 import Address from '../../DisplayAddress'
+import EditButton from '../../EditButton'
 
 const DisplayData: FunctionComponent<Props> = ({
   plan,
   payment,
   address,
   lastExecutionStatus,
+  onGoToEdition,
 }) => {
   return (
-    <Box title={<FormattedMessage id="store/details-page.preferences.title" />}>
+    <Box
+      title={
+        <div className="flex flex-wrap justify-between items-center">
+          <FormattedMessage id="store/subscription.products.card.title" />
+          <EditButton onClick={onGoToEdition} withBackground />
+        </div>
+      }
+    >
       <Frequency
         periodicity={plan.frequency.periodicity}
         purchaseDay={plan.purchaseDay}
@@ -39,6 +48,7 @@ type Props = {
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']
   lastExecutionStatus?: SubscriptionExecutionStatus
+  onGoToEdition: () => void
 }
 
 export default DisplayData
