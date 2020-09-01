@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
+import {
+  SubscriptionExecutionStatus,
+  PaymentSystemGroup,
+} from 'vtex.subscriptions-graphql'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
@@ -19,6 +22,12 @@ class PreferencesContainer extends Component<Props, State> {
       errorMessage: null,
       selectedFrequency: frequencyIndex({ interval, periodicity }),
       selectedPurchaseDay: plan.purchaseDay,
+      selectedPaymentAccountId:
+        props.payment.paymentMethod?.paymentAccount?.id ?? null,
+      selectedPaymentSystemId:
+        props.payment.paymentMethod?.paymentSystemId ?? null,
+      selectedPaymentSystemGroup:
+        props.payment.paymentMethod?.paymentSystemGroup ?? null,
     }
   }
 
@@ -36,6 +45,30 @@ class PreferencesContainer extends Component<Props, State> {
 
   private handleGoToEdition = () => this.setState({ isEditMode: true })
 
+  private handleChangePaymentSystemGroup = ({
+    group,
+    paymentSystemId,
+  }: {
+    group: PaymentSystemGroup
+    paymentSystemId?: string
+  }) =>
+    this.setState({
+      selectedPaymentSystemGroup: group,
+      selectedPaymentSystemId: paymentSystemId ?? null,
+    })
+
+  private handleChangePaymentAccount = ({
+    paymentAccountId,
+    paymentSystemId,
+  }: {
+    paymentAccountId: string
+    paymentSystemId: string
+  }) =>
+    this.setState({
+      selectedPaymentSystemId: paymentSystemId,
+      selectedPaymentAccountId: paymentAccountId,
+    })
+
   public render() {
     const { plan, address, payment, subscriptionId } = this.props
     const {
@@ -44,6 +77,8 @@ class PreferencesContainer extends Component<Props, State> {
       errorMessage,
       selectedFrequency,
       selectedPurchaseDay,
+      selectedPaymentSystemGroup,
+      selectedPaymentAccountId,
     } = this.state
 
     return (
@@ -61,6 +96,10 @@ class PreferencesContainer extends Component<Props, State> {
             selectedFrequency={selectedFrequency}
             onChangePurchaseDay={this.handleChangePurchaseDay}
             selectedPurchaseDay={selectedPurchaseDay}
+            selectedPaymentSystemGroup={selectedPaymentSystemGroup}
+            selectedPaymentAccountId={selectedPaymentAccountId}
+            onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
+            onChangePaymentAccount={this.handleChangePaymentAccount}
           />
         ) : (
           <Display
@@ -81,6 +120,9 @@ type State = {
   errorMessage: string | null
   selectedPurchaseDay: string
   selectedFrequency: string
+  selectedPaymentSystemGroup: PaymentSystemGroup | null
+  selectedPaymentSystemId: string | null
+  selectedPaymentAccountId: string | null
 }
 
 type Props = {

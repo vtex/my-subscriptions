@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
-import { Plan } from 'vtex.subscriptions-graphql'
+import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 import { Dropdown, Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
@@ -19,6 +19,7 @@ import {
   getFrequencyOptions,
   extractFrequency,
 } from './utils'
+import PaymentsSection from './PaymentsSection'
 
 const messages = defineMessages({
   title: {
@@ -42,7 +43,12 @@ const EditPreferences: FunctionComponent<Props> = ({
   errorMessage,
   selectedFrequency,
   selectedPurchaseDay,
-  frequencies,
+  frequencies = [],
+  payments = [],
+  selectedPaymentSystemGroup,
+  onChangePaymentSystemGroup,
+  onChangePaymentAccount,
+  selectedPaymentAccountId,
 }) => {
   const currentFrequency = extractFrequency(selectedFrequency)
 
@@ -82,6 +88,15 @@ const EditPreferences: FunctionComponent<Props> = ({
           </div>
         )}
       </Section>
+      <Section>
+        <PaymentsSection
+          payments={payments}
+          onChangePaymentAccount={onChangePaymentAccount}
+          selectedPaymentAccountId={selectedPaymentAccountId}
+          selectedPaymentSystemGroup={selectedPaymentSystemGroup}
+          onChangePaymentSystemGroup={onChangePaymentSystemGroup}
+        />
+      </Section>
       <div className="w-100 ph7 pt7 flex justify-end">
         <EditionButtons
           isLoading={isLoading}
@@ -105,6 +120,16 @@ type OuterProps = {
   errorMessage: string | null
   selectedPurchaseDay: string
   selectedFrequency: string
+  selectedPaymentSystemGroup: PaymentSystemGroup | null
+  onChangePaymentSystemGroup: (args: {
+    group: PaymentSystemGroup
+    paymentSystemId?: string
+  }) => void
+  selectedPaymentAccountId: string | null
+  onChangePaymentAccount: (args: {
+    paymentSystemId: string
+    paymentAccountId: string
+  }) => void
 }
 
 type ChildProps = {
