@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
-import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { Plan, PaymentSystemGroup, Frequency } from 'vtex.subscriptions-graphql'
 import { Dropdown, Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
@@ -33,6 +33,25 @@ const messages = defineMessages({
   select: { id: 'store/subscription.select' },
 })
 
+function contains(
+  frequencies: Result['frequencies'],
+  currentFrequency: Frequency
+) {
+  let result = false
+
+  frequencies.forEach((frequency) => {
+    if (
+      frequency.periodicity !== currentFrequency.periodicity ||
+      frequency.interval !== currentFrequency.interval
+    )
+      return
+
+    result = true
+  })
+
+  return result
+}
+
 const EditPreferences: FunctionComponent<Props> = ({
   intl,
   isLoading,
@@ -55,6 +74,7 @@ const EditPreferences: FunctionComponent<Props> = ({
   selectedAddressId,
 }) => {
   const currentFrequency = extractFrequency(selectedFrequency)
+  const hasFrequency = contains(frequencies, currentFrequency)
 
   return (
     <Box title={intl.formatMessage(messages.title)}>
@@ -70,7 +90,7 @@ const EditPreferences: FunctionComponent<Props> = ({
           label={intl.formatMessage(messages.orderAgain)}
           placeholder={intl.formatMessage(messages.select)}
           options={getFrequencyOptions({ intl, frequencies })}
-          value={selectedFrequency}
+          value={hasFrequency ? selectedFrequency : null}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             onChangeFrequency(e.target.value)
           }
