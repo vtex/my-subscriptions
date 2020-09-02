@@ -1,13 +1,46 @@
 import React, { Component } from 'react'
+import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
+import { graphql } from 'react-apollo'
+import { compose } from 'recompose'
+import { ApolloError } from 'apollo-client'
 import {
   SubscriptionExecutionStatus,
   PaymentSystemGroup,
 } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
 import Edit from './Edit'
-import { frequencyIndex } from './utils'
+import { frequencyIndex, extractFrequency } from './utils'
+import UPDATE_FREQUENCY, {
+  Args as UpdateFrequencyArgs,
+} from '../../../graphql/mutations/updatePlan.gql'
+import UPDATE_PAYMENT, {
+  Args as UpdatePaymentArgs,
+} from '../../../graphql/mutations/updatePaymentMethod.gql'
+import UPDATE_ADDRESS, {
+  Args as UpdateAddressArgs,
+} from '../../../graphql/mutations/updateAddress.gql'
+import { logGraphqlError } from '../../../tracking'
+
+function updateType(
+  args: UpdateFrequencyArgs | UpdatePaymentArgs | UpdateAddressArgs
+) {
+  if ((args as UpdateFrequencyArgs).periodicity) {
+    return 'Frequency'
+  }
+  if ((args as UpdatePaymentArgs).paymentSystemId) {
+    return 'Payment'
+  }
+  return 'Address'
+}
+
+const messages = defineMessages({
+  errorMessage: {
+    id: 'store/subscription.fallback.error.message',
+  },
+})
 
 class PreferencesContainer extends Component<Props, State> {
   constructor(props: Props) {
@@ -34,8 +67,6 @@ class PreferencesContainer extends Component<Props, State> {
   }
 
   private handleClose = () => this.setState({ isEditMode: false })
-
-  private handleSave = () => null
 
   private handleDismissError = () => this.setState({ errorMessage: null })
 
@@ -82,6 +113,112 @@ class PreferencesContainer extends Component<Props, State> {
       selectedAddressId: addressId,
       selectedAddressType: addressType,
     })
+
+  private handleFailure = (
+    error: ApolloError,
+    variables: UpdateAddressArgs | UpdatePaymentArgs | UpdateFrequencyArgs
+  ) => {
+    const { runtime } = this.props
+
+    logGraphqlError({
+      error,
+      variables,
+      runtime,
+      type: 'MutationError',
+      instance: `Update${updateType(variables)}`,
+    })
+
+    throw error
+  }
+
+  private handleSave = () => {
+    const {
+      address,
+      updateAddress,
+      subscriptionId,
+      plan,
+      updateFrequency,
+      payment,
+      updatePayment,
+      intl,
+    } = this.props
+    const {
+      selectedAddressId,
+      selectedAddressType,
+      selectedFrequency,
+      selectedPurchaseDay,
+      selectedPaymentSystemId,
+      selectedPaymentAccountId,
+    } = this.state
+    const promises: Array<Promise<void>> = []
+
+    if (
+      selectedAddressId &&
+      selectedAddressType &&
+      selectedAddressId !== address?.id
+    ) {
+      const variables = {
+        subscriptionId,
+        addressId: selectedAddressId,
+        addressType: selectedAddressType,
+      }
+
+      promises.push(
+        updateAddress({
+          variables,
+        }).catch((e: ApolloError) => this.handleFailure(e, variables))
+      )
+    }
+
+    const currentFrequency = extractFrequency(selectedFrequency)
+    if (
+      plan.purchaseDay !== selectedPurchaseDay ||
+      currentFrequency.interval !== plan.frequency.interval ||
+      currentFrequency.periodicity !== plan.frequency.periodicity
+    ) {
+      const variables = {
+        subscriptionId,
+        periodicity: currentFrequency.periodicity,
+        interval: currentFrequency.interval,
+        purchaseDay: selectedPurchaseDay,
+      }
+
+      promises.push(
+        updateFrequency({
+          variables,
+        }).catch((e: ApolloError) => this.handleFailure(e, variables))
+      )
+    }
+
+    if (
+      selectedPaymentSystemId &&
+      (payment.paymentMethod?.paymentSystemId !== selectedPaymentSystemId ||
+        payment.paymentMethod.paymentAccount?.id !== selectedPaymentAccountId)
+    ) {
+      const variables = {
+        subscriptionId,
+        paymentSystemId: selectedPaymentSystemId,
+        paymentAccountId: selectedPaymentAccountId,
+      }
+
+      promises.push(
+        updatePayment({ variables }).catch((e: ApolloError) =>
+          this.handleFailure(e, variables)
+        )
+      )
+    }
+
+    this.setState({ isLoading: true })
+
+    Promise.all(promises)
+      .then(() => this.setState({ isEditMode: false }))
+      .catch(() =>
+        this.setState({
+          errorMessage: intl.formatMessage(messages.errorMessage),
+        })
+      )
+      .finally(() => this.setState({ isLoading: false }))
+  }
 
   public render() {
     const { plan, address, payment, subscriptionId } = this.props
@@ -144,7 +281,7 @@ type State = {
   selectedAddressType: string | null
 }
 
-type Props = {
+type OuterProps = {
   subscriptionId: string
   plan: Subscription['plan']
   address: Subscription['shippingAddress']
@@ -152,4 +289,25 @@ type Props = {
   lastExecutionStatus?: SubscriptionExecutionStatus
 }
 
-export default PreferencesContainer
+type InnerProps = {
+  updateFrequency: (args: { variables: UpdateFrequencyArgs }) => Promise<void>
+  updatePayment: (args: { variables: UpdatePaymentArgs }) => Promise<void>
+  updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
+} & InjectedRuntimeContext &
+  WrappedComponentProps
+
+type Props = InnerProps & OuterProps
+
+const enhance = compose<Props, OuterProps>(
+  withRuntimeContext,
+  injectIntl,
+  graphql(UPDATE_FREQUENCY, { name: 'updateFrequency' }),
+  graphql(UPDATE_PAYMENT, {
+    name: 'updatePayment',
+  }),
+  graphql(UPDATE_ADDRESS, {
+    name: 'updateAddress',
+  })
+)
+
+export default enhance(PreferencesContainer)
