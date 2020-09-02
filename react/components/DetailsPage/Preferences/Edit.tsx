@@ -20,6 +20,7 @@ import {
   extractFrequency,
 } from './utils'
 import PaymentsSection from './PaymentsSection'
+import AddressesSection from './AddressesSection'
 
 const messages = defineMessages({
   title: {
@@ -49,6 +50,9 @@ const EditPreferences: FunctionComponent<Props> = ({
   onChangePaymentSystemGroup,
   onChangePaymentAccount,
   selectedPaymentAccountId,
+  addresses = [],
+  onChangeAddress,
+  selectedAddressId,
 }) => {
   const currentFrequency = extractFrequency(selectedFrequency)
 
@@ -97,6 +101,13 @@ const EditPreferences: FunctionComponent<Props> = ({
           onChangePaymentSystemGroup={onChangePaymentSystemGroup}
         />
       </Section>
+      <Section>
+        <AddressesSection
+          addresses={addresses}
+          onChangeAddress={onChangeAddress}
+          selectedAddressId={selectedAddressId}
+        />
+      </Section>
       <div className="w-100 ph7 pt7 flex justify-end">
         <EditionButtons
           isLoading={isLoading}
@@ -130,6 +141,8 @@ type OuterProps = {
     paymentSystemId: string
     paymentAccountId: string
   }) => void
+  selectedAddressId: string | null
+  onChangeAddress: (args: { addressId: string; addressType: string }) => void
 }
 
 type ChildProps = {

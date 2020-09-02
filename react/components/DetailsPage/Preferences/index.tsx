@@ -28,6 +28,8 @@ class PreferencesContainer extends Component<Props, State> {
         props.payment.paymentMethod?.paymentSystemId ?? null,
       selectedPaymentSystemGroup:
         props.payment.paymentMethod?.paymentSystemGroup ?? null,
+      selectedAddressId: props.address?.id ?? null,
+      selectedAddressType: props.address?.addressType ?? null,
     }
   }
 
@@ -69,6 +71,18 @@ class PreferencesContainer extends Component<Props, State> {
       selectedPaymentAccountId: paymentAccountId,
     })
 
+  private handleChangeAddress = ({
+    addressId,
+    addressType,
+  }: {
+    addressId: string
+    addressType: string
+  }) =>
+    this.setState({
+      selectedAddressId: addressId,
+      selectedAddressType: addressType,
+    })
+
   public render() {
     const { plan, address, payment, subscriptionId } = this.props
     const {
@@ -79,6 +93,7 @@ class PreferencesContainer extends Component<Props, State> {
       selectedPurchaseDay,
       selectedPaymentSystemGroup,
       selectedPaymentAccountId,
+      selectedAddressId,
     } = this.state
 
     return (
@@ -100,6 +115,8 @@ class PreferencesContainer extends Component<Props, State> {
             selectedPaymentAccountId={selectedPaymentAccountId}
             onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
             onChangePaymentAccount={this.handleChangePaymentAccount}
+            selectedAddressId={selectedAddressId}
+            onChangeAddress={this.handleChangeAddress}
           />
         ) : (
           <Display
@@ -123,6 +140,8 @@ type State = {
   selectedPaymentSystemGroup: PaymentSystemGroup | null
   selectedPaymentSystemId: string | null
   selectedPaymentAccountId: string | null
+  selectedAddressId: string | null
+  selectedAddressType: string | null
 }
 
 type Props = {
