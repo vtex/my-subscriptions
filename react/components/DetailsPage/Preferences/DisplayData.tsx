@@ -20,7 +20,7 @@ const DisplayData: FunctionComponent<Props> = ({
     <Box
       title={
         <div className="flex flex-wrap justify-between items-center">
-          <FormattedMessage id="store/subscription.products.card.title" />
+          <FormattedMessage id="store/details-page.preferences.title" />
           <EditButton onClick={onGoToEdition} withBackground />
         </div>
       }
