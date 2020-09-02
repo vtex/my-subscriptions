@@ -27,7 +27,7 @@ import UPDATE_PAYMENT, {
 } from '../../graphql/mutations/updatePaymentMethod.gql'
 import { queryWrapper, logGraphqlError } from '../../tracking'
 import { messages as modalMessages } from '../ConfirmationModal'
-import Thumbnail from '../Thumbnail'
+import Thumbnail from './SubscriptionThumbnail'
 
 const messages = defineMessages({
   success: {
