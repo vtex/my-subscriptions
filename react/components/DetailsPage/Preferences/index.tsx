@@ -8,6 +8,7 @@ import {
   PaymentSystemGroup,
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
+import { withToast, ShowToastArgs } from 'vtex.styleguide'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
@@ -39,6 +40,9 @@ function updateType(
 const messages = defineMessages({
   errorMessage: {
     id: 'store/subscription.fallback.error.message',
+  },
+  success: {
+    id: 'store/subscription.edit.success',
   },
 })
 
@@ -141,6 +145,7 @@ class PreferencesContainer extends Component<Props, State> {
       payment,
       updatePayment,
       intl,
+      showToast,
     } = this.props
     const {
       selectedAddressId,
@@ -211,7 +216,10 @@ class PreferencesContainer extends Component<Props, State> {
     this.setState({ isLoading: true })
 
     Promise.all(promises)
-      .then(() => this.setState({ isEditMode: false }))
+      .then(() => {
+        showToast({ message: intl.formatMessage(messages.success) })
+        this.setState({ isEditMode: false })
+      })
       .catch(() =>
         this.setState({
           errorMessage: intl.formatMessage(messages.errorMessage),
@@ -293,6 +301,7 @@ type InnerProps = {
   updateFrequency: (args: { variables: UpdateFrequencyArgs }) => Promise<void>
   updatePayment: (args: { variables: UpdatePaymentArgs }) => Promise<void>
   updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
+  showToast: ({ message }: ShowToastArgs) => void
 } & InjectedRuntimeContext &
   WrappedComponentProps
 
@@ -300,6 +309,7 @@ type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
   withRuntimeContext,
+  withToast,
   injectIntl,
   graphql(UPDATE_FREQUENCY, { name: 'updateFrequency' }),
   graphql(UPDATE_PAYMENT, {
