@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
-import BatchModal from '../components/Details/BatchModal'
+import BatchModal from '../components/DetailsPage/BatchModal'
 import { generateSubscription } from '../mocks/subscriptionFactory'
 import { generateListByMock, generateUpdateAddressMock } from '../mocks'
 import { requestLoad } from '../utils/tests'

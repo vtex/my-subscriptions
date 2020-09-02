@@ -29,7 +29,7 @@ import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 import { Subscription } from '..'
 import { logGraphqlError } from '../../../tracking'
-import BatchModal from '../BatchModal'
+import BatchModal from '../../DetailsPage/BatchModal'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)

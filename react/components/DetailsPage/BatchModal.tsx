@@ -12,7 +12,8 @@ import {
 } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import { Subscription, INSTANCE } from '.'
+import { INSTANCE } from '.'
+import { Subscription } from '../../graphql/queries/detailsPage.gql'
 import QUERY, {
   Args,
   Result,

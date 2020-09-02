@@ -14,7 +14,7 @@ import UPDATE_ADDRESS, {
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 import { Subscription } from '..'
-import BatchModal from '../BatchModal'
+import BatchModal from '../../DetailsPage/BatchModal'
 import {
   BASIC_CARD_WRAPPER,
   CSS,
