@@ -13,6 +13,7 @@ import {
   getCreditCard,
   goToNReturn,
 } from './utils'
+import Label from '../../LabeledInfo'
 
 const messages = defineMessages({
   chooseOne: {
@@ -20,6 +21,9 @@ const messages = defineMessages({
   },
   addNew: {
     id: 'store/subcription.add.new.card',
+  },
+  label: {
+    id: 'store/display-payment.label',
   },
 })
 
@@ -35,7 +39,7 @@ const PaymentsSection: FunctionComponent<Props> = ({
   const groupedPayments = groupPayments(payments)
 
   return (
-    <>
+    <Label label={intl.formatMessage(messages.label)}>
       {Object.keys(groupedPayments).map((group) => (
         <div className="pb4" key={group}>
           <Radio
@@ -63,8 +67,8 @@ const PaymentsSection: FunctionComponent<Props> = ({
             value={group}
           />
           {group === 'creditCard' && (
-            <div className="flex items-center ml6">
-              <div className="mr4">
+            <div className="flex items-center ml5">
+              <div className="mr2">
                 <Dropdown
                   options={creditCardOptions(groupedPayments.creditCard, intl)}
                   placeholder={intl.formatMessage(messages.chooseOne)}
@@ -96,7 +100,7 @@ const PaymentsSection: FunctionComponent<Props> = ({
           )}
         </div>
       ))}
-    </>
+    </Label>
   )
 }
 
