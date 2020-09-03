@@ -28,6 +28,7 @@ import ConfirmationModal from '../ConfirmationModal'
 import ActionBar from './ActionBar'
 import Products from './Products'
 import Preferences from './Preferences'
+import Summary from '../Summary'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
@@ -159,6 +160,13 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       errorMessage,
     })
 
+    const SummaryRendered = (
+      <Summary
+        totals={subscription.totals}
+        currencyCode={subscription.purchaseSettings.currencyCode}
+      />
+    )
+
     return (
       <>
         <ConfirmationModal {...modalProps} />
@@ -204,6 +212,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               subscriptionId={subscription.id}
               lastExecutionStatus={subscription.lastExecution?.status}
             />
+            {SummaryRendered && <div className="pt6">{SummaryRendered}</div>}
           </div>
         </div>
       </>
