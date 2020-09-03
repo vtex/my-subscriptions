@@ -22,8 +22,7 @@ const messages = defineMessages({
 })
 
 function getLastDigits(digits: string) {
-  const last = digits.substring(digits.length - 4)
-  return `${last}`
+  return digits.substring(digits.length - 4)
 }
 
 const DisplayPayment: FunctionComponent<Props> = ({
