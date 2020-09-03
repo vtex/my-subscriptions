@@ -238,8 +238,13 @@ class ShippingContainer extends Component<Props, State> {
           <>
             {isBatchModalOpen && previousAddress && (
               <BatchModal
+                currentSubscriptionId={subscription.id}
                 onClose={this.handleOnCloseBatch}
-                currentSubscription={subscription}
+                currentValues={{
+                  addressId: subscription.shippingAddress?.id as string,
+                  addressType: subscription.shippingAddress
+                    ?.addressType as string,
+                }}
                 option="ADDRESS"
                 value={previousAddress}
               />

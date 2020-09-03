@@ -16,7 +16,12 @@ describe('BatchModal Scenarios', () => {
 
     const { queryByText } = render(
       <BatchModal
-        currentSubscription={targetSubscription}
+        currentSubscriptionId={targetSubscription.id}
+        currentValues={{
+          addressId: targetSubscription.shippingAddress?.id as string,
+          addressType: targetSubscription.shippingAddress
+            ?.addressType as string,
+        }}
         onClose={() => null}
         value=""
         option="ADDRESS"
@@ -57,7 +62,12 @@ describe('BatchModal Scenarios', () => {
 
     const { queryByText } = render(
       <BatchModal
-        currentSubscription={currentSubscription}
+        currentSubscriptionId={currentSubscription.id}
+        currentValues={{
+          addressId: currentSubscription.shippingAddress?.id as string,
+          addressType: currentSubscription.shippingAddress
+            ?.addressType as string,
+        }}
         onClose={onClose}
         value=""
         option="ADDRESS"
@@ -101,7 +111,12 @@ describe('BatchModal Scenarios', () => {
 
     const { queryByText } = render(
       <BatchModal
-        currentSubscription={currentSubscription}
+        currentSubscriptionId={currentSubscription.id}
+        currentValues={{
+          addressId: currentSubscription.shippingAddress?.id as string,
+          addressType: currentSubscription.shippingAddress
+            ?.addressType as string,
+        }}
         onClose={onClose}
         value=""
         option="ADDRESS"
