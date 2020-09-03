@@ -55,7 +55,7 @@ class PreferencesContainer extends Component<Props, State> {
     const { interval, periodicity } = plan.frequency
 
     this.state = {
-      isEditMode: true,
+      isEditMode: false,
       isLoading: false,
       errorMessage: null,
       selectedFrequency: frequencyIndex({ interval, periodicity }),
