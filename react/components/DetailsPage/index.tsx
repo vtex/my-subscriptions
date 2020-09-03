@@ -27,6 +27,7 @@ import { SubscriptionAction, retrieveModalConfig } from './utils'
 import ConfirmationModal from '../ConfirmationModal'
 import ActionBar from './ActionBar'
 import Products from './Products'
+import Preferences from './Preferences'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
@@ -173,7 +174,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           isSkipped={subscription.isSkipped}
           onOpenModal={this.handleOpenModal}
         />
-        <div className="pa5 pa7-l">
+        <div className="pa5 pa7-l flex flex-wrap">
           <div className="w-100 w-60-l">
             <ActionBar
               status={subscription.status}
@@ -183,7 +184,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               onOpenModal={this.handleOpenModal}
               nextPurchaseDate={subscription.nextPurchaseDate}
             />
-            <div className="mt4">
+            <div className="mt6">
               <Products
                 subscriptionId={subscription.id}
                 status={subscription.status}
@@ -193,7 +194,15 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               />
             </div>
           </div>
-          <div className="w-100 w-40-l pt0 pt4-l pl0 pl4-l" />
+          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+            <Preferences
+              plan={subscription.plan}
+              payment={subscription.purchaseSettings}
+              address={subscription.shippingAddress}
+              subscriptionId={subscription.id}
+              lastExecutionStatus={subscription.lastExecution?.status}
+            />
+          </div>
         </div>
       </>
     )

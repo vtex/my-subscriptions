@@ -122,5 +122,11 @@
   "store/details-page.action-bar.button.changeAddress": "Changer",
   "store/details-page.action-bar.label.changePayment": "Erreur de paiement",
   "store/details-page.action-bar.text.changePayment": "Veuillez changer votre mode de paiement",
-  "store/details-page.action-bar.button.changePayment": "Changer"
+  "store/details-page.action-bar.button.changePayment": "Changer",
+  "store/details-page.preferences.title": "Préférences",
+  "store/display-address.label": "Adresse de livraison",
+  "store/display-address.deleted-error-message": "Votre adresse a été supprimée, veuillez en sélectionner une autre.",
+  "store/display-payment.label": "Mode de paiement",
+  "store/display-payment.deleted-error-message": "Votre mode de paiement a été supprimé, veuillez en sélectionner un autre.",
+  "store/display-payment.payment-error-message": "Votre mode de paiement ne semble pas fonctionner."
 }
