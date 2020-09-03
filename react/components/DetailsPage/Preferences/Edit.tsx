@@ -37,19 +37,15 @@ function contains(
   frequencies: Result['frequencies'],
   currentFrequency: Frequency
 ) {
-  let result = false
-
-  frequencies.forEach((frequency) => {
+  return frequencies.some((frequency) => {
     if (
       frequency.periodicity !== currentFrequency.periodicity ||
       frequency.interval !== currentFrequency.interval
     )
-      return
+      return false
 
-    result = true
+    return true
   })
-
-  return result
 }
 
 const EditPreferences: FunctionComponent<Props> = ({
