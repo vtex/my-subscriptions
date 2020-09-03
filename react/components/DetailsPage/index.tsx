@@ -208,6 +208,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           </div>
           <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
             <Preferences
+              status={subscription.status}
               plan={subscription.plan}
               payment={subscription.purchaseSettings}
               currentPaymentAccountId={subscription.paymentAccountId ?? null}

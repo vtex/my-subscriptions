@@ -6,6 +6,7 @@ import { ApolloError } from 'apollo-client'
 import {
   SubscriptionExecutionStatus,
   PaymentSystemGroup,
+  SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
@@ -159,6 +160,7 @@ class PreferencesContainer extends Component<Props, State> {
       showToast,
       currentAddressId,
       currentPaymentAccountId,
+      status,
     } = this.props
     const {
       selectedAddress,
@@ -247,7 +249,7 @@ class PreferencesContainer extends Component<Props, State> {
   }
 
   public render() {
-    const { plan, address, payment, subscriptionId } = this.props
+    const { plan, address, payment, subscriptionId, status } = this.props
     const {
       isEditMode,
       isLoading,
@@ -318,6 +320,7 @@ class PreferencesContainer extends Component<Props, State> {
         ) : (
           <Display
             plan={plan}
+            status={status}
             address={address}
             payment={payment}
             onGoToEdition={this.handleGoToEdition}
@@ -352,6 +355,7 @@ type OuterProps = {
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']
   lastExecutionStatus?: SubscriptionExecutionStatus
+  status: SubscriptionStatus
 }
 
 type InnerProps = {
