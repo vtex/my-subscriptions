@@ -29,6 +29,7 @@ import ActionBar from './ActionBar'
 import Products from './Products'
 import Preferences from './Preferences'
 import Summary from '../Summary'
+import History from './History'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
@@ -43,6 +44,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     isModalOpen: false,
     errorMessage: null,
     updateType: null,
+    displayHistory: false,
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -53,6 +55,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       instance: INSTANCE,
     })
   }
+
+  private handleOpenHistory = () => this.setState({ displayHistory: true })
+
+  private handleCloseHistory = () => this.setState({ displayHistory: false })
 
   private handleUpdateStatus = (status: SubscriptionStatus) => {
     const { updateStatus, subscription, runtime } = this.props
@@ -144,7 +150,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
   public render() {
     const { subscription, orderFormId, intl } = this.props
-    const { updateType, isModalOpen, errorMessage } = this.state
+    const { updateType, isModalOpen, errorMessage, displayHistory } = this.state
 
     if (!subscription) return null
 
@@ -162,6 +168,11 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
     return (
       <>
+        <History
+          subscriptionId={subscription.id}
+          isOpen={displayHistory}
+          onClose={this.handleCloseHistory}
+        />
         <ConfirmationModal {...modalProps} />
         <Header
           name={subscription.name}
@@ -174,6 +185,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           }))}
           isSkipped={subscription.isSkipped}
           onOpenModal={this.handleOpenModal}
+          onOpenHistory={this.handleOpenHistory}
         />
         <div className="pa5 pa7-l flex flex-wrap">
           <div className="w-100 w-60-l">
@@ -220,6 +232,7 @@ interface Variables<T> {
 
 type State = {
   isModalOpen: boolean
+  displayHistory: boolean
   errorMessage: string | null
   updateType: SubscriptionAction | null
 }

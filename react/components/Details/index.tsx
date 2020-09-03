@@ -169,7 +169,11 @@ class SubscriptionsDetailsContainer extends Component<Props> {
                 />
               </div>
               <div className="pt6 pl4-ns w-50-ns">
-                <History subscriptionId={subscription.id} />
+                <History
+                  subscriptionId={subscription.id}
+                  isOpen={false}
+                  onClose={() => null}
+                />
               </div>
             </div>
             <div className="pt6">
