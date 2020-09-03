@@ -10,16 +10,18 @@ const Summary: FunctionComponent<Props> = ({ totals = [], currencyCode }) => {
 
   return (
     <Box
-      title={
-        <FormattedMessage id="store/summary.title" defaultMessage="Summary" />
-      }
+      title={<FormattedMessage id="store/summary.title" />}
       footer={
         <FormattedMessage
           id="store/summary.price-warning"
-          defaultMessage="*Prices valid until {day}"
           values={{
             day: (
-              <FormattedDate value={new Date()} month="long" day="2-digit" />
+              <FormattedDate
+                value={new Date()}
+                month="long"
+                day="2-digit"
+                year="numeric"
+              />
             ),
           }}
         />

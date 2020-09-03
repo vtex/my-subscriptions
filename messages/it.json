@@ -128,5 +128,7 @@
   "store/display-address.deleted-error-message": "Il tuo indirizzo è stato rimosso, selezionane un altro.",
   "store/display-payment.label": "Metodo di pagamento",
   "store/display-payment.deleted-error-message": "Il tuo metodo di pagamento è stato rimosso, selezionane un altro.",
-  "store/display-payment.payment-error-message": "Il tuo metodo di pagamento sembra non funzionare."
+  "store/display-payment.payment-error-message": "Il tuo metodo di pagamento sembra non funzionare.",
+  "store/summary.title": "Sommario",
+  "store/summary.price-warning": "*Prezzi validi fino a {day}"
 }
