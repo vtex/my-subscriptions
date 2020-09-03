@@ -116,7 +116,7 @@ class ActionBarContainer extends Component<Props> {
                 }}
               />
             </div>
-            <div className="mw5-l w-100 mt4 w-40-l mt0-l">
+            <div className="mw5-l w-100 mt4 w-40-l mt0-l pl0 pl6-l">
               <Button variation={buttonVariation} onClick={onClick} block>
                 <FormattedMessage
                   id={`store/details-page.action-bar.button.${action}`}
