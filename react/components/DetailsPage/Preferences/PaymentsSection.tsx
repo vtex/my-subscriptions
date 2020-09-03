@@ -16,8 +16,8 @@ import {
 import Label from '../../LabeledInfo'
 
 const messages = defineMessages({
-  chooseOne: {
-    id: 'store/subscription.payment.chooseOne',
+  select: {
+    id: 'store/subscription.select',
   },
   addNew: {
     id: 'store/subcription.add.new.card',
@@ -71,7 +71,7 @@ const PaymentsSection: FunctionComponent<Props> = ({
               <div className="mr2">
                 <Dropdown
                   options={creditCardOptions(groupedPayments.creditCard, intl)}
-                  placeholder={intl.formatMessage(messages.chooseOne)}
+                  placeholder={intl.formatMessage(messages.select)}
                   disabled={selectedPaymentSystemGroup !== 'creditCard'}
                   value={selectedPaymentAccountId}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {

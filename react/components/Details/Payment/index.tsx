@@ -29,7 +29,7 @@ import EditPayment from './EditPayment'
 import PaymentCard from './PaymentCard'
 import { Subscription } from '..'
 import { logGraphqlError } from '../../../tracking'
-import BatchModal from '../BatchModal'
+import BatchModal from '../../DetailsPage/BatchModal'
 
 function hasEditOption(location: RouteComponentProps['location']) {
   const option = getEditOption(location)
@@ -283,7 +283,13 @@ class SubscriptionPaymentContainer extends Component<Props, State> {
             {isBatchModalOpen && previousAccountId && (
               <BatchModal
                 onClose={this.handleOnCloseBatch}
-                currentSubscription={subscription}
+                currentSubscriptionId={subscription.id}
+                currentValues={{
+                  paymentSystemId: subscription.purchaseSettings.paymentMethod
+                    ?.paymentSystemId as string,
+                  paymentAccountId: subscription.purchaseSettings.paymentMethod
+                    ?.paymentAccount?.id as string,
+                }}
                 option="PAYMENT"
                 value={previousAccountId}
               />

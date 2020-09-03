@@ -12,7 +12,7 @@ import {
 } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import { Subscription, INSTANCE } from '.'
+import { INSTANCE } from '.'
 import QUERY, {
   Args,
   Result,
@@ -26,7 +26,7 @@ import UPDATE_PAYMENT, {
 } from '../../graphql/mutations/updatePaymentMethod.gql'
 import { queryWrapper, logGraphqlError } from '../../tracking'
 import { messages as modalMessages } from '../ConfirmationModal'
-import Thumbnail from '../Thumbnail'
+import Thumbnail from './SubscriptionThumbnail'
 
 const messages = defineMessages({
   success: {
@@ -47,6 +47,14 @@ const messages = defineMessages({
   },
 })
 
+function isAddress(args: Props['currentValues']): args is AddressArgs {
+  return (args as AddressArgs).addressId !== undefined
+}
+
+function isPayment(args: Props['currentValues']): args is PaymentArgs {
+  return (args as PaymentArgs).paymentAccountId !== undefined
+}
+
 class BatchModal extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
@@ -56,7 +64,7 @@ class BatchModal extends Component<Props, State> {
     props.targetSubscriptions.forEach((subs) => {
       // Remove the current subscription from the list, because it isnt indexed yet
       // with the new id.
-      if (subs.id === props.currentSubscription.id) return
+      if (subs.id === props.currentSubscriptionId) return
 
       const skus = subs.items.map((item) => item.sku)
       selectionItems[subs.id] = {
@@ -116,7 +124,7 @@ class BatchModal extends Component<Props, State> {
       option,
       updateAddress,
       updatePayment,
-      currentSubscription,
+      currentValues,
       onClose,
       showToast,
       intl,
@@ -133,15 +141,14 @@ class BatchModal extends Component<Props, State> {
 
     this.setState({ loading: true })
 
-    let promises: Promise<unknown>
-    if (option === 'ADDRESS') {
+    let promises: Promise<unknown> | null = null
+    if (option === 'ADDRESS' && isAddress(currentValues)) {
       promises = Promise.all(
         selectedIds.map((id) => {
           const variables = {
             subscriptionId: id,
-            addressId: currentSubscription.shippingAddress?.id as string,
-            addressType: currentSubscription.shippingAddress
-              ?.addressType as string,
+            addressId: currentValues.addressId,
+            addressType: currentValues.addressType,
           }
 
           return updateAddress({
@@ -151,16 +158,13 @@ class BatchModal extends Component<Props, State> {
             .catch((e: ApolloError) => this.handleFailure(e, variables))
         })
       )
-    } else {
+    } else if (isPayment(currentValues)) {
       promises = Promise.all(
         selectedIds.map((id) => {
           const variables = {
             subscriptionId: id,
-            paymentSystemId: currentSubscription.purchaseSettings.paymentMethod
-              ?.paymentSystemId as string,
-            paymentAccountId:
-              currentSubscription.purchaseSettings.paymentMethod?.paymentAccount
-                ?.id,
+            paymentSystemId: currentValues.paymentSystemId,
+            paymentAccountId: currentValues.paymentAccountId,
           }
 
           return updatePayment({
@@ -172,7 +176,7 @@ class BatchModal extends Component<Props, State> {
       )
     }
 
-    promises.then(() => {
+    promises?.then(() => {
       const displayError = this.state.completed.length !== selectedIds.length
 
       if (!displayError) {
@@ -262,8 +266,12 @@ type InnerProps = WrappedComponentProps &
     showToast: (args: ShowToastArgs) => void
   }
 
+type AddressArgs = { addressId: string; addressType: string }
+type PaymentArgs = { paymentAccountId: string; paymentSystemId: string }
+
 interface OuterProps extends Args {
-  currentSubscription: Subscription
+  currentSubscriptionId: string
+  currentValues: AddressArgs | PaymentArgs
   onClose: () => void
 }
 

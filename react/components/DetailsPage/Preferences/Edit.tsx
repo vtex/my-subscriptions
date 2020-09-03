@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
-import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { Plan, PaymentSystemGroup, Frequency } from 'vtex.subscriptions-graphql'
 import { Dropdown, Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
@@ -20,6 +20,7 @@ import {
   extractFrequency,
 } from './utils'
 import PaymentsSection from './PaymentsSection'
+import AddressesSection from './AddressesSection'
 
 const messages = defineMessages({
   title: {
@@ -31,6 +32,21 @@ const messages = defineMessages({
   },
   select: { id: 'store/subscription.select' },
 })
+
+function contains(
+  frequencies: Result['frequencies'],
+  currentFrequency: Frequency
+) {
+  return frequencies.some((frequency) => {
+    if (
+      frequency.periodicity !== currentFrequency.periodicity ||
+      frequency.interval !== currentFrequency.interval
+    )
+      return false
+
+    return true
+  })
+}
 
 const EditPreferences: FunctionComponent<Props> = ({
   intl,
@@ -49,8 +65,12 @@ const EditPreferences: FunctionComponent<Props> = ({
   onChangePaymentSystemGroup,
   onChangePaymentAccount,
   selectedPaymentAccountId,
+  addresses = [],
+  onChangeAddress,
+  selectedAddressId,
 }) => {
   const currentFrequency = extractFrequency(selectedFrequency)
+  const hasFrequency = contains(frequencies, currentFrequency)
 
   return (
     <Box title={intl.formatMessage(messages.title)}>
@@ -66,7 +86,7 @@ const EditPreferences: FunctionComponent<Props> = ({
           label={intl.formatMessage(messages.orderAgain)}
           placeholder={intl.formatMessage(messages.select)}
           options={getFrequencyOptions({ intl, frequencies })}
-          value={selectedFrequency}
+          value={hasFrequency ? selectedFrequency : null}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             onChangeFrequency(e.target.value)
           }
@@ -95,6 +115,13 @@ const EditPreferences: FunctionComponent<Props> = ({
           selectedPaymentAccountId={selectedPaymentAccountId}
           selectedPaymentSystemGroup={selectedPaymentSystemGroup}
           onChangePaymentSystemGroup={onChangePaymentSystemGroup}
+        />
+      </Section>
+      <Section>
+        <AddressesSection
+          addresses={addresses}
+          onChangeAddress={onChangeAddress}
+          selectedAddressId={selectedAddressId}
         />
       </Section>
       <div className="w-100 ph7 pt7 flex justify-end">
@@ -130,6 +157,8 @@ type OuterProps = {
     paymentSystemId: string
     paymentAccountId: string
   }) => void
+  selectedAddressId: string | null
+  onChangeAddress: (args: { addressId: string; addressType: string }) => void
 }
 
 type ChildProps = {

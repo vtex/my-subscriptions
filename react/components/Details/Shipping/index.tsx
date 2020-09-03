@@ -14,7 +14,7 @@ import UPDATE_ADDRESS, {
 import EditShipping from './EditShipping'
 import ShippingCard from './ShippingCard'
 import { Subscription } from '..'
-import BatchModal from '../BatchModal'
+import BatchModal from '../../DetailsPage/BatchModal'
 import {
   BASIC_CARD_WRAPPER,
   CSS,
@@ -238,8 +238,13 @@ class ShippingContainer extends Component<Props, State> {
           <>
             {isBatchModalOpen && previousAddress && (
               <BatchModal
+                currentSubscriptionId={subscription.id}
                 onClose={this.handleOnCloseBatch}
-                currentSubscription={subscription}
+                currentValues={{
+                  addressId: subscription.shippingAddress?.id as string,
+                  addressType: subscription.shippingAddress
+                    ?.addressType as string,
+                }}
                 option="ADDRESS"
                 value={previousAddress}
               />
