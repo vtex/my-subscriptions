@@ -160,13 +160,6 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       errorMessage,
     })
 
-    const SummaryRendered = (
-      <Summary
-        totals={subscription.totals}
-        currencyCode={subscription.purchaseSettings.currencyCode}
-      />
-    )
-
     return (
       <>
         <ConfirmationModal {...modalProps} />
@@ -192,15 +185,13 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               onOpenModal={this.handleOpenModal}
               nextPurchaseDate={subscription.nextPurchaseDate}
             />
-            <div className="mt6">
-              <Products
-                subscriptionId={subscription.id}
-                status={subscription.status}
-                items={subscription.items}
-                planId={subscription.plan.id}
-                currencyCode={subscription.purchaseSettings.currencyCode}
-              />
-            </div>
+            <Products
+              subscriptionId={subscription.id}
+              status={subscription.status}
+              items={subscription.items}
+              planId={subscription.plan.id}
+              currencyCode={subscription.purchaseSettings.currencyCode}
+            />
           </div>
           <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
             <Preferences
@@ -212,7 +203,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               subscriptionId={subscription.id}
               lastExecutionStatus={subscription.lastExecution?.status}
             />
-            {SummaryRendered && <div className="pt6">{SummaryRendered}</div>}
+            <Summary
+              totals={subscription.totals}
+              currencyCode={subscription.purchaseSettings.currencyCode}
+            />
           </div>
         </div>
       </>

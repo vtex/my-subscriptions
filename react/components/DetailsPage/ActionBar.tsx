@@ -90,40 +90,42 @@ class ActionBarContainer extends Component<Props> {
     if (action === null) return null
 
     return (
-      <Box>
-        <div
-          className={`mb2 t-body ${
-            displayDanger ? 'c-danger fw5' : 'c-muted-1'
-          }`}
-        >
-          <FormattedMessage
-            id={`store/details-page.action-bar.label.${action}`}
-          />
-        </div>
-        <div className="flex items-center flex-wrap justify-between">
-          <div className="t-heading-4 w-100 w-60-l">
+      <div className="pb6">
+        <Box>
+          <div
+            className={`mb2 t-body ${
+              displayDanger ? 'c-danger fw5' : 'c-muted-1'
+            }`}
+          >
             <FormattedMessage
-              id={`store/details-page.action-bar.text.${action}`}
-              values={{
-                day: (
-                  <FormattedDate
-                    value={this.props.nextPurchaseDate}
-                    month="long"
-                    day="2-digit"
-                  />
-                ),
-              }}
+              id={`store/details-page.action-bar.label.${action}`}
             />
           </div>
-          <div className="mw5-l w-100 mt4 w-40-l mt0-l">
-            <Button variation={buttonVariation} onClick={onClick} block>
+          <div className="flex items-center flex-wrap justify-between">
+            <div className="t-heading-4 w-100 w-60-l">
               <FormattedMessage
-                id={`store/details-page.action-bar.button.${action}`}
+                id={`store/details-page.action-bar.text.${action}`}
+                values={{
+                  day: (
+                    <FormattedDate
+                      value={this.props.nextPurchaseDate}
+                      month="long"
+                      day="2-digit"
+                    />
+                  ),
+                }}
               />
-            </Button>
+            </div>
+            <div className="mw5-l w-100 mt4 w-40-l mt0-l">
+              <Button variation={buttonVariation} onClick={onClick} block>
+                <FormattedMessage
+                  id={`store/details-page.action-bar.button.${action}`}
+                />
+              </Button>
+            </div>
           </div>
-        </div>
-      </Box>
+        </Box>
+      </div>
     )
   }
 }
