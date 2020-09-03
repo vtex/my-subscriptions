@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react'
-import { compose } from 'recompose'
+import { compose, branch, renderComponent } from 'recompose'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { graphql, MutationResult } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
@@ -30,6 +30,7 @@ import Products from './Products'
 import Preferences from './Preferences'
 import Summary from '../Summary'
 import History from './History'
+import Skeleton from './Skeleton'
 
 export const INSTANCE = 'SubscriptionsDetails'
 
@@ -277,7 +278,8 @@ const enhance = compose<Props, {}>(
         orderFormId: data?.orderForm?.orderFormId,
       }),
     }
-  )
+  ),
+  branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 
 export default enhance(SubscriptionsDetailsContainer)
