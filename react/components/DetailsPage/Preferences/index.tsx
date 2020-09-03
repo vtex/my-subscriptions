@@ -10,11 +10,18 @@ import {
 } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
+import { RouteComponentProps, withRouter } from 'vtex.my-account-commons/Router'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
 import Edit from './Edit'
-import { frequencyIndex, extractFrequency } from './utils'
+import {
+  frequencyIndex,
+  extractFrequency,
+  getAddressArgs,
+  getPaymentArgs,
+  removeArgs,
+} from './utils'
 import UPDATE_FREQUENCY, {
   Args as UpdateFrequencyArgs,
 } from '../../../graphql/mutations/updatePlan.gql'
@@ -74,6 +81,44 @@ class PreferencesContainer extends Component<Props, State> {
       isAddressModalOpen: false,
       isPaymentModalOpen: false,
     }
+  }
+
+  public componentDidMount() {
+    const { location, history } = this.props
+    const addressArgs = getAddressArgs(location)
+    const paymentArgs = getPaymentArgs(location)
+    let hasChanged = false
+
+    const address = addressArgs
+      ? { selectedAddress: { id: addressArgs.id, type: addressArgs.type } }
+      : null
+    const payment = paymentArgs
+      ? {
+          selectedPaymentAccountId: paymentArgs.paymentAccountId,
+          selectedPaymentSystemId: paymentArgs.paymentSystemId,
+        }
+      : null
+
+    if (address) {
+      this.setState({ ...address })
+      hasChanged = true
+    }
+
+    if (payment) {
+      this.setState({ ...payment })
+      hasChanged = true
+    }
+
+    hasChanged &&
+      this.setState({}, () => {
+        const search = removeArgs(location)
+
+        history.push({
+          search,
+        })
+
+        this.handleSave()
+      })
   }
 
   private handleClose = () => this.props.onChangeEdit(false)
@@ -369,13 +414,15 @@ type InnerProps = {
   updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
   showToast: ({ message }: ShowToastArgs) => void
 } & InjectedRuntimeContext &
-  WrappedComponentProps
+  WrappedComponentProps &
+  RouteComponentProps
 
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
   withRuntimeContext,
   withToast,
+  withRouter,
   injectIntl,
   graphql(UPDATE_FREQUENCY, { name: 'updateFrequency' }),
   graphql(UPDATE_PAYMENT, {
