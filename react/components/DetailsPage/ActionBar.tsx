@@ -47,7 +47,7 @@ defineMessages({
 
 class ActionBarContainer extends Component<Props> {
   private getSuggestedAction = () => {
-    const { status, address, isSkipped, payment, onOpenModal } = this.props
+    const { status, address, isSkipped, payment, onUpdateAction } = this.props
 
     let action: SubscriptionAction | null = null
     let buttonVariation: 'primary' | 'secondary' = 'primary'
@@ -73,7 +73,7 @@ class ActionBarContainer extends Component<Props> {
       action &&
       ['restore', 'unskip', 'changeAddress', 'changePayment'].includes(action)
     ) {
-      onClick = () => onOpenModal(action as SubscriptionAction)
+      onClick = () => onUpdateAction(action as SubscriptionAction)
     }
 
     return { action, buttonVariation, displayDanger, onClick }
@@ -136,7 +136,7 @@ type Props = {
   nextPurchaseDate: string
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']['paymentMethod']
-  onOpenModal: (action: SubscriptionAction) => void
+  onUpdateAction: (action: SubscriptionAction) => void
 }
 
 export default ActionBarContainer
