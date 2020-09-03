@@ -198,7 +198,9 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
             <Preferences
               plan={subscription.plan}
               payment={subscription.purchaseSettings}
+              currentPaymentAccountId={subscription.paymentAccountId ?? null}
               address={subscription.shippingAddress}
+              currentAddressId={subscription.addressId ?? null}
               subscriptionId={subscription.id}
               lastExecutionStatus={subscription.lastExecution?.status}
             />

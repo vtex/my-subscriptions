@@ -24,6 +24,7 @@ import UPDATE_ADDRESS, {
   Args as UpdateAddressArgs,
 } from '../../../graphql/mutations/updateAddress.gql'
 import { logGraphqlError } from '../../../tracking'
+import BatchModal from '../BatchModal'
 
 function updateType(
   args: UpdateFrequencyArgs | UpdatePaymentArgs | UpdateAddressArgs
@@ -65,8 +66,13 @@ class PreferencesContainer extends Component<Props, State> {
         props.payment.paymentMethod?.paymentSystemId ?? null,
       selectedPaymentSystemGroup:
         props.payment.paymentMethod?.paymentSystemGroup ?? null,
-      selectedAddressId: props.address?.id ?? null,
-      selectedAddressType: props.address?.addressType ?? null,
+      selectedAddress: props.address
+        ? { id: props.address.id, type: props.address.addressType as string }
+        : null,
+      previousAccountId: null,
+      previousAddressId: null,
+      isAddressModalOpen: false,
+      isPaymentModalOpen: false,
     }
   }
 
@@ -114,8 +120,7 @@ class PreferencesContainer extends Component<Props, State> {
     addressType: string
   }) =>
     this.setState({
-      selectedAddressId: addressId,
-      selectedAddressType: addressType,
+      selectedAddress: { id: addressId, type: addressType },
     })
 
   private handleFailure = (
@@ -135,6 +140,12 @@ class PreferencesContainer extends Component<Props, State> {
     throw error
   }
 
+  private handleClosePaymentModal = () =>
+    this.setState({ isPaymentModalOpen: false })
+
+  private handleCloseAddressModal = () =>
+    this.setState({ isAddressModalOpen: false })
+
   private handleSave = () => {
     const {
       address,
@@ -146,10 +157,11 @@ class PreferencesContainer extends Component<Props, State> {
       updatePayment,
       intl,
       showToast,
+      currentAddressId,
+      currentPaymentAccountId,
     } = this.props
     const {
-      selectedAddressId,
-      selectedAddressType,
+      selectedAddress,
       selectedFrequency,
       selectedPurchaseDay,
       selectedPaymentSystemId,
@@ -157,21 +169,23 @@ class PreferencesContainer extends Component<Props, State> {
     } = this.state
     const promises: Array<Promise<void>> = []
 
-    if (
-      selectedAddressId &&
-      selectedAddressType &&
-      selectedAddressId !== address?.id
-    ) {
+    if (selectedAddress && selectedAddress.id !== address?.id) {
       const variables = {
         subscriptionId,
-        addressId: selectedAddressId,
-        addressType: selectedAddressType,
+        addressId: selectedAddress.id,
+        addressType: selectedAddress.type,
       }
+
+      this.setState({
+        previousAddressId: currentAddressId,
+      })
 
       promises.push(
         updateAddress({
           variables,
-        }).catch((e: ApolloError) => this.handleFailure(e, variables))
+        })
+          .then(() => this.setState({ isAddressModalOpen: true }))
+          .catch((e: ApolloError) => this.handleFailure(e, variables))
       )
     }
 
@@ -206,10 +220,14 @@ class PreferencesContainer extends Component<Props, State> {
         paymentAccountId: selectedPaymentAccountId,
       }
 
+      this.setState({
+        previousAccountId: currentPaymentAccountId,
+      })
+
       promises.push(
-        updatePayment({ variables }).catch((e: ApolloError) =>
-          this.handleFailure(e, variables)
-        )
+        updatePayment({ variables })
+          .then(() => this.setState({ isPaymentModalOpen: true }))
+          .catch((e: ApolloError) => this.handleFailure(e, variables))
       )
     }
 
@@ -238,11 +256,40 @@ class PreferencesContainer extends Component<Props, State> {
       selectedPurchaseDay,
       selectedPaymentSystemGroup,
       selectedPaymentAccountId,
-      selectedAddressId,
+      selectedAddress,
+      isPaymentModalOpen,
+      previousAccountId,
+      isAddressModalOpen,
+      previousAddressId,
     } = this.state
 
     return (
       <>
+        {isPaymentModalOpen && previousAccountId && (
+          <BatchModal
+            currentSubscriptionId={subscriptionId}
+            currentValues={{
+              paymentAccountId: payment.paymentMethod?.paymentAccount
+                ?.id as string,
+              paymentSystemId: payment.paymentMethod?.paymentSystemId as string,
+            }}
+            onClose={this.handleClosePaymentModal}
+            option="PAYMENT"
+            value={previousAccountId}
+          />
+        )}
+        {isAddressModalOpen && previousAddressId && (
+          <BatchModal
+            currentSubscriptionId={subscriptionId}
+            currentValues={{
+              addressId: address?.id as string,
+              addressType: address?.addressType as string,
+            }}
+            onClose={this.handleCloseAddressModal}
+            option="ADDRESS"
+            value={previousAddressId}
+          />
+        )}
         {isEditMode ? (
           <Edit
             subscriptionId={subscriptionId}
@@ -260,7 +307,7 @@ class PreferencesContainer extends Component<Props, State> {
             selectedPaymentAccountId={selectedPaymentAccountId}
             onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
             onChangePaymentAccount={this.handleChangePaymentAccount}
-            selectedAddressId={selectedAddressId}
+            selectedAddressId={selectedAddress?.id ?? null}
             onChangeAddress={this.handleChangeAddress}
           />
         ) : (
@@ -285,12 +332,17 @@ type State = {
   selectedPaymentSystemGroup: PaymentSystemGroup | null
   selectedPaymentSystemId: string | null
   selectedPaymentAccountId: string | null
-  selectedAddressId: string | null
-  selectedAddressType: string | null
+  selectedAddress: { id: string; type: string } | null
+  previousAccountId: string | null
+  previousAddressId: string | null
+  isAddressModalOpen: boolean
+  isPaymentModalOpen: boolean
 }
 
 type OuterProps = {
   subscriptionId: string
+  currentAddressId: string | null
+  currentPaymentAccountId: string | null
   plan: Subscription['plan']
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']
