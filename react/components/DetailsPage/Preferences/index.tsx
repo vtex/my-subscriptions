@@ -56,7 +56,6 @@ class PreferencesContainer extends Component<Props, State> {
     const { interval, periodicity } = plan.frequency
 
     this.state = {
-      isEditMode: false,
       isLoading: false,
       errorMessage: null,
       selectedFrequency: frequencyIndex({ interval, periodicity }),
@@ -77,7 +76,7 @@ class PreferencesContainer extends Component<Props, State> {
     }
   }
 
-  private handleClose = () => this.setState({ isEditMode: false })
+  private handleClose = () => this.props.onChangeEdit(false)
 
   private handleDismissError = () => this.setState({ errorMessage: null })
 
@@ -87,7 +86,7 @@ class PreferencesContainer extends Component<Props, State> {
   private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
     this.setState({ selectedPurchaseDay })
 
-  private handleGoToEdition = () => this.setState({ isEditMode: true })
+  private handleGoToEdition = () => this.props.onChangeEdit(true)
 
   private handleChangePaymentSystemGroup = ({
     group,
@@ -160,7 +159,6 @@ class PreferencesContainer extends Component<Props, State> {
       showToast,
       currentAddressId,
       currentPaymentAccountId,
-      status,
     } = this.props
     const {
       selectedAddress,
@@ -238,7 +236,7 @@ class PreferencesContainer extends Component<Props, State> {
     Promise.all(promises)
       .then(() => {
         showToast({ message: intl.formatMessage(messages.success) })
-        this.setState({ isEditMode: false })
+        this.handleClose()
       })
       .catch(() =>
         this.setState({
@@ -249,9 +247,15 @@ class PreferencesContainer extends Component<Props, State> {
   }
 
   public render() {
-    const { plan, address, payment, subscriptionId, status } = this.props
     const {
+      plan,
+      address,
+      payment,
+      subscriptionId,
+      status,
       isEditMode,
+    } = this.props
+    const {
       isLoading,
       errorMessage,
       selectedFrequency,
@@ -332,7 +336,6 @@ class PreferencesContainer extends Component<Props, State> {
 }
 
 type State = {
-  isEditMode: boolean
   isLoading: boolean
   errorMessage: string | null
   selectedPurchaseDay: string
@@ -356,6 +359,8 @@ type OuterProps = {
   payment: Subscription['purchaseSettings']
   lastExecutionStatus?: SubscriptionExecutionStatus
   status: SubscriptionStatus
+  isEditMode: boolean
+  onChangeEdit: (edit: boolean) => void
 }
 
 type InnerProps = {

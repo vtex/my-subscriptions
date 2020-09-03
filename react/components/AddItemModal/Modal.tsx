@@ -147,6 +147,7 @@ const enhance = compose<Props, OuterProps>(
     INSTANCE,
     SEARCH_QUERY,
     {
+      skip: ({ isModalOpen }) => !isModalOpen,
       props: ({ data }) => ({
         loading: data?.loading,
         items: data?.search,
