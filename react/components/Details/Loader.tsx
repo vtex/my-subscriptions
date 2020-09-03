@@ -3,7 +3,7 @@ import { BaseLoading } from 'vtex.my-account-commons'
 import { injectIntl, WrappedComponentProps } from 'react-intl'
 
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
-import HistorySkeleton from './History/HistorySkeleton'
+import HistorySkeleton from '../DetailsPage/History/HistorySkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'
 import SummarySkeleton from './SummarySkeleton'
 import PaymentSkeleton from './Payment/PaymentSkeleton'
