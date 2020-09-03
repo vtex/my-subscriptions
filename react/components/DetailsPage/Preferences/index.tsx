@@ -265,31 +265,36 @@ class PreferencesContainer extends Component<Props, State> {
 
     return (
       <>
-        {isPaymentModalOpen && previousAccountId && (
-          <BatchModal
-            currentSubscriptionId={subscriptionId}
-            currentValues={{
-              paymentAccountId: payment.paymentMethod?.paymentAccount
-                ?.id as string,
-              paymentSystemId: payment.paymentMethod?.paymentSystemId as string,
-            }}
-            onClose={this.handleClosePaymentModal}
-            option="PAYMENT"
-            value={previousAccountId}
-          />
-        )}
-        {isAddressModalOpen && previousAddressId && (
-          <BatchModal
-            currentSubscriptionId={subscriptionId}
-            currentValues={{
-              addressId: address?.id as string,
-              addressType: address?.addressType as string,
-            }}
-            onClose={this.handleCloseAddressModal}
-            option="ADDRESS"
-            value={previousAddressId}
-          />
-        )}
+        {isPaymentModalOpen &&
+          previousAccountId &&
+          payment.paymentMethod &&
+          payment.paymentMethod.paymentAccount?.id && (
+            <BatchModal
+              currentSubscriptionId={subscriptionId}
+              currentValues={{
+                paymentAccountId: payment.paymentMethod.paymentAccount.id,
+                paymentSystemId: payment.paymentMethod.paymentSystemId,
+              }}
+              onClose={this.handleClosePaymentModal}
+              option="PAYMENT"
+              value={previousAccountId}
+            />
+          )}
+        {isAddressModalOpen &&
+          previousAddressId &&
+          address?.id &&
+          address?.addressType && (
+            <BatchModal
+              currentSubscriptionId={subscriptionId}
+              currentValues={{
+                addressId: address.id,
+                addressType: address.addressType,
+              }}
+              onClose={this.handleCloseAddressModal}
+              option="ADDRESS"
+              value={previousAddressId}
+            />
+          )}
         {isEditMode ? (
           <Edit
             subscriptionId={subscriptionId}

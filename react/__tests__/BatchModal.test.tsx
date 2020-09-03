@@ -18,9 +18,8 @@ describe('BatchModal Scenarios', () => {
       <BatchModal
         currentSubscriptionId={targetSubscription.id}
         currentValues={{
-          addressId: targetSubscription.shippingAddress?.id as string,
-          addressType: targetSubscription.shippingAddress
-            ?.addressType as string,
+          addressId: targetSubscription.shippingAddress?.id ?? '',
+          addressType: targetSubscription.shippingAddress?.addressType ?? '',
         }}
         onClose={() => null}
         value=""
@@ -64,9 +63,8 @@ describe('BatchModal Scenarios', () => {
       <BatchModal
         currentSubscriptionId={currentSubscription.id}
         currentValues={{
-          addressId: currentSubscription.shippingAddress?.id as string,
-          addressType: currentSubscription.shippingAddress
-            ?.addressType as string,
+          addressId: currentSubscription.shippingAddress?.id ?? '',
+          addressType: currentSubscription.shippingAddress?.addressType ?? '',
         }}
         onClose={onClose}
         value=""
@@ -132,16 +130,16 @@ describe('BatchModal Scenarios', () => {
               variables: {
                 subscriptionId: targetSubscription.id,
                 addressId: targetSubscription.addressId,
-                addressType: targetSubscription.shippingAddress
-                  ?.addressType as string,
+                addressType:
+                  targetSubscription.shippingAddress?.addressType ?? '',
               },
             }),
             generateUpdateAddressMock({
               variables: {
                 subscriptionId: targetSubscription2.id,
                 addressId: targetSubscription2.addressId,
-                addressType: targetSubscription2.shippingAddress
-                  ?.addressType as string,
+                addressType:
+                  targetSubscription2.shippingAddress?.addressType ?? '',
               },
               displayError: true,
             }),
