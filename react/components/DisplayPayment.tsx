@@ -52,7 +52,7 @@ const DisplayPayment: FunctionComponent<Props> = ({
     )}
     {lastExecutionStatus === 'PAYMENT_ERROR' && (
       <div className="mt4">
-        <Error>{intl.formatMessage(messages.paymentError)} </Error>
+        <Error>{intl.formatMessage(messages.paymentError)}</Error>
       </div>
     )}
   </Label>
