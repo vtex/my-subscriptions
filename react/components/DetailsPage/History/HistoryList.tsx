@@ -115,7 +115,7 @@ const enhance = compose<Props, OuterProps>(
         : {
             executions: [],
             totalCount: 0,
-            loading: false,
+            loading: true,
             fetchMore: () => null,
           },
   }),
