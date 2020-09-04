@@ -74,7 +74,7 @@ const EditPreferences: FunctionComponent<Props> = ({
 
   return (
     <Box title={intl.formatMessage(messages.title)}>
-      <Section borderTop>
+      <Section borderTop borderBottom>
         {errorMessage && (
           <div className="mb6">
             <Alert type="error" onClose={onDismissError}>
@@ -108,7 +108,7 @@ const EditPreferences: FunctionComponent<Props> = ({
           </div>
         )}
       </Section>
-      <Section>
+      <Section borderBottom>
         <PaymentsSection
           payments={payments}
           onChangePaymentAccount={onChangePaymentAccount}
@@ -117,7 +117,7 @@ const EditPreferences: FunctionComponent<Props> = ({
           onChangePaymentSystemGroup={onChangePaymentSystemGroup}
         />
       </Section>
-      <Section>
+      <Section borderBottom>
         <AddressesSection
           addresses={addresses}
           onChangeAddress={onChangeAddress}
@@ -176,6 +176,9 @@ const enhance = compose<Props, OuterProps>(
     `${INSTANCE}/EditPreferences`,
     QUERY,
     {
+      options: {
+        fetchPolicy: 'network-only',
+      },
       props: ({ data }) => ({
         loading: data ? data.loading : false,
         addresses: data?.addresses,

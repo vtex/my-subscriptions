@@ -76,6 +76,7 @@
   "store/subscription.history": "Cronologia",
   "store/subscription.execution.status.TRIGGERED": "Elaborazione in corso",
   "store/subscription.execution.status.IN_PROCESS": "Elaborazione in corso",
+  "store/subscription.execution.status.SCHEDULE_UPDATED": "Elaborazione in corso",
   "store/subscription.execution.status.FAILURE": "Si è verificato un problema durante la creazione del tuo ordine",
   "store/subscription.execution.status.ORDER_ERROR": "Si è verificato un problema durante la creazione del tuo ordine",
   "store/subscription.execution.status.SUCCESS": "Ordine creato correttamente",
@@ -128,5 +129,7 @@
   "store/display-address.deleted-error-message": "Il tuo indirizzo è stato rimosso, selezionane un altro.",
   "store/display-payment.label": "Metodo di pagamento",
   "store/display-payment.deleted-error-message": "Il tuo metodo di pagamento è stato rimosso, selezionane un altro.",
-  "store/display-payment.payment-error-message": "Il tuo metodo di pagamento sembra non funzionare."
+  "store/display-payment.payment-error-message": "Il tuo metodo di pagamento sembra non funzionare.",
+  "store/summary.title": "Sommario",
+  "store/summary.price-warning": "*Prezzi validi fino a {day}"
 }

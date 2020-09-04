@@ -1,17 +1,24 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Box } from 'vtex.styleguide'
 import { SkeletonPiece } from 'vtex.my-account-commons'
+
+import Box from '../../CustomBox'
+import Section from '../../CustomBox/Section'
 
 const PreferencesSkeleton: FunctionComponent = () => (
   <Box title={<FormattedMessage id="store/details-page.preferences.title" />}>
-    <SkeletonPiece width="50" size="4" />
-    <div className="mt7">
+    <Section borderTop borderBottom>
       <SkeletonPiece width="50" size="4" />
-    </div>
-    <div className="mt7">
+      <div className="mt6">
+        <SkeletonPiece width="50" size="4" />
+      </div>
+    </Section>
+    <Section borderBottom>
       <SkeletonPiece width="50" size="4" />
-    </div>
+    </Section>
+    <Section borderBottom>
+      <SkeletonPiece width="50" size="4" />
+    </Section>
   </Box>
 )
 

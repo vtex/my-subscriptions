@@ -76,6 +76,7 @@
   "store/subscription.history": "Histórico",
   "store/subscription.execution.status.TRIGGERED": "Em processamento",
   "store/subscription.execution.status.IN_PROCESS": "Em processamento",
+  "store/subscription.execution.status.SCHEDULE_UPDATED": "Em processamento",
   "store/subscription.execution.status.FAILURE": "Ocorreu um erro ao gerar o seu pedido",
   "store/subscription.execution.status.ORDER_ERROR": "Ocorreu um erro ao gerar o seu pedido",
   "store/subscription.execution.status.SUCCESS": "Pedido gerado com sucesso",
@@ -128,5 +129,7 @@
   "store/display-address.deleted-error-message": "Seu endereço foi removido, por favor selecione outro.",
   "store/display-payment.label": "Método de Pagamento",
   "store/display-payment.deleted-error-message": "Seu método de pagamento foi removido, por favor selecione outro.",
-  "store/display-payment.payment-error-message": "Seu método de pagamento parece não estar funcionando."
+  "store/display-payment.payment-error-message": "Seu método de pagamento parece não estar funcionando.",
+  "store/summary.title": "Sumário",
+  "store/summary.price-warning": "*Preços válidos para {day}"
 }

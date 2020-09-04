@@ -3,7 +3,6 @@ import { BaseLoading } from 'vtex.my-account-commons'
 import { injectIntl, WrappedComponentProps } from 'react-intl'
 
 import ShippingSkeleton from './Shipping/ShippingSkeleton'
-import HistorySkeleton from './History/HistorySkeleton'
 import DataSkeleton from './DataCard/DataSkeleton'
 import SummarySkeleton from './SummarySkeleton'
 import PaymentSkeleton from './Payment/PaymentSkeleton'
@@ -37,9 +36,6 @@ const SubscriptionDetailsLoader: FunctionComponent<Props> = ({
             >
               <PaymentSkeleton />
             </div>
-          </div>
-          <div className="pl4-ns pt6 w-50-ns">
-            <HistorySkeleton />
           </div>
         </div>
       </div>

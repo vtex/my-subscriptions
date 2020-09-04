@@ -74,6 +74,7 @@ const PaymentsSection: FunctionComponent<Props> = ({
                   placeholder={intl.formatMessage(messages.select)}
                   disabled={selectedPaymentSystemGroup !== 'creditCard'}
                   value={selectedPaymentAccountId}
+                  error={selectedPaymentAccountId === null}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     const selectedAccount = e.target.value
 

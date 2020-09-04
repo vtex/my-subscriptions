@@ -23,7 +23,7 @@ import DataCard from './DataCard'
 import Summary from './Summary'
 import Payment from './Payment'
 import Shipping from './Shipping'
-import History from './History'
+import History from '../DetailsPage/History'
 import Loader from './Loader'
 import Products from './Products'
 import { logError, logGraphqlError, queryWrapper } from '../../tracking'
@@ -169,7 +169,11 @@ class SubscriptionsDetailsContainer extends Component<Props> {
                 />
               </div>
               <div className="pt6 pl4-ns w-50-ns">
-                <History subscription={subscription} />
+                <History
+                  subscriptionId={subscription.id}
+                  isOpen={false}
+                  onClose={() => null}
+                />
               </div>
             </div>
             <div className="pt6">

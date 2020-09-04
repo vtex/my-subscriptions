@@ -18,7 +18,8 @@ const PageHeader: FunctionComponent<Props> = ({
   history,
   orderFormId,
   isSkipped,
-  onOpenModal,
+  onUpdateAction,
+  onOpenHistory,
 }) => {
   const Title = (
     <span className="normal">
@@ -45,9 +46,7 @@ const PageHeader: FunctionComponent<Props> = ({
           <ButtonWithIcon
             icon={<Icon />}
             variation="tertiary"
-            onClick={() =>
-              history.push(`/subscriptions/${subscriptionId}/history`)
-            }
+            onClick={() => onOpenHistory()}
           >
             <FormattedMessage id="store/details-page.page-header.history" />
           </ButtonWithIcon>
@@ -58,7 +57,7 @@ const PageHeader: FunctionComponent<Props> = ({
             orderFormId={orderFormId}
             status={status}
             isSkipped={isSkipped}
-            onOpenModal={onOpenModal}
+            onUpdateAction={onUpdateAction}
           />
         </div>
       </div>
@@ -72,7 +71,8 @@ type Props = {
   status: SubscriptionStatus
   isSkipped: boolean
   subscriptionId: string
-  onOpenModal: (action: SubscriptionAction) => void
+  onOpenHistory: () => void
+  onUpdateAction: (action: SubscriptionAction) => void
   skus: Array<{
     detailUrl: string
     name: string

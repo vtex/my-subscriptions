@@ -76,6 +76,7 @@
   "store/subscription.history": "Istoric",
   "store/subscription.execution.status.TRIGGERED": "Comandă plasată",
   "store/subscription.execution.status.IN_PROCESS": "În curs de procesare",
+  "store/subscription.execution.status.SCHEDULE_UPDATED": "În curs de procesare",
   "store/subscription.execution.status.FAILURE": "A apărut o eroare la plasarea comenzii",
   "store/subscription.execution.status.ORDER_ERROR": "A apărut o eroare la generarea comenzii",
   "store/subscription.execution.status.SUCCESS": "Comandă plasată cu success",
@@ -128,5 +129,7 @@
   "store/display-address.deleted-error-message": "Adresa dvs. a fost eliminată, vă rugăm să selectați alta.",
   "store/display-payment.label": "Modalitate de plată",
   "store/display-payment.deleted-error-message": "Metoda dvs. de plată a fost eliminată, selectați alta.",
-  "store/display-payment.payment-error-message": "Metoda dvs. de plată nu pare să funcționeze."
+  "store/display-payment.payment-error-message": "Metoda dvs. de plată nu pare să funcționeze.",
+  "store/summary.title": "Rezumat",
+  "store/summary.price-warning": "*Prețuri valabile până la {day}"
 }

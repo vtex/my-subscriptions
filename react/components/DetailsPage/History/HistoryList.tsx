@@ -11,7 +11,6 @@ import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
-import { Subscription } from '..'
 import { queryWrapper } from '../../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails/SubscriptionsOrdersList'
@@ -83,7 +82,7 @@ class HistoryList extends Component<Props> {
 }
 
 interface OuterProps {
-  subscription: Subscription
+  subscriptionId: string
   perPage: number
 }
 
@@ -98,9 +97,9 @@ type Props = OuterProps & ChildProps
 
 const enhance = compose<Props, OuterProps>(
   queryWrapper<OuterProps, Result, Args, ChildProps>(INSTANCE, QUERY, {
-    options: ({ subscription, perPage }) => ({
+    options: ({ subscriptionId, perPage }) => ({
       variables: {
-        subscriptionId: subscription.id,
+        subscriptionId,
         page: 1,
         perPage,
       },
@@ -116,7 +115,7 @@ const enhance = compose<Props, OuterProps>(
         : {
             executions: [],
             totalCount: 0,
-            loading: false,
+            loading: true,
             fetchMore: () => null,
           },
   }),

@@ -135,3 +135,13 @@ export function retrieveModalConfig({
 
   return modalConfigs
 }
+
+export function goToElement({
+  id,
+  option = 'center',
+}: {
+  id: string
+  option?: ScrollLogicalPosition
+}) {
+  document.getElementById(id)?.scrollIntoView({ block: option })
+}

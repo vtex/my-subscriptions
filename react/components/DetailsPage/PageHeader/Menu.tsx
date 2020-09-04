@@ -49,7 +49,7 @@ const Menu: FunctionComponent<Props> = ({
   intl,
   orderFormId,
   isSkipped,
-  onOpenModal,
+  onUpdateAction,
 }) => {
   if (status === 'CANCELED') return null
 
@@ -59,7 +59,7 @@ const Menu: FunctionComponent<Props> = ({
     label: intl.formatMessage({
       id: `store/subscription.manage.${option}`,
     }),
-    onClick: () => onOpenModal(option),
+    onClick: () => onUpdateAction(option),
   }))
 
   return (
@@ -74,7 +74,7 @@ type Props = {
   status: SubscriptionStatus
   orderFormId?: string
   isSkipped: boolean
-  onOpenModal: (action: SubscriptionAction) => void
+  onUpdateAction: (action: SubscriptionAction) => void
 } & WrappedComponentProps
 
 export default injectIntl(Menu)

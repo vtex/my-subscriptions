@@ -76,6 +76,7 @@
   "store/subscription.history": "History",
   "store/subscription.execution.status.TRIGGERED": "Processing",
   "store/subscription.execution.status.IN_PROCESS": "Processing",
+  "store/subscription.execution.status.SCHEDULE_UPDATED": "Processing",
   "store/subscription.execution.status.FAILURE": "A problem has occurred while generating your order",
   "store/subscription.execution.status.ORDER_ERROR": "A problem has occurred while generating your order",
   "store/subscription.execution.status.SUCCESS": "Order successfully generated",
@@ -128,5 +129,7 @@
   "store/display-address.deleted-error-message": "Your address was removed, please select another one.",
   "store/display-payment.label": "Payment Method",
   "store/display-payment.deleted-error-message": "Your payment method was removed, please select another one.",
-  "store/display-payment.payment-error-message": "Your payment method doesn't seem to be working."
+  "store/display-payment.payment-error-message": "Your payment method doesn't seem to be working.",
+  "store/summary.title": "Summary",
+  "store/summary.price-warning": "*Prices valid to {day}"
 }
