@@ -33,6 +33,7 @@ const AddressesSection: FunctionComponent<Props> = ({
       options={transformAddresses(addresses)}
       placeholder={intl.formatMessage(messages.select)}
       value={selectedAddressId}
+      error={selectedAddressId === null}
       onChange={(_: unknown, id: string) => {
         const address = addresses.find((item) => item.id === id)
 

@@ -18,7 +18,7 @@ const PageHeader: FunctionComponent<Props> = ({
   history,
   orderFormId,
   isSkipped,
-  onOpenModal,
+  onUpdateAction,
   onOpenHistory,
 }) => {
   const Title = (
@@ -57,7 +57,7 @@ const PageHeader: FunctionComponent<Props> = ({
             orderFormId={orderFormId}
             status={status}
             isSkipped={isSkipped}
-            onOpenModal={onOpenModal}
+            onUpdateAction={onUpdateAction}
           />
         </div>
       </div>
@@ -72,7 +72,7 @@ type Props = {
   isSkipped: boolean
   subscriptionId: string
   onOpenHistory: () => void
-  onOpenModal: (action: SubscriptionAction) => void
+  onUpdateAction: (action: SubscriptionAction) => void
   skus: Array<{
     detailUrl: string
     name: string

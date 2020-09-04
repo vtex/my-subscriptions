@@ -176,6 +176,9 @@ const enhance = compose<Props, OuterProps>(
     `${INSTANCE}/EditPreferences`,
     QUERY,
     {
+      options: {
+        fetchPolicy: 'network-only',
+      },
       props: ({ data }) => ({
         loading: data ? data.loading : false,
         addresses: data?.addresses,

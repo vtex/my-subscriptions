@@ -23,7 +23,7 @@ import UPDATE_IS_SKIPPED, {
 } from '../../graphql/mutations/updateIsSkipped.gql'
 import { logError, queryWrapper, logGraphqlError } from '../../tracking'
 import Header from './PageHeader'
-import { SubscriptionAction, retrieveModalConfig } from './utils'
+import { SubscriptionAction, retrieveModalConfig, goToElement } from './utils'
 import ConfirmationModal from '../ConfirmationModal'
 import ActionBar from './ActionBar'
 import Products from './Products'
@@ -33,6 +33,8 @@ import History from './History'
 import Skeleton from './Skeleton'
 
 export const INSTANCE = 'SubscriptionsDetails'
+const PREFERENCES_ID = 'vtex.subscription.preferences.div'
+const DETAILS_ID = 'vtex.subscription.details.div'
 
 const messages = defineMessages({
   errorMessage: {
@@ -44,8 +46,9 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
   public state = {
     isModalOpen: false,
     errorMessage: null,
-    updateType: null,
+    actionType: null,
     displayHistory: false,
+    isEditMode: false,
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -57,9 +60,16 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     })
   }
 
+  public componentDidMount() {
+    goToElement({ id: DETAILS_ID, option: 'start' })
+  }
+
   private handleOpenHistory = () => this.setState({ displayHistory: true })
 
   private handleCloseHistory = () => this.setState({ displayHistory: false })
+
+  private handleChangeEdit = (isEditMode: boolean) =>
+    this.setState({ isEditMode })
 
   private handleUpdateStatus = (status: SubscriptionStatus) => {
     const { updateStatus, subscription, runtime } = this.props
@@ -85,8 +95,14 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     })
   }
 
-  private handleOpenModal = (updateType: SubscriptionAction) =>
-    this.setState({ isModalOpen: true, updateType })
+  private handleUpdateAction = (action: SubscriptionAction) => {
+    if (action === 'changeAddress' || action === 'changePayment') {
+      this.setState({ isEditMode: true })
+      goToElement({ id: PREFERENCES_ID })
+    } else {
+      this.setState({ isModalOpen: true, actionType: action })
+    }
+  }
 
   private handleCloseModal = () => this.setState({ isModalOpen: false })
 
@@ -151,7 +167,13 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
   public render() {
     const { subscription, orderFormId, intl } = this.props
-    const { updateType, isModalOpen, errorMessage, displayHistory } = this.state
+    const {
+      actionType,
+      isModalOpen,
+      errorMessage,
+      displayHistory,
+      isEditMode,
+    } = this.state
 
     if (!subscription) return null
 
@@ -162,13 +184,13 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       updateSkip: this.handleUpdateSkipped,
       updateStatus: this.handleUpdateStatus,
       intl,
-      action: updateType,
+      action: actionType,
       isModalOpen,
       errorMessage,
     })
 
     return (
-      <>
+      <div id={DETAILS_ID}>
         <History
           subscriptionId={subscription.id}
           isOpen={displayHistory}
@@ -185,7 +207,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
             name: item.sku.name,
           }))}
           isSkipped={subscription.isSkipped}
-          onOpenModal={this.handleOpenModal}
+          onUpdateAction={this.handleUpdateAction}
           onOpenHistory={this.handleOpenHistory}
         />
         <div className="pa5 pa7-l flex flex-wrap">
@@ -195,7 +217,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               isSkipped={subscription.isSkipped}
               address={subscription.shippingAddress}
               payment={subscription.purchaseSettings.paymentMethod}
-              onOpenModal={this.handleOpenModal}
+              onUpdateAction={this.handleUpdateAction}
               nextPurchaseDate={subscription.nextPurchaseDate}
             />
             <Products
@@ -206,8 +228,11 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               currencyCode={subscription.purchaseSettings.currencyCode}
             />
           </div>
-          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l" id={PREFERENCES_ID}>
             <Preferences
+              isEditMode={isEditMode}
+              onChangeEdit={this.handleChangeEdit}
+              status={subscription.status}
               plan={subscription.plan}
               payment={subscription.purchaseSettings}
               currentPaymentAccountId={subscription.paymentAccountId ?? null}
@@ -222,7 +247,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
             />
           </div>
         </div>
-      </>
+      </div>
     )
   }
 }
@@ -235,7 +260,8 @@ type State = {
   isModalOpen: boolean
   displayHistory: boolean
   errorMessage: string | null
-  updateType: SubscriptionAction | null
+  actionType: SubscriptionAction | null
+  isEditMode: boolean
 }
 
 type Props = {
