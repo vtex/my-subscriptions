@@ -11,8 +11,7 @@ import QUERY, {
   Result,
   Subscription,
 } from '../../graphql/queries/subscriptions.gql'
-import { SubscriptionDisplayFilterEnum, CSS } from '../../constants'
-import { convertFilter } from '../../utils'
+import { SubscriptionDisplayFilter, CSS, convertFilter } from './utils'
 import { logError, logGraphqlError } from '../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
@@ -47,10 +46,11 @@ const messages = defineMessages({
 const INSTANCE = 'SubscriptionsList'
 
 class SubscriptionsListContainer extends Component<
-  Props & WrappedComponentProps
+  Props & WrappedComponentProps,
+  { filter: SubscriptionDisplayFilter }
 > {
   public state = {
-    filter: SubscriptionDisplayFilterEnum.Active,
+    filter: 'ACTIVE_FILTER' as SubscriptionDisplayFilter,
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -68,7 +68,7 @@ class SubscriptionsListContainer extends Component<
 
   private handleChangeFilter = (
     _: unknown,
-    filter: SubscriptionDisplayFilterEnum
+    filter: SubscriptionDisplayFilter
   ) => {
     this.setState({ filter })
   }
@@ -81,11 +81,11 @@ class SubscriptionsListContainer extends Component<
     const filterOptions = [
       {
         label: intl.formatMessage(messages.activeFilter),
-        value: SubscriptionDisplayFilterEnum.Active,
+        value: 'ACTIVE_FILTER',
       },
       {
         label: intl.formatMessage(messages.canceledFilter),
-        value: SubscriptionDisplayFilterEnum.Canceled,
+        value: 'CANCELED_FILTER',
       },
     ]
 

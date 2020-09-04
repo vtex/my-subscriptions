@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { SkeletonPiece } from 'vtex.my-account-commons'
 
-import { CSS } from '../../constants'
+import { CSS } from './utils'
 
 const SubscriptionsLoading: FunctionComponent = () => {
   return (

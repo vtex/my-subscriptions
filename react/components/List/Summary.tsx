@@ -4,7 +4,7 @@ import { Button } from 'vtex.styleguide'
 
 import Frequency from '../Frequency/Info'
 import Name from '../SubscriptionName'
-import Status from '../SubscriptionStatus'
+import Status from './SubscriptionStatus'
 import UpdateStatusButton from '../UpdateStatusButton'
 import ItemDate from './ItemDate'
 import { Subscription } from '.'

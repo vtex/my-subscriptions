@@ -4,7 +4,7 @@ import {
   Plan,
 } from 'vtex.subscriptions-graphql'
 
-import { Subscription } from '../graphql/queries/subscription.gql'
+import { Subscription } from '../graphql/queries/detailsPage.gql'
 
 function generateItems(itemsAmount: number): Subscription['items'] {
   const items = []
@@ -68,7 +68,6 @@ export function generateSubscription({
   const items = generateItems(numberOfItems)
 
   return {
-    __typename: 'Subscription',
     id: subscriptionId,
     cacheId: subscriptionId,
     status,
