@@ -76,6 +76,7 @@
   "store/subscription.history": "Cronologia",
   "store/subscription.execution.status.TRIGGERED": "Elaborazione in corso",
   "store/subscription.execution.status.IN_PROCESS": "Elaborazione in corso",
+  "store/subscription.execution.status.SCHEDULE_UPDATED": "Elaborazione in corso",
   "store/subscription.execution.status.FAILURE": "Si è verificato un problema durante la creazione del tuo ordine",
   "store/subscription.execution.status.ORDER_ERROR": "Si è verificato un problema durante la creazione del tuo ordine",
   "store/subscription.execution.status.SUCCESS": "Ordine creato correttamente",

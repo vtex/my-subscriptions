@@ -76,6 +76,7 @@
   "store/subscription.history": "History",
   "store/subscription.execution.status.TRIGGERED": "Processing",
   "store/subscription.execution.status.IN_PROCESS": "Processing",
+  "store/subscription.execution.status.SCHEDULE_UPDATED": "Processing",
   "store/subscription.execution.status.FAILURE": "A problem has occurred while generating your order",
   "store/subscription.execution.status.ORDER_ERROR": "A problem has occurred while generating your order",
   "store/subscription.execution.status.SUCCESS": "Order successfully generated",
