@@ -23,6 +23,7 @@
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/query-string": "5.x",
     "@types/react": "^16.8.22",
+    "@types/react-infinite-scroller": "^1.2.1",
     "@types/react-router-dom": "^4.3.1",
     "@types/recompose": "^0.30.3",
     "@vtex/styleguide": "^9.91.4",
