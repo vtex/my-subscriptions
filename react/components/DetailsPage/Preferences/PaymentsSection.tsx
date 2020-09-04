@@ -39,7 +39,7 @@ const PaymentsSection: FunctionComponent<Props> = ({
   const groupedPayments = groupPayments(payments)
 
   return (
-    <Label label={intl.formatMessage(messages.label)}>
+    <Label label={intl.formatMessage(messages.label)} labelDark>
       {Object.keys(groupedPayments).map((group) => (
         <div className="pb4" key={group}>
           <Radio
