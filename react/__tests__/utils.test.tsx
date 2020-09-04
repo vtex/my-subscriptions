@@ -1,18 +1,17 @@
-import { SubscriptionDisplayFilterEnum } from '../constants'
-import { convertFilter } from '../utils'
-import { convertStatusInTagType } from '../components/SubscriptionStatus'
+import { convertStatusInTagType } from '../components/List/SubscriptionStatus'
+import { convertFilter } from '../components/List/utils'
 
 describe('Utils test Scenarios', () => {
   it('should convert active filter', () => {
     const expectedResult = ['ACTIVE', 'PAUSED']
-    const result = convertFilter(SubscriptionDisplayFilterEnum.Active)
+    const result = convertFilter('ACTIVE_FILTER')
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))
     expect(result).toHaveLength(expectedResult.length)
   })
 
   it('should convert canceled filter', () => {
-    const result = convertFilter(SubscriptionDisplayFilterEnum.Canceled)
+    const result = convertFilter('CANCELED_FILTER')
     const expectedResult = ['CANCELED']
 
     expect(result).toEqual(expect.arrayContaining(expectedResult))

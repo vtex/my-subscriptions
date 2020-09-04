@@ -15,8 +15,9 @@ mutation AddItem($subscriptionId: ID!, $item: ItemInput!) {
         name
         detailUrl
         productName
-        variations
+        brandName
         measurementUnit
+        unitMultiplier
       }
       currentPrice
     }

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, Fragment } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { Periodicity } from 'vtex.subscriptions-graphql'
 
 import LabeledInfo from '../LabeledInfo'
@@ -37,7 +37,7 @@ const FrequencyInfo: FunctionComponent<Props> = ({
   return <Fragment>{frequencyText}</Fragment>
 }
 
-interface Props extends InjectedIntlProps {
+interface Props extends WrappedComponentProps {
   interval: number
   purchaseDay: string | null
   periodicity: Periodicity

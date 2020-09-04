@@ -18,8 +18,9 @@ mutation UpdateItemsOnSubscription(
         name
         detailUrl
         productName
-        variations
+        brandName
         measurementUnit
+        unitMultiplier
       }
       currentPrice
     }

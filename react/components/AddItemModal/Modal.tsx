@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { injectIntl, defineMessages, InjectedIntlProps } from 'react-intl'
+import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose } from 'recompose'
 import { Modal, InputSearch, Spinner, Alert } from 'vtex.styleguide'
 
@@ -118,7 +118,7 @@ const AddItemModal: FunctionComponent<Props> = ({
   )
 }
 
-type InnerProps = InjectedIntlProps
+type InnerProps = WrappedComponentProps
 
 interface OuterProps {
   isModalOpen: boolean
@@ -147,6 +147,7 @@ const enhance = compose<Props, OuterProps>(
     INSTANCE,
     SEARCH_QUERY,
     {
+      skip: ({ isModalOpen }) => !isModalOpen,
       props: ({ data }) => ({
         loading: data?.loading,
         items: data?.search,

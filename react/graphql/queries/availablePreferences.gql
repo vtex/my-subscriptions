@@ -1,0 +1,33 @@
+query AvailablePreferences($subscriptionId: ID!) {
+  frequencies: frequencyOptions(subscriptionId: $subscriptionId)
+    @context(provider: "vtex.subscriptions-graphql") {
+    periodicity
+    interval
+  }
+  payments: customerPaymentMethods
+    @context(provider: "vtex.subscriptions-graphql") {
+    paymentSystemId
+    paymentSystemName
+    paymentSystemGroup
+    paymentAccount {
+      id
+      cardNumber
+    }
+  }
+  addresses: customerAddresses
+    @context(provider: "vtex.subscriptions-graphql") {
+    id
+    street
+    number
+    complement
+    neighborhood
+    city
+    state
+    country
+    postalCode
+    reference
+    geoCoordinate
+    receiverName
+    addressType
+  }
+}

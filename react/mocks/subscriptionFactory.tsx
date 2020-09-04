@@ -4,7 +4,7 @@ import {
   Plan,
 } from 'vtex.subscriptions-graphql'
 
-import { Subscription } from '../graphql/queries/subscription.gql'
+import { Subscription } from '../graphql/queries/detailsPage.gql'
 
 function generateItems(itemsAmount: number): Subscription['items'] {
   const items = []
@@ -14,12 +14,14 @@ function generateItems(itemsAmount: number): Subscription['items'] {
       sku: {
         id: `1${i}`,
         name: 'Ração para peixe',
+        brandName: 'test',
         productName: 'Ração para peixe',
         imageUrl:
           'http://recorrenciaqa.vteximg.com.br/arquivos/ids/155392-55-55/AlconKOI.jpg?v=635918402228600000',
         detailUrl: '/racaoparapeixe/p',
         variations: null,
         measurementUnit: 'un',
+        unitMultiplier: 1,
       },
       quantity: 1,
       currentPrice: 100,
@@ -66,7 +68,6 @@ export function generateSubscription({
   const items = generateItems(numberOfItems)
 
   return {
-    __typename: 'Subscription',
     id: subscriptionId,
     cacheId: subscriptionId,
     status,

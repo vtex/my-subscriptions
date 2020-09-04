@@ -1,15 +1,22 @@
 import React, { FunctionComponent, ReactNode } from 'react'
 
-const LabeledInfo: FunctionComponent<Props> = ({ label, children }) => (
+const LabeledInfo: FunctionComponent<Props> = ({
+  label,
+  children,
+  labelDark = false,
+}) => (
   <>
-    <span className="b db f5-ns f6-s c-on-base">{label}</span>
-    <span className="db fw3 f5-ns f6-s c-on-base mt2">{children}</span>
+    <div className={`t-small ${labelDark ? 'c-on-base' : 'c-muted-1'} mb4`}>
+      {label}
+    </div>
+    <div className="t-body">{children}</div>
   </>
 )
 
 interface Props {
-  label: string
+  label: string | ReactNode
   children: ReactNode
+  labelDark?: boolean
 }
 
 export default LabeledInfo

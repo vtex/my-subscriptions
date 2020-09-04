@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
@@ -11,8 +11,7 @@ import QUERY, {
   Result,
   Subscription,
 } from '../../graphql/queries/subscriptions.gql'
-import { SubscriptionDisplayFilterEnum, CSS } from '../../constants'
-import { convertFilter } from '../../utils'
+import { SubscriptionDisplayFilter, CSS, convertFilter } from './utils'
 import { logError, logGraphqlError } from '../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
@@ -46,9 +45,12 @@ const messages = defineMessages({
 
 const INSTANCE = 'SubscriptionsList'
 
-class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
+class SubscriptionsListContainer extends Component<
+  Props & WrappedComponentProps,
+  { filter: SubscriptionDisplayFilter }
+> {
   public state = {
-    filter: SubscriptionDisplayFilterEnum.Active,
+    filter: 'ACTIVE_FILTER' as SubscriptionDisplayFilter,
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -66,7 +68,7 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
 
   private handleChangeFilter = (
     _: unknown,
-    filter: SubscriptionDisplayFilterEnum
+    filter: SubscriptionDisplayFilter
   ) => {
     this.setState({ filter })
   }
@@ -79,11 +81,11 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
     const filterOptions = [
       {
         label: intl.formatMessage(messages.activeFilter),
-        value: SubscriptionDisplayFilterEnum.Active,
+        value: 'ACTIVE_FILTER',
       },
       {
         label: intl.formatMessage(messages.canceledFilter),
-        value: SubscriptionDisplayFilterEnum.Canceled,
+        value: 'CANCELED_FILTER',
       },
     ]
 
@@ -126,18 +128,24 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
               }
               if (!data || isEmpty(data)) return <EmptyState />
 
-              return data.list.map((subscription) => (
-                <article
-                  className={CSS.subscriptionItemWrapper}
-                  key={subscription.id}
-                >
-                  <Images skus={subscription.items.map((item) => item.sku)} />
-                  <Summary
-                    subscription={subscription}
-                    onGoToDetails={this.handleGoToDetails}
-                  />
-                </article>
-              ))
+              return (
+                <>
+                  {data.list.map((subscription) => (
+                    <article
+                      className={CSS.subscriptionItemWrapper}
+                      key={subscription.id}
+                    >
+                      <Images
+                        skus={subscription.items.map((item) => item.sku)}
+                      />
+                      <Summary
+                        subscription={subscription}
+                        onGoToDetails={this.handleGoToDetails}
+                      />
+                    </article>
+                  ))}
+                </>
+              )
             }}
           </Query>
         )}
@@ -146,7 +154,9 @@ class SubscriptionsListContainer extends Component<Props & InjectedIntlProps> {
   }
 }
 
-type Props = InjectedIntlProps & InjectedRuntimeContext & RouteComponentProps
+type Props = WrappedComponentProps &
+  InjectedRuntimeContext &
+  RouteComponentProps
 
 const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
 

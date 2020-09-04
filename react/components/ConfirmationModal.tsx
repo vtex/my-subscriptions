@@ -2,7 +2,23 @@ import React, { Component } from 'react'
 import { ModalDialog, withToast, Alert } from 'vtex.styleguide'
 import { defineMessages } from 'react-intl'
 
-import { makeCancelable } from '../utils'
+function makeCancelable(promise: Promise<unknown>) {
+  let hasCanceled = false
+
+  const wrappedPromise = new Promise((resolve, reject) => {
+    promise.then(
+      (val) => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
+      (error) => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
+    )
+  })
+
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      hasCanceled = true
+    },
+  }
+}
 
 export const messages = defineMessages({
   confirmationLabel: {

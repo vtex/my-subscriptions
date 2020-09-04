@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
-import BatchModal from '../components/Details/BatchModal'
+import BatchModal from '../components/DetailsPage/BatchModal'
 import { generateSubscription } from '../mocks/subscriptionFactory'
 import { generateListByMock, generateUpdateAddressMock } from '../mocks'
 import { requestLoad } from '../utils/tests'
@@ -16,7 +16,11 @@ describe('BatchModal Scenarios', () => {
 
     const { queryByText } = render(
       <BatchModal
-        currentSubscription={targetSubscription}
+        currentSubscriptionId={targetSubscription.id}
+        currentValues={{
+          addressId: targetSubscription.shippingAddress?.id ?? '',
+          addressType: targetSubscription.shippingAddress?.addressType ?? '',
+        }}
         onClose={() => null}
         value=""
         option="ADDRESS"
@@ -57,7 +61,11 @@ describe('BatchModal Scenarios', () => {
 
     const { queryByText } = render(
       <BatchModal
-        currentSubscription={currentSubscription}
+        currentSubscriptionId={currentSubscription.id}
+        currentValues={{
+          addressId: currentSubscription.shippingAddress?.id ?? '',
+          addressType: currentSubscription.shippingAddress?.addressType ?? '',
+        }}
         onClose={onClose}
         value=""
         option="ADDRESS"
@@ -101,7 +109,12 @@ describe('BatchModal Scenarios', () => {
 
     const { queryByText } = render(
       <BatchModal
-        currentSubscription={currentSubscription}
+        currentSubscriptionId={currentSubscription.id}
+        currentValues={{
+          addressId: currentSubscription.shippingAddress?.id as string,
+          addressType: currentSubscription.shippingAddress
+            ?.addressType as string,
+        }}
         onClose={onClose}
         value=""
         option="ADDRESS"
@@ -117,16 +130,16 @@ describe('BatchModal Scenarios', () => {
               variables: {
                 subscriptionId: targetSubscription.id,
                 addressId: targetSubscription.addressId,
-                addressType: targetSubscription.shippingAddress
-                  ?.addressType as string,
+                addressType:
+                  targetSubscription.shippingAddress?.addressType ?? '',
               },
             }),
             generateUpdateAddressMock({
               variables: {
                 subscriptionId: targetSubscription2.id,
                 addressId: targetSubscription2.addressId,
-                addressType: targetSubscription2.shippingAddress
-                  ?.addressType as string,
+                addressType:
+                  targetSubscription2.shippingAddress?.addressType ?? '',
               },
               displayError: true,
             }),

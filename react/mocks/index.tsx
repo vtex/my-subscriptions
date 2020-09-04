@@ -1,6 +1,6 @@
 import DETAIL_QUERY, {
   Args as DetailArgs,
-} from '../graphql/queries/subscription.gql'
+} from '../graphql/queries/detailsPage.gql'
 import LIST_BY_QUERY, {
   Args as ListByArgs,
 } from '../graphql/queries/listBy.gql'

@@ -1,6 +1,0 @@
-mutation Retry($subscriptionId: ID!, $subscriptionExecutionId: ID!) {
-  retry(
-    subscriptionId: $subscriptionId
-    subscriptionExecutionId: $subscriptionExecutionId
-  ) @context(provider: "vtex.subscriptions-graphql")
-}

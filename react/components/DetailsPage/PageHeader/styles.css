@@ -1,0 +1,15 @@
+.statusDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  background: currentColor;
+}
+
+.statusDotBorder {
+  min-width: 14px;
+  min-height: 14px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border: 1px solid currentColor;
+}

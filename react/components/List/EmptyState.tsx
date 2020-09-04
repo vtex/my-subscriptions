@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { InjectedIntlProps, injectIntl, defineMessages } from 'react-intl'
+import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { EmptyState } from 'vtex.styleguide'
 
 const messages = defineMessages({
@@ -7,7 +7,7 @@ const messages = defineMessages({
   body: { id: 'store/subscription.notFound.text', defaultMessage: '' },
 })
 
-const EmptyStateSubscriptionsList: FunctionComponent<InjectedIntlProps> = ({
+const EmptyStateSubscriptionsList: FunctionComponent<WrappedComponentProps> = ({
   intl,
 }) => {
   return (
