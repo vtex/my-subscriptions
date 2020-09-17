@@ -9,11 +9,34 @@ import { OnAddItemArgs } from '../AddItemModal'
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state = {
     products: [],
-    isProductModalOpen: false,
     currentPlan: null,
   }
 
-  private handleAddItem = (args: OnAddItemArgs) => args
+  private handleAddItem = ({
+    onError,
+    onFinish,
+    plans,
+    ...productArgs
+  }: OnAddItemArgs) =>
+    this.setState(({ products, currentPlan }) => {
+      const product: Product = {
+        ...productArgs,
+      }
+
+      products.push(product)
+
+      onFinish()
+
+      return currentPlan
+        ? {
+            products,
+            currentPlan,
+          }
+        : {
+            products,
+            currentPlan: plans[0],
+          }
+    })
 
   public render() {
     const { history } = this.props
@@ -58,7 +81,7 @@ export type Product = {
   skuId: string
   name: string
   price: number
-  unitMultiplier: string
+  unitMultiplier: number
   measurementUnit: string
   brand: string
   imageUrl: string

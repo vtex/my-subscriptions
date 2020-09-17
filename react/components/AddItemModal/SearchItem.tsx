@@ -60,7 +60,20 @@ const SearchItem: FunctionComponent<Props> = ({
         subscribedSkus={subscribedSkus}
         buttonType="plain"
         isLoading={loading}
-        onClick={() => onAddItem({ skuId: id, quantity, setLoading })}
+        onClick={() =>
+          onAddItem({
+            skuId: id,
+            plans: availablePlans,
+            quantity,
+            setLoading,
+            measurementUnit,
+            unitMultiplier,
+            brand,
+            name,
+            price,
+            imageUrl,
+          })
+        }
       >
         <FormattedMessage id="store/add-item-modal.subscribe" />
       </Button>
