@@ -45,7 +45,7 @@ class ProductListItem extends PureComponent<Props> {
             <FormattedNumber
               currency={currency}
               style="currency"
-              value={(price * quantity) / 100}
+              value={price * quantity}
             />
           </span>
         )}

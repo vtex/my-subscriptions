@@ -6,11 +6,52 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import Products from './Products'
 import { OnAddItemArgs } from '../AddItemModal'
 
+function findIndex(products: Product[], skuId: string) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].skuId === skuId) {
+      return i
+    }
+  }
+
+  return -1
+}
+
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state = {
     products: [],
     currentPlan: null,
   }
+
+  private handleRemoveItem = (skuId: string) =>
+    this.setState(({ products, currentPlan }) => {
+      const index = findIndex(products, skuId)
+
+      if (index >= 0) products.splice(index)
+
+      return {
+        products,
+        currentPlan: products.length === 0 ? null : currentPlan,
+      }
+    })
+
+  private handleUpdateQuantity = ({
+    skuId,
+    quantity,
+  }: {
+    skuId: string
+    quantity: number
+  }) =>
+    this.setState(({ products }) => {
+      const index = findIndex(products, skuId)
+
+      if (index >= 0) {
+        products[index].quantity = quantity
+      }
+
+      return {
+        products,
+      }
+    })
 
   private handleAddItem = ({
     onError,
@@ -19,11 +60,9 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     ...productArgs
   }: OnAddItemArgs) =>
     this.setState(({ products, currentPlan }) => {
-      const product: Product = {
+      products.push({
         ...productArgs,
-      }
-
-      products.push(product)
+      })
 
       onFinish()
 
@@ -66,6 +105,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
             <Products
               products={products}
               onAddItem={this.handleAddItem}
+              onRemoveItem={this.handleRemoveItem}
+              onUpdateQuantity={this.handleUpdateQuantity}
               currentPlan={currentPlan}
               currency=""
             />

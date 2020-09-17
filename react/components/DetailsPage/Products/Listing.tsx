@@ -66,7 +66,7 @@ const ProductsListing: FunctionComponent<Props> = ({
           measurementUnit={product.sku.measurementUnit}
           unitMultiplier={product.sku.unitMultiplier}
           brandName={product.sku.brandName}
-          price={product.currentPrice}
+          price={product.currentPrice ? product.currentPrice / 100 : null}
           currency={currency}
           canRemove={canRemove}
           onChange={(quantity: number) =>
