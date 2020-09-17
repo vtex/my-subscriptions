@@ -43,7 +43,7 @@ const ProductsListing: FunctionComponent<Props> = ({
       </div>
     }
   >
-    {status === 'ACTIVE' && (
+    {status === 'ACTIVE' && !isEditing && (
       <div className="mb7">
         <AddItemModal
           targetPlan={currentPlan}
