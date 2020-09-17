@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import { FormattedNumber } from 'react-intl'
 import { IconDelete } from 'vtex.styleguide'
 
-import QuantitySelector from '../../QuantitySelector'
-import Thumbnail from '../../SkuThumbnail'
+import QuantitySelector from './QuantitySelector'
+import Thumbnail from './SkuThumbnail'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class ProductListItem extends PureComponent<Props> {

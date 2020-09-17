@@ -5,7 +5,7 @@ import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import EditButton from '../../EditButton'
 import EditionButtons from '../EditionButtons'
-import ProductListItem from './ProductListItem'
+import ProductListItem from '../../ProductListItem'
 import { Item } from '../../../graphql/queries/detailsPage.gql'
 import AddItemModal, { OnAddItemArgs } from '../../AddItemModal'
 
