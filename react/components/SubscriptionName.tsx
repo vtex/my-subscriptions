@@ -139,6 +139,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
               value={this.state.name}
               onChange={this.handleChangeName}
               disabled={this.state.isLoading}
+              maxLength="50"
             />
           </div>
         </ConfirmationModal>
