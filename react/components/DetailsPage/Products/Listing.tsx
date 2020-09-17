@@ -26,7 +26,7 @@ const ProductsListing: FunctionComponent<Props> = ({
 }) => (
   <Box
     title={
-      <div className="flex flex-wrap justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center min-h-small">
         <FormattedMessage id="store/subscription.products.card.title" />
         {!isEditing && status === 'ACTIVE' && (
           <EditButton onClick={onGoToEdition} withBackground />
@@ -44,7 +44,7 @@ const ProductsListing: FunctionComponent<Props> = ({
     }
   >
     {status === 'ACTIVE' && (
-      <div className="mb5">
+      <div className="mb7">
         <AddItemModal
           targetPlan={currentPlan}
           currency={currency}
@@ -53,8 +53,11 @@ const ProductsListing: FunctionComponent<Props> = ({
         />
       </div>
     )}
-    {products.map((product) => (
-      <div className="mb5" key={product.sku.id}>
+    {products.map((product, i) => (
+      <div
+        className={i !== products.length - 1 ? 'mb8' : ''}
+        key={product.sku.id}
+      >
         <ProductListItem
           isEditing={isEditing}
           name={product.sku.productName}
