@@ -51,7 +51,13 @@ class AddItemContainer extends Component<Props> {
   private handleDismissError = () => this.setState({ displayError: false })
 
   public render() {
-    const { intl, currency, targetPlan, subscribedSkus } = this.props
+    const {
+      intl,
+      currency,
+      targetPlan,
+      subscribedSkus,
+      shouldDisplayModal,
+    } = this.props
     const { isModalOpen, searchInput, searchTerm, displayError } = this.state
 
     return (
@@ -59,7 +65,7 @@ class AddItemContainer extends Component<Props> {
         <Modal
           targetPlan={targetPlan}
           subscribedSkus={subscribedSkus}
-          isModalOpen={isModalOpen}
+          isModalOpen={shouldDisplayModal ? true : isModalOpen}
           searchInput={searchInput}
           searchTerm={searchTerm}
           currency={currency}
@@ -97,9 +103,10 @@ export interface OnAddItemArgs {
 
 interface OuterProps {
   currency: string
-  targetPlan: string
+  targetPlan: string | null
   subscribedSkus: string[]
   onAddItem: (args: OnAddItemArgs) => void
+  shouldDisplayModal?: boolean
 }
 
 type Props = WrappedComponentProps & OuterProps

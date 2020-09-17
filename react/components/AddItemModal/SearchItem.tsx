@@ -80,7 +80,7 @@ interface Props {
   onAddItem: (args: AddItemArgs) => void
   subscribedSkus: string[]
   availablePlans: string[]
-  targetPlan: string
+  targetPlan: string | null
 }
 
 export default SearchItem
