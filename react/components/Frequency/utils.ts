@@ -1,16 +1,20 @@
-import { WrappedComponentProps } from 'react-intl'
-import { Periodicity } from 'vtex.subscriptions-graphql'
+import { WrappedComponentProps, defineMessages, IntlShape } from 'react-intl'
+import { Periodicity, Frequency } from 'vtex.subscriptions-graphql'
 import { translations } from 'vtex.subscriptions-commons'
 import { WeekDay } from 'vtex.subscriptions-commons/react/utils/frequency'
 
-export function displayWeekDay({
+const messages = defineMessages({
+  selectDay: { id: 'store/subscription.select.day' },
+})
+
+function displayWeekDay({
   intl,
   weekDay,
 }: { weekDay: WeekDay } & WrappedComponentProps) {
   return translations.translateWeekDay({ intl, day: weekDay })
 }
 
-export function displayPeriodicity({
+function displayPeriodicity({
   intl,
   periodicity,
   interval,
@@ -47,7 +51,7 @@ export function displayFrequency({
   return frequencyText
 }
 
-export const WEEK_OPTIONS: WeekDay[] = [
+const WEEK_OPTIONS: WeekDay[] = [
   'Monday',
   'Tuesday',
   'Wednesday',
@@ -57,7 +61,7 @@ export const WEEK_OPTIONS: WeekDay[] = [
   'Sunday',
 ]
 
-export const MONTH_OPTIONS = [
+const MONTH_OPTIONS = [
   '1',
   '2',
   '3',
@@ -87,3 +91,49 @@ export const MONTH_OPTIONS = [
   '27',
   '28',
 ]
+
+export function frequencyIndex({ interval, periodicity }: Frequency) {
+  return `${interval},${periodicity}`
+}
+
+export function extractFrequency(currentFrequency: string): Frequency {
+  const [interval, periodicity] = currentFrequency.split(',')
+
+  return {
+    interval: parseInt(interval, 10),
+    periodicity: periodicity as Frequency['periodicity'],
+  }
+}
+
+export function getIntervalOptions({
+  periodicity,
+  intl,
+}: {
+  periodicity: Periodicity
+  intl: IntlShape
+}) {
+  if (periodicity === 'WEEKLY') {
+    return WEEK_OPTIONS.map((weekDay) => ({
+      value: weekDay,
+      label: displayWeekDay({ weekDay, intl }),
+    }))
+  }
+
+  return MONTH_OPTIONS.map((dayOfMonth) => ({
+    value: dayOfMonth,
+    label: intl.formatMessage(messages.selectDay, { day: dayOfMonth }),
+  }))
+}
+
+export function getFrequencyOptions({
+  intl,
+  frequencies = [],
+}: {
+  intl: IntlShape
+  frequencies: Frequency[] | undefined
+}) {
+  return frequencies.map((frequency) => ({
+    value: frequencyIndex(frequency),
+    label: displayPeriodicity({ intl, ...frequency }),
+  }))
+}
