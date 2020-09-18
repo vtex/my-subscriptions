@@ -5,11 +5,15 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 import Products from './Products'
 import { OnAddItemArgs } from '../AddItemModal'
+import Box from '../CustomBox'
+import Section from '../CustomBox/Section'
+import NameSection from './NameSection'
 
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state = {
     products: [],
     currentPlan: null,
+    name: null,
   }
 
   private handleRemoveItem = (skuId: string) =>
@@ -67,9 +71,12 @@ class SubscriptionCreationContainer extends Component<Props, State> {
           }
     })
 
+  private handleChangeName = (name: string) =>
+    this.setState({ name: name === '' ? null : name })
+
   public render() {
     const { history } = this.props
-    const { products, currentPlan } = this.state
+    const { products, currentPlan, name } = this.state
 
     return (
       <>
@@ -92,6 +99,17 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         />
         <div className="pa5 pa7-l flex flex-wrap">
           <div className="w-100 w-60-l">
+            <div className="mb6">
+              <Box>
+                <Section borderBottom>
+                  <NameSection
+                    products={products}
+                    name={name}
+                    onChangeName={this.handleChangeName}
+                  />
+                </Section>
+              </Box>
+            </div>
             <Products
               products={products}
               onAddItem={this.handleAddItem}
@@ -122,6 +140,7 @@ export type Product = {
 type State = {
   products: Product[]
   currentPlan: string | null
+  name: string | null
 }
 
 type Props = RouteComponentProps

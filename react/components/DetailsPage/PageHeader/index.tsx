@@ -25,7 +25,7 @@ const PageHeader: FunctionComponent<Props> = ({
     <span className="normal">
       <Name
         name={name}
-        status={status}
+        canEdit={status === 'ACTIVE'}
         subscriptionId={subscriptionId}
         skus={skus}
         withIconBackground
