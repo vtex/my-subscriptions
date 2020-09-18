@@ -6,16 +6,6 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import Products from './Products'
 import { OnAddItemArgs } from '../AddItemModal'
 
-function findIndex(products: Product[], skuId: string) {
-  for (let i = 0; i < products.length; i++) {
-    if (products[i].skuId === skuId) {
-      return i
-    }
-  }
-
-  return -1
-}
-
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state = {
     products: [],
@@ -24,7 +14,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
 
   private handleRemoveItem = (skuId: string) =>
     this.setState(({ products, currentPlan }) => {
-      const index = findIndex(products, skuId)
+      const index = products.findIndex((product) => product.skuId === skuId)
 
       if (index >= 0) products.splice(index, 1)
 
@@ -42,7 +32,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     quantity: number
   }) =>
     this.setState(({ products }) => {
-      const index = findIndex(products, skuId)
+      const index = products.findIndex((product) => product.skuId === skuId)
 
       if (index >= 0) {
         products[index].quantity = quantity
