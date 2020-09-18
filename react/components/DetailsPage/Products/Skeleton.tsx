@@ -13,7 +13,7 @@ const ProductsSkeleton = () => (
         <SkeletonPiece width="50" size="4" />
       </div>
     </div>
-    <div className="w-100 pt6 flex">
+    <div className="w-100 pt8 flex">
       <div style={{ height: '100px', width: '100px' }}>
         <SkeletonPiece />
       </div>

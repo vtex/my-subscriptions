@@ -77,21 +77,21 @@ const AddItemModal: FunctionComponent<Props> = ({
         value={searchInput}
       />
       {displayError && (
-        <div className="mt7">
+        <div className="mt8">
           <Alert type="error" onClose={onDismissError}>
             {intl.formatMessage(messages.errorMessage)}
           </Alert>
         </div>
       )}
       <div
-        className={`mt7 ${
+        className={`mt8 ${
           state !== 'results' ? 'flex items-center justify-center' : ''
         }`}
         style={{ minHeight: '450px' }}
       >
         {state === 'results' ? (
           items?.map((item) => (
-            <div key={item.skuId} className="mb6">
+            <div key={item.skuId} className="mb8">
               <Item
                 id={item.skuId}
                 name={item.name}

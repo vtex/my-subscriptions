@@ -67,8 +67,8 @@ const PaymentsSection: FunctionComponent<Props> = ({
             value={group}
           />
           {group === 'creditCard' && (
-            <div className="flex items-center ml5">
-              <div className="mr2">
+            <div className="ml5">
+              <div className="mr2 mb3">
                 <Dropdown
                   options={creditCardOptions(groupedPayments.creditCard, intl)}
                   placeholder={intl.formatMessage(messages.select)}
