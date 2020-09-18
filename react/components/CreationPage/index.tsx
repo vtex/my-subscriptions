@@ -78,6 +78,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     const { history } = this.props
     const { products, currentPlan, name } = this.state
 
+    const hasProducts = products.length > 0
+
     return (
       <>
         <Header
@@ -99,17 +101,19 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         />
         <div className="pa5 pa7-l flex flex-wrap">
           <div className="w-100 w-60-l">
-            <div className="mb6">
-              <Box>
-                <Section borderBottom>
-                  <NameSection
-                    products={products}
-                    name={name}
-                    onChangeName={this.handleChangeName}
-                  />
-                </Section>
-              </Box>
-            </div>
+            {hasProducts && (
+              <div className="mb6">
+                <Box>
+                  <Section borderBottom>
+                    <NameSection
+                      products={products}
+                      name={name}
+                      onChangeName={this.handleChangeName}
+                    />
+                  </Section>
+                </Box>
+              </div>
+            )}
             <Products
               products={products}
               onAddItem={this.handleAddItem}

@@ -26,7 +26,6 @@ const Products: FunctionComponent<Props> = ({
       <AddItemModal
         targetPlan={currentPlan}
         currency={currency}
-        shouldDisplayModal={!currentPlan}
         subscribedSkus={products.map((product) => product.skuId)}
         onAddItem={onAddItem}
       />
