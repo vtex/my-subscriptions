@@ -131,7 +131,7 @@ interface OuterProps {
   displayError: boolean
   onDismissError: () => void
   subscribedSkus: string[]
-  targetPlan: string
+  targetPlan: string | null
 }
 
 interface MappedProps {

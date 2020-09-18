@@ -1,24 +1,21 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Route } from 'vtex.my-account-commons/Router'
 
-import SubscriptionsListContainer from './components/List'
-import SubscriptionDetailContainer from './components/DetailsPage'
+import ListPage from './components/List'
+import DetailsPage from './components/DetailsPage'
+import CreationPage from './components/CreationPage'
 import { withAppInfo } from './tracking'
 
 const ExtensionRouter = () => (
-  <Fragment>
-    <Route
-      exact
-      path="/subscriptions"
-      component={SubscriptionsListContainer}
-      allowSAC
-    />
+  <>
+    <Route exact path="/subscriptions" component={ListPage} />
+    <Route exact path="/subscriptions-new" component={CreationPage} />
     <Route
       exact
       path="/subscriptions/:subscriptionId"
-      component={SubscriptionDetailContainer}
+      component={DetailsPage}
     />
-  </Fragment>
+  </>
 )
 
 export default withAppInfo(ExtensionRouter)

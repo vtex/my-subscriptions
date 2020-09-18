@@ -4,7 +4,6 @@ query SearchSubscribableProducts($searchTerm: String!) {
     skuId
     name
     imageUrl
-    variations
     price
     unitMultiplier
     measurementUnit

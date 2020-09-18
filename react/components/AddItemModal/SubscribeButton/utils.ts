@@ -18,10 +18,12 @@ export function subscribable({
   targetPlan,
   availablePlans,
 }: {
-  targetPlan: string
+  targetPlan: string | null
   availablePlans: string[]
 }) {
-  return contains({ list: availablePlans, value: targetPlan })
+  return targetPlan
+    ? contains({ list: availablePlans, value: targetPlan })
+    : true
 }
 
 export function subscribed({

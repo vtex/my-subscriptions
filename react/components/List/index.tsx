@@ -4,7 +4,7 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { ContentWrapper } from 'vtex.my-account-commons'
-import { Dropdown } from 'vtex.styleguide'
+import { Dropdown, Button } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import QUERY, {
@@ -74,7 +74,7 @@ class SubscriptionsListContainer extends Component<
   }
 
   public render() {
-    const { intl } = this.props
+    const { intl, history } = this.props
     const { filter } = this.state
 
     const filterLabel = intl.formatMessage(messages.filterLabel)
@@ -90,14 +90,22 @@ class SubscriptionsListContainer extends Component<
     ]
 
     const headerContent = (
-      <div className="w5">
-        <Dropdown
-          label={filterLabel}
-          size="large"
-          options={filterOptions}
-          value={filter}
-          onChange={this.handleChangeFilter}
-        />
+      <div>
+        <Button size="small" onClick={() => history.push('/subscriptions-new')}>
+          {intl.formatMessage({
+            id: 'store/list-page.title',
+            defaultMessage: 'New subscription',
+          })}
+        </Button>
+        <div className="w-100 mt6">
+          <Dropdown
+            label={filterLabel}
+            size="large"
+            options={filterOptions}
+            value={filter}
+            onChange={this.handleChangeFilter}
+          />
+        </div>
       </div>
     )
 
