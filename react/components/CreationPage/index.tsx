@@ -26,7 +26,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     this.setState(({ products, currentPlan }) => {
       const index = findIndex(products, skuId)
 
-      if (index >= 0) products.splice(index)
+      if (index >= 0) products.splice(index, 1)
 
       return {
         products,

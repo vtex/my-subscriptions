@@ -64,7 +64,7 @@ class AddItemContainer extends Component<Props> {
         <Modal
           targetPlan={targetPlan}
           subscribedSkus={subscribedSkus}
-          isModalOpen={shouldDisplayModal ? true : isModalOpen}
+          isModalOpen={Boolean(shouldDisplayModal) || isModalOpen}
           searchInput={searchInput}
           searchTerm={searchTerm}
           currency={currency}
