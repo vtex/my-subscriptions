@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
-import { Plan, PaymentSystemGroup, Frequency } from 'vtex.subscriptions-graphql'
-import { Dropdown, Alert } from 'vtex.styleguide'
+import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
@@ -12,13 +12,9 @@ import QUERY, {
   Args,
 } from '../../../graphql/queries/availablePreferences.gql'
 import { INSTANCE } from '..'
+import FrequencySelector from '../../Frequency/Selector'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
-import {
-  getIntervalOptions,
-  getFrequencyOptions,
-  extractFrequency,
-} from './utils'
 import PaymentsSection from './PaymentsSection'
 import AddressesSection from './AddressesSection'
 
@@ -26,27 +22,7 @@ const messages = defineMessages({
   title: {
     id: 'store/details-page.preferences.title',
   },
-  orderAgain: { id: 'store/subscription.data.orderAgain' },
-  chargeEvery: {
-    id: 'store/subscription.data.chargeEvery',
-  },
-  select: { id: 'store/subscription.select' },
 })
-
-function contains(
-  frequencies: Result['frequencies'],
-  currentFrequency: Frequency
-) {
-  return frequencies.some((frequency) => {
-    if (
-      frequency.periodicity !== currentFrequency.periodicity ||
-      frequency.interval !== currentFrequency.interval
-    )
-      return false
-
-    return true
-  })
-}
 
 const EditPreferences: FunctionComponent<Props> = ({
   intl,
@@ -68,72 +44,49 @@ const EditPreferences: FunctionComponent<Props> = ({
   addresses = [],
   onChangeAddress,
   selectedAddressId,
-}) => {
-  const currentFrequency = extractFrequency(selectedFrequency)
-  const hasFrequency = contains(frequencies, currentFrequency)
-
-  return (
-    <Box title={intl.formatMessage(messages.title)}>
-      <Section borderTop borderBottom>
-        {errorMessage && (
-          <div className="mb6">
-            <Alert type="error" onClose={onDismissError}>
-              {errorMessage}
-            </Alert>
-          </div>
-        )}
-        <Dropdown
-          label={intl.formatMessage(messages.orderAgain)}
-          placeholder={intl.formatMessage(messages.select)}
-          options={getFrequencyOptions({ intl, frequencies })}
-          value={hasFrequency ? selectedFrequency : null}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            onChangeFrequency(e.target.value)
-          }
-        />
-        {currentFrequency.periodicity !== 'DAILY' && (
-          <div className="pt6">
-            <Dropdown
-              label={intl.formatMessage(messages.chargeEvery)}
-              placeholder={intl.formatMessage(messages.select)}
-              options={getIntervalOptions({
-                intl,
-                periodicity: currentFrequency.periodicity,
-              })}
-              value={selectedPurchaseDay}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                onChangePurchaseDay(e.target.value)
-              }
-            />
-          </div>
-        )}
-      </Section>
-      <Section borderBottom>
-        <PaymentsSection
-          payments={payments}
-          onChangePaymentAccount={onChangePaymentAccount}
-          selectedPaymentAccountId={selectedPaymentAccountId}
-          selectedPaymentSystemGroup={selectedPaymentSystemGroup}
-          onChangePaymentSystemGroup={onChangePaymentSystemGroup}
-        />
-      </Section>
-      <Section borderBottom>
-        <AddressesSection
-          addresses={addresses}
-          onChangeAddress={onChangeAddress}
-          selectedAddressId={selectedAddressId}
-        />
-      </Section>
-      <div className="w-100 ph7 pt7 flex justify-end">
-        <EditionButtons
-          isLoading={isLoading}
-          onCancel={onCancel}
-          onSave={onSave}
-        />
-      </div>
-    </Box>
-  )
-}
+}) => (
+  <Box title={intl.formatMessage(messages.title)}>
+    <Section borderTop borderBottom>
+      {errorMessage && (
+        <div className="mb6">
+          <Alert type="error" onClose={onDismissError}>
+            {errorMessage}
+          </Alert>
+        </div>
+      )}
+      <FrequencySelector
+        availableFrequencies={frequencies}
+        onChangeFrequency={onChangeFrequency}
+        onChangePurchaseDay={onChangePurchaseDay}
+        selectedFrequency={selectedFrequency}
+        selectedPurchaseDay={selectedPurchaseDay}
+      />
+    </Section>
+    <Section borderBottom>
+      <PaymentsSection
+        payments={payments}
+        onChangePaymentAccount={onChangePaymentAccount}
+        selectedPaymentAccountId={selectedPaymentAccountId}
+        selectedPaymentSystemGroup={selectedPaymentSystemGroup}
+        onChangePaymentSystemGroup={onChangePaymentSystemGroup}
+      />
+    </Section>
+    <Section borderBottom>
+      <AddressesSection
+        addresses={addresses}
+        onChangeAddress={onChangeAddress}
+        selectedAddressId={selectedAddressId}
+      />
+    </Section>
+    <div className="w-100 ph7 pt7 flex justify-end">
+      <EditionButtons
+        isLoading={isLoading}
+        onCancel={onCancel}
+        onSave={onSave}
+      />
+    </div>
+  </Box>
+)
 
 type OuterProps = {
   subscriptionId: string
