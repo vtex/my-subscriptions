@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { FormattedMessage } from 'react-intl'
+import { PaymentSystemGroup, Total } from 'vtex.subscriptions-graphql'
 
 import FREQUENCY_QUERY, {
   Result,
@@ -8,6 +9,7 @@ import FREQUENCY_QUERY, {
 import { queryWrapper } from '../../../tracking'
 import { INSTANCE } from '..'
 import Box from '../../CustomBox'
+import Title from '../../CustomBox/Title'
 import Section from '../../CustomBox/Section'
 import Skeleton from './Skeleton'
 import Payment from '../../DisplayPayment'
@@ -15,6 +17,8 @@ import Address from '../../DisplayAddress'
 import AddressSelector from '../../Selector/Address'
 import PaymentSelector from '../../Selector/Payment'
 import EditButton from '../../EditButton'
+import Content from '../../Summary/Content'
+import Footer from '../../Summary/Footer'
 
 class SummarySection extends Component<Props, State> {
   constructor(props: Props) {
@@ -86,9 +90,9 @@ class SummarySection extends Component<Props, State> {
     return addresses.find((address) => address.id === selectedAddressId)
   }
 
-  public handleEditAddres = () => this.setState({ isEditingAddress: true })
+  private handleEditAddress = () => this.setState({ isEditingAddress: true })
 
-  public handleEditPayment = () => this.setState({ isEditingPayment: true })
+  private handleEditPayment = () => this.setState({ isEditingPayment: true })
 
   public render() {
     const {
@@ -100,14 +104,17 @@ class SummarySection extends Component<Props, State> {
       onChangePaymentSystemGroup,
       selectedPaymentAccountId,
       selectedPaymentSystemGroup,
+      totals,
+      currencyCode,
     } = this.props
     const { isEditingAddress, isEditingPayment } = this.state
 
     const payment = this.getSelectedPayment()
     const address = this.getSelectedAddress()
+    const displaySummary = totals.length > 0
 
     return (
-      <Box>
+      <Box footer={displaySummary && <Footer />}>
         <Section borderBottom>
           {!isEditingPayment && payment ? (
             <div className="flex justify-between">
@@ -135,7 +142,7 @@ class SummarySection extends Component<Props, State> {
                 <Address address={address} />
               </div>
               <span>
-                <EditButton onClick={this.handleEditAddres} withBackground />
+                <EditButton onClick={this.handleEditAddress} withBackground />
               </span>
             </div>
           ) : (
@@ -146,6 +153,18 @@ class SummarySection extends Component<Props, State> {
             />
           )}
         </Section>
+        {displaySummary && (
+          <>
+            <div className="pt7">
+              <Title>
+                <FormattedMessage id="store/summary.title" />
+              </Title>
+            </div>
+            <Section>
+              <Content totals={totals} currencyCode={currencyCode} />
+            </Section>
+          </>
+        )}
       </Box>
     )
   }
@@ -170,6 +189,8 @@ type OuterProps = {
   }) => void
   selectedAddressId: string | null
   onChangeAddress: (args: { addressId: string; addressType: string }) => void
+  totals: Total[]
+  currencyCode: string
 }
 
 type InnerProps = ChildProps

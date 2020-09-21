@@ -199,6 +199,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               selectedPaymentSystemGroup={selectedPaymentSystemGroup}
               onChangePaymentAccount={this.handleChangePaymentAccount}
               onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
+              totals={[]}
+              currencyCode=""
             />
           </div>
         </div>
