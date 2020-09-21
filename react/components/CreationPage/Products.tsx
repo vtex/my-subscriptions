@@ -2,9 +2,9 @@ import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Box } from 'vtex.styleguide'
 
-import { Product } from '..'
-import AddItemModal, { OnAddItemArgs } from '../../AddItemModal'
-import ProductListItem from '../../ProductListItem'
+import { Product } from '.'
+import AddItemModal, { OnAddItemArgs } from '../AddItemModal'
+import ProductListItem from '../ProductListItem'
 
 const Products: FunctionComponent<Props> = ({
   currentPlan,
@@ -26,7 +26,6 @@ const Products: FunctionComponent<Props> = ({
       <AddItemModal
         targetPlan={currentPlan}
         currency={currency}
-        shouldDisplayModal={!currentPlan}
         subscribedSkus={products.map((product) => product.skuId)}
         onAddItem={onAddItem}
       />
