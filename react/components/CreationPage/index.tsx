@@ -8,12 +8,17 @@ import { OnAddItemArgs } from '../AddItemModal'
 import Box from '../CustomBox'
 import Section from '../CustomBox/Section'
 import NameSection from './NameSection'
+import FrequencySection from './FrequencySection'
+
+export const INSTANCE = 'NewSubscription'
 
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state = {
     products: [],
     currentPlan: null,
     name: null,
+    selectedFrequency: '',
+    selectedPurchaseDay: '',
   }
 
   private handleRemoveItem = (skuId: string) =>
@@ -74,11 +79,21 @@ class SubscriptionCreationContainer extends Component<Props, State> {
   private handleChangeName = (name: string) =>
     this.setState({ name: name === '' ? null : name })
 
+  private handleChangeFrequency = (selectedFrequency: string) =>
+    this.setState({ selectedFrequency })
+
+  private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
+    this.setState({ selectedPurchaseDay })
+
   public render() {
     const { history } = this.props
-    const { products, currentPlan, name } = this.state
-
-    const hasProducts = products.length > 0
+    const {
+      products,
+      currentPlan,
+      name,
+      selectedFrequency,
+      selectedPurchaseDay,
+    } = this.state
 
     return (
       <>
@@ -101,7 +116,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         />
         <div className="pa5 pa7-l flex flex-wrap">
           <div className="w-100 w-60-l">
-            {hasProducts && (
+            {currentPlan && (
               <div className="mb6">
                 <Box>
                   <Section borderBottom>
@@ -109,6 +124,15 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                       products={products}
                       name={name}
                       onChangeName={this.handleChangeName}
+                    />
+                  </Section>
+                  <Section>
+                    <FrequencySection
+                      planId={(currentPlan as unknown) as string}
+                      selectedFrequency={selectedFrequency}
+                      selectedPurchaseDay={selectedPurchaseDay}
+                      onChangeFrequency={this.handleChangeFrequency}
+                      onChangePurchaseDay={this.handleChangePurchaseDay}
                     />
                   </Section>
                 </Box>
@@ -145,6 +169,8 @@ type State = {
   products: Product[]
   currentPlan: string | null
   name: string | null
+  selectedPurchaseDay: string
+  selectedFrequency: string
 }
 
 type Props = RouteComponentProps
