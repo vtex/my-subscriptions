@@ -12,6 +12,9 @@ import Section from '../../CustomBox/Section'
 import Skeleton from './Skeleton'
 import Payment from '../../DisplayPayment'
 import Address from '../../DisplayAddress'
+import AddressSelector from '../../Selector/Address'
+import PaymentSelector from '../../Selector/Payment'
+import EditButton from '../../EditButton'
 
 class SummarySection extends Component<Props, State> {
   constructor(props: Props) {
@@ -83,7 +86,21 @@ class SummarySection extends Component<Props, State> {
     return addresses.find((address) => address.id === selectedAddressId)
   }
 
+  public handleEditAddres = () => this.setState({ isEditingAddress: true })
+
+  public handleEditPayment = () => this.setState({ isEditingPayment: true })
+
   public render() {
+    const {
+      addresses,
+      onChangeAddress,
+      selectedAddressId,
+      payments,
+      onChangePaymentAccount,
+      onChangePaymentSystemGroup,
+      selectedPaymentAccountId,
+      selectedPaymentSystemGroup,
+    } = this.props
     const { isEditingAddress, isEditingPayment } = this.state
 
     const payment = this.getSelectedPayment()
@@ -92,10 +109,42 @@ class SummarySection extends Component<Props, State> {
     return (
       <Box>
         <Section borderBottom>
-          {!isEditingPayment && payment && <Payment paymentMethod={payment} />}
+          {!isEditingPayment && payment ? (
+            <div className="flex justify-between">
+              <div>
+                <Payment paymentMethod={payment} />
+              </div>
+              <span>
+                <EditButton onClick={this.handleEditPayment} withBackground />
+              </span>
+            </div>
+          ) : (
+            <PaymentSelector
+              payments={payments}
+              onChangePaymentAccount={onChangePaymentAccount}
+              onChangePaymentSystemGroup={onChangePaymentSystemGroup}
+              selectedPaymentAccountId={selectedPaymentAccountId}
+              selectedPaymentSystemGroup={selectedPaymentSystemGroup}
+            />
+          )}
         </Section>
         <Section borderBottom>
-          {!isEditingAddress && address && <Address address={address} />}
+          {!isEditingAddress && address ? (
+            <div className="flex justify-between">
+              <div>
+                <Address address={address} />
+              </div>
+              <span>
+                <EditButton onClick={this.handleEditAddres} withBackground />
+              </span>
+            </div>
+          ) : (
+            <AddressSelector
+              addresses={addresses}
+              onChangeAddress={onChangeAddress}
+              selectedAddressId={selectedAddressId}
+            />
+          )}
         </Section>
       </Box>
     )

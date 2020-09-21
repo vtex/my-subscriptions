@@ -15,8 +15,8 @@ import { INSTANCE } from '..'
 import FrequencySelector from '../../Frequency/Selector'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
-import PaymentsSection from './PaymentsSection'
-import AddressesSection from './AddressesSection'
+import PaymentSelector from '../../Selector/Payment'
+import AddressSelector from '../../Selector/Address'
 
 const messages = defineMessages({
   title: {
@@ -63,7 +63,7 @@ const EditPreferences: FunctionComponent<Props> = ({
       />
     </Section>
     <Section borderBottom>
-      <PaymentsSection
+      <PaymentSelector
         payments={payments}
         onChangePaymentAccount={onChangePaymentAccount}
         selectedPaymentAccountId={selectedPaymentAccountId}
@@ -72,7 +72,7 @@ const EditPreferences: FunctionComponent<Props> = ({
       />
     </Section>
     <Section borderBottom>
-      <AddressesSection
+      <AddressSelector
         addresses={addresses}
         onChangeAddress={onChangeAddress}
         selectedAddressId={selectedAddressId}

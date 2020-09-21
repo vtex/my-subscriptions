@@ -3,17 +3,16 @@ import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { Radio, Dropdown, Button } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
-import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { PaymentSystemGroup, PaymentMethod } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 
-import { Result } from '../../../graphql/queries/availablePreferences.gql'
 import {
   groupPayments,
   creditCardOptions,
   getCreditCard,
   goToNReturn,
 } from './utils'
-import Label from '../../LabeledInfo'
+import Label from '../LabeledInfo'
 
 const messages = defineMessages({
   select: {
@@ -27,7 +26,7 @@ const messages = defineMessages({
   },
 })
 
-const PaymentsSection: FunctionComponent<Props> = ({
+const PaymentSelector: FunctionComponent<Props> = ({
   payments,
   intl,
   selectedPaymentSystemGroup,
@@ -108,7 +107,7 @@ const PaymentsSection: FunctionComponent<Props> = ({
 type InnerProps = WrappedComponentProps & RouteComponentProps
 
 type OuterProps = {
-  payments: Result['payments']
+  payments: PaymentMethod[]
   selectedPaymentSystemGroup: PaymentSystemGroup | null
   selectedPaymentAccountId: string | null
   onChangePaymentAccount: (args: {
@@ -125,4 +124,4 @@ type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(withRouter, injectIntl)
 
-export default enhance(PaymentsSection)
+export default enhance(PaymentSelector)
