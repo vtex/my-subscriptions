@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { PageHeader as Header } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 
 import Products from './Products'
 import { OnAddItemArgs } from '../AddItemModal'
@@ -9,16 +10,21 @@ import Box from '../CustomBox'
 import Section from '../CustomBox/Section'
 import NameSection from './NameSection'
 import FrequencySection from './FrequencySection'
+import SummarySection from './SummarySection'
 
 export const INSTANCE = 'NewSubscription'
 
 class SubscriptionCreationContainer extends Component<Props, State> {
-  public state = {
+  public state: State = {
     products: [],
     currentPlan: null,
     name: null,
     selectedFrequency: '',
     selectedPurchaseDay: '',
+    selectedAddress: null,
+    selectedPaymentSystemGroup: null,
+    selectedPaymentSystemId: null,
+    selectedPaymentAccountId: null,
   }
 
   private handleRemoveItem = (skuId: string) =>
@@ -85,6 +91,41 @@ class SubscriptionCreationContainer extends Component<Props, State> {
   private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
     this.setState({ selectedPurchaseDay })
 
+  private handleChangeAddress = ({
+    addressId,
+    addressType,
+  }: {
+    addressId: string
+    addressType: string
+  }) =>
+    this.setState({
+      selectedAddress: { id: addressId, type: addressType },
+    })
+
+  private handleChangePaymentSystemGroup = ({
+    group,
+    paymentSystemId,
+  }: {
+    group: PaymentSystemGroup
+    paymentSystemId?: string
+  }) =>
+    this.setState({
+      selectedPaymentSystemGroup: group,
+      selectedPaymentSystemId: paymentSystemId ?? null,
+    })
+
+  private handleChangePaymentAccount = ({
+    paymentAccountId,
+    paymentSystemId,
+  }: {
+    paymentAccountId: string
+    paymentSystemId: string
+  }) =>
+    this.setState({
+      selectedPaymentSystemId: paymentSystemId,
+      selectedPaymentAccountId: paymentAccountId,
+    })
+
   public render() {
     const { history } = this.props
     const {
@@ -93,6 +134,9 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       name,
       selectedFrequency,
       selectedPurchaseDay,
+      selectedAddress,
+      selectedPaymentAccountId,
+      selectedPaymentSystemGroup,
     } = this.state
 
     return (
@@ -147,7 +191,16 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               currency=""
             />
           </div>
-          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l" />
+          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+            <SummarySection
+              selectedAddressId={selectedAddress?.id ?? null}
+              onChangeAddress={this.handleChangeAddress}
+              selectedPaymentAccountId={selectedPaymentAccountId}
+              selectedPaymentSystemGroup={selectedPaymentSystemGroup}
+              onChangePaymentAccount={this.handleChangePaymentAccount}
+              onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
+            />
+          </div>
         </div>
       </>
     )
@@ -171,6 +224,10 @@ type State = {
   name: string | null
   selectedPurchaseDay: string
   selectedFrequency: string
+  selectedPaymentSystemGroup: PaymentSystemGroup | null
+  selectedPaymentSystemId: string | null
+  selectedPaymentAccountId: string | null
+  selectedAddress: { id: string; type: string } | null
 }
 
 type Props = RouteComponentProps
