@@ -118,12 +118,8 @@ class SummarySection extends Component<Props, State> {
         <Section borderBottom>
           {!isEditingPayment && payment ? (
             <div className="flex justify-between">
-              <div>
-                <Payment paymentMethod={payment} />
-              </div>
-              <span>
-                <EditButton onClick={this.handleEditPayment} withBackground />
-              </span>
+              <Payment paymentMethod={payment} />
+              <EditButton onClick={this.handleEditPayment} withBackground />
             </div>
           ) : (
             <PaymentSelector
@@ -138,12 +134,8 @@ class SummarySection extends Component<Props, State> {
         <Section borderBottom>
           {!isEditingAddress && address ? (
             <div className="flex justify-between">
-              <div>
-                <Address address={address} />
-              </div>
-              <span>
-                <EditButton onClick={this.handleEditAddress} withBackground />
-              </span>
+              <Address address={address} />
+              <EditButton onClick={this.handleEditAddress} withBackground />
             </div>
           ) : (
             <AddressSelector
