@@ -3,8 +3,7 @@ import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
-import { ContentWrapper } from 'vtex.my-account-commons'
-import { Dropdown, Button } from 'vtex.styleguide'
+import { Dropdown, Button, PageHeader as Header } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import QUERY, {
@@ -89,6 +88,9 @@ class SubscriptionsListContainer extends Component<
       },
     ]
 
+    const resultFilter = convertFilter(filter)
+    const variables = { filter: resultFilter }
+
     const headerContent = (
       <Button onClick={() => history.push('/subscriptions-new')}>
         {intl.formatMessage({
@@ -98,66 +100,80 @@ class SubscriptionsListContainer extends Component<
       </Button>
     )
 
-    const headerConfig = {
-      headerContent,
-      namespace: 'vtex-account__subscriptions-list',
-      titleId: messages.title.id,
-    }
-
-    const resultFilter = convertFilter(filter)
-    const variables = { filter: resultFilter }
-
     return (
-      <ContentWrapper {...headerConfig}>
-        {() => (
-          <>
-            <div className="w5 mb7">
-              <Dropdown
-                label={filterLabel}
-                size="large"
-                options={filterOptions}
-                value={filter}
-                onChange={this.handleChangeFilter}
-              />
-            </div>
-            <Query<Result> query={QUERY} variables={variables}>
-              {({ error, loading, refetch, data }) => {
-                if (loading) return <Loading />
-                if (error) {
-                  logGraphqlError({
-                    error,
-                    variables,
-                    type: 'QueryError',
-                    instance: INSTANCE,
-                    runtime: this.props.runtime,
-                  })
-                  return <ErrorState refetch={refetch} />
-                }
-                if (!data || isEmpty(data)) return <EmptyState />
+      <>
+        <div className="db dn-l">
+          <Header
+            title={
+              <span className="normal">
+                {intl.formatMessage(messages.title)}
+              </span>
+            }
+            linkLabel=" "
+            onLinkClick={() => history.push('/')}
+          >
+            {headerContent}
+          </Header>
+        </div>
+        <div className="db-l dn">
+          <Header
+            title={
+              <span className="normal">
+                {intl.formatMessage(messages.title)}
+              </span>
+            }
+          >
+            {headerContent}
+          </Header>
+        </div>
 
-                return (
-                  <>
-                    {data.list.map((subscription) => (
-                      <article
-                        className={CSS.subscriptionItemWrapper}
-                        key={subscription.id}
-                      >
-                        <Images
-                          skus={subscription.items.map((item) => item.sku)}
-                        />
-                        <Summary
-                          subscription={subscription}
-                          onGoToDetails={this.handleGoToDetails}
-                        />
-                      </article>
-                    ))}
-                  </>
-                )
-              }}
-            </Query>
-          </>
-        )}
-      </ContentWrapper>
+        <div className="pa5 pa7-l">
+          <div className="w5 mb7">
+            <Dropdown
+              label={filterLabel}
+              size="large"
+              options={filterOptions}
+              value={filter}
+              onChange={this.handleChangeFilter}
+            />
+          </div>
+          <Query<Result> query={QUERY} variables={variables}>
+            {({ error, loading, refetch, data }) => {
+              if (loading) return <Loading />
+              if (error) {
+                logGraphqlError({
+                  error,
+                  variables,
+                  type: 'QueryError',
+                  instance: INSTANCE,
+                  runtime: this.props.runtime,
+                })
+                return <ErrorState refetch={refetch} />
+              }
+              if (!data || isEmpty(data)) return <EmptyState />
+
+              return (
+                <>
+                  {data.list.map((subscription) => (
+                    <article
+                      className={CSS.subscriptionItemWrapper}
+                      key={subscription.id}
+                    >
+                      <Images
+                        skus={subscription.items.map((item) => item.sku)}
+                      />
+                      <Summary
+                        subscription={subscription}
+                        onGoToDetails={this.handleGoToDetails}
+                      />
+                    </article>
+                  ))}
+                </>
+              )
+            }}
+          </Query>
+        </div>
+      </>
     )
   }
 }
