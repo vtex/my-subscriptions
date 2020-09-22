@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { compose } from 'recompose'
-import { PageHeader as Header } from 'vtex.styleguide'
+import { PageHeader as Header, Button } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
@@ -27,6 +27,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     selectedPaymentSystemGroup: null,
     selectedPaymentSystemId: null,
     selectedPaymentAccountId: null,
+    isLoading: false,
   }
 
   private handleRemoveItem = (skuId: string) =>
@@ -128,6 +129,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       selectedPaymentAccountId: paymentAccountId,
     })
 
+  private handleSave = () => null
+
   public render() {
     const { history, runtime } = this.props
     const {
@@ -139,6 +142,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       selectedAddress,
       selectedPaymentAccountId,
       selectedPaymentSystemGroup,
+      isLoading,
     } = this.state
 
     return (
@@ -160,7 +164,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
           }
           onLinkClick={() => history.push('/subscriptions')}
         />
-        <div className="pa5 pa7-l flex flex-wrap">
+        <form className="pa5 pa7-l flex flex-wrap" onSubmit={this.handleSave}>
           <div className="w-100 w-60-l">
             {currentPlan && (
               <div className="mb6">
@@ -204,8 +208,22 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               totals={[]}
               currencyCode={runtime.culture.currency}
             />
+            <div className="mt7">
+              <Button
+                type="submit"
+                onClick={this.handleSave}
+                isLoading={isLoading}
+                disabled={products.length === 0}
+                block
+              >
+                <FormattedMessage
+                  id="store/creation-page.create-subscription-button"
+                  defaultMessage="Subscribe"
+                />
+              </Button>
+            </div>
           </div>
-        </div>
+        </form>
       </>
     )
   }
@@ -232,6 +250,7 @@ type State = {
   selectedPaymentSystemId: string | null
   selectedPaymentAccountId: string | null
   selectedAddress: { id: string; type: string } | null
+  isLoading: boolean
 }
 
 type Props = RouteComponentProps & InjectedRuntimeContext
