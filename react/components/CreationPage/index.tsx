@@ -150,18 +150,10 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         <Header
           title={
             <span className="normal">
-              <FormattedMessage
-                id="store/creation-page.title"
-                defaultMessage="New subscription"
-              />
+              <FormattedMessage id="store/creation-page.title" />
             </span>
           }
-          linkLabel={
-            <FormattedMessage
-              id="store/creation-page.back-button"
-              defaultMessage="All subscriptions"
-            />
-          }
+          linkLabel={<FormattedMessage id="store/creation-page.back-button" />}
           onLinkClick={() => history.push('/subscriptions')}
         />
         <form className="pa5 pa7-l flex flex-wrap" onSubmit={this.handleSave}>
@@ -216,10 +208,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                 disabled={products.length === 0}
                 block
               >
-                <FormattedMessage
-                  id="store/creation-page.create-subscription-button"
-                  defaultMessage="Subscribe"
-                />
+                <FormattedMessage id="store/creation-page.create-subscription-button" />
               </Button>
             </div>
           </div>

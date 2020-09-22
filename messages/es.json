@@ -109,5 +109,12 @@
   "store/display-payment.deleted-error-message": "Su método de pago fue eliminado, seleccione otro.",
   "store/display-payment.payment-error-message": "Tu método de pago no parece funcionar.",
   "store/summary.title": "Resumen",
-  "store/summary.price-warning": "*Precios válidos hasta {day}"
+  "store/summary.price-warning": "*Precios válidos hasta {day}",
+  "store/list-page.back": "Regreso",
+  "store/list-page.create-subscriptions": "Suscripción nueva",
+  "store/creation-page.title": "Suscripción nueva",
+  "store/creation-page.back-button": "Todas las suscripciones",
+  "store/creation-page.create-subscription-button": "Suscribir",
+  "store/creation-page.products-card.title": "Productos",
+  "store/creation-page.name-section.label": "Dale un nombre a tu suscripción"
 }

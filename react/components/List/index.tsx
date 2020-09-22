@@ -27,18 +27,21 @@ function isEmpty(data: Result) {
 }
 
 const messages = defineMessages({
-  filterLabel: { id: 'store/subscription.list.display', defaultMessage: '' },
+  filterLabel: { id: 'store/subscription.list.display' },
   activeFilter: {
     id: 'store/subscription.list.display.active_filter',
-    defaultMessage: '',
   },
   canceledFilter: {
     id: 'store/subscription.list.display.canceled_filter',
-    defaultMessage: '',
   },
   title: {
     id: 'store/subscription.title.list',
-    defaultMessage: '',
+  },
+  createButton: {
+    id: 'store/list-page.create-subscriptions',
+  },
+  back: {
+    id: 'store/list-page.back',
   },
 })
 
@@ -93,10 +96,7 @@ class SubscriptionsListContainer extends Component<
 
     const headerContent = (
       <Button onClick={() => history.push('/subscriptions-new')}>
-        {intl.formatMessage({
-          id: 'store/list-page.title',
-          defaultMessage: 'New subscription',
-        })}
+        {intl.formatMessage(messages.createButton)}
       </Button>
     )
 
@@ -109,7 +109,7 @@ class SubscriptionsListContainer extends Component<
                 {intl.formatMessage(messages.title)}
               </span>
             }
-            linkLabel=" "
+            linkLabel={intl.formatMessage(messages.back)}
             onLinkClick={() => history.push('/')}
           >
             {headerContent}
@@ -126,7 +126,6 @@ class SubscriptionsListContainer extends Component<
             {headerContent}
           </Header>
         </div>
-
         <div className="pa5 pa7-l">
           <div className="w5 mb7">
             <Dropdown

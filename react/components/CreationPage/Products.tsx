@@ -15,12 +15,7 @@ const Products: FunctionComponent<Props> = ({
   onUpdateQuantity,
 }) => (
   <Box
-    title={
-      <FormattedMessage
-        id="store/creation-page.products-card.title"
-        defaultMessage="Products"
-      />
-    }
+    title={<FormattedMessage id="store/creation-page.products-card.title" />}
   >
     <div className="mb7">
       <AddItemModal

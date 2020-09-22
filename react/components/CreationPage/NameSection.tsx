@@ -11,12 +11,7 @@ const NameSection: FunctionComponent<Props> = ({
   products,
 }) => (
   <Label
-    label={
-      <FormattedMessage
-        id="store/creation-page.name-section.label"
-        defaultMessage="Give a name to your subscription"
-      />
-    }
+    label={<FormattedMessage id="store/creation-page.name-section.label" />}
   >
     <span className="t-heading-4">
       <SubscriptionName
