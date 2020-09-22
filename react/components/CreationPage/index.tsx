@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { compose } from 'recompose'
 import { PageHeader as Header } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import Products from './Products'
 import { OnAddItemArgs } from '../AddItemModal'
@@ -127,7 +129,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     })
 
   public render() {
-    const { history } = this.props
+    const { history, runtime } = this.props
     const {
       products,
       currentPlan,
@@ -188,7 +190,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               onRemoveItem={this.handleRemoveItem}
               onUpdateQuantity={this.handleUpdateQuantity}
               currentPlan={currentPlan}
-              currency=""
+              currencyCode={runtime.culture.currency}
             />
           </div>
           <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
@@ -200,7 +202,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               onChangePaymentAccount={this.handleChangePaymentAccount}
               onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
               totals={[]}
-              currencyCode=""
+              currencyCode={runtime.culture.currency}
             />
           </div>
         </div>
@@ -232,6 +234,8 @@ type State = {
   selectedAddress: { id: string; type: string } | null
 }
 
-type Props = RouteComponentProps
+type Props = RouteComponentProps & InjectedRuntimeContext
 
-export default withRouter(SubscriptionCreationContainer)
+const enhance = compose<Props, {}>(withRouter, withRuntimeContext)
+
+export default enhance(SubscriptionCreationContainer)

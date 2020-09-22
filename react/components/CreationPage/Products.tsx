@@ -8,7 +8,7 @@ import ProductListItem from '../ProductListItem'
 
 const Products: FunctionComponent<Props> = ({
   currentPlan,
-  currency,
+  currencyCode,
   products,
   onAddItem,
   onRemoveItem,
@@ -25,7 +25,7 @@ const Products: FunctionComponent<Props> = ({
     <div className="mb7">
       <AddItemModal
         targetPlan={currentPlan}
-        currency={currency}
+        currency={currencyCode}
         subscribedSkus={products.map((product) => product.skuId)}
         onAddItem={onAddItem}
       />
@@ -45,7 +45,7 @@ const Products: FunctionComponent<Props> = ({
           unitMultiplier={product.unitMultiplier}
           brandName={product.brand}
           price={product.price}
-          currency={currency}
+          currency={currencyCode}
           onChange={(quantity: number) =>
             onUpdateQuantity({ skuId: product.skuId, quantity })
           }
@@ -62,7 +62,7 @@ type Props = {
   onRemoveItem: (skuId: string) => void
   onUpdateQuantity: (args: { skuId: string; quantity: number }) => void
   currentPlan: string | null
-  currency: string
+  currencyCode: string
 }
 
 export default Products
