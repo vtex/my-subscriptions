@@ -90,23 +90,12 @@ class SubscriptionsListContainer extends Component<
     ]
 
     const headerContent = (
-      <div>
-        <Button size="small" onClick={() => history.push('/subscriptions-new')}>
-          {intl.formatMessage({
-            id: 'store/list-page.title',
-            defaultMessage: 'New subscription',
-          })}
-        </Button>
-        <div className="w-100 mt6">
-          <Dropdown
-            label={filterLabel}
-            size="large"
-            options={filterOptions}
-            value={filter}
-            onChange={this.handleChangeFilter}
-          />
-        </div>
-      </div>
+      <Button onClick={() => history.push('/subscriptions-new')}>
+        {intl.formatMessage({
+          id: 'store/list-page.title',
+          defaultMessage: 'New subscription',
+        })}
+      </Button>
     )
 
     const headerConfig = {
@@ -121,41 +110,52 @@ class SubscriptionsListContainer extends Component<
     return (
       <ContentWrapper {...headerConfig}>
         {() => (
-          <Query<Result> query={QUERY} variables={variables}>
-            {({ error, loading, refetch, data }) => {
-              if (loading) return <Loading />
-              if (error) {
-                logGraphqlError({
-                  error,
-                  variables,
-                  type: 'QueryError',
-                  instance: INSTANCE,
-                  runtime: this.props.runtime,
-                })
-                return <ErrorState refetch={refetch} />
-              }
-              if (!data || isEmpty(data)) return <EmptyState />
+          <>
+            <div className="w5 mb7">
+              <Dropdown
+                label={filterLabel}
+                size="large"
+                options={filterOptions}
+                value={filter}
+                onChange={this.handleChangeFilter}
+              />
+            </div>
+            <Query<Result> query={QUERY} variables={variables}>
+              {({ error, loading, refetch, data }) => {
+                if (loading) return <Loading />
+                if (error) {
+                  logGraphqlError({
+                    error,
+                    variables,
+                    type: 'QueryError',
+                    instance: INSTANCE,
+                    runtime: this.props.runtime,
+                  })
+                  return <ErrorState refetch={refetch} />
+                }
+                if (!data || isEmpty(data)) return <EmptyState />
 
-              return (
-                <>
-                  {data.list.map((subscription) => (
-                    <article
-                      className={CSS.subscriptionItemWrapper}
-                      key={subscription.id}
-                    >
-                      <Images
-                        skus={subscription.items.map((item) => item.sku)}
-                      />
-                      <Summary
-                        subscription={subscription}
-                        onGoToDetails={this.handleGoToDetails}
-                      />
-                    </article>
-                  ))}
-                </>
-              )
-            }}
-          </Query>
+                return (
+                  <>
+                    {data.list.map((subscription) => (
+                      <article
+                        className={CSS.subscriptionItemWrapper}
+                        key={subscription.id}
+                      >
+                        <Images
+                          skus={subscription.items.map((item) => item.sku)}
+                        />
+                        <Summary
+                          subscription={subscription}
+                          onGoToDetails={this.handleGoToDetails}
+                        />
+                      </article>
+                    ))}
+                  </>
+                )
+              }}
+            </Query>
+          </>
         )}
       </ContentWrapper>
     )
