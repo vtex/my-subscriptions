@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ChangeEvent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
@@ -56,12 +56,8 @@ const EditPreferences: FunctionComponent<Props> = ({
       )}
       <FrequencySelector
         availableFrequencies={frequencies}
-        onChangeFrequency={(e: ChangeEvent<HTMLSelectElement>) =>
-          onChangeFrequency(e.target.value)
-        }
-        onChangePurchaseDay={(e: ChangeEvent<HTMLSelectElement>) =>
-          onChangePurchaseDay(e.target.value)
-        }
+        onChangeFrequency={onChangeFrequency}
+        onChangePurchaseDay={onChangePurchaseDay}
         selectedFrequency={selectedFrequency}
         selectedPurchaseDay={selectedPurchaseDay}
       />

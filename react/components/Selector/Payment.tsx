@@ -33,6 +33,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
   selectedPaymentAccountId,
   onChangePaymentSystemGroup,
   onChangePaymentAccount,
+  onBlurPaymentAccount,
   history,
 }) => {
   const groupedPayments = groupPayments(payments)
@@ -74,6 +75,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
                   disabled={selectedPaymentSystemGroup !== 'creditCard'}
                   value={selectedPaymentAccountId}
                   error={selectedPaymentAccountId === null}
+                  onBlur={onBlurPaymentAccount}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     const selectedAccount = e.target.value
 
@@ -114,6 +116,7 @@ type OuterProps = {
     paymentSystemId: string
     paymentAccountId: string
   }) => void
+  onBlurPaymentAccount?: (e: FocusEvent) => void
   onChangePaymentSystemGroup: (args: {
     group: PaymentSystemGroup
     paymentSystemId?: string

@@ -23,12 +23,14 @@ const messages = defineMessages({
 const AddressSelector: FunctionComponent<Props> = ({
   addresses,
   onChangeAddress,
+  onBlur,
   selectedAddressId,
   history,
   intl,
 }) => (
   <>
     <Dropdown
+      name="address"
       label={intl.formatMessage(messages.label)}
       options={transformAddresses(addresses)}
       placeholder={intl.formatMessage(messages.select)}
@@ -44,6 +46,7 @@ const AddressSelector: FunctionComponent<Props> = ({
           addressType: address.addressType as string,
         })
       }}
+      onBlur={onBlur}
     />
     <div className="mt3">
       <Button
@@ -61,6 +64,7 @@ type OuterProps = {
   addresses: Address[]
   selectedAddressId: string | null
   onChangeAddress: (args: { addressId: string; addressType: string }) => void
+  onBlur?: (e: FocusEvent) => void
 }
 
 type InnerProps = RouteComponentProps & WrappedComponentProps

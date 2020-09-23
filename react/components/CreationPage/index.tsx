@@ -22,7 +22,6 @@ const INITIAL_STATE: SubscriptionForm = {
   frequency: null,
   purchaseDay: null,
   address: null,
-  paymentAccountId: null,
   paymentSystem: null,
   products: [],
 }
@@ -72,24 +71,13 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                   <Products currencyCode={runtime.culture.currency} />
                 </div>
                 <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
-                  {/* <SummarySection
-                    selectedAddressId={selectedAddress?.id ?? null}
-                    onChangeAddress={this.handleChangeAddress}
-                    selectedPaymentAccountId={selectedPaymentAccountId}
-                    selectedPaymentSystemGroup={selectedPaymentSystemGroup}
-                    onChangePaymentAccount={this.handleChangePaymentAccount}
-                    onChangePaymentSystemGroup={
-                      this.handleChangePaymentSystemGroup
-                    }
-                    totals={[]}
-                    currencyCode={runtime.culture.currency}
-                  /> */}
+                  <SummarySection currencyCode={runtime.culture.currency} />
                   <div className="mt7">
                     <Button
                       type="submit"
                       onClick={this.handleSave}
                       isLoading={isLoading}
-                      disabled={formik.isValid}
+                      disabled={!formik.isValid}
                       block
                     >
                       <FormattedMessage id="store/creation-page.create-subscription-button" />
@@ -113,8 +101,8 @@ export type SubscriptionForm = {
   paymentSystem: {
     id: string
     group: PaymentSystemGroup
+    paymentAccountId: string | null
   } | null
-  paymentAccountId: string | null
   address: {
     id: string
     type: string

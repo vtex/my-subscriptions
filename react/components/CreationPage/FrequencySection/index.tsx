@@ -13,18 +13,20 @@ import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
 
 const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
-  const [frequencyField] = useField<SubscriptionForm['frequency']>('frequency')
-  const [purchaseDayField] = useField<SubscriptionForm['purchaseDay']>(
-    'purchaseDay'
-  )
+  const [frequencyField, , frequencyHelper] = useField<
+    SubscriptionForm['frequency']
+  >('frequency')
+  const [purchaseDayField, , purchaseHelper] = useField<
+    SubscriptionForm['purchaseDay']
+  >('purchaseDay')
 
   return (
     <FrequencySelector
       availableFrequencies={frequencies}
       selectedFrequency={frequencyField.value}
-      onChangeFrequency={frequencyField.onChange}
+      onChangeFrequency={frequencyHelper.setValue}
       onBlurFrequency={frequencyField.onBlur}
-      onChangePurchaseDay={purchaseDayField.onChange}
+      onChangePurchaseDay={purchaseHelper.setValue}
       onBlurPurchaseDay={purchaseDayField.onBlur}
       selectedPurchaseDay={purchaseDayField.value}
     />

@@ -57,7 +57,9 @@ const FrequencySelector: FunctionComponent<Props> = ({
           frequencies: availableFrequencies,
         })}
         value={hasFrequency ? selectedFrequency : null}
-        onChange={onChangeFrequency}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          onChangeFrequency(e.target.value)
+        }
         onBlur={onBlurFrequency}
       />
       {currentFrequency && currentFrequency?.periodicity !== 'DAILY' && (
@@ -71,7 +73,9 @@ const FrequencySelector: FunctionComponent<Props> = ({
               periodicity: currentFrequency?.periodicity,
             })}
             value={selectedPurchaseDay}
-            onChange={onChangePurchaseDay}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChangePurchaseDay(e.target.value)
+            }
             onBlur={onBlurPurchaseDay}
           />
         </div>
@@ -81,9 +85,9 @@ const FrequencySelector: FunctionComponent<Props> = ({
 }
 
 type Props = {
-  onChangePurchaseDay: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangePurchaseDay: (day: string) => void
   onBlurPurchaseDay?: (e: FocusEvent) => void
-  onChangeFrequency: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onChangeFrequency: (frequency: string) => void
   onBlurFrequency?: (e: FocusEvent) => void
   selectedPurchaseDay: string | null
   selectedFrequency: string | null
