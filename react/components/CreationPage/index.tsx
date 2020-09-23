@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { compose } from 'recompose'
 import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
 import { PageHeader as Header, Button } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
@@ -25,6 +26,16 @@ const INITIAL_STATE: SubscriptionForm = {
   paymentSystem: null,
   products: [],
 }
+
+const VALIDATION_SCHEMA = Yup.object().shape({
+  name: Yup.string().nullable().min(3).max(50),
+  planId: Yup.string().required(),
+  frequency: Yup.string().required(),
+  purchaseDay: Yup.string().required(),
+  address: Yup.object().required(),
+  paymentSystem: Yup.object().required(),
+  products: Yup.array().min(1).required(),
+})
 
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state: State = {
@@ -51,6 +62,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         <Formik<SubscriptionForm>
           initialValues={INITIAL_STATE}
           onSubmit={this.handleSave}
+          validationSchema={VALIDATION_SCHEMA}
         >
           {(formik) => (
             <Form>

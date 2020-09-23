@@ -16,7 +16,8 @@
     "react-infinite-scroller": "^1.2.4",
     "react-intl": "3",
     "recompose": "^0.30.0",
-    "splunk-events": "^1.3.4"
+    "splunk-events": "^1.3.4",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@apollo/react-testing": "3",
@@ -27,6 +28,7 @@
     "@types/react-infinite-scroller": "^1.2.1",
     "@types/react-router-dom": "^4.3.1",
     "@types/recompose": "^0.30.3",
+    "@types/yup": "^0.29.7",
     "@vtex/styleguide": "^9.91.4",
     "@vtex/test-tools": "^3.3.2",
     "@vtex/tsconfig": "^0.2.0",
