@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react'
-import { FormattedMessage, FormattedDate } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { Total } from 'vtex.subscriptions-graphql'
 
 import Box from '../CustomBox'
 import Content from './Content'
+import Footer from './Footer'
 
 const Summary: FunctionComponent<Props> = ({ totals = [], currencyCode }) => {
   if (totals.length === 0) return null
@@ -12,21 +13,7 @@ const Summary: FunctionComponent<Props> = ({ totals = [], currencyCode }) => {
     <div className="pt6">
       <Box
         title={<FormattedMessage id="store/summary.title" />}
-        footer={
-          <FormattedMessage
-            id="store/summary.price-warning"
-            values={{
-              day: (
-                <FormattedDate
-                  value={new Date()}
-                  month="long"
-                  day="2-digit"
-                  year="numeric"
-                />
-              ),
-            }}
-          />
-        }
+        footer={<Footer />}
       >
         <div className="ph7 pb7">
           <Content totals={totals} currencyCode={currencyCode} />

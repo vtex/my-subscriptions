@@ -5,15 +5,17 @@ const EditButton: FunctionComponent<Props> = ({
   onClick,
   withBackground = false,
 }) => (
-  <button
-    className={`c-action-primary hover-c-action-primary pointer br-pill bn bg-${
-      withBackground ? 'action-secondary' : 'transparent'
-    } flex items-center`}
-    onClick={onClick}
-    style={{ padding: '.40rem' }}
-  >
-    <IconEdit solid size={10} />
-  </button>
+  <span>
+    <button
+      className={`c-action-primary hover-c-action-primary pointer br-pill bn bg-${
+        withBackground ? 'action-secondary' : 'transparent'
+      } flex items-center`}
+      onClick={onClick}
+      style={{ padding: '.40rem' }}
+    >
+      <IconEdit solid size={10} />
+    </button>
+  </span>
 )
 
 interface Props {
