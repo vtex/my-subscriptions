@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, FocusEvent } from 'react'
 import { graphql } from 'react-apollo'
 import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
@@ -80,6 +80,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
       withIconBackground,
       canEdit,
       onSubmit,
+      onBlur,
     } = this.props
 
     let content
@@ -137,6 +138,8 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
           </div>
           <div className="w-100">
             <Input
+              name="name"
+              onBlur={onBlur}
               value={this.state.name}
               onChange={this.handleChangeName}
               disabled={this.state.isLoading}
@@ -161,6 +164,7 @@ interface OuterProps {
   subscriptionId?: string
   withIconBackground?: boolean
   onSubmit?: (name: string) => void
+  onBlur?: (e: FocusEvent) => void
   canEdit: boolean
   skus: Array<{ name: string }>
 }

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, ChangeEvent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
 import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
@@ -12,7 +12,7 @@ import QUERY, {
   Args,
 } from '../../../graphql/queries/availablePreferences.gql'
 import { INSTANCE } from '..'
-import FrequencySelector from '../../Frequency/Selector'
+import FrequencySelector from '../../Selector/Frequency'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
 import PaymentSelector from '../../Selector/Payment'
@@ -56,8 +56,12 @@ const EditPreferences: FunctionComponent<Props> = ({
       )}
       <FrequencySelector
         availableFrequencies={frequencies}
-        onChangeFrequency={onChangeFrequency}
-        onChangePurchaseDay={onChangePurchaseDay}
+        onChangeFrequency={(e: ChangeEvent<HTMLSelectElement>) =>
+          onChangeFrequency(e.target.value)
+        }
+        onChangePurchaseDay={(e: ChangeEvent<HTMLSelectElement>) =>
+          onChangePurchaseDay(e.target.value)
+        }
         selectedFrequency={selectedFrequency}
         selectedPurchaseDay={selectedPurchaseDay}
       />

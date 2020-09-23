@@ -1,30 +1,35 @@
+/* eslint-disable react/jsx-handler-names */
 import React, { FunctionComponent } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
+import { useField } from 'formik'
 
 import FREQUENCY_QUERY, {
   Args,
   Result,
 } from '../../../graphql/queries/frequencyOptions.gql'
 import { queryWrapper } from '../../../tracking'
-import { INSTANCE } from '..'
+import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
-import FrequencySelector from '../../Frequency/Selector'
+import FrequencySelector from '../../Selector/Frequency'
 
-const FrequencySection: FunctionComponent<Props> = ({
-  frequencies,
-  onChangeFrequency,
-  onChangePurchaseDay,
-  selectedPurchaseDay,
-  selectedFrequency,
-}) => (
-  <FrequencySelector
-    availableFrequencies={frequencies}
-    onChangeFrequency={onChangeFrequency}
-    onChangePurchaseDay={onChangePurchaseDay}
-    selectedPurchaseDay={selectedPurchaseDay}
-    selectedFrequency={selectedFrequency}
-  />
-)
+const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
+  const [frequencyField] = useField<SubscriptionForm['frequency']>('frequency')
+  const [purchaseDayField] = useField<SubscriptionForm['purchaseDay']>(
+    'purchaseDay'
+  )
+
+  return (
+    <FrequencySelector
+      availableFrequencies={frequencies}
+      selectedFrequency={frequencyField.value}
+      onChangeFrequency={frequencyField.onChange}
+      onBlurFrequency={frequencyField.onBlur}
+      onChangePurchaseDay={purchaseDayField.onChange}
+      onBlurPurchaseDay={purchaseDayField.onBlur}
+      selectedPurchaseDay={purchaseDayField.value}
+    />
+  )
+}
 
 type ChildProps = {
   loading: boolean
@@ -33,10 +38,6 @@ type ChildProps = {
 
 type OuterProps = {
   planId: string
-  onChangePurchaseDay: (day: string) => void
-  onChangeFrequency: (frequency: string) => void
-  selectedPurchaseDay: string
-  selectedFrequency: string
 }
 
 type InnerProps = ChildProps
