@@ -29,12 +29,12 @@ const INITIAL_STATE: SubscriptionForm = {
 
 const VALIDATION_SCHEMA = Yup.object().shape({
   name: Yup.string().nullable().min(3).max(50),
-  planId: Yup.string().required(),
-  frequency: Yup.string().required(),
-  purchaseDay: Yup.string().required(),
-  address: Yup.object().required(),
-  paymentSystem: Yup.object().required(),
-  products: Yup.array().min(1).required(),
+  planId: Yup.string().required('requiredField'),
+  frequency: Yup.string().required('requiredField'),
+  purchaseDay: Yup.string().required('requiredField'),
+  address: Yup.object().required('requiredField'),
+  paymentSystem: Yup.object().required('requiredField'),
+  products: Yup.array().min(1).required('requiredField'),
 })
 
 class SubscriptionCreationContainer extends Component<Props, State> {
@@ -89,7 +89,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                       type="submit"
                       onClick={this.handleSave}
                       isLoading={isLoading}
-                      disabled={!formik.isValid}
+                      disabled={formik.values.products.length === 0}
                       block
                     >
                       <FormattedMessage id="store/creation-page.create-subscription-button" />

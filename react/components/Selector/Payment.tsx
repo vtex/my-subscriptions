@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, ReactNode } from 'react'
 import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { Radio, Dropdown, Button } from 'vtex.styleguide'
@@ -35,6 +35,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
   onChangePaymentAccount,
   onBlurPaymentAccount,
   history,
+  errorMessagePaymentAccount,
 }) => {
   const groupedPayments = groupPayments(payments)
 
@@ -89,6 +90,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
                       paymentAccountId: selectedAccount,
                     })
                   }}
+                  errorMessage={errorMessagePaymentAccount}
                 />
               </div>
               <Button
@@ -121,6 +123,7 @@ type OuterProps = {
     group: PaymentSystemGroup
     paymentSystemId?: string
   }) => void
+  errorMessagePaymentAccount?: string | ReactNode
 }
 
 type Props = InnerProps & OuterProps

@@ -129,6 +129,12 @@ class SummarySection extends Component<Props, State> {
               selectedPaymentSystemGroup={
                 formik.values.paymentSystem?.group ?? null
               }
+              errorMessagePaymentAccount={
+                formik.errors.paymentSystem &&
+                formik.touched.paymentSystem && (
+                  <FormattedMessage id="store/required-field" />
+                )
+              }
             />
           )}
         </Section>

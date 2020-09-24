@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-handler-names */
 import React, { FunctionComponent } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
+import { FormattedMessage } from 'react-intl'
 import { useField } from 'formik'
 
 import FREQUENCY_QUERY, {
@@ -13,10 +14,10 @@ import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
 
 const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
-  const [frequencyField, , frequencyHelper] = useField<
+  const [frequencyField, frequencyMeta, frequencyHelper] = useField<
     SubscriptionForm['frequency']
   >('frequency')
-  const [purchaseDayField, , purchaseHelper] = useField<
+  const [purchaseDayField, purchaseMeta, purchaseHelper] = useField<
     SubscriptionForm['purchaseDay']
   >('purchaseDay')
 
@@ -29,6 +30,14 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
       onChangePurchaseDay={purchaseHelper.setValue}
       onBlurPurchaseDay={purchaseDayField.onBlur}
       selectedPurchaseDay={purchaseDayField.value}
+      errorMessageFrequency={
+        frequencyMeta.error &&
+        frequencyMeta.touched && <FormattedMessage id="store/required-field" />
+      }
+      errorMessagePurchaseDay={
+        purchaseMeta.error &&
+        purchaseMeta.touched && <FormattedMessage id="store/required-field" />
+      }
     />
   )
 }

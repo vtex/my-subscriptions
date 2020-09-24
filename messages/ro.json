@@ -116,5 +116,6 @@
   "store/creation-page.back-button": "Toate abonamentele",
   "store/creation-page.create-subscription-button": "Abonati-va",
   "store/creation-page.products-card.title": "Produse",
-  "store/creation-page.name-section.label": "Dați un nume abonamentului dvs."
+  "store/creation-page.name-section.label": "Dați un nume abonamentului dvs.",
+  "store/required-field": "Câmp necesar"
 }

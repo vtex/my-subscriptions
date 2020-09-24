@@ -116,5 +116,6 @@
   "store/creation-page.back-button": "Todas las suscripciones",
   "store/creation-page.create-subscription-button": "Suscribir",
   "store/creation-page.products-card.title": "Productos",
-  "store/creation-page.name-section.label": "Dale un nombre a tu suscripción"
+  "store/creation-page.name-section.label": "Dale un nombre a tu suscripción",
+  "store/required-field": "Campo requerido"
 }

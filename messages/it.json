@@ -116,5 +116,6 @@
   "store/creation-page.back-button": "Tutti gli abbonamenti",
   "store/creation-page.create-subscription-button": "Sottoscrivi",
   "store/creation-page.products-card.title": "Prodotti",
-  "store/creation-page.name-section.label": "Dai un nome al tuo abbonamento"
+  "store/creation-page.name-section.label": "Dai un nome al tuo abbonamento",
+  "store/required-field": "Campo obbligatorio"
 }

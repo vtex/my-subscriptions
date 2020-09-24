@@ -116,5 +116,6 @@
   "store/creation-page.back-button": "Todas as assinaturas",
   "store/creation-page.create-subscription-button": "Assinar",
   "store/creation-page.products-card.title": "Produtos",
-  "store/creation-page.name-section.label": "Dê um nome a sua assinatura"
+  "store/creation-page.name-section.label": "Dê um nome a sua assinatura",
+  "store/required-field": "Campo obrigatório"
 }

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, ReactNode } from 'react'
 import { compose } from 'recompose'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { Dropdown, Button } from 'vtex.styleguide'
@@ -27,27 +27,31 @@ const AddressSelector: FunctionComponent<Props> = ({
   selectedAddressId,
   history,
   intl,
+  errorMessage,
 }) => (
   <>
-    <Dropdown
-      name="address"
-      label={intl.formatMessage(messages.label)}
-      options={transformAddresses(addresses)}
-      placeholder={intl.formatMessage(messages.select)}
-      value={selectedAddressId}
-      error={selectedAddressId === null}
-      onChange={(_: unknown, id: string) => {
-        const address = addresses.find((item) => item.id === id)
+    {addresses.length > 0 && (
+      <Dropdown
+        name="address"
+        label={intl.formatMessage(messages.label)}
+        options={transformAddresses(addresses)}
+        placeholder={intl.formatMessage(messages.select)}
+        value={selectedAddressId}
+        error={selectedAddressId === null}
+        onChange={(_: unknown, id: string) => {
+          const address = addresses.find((item) => item.id === id)
 
-        if (!address) return
+          if (!address) return
 
-        onChangeAddress({
-          addressId: address.id,
-          addressType: address.addressType as string,
-        })
-      }}
-      onBlur={onBlur}
-    />
+          onChangeAddress({
+            addressId: address.id,
+            addressType: address.addressType as string,
+          })
+        }}
+        onBlur={onBlur}
+        errorMessage={errorMessage}
+      />
+    )}
     <div className="mt3">
       <Button
         size="small"
@@ -65,6 +69,7 @@ type OuterProps = {
   selectedAddressId: string | null
   onChangeAddress: (args: { addressId: string; addressType: string }) => void
   onBlur?: (e: FocusEvent) => void
+  errorMessage?: string | ReactNode
 }
 
 type InnerProps = RouteComponentProps & WrappedComponentProps

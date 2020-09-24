@@ -1,4 +1,4 @@
-import React, { FunctionComponent, FocusEvent } from 'react'
+import React, { FunctionComponent, FocusEvent, ReactNode } from 'react'
 import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 import { Frequency } from 'vtex.subscriptions-graphql'
@@ -38,6 +38,8 @@ const FrequencySelector: FunctionComponent<Props> = ({
   onChangePurchaseDay,
   onBlurFrequency,
   onBlurPurchaseDay,
+  errorMessageFrequency,
+  errorMessagePurchaseDay,
 }) => {
   const currentFrequency = selectedFrequency
     ? extractFrequency(selectedFrequency)
@@ -61,6 +63,7 @@ const FrequencySelector: FunctionComponent<Props> = ({
           onChangeFrequency(e.target.value)
         }
         onBlur={onBlurFrequency}
+        errorMessage={errorMessageFrequency}
       />
       {currentFrequency && currentFrequency?.periodicity !== 'DAILY' && (
         <div className="pt6">
@@ -77,6 +80,7 @@ const FrequencySelector: FunctionComponent<Props> = ({
               onChangePurchaseDay(e.target.value)
             }
             onBlur={onBlurPurchaseDay}
+            errorMessage={errorMessagePurchaseDay}
           />
         </div>
       )}
@@ -89,6 +93,8 @@ type Props = {
   onBlurPurchaseDay?: (e: FocusEvent) => void
   onChangeFrequency: (frequency: string) => void
   onBlurFrequency?: (e: FocusEvent) => void
+  errorMessagePurchaseDay?: string | ReactNode
+  errorMessageFrequency?: string | ReactNode
   selectedPurchaseDay: string | null
   selectedFrequency: string | null
   availableFrequencies: Frequency[]
