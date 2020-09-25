@@ -1,11 +1,50 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { FieldArray } from 'formik'
+import { FieldArray, ArrayHelpers, FieldArrayRenderProps } from 'formik'
 import { Box } from 'vtex.styleguide'
 
 import { Product } from '.'
 import AddItemModal, { OnAddItemArgs } from '../AddItemModal'
 import ProductListItem from '../ProductListItem'
+
+function addItem({
+  addItemArgs,
+  push,
+  setFieldValue,
+  values,
+}: {
+  addItemArgs: OnAddItemArgs
+  push: ArrayHelpers['push']
+  setFieldValue: FieldArrayRenderProps['form']['setFieldValue']
+  values: any
+}) {
+  const { onError, onFinish, plans, ...productArgs } = addItemArgs
+
+  if (!values.planId) {
+    setFieldValue('planId', plans[0])
+  }
+
+  push(productArgs)
+  onFinish()
+}
+
+function removeItem({
+  values,
+  setFieldValue,
+  remove,
+  index,
+}: {
+  values: any
+  setFieldValue: FieldArrayRenderProps['form']['setFieldValue']
+  remove: ArrayHelpers['remove']
+  index: number
+}) {
+  if (values.products.length === 1) {
+    setFieldValue('planId', null)
+  }
+
+  remove(index)
+}
 
 const Products: FunctionComponent<Props> = ({ currencyCode }) => (
   <Box
@@ -21,19 +60,9 @@ const Products: FunctionComponent<Props> = ({ currencyCode }) => (
               subscribedSkus={values.products.map(
                 (product: Product) => product.skuId
               )}
-              onAddItem={({
-                onError,
-                onFinish,
-                plans,
-                ...productArgs
-              }: OnAddItemArgs) => {
-                if (!values.planId) {
-                  setFieldValue('planId', plans[0])
-                }
-
-                push(productArgs)
-                onFinish()
-              }}
+              onAddItem={(args) =>
+                addItem({ addItemArgs: args, values, setFieldValue, push })
+              }
             />
           </div>
           {values.products.map((product: Product, i: number) => (
@@ -55,12 +84,9 @@ const Products: FunctionComponent<Props> = ({ currencyCode }) => (
                 onChange={(quantity: number) =>
                   replace(i, { ...product, quantity })
                 }
-                onRemove={() => {
-                  if (values.products.length === 1) {
-                    setFieldValue('planId', null)
-                  }
-                  remove(i)
-                }}
+                onRemove={() =>
+                  removeItem({ values, setFieldValue, remove, index: i })
+                }
               />
             </div>
           ))}
