@@ -6,6 +6,7 @@ import { Box } from 'vtex.styleguide'
 import { Product } from '.'
 import AddItemModal, { OnAddItemArgs } from '../AddItemModal'
 import ProductListItem from '../ProductListItem'
+import { SimulationConsumer } from '../SimulationContext'
 
 function addItem({
   addItemArgs,
@@ -70,24 +71,29 @@ const Products: FunctionComponent<Props> = ({ currencyCode }) => (
               className={i !== values.products.length - 1 ? 'mb8' : ''}
               key={product.skuId}
             >
-              <ProductListItem
-                isEditing
-                canRemove
-                name={product.name}
-                quantity={product.quantity}
-                imageUrl={product.imageUrl}
-                measurementUnit={product.measurementUnit}
-                unitMultiplier={product.unitMultiplier}
-                brandName={product.brand}
-                price={product.price}
-                currency={currencyCode}
-                onChange={(quantity: number) =>
-                  replace(i, { ...product, quantity })
-                }
-                onRemove={() =>
-                  removeItem({ values, setFieldValue, remove, index: i })
-                }
-              />
+              <SimulationConsumer>
+                {({ getPrice, loading }) => (
+                  <ProductListItem
+                    isEditing
+                    canRemove
+                    name={product.name}
+                    quantity={product.quantity}
+                    imageUrl={product.imageUrl}
+                    measurementUnit={product.measurementUnit}
+                    unitMultiplier={product.unitMultiplier}
+                    brandName={product.brand}
+                    price={getPrice(product.skuId) ?? product.price}
+                    currency={currencyCode}
+                    isLoadingPrice={loading}
+                    onChange={(quantity: number) =>
+                      replace(i, { ...product, quantity })
+                    }
+                    onRemove={() =>
+                      removeItem({ values, setFieldValue, remove, index: i })
+                    }
+                  />
+                )}
+              </SimulationConsumer>
             </div>
           ))}
         </>

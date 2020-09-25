@@ -14,6 +14,10 @@ import Section from '../CustomBox/Section'
 import NameSection from './NameSection'
 import FrequencySection from './FrequencySection'
 import SummarySection from './SummarySection'
+import SimulationContext, {
+  SubscriptionForm as ValidForm,
+} from '../SimulationContext'
+import { extractFrequency } from '../Frequency/utils'
 
 export const INSTANCE = 'NewSubscription'
 
@@ -42,6 +46,40 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     isLoading: false,
   }
 
+  private assembleForm = (formikValues: SubscriptionForm): ValidForm | null => {
+    if (
+      !formikValues.address ||
+      !formikValues.frequency ||
+      !formikValues.purchaseDay ||
+      !formikValues.planId ||
+      !formikValues.paymentSystem?.id
+    )
+      return null
+
+    const frequency = extractFrequency(formikValues.frequency)
+
+    return {
+      nextPurchaseDate: new Date().toISOString(),
+      plan: {
+        id: formikValues.planId,
+        frequency,
+      },
+      shippingAddress: {
+        addressId: formikValues.address.id,
+        addressType: formikValues.address.type,
+      },
+      items: formikValues.products.map(({ skuId, quantity }) => ({
+        skuId,
+        quantity,
+      })),
+      paymentMethod: {
+        paymentSystemId: formikValues.paymentSystem.id,
+        paymentAccountId:
+          formikValues.paymentSystem.paymentAccountId ?? undefined,
+      },
+    }
+  }
+
   private handleSave = () => {}
 
   public render() {
@@ -66,37 +104,41 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         >
           {(formik) => (
             <Form>
-              <div className="pa5 pa7-l flex flex-wrap">
-                <div className="w-100 w-60-l">
-                  {formik.values.planId && (
-                    <div className="mb6">
-                      <Box>
-                        <Section borderBottom>
-                          <NameSection />
-                        </Section>
-                        <Section>
-                          <FrequencySection planId={formik.values.planId} />
-                        </Section>
-                      </Box>
+              <SimulationContext
+                subscription={this.assembleForm(formik.values)}
+              >
+                <div className="pa5 pa7-l flex flex-wrap">
+                  <div className="w-100 w-60-l">
+                    {formik.values.planId && (
+                      <div className="mb6">
+                        <Box>
+                          <Section borderBottom>
+                            <NameSection />
+                          </Section>
+                          <Section>
+                            <FrequencySection planId={formik.values.planId} />
+                          </Section>
+                        </Box>
+                      </div>
+                    )}
+                    <Products currencyCode={runtime.culture.currency} />
+                  </div>
+                  <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+                    <SummarySection currencyCode={runtime.culture.currency} />
+                    <div className="mt7">
+                      <Button
+                        type="submit"
+                        onClick={this.handleSave}
+                        isLoading={isLoading}
+                        disabled={formik.values.products.length === 0}
+                        block
+                      >
+                        <FormattedMessage id="store/creation-page.create-subscription-button" />
+                      </Button>
                     </div>
-                  )}
-                  <Products currencyCode={runtime.culture.currency} />
-                </div>
-                <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
-                  <SummarySection currencyCode={runtime.culture.currency} />
-                  <div className="mt7">
-                    <Button
-                      type="submit"
-                      onClick={this.handleSave}
-                      isLoading={isLoading}
-                      disabled={formik.values.products.length === 0}
-                      block
-                    >
-                      <FormattedMessage id="store/creation-page.create-subscription-button" />
-                    </Button>
                   </div>
                 </div>
-              </div>
+              </SimulationContext>
             </Form>
           )}
         </Formik>

@@ -57,7 +57,7 @@ type OuterProps = {
 
 type Props = InnerProps & OuterProps
 
-export { Consumer as SimulationConsumer }
+export { Consumer as SimulationConsumer, SubscriptionForm }
 
 export interface InjectedSimulationContextProps {
   getPrice: (skuId: string) => number | null
