@@ -1,30 +1,46 @@
+/* eslint-disable react/jsx-handler-names */
 import React, { FunctionComponent } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
+import { FormattedMessage } from 'react-intl'
+import { useField } from 'formik'
 
 import FREQUENCY_QUERY, {
   Args,
   Result,
 } from '../../../graphql/queries/frequencyOptions.gql'
 import { queryWrapper } from '../../../tracking'
-import { INSTANCE } from '..'
+import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
-import FrequencySelector from '../../Frequency/Selector'
+import FrequencySelector from '../../Selector/Frequency'
 
-const FrequencySection: FunctionComponent<Props> = ({
-  frequencies,
-  onChangeFrequency,
-  onChangePurchaseDay,
-  selectedPurchaseDay,
-  selectedFrequency,
-}) => (
-  <FrequencySelector
-    availableFrequencies={frequencies}
-    onChangeFrequency={onChangeFrequency}
-    onChangePurchaseDay={onChangePurchaseDay}
-    selectedPurchaseDay={selectedPurchaseDay}
-    selectedFrequency={selectedFrequency}
-  />
-)
+const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
+  const [frequencyField, frequencyMeta, frequencyHelper] = useField<
+    SubscriptionForm['frequency']
+  >('frequency')
+  const [purchaseDayField, purchaseMeta, purchaseHelper] = useField<
+    SubscriptionForm['purchaseDay']
+  >('purchaseDay')
+
+  return (
+    <FrequencySelector
+      availableFrequencies={frequencies}
+      selectedFrequency={frequencyField.value}
+      onChangeFrequency={frequencyHelper.setValue}
+      onBlurFrequency={frequencyField.onBlur}
+      onChangePurchaseDay={purchaseHelper.setValue}
+      onBlurPurchaseDay={purchaseDayField.onBlur}
+      selectedPurchaseDay={purchaseDayField.value}
+      errorMessageFrequency={
+        frequencyMeta.error &&
+        frequencyMeta.touched && <FormattedMessage id="store/required-field" />
+      }
+      errorMessagePurchaseDay={
+        purchaseMeta.error &&
+        purchaseMeta.touched && <FormattedMessage id="store/required-field" />
+      }
+    />
+  )
+}
 
 type ChildProps = {
   loading: boolean
@@ -33,10 +49,6 @@ type ChildProps = {
 
 type OuterProps = {
   planId: string
-  onChangePurchaseDay: (day: string) => void
-  onChangeFrequency: (frequency: string) => void
-  selectedPurchaseDay: string
-  selectedFrequency: string
 }
 
 type InnerProps = ChildProps

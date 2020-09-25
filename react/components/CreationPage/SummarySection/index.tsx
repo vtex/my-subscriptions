@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import { FormattedMessage } from 'react-intl'
-import { PaymentSystemGroup, Total } from 'vtex.subscriptions-graphql'
+import { connect, FormikContextType } from 'formik'
+import { Total } from 'vtex.subscriptions-graphql'
 
 import FREQUENCY_QUERY, {
   Result,
 } from '../../../graphql/queries/availablePaymentAddresses.gql'
 import { queryWrapper } from '../../../tracking'
-import { INSTANCE } from '..'
+import { INSTANCE, SubscriptionForm } from '..'
 import Box from '../../CustomBox'
 import Title from '../../CustomBox/Title'
 import Section from '../../CustomBox/Section'
@@ -27,9 +28,9 @@ class SummarySection extends Component<Props, State> {
     let isEditingAddress = false
     if (props.addresses.length > 0) {
       const [address] = props.addresses
-      props.onChangeAddress({
-        addressId: address.id,
-        addressType: address.addressType as string,
+      props.formik.setFieldValue('address', {
+        id: address.id,
+        type: address.addressType,
       })
     } else {
       isEditingAddress = true
@@ -42,13 +43,9 @@ class SummarySection extends Component<Props, State> {
       )
 
       if (payment?.paymentAccount) {
-        props.onChangePaymentSystemGroup({
+        props.formik.setFieldValue('paymentSystem', {
+          id: payment?.paymentSystemId,
           group: payment?.paymentSystemGroup,
-          paymentSystemId: payment?.paymentSystemId,
-        })
-
-        props.onChangePaymentAccount({
-          paymentSystemId: payment.paymentSystemId,
           paymentAccountId: payment.paymentAccount?.id,
         })
       }
@@ -65,15 +62,14 @@ class SummarySection extends Component<Props, State> {
   private getSelectedPayment = () => {
     const {
       payments,
-      selectedPaymentAccountId,
-      selectedPaymentSystemGroup,
+      formik: { values },
     } = this.props
 
     return payments.find((payment) => {
-      if (payment.paymentSystemGroup === selectedPaymentSystemGroup) {
+      if (payment.paymentSystemGroup === values.paymentSystem?.group) {
         if (
           payment.paymentSystemGroup === 'creditCard' &&
-          payment.paymentAccount?.id !== selectedPaymentAccountId
+          payment.paymentAccount?.id !== values.paymentSystem.paymentAccountId
         ) {
           return false
         }
@@ -85,9 +81,9 @@ class SummarySection extends Component<Props, State> {
   }
 
   private getSelectedAddress = () => {
-    const { selectedAddressId, addresses } = this.props
+    const { formik, addresses } = this.props
 
-    return addresses.find((address) => address.id === selectedAddressId)
+    return addresses.find((address) => address.id === formik.values.address?.id)
   }
 
   private handleEditAddress = () => this.setState({ isEditingAddress: true })
@@ -95,22 +91,12 @@ class SummarySection extends Component<Props, State> {
   private handleEditPayment = () => this.setState({ isEditingPayment: true })
 
   public render() {
-    const {
-      addresses,
-      onChangeAddress,
-      selectedAddressId,
-      payments,
-      onChangePaymentAccount,
-      onChangePaymentSystemGroup,
-      selectedPaymentAccountId,
-      selectedPaymentSystemGroup,
-      totals,
-      currencyCode,
-    } = this.props
+    const { addresses, payments, currencyCode, formik } = this.props
     const { isEditingAddress, isEditingPayment } = this.state
 
     const payment = this.getSelectedPayment()
     const address = this.getSelectedAddress()
+    const totals: Total[] = []
     const displaySummary = totals.length > 0
 
     return (
@@ -124,10 +110,31 @@ class SummarySection extends Component<Props, State> {
           ) : (
             <PaymentSelector
               payments={payments}
-              onChangePaymentAccount={onChangePaymentAccount}
-              onChangePaymentSystemGroup={onChangePaymentSystemGroup}
-              selectedPaymentAccountId={selectedPaymentAccountId}
-              selectedPaymentSystemGroup={selectedPaymentSystemGroup}
+              onChangePaymentAccount={(args) =>
+                formik.setFieldValue('paymentSystem', {
+                  id: args.paymentSystemId,
+                  paymentAccountId: args.paymentAccountId,
+                  group: 'creditCard',
+                } as SubscriptionForm['paymentSystem'])
+              }
+              onChangePaymentSystemGroup={(args) =>
+                formik.setFieldValue('paymentSystem', {
+                  id: args.paymentSystemId,
+                  group: args.group,
+                })
+              }
+              selectedPaymentAccountId={
+                formik.values.paymentSystem?.paymentAccountId ?? null
+              }
+              selectedPaymentSystemGroup={
+                formik.values.paymentSystem?.group ?? null
+              }
+              errorMessagePaymentAccount={
+                formik.errors.paymentSystem &&
+                formik.touched.paymentSystem && (
+                  <FormattedMessage id="store/required-field" />
+                )
+              }
             />
           )}
         </Section>
@@ -140,8 +147,13 @@ class SummarySection extends Component<Props, State> {
           ) : (
             <AddressSelector
               addresses={addresses}
-              onChangeAddress={onChangeAddress}
-              selectedAddressId={selectedAddressId}
+              onChangeAddress={({ addressId, addressType }) =>
+                formik.setFieldValue('address', {
+                  id: addressId,
+                  type: addressType,
+                })
+              }
+              selectedAddressId={formik.values.address?.id ?? null}
             />
           )}
         </Section>
@@ -169,23 +181,10 @@ type ChildProps = {
 }
 
 type OuterProps = {
-  selectedPaymentSystemGroup: PaymentSystemGroup | null
-  onChangePaymentSystemGroup: (args: {
-    group: PaymentSystemGroup
-    paymentSystemId?: string
-  }) => void
-  selectedPaymentAccountId: string | null
-  onChangePaymentAccount: (args: {
-    paymentSystemId: string
-    paymentAccountId: string
-  }) => void
-  selectedAddressId: string | null
-  onChangeAddress: (args: { addressId: string; addressType: string }) => void
-  totals: Total[]
   currencyCode: string
 }
 
-type InnerProps = ChildProps
+type InnerProps = ChildProps & { formik: FormikContextType<SubscriptionForm> }
 
 type State = {
   isEditingAddress: boolean
@@ -209,7 +208,8 @@ const enhance = compose<Props, OuterProps>(
       }),
     }
   ),
-  branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
+  branch<Props>(({ loading }) => loading, renderComponent(Skeleton)),
+  connect
 )
 
 export default enhance(SummarySection)

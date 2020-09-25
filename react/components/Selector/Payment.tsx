@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, ReactNode } from 'react'
 import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { Radio, Dropdown, Button } from 'vtex.styleguide'
@@ -33,7 +33,9 @@ const PaymentSelector: FunctionComponent<Props> = ({
   selectedPaymentAccountId,
   onChangePaymentSystemGroup,
   onChangePaymentAccount,
+  onBlurPaymentAccount,
   history,
+  errorMessagePaymentAccount,
 }) => {
   const groupedPayments = groupPayments(payments)
 
@@ -74,6 +76,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
                   disabled={selectedPaymentSystemGroup !== 'creditCard'}
                   value={selectedPaymentAccountId}
                   error={selectedPaymentAccountId === null}
+                  onBlur={onBlurPaymentAccount}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     const selectedAccount = e.target.value
 
@@ -87,6 +90,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
                       paymentAccountId: selectedAccount,
                     })
                   }}
+                  errorMessage={errorMessagePaymentAccount}
                 />
               </div>
               <Button
@@ -114,10 +118,12 @@ type OuterProps = {
     paymentSystemId: string
     paymentAccountId: string
   }) => void
+  onBlurPaymentAccount?: (e: FocusEvent) => void
   onChangePaymentSystemGroup: (args: {
     group: PaymentSystemGroup
     paymentSystemId?: string
   }) => void
+  errorMessagePaymentAccount?: string | ReactNode
 }
 
 type Props = InnerProps & OuterProps

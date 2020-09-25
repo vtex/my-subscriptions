@@ -11,6 +11,7 @@ const EditButton: FunctionComponent<Props> = ({
         withBackground ? 'action-secondary' : 'transparent'
       } flex items-center`}
       onClick={onClick}
+      type="button"
       style={{ padding: '.40rem' }}
     >
       <IconEdit solid size={10} />

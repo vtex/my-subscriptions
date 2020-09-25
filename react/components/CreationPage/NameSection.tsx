@@ -1,39 +1,32 @@
 import React, { FunctionComponent } from 'react'
+import { useField } from 'formik'
 import { FormattedMessage } from 'react-intl'
 
 import Label from '../LabeledInfo'
 import SubscriptionName from '../SubscriptionName'
-import { Product } from '.'
+import { SubscriptionForm } from '.'
 
-const NameSection: FunctionComponent<Props> = ({
-  name,
-  onChangeName,
-  products,
-}) => (
-  <Label
-    label={
-      <FormattedMessage
-        id="store/creation-page.name-section.label"
-        defaultMessage="Give a name to your subscription"
-      />
-    }
-  >
-    <span className="t-heading-4">
-      <SubscriptionName
-        canEdit
-        name={name}
-        skus={products.map((product) => ({ name: product.name }))}
-        onSubmit={onChangeName}
-        withIconBackground
-      />
-    </span>
-  </Label>
-)
+const NameSection: FunctionComponent = () => {
+  const [nameField, , { setValue }] = useField<SubscriptionForm['name']>('name')
+  const [productsField] = useField<SubscriptionForm['products']>('products')
 
-type Props = {
-  products: Product[]
-  name: string | null
-  onChangeName: (name: string) => void
+  return (
+    <Label
+      label={<FormattedMessage id="store/creation-page.name-section.label" />}
+    >
+      <span className="t-heading-4">
+        <SubscriptionName
+          canEdit
+          name={nameField.value}
+          skus={productsField.value.map((product) => ({ name: product.name }))}
+          onSubmit={(name) => setValue(name)}
+          // eslint-disable-next-line react/jsx-handler-names
+          onBlur={nameField.onBlur}
+          withIconBackground
+        />
+      </span>
+    </Label>
+  )
 }
 
 export default NameSection

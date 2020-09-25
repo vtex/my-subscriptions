@@ -61,8 +61,12 @@ class ConfirmationModalContainer extends Component<Props> {
       onError,
     } = this.props
 
+    const promise = onSubmit()
+
+    if (!promise) return
+
     this.innerPromise = makeCancelable(
-      onSubmit()
+      promise
         .then(() => {
           onCloseModal()
           successMessage &&
@@ -131,7 +135,7 @@ class ConfirmationModalContainer extends Component<Props> {
 }
 
 interface Props {
-  onSubmit: () => Promise<unknown>
+  onSubmit: () => Promise<unknown> | undefined
   onCloseModal: () => void
   onLoading?: (loading: boolean) => void
   onError?: (error: any) => void

@@ -3,8 +3,7 @@ import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
-import { ContentWrapper } from 'vtex.my-account-commons'
-import { Dropdown, Button } from 'vtex.styleguide'
+import { Dropdown, Button, PageHeader as Header } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import QUERY, {
@@ -28,18 +27,21 @@ function isEmpty(data: Result) {
 }
 
 const messages = defineMessages({
-  filterLabel: { id: 'store/subscription.list.display', defaultMessage: '' },
+  filterLabel: { id: 'store/subscription.list.display' },
   activeFilter: {
     id: 'store/subscription.list.display.active_filter',
-    defaultMessage: '',
   },
   canceledFilter: {
     id: 'store/subscription.list.display.canceled_filter',
-    defaultMessage: '',
   },
   title: {
     id: 'store/subscription.title.list',
-    defaultMessage: '',
+  },
+  createButton: {
+    id: 'store/list-page.create-subscriptions',
+  },
+  back: {
+    id: 'store/list-page.back',
   },
 })
 
@@ -89,38 +91,51 @@ class SubscriptionsListContainer extends Component<
       },
     ]
 
-    const headerContent = (
-      <div>
-        <Button size="small" onClick={() => history.push('/subscriptions-new')}>
-          {intl.formatMessage({
-            id: 'store/list-page.title',
-            defaultMessage: 'New subscription',
-          })}
-        </Button>
-        <div className="w-100 mt6">
-          <Dropdown
-            label={filterLabel}
-            size="large"
-            options={filterOptions}
-            value={filter}
-            onChange={this.handleChangeFilter}
-          />
-        </div>
-      </div>
-    )
-
-    const headerConfig = {
-      headerContent,
-      namespace: 'vtex-account__subscriptions-list',
-      titleId: messages.title.id,
-    }
-
     const resultFilter = convertFilter(filter)
     const variables = { filter: resultFilter }
 
+    const headerContent = (
+      <Button onClick={() => history.push('/subscriptions-new')}>
+        {intl.formatMessage(messages.createButton)}
+      </Button>
+    )
+
     return (
-      <ContentWrapper {...headerConfig}>
-        {() => (
+      <>
+        <div className="db dn-l">
+          <Header
+            title={
+              <span className="normal">
+                {intl.formatMessage(messages.title)}
+              </span>
+            }
+            linkLabel={intl.formatMessage(messages.back)}
+            onLinkClick={() => history.push('/')}
+          >
+            {headerContent}
+          </Header>
+        </div>
+        <div className="db-l dn">
+          <Header
+            title={
+              <span className="normal">
+                {intl.formatMessage(messages.title)}
+              </span>
+            }
+          >
+            {headerContent}
+          </Header>
+        </div>
+        <div className="pa5 pa7-l">
+          <div className="w5 mb7">
+            <Dropdown
+              label={filterLabel}
+              size="large"
+              options={filterOptions}
+              value={filter}
+              onChange={this.handleChangeFilter}
+            />
+          </div>
           <Query<Result> query={QUERY} variables={variables}>
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
@@ -156,8 +171,8 @@ class SubscriptionsListContainer extends Component<
               )
             }}
           </Query>
-        )}
-      </ContentWrapper>
+        </div>
+      </>
     )
   }
 }

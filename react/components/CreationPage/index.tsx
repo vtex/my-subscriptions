@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { PageHeader as Header } from 'vtex.styleguide'
+import { compose } from 'recompose'
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
+import { PageHeader as Header, Button } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import Products from './Products'
-import { OnAddItemArgs } from '../AddItemModal'
 import Box from '../CustomBox'
 import Section from '../CustomBox/Section'
 import NameSection from './NameSection'
@@ -14,199 +17,109 @@ import SummarySection from './SummarySection'
 
 export const INSTANCE = 'NewSubscription'
 
+const INITIAL_STATE: SubscriptionForm = {
+  name: null,
+  planId: null,
+  frequency: null,
+  purchaseDay: null,
+  address: null,
+  paymentSystem: null,
+  products: [],
+}
+
+const VALIDATION_SCHEMA = Yup.object().shape({
+  name: Yup.string().nullable().min(3).max(50),
+  planId: Yup.string().required('requiredField'),
+  frequency: Yup.string().required('requiredField'),
+  purchaseDay: Yup.string().required('requiredField'),
+  address: Yup.object().required('requiredField'),
+  paymentSystem: Yup.object().required('requiredField'),
+  products: Yup.array().min(1).required('requiredField'),
+})
+
 class SubscriptionCreationContainer extends Component<Props, State> {
   public state: State = {
-    products: [],
-    currentPlan: null,
-    name: null,
-    selectedFrequency: '',
-    selectedPurchaseDay: '',
-    selectedAddress: null,
-    selectedPaymentSystemGroup: null,
-    selectedPaymentSystemId: null,
-    selectedPaymentAccountId: null,
+    isLoading: false,
   }
 
-  private handleRemoveItem = (skuId: string) =>
-    this.setState(({ products, currentPlan }) => {
-      const index = products.findIndex((product) => product.skuId === skuId)
-
-      if (index >= 0) products.splice(index, 1)
-
-      return {
-        products,
-        currentPlan: products.length === 0 ? null : currentPlan,
-      }
-    })
-
-  private handleUpdateQuantity = ({
-    skuId,
-    quantity,
-  }: {
-    skuId: string
-    quantity: number
-  }) =>
-    this.setState(({ products }) => {
-      const index = products.findIndex((product) => product.skuId === skuId)
-
-      if (index >= 0) {
-        products[index].quantity = quantity
-      }
-
-      return {
-        products,
-      }
-    })
-
-  private handleAddItem = ({
-    onError,
-    onFinish,
-    plans,
-    ...productArgs
-  }: OnAddItemArgs) =>
-    this.setState(({ products, currentPlan }) => {
-      products.push({
-        ...productArgs,
-      })
-
-      onFinish()
-
-      return currentPlan
-        ? {
-            products,
-            currentPlan,
-          }
-        : {
-            products,
-            currentPlan: plans[0],
-          }
-    })
-
-  private handleChangeName = (name: string) =>
-    this.setState({ name: name === '' ? null : name })
-
-  private handleChangeFrequency = (selectedFrequency: string) =>
-    this.setState({ selectedFrequency })
-
-  private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
-    this.setState({ selectedPurchaseDay })
-
-  private handleChangeAddress = ({
-    addressId,
-    addressType,
-  }: {
-    addressId: string
-    addressType: string
-  }) =>
-    this.setState({
-      selectedAddress: { id: addressId, type: addressType },
-    })
-
-  private handleChangePaymentSystemGroup = ({
-    group,
-    paymentSystemId,
-  }: {
-    group: PaymentSystemGroup
-    paymentSystemId?: string
-  }) =>
-    this.setState({
-      selectedPaymentSystemGroup: group,
-      selectedPaymentSystemId: paymentSystemId ?? null,
-    })
-
-  private handleChangePaymentAccount = ({
-    paymentAccountId,
-    paymentSystemId,
-  }: {
-    paymentAccountId: string
-    paymentSystemId: string
-  }) =>
-    this.setState({
-      selectedPaymentSystemId: paymentSystemId,
-      selectedPaymentAccountId: paymentAccountId,
-    })
+  private handleSave = () => {}
 
   public render() {
-    const { history } = this.props
-    const {
-      products,
-      currentPlan,
-      name,
-      selectedFrequency,
-      selectedPurchaseDay,
-      selectedAddress,
-      selectedPaymentAccountId,
-      selectedPaymentSystemGroup,
-    } = this.state
+    const { history, runtime } = this.props
+    const { isLoading } = this.state
 
     return (
       <>
         <Header
           title={
             <span className="normal">
-              <FormattedMessage
-                id="store/creation-page.title"
-                defaultMessage="New subscription"
-              />
+              <FormattedMessage id="store/creation-page.title" />
             </span>
           }
-          linkLabel={
-            <FormattedMessage
-              id="store/creation-page.back-button"
-              defaultMessage="All subscriptions"
-            />
-          }
+          linkLabel={<FormattedMessage id="store/creation-page.back-button" />}
           onLinkClick={() => history.push('/subscriptions')}
         />
-        <div className="pa5 pa7-l flex flex-wrap">
-          <div className="w-100 w-60-l">
-            {currentPlan && (
-              <div className="mb6">
-                <Box>
-                  <Section borderBottom>
-                    <NameSection
-                      products={products}
-                      name={name}
-                      onChangeName={this.handleChangeName}
-                    />
-                  </Section>
-                  <Section>
-                    <FrequencySection
-                      planId={(currentPlan as unknown) as string}
-                      selectedFrequency={selectedFrequency}
-                      selectedPurchaseDay={selectedPurchaseDay}
-                      onChangeFrequency={this.handleChangeFrequency}
-                      onChangePurchaseDay={this.handleChangePurchaseDay}
-                    />
-                  </Section>
-                </Box>
+        <Formik<SubscriptionForm>
+          initialValues={INITIAL_STATE}
+          onSubmit={this.handleSave}
+          validationSchema={VALIDATION_SCHEMA}
+        >
+          {(formik) => (
+            <Form>
+              <div className="pa5 pa7-l flex flex-wrap">
+                <div className="w-100 w-60-l">
+                  {formik.values.planId && (
+                    <div className="mb6">
+                      <Box>
+                        <Section borderBottom>
+                          <NameSection />
+                        </Section>
+                        <Section>
+                          <FrequencySection planId={formik.values.planId} />
+                        </Section>
+                      </Box>
+                    </div>
+                  )}
+                  <Products currencyCode={runtime.culture.currency} />
+                </div>
+                <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+                  <SummarySection currencyCode={runtime.culture.currency} />
+                  <div className="mt7">
+                    <Button
+                      type="submit"
+                      onClick={this.handleSave}
+                      isLoading={isLoading}
+                      disabled={formik.values.products.length === 0}
+                      block
+                    >
+                      <FormattedMessage id="store/creation-page.create-subscription-button" />
+                    </Button>
+                  </div>
+                </div>
               </div>
-            )}
-            <Products
-              products={products}
-              onAddItem={this.handleAddItem}
-              onRemoveItem={this.handleRemoveItem}
-              onUpdateQuantity={this.handleUpdateQuantity}
-              currentPlan={currentPlan}
-              currency=""
-            />
-          </div>
-          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
-            <SummarySection
-              selectedAddressId={selectedAddress?.id ?? null}
-              onChangeAddress={this.handleChangeAddress}
-              selectedPaymentAccountId={selectedPaymentAccountId}
-              selectedPaymentSystemGroup={selectedPaymentSystemGroup}
-              onChangePaymentAccount={this.handleChangePaymentAccount}
-              onChangePaymentSystemGroup={this.handleChangePaymentSystemGroup}
-              totals={[]}
-              currencyCode=""
-            />
-          </div>
-        </div>
+            </Form>
+          )}
+        </Formik>
       </>
     )
   }
+}
+
+export type SubscriptionForm = {
+  name: string | null
+  planId: string | null
+  frequency: string | null
+  purchaseDay: string | null
+  paymentSystem: {
+    id: string
+    group: PaymentSystemGroup
+    paymentAccountId: string | null
+  } | null
+  address: {
+    id: string
+    type: string
+  } | null
+  products: Product[]
 }
 
 export type Product = {
@@ -221,17 +134,11 @@ export type Product = {
 }
 
 type State = {
-  products: Product[]
-  currentPlan: string | null
-  name: string | null
-  selectedPurchaseDay: string
-  selectedFrequency: string
-  selectedPaymentSystemGroup: PaymentSystemGroup | null
-  selectedPaymentSystemId: string | null
-  selectedPaymentAccountId: string | null
-  selectedAddress: { id: string; type: string } | null
+  isLoading: boolean
 }
 
-type Props = RouteComponentProps
+type Props = RouteComponentProps & InjectedRuntimeContext
 
-export default withRouter(SubscriptionCreationContainer)
+const enhance = compose<Props, {}>(withRouter, withRuntimeContext)
+
+export default enhance(SubscriptionCreationContainer)

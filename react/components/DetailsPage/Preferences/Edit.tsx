@@ -12,7 +12,7 @@ import QUERY, {
   Args,
 } from '../../../graphql/queries/availablePreferences.gql'
 import { INSTANCE } from '..'
-import FrequencySelector from '../../Frequency/Selector'
+import FrequencySelector from '../../Selector/Frequency'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
 import PaymentSelector from '../../Selector/Payment'
