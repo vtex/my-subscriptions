@@ -22,7 +22,7 @@ class SimulationContainer extends Component<Props> {
       (total) => total.id === skuId
     )
 
-    return skuTotal?.unitPrice ?? null
+    return skuTotal?.unitPrice ? skuTotal.unitPrice / 100 : null
   }
 
   private getTotals = () => {

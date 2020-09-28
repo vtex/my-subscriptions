@@ -1,5 +1,5 @@
 query SubscriptionSimulation($subscription: SubscriptionFormInput!) {
-  simulation(form: $form) {
+  simulation(form: $subscription) {
     totals {
       id
       value

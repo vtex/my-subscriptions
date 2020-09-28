@@ -69,7 +69,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         addressType: formikValues.address.type,
       },
       items: formikValues.products.map(({ skuId, quantity }) => ({
-        skuId,
+        id: skuId,
         quantity,
       })),
       paymentMethod: {
