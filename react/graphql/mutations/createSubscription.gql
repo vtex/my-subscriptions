@@ -1,0 +1,5 @@
+mutation CreateSubscription($data: CreationFormInput!) {
+  createSubscription(data: $data) {
+    id
+  }
+}

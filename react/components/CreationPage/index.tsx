@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { graphql, MutationResult } from 'react-apollo'
+import { ApolloError } from 'apollo-client'
 import { compose } from 'recompose'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
@@ -18,6 +20,11 @@ import SimulationContext, {
   SubscriptionForm as ValidForm,
 } from '../SimulationContext'
 import { extractFrequency } from '../Frequency/utils'
+import CREATE_MUTATION, {
+  Args as CreationArgs,
+  Result as CreationResult,
+} from '../../graphql/mutations/createSubscription.gql'
+import { logGraphqlError } from '../../tracking'
 
 export const INSTANCE = 'NewSubscription'
 
@@ -80,7 +87,33 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     }
   }
 
-  private handleSave = () => {}
+  private handleSave = (formikValues: SubscriptionForm) => {
+    const { createSubscription, history, runtime } = this.props
+    const data = this.assembleForm(formikValues)
+
+    if (!data) return
+
+    this.setState({ isLoading: true })
+
+    const variables = {
+      data,
+    }
+
+    createSubscription({ variables })
+      .then((result) =>
+        history.push(`/subscriptions/${result.data?.createSubscription.id}`)
+      )
+      .catch((error: ApolloError) => {
+        logGraphqlError({
+          error,
+          variables,
+          runtime,
+          type: 'MutationError',
+          instance: 'CreateSubscription',
+        })
+        this.setState({ isLoading: false })
+      })
+  }
 
   public render() {
     const { history, runtime } = this.props
@@ -179,8 +212,17 @@ type State = {
   isLoading: boolean
 }
 
-type Props = RouteComponentProps & InjectedRuntimeContext
+type Props = RouteComponentProps &
+  InjectedRuntimeContext & {
+    createSubscription: (args: {
+      variables: CreationArgs
+    }) => Promise<MutationResult<CreationResult>>
+  }
 
-const enhance = compose<Props, {}>(withRouter, withRuntimeContext)
+const enhance = compose<Props, {}>(
+  withRouter,
+  withRuntimeContext,
+  graphql(CREATE_MUTATION, { name: 'createSubscription' })
+)
 
 export default enhance(SubscriptionCreationContainer)
