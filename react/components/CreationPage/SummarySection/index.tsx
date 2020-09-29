@@ -20,6 +20,7 @@ import PaymentSelector from '../../Selector/Payment'
 import EditButton from '../../EditButton'
 import Content from '../../Summary/Content'
 import Footer from '../../Summary/Footer'
+import { SimulationConsumer } from '../../SimulationContext'
 
 class SummarySection extends Component<Props, State> {
   constructor(props: Props) {
@@ -96,80 +97,93 @@ class SummarySection extends Component<Props, State> {
 
     const payment = this.getSelectedPayment()
     const address = this.getSelectedAddress()
-    const totals: Total[] = []
-    const displaySummary = totals.length > 0
 
     return (
-      <Box footer={displaySummary && <Footer />}>
-        <Section borderBottom>
-          {!isEditingPayment && payment ? (
-            <div className="flex justify-between">
-              <Payment paymentMethod={payment} />
-              <EditButton onClick={this.handleEditPayment} withBackground />
-            </div>
-          ) : (
-            <PaymentSelector
-              payments={payments}
-              onChangePaymentAccount={(args) =>
-                formik.setFieldValue('paymentSystem', {
-                  id: args.paymentSystemId,
-                  paymentAccountId: args.paymentAccountId,
-                  group: 'creditCard',
-                } as SubscriptionForm['paymentSystem'])
-              }
-              onChangePaymentSystemGroup={(args) =>
-                formik.setFieldValue('paymentSystem', {
-                  id: args.paymentSystemId,
-                  group: args.group,
-                })
-              }
-              selectedPaymentAccountId={
-                formik.values.paymentSystem?.paymentAccountId ?? null
-              }
-              selectedPaymentSystemGroup={
-                formik.values.paymentSystem?.group ?? null
-              }
-              errorMessagePaymentAccount={
-                formik.errors.paymentSystem &&
-                formik.touched.paymentSystem && (
-                  <FormattedMessage id="store/required-field" />
-                )
-              }
-            />
-          )}
-        </Section>
-        <Section borderBottom>
-          {!isEditingAddress && address ? (
-            <div className="flex justify-between">
-              <Address address={address} />
-              <EditButton onClick={this.handleEditAddress} withBackground />
-            </div>
-          ) : (
-            <AddressSelector
-              addresses={addresses}
-              onChangeAddress={({ addressId, addressType }) =>
-                formik.setFieldValue('address', {
-                  id: addressId,
-                  type: addressType,
-                })
-              }
-              selectedAddressId={formik.values.address?.id ?? null}
-            />
-          )}
-        </Section>
-        {displaySummary && (
-          <>
-            <div className="pt7">
-              <Title>
-                <FormattedMessage id="store/summary.title" />
-              </Title>
-            </div>
-            <Section>
-              <Content totals={totals} currencyCode={currencyCode} />
-            </Section>
-          </>
-        )}
-      </Box>
+      <SimulationConsumer>
+        {({ getTotals }) => {
+          const totals: Total[] = getTotals() ?? []
+          const displaySummary = totals.length > 0
+
+          return (
+            <Box footer={displaySummary && <Footer />}>
+              <Section borderBottom>
+                {!isEditingPayment && payment ? (
+                  <div className="flex justify-between">
+                    <Payment paymentMethod={payment} />
+                    <EditButton
+                      onClick={this.handleEditPayment}
+                      withBackground
+                    />
+                  </div>
+                ) : (
+                  <PaymentSelector
+                    payments={payments}
+                    onChangePaymentAccount={(args) =>
+                      formik.setFieldValue('paymentSystem', {
+                        id: args.paymentSystemId,
+                        paymentAccountId: args.paymentAccountId,
+                        group: 'creditCard',
+                      } as SubscriptionForm['paymentSystem'])
+                    }
+                    onChangePaymentSystemGroup={(args) =>
+                      formik.setFieldValue('paymentSystem', {
+                        id: args.paymentSystemId,
+                        group: args.group,
+                      })
+                    }
+                    selectedPaymentAccountId={
+                      formik.values.paymentSystem?.paymentAccountId ?? null
+                    }
+                    selectedPaymentSystemGroup={
+                      formik.values.paymentSystem?.group ?? null
+                    }
+                    errorMessagePaymentAccount={
+                      formik.errors.paymentSystem &&
+                      formik.touched.paymentSystem && (
+                        <FormattedMessage id="store/required-field" />
+                      )
+                    }
+                  />
+                )}
+              </Section>
+              <Section borderBottom>
+                {!isEditingAddress && address ? (
+                  <div className="flex justify-between">
+                    <Address address={address} />
+                    <EditButton
+                      onClick={this.handleEditAddress}
+                      withBackground
+                    />
+                  </div>
+                ) : (
+                  <AddressSelector
+                    addresses={addresses}
+                    onChangeAddress={({ addressId, addressType }) =>
+                      formik.setFieldValue('address', {
+                        id: addressId,
+                        type: addressType,
+                      })
+                    }
+                    selectedAddressId={formik.values.address?.id ?? null}
+                  />
+                )}
+              </Section>
+              {displaySummary && (
+                <>
+                  <div className="pt7">
+                    <Title>
+                      <FormattedMessage id="store/summary.title" />
+                    </Title>
+                  </div>
+                  <Section>
+                    <Content totals={totals} currencyCode={currencyCode} />
+                  </Section>
+                </>
+              )}
+            </Box>
+          )
+        }}
+      </SimulationConsumer>
     )
   }
 }

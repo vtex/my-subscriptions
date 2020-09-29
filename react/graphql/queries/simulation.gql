@@ -1,0 +1,16 @@
+query SubscriptionSimulation($subscription: SubscriptionFormInput!) {
+  simulation(form: $subscription) {
+    totals {
+      id
+      value
+    }
+    totalsBySimulationItems {
+      id
+      unitPrice
+      quantity
+    }
+    shippingEstimate {
+      estimatedDeliveryDate
+    }
+  }
+}
