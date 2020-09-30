@@ -1,5 +1,6 @@
 query SubscriptionSimulation($subscription: SubscriptionFormInput!) {
-  simulation(data: $subscription) {
+  simulation(data: $subscription)
+    @context(provider: "vtex.subscriptions-graphql") {
     totals {
       id
       value

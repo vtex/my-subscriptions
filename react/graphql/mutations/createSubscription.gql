@@ -1,5 +1,6 @@
 mutation CreateSubscription($data: SubscriptionFormInput!) {
-  createSubscription(data: $data) {
+  createSubscription(data: $data)
+    @context(provider: "vtex.subscriptions-graphql") {
     id
   }
 }
