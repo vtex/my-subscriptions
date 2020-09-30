@@ -12,6 +12,7 @@ import { queryWrapper } from '../../../tracking'
 import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
+import ValiditySelector from '../../Selector/Validity'
 
 const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
   const [frequencyField, frequencyMeta, frequencyHelper] = useField<
@@ -21,24 +22,47 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
     SubscriptionForm['purchaseDay']
   >('purchaseDay')
 
+  const [beginDateField, , beginDateHelper] = useField<
+    SubscriptionForm['beginDate']
+  >('beginDate')
+  const [endDateField, , endDateHelper] = useField<SubscriptionForm['endDate']>(
+    'endDate'
+  )
+
   return (
-    <FrequencySelector
-      availableFrequencies={frequencies}
-      selectedFrequency={frequencyField.value}
-      onChangeFrequency={frequencyHelper.setValue}
-      onBlurFrequency={frequencyField.onBlur}
-      onChangePurchaseDay={purchaseHelper.setValue}
-      onBlurPurchaseDay={purchaseDayField.onBlur}
-      selectedPurchaseDay={purchaseDayField.value}
-      errorMessageFrequency={
-        frequencyMeta.error &&
-        frequencyMeta.touched && <FormattedMessage id="store/required-field" />
-      }
-      errorMessagePurchaseDay={
-        purchaseMeta.error &&
-        purchaseMeta.touched && <FormattedMessage id="store/required-field" />
-      }
-    />
+    <div className="flex">
+      <div className="w-50-l w-100">
+        <FrequencySelector
+          availableFrequencies={frequencies}
+          selectedFrequency={frequencyField.value}
+          onChangeFrequency={frequencyHelper.setValue}
+          onBlurFrequency={frequencyField.onBlur}
+          onChangePurchaseDay={purchaseHelper.setValue}
+          onBlurPurchaseDay={purchaseDayField.onBlur}
+          selectedPurchaseDay={purchaseDayField.value}
+          errorMessageFrequency={
+            frequencyMeta.error &&
+            frequencyMeta.touched && (
+              <FormattedMessage id="store/required-field" />
+            )
+          }
+          errorMessagePurchaseDay={
+            purchaseMeta.error &&
+            purchaseMeta.touched && (
+              <FormattedMessage id="store/required-field" />
+            )
+          }
+        />
+      </div>
+      <div className="w-50-l w-100 pl6-l pl0">
+        <ValiditySelector
+          beginDate={beginDateField.value}
+          onChangeBeginDate={beginDateHelper.setValue}
+          endDate={endDateField.value}
+          onChangeEndDate={endDateHelper.setValue}
+        />
+      </div>
+    </div>
   )
 }
 
