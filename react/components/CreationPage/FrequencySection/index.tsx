@@ -61,7 +61,6 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
         <DatePicker
           label={formatMessage({
             id: 'store/creation-page.frequency-section.next-purchase-date',
-            defaultMessage: 'First purchase:',
           })}
           value={nextPurchaseDateField.value}
           onChange={nextPurchaseDateHelper.setValue}
@@ -73,7 +72,6 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
             id="display-end-date"
             label={formatMessage({
               id: 'store/creation-page.frequency-section.add-expiration-date',
-              defaultMessage: 'Add expiration date',
             })}
             name="display-end-date"
             onChange={() =>
@@ -88,6 +86,22 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
             }
           />
         </div>
+        {expirationDateField.value && (
+          <div className="pt4">
+            <DatePicker
+              label={formatMessage({
+                id: 'store/creation-page.frequency-section.expiration-date',
+              })}
+              value={expirationDateField.value}
+              minDate={getFutureDate({
+                date: nextPurchaseDateField.value,
+                days: 1,
+              })}
+              onChange={expirationDateHelper.setValue}
+              locale={locale}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

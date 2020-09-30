@@ -117,5 +117,8 @@
   "store/creation-page.create-subscription-button": "Assinar",
   "store/creation-page.products-card.title": "Produtos",
   "store/creation-page.name-section.label": "Dê um nome a sua assinatura",
-  "store/required-field": "Campo obrigatório"
+  "store/required-field": "Campo obrigatório",
+  "store/creation-page.frequency-section.next-purchase-date": "Data da primeira compra:",
+  "store/creation-page.frequency-section.add-expiration-date": "Adicionar data de expiração",
+  "store/creation-page.frequency-section.expiration-date": "Expira em:"
 }

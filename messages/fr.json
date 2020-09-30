@@ -117,5 +117,8 @@
   "store/creation-page.create-subscription-button": "Souscrire",
   "store/creation-page.products-card.title": "Des produits",
   "store/creation-page.name-section.label": "Donnez un nom à votre abonnement",
-  "store/required-field": "Champs requis"
+  "store/required-field": "Champs requis",
+  "store/creation-page.frequency-section.next-purchase-date": "Premier achat:",
+  "store/creation-page.frequency-section.add-expiration-date": "Ajouter une date d'expiration",
+  "store/creation-page.frequency-section.expiration-date": "Expire dans:"
 }

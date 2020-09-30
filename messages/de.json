@@ -117,5 +117,8 @@
   "store/creation-page.create-subscription-button": "Abonnieren",
   "store/creation-page.products-card.title": "Produkte",
   "store/creation-page.name-section.label": "Geben Sie Ihrem Abonnement einen Namen",
-  "store/required-field": "Pflichtfeld"
+  "store/required-field": "Pflichtfeld",
+  "store/creation-page.frequency-section.next-purchase-date": "Erster Kauf:",
+  "store/creation-page.frequency-section.add-expiration-date": "Ablaufdatum hinzufügen",
+  "store/creation-page.frequency-section.expiration-date": "Verfällt in:"
 }
