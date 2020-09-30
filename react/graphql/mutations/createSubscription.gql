@@ -1,4 +1,4 @@
-mutation CreateSubscription($data: CreationFormInput!) {
+mutation CreateSubscription($data: SubscriptionFormInput!) {
   createSubscription(data: $data) {
     id
   }

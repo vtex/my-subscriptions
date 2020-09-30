@@ -25,7 +25,7 @@ import CREATE_MUTATION, {
   Result as CreationResult,
 } from '../../graphql/mutations/createSubscription.gql'
 import { logGraphqlError } from '../../tracking'
-import { getFutureDate } from '../Selector/utils'
+import { getFutureDate } from './utils'
 
 export const INSTANCE = 'NewSubscription'
 
@@ -39,8 +39,8 @@ const INITIAL_STATE: SubscriptionForm = {
   address: null,
   paymentSystem: null,
   products: [],
-  beginDate: TOMORROW,
-  endDate: null,
+  nextPurchaseDate: TOMORROW,
+  expirationDate: null,
 }
 
 const VALIDATION_SCHEMA = Yup.object().shape({
@@ -71,10 +71,14 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     const frequency = extractFrequency(formikValues.frequency)
 
     return {
-      nextPurchaseDate: formikValues.beginDate.toISOString(),
+      nextPurchaseDate: formikValues.nextPurchaseDate.toISOString(),
       plan: {
         id: formikValues.planId,
         frequency,
+        validity: {
+          begin: new Date().toISOString(),
+          end: formikValues.expirationDate?.toISOString(),
+        },
       },
       shippingAddress: {
         addressId: formikValues.address.id,
@@ -200,8 +204,8 @@ export type SubscriptionForm = {
     type: string
   } | null
   products: Product[]
-  beginDate: Date
-  endDate: Date | null
+  nextPurchaseDate: Date
+  expirationDate: Date | null
 }
 
 export type Product = {

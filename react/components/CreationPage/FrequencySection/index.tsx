@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-handler-names */
 import React, { FunctionComponent } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useField } from 'formik'
+import { DatePicker, Checkbox } from 'vtex.styleguide'
 
 import FREQUENCY_QUERY, {
   Args,
@@ -12,7 +13,9 @@ import { queryWrapper } from '../../../tracking'
 import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
-import ValiditySelector from '../../Selector/Validity'
+import { getFutureDate } from '../utils'
+
+const DEFAULT_EXPIRATION = 6
 
 const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
   const [frequencyField, frequencyMeta, frequencyHelper] = useField<
@@ -22,12 +25,14 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
     SubscriptionForm['purchaseDay']
   >('purchaseDay')
 
-  const [beginDateField, , beginDateHelper] = useField<
-    SubscriptionForm['beginDate']
-  >('beginDate')
-  const [endDateField, , endDateHelper] = useField<SubscriptionForm['endDate']>(
-    'endDate'
-  )
+  const [nextPurchaseDateField, , nextPurchaseDateHelper] = useField<
+    SubscriptionForm['nextPurchaseDate']
+  >('nextPurchaseDate')
+  const [expirationDateField, , expirationDateHelper] = useField<
+    SubscriptionForm['expirationDate']
+  >('expirationDate')
+
+  const { locale, formatMessage } = useIntl()
 
   return (
     <div className="flex">
@@ -42,25 +47,47 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           selectedPurchaseDay={purchaseDayField.value}
           errorMessageFrequency={
             frequencyMeta.error &&
-            frequencyMeta.touched && (
-              <FormattedMessage id="store/required-field" />
-            )
+            frequencyMeta.touched &&
+            formatMessage({ id: 'store/required-field' })
           }
           errorMessagePurchaseDay={
             purchaseMeta.error &&
-            purchaseMeta.touched && (
-              <FormattedMessage id="store/required-field" />
-            )
+            purchaseMeta.touched &&
+            formatMessage({ id: 'store/required-field' })
           }
         />
       </div>
       <div className="w-50-l w-100 pl6-l pl0">
-        <ValiditySelector
-          beginDate={beginDateField.value}
-          onChangeBeginDate={beginDateHelper.setValue}
-          endDate={endDateField.value}
-          onChangeEndDate={endDateHelper.setValue}
+        <DatePicker
+          label={formatMessage({
+            id: 'store/creation-page.frequency-section.next-purchase-date',
+            defaultMessage: 'First purchase:',
+          })}
+          value={nextPurchaseDateField.value}
+          onChange={nextPurchaseDateHelper.setValue}
+          locale={locale}
         />
+        <div className="pt6">
+          <Checkbox
+            checked={!!expirationDateField.value}
+            id="display-end-date"
+            label={formatMessage({
+              id: 'store/creation-page.frequency-section.add-expiration-date',
+              defaultMessage: 'Add expiration date',
+            })}
+            name="display-end-date"
+            onChange={() =>
+              expirationDateHelper.setValue(
+                expirationDateField.value
+                  ? null
+                  : getFutureDate({
+                      date: nextPurchaseDateField.value,
+                      months: DEFAULT_EXPIRATION,
+                    })
+              )
+            }
+          />
+        </div>
       </div>
     </div>
   )

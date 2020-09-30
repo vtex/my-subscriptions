@@ -43,10 +43,10 @@
     "vtex.my-account-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.5.2/public/@types/vtex.my-account-commons",
     "vtex.payment-flags": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.5.0/public/@types/vtex.payment-flags",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.122.1/public/@types/vtex.render-runtime",
-    "vtex.store-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.133.0/public/@types/vtex.store-graphql",
-    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.0/public/@types/vtex.styleguide",
+    "vtex.store-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.134.0/public/@types/vtex.store-graphql",
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.1/public/@types/vtex.styleguide",
     "vtex.subscriptions-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons",
-    "vtex.subscriptions-graphql": "https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601385099/public/@types/vtex.subscriptions-graphql",
+    "vtex.subscriptions-graphql": "https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601494034/public/@types/vtex.subscriptions-graphql",
     "vtex.totalizer-translator": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.0/public/_types/react"
   },
   "version": "3.6.1"

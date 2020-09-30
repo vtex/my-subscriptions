@@ -6465,21 +6465,21 @@ vtex-tachyons@^3.2.0:
   version "8.122.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.122.1/public/@types/vtex.render-runtime#d790c20d157b42a08f1b90085e1347a52b87441e"
 
-"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.133.0/public/@types/vtex.store-graphql":
-  version "2.133.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.133.0/public/@types/vtex.store-graphql#b793c2fbe80d43cd435c67771a8db28b1e0b5d68"
+"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.134.0/public/@types/vtex.store-graphql":
+  version "2.134.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.134.0/public/@types/vtex.store-graphql#b063516516353a5c7476699d1399c4582a4427b7"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.0/public/@types/vtex.styleguide":
-  version "9.130.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.0/public/@types/vtex.styleguide#7ace430f95765352498f025f695dc10d53498f11"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.1/public/@types/vtex.styleguide":
+  version "9.130.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.130.1/public/@types/vtex.styleguide#d17c33aefdd56143d42e6a15598c0a800de80813"
 
 "vtex.subscriptions-commons@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons":
   version "1.1.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons#f122e45f2e94c7efdd49cc9cee45c69f9d350535"
 
-"vtex.subscriptions-graphql@https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601385099/public/@types/vtex.subscriptions-graphql":
+"vtex.subscriptions-graphql@https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601494034/public/@types/vtex.subscriptions-graphql":
   version "3.7.0"
-  resolved "https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601385099/public/@types/vtex.subscriptions-graphql#2cfb1532f4ddc2d4426c9d4fadfab92d8aefb44c"
+  resolved "https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601494034/public/@types/vtex.subscriptions-graphql#09a894f6349fc998ba30da59cce9c7ebd618c1d5"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.0/public/_types/react":
   version "0.0.0"
