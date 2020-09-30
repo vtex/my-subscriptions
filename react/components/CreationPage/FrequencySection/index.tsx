@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-handler-names */
 import React, { FunctionComponent } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { useIntl } from 'react-intl'
+import { useIntl, defineMessages } from 'react-intl'
 import { useField } from 'formik'
 import { DatePicker, Checkbox } from 'vtex.styleguide'
 
@@ -14,6 +14,21 @@ import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
 import { getFutureDate } from '../utils'
+
+const messages = defineMessages({
+  required: {
+    id: 'store/required-field',
+  },
+  nextPurchase: {
+    id: 'store/creation-page.frequency-section.next-purchase-date',
+  },
+  addExpiration: {
+    id: 'store/creation-page.frequency-section.add-expiration-date',
+  },
+  expirationDate: {
+    id: 'store/creation-page.frequency-section.expiration-date',
+  },
+})
 
 const DEFAULT_EXPIRATION = 6
 
@@ -48,20 +63,18 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           errorMessageFrequency={
             frequencyMeta.error &&
             frequencyMeta.touched &&
-            formatMessage({ id: 'store/required-field' })
+            formatMessage(messages.required)
           }
           errorMessagePurchaseDay={
             purchaseMeta.error &&
             purchaseMeta.touched &&
-            formatMessage({ id: 'store/required-field' })
+            formatMessage(messages.required)
           }
         />
       </div>
       <div className="w-50-l w-100 pl6-l pl0">
         <DatePicker
-          label={formatMessage({
-            id: 'store/creation-page.frequency-section.next-purchase-date',
-          })}
+          label={formatMessage(messages.nextPurchase)}
           value={nextPurchaseDateField.value}
           onChange={nextPurchaseDateHelper.setValue}
           locale={locale}
@@ -70,9 +83,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           <Checkbox
             checked={!!expirationDateField.value}
             id="display-end-date"
-            label={formatMessage({
-              id: 'store/creation-page.frequency-section.add-expiration-date',
-            })}
+            label={formatMessage(messages.addExpiration)}
             name="display-end-date"
             onChange={() =>
               expirationDateHelper.setValue(
@@ -89,9 +100,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
         {expirationDateField.value && (
           <div className="pt4">
             <DatePicker
-              label={formatMessage({
-                id: 'store/creation-page.frequency-section.expiration-date',
-              })}
+              label={formatMessage(messages.expirationDate)}
               value={expirationDateField.value}
               minDate={getFutureDate({
                 date: nextPurchaseDateField.value,
