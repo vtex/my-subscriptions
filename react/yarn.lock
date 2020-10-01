@@ -6477,9 +6477,9 @@ vtex-tachyons@^3.2.0:
   version "1.1.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons#f122e45f2e94c7efdd49cc9cee45c69f9d350535"
 
-"vtex.subscriptions-graphql@https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601497846/public/@types/vtex.subscriptions-graphql":
-  version "3.7.0"
-  resolved "https://cabaceiras--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.7.0+build1601497846/public/@types/vtex.subscriptions-graphql#ddbf73a73906d28e92c0a5fc1edf5c1a7ebb997d"
+"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.8.0/public/@types/vtex.subscriptions-graphql":
+  version "3.8.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.8.0/public/@types/vtex.subscriptions-graphql#0b271aefef488e8d41f0caa357f78ef8d15be4fe"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.0/public/_types/react":
   version "0.0.0"
