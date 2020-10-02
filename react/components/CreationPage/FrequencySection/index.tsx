@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-handler-names */
 import React, { FunctionComponent } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { FormattedMessage } from 'react-intl'
+import { useIntl, defineMessages } from 'react-intl'
 import { useField } from 'formik'
+import { DatePicker, Checkbox } from 'vtex.styleguide'
 
 import FREQUENCY_QUERY, {
   Args,
@@ -12,6 +13,24 @@ import { queryWrapper } from '../../../tracking'
 import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
+import { getFutureDate } from '../utils'
+
+const messages = defineMessages({
+  required: {
+    id: 'store/required-field',
+  },
+  nextPurchase: {
+    id: 'store/creation-page.frequency-section.next-purchase-date',
+  },
+  addExpiration: {
+    id: 'store/creation-page.frequency-section.add-expiration-date',
+  },
+  expirationDate: {
+    id: 'store/creation-page.frequency-section.expiration-date',
+  },
+})
+
+const DEFAULT_EXPIRATION = 6
 
 const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
   const [frequencyField, frequencyMeta, frequencyHelper] = useField<
@@ -21,24 +40,79 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
     SubscriptionForm['purchaseDay']
   >('purchaseDay')
 
+  const [nextPurchaseDateField, , nextPurchaseDateHelper] = useField<
+    SubscriptionForm['nextPurchaseDate']
+  >('nextPurchaseDate')
+  const [expirationDateField, , expirationDateHelper] = useField<
+    SubscriptionForm['expirationDate']
+  >('expirationDate')
+
+  const { locale, formatMessage } = useIntl()
+
   return (
-    <FrequencySelector
-      availableFrequencies={frequencies}
-      selectedFrequency={frequencyField.value}
-      onChangeFrequency={frequencyHelper.setValue}
-      onBlurFrequency={frequencyField.onBlur}
-      onChangePurchaseDay={purchaseHelper.setValue}
-      onBlurPurchaseDay={purchaseDayField.onBlur}
-      selectedPurchaseDay={purchaseDayField.value}
-      errorMessageFrequency={
-        frequencyMeta.error &&
-        frequencyMeta.touched && <FormattedMessage id="store/required-field" />
-      }
-      errorMessagePurchaseDay={
-        purchaseMeta.error &&
-        purchaseMeta.touched && <FormattedMessage id="store/required-field" />
-      }
-    />
+    <div className="flex">
+      <div className="w-50-l w-100">
+        <FrequencySelector
+          availableFrequencies={frequencies}
+          selectedFrequency={frequencyField.value}
+          onChangeFrequency={frequencyHelper.setValue}
+          onBlurFrequency={frequencyField.onBlur}
+          onChangePurchaseDay={purchaseHelper.setValue}
+          onBlurPurchaseDay={purchaseDayField.onBlur}
+          selectedPurchaseDay={purchaseDayField.value}
+          errorMessageFrequency={
+            frequencyMeta.error &&
+            frequencyMeta.touched &&
+            formatMessage(messages.required)
+          }
+          errorMessagePurchaseDay={
+            purchaseMeta.error &&
+            purchaseMeta.touched &&
+            formatMessage(messages.required)
+          }
+        />
+      </div>
+      <div className="w-50-l w-100 pl6-l pl0">
+        <DatePicker
+          label={formatMessage(messages.nextPurchase)}
+          value={nextPurchaseDateField.value}
+          onChange={nextPurchaseDateHelper.setValue}
+          locale={locale}
+        />
+        <div className="pt6">
+          <Checkbox
+            checked={!!expirationDateField.value}
+            id="display-end-date"
+            label={formatMessage(messages.addExpiration)}
+            name="display-end-date"
+            onChange={() =>
+              expirationDateHelper.setValue(
+                expirationDateField.value
+                  ? null
+                  : getFutureDate({
+                      date: nextPurchaseDateField.value,
+                      months: DEFAULT_EXPIRATION,
+                    })
+              )
+            }
+          />
+        </div>
+        {expirationDateField.value && (
+          <div className="pt4">
+            <DatePicker
+              label={formatMessage(messages.expirationDate)}
+              value={expirationDateField.value}
+              minDate={getFutureDate({
+                date: nextPurchaseDateField.value,
+                days: 1,
+              })}
+              onChange={expirationDateHelper.setValue}
+              locale={locale}
+            />
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
 
