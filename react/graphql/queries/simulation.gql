@@ -1,0 +1,17 @@
+query SubscriptionSimulation($subscription: SubscriptionFormInput!) {
+  simulation(data: $subscription)
+    @context(provider: "vtex.subscriptions-graphql") {
+    totals {
+      id
+      value
+    }
+    totalsBySimulationItems {
+      id
+      unitPrice
+      quantity
+    }
+    shippingEstimate {
+      estimatedDeliveryDate
+    }
+  }
+}

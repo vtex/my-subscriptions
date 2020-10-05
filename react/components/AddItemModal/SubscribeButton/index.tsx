@@ -57,7 +57,7 @@ type Props = {
   skuId: string
   isLoading: boolean
   subscribedSkus: string[]
-  targetPlan: string
+  targetPlan: string | null
   availablePlans: string[]
   onClick: () => void
   buttonType: 'plain' | 'secondary'

@@ -1,10 +1,12 @@
 import React, { FunctionComponent, ReactNode } from 'react'
 import { Box } from 'vtex.styleguide'
 
+import Title from './Title'
+
 const CustomBox: FunctionComponent<Props> = ({ children, title, footer }) => (
   <Box noPadding>
-    <div className={footer ? 'pt7' : 'pv7'}>
-      {title && <h3 className="t-heading-4 mt0 ph7">{title}</h3>}
+    <div className={`${title ? 'pt7' : ''} ${footer ? '' : 'pb7'}`}>
+      {title && <Title>{title}</Title>}
       {children}
     </div>
     {footer && (

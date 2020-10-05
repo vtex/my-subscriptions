@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { FormattedNumber } from 'react-intl'
-import { IconDelete } from 'vtex.styleguide'
+import { IconDelete, Spinner, ButtonPlain } from 'vtex.styleguide'
 
-import QuantitySelector from '../../QuantitySelector'
-import Thumbnail from '../../SkuThumbnail'
+import QuantitySelector from './QuantitySelector'
+import Thumbnail from './SkuThumbnail'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class ProductListItem extends PureComponent<Props> {
@@ -21,6 +21,7 @@ class ProductListItem extends PureComponent<Props> {
       onRemove,
       unitMultiplier,
       brandName,
+      isLoadingPrice,
     } = this.props
 
     return (
@@ -36,27 +37,33 @@ class ProductListItem extends PureComponent<Props> {
             id="product-list"
             value={quantity}
             onChange={onChange}
+            disabled={isLoadingPrice}
           />
         ) : (
           <span className="mv4 mv0-l">{`${quantity} ${measurementUnit}.`}</span>
         )}
-        {price && (
-          <span className="mv4 mv0-l">
-            <FormattedNumber
-              currency={currency}
-              style="currency"
-              value={(price * quantity) / 100}
-            />
-          </span>
+        {!isLoadingPrice ? (
+          price && (
+            <span className="mv4 mv0-l">
+              <FormattedNumber
+                currency={currency}
+                style="currency"
+                value={price * quantity}
+              />
+            </span>
+          )
+        ) : (
+          <Spinner size={16} />
         )}
         {isEditing && canRemove && (
           <div className="flex">
-            <button
-              className="c-danger pointer bn bg-transparent"
+            <ButtonPlain
               onClick={onRemove}
+              variation="danger"
+              disable={isLoadingPrice}
             >
               <IconDelete />
-            </button>
+            </ButtonPlain>
           </div>
         )}
       </Thumbnail>
@@ -75,6 +82,7 @@ interface Props {
   unitMultiplier: number
   isEditing: boolean
   canRemove: boolean
+  isLoadingPrice?: boolean
   onRemove?: () => void
   onChange?: (quantity: number) => void
 }

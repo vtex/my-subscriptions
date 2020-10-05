@@ -23,6 +23,8 @@ declare module 'vtex.styleguide' {
   export const ButtonPlain
   export const PageHeader
   export const Box
+  export const DatePicker
+  export const Checkbox
   export interface ShowToastArgs {
     message: string
     action?: {

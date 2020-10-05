@@ -5,12 +5,12 @@ const LabeledInfo: FunctionComponent<Props> = ({
   children,
   labelDark = false,
 }) => (
-  <>
+  <div>
     <div className={`t-small ${labelDark ? 'c-on-base' : 'c-muted-1'} mb4`}>
       {label}
     </div>
     <div className="t-body">{children}</div>
-  </>
+  </div>
 )
 
 interface Props {

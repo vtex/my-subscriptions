@@ -109,5 +109,16 @@
   "store/display-payment.deleted-error-message": "Your payment method was removed, please select another one.",
   "store/display-payment.payment-error-message": "Your payment method doesn't seem to be working.",
   "store/summary.title": "Summary",
-  "store/summary.price-warning": "*Prices valid to {day}"
+  "store/summary.price-warning": "*Prices valid to {day}",
+  "store/list-page.back": "Return",
+  "store/list-page.create-subscriptions": "New subscription",
+  "store/creation-page.title": "New subscription",
+  "store/creation-page.back-button": "All subscriptions",
+  "store/creation-page.create-subscription-button": "Subscribe",
+  "store/creation-page.products-card.title": "Products",
+  "store/creation-page.name-section.label": "Give a name to your subscription",
+  "store/required-field": "Required Field",
+  "store/creation-page.frequency-section.next-purchase-date": "First purchase:",
+  "store/creation-page.frequency-section.add-expiration-date": "Add expiration date",
+  "store/creation-page.frequency-section.expiration-date": "Expires in:"
 }

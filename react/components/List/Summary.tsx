@@ -23,7 +23,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
           <Name
             skus={subscription.items.map((item) => item.sku)}
             subscriptionId={subscription.id}
-            status={subscription.status}
+            canEdit={subscription.status === 'ACTIVE'}
             name={subscription.name}
           />
         </div>

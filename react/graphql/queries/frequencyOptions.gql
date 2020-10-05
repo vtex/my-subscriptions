@@ -1,0 +1,7 @@
+query FrequencyOptions($planId: ID!) {
+  frequencies: frequencyOptions(planId: $planId)
+    @context(provider: "vtex.subscriptions-graphql") {
+    periodicity
+    interval
+  }
+}

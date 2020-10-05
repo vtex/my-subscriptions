@@ -15,13 +15,8 @@ import { RouteComponentProps, withRouter } from 'vtex.my-account-commons/Router'
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
 import Edit from './Edit'
-import {
-  frequencyIndex,
-  extractFrequency,
-  getAddressArgs,
-  getPaymentArgs,
-  removeArgs,
-} from './utils'
+import { getAddressArgs, getPaymentArgs, removeArgs } from './utils'
+import { extractFrequency, frequencyIndex } from '../../Frequency/utils'
 import UPDATE_FREQUENCY, {
   Args as UpdateFrequencyArgs,
 } from '../../../graphql/mutations/updatePlan.gql'

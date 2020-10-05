@@ -109,5 +109,16 @@
   "store/display-payment.deleted-error-message": "Il tuo metodo di pagamento è stato rimosso, selezionane un altro.",
   "store/display-payment.payment-error-message": "Il tuo metodo di pagamento sembra non funzionare.",
   "store/summary.title": "Sommario",
-  "store/summary.price-warning": "*Prezzi validi fino a {day}"
+  "store/summary.price-warning": "*Prezzi validi fino a {day}",
+  "store/list-page.back": "Ritorno",
+  "store/list-page.create-subscriptions": "Nuovo abbonamento",
+  "store/creation-page.title": "Nuovo abbonamento",
+  "store/creation-page.back-button": "Tutti gli abbonamenti",
+  "store/creation-page.create-subscription-button": "Sottoscrivi",
+  "store/creation-page.products-card.title": "Prodotti",
+  "store/creation-page.name-section.label": "Dai un nome al tuo abbonamento",
+  "store/required-field": "Campo obbligatorio",
+  "store/creation-page.frequency-section.next-purchase-date": "Primo acquisto:",
+  "store/creation-page.frequency-section.add-expiration-date": "Aggiungi la data di scadenza",
+  "store/creation-page.frequency-section.expiration-date": "Scade tra:"
 }

@@ -109,5 +109,16 @@
   "store/display-payment.deleted-error-message": "Seu método de pagamento foi removido, por favor selecione outro.",
   "store/display-payment.payment-error-message": "Seu método de pagamento parece não estar funcionando.",
   "store/summary.title": "Sumário",
-  "store/summary.price-warning": "*Preços válidos para {day}"
+  "store/summary.price-warning": "*Preços válidos para {day}",
+  "store/list-page.back": "Voltar",
+  "store/list-page.create-subscriptions": "Nova assinatura",
+  "store/creation-page.title": "Nova assinatura",
+  "store/creation-page.back-button": "Todas as assinaturas",
+  "store/creation-page.create-subscription-button": "Assinar",
+  "store/creation-page.products-card.title": "Produtos",
+  "store/creation-page.name-section.label": "Dê um nome a sua assinatura",
+  "store/required-field": "Campo obrigatório",
+  "store/creation-page.frequency-section.next-purchase-date": "Data da primeira compra:",
+  "store/creation-page.frequency-section.add-expiration-date": "Adicionar data de expiração",
+  "store/creation-page.frequency-section.expiration-date": "Expira em:"
 }

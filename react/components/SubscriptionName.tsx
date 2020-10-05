@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, FocusEvent } from 'react'
 import { graphql } from 'react-apollo'
 import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Input } from 'vtex.styleguide'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import UPDATE_NAME, { Args } from '../graphql/mutations/updateName.gql'
 import ConfirmationModal, {
@@ -74,25 +73,22 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
   public render() {
     const {
       name,
-      status,
       intl,
       updateName,
       skus,
       subscriptionId,
       withIconBackground,
+      canEdit,
+      onSubmit,
+      onBlur,
     } = this.props
 
     let content
     if (skus.length === 1) {
       content = (
-        <a
-          className="no-underline c-on-base ttc"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={skus[0].detailUrl}
-        >
+        <span className="no-underline c-on-base ttc">
           {getName(intl, name, skus)}
-        </a>
+        </span>
       )
     } else {
       content = getName(intl, name, skus)
@@ -107,10 +103,18 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
       onLoading: this.handleLoading,
       successMessage: intl.formatMessage(modalMessages.successMessage),
       onSubmit: () => {
+        if (onSubmit) {
+          onSubmit(this.state.name)
+          this.handleCloseModal()
+        }
+
+        if (!subscriptionId) return
+
         const variables = {
           name: this.state.name,
           subscriptionId,
         }
+
         return updateName({
           variables,
         }).catch((error: ApolloError) => {
@@ -126,8 +130,6 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
       },
     }
 
-    const canEdit = status === 'ACTIVE'
-
     return (
       <div className="flex items-center">
         <ConfirmationModal {...modalProps}>
@@ -136,6 +138,8 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
           </div>
           <div className="w-100">
             <Input
+              name="name"
+              onBlur={onBlur}
               value={this.state.name}
               onChange={this.handleChangeName}
               disabled={this.state.isLoading}
@@ -157,13 +161,12 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
 
 interface OuterProps {
   name?: string | null
-  status: SubscriptionStatus
-  subscriptionId: string
-  skus: Array<{
-    detailUrl: string
-    name: string
-  }>
+  subscriptionId?: string
   withIconBackground?: boolean
+  onSubmit?: (name: string) => void
+  onBlur?: (e: FocusEvent) => void
+  canEdit: boolean
+  skus: Array<{ name: string }>
 }
 
 interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {

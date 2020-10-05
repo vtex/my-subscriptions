@@ -109,5 +109,16 @@
   "store/display-payment.deleted-error-message": "Votre mode de paiement a été supprimé, veuillez en sélectionner un autre.",
   "store/display-payment.payment-error-message": "Votre mode de paiement ne semble pas fonctionner.",
   "store/summary.title": "Résumé",
-  "store/summary.price-warning": "*Prix ​​valables jusqu'au {day}"
+  "store/summary.price-warning": "*Prix ​​valables jusqu'au {day}",
+  "store/list-page.back": "Revenir",
+  "store/list-page.create-subscriptions": "Nouvel abonnement",
+  "store/creation-page.title": "Nouvel abonnement",
+  "store/creation-page.back-button": "Tous les abonnements",
+  "store/creation-page.create-subscription-button": "Souscrire",
+  "store/creation-page.products-card.title": "Des produits",
+  "store/creation-page.name-section.label": "Donnez un nom à votre abonnement",
+  "store/required-field": "Champs requis",
+  "store/creation-page.frequency-section.next-purchase-date": "Premier achat:",
+  "store/creation-page.frequency-section.add-expiration-date": "Ajouter une date d'expiration",
+  "store/creation-page.frequency-section.expiration-date": "Expire dans:"
 }

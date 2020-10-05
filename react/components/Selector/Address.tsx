@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, ReactNode } from 'react'
 import { compose } from 'recompose'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { Dropdown, Button } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { Address } from 'vtex.subscriptions-graphql'
 
-import { Result } from '../../../graphql/queries/availablePreferences.gql'
 import { goToNReturn } from './utils'
 
-function transformAddresses(addresses: Result['addresses']) {
+function transformAddresses(addresses: Address[]) {
   return addresses.map((address) => ({
     label: `${address.street}, ${address.number}`,
     value: address.id,
@@ -20,31 +20,38 @@ const messages = defineMessages({
   addNew: { id: 'store/subscription.shipping.newAddress' },
 })
 
-const AddressesSection: FunctionComponent<Props> = ({
+const AddressSelector: FunctionComponent<Props> = ({
   addresses,
   onChangeAddress,
+  onBlur,
   selectedAddressId,
   history,
   intl,
+  errorMessage,
 }) => (
   <>
-    <Dropdown
-      label={intl.formatMessage(messages.label)}
-      options={transformAddresses(addresses)}
-      placeholder={intl.formatMessage(messages.select)}
-      value={selectedAddressId}
-      error={selectedAddressId === null}
-      onChange={(_: unknown, id: string) => {
-        const address = addresses.find((item) => item.id === id)
+    {addresses.length > 0 && (
+      <Dropdown
+        name="address"
+        label={intl.formatMessage(messages.label)}
+        options={transformAddresses(addresses)}
+        placeholder={intl.formatMessage(messages.select)}
+        value={selectedAddressId}
+        error={selectedAddressId === null}
+        onChange={(_: unknown, id: string) => {
+          const address = addresses.find((item) => item.id === id)
 
-        if (!address) return
+          if (!address) return
 
-        onChangeAddress({
-          addressId: address.id,
-          addressType: address.addressType as string,
-        })
-      }}
-    />
+          onChangeAddress({
+            addressId: address.id,
+            addressType: address.addressType as string,
+          })
+        }}
+        onBlur={onBlur}
+        errorMessage={errorMessage}
+      />
+    )}
     <div className="mt3">
       <Button
         size="small"
@@ -58,9 +65,11 @@ const AddressesSection: FunctionComponent<Props> = ({
 )
 
 type OuterProps = {
-  addresses: Result['addresses']
+  addresses: Address[]
   selectedAddressId: string | null
   onChangeAddress: (args: { addressId: string; addressType: string }) => void
+  onBlur?: (e: FocusEvent) => void
+  errorMessage?: string | ReactNode
 }
 
 type InnerProps = RouteComponentProps & WrappedComponentProps
@@ -69,4 +78,4 @@ type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(injectIntl, withRouter)
 
-export default enhance(AddressesSection)
+export default enhance(AddressSelector)

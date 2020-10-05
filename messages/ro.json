@@ -109,5 +109,16 @@
   "store/display-payment.deleted-error-message": "Metoda dvs. de plată a fost eliminată, selectați alta.",
   "store/display-payment.payment-error-message": "Metoda dvs. de plată nu pare să funcționeze.",
   "store/summary.title": "Rezumat",
-  "store/summary.price-warning": "*Prețuri valabile până la {day}"
+  "store/summary.price-warning": "*Prețuri valabile până la {day}",
+  "store/list-page.back": "Întoarcere",
+  "store/list-page.create-subscriptions": "Abonament nou",
+  "store/creation-page.title": "Abonament nou",
+  "store/creation-page.back-button": "Toate abonamentele",
+  "store/creation-page.create-subscription-button": "Abonati-va",
+  "store/creation-page.products-card.title": "Produse",
+  "store/creation-page.name-section.label": "Dați un nume abonamentului dvs.",
+  "store/required-field": "Câmp necesar",
+  "store/creation-page.frequency-section.next-purchase-date": "Prima achiziție:",
+  "store/creation-page.frequency-section.add-expiration-date": "Adăugați o dată de expirare",
+  "store/creation-page.frequency-section.expiration-date": "Expira in:"
 }

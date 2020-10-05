@@ -37,12 +37,11 @@ class AddItemContainer extends Component<Props> {
     this.setState({ searchInput })
   }
 
-  private handleAddItem = ({ skuId, quantity, setLoading }: AddItemArgs) => {
+  private handleAddItem = ({ setLoading, ...rest }: AddItemArgs) => {
     setLoading(true)
 
     this.props.onAddItem({
-      skuId,
-      quantity,
+      ...rest,
       onError: () => this.setState({ displayError: true }),
       onFinish: () => setLoading(false),
     })
@@ -82,22 +81,30 @@ class AddItemContainer extends Component<Props> {
   }
 }
 
-export interface AddItemArgs {
+type Item = {
   skuId: string
   quantity: number
-  setLoading: (loadingStatus: boolean) => void
+  name: string
+  price: number
+  unitMultiplier: number
+  measurementUnit: string
+  brand: string
+  imageUrl: string
+  plans: string[]
 }
 
-export interface OnAddItemArgs {
-  skuId: string
-  quantity: number
+export type AddItemArgs = {
+  setLoading: (loadingStatus: boolean) => void
+} & Item
+
+export type OnAddItemArgs = {
   onError: () => void
   onFinish: () => void
-}
+} & Item
 
 interface OuterProps {
   currency: string
-  targetPlan: string
+  targetPlan: string | null
   subscribedSkus: string[]
   onAddItem: (args: OnAddItemArgs) => void
 }
