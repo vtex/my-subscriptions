@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Cache upon listing.
+- Send name while creating a new subscription.
+- Display add credit card button when the user has no card.
+
 ## [3.7.0] - 2020-10-05
 
 ### Added
