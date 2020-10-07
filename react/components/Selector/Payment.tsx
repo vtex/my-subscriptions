@@ -39,71 +39,82 @@ const PaymentSelector: FunctionComponent<Props> = ({
 }) => {
   const groupedPayments = groupPayments(payments)
 
+  const AddCardButton = (
+    <Button
+      variation="tertiary"
+      size="small"
+      onClick={() => goToNReturn({ history, pathname: '/cards/new' })}
+    >
+      {intl.formatMessage(messages.addNew)}
+    </Button>
+  )
+
+  const groups = Object.keys(groupedPayments)
+
   return (
     <Label label={intl.formatMessage(messages.label)} labelDark>
-      {Object.keys(groupedPayments).map((group) => (
-        <div className="pb4" key={group}>
-          <Radio
-            id={group}
-            label={utils.translatePaymentGroup({
-              intl,
-              paymentSystemGroup: group,
-            })}
-            name={group}
-            checked={selectedPaymentSystemGroup === group}
-            onChange={() => {
-              const selectedGroup = group as PaymentSystemGroup
+      {groups.length > 0
+        ? groups.map((group) => (
+            <div className="pb4" key={group}>
+              <Radio
+                id={group}
+                label={utils.translatePaymentGroup({
+                  intl,
+                  paymentSystemGroup: group,
+                })}
+                name={group}
+                checked={selectedPaymentSystemGroup === group}
+                onChange={() => {
+                  const selectedGroup = group as PaymentSystemGroup
 
-              if (selectedGroup === 'creditCard') {
-                onChangePaymentSystemGroup({ group: selectedGroup })
-              } else {
-                const selectedSystemId =
-                  groupedPayments[group][0].paymentSystemId
-                onChangePaymentSystemGroup({
-                  group: selectedGroup,
-                  paymentSystemId: selectedSystemId,
-                })
-              }
-            }}
-            value={group}
-          />
-          {group === 'creditCard' && (
-            <div className="ml5">
-              <div className="mr2 mb3">
-                <Dropdown
-                  options={creditCardOptions(groupedPayments.creditCard, intl)}
-                  placeholder={intl.formatMessage(messages.select)}
-                  disabled={selectedPaymentSystemGroup !== 'creditCard'}
-                  value={selectedPaymentAccountId}
-                  error={selectedPaymentAccountId === null}
-                  onBlur={onBlurPaymentAccount}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                    const selectedAccount = e.target.value
-
-                    const card = getCreditCard(
-                      selectedAccount,
-                      groupedPayments.creditCard
-                    )
-
-                    onChangePaymentAccount({
-                      paymentSystemId: card.paymentSystemId,
-                      paymentAccountId: selectedAccount,
+                  if (selectedGroup === 'creditCard') {
+                    onChangePaymentSystemGroup({ group: selectedGroup })
+                  } else {
+                    const selectedSystemId =
+                      groupedPayments[group][0].paymentSystemId
+                    onChangePaymentSystemGroup({
+                      group: selectedGroup,
+                      paymentSystemId: selectedSystemId,
                     })
-                  }}
-                  errorMessage={errorMessagePaymentAccount}
-                />
-              </div>
-              <Button
-                variation="tertiary"
-                size="small"
-                onClick={() => goToNReturn({ history, pathname: '/cards/new' })}
-              >
-                {intl.formatMessage(messages.addNew)}
-              </Button>
+                  }
+                }}
+                value={group}
+              />
+              {group === 'creditCard' && (
+                <div className="ml5">
+                  <div className="mr2 mb3">
+                    <Dropdown
+                      options={creditCardOptions(
+                        groupedPayments.creditCard,
+                        intl
+                      )}
+                      placeholder={intl.formatMessage(messages.select)}
+                      disabled={selectedPaymentSystemGroup !== 'creditCard'}
+                      value={selectedPaymentAccountId}
+                      error={selectedPaymentAccountId === null}
+                      onBlur={onBlurPaymentAccount}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                        const selectedAccount = e.target.value
+
+                        const card = getCreditCard(
+                          selectedAccount,
+                          groupedPayments.creditCard
+                        )
+
+                        onChangePaymentAccount({
+                          paymentSystemId: card.paymentSystemId,
+                          paymentAccountId: selectedAccount,
+                        })
+                      }}
+                      errorMessage={errorMessagePaymentAccount}
+                    />
+                  </div>
+                  {AddCardButton}
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      ))}
+          ))
+        : AddCardButton}
     </Label>
   )
 }
