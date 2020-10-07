@@ -136,7 +136,11 @@ class SubscriptionsListContainer extends Component<
               onChange={this.handleChangeFilter}
             />
           </div>
-          <Query<Result> query={QUERY} variables={variables}>
+          <Query<Result>
+            query={QUERY}
+            variables={variables}
+            fetchPolicy="cache-and-network"
+          >
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
               if (error) {
