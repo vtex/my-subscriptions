@@ -71,6 +71,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     const frequency = extractFrequency(formikValues.frequency)
 
     return {
+      name: formikValues.name,
       nextPurchaseDate: formikValues.nextPurchaseDate.toISOString(),
       plan: {
         id: formikValues.planId,
