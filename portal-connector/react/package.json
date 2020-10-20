@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.7.0",
+    "react-intl": "^2.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.10",
+    "@types/react": "^16.8.22",
+    "@types/react-intl": "^2.3.18",
+    "@types/react-router-dom": "4",
+    "@vtex/tsconfig": "^0.2.0",
+    "typescript": "3.9.7",
+    "vtex.my-account-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@0.13.0/public/@types/vtex.my-account-commons",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@7.42.0/public/@types/vtex.render-runtime"
+  }
+}
