@@ -40,7 +40,7 @@
   "store/subscription.payment": "Payment",
   "store/subscription.edition.button.save": "Salvar",
   "store/subscription.edition.button.cancel": "Cancelar",
-  "store/subscription.view.title": "Suscripción con {productos} de valor",
+  "store/subscription.view.title": "Suscripción con {value} de valor",
   "store/subscription.notFound.title": "Aún no tiene suscripciones",
   "store/subscription.notFound.text": "Suscribe tus productos favoritos y siempre los encuentras aquí",
   "store/subscription.alert.error.message": "Hubo un problema de pago al intentar realizar su pedido actual. Configure su método de pago para evitar futuros problemas.",
