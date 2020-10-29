@@ -74,7 +74,7 @@ class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
           style={{ minWidth: '100%', minHeight: '200px' }}
           scrolling="no"
           frameBorder="0"
-          src={`/api/io/_v/public/my-subscriptions-router?workspace=${runtime.workspace}${window.location.hash}`} // the `/api/io` is necessary to bypass the Janus and to force a proxy to VTEX IO
+          src={`/api/io/_v/portal/public/my-subscriptions-router?workspace=${runtime.workspace}${window.location.hash}`} // the `/api/io` is necessary to bypass the Janus and to force a proxy to VTEX IO
           ref={this.getRef}
         />
       </section>
