@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "formik": "^2.1.5",
     "hoist-non-react-statics": "^3.3.2",
+    "iframe-resizer": "3.x",
     "memoize-one": "^5.1.1",
     "query-string": "5.x",
     "react": "^16.13.1",

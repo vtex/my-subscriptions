@@ -176,6 +176,11 @@ hoist-non-react-statics@^3.3.0:
   dependencies:
     react-is "^16.7.0"
 
+iframe-resizer@3.x:
+  version "3.6.6"
+  resolved "https://registry.yarnpkg.com/iframe-resizer/-/iframe-resizer-3.6.6.tgz#ece6a0b7e879cfe3783a1003261408152ff9bd9b"
+  integrity sha512-WYprloB8s18Be9wbybQZmeEWueEczJH2is/5DxDn4jH8Bs2DuaSuaOeYICe6IvmF04SBy4mQ+pX4Xc+E9FEMSg==
+
 intl-format-cache@^2.0.5:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/intl-format-cache/-/intl-format-cache-2.2.9.tgz#fb560de20c549cda20b569cf1ffb6dc62b5b93b4"
