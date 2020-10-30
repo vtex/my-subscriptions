@@ -32,7 +32,7 @@ const ProductsListing: FunctionComponent<Props> = ({
           <EditButton onClick={onGoToEdition} withBackground />
         )}
         {isEditing && (
-          <div className="mt4 mt0-l">
+          <div className="mt4 mt0-ns">
             <EditionButtons
               isLoading={isLoading}
               onSave={onSave}

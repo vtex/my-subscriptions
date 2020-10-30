@@ -9,11 +9,11 @@ const DetailsSkeleton: FunctionComponent = () => {
   return (
     <>
       <HeaderSkeleton />
-      <div className="pa5 pa7-l flex flex-wrap">
-        <div className="w-100 w-60-l">
+      <div className="pa5 pa7-ns flex flex-wrap">
+        <div className="w-100 w-60-ns">
           <ProductsSkeleton />
         </div>
-        <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+        <div className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns">
           <PreferencesSkeleton />
           <SummarySkeleton />
         </div>

@@ -102,7 +102,7 @@ class ActionBarContainer extends Component<Props> {
             />
           </div>
           <div className="flex items-center flex-wrap justify-between">
-            <div className="t-heading-4 w-100 w-60-l">
+            <div className="t-heading-4 w-100 w-60-ns">
               <FormattedMessage
                 id={`store/details-page.action-bar.text.${action}`}
                 values={{
@@ -116,7 +116,7 @@ class ActionBarContainer extends Component<Props> {
                 }}
               />
             </div>
-            <div className="mw5-l w-100 mt4 w-40-l mt0-l pl0 pl6-l">
+            <div className="mw5-ns w-100 mt4 w-40-ns mt0-ns pl0 pl6-ns">
               <Button variation={buttonVariation} onClick={onClick} block>
                 <FormattedMessage
                   id={`store/details-page.action-bar.button.${action}`}

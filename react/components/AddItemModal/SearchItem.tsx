@@ -44,7 +44,7 @@ const SearchItem: FunctionComponent<Props> = ({
               !subscribable({ targetPlan, availablePlans })
             }
           />
-          <span className="mv4 mv0-l">
+          <span className="mv4 mv0-ns">
             <FormattedNumber
               currency={currency}
               style="currency"

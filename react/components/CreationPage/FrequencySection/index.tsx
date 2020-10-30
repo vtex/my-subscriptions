@@ -51,7 +51,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
 
   return (
     <div className="flex">
-      <div className="w-50-l w-100">
+      <div className="w-50-ns w-100">
         <FrequencySelector
           availableFrequencies={frequencies}
           selectedFrequency={frequencyField.value}
@@ -72,7 +72,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           }
         />
       </div>
-      <div className="w-50-l w-100 pl6-l pl0">
+      <div className="w-50-ns w-100 pl6-ns pl0">
         <DatePicker
           label={formatMessage(messages.nextPurchase)}
           value={nextPurchaseDateField.value}
