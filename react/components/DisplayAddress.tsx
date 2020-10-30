@@ -8,10 +8,10 @@ import Error from './CustomErrorAlert'
 
 const messages = defineMessages({
   label: {
-    id: 'store/display-address.label',
+    id: 'display-address.label',
   },
   deletedError: {
-    id: 'store/display-address.deleted-error-message',
+    id: 'display-address.deleted-error-message',
   },
 })
 

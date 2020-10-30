@@ -48,9 +48,7 @@ function removeItem({
 }
 
 const Products: FunctionComponent<Props> = ({ currencyCode }) => (
-  <Box
-    title={<FormattedMessage id="store/creation-page.products-card.title" />}
-  >
+  <Box title={<FormattedMessage id="creation-page.products-card.title" />}>
     <FieldArray name="products">
       {({ form: { values, setFieldValue }, push, replace, remove }) => (
         <>

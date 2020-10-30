@@ -4,7 +4,7 @@ import { translations } from 'vtex.subscriptions-commons'
 import { WeekDay } from 'vtex.subscriptions-commons/react/utils/frequency'
 
 const messages = defineMessages({
-  selectDay: { id: 'store/subscription.select.day' },
+  selectDay: { id: 'subscription.select.day' },
 })
 
 function displayWeekDay({

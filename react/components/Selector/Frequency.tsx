@@ -10,10 +10,10 @@ import {
 } from '../Frequency/utils'
 
 const messages = defineMessages({
-  orderAgain: { id: 'store/subscription.data.orderAgain' },
-  select: { id: 'store/subscription.select' },
+  orderAgain: { id: 'subscription.data.orderAgain' },
+  select: { id: 'subscription.select' },
   chargeEvery: {
-    id: 'store/subscription.data.chargeEvery',
+    id: 'subscription.data.chargeEvery',
   },
 })
 

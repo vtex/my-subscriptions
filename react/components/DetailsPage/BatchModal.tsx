@@ -30,20 +30,16 @@ import Thumbnail from './SubscriptionThumbnail'
 
 const messages = defineMessages({
   success: {
-    id: 'store/subscription.edit.success',
-    defaultMessage: '',
+    id: 'subscription.edit.success',
   },
   errorMessage: {
-    id: 'store/subscription.fallback.error.message',
-    defaultMessage: '',
+    id: 'subscription.fallback.error.message',
   },
   all: {
-    id: 'store/subscription.batch.modal.all',
-    defaultMessage: '',
+    id: 'subscription.batch.modal.all',
   },
   description: {
-    id: 'store/subscription.batch.modal.desc',
-    defaultMessage: '',
+    id: 'subscription.batch.modal.desc',
   },
 })
 

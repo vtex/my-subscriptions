@@ -38,7 +38,7 @@ const DETAILS_ID = 'vtex.subscription.details.div'
 
 const messages = defineMessages({
   errorMessage: {
-    id: 'store/subscription.fallback.error.message',
+    id: 'subscription.fallback.error.message',
   },
 })
 

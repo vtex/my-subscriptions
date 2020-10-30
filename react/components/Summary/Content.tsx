@@ -24,7 +24,7 @@ const SummaryContent: FunctionComponent<Props> = ({ totals, currencyCode }) => {
       })}
       <div className="mt5 pt6 b--muted-4 bt flex justify-between b">
         <span>
-          <FormattedMessage id="store/subscription.summary.totalValue" />{' '}
+          <FormattedMessage id="subscription.summary.totalValue" />{' '}
         </span>
         <FormattedNumber
           currency={currencyCode}

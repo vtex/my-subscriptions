@@ -27,7 +27,7 @@ const ProductsListing: FunctionComponent<Props> = ({
   <Box
     title={
       <div className="flex flex-wrap justify-between items-center min-h-small">
-        <FormattedMessage id="store/subscription.products.card.title" />
+        <FormattedMessage id="subscription.products.card.title" />
         {!isEditing && status === 'ACTIVE' && (
           <EditButton onClick={onGoToEdition} withBackground />
         )}

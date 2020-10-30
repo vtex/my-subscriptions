@@ -11,9 +11,7 @@ const NameSection: FunctionComponent = () => {
   const [productsField] = useField<SubscriptionForm['products']>('products')
 
   return (
-    <Label
-      label={<FormattedMessage id="store/creation-page.name-section.label" />}
-    >
+    <Label label={<FormattedMessage id="creation-page.name-section.label" />}>
       <span className="t-heading-4">
         <SubscriptionName
           canEdit

@@ -22,20 +22,16 @@ function makeCancelable(promise: Promise<unknown>) {
 
 export const messages = defineMessages({
   confirmationLabel: {
-    id: 'store/subscription.name.editition.edit',
-    defaultMessage: '',
+    id: 'subscription.name.editition.edit',
   },
   cancelationLabel: {
-    id: 'store/subscription.editition.cancel',
-    defaultMessage: '',
+    id: 'subscription.editition.cancel',
   },
   errorMessage: {
-    id: 'store/subscription.fallback.error.message',
-    defaultMessage: '',
+    id: 'subscription.fallback.error.message',
   },
   successMessage: {
-    id: 'store/subscription.edit.success',
-    defaultMessage: '',
+    id: 'subscription.edit.success',
   },
 })
 

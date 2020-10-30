@@ -27,21 +27,21 @@ function isEmpty(data: Result) {
 }
 
 const messages = defineMessages({
-  filterLabel: { id: 'store/subscription.list.display' },
+  filterLabel: { id: 'subscription.list.display' },
   activeFilter: {
-    id: 'store/subscription.list.display.active_filter',
+    id: 'subscription.list.display.active_filter',
   },
   canceledFilter: {
-    id: 'store/subscription.list.display.canceled_filter',
+    id: 'subscription.list.display.canceled_filter',
   },
   title: {
-    id: 'store/subscription.title.list',
+    id: 'subscription.title.list',
   },
   createButton: {
-    id: 'store/list-page.create-subscriptions',
+    id: 'list-page.create-subscriptions',
   },
   back: {
-    id: 'store/list-page.back',
+    id: 'list-page.back',
   },
 })
 

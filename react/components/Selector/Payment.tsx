@@ -16,13 +16,13 @@ import Label from '../LabeledInfo'
 
 const messages = defineMessages({
   select: {
-    id: 'store/subscription.select',
+    id: 'subscription.select',
   },
   addNew: {
-    id: 'store/subcription.add.new.card',
+    id: 'subcription.add.new.card',
   },
   label: {
-    id: 'store/display-payment.label',
+    id: 'display-payment.label',
   },
 })
 

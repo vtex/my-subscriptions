@@ -6,8 +6,7 @@ import Modal from './Modal'
 
 const messages = defineMessages({
   addProduct: {
-    id: 'store/add-item-button.add-product',
-    defaultMessage: '',
+    id: 'add-item-button.add-product',
   },
 })
 

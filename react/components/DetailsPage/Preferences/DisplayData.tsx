@@ -23,7 +23,7 @@ const DisplayData: FunctionComponent<Props> = ({
   <Box
     title={
       <div className="flex flex-wrap justify-between items-center">
-        <FormattedMessage id="store/details-page.preferences.title" />
+        <FormattedMessage id="details-page.preferences.title" />
         {(status === 'ACTIVE' || status === 'PAUSED') && (
           <EditButton onClick={onGoToEdition} withBackground />
         )}

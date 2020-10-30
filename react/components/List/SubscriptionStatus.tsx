@@ -16,12 +16,10 @@ export function convertStatusInTagType(status: StatusType): string | null {
 
 defineMessages({
   paused: {
-    id: 'store/subscription.status.paused',
-    defaultMessage: '',
+    id: 'subscription.status.paused',
   },
   canceled: {
-    id: 'store/subscription.status.canceled',
-    defaultMessage: '',
+    id: 'subscription.status.canceled',
   },
 })
 
@@ -34,9 +32,7 @@ const SubscriptionStatus: FunctionComponent<Props> = ({ status }) => {
 
   return (
     <Tag type={type}>
-      <FormattedMessage
-        id={`store/subscription.status.${status.toLowerCase()}`}
-      />
+      <FormattedMessage id={`subscription.status.${status.toLowerCase()}`} />
     </Tag>
   )
 }

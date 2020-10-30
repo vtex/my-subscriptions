@@ -36,9 +36,7 @@ const PageHeader: FunctionComponent<Props> = ({
   return (
     <Header
       title={Title}
-      linkLabel={
-        <FormattedMessage id="store/details-page.page-header.back-button" />
-      }
+      linkLabel={<FormattedMessage id="details-page.page-header.back-button" />}
       onLinkClick={() => history.push('/subscriptions')}
     >
       <div className="flex">
@@ -48,7 +46,7 @@ const PageHeader: FunctionComponent<Props> = ({
             variation="tertiary"
             onClick={() => onOpenHistory()}
           >
-            <FormattedMessage id="store/details-page.page-header.history" />
+            <FormattedMessage id="details-page.page-header.history" />
           </ButtonWithIcon>
         </div>
         <Status status={status} />

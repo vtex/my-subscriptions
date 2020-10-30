@@ -3,7 +3,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl'
 
 const SummaryFooter: FunctionComponent = () => (
   <FormattedMessage
-    id="store/summary.price-warning"
+    id="summary.price-warning"
     values={{
       day: (
         <FormattedDate

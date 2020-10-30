@@ -134,10 +134,10 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         <Header
           title={
             <span className="normal">
-              <FormattedMessage id="store/creation-page.title" />
+              <FormattedMessage id="creation-page.title" />
             </span>
           }
-          linkLabel={<FormattedMessage id="store/creation-page.back-button" />}
+          linkLabel={<FormattedMessage id="creation-page.back-button" />}
           onLinkClick={() => history.push('/subscriptions')}
         />
         <Formik<SubscriptionForm>
@@ -176,7 +176,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                         disabled={formik.values.products.length === 0}
                         block
                       >
-                        <FormattedMessage id="store/creation-page.create-subscription-button" />
+                        <FormattedMessage id="creation-page.create-subscription-button" />
                       </Button>
                     </div>
                   </div>

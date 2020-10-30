@@ -3,8 +3,8 @@ import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { EmptyState } from 'vtex.styleguide'
 
 const messages = defineMessages({
-  title: { id: 'store/subscription.notFound.title', defaultMessage: '' },
-  body: { id: 'store/subscription.notFound.text', defaultMessage: '' },
+  title: { id: 'subscription.notFound.title' },
+  body: { id: 'subscription.notFound.text' },
 })
 
 const EmptyStateSubscriptionsList: FunctionComponent<WrappedComponentProps> = ({

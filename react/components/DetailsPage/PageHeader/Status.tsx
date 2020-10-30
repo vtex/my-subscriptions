@@ -6,16 +6,13 @@ import styles from './styles.css'
 
 const messages = defineMessages({
   active: {
-    id: 'store/details-page.page-header.status.active',
-    defaultMessage: '',
+    id: 'details-page.page-header.status.active',
   },
   paused: {
-    id: 'store/details-page.page-header.status.paused',
-    defaultMessage: '',
+    id: 'details-page.page-header.status.paused',
   },
   canceled: {
-    id: 'store/details-page.page-header.status.canceled',
-    defaultMessage: '',
+    id: 'details-page.page-header.status.canceled',
   },
 })
 

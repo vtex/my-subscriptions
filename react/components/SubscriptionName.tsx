@@ -14,10 +14,9 @@ import { logGraphqlError } from '../tracking'
 import EditButton from './EditButton'
 
 const messages = defineMessages({
-  title: { id: 'store/subscription.view.title', defaultMessage: '' },
+  title: { id: 'subscription.view.title' },
   choose: {
-    id: 'store/subscription.name.editition.name.title',
-    defaultMessage: '',
+    id: 'subscription.name.editition.name.title',
   },
 })
 

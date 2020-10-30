@@ -7,22 +7,22 @@ import { SubscriptionAction } from '../utils'
 
 defineMessages({
   skipOption: {
-    id: 'store/subscription.manage.skip',
+    id: 'subscription.manage.skip',
   },
   unskipOption: {
-    id: 'store/subscription.manage.unskip',
+    id: 'subscription.manage.unskip',
   },
   cancelOption: {
-    id: 'store/subscription.manage.cancel',
+    id: 'subscription.manage.cancel',
   },
   pauseOption: {
-    id: 'store/subscription.manage.pause',
+    id: 'subscription.manage.pause',
   },
   restoreOption: {
-    id: 'store/subscription.manage.restore',
+    id: 'subscription.manage.restore',
   },
   orderNowOption: {
-    id: 'store/subscription.manage.orderNow',
+    id: 'subscription.manage.orderNow',
   },
 })
 
@@ -57,7 +57,7 @@ const Menu: FunctionComponent<Props> = ({
 
   const actionOptions = options.map((option) => ({
     label: intl.formatMessage({
-      id: `store/subscription.manage.${option}`,
+      id: `subscription.manage.${option}`,
     }),
     onClick: () => onUpdateAction(option),
   }))

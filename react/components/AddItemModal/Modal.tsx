@@ -15,20 +15,16 @@ import { AddItemArgs } from '.'
 
 const messages = defineMessages({
   title: {
-    id: 'store/add-item-modal.title',
-    defaultMessage: '',
+    id: 'add-item-modal.title',
   },
   placeholder: {
-    id: 'store/add-item-modal.search-placeholder',
-    defaultMessage: '',
+    id: 'add-item-modal.search-placeholder',
   },
   searchLabel: {
-    id: 'store/add-item-modal.search-label',
-    defaultMessage: '',
+    id: 'add-item-modal.search-label',
   },
   errorMessage: {
-    id: 'store/subscription.fallback.error.message',
-    defaultMessage: '',
+    id: 'subscription.fallback.error.message',
   },
 })
 
