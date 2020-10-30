@@ -216,6 +216,7 @@ class BatchModal extends Component<Props, State> {
           label: intl.formatMessage(modalMessages.cancelationLabel),
           onClick: this.props.onClose,
         }}
+        container={window.top.document.body}
       >
         <form className="t-body" onSubmit={this.handleSubmit}>
           <h5 className="t-heading-5">

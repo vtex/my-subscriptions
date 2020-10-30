@@ -14,6 +14,7 @@ const SubscriptionHistory: FunctionComponent<Props> = ({
     isOpen={isOpen}
     onClose={onClose}
     responsiveFullScreen
+    container={window.top.document.body}
   >
     <HistoryList subscriptionId={subscriptionId} perPage={5} />
   </Modal>
