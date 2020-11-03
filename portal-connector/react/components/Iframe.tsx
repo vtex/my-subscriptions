@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
+import Loading from './Loading'
+
 if (window?.document) {
   // using var so it hoists
   /* eslint-disable */
-  var iFrameResize = require('iframe-resizer/js/iframeResizer')
+  var iFrameResizer = require('iframe-resizer/js/iframeResizer')
   /* eslint-enable */
 }
 /* eslint-disable block-scoped-var */
@@ -12,8 +14,12 @@ if (window?.document) {
 class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
   private iframe: any = null
 
+  public state = {
+    isLoading: true,
+  }
+
   public componentDidMount = () => {
-    iFrameResize(
+    iFrameResizer(
       {
         heightCalculationMethod: 'max',
         checkOrigin: false,
@@ -30,11 +36,11 @@ class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
   }
 
   public componentWillUnmount() {
-    if (!this.iframe && this.iframe.iFrameResizer) {
+    if (!this.iframe?.iFrameResizer) {
       return
     }
 
-    this.iframe.contentWindow.removeListener(
+    this.iframe.contentWindow.removeEventListener(
       'hashchange',
       this.updateParentHash
     )
@@ -62,11 +68,15 @@ class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
     this.iframe = ref
   }
 
+  private handleCompleteLoading = () => this.setState({ isLoading: false })
+
   public render() {
     const { runtime } = this.props
+    const { isLoading } = this.state
 
     return (
       <section className="vtex-account__page w-100 w-80-m pa4-s">
+        {isLoading && <Loading />}
         <iframe
           title="vtex-subscriptions-page"
           className="w-100"
@@ -75,6 +85,7 @@ class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
           scrolling="no"
           frameBorder="0"
           src={`/api/io/_v/portal/public/my-subscriptions-router?workspace=${runtime.workspace}${window.location.hash}`} // the `/api/io` is necessary to bypass the Janus and to force a proxy to VTEX IO
+          onLoad={this.handleCompleteLoading}
           ref={this.getRef}
         />
       </section>
