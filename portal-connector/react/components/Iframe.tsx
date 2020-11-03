@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { withRuntimeContext, InjectedRuntimeContext } from 'render'
 
-const IFRAME_ID = 'subscriptions-router-iframe'
-
 if (window?.document) {
   // using var so it hoists
   /* eslint-disable */
@@ -12,7 +10,7 @@ if (window?.document) {
 /* eslint-disable block-scoped-var */
 
 class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
-  private iframe: FIXME = null
+  private iframe: any = null
 
   public componentDidMount = () => {
     iFrameResize(
@@ -25,28 +23,31 @@ class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
       this.iframe
     )
 
-    const iframe = this.getIframe()
-
-    iframe?.contentWindow?.addEventListener('hashchange', this.updateParentHash)
+    this.iframe?.contentWindow?.addEventListener(
+      'hashchange',
+      this.updateParentHash
+    )
   }
 
   public componentWillUnmount() {
-    if (this.iframe && this.iframe.iFrameResizer) {
-      this.iframe.iFrameResizer.removeListeners()
+    if (!this.iframe && this.iframe.iFrameResizer) {
+      return
     }
-  }
 
-  private getIframe = () =>
-    document.querySelector<HTMLIFrameElement>(`#${IFRAME_ID}`)
+    this.iframe.contentWindow.removeListener(
+      'hashchange',
+      this.updateParentHash
+    )
+
+    this.iframe.iFrameResizer.removeListeners()
+  }
 
   private getHash = (selectedWindow: Window) => selectedWindow.location.hash
 
   private updateParentHash = () => {
-    const iframe = this.getIframe()
+    if (!this.iframe?.contentWindow) return
 
-    if (!iframe?.contentWindow) return
-
-    const iframeHash = this.getHash(iframe.contentWindow)
+    const iframeHash = this.getHash(this.iframe.contentWindow)
     const parentHash = this.getHash(window)
 
     if (iframeHash === parentHash) return
@@ -68,7 +69,6 @@ class SubscriptionsConnectorIframe extends Component<InjectedRuntimeContext> {
       <section className="vtex-account__page w-100 w-80-m pa4-s">
         <iframe
           title="vtex-subscriptions-page"
-          id={IFRAME_ID}
           className="w-100"
           // Using min-width to set the width of the iFrame, works around an issue in iOS that can prevent the iFrame from sizing correctly.
           style={{ minWidth: '100%', minHeight: '200px' }}
