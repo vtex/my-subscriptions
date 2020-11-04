@@ -1,0 +1,25 @@
+{
+  "vendor": "vtex",
+  "name": "my-subscriptions-portal-connector",
+  "version": "0.0.0",
+  "title": "MySubscriptions portal connector",
+  "description": "App used to make the new subscriptions appear on the old MyAccount",
+  "builders": {
+    "react": "2.x",
+    "pages": "0.x",
+    "messages": "1.x"
+  },
+  "registries": [
+    "smartcheckout"
+  ],
+  "scripts": {
+    "postreleasy": "vtex publish --verbose"
+  },
+  "dependencies": {
+    "vtex.my-account-commons": "0.x"
+  },
+  "peerDependencies": {
+    "vtex.my-account": "0.x"
+  },
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

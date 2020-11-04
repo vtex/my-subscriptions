@@ -4,5 +4,12 @@
   },
   "my-account-link.my-subscriptions-link": {
     "component": "ExtensionLinks"
+  },
+  "subscriptions-portal": {
+    "component": "*"
+  },
+  "subscriptions-portal.embedded-router" :{
+    "component": "Router",
+    "render": "client"
   }
 }

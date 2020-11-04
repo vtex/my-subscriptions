@@ -1,0 +1,5 @@
+{
+  "subscriptions-portal.embedded-router": {
+    "path": "/_v/portal/public/my-subscriptions-router"
+  }
+}

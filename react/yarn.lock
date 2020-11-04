@@ -3567,6 +3567,11 @@ identity-obj-proxy@^3.0.0:
   dependencies:
     harmony-reflect "^1.4.6"
 
+iframe-resizer@3.x:
+  version "3.6.6"
+  resolved "https://registry.yarnpkg.com/iframe-resizer/-/iframe-resizer-3.6.6.tgz#ece6a0b7e879cfe3783a1003261408152ff9bd9b"
+  integrity sha512-WYprloB8s18Be9wbybQZmeEWueEczJH2is/5DxDn4jH8Bs2DuaSuaOeYICe6IvmF04SBy4mQ+pX4Xc+E9FEMSg==
+
 import-fresh@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-3.2.1.tgz#633ff618506e793af5ac91bf48b72677e15cbe66"
