@@ -210,8 +210,8 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           onUpdateAction={this.handleUpdateAction}
           onOpenHistory={this.handleOpenHistory}
         />
-        <div className="pa5 pa7-l flex flex-wrap">
-          <div className="w-100 w-60-l">
+        <div className="pa5 pa7-ns flex flex-wrap">
+          <div className="w-100 w-60-ns">
             <ActionBar
               status={subscription.status}
               isSkipped={subscription.isSkipped}
@@ -228,7 +228,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               currencyCode={subscription.purchaseSettings.currencyCode}
             />
           </div>
-          <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l" id={PREFERENCES_ID}>
+          <div
+            className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns"
+            id={PREFERENCES_ID}
+          >
             <Preferences
               isEditMode={isEditMode}
               onChangeEdit={this.handleChangeEdit}

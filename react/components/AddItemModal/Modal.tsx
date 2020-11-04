@@ -66,6 +66,7 @@ const AddItemModal: FunctionComponent<Props> = ({
       isOpen={isModalOpen}
       onClose={onCloseModal}
       responsiveFullScreen
+      container={window.top.document.body}
     >
       <InputSearch
         label={intl.formatMessage(messages.searchLabel)}

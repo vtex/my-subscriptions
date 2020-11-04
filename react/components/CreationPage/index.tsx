@@ -150,8 +150,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               <SimulationContext
                 subscription={this.assembleForm(formik.values)}
               >
-                <div className="pa5 pa7-l flex flex-wrap">
-                  <div className="w-100 w-60-l">
+                <div className="pa5 pa7-ns flex flex-wrap">
+                  <div className="w-100 w-60-ns">
                     {formik.values.planId && (
                       <div className="mb6">
                         <Box>
@@ -166,7 +166,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                     )}
                     <Products currencyCode={runtime.culture.currency} />
                   </div>
-                  <div className="w-100 w-40-l pt6 pt0-l pl0 pl6-l">
+                  <div className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns">
                     <SummarySection currencyCode={runtime.culture.currency} />
                     <div className="mt7">
                       <Button

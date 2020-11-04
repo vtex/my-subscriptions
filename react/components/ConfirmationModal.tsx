@@ -118,6 +118,7 @@ class ConfirmationModalContainer extends Component<Props> {
           onClick: onCloseModal,
           label: cancelationLabel,
         }}
+        container={window.top.document.body}
       >
         <div className="mt7">
           {this.state.shouldDisplayError && (

@@ -102,7 +102,7 @@ class SubscriptionsListContainer extends Component<
 
     return (
       <>
-        <div className="db dn-l">
+        <div className="db dn-ns">
           <Header
             title={
               <span className="normal">
@@ -115,7 +115,7 @@ class SubscriptionsListContainer extends Component<
             {headerContent}
           </Header>
         </div>
-        <div className="db-l dn">
+        <div className="db-ns dn">
           <Header
             title={
               <span className="normal">
@@ -126,7 +126,7 @@ class SubscriptionsListContainer extends Component<
             {headerContent}
           </Header>
         </div>
-        <div className="pa5 pa7-l">
+        <div className="pa5 pa7-ns">
           <div className="w5 mb7">
             <Dropdown
               label={filterLabel}
