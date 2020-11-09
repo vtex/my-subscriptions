@@ -54,7 +54,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
             onClick={() => onGoToDetails(subscription.id)}
             block
           >
-            <FormattedMessage id="store/subscription.list.button.seeDetails" />
+            <FormattedMessage id="subscription.list.button.seeDetails" />
           </Button>
           {isPaused && (
             <div className="pt4">
@@ -63,7 +63,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
                 subscriptionId={subscription.id}
                 block
               >
-                <FormattedMessage id="store/subscription.list.button.reactivate" />
+                <FormattedMessage id="subscription.list.button.reactivate" />
               </UpdateStatusButton>
             </div>
           )}

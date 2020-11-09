@@ -17,16 +17,16 @@ import { getFutureDate } from '../utils'
 
 const messages = defineMessages({
   required: {
-    id: 'store/required-field',
+    id: 'required-field',
   },
   nextPurchase: {
-    id: 'store/creation-page.frequency-section.next-purchase-date',
+    id: 'creation-page.frequency-section.next-purchase-date',
   },
   addExpiration: {
-    id: 'store/creation-page.frequency-section.add-expiration-date',
+    id: 'creation-page.frequency-section.add-expiration-date',
   },
   expirationDate: {
-    id: 'store/creation-page.frequency-section.expiration-date',
+    id: 'creation-page.frequency-section.expiration-date',
   },
 })
 

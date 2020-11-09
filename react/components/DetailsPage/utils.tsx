@@ -7,24 +7,24 @@ import { messages as modalMessages } from '../ConfirmationModal'
 
 const messages = defineMessages({
   confirmationMessage: {
-    id: 'store/subscription.change.status.modal.confirmation',
+    id: 'subscription.change.status.modal.confirmation',
   },
   orderAgainConfirmation: {
-    id: 'store/subscription.execution.again.confirmation',
+    id: 'subscription.execution.again.confirmation',
   },
   orderAgainDescription: {
-    id: 'store/subscription.execution.again.description',
+    id: 'subscription.execution.again.description',
   },
   skipConfirm: {
-    id: 'store/subscription.skip.confirm',
+    id: 'subscription.skip.confirm',
   },
   unskipConfirm: {
-    id: 'store/subscription.unskip.confirm',
+    id: 'subscription.unskip.confirm',
   },
-  skipTitle: { id: 'store/subscription.skip.title' },
-  skipDesc: { id: 'store/subscription.skip.text' },
-  unSkipTitle: { id: 'store/subscription.unskip.title' },
-  unSkipDesc: { id: 'store/subscription.unskip.text' },
+  skipTitle: { id: 'subscription.skip.title' },
+  skipDesc: { id: 'subscription.skip.text' },
+  unSkipTitle: { id: 'subscription.unskip.title' },
+  unSkipDesc: { id: 'subscription.unskip.text' },
 })
 
 export type SubscriptionAction =

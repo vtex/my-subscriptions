@@ -20,7 +20,7 @@ import AddressSelector from '../../Selector/Address'
 
 const messages = defineMessages({
   title: {
-    id: 'store/details-page.preferences.title',
+    id: 'details-page.preferences.title',
   },
 })
 

@@ -7,10 +7,10 @@ import Box from '../CustomBox'
 const SummarySkeleton: FunctionComponent = () => (
   <div className="pt6">
     <Box
-      title={<FormattedMessage id="store/summary.title" />}
+      title={<FormattedMessage id="summary.title" />}
       footer={
         <FormattedMessage
-          id="store/summary.price-warning"
+          id="summary.price-warning"
           values={{
             day: (
               <FormattedDate

@@ -15,9 +15,9 @@ function transformAddresses(addresses: Address[]) {
 }
 
 const messages = defineMessages({
-  select: { id: 'store/subscription.select' },
-  label: { id: 'store/display-address.label' },
-  addNew: { id: 'store/subscription.shipping.newAddress' },
+  select: { id: 'subscription.select' },
+  label: { id: 'display-address.label' },
+  addNew: { id: 'subscription.shipping.newAddress' },
 })
 
 const AddressSelector: FunctionComponent<Props> = ({

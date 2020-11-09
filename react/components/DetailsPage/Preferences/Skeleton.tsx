@@ -6,7 +6,7 @@ import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
 
 const PreferencesSkeleton: FunctionComponent = () => (
-  <Box title={<FormattedMessage id="store/details-page.preferences.title" />}>
+  <Box title={<FormattedMessage id="details-page.preferences.title" />}>
     <Section borderTop borderBottom>
       <SkeletonPiece width="50" size="4" />
       <div className="mt6">

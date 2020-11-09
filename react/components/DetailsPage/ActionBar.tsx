@@ -8,40 +8,40 @@ import { SubscriptionAction } from './utils'
 
 defineMessages({
   restoreLabel: {
-    id: 'store/details-page.action-bar.label.restore',
+    id: 'details-page.action-bar.label.restore',
   },
   restoreBody: {
-    id: 'store/details-page.action-bar.text.restore',
+    id: 'details-page.action-bar.text.restore',
   },
   restoreButton: {
-    id: 'store/details-page.action-bar.button.restore',
+    id: 'details-page.action-bar.button.restore',
   },
   unskipLabel: {
-    id: 'store/details-page.action-bar.label.unskip',
+    id: 'details-page.action-bar.label.unskip',
   },
   unskipBody: {
-    id: 'store/details-page.action-bar.text.unskip',
+    id: 'details-page.action-bar.text.unskip',
   },
   unskipButton: {
-    id: 'store/details-page.action-bar.button.unskip',
+    id: 'details-page.action-bar.button.unskip',
   },
   changeAddressLabel: {
-    id: 'store/details-page.action-bar.label.changeAddress',
+    id: 'details-page.action-bar.label.changeAddress',
   },
   changeAddressBody: {
-    id: 'store/details-page.action-bar.text.changeAddress',
+    id: 'details-page.action-bar.text.changeAddress',
   },
   changeAddressButton: {
-    id: 'store/details-page.action-bar.button.changeAddress',
+    id: 'details-page.action-bar.button.changeAddress',
   },
   changePaymentLabel: {
-    id: 'store/details-page.action-bar.label.changePayment',
+    id: 'details-page.action-bar.label.changePayment',
   },
   changePaymentBody: {
-    id: 'store/details-page.action-bar.text.changePayment',
+    id: 'details-page.action-bar.text.changePayment',
   },
   changePaymentButton: {
-    id: 'store/details-page.action-bar.button.changePayment',
+    id: 'details-page.action-bar.button.changePayment',
   },
 })
 
@@ -97,14 +97,12 @@ class ActionBarContainer extends Component<Props> {
               displayDanger ? 'c-danger fw5' : 'c-muted-1'
             }`}
           >
-            <FormattedMessage
-              id={`store/details-page.action-bar.label.${action}`}
-            />
+            <FormattedMessage id={`details-page.action-bar.label.${action}`} />
           </div>
           <div className="flex items-center flex-wrap justify-between">
             <div className="t-heading-4 w-100 w-60-ns">
               <FormattedMessage
-                id={`store/details-page.action-bar.text.${action}`}
+                id={`details-page.action-bar.text.${action}`}
                 values={{
                   day: (
                     <FormattedDate
@@ -119,7 +117,7 @@ class ActionBarContainer extends Component<Props> {
             <div className="mw5-ns w-100 mt4 w-40-ns mt0-ns pl0 pl6-ns">
               <Button variation={buttonVariation} onClick={onClick} block>
                 <FormattedMessage
-                  id={`store/details-page.action-bar.button.${action}`}
+                  id={`details-page.action-bar.button.${action}`}
                 />
               </Button>
             </div>

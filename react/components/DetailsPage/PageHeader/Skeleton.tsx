@@ -10,9 +10,7 @@ const HeaderSkeleton: FunctionComponent<RouteComponentProps> = ({
   return (
     <Header
       title={<SkeletonPiece width="50" size="4" />}
-      linkLabel={
-        <FormattedMessage id="store/details-page.page-header.back-button" />
-      }
+      linkLabel={<FormattedMessage id="details-page.page-header.back-button" />}
       onLinkClick={() => history.push('/subscriptions')}
     />
   )

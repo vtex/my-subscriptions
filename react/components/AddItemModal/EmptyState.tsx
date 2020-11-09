@@ -4,12 +4,10 @@ import { EmptyState as Empty } from 'vtex.styleguide'
 
 import Icon from './IconBox'
 
-const EMPTY_MESSAGE = (
-  <FormattedMessage id="store/add-item-modal.empty-message" />
-)
+const EMPTY_MESSAGE = <FormattedMessage id="add-item-modal.empty-message" />
 
 const NO_RESULTS_MESSAGE = (
-  <FormattedMessage id="store/add-item-modal.no-results-message" />
+  <FormattedMessage id="add-item-modal.no-results-message" />
 )
 
 const EmptyState: FunctionComponent<Props> = ({ state }) => {

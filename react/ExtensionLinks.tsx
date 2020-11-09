@@ -3,8 +3,7 @@ import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 
 const messages = defineMessages({
   title: {
-    id: 'store/subscription.title.list',
-    defaultMessage: '',
+    id: 'subscription.title.list',
   },
 })
 

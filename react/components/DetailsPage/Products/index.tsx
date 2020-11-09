@@ -41,25 +41,25 @@ function mapItemsToHashMap(items: Item[]) {
 
 const messages = defineMessages({
   removeSuccess: {
-    id: 'store/subscription.products.card.remove.success',
+    id: 'subscription.products.card.remove.success',
   },
   removeError: {
-    id: 'store/subscription.products.card.remove.error',
+    id: 'subscription.products.card.remove.error',
   },
   cancel: {
-    id: 'store/subscription.edition.button.cancel',
+    id: 'subscription.edition.button.cancel',
   },
   confirm: {
-    id: 'store/subscription.products.card.remove.confirm',
+    id: 'subscription.products.card.remove.confirm',
   },
   editionSuccess: {
-    id: 'store/subscription.edit.success',
+    id: 'subscription.edit.success',
   },
   success: {
-    id: 'store/add-item.success',
+    id: 'add-item.success',
   },
   undo: {
-    id: 'store/subscription.products.undo',
+    id: 'subscription.products.undo',
   },
 })
 
@@ -251,10 +251,10 @@ class ProductsContainer extends Component<Props, State> {
           onSubmit={this.handleRemoveItem}
         >
           <h4 className="t-heading-4">
-            <FormattedMessage id="store/subscription.products.card.remove.title" />
+            <FormattedMessage id="subscription.products.card.remove.title" />
           </h4>
           <p className="t-body">
-            <FormattedMessage id="store/subscription.products.card.remove.desc" />
+            <FormattedMessage id="subscription.products.card.remove.desc" />
           </p>
         </ConfirmationModal>
         <Listing

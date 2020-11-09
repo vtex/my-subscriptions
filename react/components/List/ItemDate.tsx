@@ -4,20 +4,16 @@ import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 const messages = defineMessages({
   nextPurchase: {
-    id: 'store/subscription.list.item.date.next.purchase',
-    defaultMessage: '',
+    id: 'subscription.list.item.date.next.purchase',
   },
   since: {
-    id: 'store/subscription.list.item.date.since',
-    defaultMessage: '',
+    id: 'subscription.list.item.date.since',
   },
   paused: {
-    id: 'store/subscription.status.paused',
-    defaultMessage: '',
+    id: 'subscription.status.paused',
   },
   canceled: {
-    id: 'store/subscription.status.canceled',
-    defaultMessage: '',
+    id: 'subscription.status.canceled',
   },
 })
 
@@ -32,7 +28,7 @@ const SubscriptionsItemDate: FunctionComponent<
       : intl.formatMessage(messages.since, {
           date: intl.formatDate(lastUpdate),
           status: intl.formatMessage({
-            id: `store/subscription.status.${status.toLowerCase()}`,
+            id: `subscription.status.${status.toLowerCase()}`,
           }),
         })
 

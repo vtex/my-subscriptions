@@ -75,7 +75,7 @@ const SearchItem: FunctionComponent<Props> = ({
           })
         }
       >
-        <FormattedMessage id="store/add-item-modal.subscribe" />
+        <FormattedMessage id="add-item-modal.subscribe" />
       </Button>
     </Thumbnail>
   )

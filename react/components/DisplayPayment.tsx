@@ -11,13 +11,13 @@ import Error from './CustomErrorAlert'
 
 const messages = defineMessages({
   label: {
-    id: 'store/display-payment.label',
+    id: 'display-payment.label',
   },
   deletedError: {
-    id: 'store/display-payment.deleted-error-message',
+    id: 'display-payment.deleted-error-message',
   },
   paymentError: {
-    id: 'store/display-payment.payment-error-message',
+    id: 'display-payment.payment-error-message',
   },
 })
 

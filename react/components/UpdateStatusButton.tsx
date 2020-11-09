@@ -20,36 +20,28 @@ import { logGraphqlError } from '../tracking'
 
 export const messages = defineMessages({
   pauseTitle: {
-    id: 'store/subscription.pause.title',
-    defaultMessage: '',
+    id: 'subscription.pause.title',
   },
   pauseDescription: {
-    id: 'store/subscription.pause.text',
-    defaultMessage: '',
+    id: 'subscription.pause.text',
   },
   cancelTitle: {
-    id: 'store/subscription.cancel.title',
-    defaultMessage: '',
+    id: 'subscription.cancel.title',
   },
   cancelDescription: {
-    id: 'store/subscription.cancel.text',
-    defaultMessage: '',
+    id: 'subscription.cancel.text',
   },
   restoreTitle: {
-    id: 'store/subscription.restore.title',
-    defaultMessage: '',
+    id: 'subscription.restore.title',
   },
   restoreDescription: {
-    id: 'store/subscription.restore.text',
-    defaultMessage: '',
+    id: 'subscription.restore.text',
   },
   cancelationMessage: {
-    id: 'store/subscription.change.status.modal.cancelation',
-    defaultMessage: '',
+    id: 'subscription.change.status.modal.cancelation',
   },
   confirmationMessage: {
-    id: 'store/subscription.change.status.modal.confirmation',
-    defaultMessage: '',
+    id: 'subscription.change.status.modal.confirmation',
   },
 })
 

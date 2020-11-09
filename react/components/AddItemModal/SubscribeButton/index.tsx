@@ -6,12 +6,10 @@ import { subscribable, subscribed } from './utils'
 
 const messages = defineMessages({
   frequencyNotAvailable: {
-    id: 'store/subscribe-button.frequency-not-available',
-    defaultMessage: '',
+    id: 'subscribe-button.frequency-not-available',
   },
   added: {
-    id: 'store/subscribe-button.added',
-    defaultMessage: '',
+    id: 'subscribe-button.added',
   },
 })
 

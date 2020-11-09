@@ -140,7 +140,7 @@ class SummarySection extends Component<Props, State> {
                     errorMessagePaymentAccount={
                       formik.errors.paymentSystem &&
                       formik.touched.paymentSystem && (
-                        <FormattedMessage id="store/required-field" />
+                        <FormattedMessage id="required-field" />
                       )
                     }
                   />
@@ -172,7 +172,7 @@ class SummarySection extends Component<Props, State> {
                 <>
                   <div className="pt7">
                     <Title>
-                      <FormattedMessage id="store/summary.title" />
+                      <FormattedMessage id="summary.title" />
                     </Title>
                   </div>
                   <Section>

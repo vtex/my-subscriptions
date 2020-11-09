@@ -10,7 +10,7 @@ const SubscriptionHistory: FunctionComponent<Props> = ({
   onClose,
 }) => (
   <Modal
-    title={<FormattedMessage id="store/subscription.history" />}
+    title={<FormattedMessage id="subscription.history" />}
     isOpen={isOpen}
     onClose={onClose}
     responsiveFullScreen

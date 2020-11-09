@@ -4,7 +4,7 @@ import { SkeletonPiece } from 'vtex.my-account-commons'
 import { Box } from 'vtex.styleguide'
 
 const ProductsSkeleton = () => (
-  <Box title={<FormattedMessage id="store/subscription.products.card.title" />}>
+  <Box title={<FormattedMessage id="subscription.products.card.title" />}>
     <div className="w-100 flex">
       <div style={{ height: '100px', width: '100px' }}>
         <SkeletonPiece />

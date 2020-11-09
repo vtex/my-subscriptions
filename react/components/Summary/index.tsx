@@ -11,10 +11,7 @@ const Summary: FunctionComponent<Props> = ({ totals = [], currencyCode }) => {
 
   return (
     <div className="pt6">
-      <Box
-        title={<FormattedMessage id="store/summary.title" />}
-        footer={<Footer />}
-      >
+      <Box title={<FormattedMessage id="summary.title" />} footer={<Footer />}>
         <div className="ph7 pb7">
           <Content totals={totals} currencyCode={currencyCode} />
         </div>

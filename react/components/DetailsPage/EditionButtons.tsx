@@ -12,7 +12,7 @@ const EditionButtons: FunctionComponent<Props> = ({
     <div className="flex">
       <div className="pr3">
         <Button size="small" onClick={onCancel} variation="secondary">
-          <FormattedMessage id="store/subscription.edition.button.cancel" />
+          <FormattedMessage id="subscription.edition.button.cancel" />
         </Button>
       </div>
       <Button
@@ -22,7 +22,7 @@ const EditionButtons: FunctionComponent<Props> = ({
         isLoading={isLoading}
         disabled={disabled}
       >
-        <FormattedMessage id="store/subscription.edition.button.save" />
+        <FormattedMessage id="subscription.edition.button.save" />
       </Button>
     </div>
   )
