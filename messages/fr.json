@@ -54,7 +54,7 @@
   "store/subscription.list.button.reactivate": "Réactiver l’abonnement",
   "store/subscription.status.paused": "Mis en pause",
   "store/subscription.status.canceled": "Annulé",
-  "store/subscription.list.item.date.since": "{status} depuis {date}",
+  "store/subscription.list.item.date.since": "{statut} depuis {date}",
   "store/subscription.list.item.date.next.purchase": "Prochain achat le {date}",
   "store/subscription.editition.cancel": "Annuler",
   "store/subscription.name.editition.edit": "Enregistrer",
