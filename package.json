@@ -3,11 +3,15 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "cd ./react && yarn lint",
-    "test": "cd ./react && yarn test",
+    "lint": "cd ./vtex-my-subscriptions-3/react && yarn lint",
+    "test": "cd ./vtex-my-subscriptions-3/react && yarn test",
     "locales:lint": "intl-equalizer",
     "locales:fix": "intl-equalizer --fix",
     "verify": "yarn lint && yarn locales:lint && yarn locales:fix && yarn test"
+  },
+  "intl-equalizer": {
+    "referenceLocale": "en",
+    "localeDirectory": "vtex-my-subscriptions-3/messages"
   },
   "husky": {
     "hooks": {
