@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "my-subscriptions",
-  "version": "3.7.1",
+  "version": "3.8.0",
   "title": "MySubscriptions",
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
@@ -26,7 +26,8 @@
     "vtex.subscriptions-graphql": "3.x",
     "vtex.store-graphql": "2.x",
     "vtex.totalizer-translator": "2.x",
-    "vtex.subscriptions-commons": "1.x"
+    "vtex.subscriptions-commons": "1.x",
+    "vtex.my-subscriptions-portal-connector": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
