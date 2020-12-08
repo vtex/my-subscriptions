@@ -1,0 +1,10 @@
+{
+  "extensions": {
+    "my-account-portal/menu-links-before/my-subscriptions": {
+      "component": "ExtensionLinks"
+    },
+    "my-account-portal/routes/my-subscriptions": {
+      "component": "ExtensionRouter"
+    }
+  }
+}

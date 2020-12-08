@@ -1,8 +1,0 @@
-{
-  "my-account-page.my-subscriptions": {
-    "component": "ExtensionRouter"
-  },
-  "my-account-link.my-subscriptions-link": {
-    "component": "ExtensionLinks"
-  }
-}
