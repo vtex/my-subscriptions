@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.8.1] - 2021-01-04
+
 ### Fixed
 
 - Remove purchaseDay dropdown when frequency options are empty in editing mode.
