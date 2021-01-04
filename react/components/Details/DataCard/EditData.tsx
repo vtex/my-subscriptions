@@ -75,7 +75,9 @@ class EditData extends Component<Props, State> {
   }
 
   private getCurrentFrequency() {
-    return this.props.frequencies[this.state.frequencyIndex]
+    const { frequencies, group } = this.props
+    if (!frequencies.length) return group.plan.frequency
+    return frequencies[this.state.frequencyIndex]
   }
 
   private getFrequencyOptions() {
@@ -155,7 +157,7 @@ class EditData extends Component<Props, State> {
   }
 
   public render() {
-    const { intl } = this.props
+    const { intl, frequencies } = this.props
     const {
       purchaseDay,
       showErrorAlert,
@@ -166,7 +168,8 @@ class EditData extends Component<Props, State> {
 
     const { periodicity } = this.getCurrentFrequency()
 
-    const isEditDisabled = purchaseDay === '' && periodicity !== 'DAILY'
+    const isEditDisabled =
+      (purchaseDay === '' && periodicity !== 'DAILY') || !frequencies.length
 
     return (
       <div className={`${BASIC_CARD_WRAPPER} ${CSS.cardHorizontalPadding}`}>
@@ -192,7 +195,7 @@ class EditData extends Component<Props, State> {
               onChange={this.handleFrequencyChange}
             />
           </div>
-          {periodicity !== 'DAILY' && (
+          {frequencies.length !== 0 && periodicity !== 'DAILY' && (
             <div className="w-50-l w-60-m pt6 pb4">
               <Dropdown
                 label={intl.formatMessage(messages.chargeEvery)}

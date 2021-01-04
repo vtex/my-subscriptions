@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Edit frequency when frequency options are empty.
+
 ## [0.22.2] - 2020-10-27
 
 ### Fixed
