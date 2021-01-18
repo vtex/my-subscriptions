@@ -40,7 +40,7 @@
     "graphql-tag": "^2.10.1",
     "react-mock-router": "^1.0.15",
     "react-router-dom": "4.x",
-    "typescript": "3.8.3",
+    "typescript": "3.9.7",
     "vtex.address-form": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.3/public/_types/react",
     "vtex.my-account": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account@1.17.0/public/@types/vtex.my-account",
     "vtex.my-account-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.5.0/public/@types/vtex.my-account-commons",
