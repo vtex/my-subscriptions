@@ -82,6 +82,7 @@
   "add-item-modal.search-placeholder": "Busca",
   "add-item-modal.search-label": "O que você está procurando?",
   "add-item-modal.subscribe": "Assinar",
+  "add-item-modal.of-pagination": "de",
   "subscribe-button.frequency-not-available": "Este produto não pode ser assinado nessa frequência",
   "subscribe-button.added": "Adicionado",
   "subscription.products.undo": "Desfazer",

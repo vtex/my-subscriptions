@@ -82,6 +82,7 @@
   "add-item-modal.search-placeholder": "Suche",
   "add-item-modal.search-label": "Wonach suchen Sie?",
   "add-item-modal.subscribe": "Abonnieren",
+  "add-item-modal.of-pagination": "im",
   "subscribe-button.frequency-not-available": "Dieses Produkt kann in dieser Frequenz nicht abonniert werden",
   "subscribe-button.added": "Hinzugefügt",
   "subscription.products.undo": "Rückgängig machen",

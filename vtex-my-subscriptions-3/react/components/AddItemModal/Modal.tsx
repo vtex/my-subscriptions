@@ -1,13 +1,14 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose } from 'recompose'
-import { Modal, InputSearch, Spinner, Alert } from 'vtex.styleguide'
+import { Modal, InputSearch, Spinner, Alert, Pagination } from 'vtex.styleguide'
 
 import { queryWrapper } from '../../tracking'
 import SEARCH_QUERY, {
   Args as SearchArgs,
   Result as SearchResult,
   SubscribableItem,
+  SearchProduct,
 } from '../../graphql/queries/search.gql'
 import Item from './SearchItem'
 import EmptyState from './EmptyState'
@@ -26,6 +27,9 @@ const messages = defineMessages({
   errorMessage: {
     id: 'subscription.fallback.error.message',
   },
+  ofPagination: {
+    id: 'add-item-modal.of-pagination',
+  },
 })
 
 const INSTANCE = 'SearchSubscribableProducts'
@@ -35,11 +39,16 @@ type State = 'loading' | 'results' | 'empty' | 'no-results'
 const AddItemModal: FunctionComponent<Props> = ({
   onCloseModal,
   onChangeSearch,
+  onPrevClickPagination,
+  onNextClickPagination,
   isModalOpen,
   searchInput,
+  page,
   intl,
   loading,
   items,
+  products,
+  totalCount,
   currency,
   onAddItem,
   displayError,
@@ -87,24 +96,38 @@ const AddItemModal: FunctionComponent<Props> = ({
         style={{ minHeight: '450px' }}
       >
         {state === 'results' ? (
-          items?.map((item) => (
-            <div key={item.skuId} className="mb8">
-              <Item
-                id={item.skuId}
-                name={item.name}
-                price={item.price}
-                currency={currency}
-                imageUrl={item.imageUrl}
-                brand={item.brand}
-                measurementUnit={item.measurementUnit}
-                unitMultiplier={item.unitMultiplier}
-                onAddItem={onAddItem}
-                subscribedSkus={subscribedSkus}
-                targetPlan={targetPlan}
-                availablePlans={item.plans}
+          <div>
+            {products?.map((product) =>
+              product?.items.map((sku) => (
+                <div key={sku.skuId} className="mb8">
+                  <Item
+                    id={sku.skuId}
+                    name={product.productName}
+                    price={product.price}
+                    currency={currency}
+                    imageUrl={sku.imageUrl}
+                    brand={product.brand}
+                    measurementUnit={product.measurementUnit}
+                    unitMultiplier={product.unitMultiplier}
+                    onAddItem={onAddItem}
+                    subscribedSkus={subscribedSkus}
+                    targetPlan={targetPlan}
+                    availablePlans={sku.plans}
+                  />
+                </div>
+              ))
+            )}
+            <div className="bg-base w-100 pa6 absolute bottom-0 right-0">
+              <Pagination
+                currentItemFrom={1 + 15 * (page - 1)}
+                currentItemTo={15 * page}
+                textOf={intl.formatMessage(messages.ofPagination)}
+                totalItems={totalCount}
+                onPrevClick={() => onPrevClickPagination(page)}
+                onNextClick={() => onNextClickPagination(page)}
               />
             </div>
-          ))
+          </div>
         ) : state === 'loading' ? (
           <Spinner />
         ) : (
@@ -121,9 +144,12 @@ interface OuterProps {
   isModalOpen: boolean
   onCloseModal: () => void
   onChangeSearch: (term: string) => void
+  onPrevClickPagination: (page: number) => void
+  onNextClickPagination: (page: number) => void
   searchInput: string
   searchTerm: string
   currency: string
+  page: number
   onAddItem: (args: AddItemArgs) => void
   displayError: boolean
   onDismissError: () => void
@@ -134,6 +160,8 @@ interface OuterProps {
 interface MappedProps {
   loading?: boolean
   items?: SubscribableItem[]
+  products?: SearchProduct[]
+  totalCount?: number
 }
 
 type Props = InnerProps & OuterProps & MappedProps
@@ -148,6 +176,8 @@ const enhance = compose<Props, OuterProps>(
       props: ({ data }) => ({
         loading: data?.loading,
         items: data?.search,
+        products: data?.searchProducts?.list,
+        totalCount: data?.searchProducts?.totalCount,
       }),
     }
   )
