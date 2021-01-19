@@ -3,18 +3,6 @@ query SearchSubscribableProducts(
   $page: Int
   $perPage: Int
 ) {
-  search(searchTerm: $searchTerm)
-    @context(provider: "vtex.subscriptions-graphql") {
-    skuId
-    name
-    imageUrl
-    price
-    unitMultiplier
-    measurementUnit
-    brand
-    plans
-  }
-
   searchProducts(
     searchTerm: $searchTerm
     perPage: $perPage

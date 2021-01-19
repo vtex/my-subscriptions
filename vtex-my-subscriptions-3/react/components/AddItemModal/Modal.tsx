@@ -7,7 +7,6 @@ import { queryWrapper } from '../../tracking'
 import SEARCH_QUERY, {
   Args as SearchArgs,
   Result as SearchResult,
-  SubscribableItem,
   SearchProduct,
 } from '../../graphql/queries/search.gql'
 import Item from './SearchItem'
@@ -46,7 +45,6 @@ const AddItemModal: FunctionComponent<Props> = ({
   page,
   intl,
   loading,
-  items,
   products,
   totalCount,
   currency,
@@ -59,7 +57,7 @@ const AddItemModal: FunctionComponent<Props> = ({
   let state: State
   if (loading) {
     state = 'loading'
-  } else if (items && items.length > 0) {
+  } else if (products && products?.length > 0) {
     state = 'results'
   } else {
     state = searchInput.length === 0 ? 'empty' : 'no-results'
@@ -96,7 +94,7 @@ const AddItemModal: FunctionComponent<Props> = ({
         style={{ minHeight: '450px' }}
       >
         {state === 'results' ? (
-          <div>
+          <>
             {products?.map((product) =>
               product?.items.map((sku) => (
                 <div key={sku.skuId} className="mb8">
@@ -127,7 +125,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                 onNextClick={() => onNextClickPagination(page)}
               />
             </div>
-          </div>
+          </>
         ) : state === 'loading' ? (
           <Spinner />
         ) : (
@@ -159,7 +157,6 @@ interface OuterProps {
 
 interface MappedProps {
   loading?: boolean
-  items?: SubscribableItem[]
   products?: SearchProduct[]
   totalCount?: number
 }
@@ -174,10 +171,9 @@ const enhance = compose<Props, OuterProps>(
     {
       skip: ({ isModalOpen }) => !isModalOpen,
       props: ({ data }) => ({
-        loading: data?.loading,
-        items: data?.search,
-        products: data?.searchProducts?.list,
-        totalCount: data?.searchProducts?.totalCount,
+        loading: data?.loading ?? false,
+        products: data?.searchProducts?.list ?? [],
+        totalCount: data?.searchProducts?.totalCount ?? 0,
       }),
     }
   )

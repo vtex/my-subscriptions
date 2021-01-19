@@ -1,17 +1,6 @@
 declare module '*/search.gql' {
   import { DocumentNode } from 'graphql'
 
-  export interface SubscribableItem {
-    name: string
-    imageUrl: string
-    price: number
-    skuId: string
-    unitMultiplier: number
-    measurementUnit: string
-    brand: string
-    plans: string[]
-  }
-
   interface SearchItem {
     skuId: string
     imageUrl: string
@@ -35,12 +24,10 @@ declare module '*/search.gql' {
   }
 
   export interface Result {
-    search: SubscribableItem[]
     searchProducts: SubscribableItemPaginable
   }
 
   export interface Args {
-    subscriptionId: string
     page: number
     perPage: number
   }
