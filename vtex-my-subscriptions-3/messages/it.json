@@ -22,8 +22,8 @@
   "subscription.summary.totalValue": "Importo totale",
   "subscription.summary.quantity": "Unità",
   "subscription.edit.success": "Le modifiche sono state salvate correttamente!",
-  "subscription.data.orderAgain": "Riordina",
-  "subscription.data.chargeEvery": "Ogni",
+  "subscription.data.orderAgain": "Eseguire:",
+  "subscription.data.chargeEvery": "Ripetere:",
   "subscription.select": "Seleziona",
   "subscription.select.day": "Giorno {day}",
   "subscription.edition.button.save": "Salvare",
@@ -118,7 +118,7 @@
   "creation-page.products-card.title": "Prodotti",
   "creation-page.name-section.label": "Dai un nome al tuo abbonamento",
   "required-field": "Campo obbligatorio",
-  "creation-page.frequency-section.next-purchase-date": "Primo acquisto:",
+  "creation-page.frequency-section.next-purchase-date": "Prima consegna:",
   "creation-page.frequency-section.add-expiration-date": "Aggiungi la data di scadenza",
   "creation-page.frequency-section.expiration-date": "Scade tra:"
 }

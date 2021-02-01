@@ -22,8 +22,8 @@
   "subscription.summary.totalValue": "Valeur totale",
   "subscription.summary.quantity": "Unités",
   "subscription.edit.success": "Les modifications ont été enregistrées avec succès!",
-  "subscription.data.orderAgain": "Passer à nouveau cette commande",
-  "subscription.data.chargeEvery": "Chaque",
+  "subscription.data.orderAgain": "Exécuter:",
+  "subscription.data.chargeEvery": "Répéter:",
   "subscription.select": "Choisir",
   "subscription.select.day": "Jour {day}",
   "subscription.edition.button.save": "Sauvegarder",
@@ -118,7 +118,7 @@
   "creation-page.products-card.title": "Des produits",
   "creation-page.name-section.label": "Donnez un nom à votre abonnement",
   "required-field": "Champs requis",
-  "creation-page.frequency-section.next-purchase-date": "Premier achat:",
+  "creation-page.frequency-section.next-purchase-date": "Premier livraison:",
   "creation-page.frequency-section.add-expiration-date": "Ajouter une date d'expiration",
   "creation-page.frequency-section.expiration-date": "Expire dans:"
 }
