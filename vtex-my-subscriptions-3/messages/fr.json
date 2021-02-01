@@ -118,7 +118,7 @@
   "creation-page.products-card.title": "Des produits",
   "creation-page.name-section.label": "Donnez un nom à votre abonnement",
   "required-field": "Champs requis",
-  "creation-page.frequency-section.next-purchase-date": "Premier livraison:",
+  "creation-page.frequency-section.next-purchase-date": "Premier achat:",
   "creation-page.frequency-section.add-expiration-date": "Ajouter une date d'expiration",
   "creation-page.frequency-section.expiration-date": "Expire dans:"
 }
