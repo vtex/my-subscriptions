@@ -91,6 +91,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           <DatePicker
             label={formatMessage(messages.nextPurchase)}
             value={nextPurchaseDateField.value}
+            minDate={new Date()}
             onChange={nextPurchaseDateHelper.setValue}
             locale={locale}
           />
