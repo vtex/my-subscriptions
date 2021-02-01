@@ -51,7 +51,7 @@ export function displayFrequency({
   return frequencyText
 }
 
-const WEEK_OPTIONS: WeekDay[] = [
+export const WEEK_OPTIONS: WeekDay[] = [
   'Monday',
   'Tuesday',
   'Wednesday',
@@ -61,7 +61,7 @@ const WEEK_OPTIONS: WeekDay[] = [
   'Sunday',
 ]
 
-const MONTH_OPTIONS = [
+export const MONTH_OPTIONS = [
   '1',
   '2',
   '3',

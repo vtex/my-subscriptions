@@ -25,7 +25,7 @@ declare module 'vtex.styleguide' {
   export const Box
   export const DatePicker
   export const Checkbox
-  export const Pagination
+  export const ButtonGroup
   export interface ShowToastArgs {
     message: string
     action?: {

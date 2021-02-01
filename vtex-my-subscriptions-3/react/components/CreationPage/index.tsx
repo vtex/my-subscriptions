@@ -25,11 +25,10 @@ import CREATE_MUTATION, {
   Result as CreationResult,
 } from '../../graphql/mutations/createSubscription.gql'
 import { logGraphqlError } from '../../tracking'
-import { getFutureDate } from './utils'
 
 export const INSTANCE = 'NewSubscription'
 
-const TOMORROW = getFutureDate({ date: new Date(), days: 1 })
+const TODAY = new Date()
 
 const INITIAL_STATE: SubscriptionForm = {
   name: null,
@@ -39,7 +38,7 @@ const INITIAL_STATE: SubscriptionForm = {
   address: null,
   paymentSystem: null,
   products: [],
-  nextPurchaseDate: TOMORROW,
+  nextPurchaseDate: TODAY,
   expirationDate: null,
 }
 
@@ -151,8 +150,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               <SimulationContext
                 subscription={this.assembleForm(formik.values)}
               >
-                <div className="pa5 pa7-ns flex flex-wrap">
-                  <div className="w-100 w-60-ns">
+                <div className="pa5 pa7-xl flex flex-wrap">
+                  <div className="w-100 w-60-xl">
                     {formik.values.planId && (
                       <div className="mb6">
                         <Box>
@@ -167,7 +166,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                     )}
                     <Products currencyCode={runtime.culture.currency} />
                   </div>
-                  <div className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns">
+                  <div className="w-100 w-40-xl pt6 pt0-xl pl0 pl6-xl">
                     <SummarySection currencyCode={runtime.culture.currency} />
                     <div className="mt7">
                       <Button
