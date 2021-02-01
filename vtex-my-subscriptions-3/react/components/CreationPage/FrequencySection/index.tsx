@@ -52,7 +52,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
 
   return (
     <div className="flex flex-row-ns flex-column">
-      <div className="w-60-ns w-100">
+      <div className="w-50-ns w-100">
         <FrequencySelector
           availableFrequencies={frequencies}
           selectedFrequency={frequencyField.value}
@@ -86,16 +86,14 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           }
         />
       </div>
-      <div className="w-40-ns w-100 pl6-ns pl0 pt0-ns pt6">
-        <div style={{ width: '180px' }}>
-          <DatePicker
-            label={formatMessage(messages.nextPurchase)}
-            value={nextPurchaseDateField.value}
-            minDate={new Date()}
-            onChange={nextPurchaseDateHelper.setValue}
-            locale={locale}
-          />
-        </div>
+      <div className="w-50-ns w-100 pl6-ns pl0 pt0-ns pt6">
+        <DatePicker
+          label={formatMessage(messages.nextPurchase)}
+          value={nextPurchaseDateField.value}
+          minDate={new Date()}
+          onChange={nextPurchaseDateHelper.setValue}
+          locale={locale}
+        />
         <div className="pt6">
           <Checkbox
             checked={!!expirationDateField.value}
@@ -115,7 +113,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           />
         </div>
         {expirationDateField.value && (
-          <div className="pt4" style={{ width: '180px' }}>
+          <div className="pt4">
             <DatePicker
               label={formatMessage(messages.expirationDate)}
               value={expirationDateField.value}
