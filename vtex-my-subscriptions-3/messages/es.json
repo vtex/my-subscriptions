@@ -118,7 +118,7 @@
   "creation-page.products-card.title": "Productos",
   "creation-page.name-section.label": "Dale un nombre a tu suscripción",
   "required-field": "Campo requerido",
-  "creation-page.frequency-section.next-purchase-date": "Primera entrega:",
+  "creation-page.frequency-section.next-purchase-date": "Primera compra:",
   "creation-page.frequency-section.add-expiration-date": "Agregar fecha de vencimiento",
   "creation-page.frequency-section.expiration-date": "Expira en:"
 }
