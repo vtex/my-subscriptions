@@ -81,6 +81,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
           begin: new Date().toISOString(),
           end: formikValues.expirationDate?.toISOString(),
         },
+        purchaseDay: formikValues.purchaseDay,
       },
       shippingAddress: {
         addressId: formikValues.address.id,
