@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.0] - 2021-02-02
+
+### Added
+
+- Pagination in available products list for subscription.
+
 ## [3.8.1] - 2021-01-04
 
 ### Fixed
