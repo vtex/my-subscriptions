@@ -1,7 +1,15 @@
 import React, { FunctionComponent } from 'react'
 import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { compose } from 'recompose'
-import { Modal, InputSearch, Spinner, Alert, Pagination } from 'vtex.styleguide'
+import {
+  Modal,
+  InputSearch,
+  Spinner,
+  Alert,
+  ButtonWithIcon,
+  IconCaretLeft,
+  IconCaretRight,
+} from 'vtex.styleguide'
 
 import { queryWrapper } from '../../tracking'
 import SEARCH_QUERY, {
@@ -116,14 +124,30 @@ const AddItemModal: FunctionComponent<Props> = ({
               ))
             )}
             <div className="bg-base w-100 pa6 absolute bottom-0 right-0">
-              <Pagination
-                currentItemFrom={1 + 15 * (page - 1)}
-                currentItemTo={15 * page}
-                textOf={intl.formatMessage(messages.ofPagination)}
-                totalItems={totalCount}
-                onPrevClick={() => onPrevClickPagination(page)}
-                onNextClick={() => onNextClickPagination(page)}
-              />
+              <div className="flex flex-row justify-end">
+                <div className="mr1">
+                  <ButtonWithIcon
+                    icon={<IconCaretLeft size={11} />}
+                    variation="secondary"
+                    size="small"
+                    onClick={() => onPrevClickPagination(page)}
+                    disabled={page === 1}
+                  />
+                </div>
+                <div className="ml1">
+                  <ButtonWithIcon
+                    icon={<IconCaretRight size={11} />}
+                    variation="secondary"
+                    size="small"
+                    onClick={() => onNextClickPagination(page)}
+                    disabled={
+                      products && totalCount
+                        ? 15 * (page - 1) + products.length >= totalCount
+                        : false
+                    }
+                  />
+                </div>
+              </div>
             </div>
           </>
         ) : state === 'loading' ? (
