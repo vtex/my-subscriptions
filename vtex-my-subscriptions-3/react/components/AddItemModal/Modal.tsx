@@ -34,9 +34,6 @@ const messages = defineMessages({
   errorMessage: {
     id: 'subscription.fallback.error.message',
   },
-  ofPagination: {
-    id: 'add-item-modal.of-pagination',
-  },
 })
 
 const INSTANCE = 'SearchSubscribableProducts'

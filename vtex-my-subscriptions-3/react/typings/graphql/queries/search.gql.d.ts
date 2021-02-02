@@ -28,6 +28,7 @@ declare module '*/search.gql' {
   }
 
   export interface Args {
+    searchTerm: string
     page: number
     perPage: number
   }
