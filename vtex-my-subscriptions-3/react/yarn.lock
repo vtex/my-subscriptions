@@ -6465,9 +6465,9 @@ vtex-tachyons@^3.2.0:
   version "2.5.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.5.1/public/@types/vtex.payment-flags#27bdf241ffd829047384f6d2114e24fb581c5510"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.10/public/@types/vtex.render-runtime":
-  version "8.126.10"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.10/public/@types/vtex.render-runtime#1eb37d8ef0fcaef17060306f6d5dff6d9e404d39"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.11/public/@types/vtex.render-runtime":
+  version "8.126.11"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.11/public/@types/vtex.render-runtime#aceb734766093b56954ec19a074574b4c2c95242"
 
 "vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.138.0/public/@types/vtex.store-graphql":
   version "2.138.0"
@@ -6481,9 +6481,9 @@ vtex-tachyons@^3.2.0:
   version "1.1.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons#f122e45f2e94c7efdd49cc9cee45c69f9d350535"
 
-"vtex.subscriptions-graphql@https://bambokian--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.9.0+build1612283681/public/@types/vtex.subscriptions-graphql":
-  version "3.9.0"
-  resolved "https://bambokian--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.9.0+build1612283681/public/@types/vtex.subscriptions-graphql#54babb420ba51f9f48074ec52bd3f00f40c94b54"
+"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.9.2/public/@types/vtex.subscriptions-graphql":
+  version "3.9.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.9.2/public/@types/vtex.subscriptions-graphql#ef9d257f171ee0290d024b6345caaaa7dfbc1050"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.0/public/_types/react":
   version "0.0.0"
