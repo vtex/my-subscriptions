@@ -76,6 +76,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       plan: {
         id: formikValues.planId,
         frequency,
+        purchaseDay: formikValues.purchaseDay,
         validity: {
           begin: new Date().toISOString(),
           end: formikValues.expirationDate?.toISOString(),
