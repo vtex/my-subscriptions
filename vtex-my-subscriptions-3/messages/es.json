@@ -22,7 +22,7 @@
   "subscription.summary.totalValue": "Valor total",
   "subscription.summary.quantity": "Unidades",
   "subscription.edit.success": "¡Los cambios se han guardado con éxito!",
-  "subscription.data.orderAgain": "Ejecutar:",
+  "subscription.data.orderAgain": "Rehacer este pedido:",
   "subscription.data.chargeEvery": "Repetir:",
   "subscription.select": "Seleccionar",
   "subscription.select.day": "Día {day}",

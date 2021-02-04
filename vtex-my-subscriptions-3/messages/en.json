@@ -22,7 +22,7 @@
   "subscription.summary.totalValue": "Total value",
   "subscription.summary.quantity": "Units",
   "subscription.edit.success": "Changes have been saved sucessfully!",
-  "subscription.data.orderAgain": "Execute:",
+  "subscription.data.orderAgain": "Reorder:",
   "subscription.data.chargeEvery": "Repeat:",
   "subscription.select": "Select",
   "subscription.select.day": "Day {day}",
