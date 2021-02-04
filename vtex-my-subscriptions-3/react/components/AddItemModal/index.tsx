@@ -15,6 +15,7 @@ class AddItemContainer extends Component<Props> {
     isModalOpen: false,
     searchTerm: '',
     searchInput: '',
+    page: 1,
     subscribedSkus: new Set<string>(),
     displayError: false,
   }
@@ -36,6 +37,12 @@ class AddItemContainer extends Component<Props> {
     this.setState({ searchInput })
   }
 
+  private handlePrevClickPagination = (currentPage: number) =>
+    this.setState({ page: currentPage - 1 })
+
+  private handleNextClickPagination = (currentPage: number) =>
+    this.setState({ page: currentPage + 1 })
+
   private handleAddItem = ({ setLoading, ...rest }: AddItemArgs) => {
     setLoading(true)
 
@@ -50,7 +57,13 @@ class AddItemContainer extends Component<Props> {
 
   public render() {
     const { intl, currency, targetPlan, subscribedSkus } = this.props
-    const { isModalOpen, searchInput, searchTerm, displayError } = this.state
+    const {
+      isModalOpen,
+      searchInput,
+      searchTerm,
+      page,
+      displayError,
+    } = this.state
 
     return (
       <>
@@ -63,6 +76,9 @@ class AddItemContainer extends Component<Props> {
           currency={currency}
           onCloseModal={this.handleCloseModal}
           onChangeSearch={this.handleChangeSearch}
+          page={page}
+          onPrevClickPagination={this.handlePrevClickPagination}
+          onNextClickPagination={this.handleNextClickPagination}
           onAddItem={this.handleAddItem}
           onDismissError={this.handleDismissError}
           displayError={displayError}

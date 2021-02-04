@@ -1,13 +1,31 @@
-query SearchSubscribableProducts($searchTerm: String!) {
-  search(searchTerm: $searchTerm)
-    @context(provider: "vtex.subscriptions-graphql") {
-    skuId
-    name
-    imageUrl
-    price
-    unitMultiplier
-    measurementUnit
-    brand
-    plans
+query SearchSubscribableProducts(
+  $searchTerm: String!
+  $page: Int
+  $perPage: Int
+) {
+  searchProducts(
+    searchTerm: $searchTerm
+    perPage: $perPage
+    page: $page
+    subscribable: true
+  ) @context(provider: "vtex.subscriptions-graphql") {
+    list {
+      ... on SearchProduct {
+        productId
+        productName
+        unitMultiplier
+        measurementUnit
+        brand
+        price
+        categories
+        items {
+          skuId
+          imageUrl
+          variations
+          plans
+        }
+      }
+    }
+    totalCount
   }
 }
