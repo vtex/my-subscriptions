@@ -22,7 +22,7 @@
   "subscription.summary.totalValue": "Gesamtwert",
   "subscription.summary.quantity": "Einheiten",
   "subscription.edit.success": "Änderungen wurden erfolgreich gespeichert!",
-  "subscription.data.orderAgain": "Ausführen:",
+  "subscription.data.orderAgain": "Nachbestellen:",
   "subscription.data.chargeEvery": "Wiederholen:",
   "subscription.select": "Auswählen",
   "subscription.select.day": "Tag {day}",

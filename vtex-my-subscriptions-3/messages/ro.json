@@ -22,7 +22,7 @@
   "subscription.summary.totalValue": "Valoarea totală",
   "subscription.summary.quantity": "Unități",
   "subscription.edit.success": "Modificările au fost salvate cu succes!",
-  "subscription.data.orderAgain": "A executa:",
+  "subscription.data.orderAgain": "Reordona:",
   "subscription.data.chargeEvery": "Repeta:",
   "subscription.select": "Selectați",
   "subscription.select.day": "Zi {day}",
