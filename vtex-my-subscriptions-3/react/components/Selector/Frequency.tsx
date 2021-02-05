@@ -65,27 +65,27 @@ const FrequencySelector: FunctionComponent<Props> = ({
         onBlur={onBlurFrequency}
         errorMessage={errorMessageFrequency}
       />
-      {availableFrequencies.length !== 0 &&
-        currentFrequency &&
-        currentFrequency?.periodicity !== 'DAILY' && (
-          <div className="pt6">
-            <Dropdown
-              name="purchaseDay"
-              label={intl.formatMessage(messages.chargeEvery)}
-              placeholder={intl.formatMessage(messages.select)}
-              options={getIntervalOptions({
-                intl,
-                periodicity: currentFrequency?.periodicity,
-              })}
-              value={selectedPurchaseDay}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                onChangePurchaseDay(e.target.value)
-              }
-              onBlur={onBlurPurchaseDay}
-              errorMessage={errorMessagePurchaseDay}
-            />
-          </div>
-        )}
+      {availableFrequencies.length !== 0 && currentFrequency && (
+        <div className="pt6">
+          <Dropdown
+            name="purchaseDay"
+            label={intl.formatMessage(messages.chargeEvery)}
+            options={getIntervalOptions({
+              intl,
+              periodicity:
+                String(currentFrequency?.periodicity) === 'WEEKLY'
+                  ? 'WEEKLY'
+                  : 'MONTHLY',
+            })}
+            value={selectedPurchaseDay}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChangePurchaseDay(e.target.value)
+            }
+            onBlur={onBlurPurchaseDay}
+            errorMessage={errorMessagePurchaseDay}
+          />
+        </div>
+      )}
     </>
   )
 }

@@ -14,6 +14,7 @@ import { INSTANCE, SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
 import { getFutureDate } from '../utils'
+import { WEEK_OPTIONS, MONTH_OPTIONS } from '../../Frequency/utils'
 
 const messages = defineMessages({
   required: {
@@ -50,12 +51,25 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
   const { locale, formatMessage } = useIntl()
 
   return (
-    <div className="flex">
+    <div className="flex flex-row-ns flex-column">
       <div className="w-50-ns w-100">
         <FrequencySelector
           availableFrequencies={frequencies}
           selectedFrequency={frequencyField.value}
-          onChangeFrequency={frequencyHelper.setValue}
+          onChangeFrequency={(frequency) => {
+            frequencyHelper.setValue(frequency)
+            frequency.split(',') &&
+              frequency.split(',')[1] === 'WEEKLY' &&
+              purchaseHelper.setValue(WEEK_OPTIONS[new Date().getDay() - 1])
+            frequency.split(',') &&
+              (frequency.split(',')[1] === 'MONTHLY' ||
+                frequency.split(',')[1] === 'YEARLY') &&
+              purchaseHelper.setValue(
+                new Date().getDate() <= 28
+                  ? MONTH_OPTIONS[new Date().getDate() - 1]
+                  : MONTH_OPTIONS[0]
+              )
+          }}
           onBlurFrequency={frequencyField.onBlur}
           onChangePurchaseDay={purchaseHelper.setValue}
           onBlurPurchaseDay={purchaseDayField.onBlur}
@@ -72,10 +86,11 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           }
         />
       </div>
-      <div className="w-50-ns w-100 pl6-ns pl0">
+      <div className="w-50-ns w-100 pl6-ns pl0 pt0-ns pt6">
         <DatePicker
           label={formatMessage(messages.nextPurchase)}
           value={nextPurchaseDateField.value}
+          minDate={new Date()}
           onChange={nextPurchaseDateHelper.setValue}
           locale={locale}
         />

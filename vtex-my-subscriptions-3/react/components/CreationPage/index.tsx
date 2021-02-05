@@ -76,11 +76,11 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       plan: {
         id: formikValues.planId,
         frequency,
-        purchaseDay: formikValues.purchaseDay,
         validity: {
           begin: new Date().toISOString(),
           end: formikValues.expirationDate?.toISOString(),
         },
+        purchaseDay: formikValues.purchaseDay,
       },
       shippingAddress: {
         addressId: formikValues.address.id,
@@ -151,8 +151,8 @@ class SubscriptionCreationContainer extends Component<Props, State> {
               <SimulationContext
                 subscription={this.assembleForm(formik.values)}
               >
-                <div className="pa5 pa7-ns flex flex-wrap">
-                  <div className="w-100 w-60-ns">
+                <div className="pa5 pa7-xl flex flex-wrap">
+                  <div className="w-100 w-60-xl">
                     {formik.values.planId && (
                       <div className="mb6">
                         <Box>
@@ -167,7 +167,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
                     )}
                     <Products currencyCode={runtime.culture.currency} />
                   </div>
-                  <div className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns">
+                  <div className="w-100 w-40-xl pt6 pt0-xl pl0 pl6-xl">
                     <SummarySection currencyCode={runtime.culture.currency} />
                     <div className="mt7">
                       <Button
