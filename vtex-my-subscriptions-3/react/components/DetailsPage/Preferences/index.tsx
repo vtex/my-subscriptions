@@ -138,6 +138,7 @@ class PreferencesContainer extends Component<Props, State> {
     this.setState({
       selectedPaymentSystemGroup: group,
       selectedPaymentSystemId: paymentSystemId ?? null,
+      selectedPaymentAccountId: null,
     })
 
   private handleChangePaymentAccount = ({
