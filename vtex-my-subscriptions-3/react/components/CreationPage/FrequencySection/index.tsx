@@ -10,11 +10,12 @@ import FREQUENCY_QUERY, {
   Result,
 } from '../../../graphql/queries/frequencyOptions.gql'
 import { queryWrapper } from '../../../tracking'
-import { INSTANCE, SubscriptionForm } from '..'
+import { SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
 import { getFutureDate } from '../utils'
 import { WEEK_OPTIONS, MONTH_OPTIONS } from '../../Frequency/utils'
+import { INSTANCE } from '../constants'
 
 const messages = defineMessages({
   required: {
