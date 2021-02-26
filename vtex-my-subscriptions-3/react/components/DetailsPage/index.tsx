@@ -31,6 +31,7 @@ import Preferences from './Preferences'
 import Summary from '../Summary'
 import History from './History'
 import Skeleton from './Skeleton'
+import Modal from '../PickupPointsModal'
 
 export const INSTANCE = 'SubscriptionsDetails'
 const PREFERENCES_ID = 'vtex.subscription.preferences.div'
@@ -191,6 +192,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
     return (
       <div id={DETAILS_ID}>
+        <Modal />
         <History
           subscriptionId={subscription.id}
           isOpen={displayHistory}

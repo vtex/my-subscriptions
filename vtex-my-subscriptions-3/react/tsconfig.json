@@ -7,7 +7,8 @@
     "lib": ["es2017", "dom", "es2018.promise", "esnext.asynciterable"],
     "module": "es6",
     "moduleResolution": "node",
-    "target": "es2017"
+    "target": "es2017",
+    "resolveJsonModule": true
   },
   "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
 }
