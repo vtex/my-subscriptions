@@ -59,39 +59,43 @@ const FrequencySelector: FunctionComponent<Props> = ({
           frequencies: availableFrequencies,
         })}
         value={hasFrequency ? selectedFrequency : null}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
           onChangeFrequency(e.target.value)
-        }
+          onChangePurchaseDay(null)
+        }}
         onBlur={onBlurFrequency}
         errorMessage={errorMessageFrequency}
       />
-      {availableFrequencies.length !== 0 && currentFrequency && (
-        <div className="pt6">
-          <Dropdown
-            name="purchaseDay"
-            label={intl.formatMessage(messages.chargeEvery)}
-            options={getIntervalOptions({
-              intl,
-              periodicity:
-                String(currentFrequency?.periodicity) === 'WEEKLY'
-                  ? 'WEEKLY'
-                  : 'MONTHLY',
-            })}
-            value={selectedPurchaseDay}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              onChangePurchaseDay(e.target.value)
-            }
-            onBlur={onBlurPurchaseDay}
-            errorMessage={errorMessagePurchaseDay}
-          />
-        </div>
-      )}
+      {availableFrequencies.length !== 0 &&
+        currentFrequency &&
+        currentFrequency.periodicity !== 'DAILY' && (
+          <div className="pt6">
+            <Dropdown
+              name="purchaseDay"
+              placeholder={intl.formatMessage(messages.select)}
+              label={intl.formatMessage(messages.chargeEvery)}
+              options={getIntervalOptions({
+                intl,
+                periodicity:
+                  String(currentFrequency?.periodicity) === 'WEEKLY'
+                    ? 'WEEKLY'
+                    : 'MONTHLY',
+              })}
+              value={selectedPurchaseDay}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                onChangePurchaseDay(e.target.value)
+              }
+              onBlur={onBlurPurchaseDay}
+              errorMessage={errorMessagePurchaseDay}
+            />
+          </div>
+        )}
     </>
   )
 }
 
 type Props = {
-  onChangePurchaseDay: (day: string) => void
+  onChangePurchaseDay: (day: string | null) => void
   onBlurPurchaseDay?: (e: FocusEvent) => void
   onChangeFrequency: (frequency: string) => void
   onBlurFrequency?: (e: FocusEvent) => void
