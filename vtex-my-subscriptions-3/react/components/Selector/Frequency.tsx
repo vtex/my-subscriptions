@@ -76,10 +76,7 @@ const FrequencySelector: FunctionComponent<Props> = ({
               label={intl.formatMessage(messages.chargeEvery)}
               options={getIntervalOptions({
                 intl,
-                periodicity:
-                  String(currentFrequency?.periodicity) === 'WEEKLY'
-                    ? 'WEEKLY'
-                    : 'MONTHLY',
+                periodicity: currentFrequency.periodicity,
               })}
               value={selectedPurchaseDay}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
