@@ -251,7 +251,7 @@ class PreferencesContainer extends Component<Props, State> {
     }
 
     if (
-      selectedPaymentSystemId &&
+      selectedPaymentSystemId !== null &&
       (payment.paymentMethod?.paymentSystemId !== selectedPaymentSystemId ||
         payment.paymentMethod.paymentAccount?.id !== selectedPaymentAccountId)
     ) {
