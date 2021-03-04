@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.9.2] - 2021-03-04
+
+### Fixed
+
+- Frequency selector.
+- Payment change.
+
 ## [3.9.1] - 2021-02-05
 
 ### Fixed

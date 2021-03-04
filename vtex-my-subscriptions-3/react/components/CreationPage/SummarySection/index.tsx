@@ -8,7 +8,7 @@ import FREQUENCY_QUERY, {
   Result,
 } from '../../../graphql/queries/availablePaymentAddresses.gql'
 import { queryWrapper } from '../../../tracking'
-import { INSTANCE, SubscriptionForm } from '..'
+import { SubscriptionForm } from '..'
 import Box from '../../CustomBox'
 import Title from '../../CustomBox/Title'
 import Section from '../../CustomBox/Section'
@@ -21,6 +21,7 @@ import EditButton from '../../EditButton'
 import Content from '../../Summary/Content'
 import Footer from '../../Summary/Footer'
 import { SimulationConsumer } from '../../SimulationContext'
+import { INSTANCE } from '../constants'
 
 class SummarySection extends Component<Props, State> {
   constructor(props: Props) {
@@ -209,7 +210,7 @@ type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
   queryWrapper<OuterProps, Result, void, ChildProps>(
-    `${INSTANCE}/FrequencySection`,
+    `${INSTANCE}/SummarySection`,
     FREQUENCY_QUERY,
     {
       options: {

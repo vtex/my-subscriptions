@@ -109,7 +109,7 @@ export function getIntervalOptions({
   periodicity,
   intl,
 }: {
-  periodicity: Periodicity
+  periodicity: Exclude<Periodicity, 'DAILY'>
   intl: IntlShape
 }) {
   if (periodicity === 'WEEKLY') {

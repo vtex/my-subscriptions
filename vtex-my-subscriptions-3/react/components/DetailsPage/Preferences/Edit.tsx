@@ -94,11 +94,11 @@ type OuterProps = {
   onSave: () => void
   onCancel: () => void
   onDismissError: () => void
-  onChangePurchaseDay: (day: string) => void
+  onChangePurchaseDay: (day: string | null) => void
   onChangeFrequency: (frequency: string) => void
   isLoading: boolean
   errorMessage: string | null
-  selectedPurchaseDay: string
+  selectedPurchaseDay: string | null
   selectedFrequency: string
   selectedPaymentSystemGroup: PaymentSystemGroup | null
   onChangePaymentSystemGroup: (args: {

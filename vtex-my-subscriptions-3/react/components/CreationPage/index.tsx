@@ -25,11 +25,7 @@ import CREATE_MUTATION, {
   Result as CreationResult,
 } from '../../graphql/mutations/createSubscription.gql'
 import { logGraphqlError } from '../../tracking'
-import { getFutureDate } from './utils'
-
-export const INSTANCE = 'NewSubscription'
-
-const TOMORROW = getFutureDate({ date: new Date(), days: 1 })
+import { TOMORROW } from './constants'
 
 const INITIAL_STATE: SubscriptionForm = {
   name: null,

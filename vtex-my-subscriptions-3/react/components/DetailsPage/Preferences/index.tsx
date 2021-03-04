@@ -123,7 +123,7 @@ class PreferencesContainer extends Component<Props, State> {
   private handleChangeFrequency = (selectedFrequency: string) =>
     this.setState({ selectedFrequency })
 
-  private handleChangePurchaseDay = (selectedPurchaseDay: string) =>
+  private handleChangePurchaseDay = (selectedPurchaseDay: string | null) =>
     this.setState({ selectedPurchaseDay })
 
   private handleGoToEdition = () => this.props.onChangeEdit(true)
@@ -138,6 +138,7 @@ class PreferencesContainer extends Component<Props, State> {
     this.setState({
       selectedPaymentSystemGroup: group,
       selectedPaymentSystemId: paymentSystemId ?? null,
+      selectedPaymentAccountId: null,
     })
 
   private handleChangePaymentAccount = ({
@@ -250,7 +251,7 @@ class PreferencesContainer extends Component<Props, State> {
     }
 
     if (
-      selectedPaymentSystemId &&
+      selectedPaymentSystemId !== null &&
       (payment.paymentMethod?.paymentSystemId !== selectedPaymentSystemId ||
         payment.paymentMethod.paymentAccount?.id !== selectedPaymentAccountId)
     ) {
@@ -378,7 +379,7 @@ class PreferencesContainer extends Component<Props, State> {
 type State = {
   isLoading: boolean
   errorMessage: string | null
-  selectedPurchaseDay: string
+  selectedPurchaseDay: string | null
   selectedFrequency: string
   selectedPaymentSystemGroup: PaymentSystemGroup | null
   selectedPaymentSystemId: string | null
