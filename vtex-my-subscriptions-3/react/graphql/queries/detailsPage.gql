@@ -46,6 +46,20 @@ query SubscriptionDetailsPage($id: ID!) {
     lastExecution {
       id
       status
+      order {
+        orderId
+        status
+        packageAttachment {
+          packages {
+            trackingUrl
+          }
+        }
+        shippingData {
+          logisticsInfo {
+            shippingEstimateDate
+          }
+        }
+      }
     }
     totals {
       id

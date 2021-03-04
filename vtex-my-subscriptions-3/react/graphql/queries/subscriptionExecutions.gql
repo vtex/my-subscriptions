@@ -9,6 +9,20 @@ query Executions($subscriptionId: ID!, $page: Int, $perPage: Int) {
         id
         status
         date
+        order {
+          orderId
+          status
+          packageAttachment {
+            packages {
+              trackingUrl
+            }
+          }
+          shippingData {
+            logisticsInfo {
+              shippingEstimateDate
+            }
+          }
+        }
       }
     }
     totalCount
