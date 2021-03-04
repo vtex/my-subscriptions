@@ -96,9 +96,26 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
   }
 
   private handleUpdateAction = (action: SubscriptionAction) => {
+    const { history, subscription } = this.props
+
+    const orderPackages =
+      subscription?.lastExecution?.order?.packageAttachment.packages
+    const orderTrackingUrl =
+      orderPackages.length > 0 ? orderPackages[0].trackingUrl : undefined
+
     if (action === 'changeAddress' || action === 'changePayment') {
       this.setState({ isEditMode: true })
       goToElement({ id: PREFERENCES_ID })
+    } else if (action === 'orderDispatched' && !!orderTrackingUrl) {
+      window.open(orderTrackingUrl)
+    } else if (
+      action === 'orderDispatched' &&
+      !orderTrackingUrl &&
+      subscription?.lastExecution?.order?.orderId
+    ) {
+      history.push(`/orders/${subscription.lastExecution.order.orderId}`)
+    } else if (action === 'nextPurchase') {
+      this.handleChangeEdit(true)
     } else {
       this.setState({ isModalOpen: true, actionType: action })
     }
@@ -189,6 +206,11 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       errorMessage,
     })
 
+    const orderPackages =
+      subscription.lastExecution?.order?.packageAttachment.packages
+    const orderLogisticsInfo =
+      subscription.lastExecution?.order?.shippingData.logisticsInfo
+
     return (
       <div id={DETAILS_ID}>
         <History
@@ -219,6 +241,17 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               payment={subscription.purchaseSettings.paymentMethod}
               onUpdateAction={this.handleUpdateAction}
               nextPurchaseDate={subscription.nextPurchaseDate}
+              orderDeliveryDate={
+                subscription.lastExecution?.order?.status === 'invoiced'
+                  ? orderLogisticsInfo.length > 0 &&
+                    orderLogisticsInfo[0].shippingEstimateDate
+                  : undefined
+              }
+              orderTrackingUrl={
+                subscription.lastExecution?.order?.status === 'invoiced'
+                  ? orderPackages.length > 0 && orderPackages[0].trackingUrl
+                  : undefined
+              }
             />
             <Products
               subscriptionId={subscription.id}
@@ -275,7 +308,8 @@ type Props = {
   updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<MutationResult>
 } & InjectedRuntimeContext &
   WrappedComponentProps &
-  ChildProps
+  ChildProps &
+  RouteComponentProps
 
 type InputProps = RouteComponentProps<{ subscriptionId: string }>
 

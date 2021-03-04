@@ -36,6 +36,8 @@ export type SubscriptionAction =
   | 'orderNow'
   | 'changeAddress'
   | 'changePayment'
+  | 'orderDispatched'
+  | 'nextPurchase'
 
 export function retrieveModalConfig({
   intl,
