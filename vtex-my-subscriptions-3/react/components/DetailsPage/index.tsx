@@ -101,7 +101,13 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     const orderPackages =
       subscription?.lastExecution?.order?.packageAttachment.packages
     const orderTrackingUrl =
-      orderPackages.length > 0 ? orderPackages[0].trackingUrl : undefined
+      orderPackages.length > 0 && orderPackages[0].trackingUrl
+
+    const orderTransactions =
+      subscription?.lastExecution?.order?.paymentData.transactions
+    const orderPayments =
+      orderTransactions.length > 0 && orderTransactions[0].payments
+    const bankSlipUrl = orderPayments.length > 0 && orderPayments[0].url
 
     if (action === 'changeAddress' || action === 'changePayment') {
       this.setState({ isEditMode: true })
@@ -116,6 +122,8 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       history.push(`/orders/${subscription.lastExecution.order.orderId}`)
     } else if (action === 'nextPurchase') {
       this.handleChangeEdit(true)
+    } else if (action === 'printBankSlip' && !!bankSlipUrl) {
+      window.open(bankSlipUrl)
     } else {
       this.setState({ isModalOpen: true, actionType: action })
     }
@@ -210,6 +218,8 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       subscription.lastExecution?.order?.packageAttachment.packages
     const orderLogisticsInfo =
       subscription.lastExecution?.order?.shippingData.logisticsInfo
+    const orderTransactions =
+      subscription?.lastExecution?.order?.paymentData?.transactions
 
     return (
       <div id={DETAILS_ID}>
@@ -241,6 +251,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
               payment={subscription.purchaseSettings.paymentMethod}
               onUpdateAction={this.handleUpdateAction}
               nextPurchaseDate={subscription.nextPurchaseDate}
+              orderStatus={subscription.lastExecution?.order?.status}
               orderDeliveryDate={
                 subscription.lastExecution?.order?.status === 'invoiced'
                   ? orderLogisticsInfo.length > 0 &&
@@ -252,6 +263,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
                   ? orderPackages.length > 0 && orderPackages[0].trackingUrl
                   : undefined
               }
+              bankSlipUrl={orderTransactions?.[0].payments?.[0]?.url}
             />
             <Products
               subscriptionId={subscription.id}

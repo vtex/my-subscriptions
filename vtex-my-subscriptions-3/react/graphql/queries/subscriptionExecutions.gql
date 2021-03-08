@@ -22,6 +22,13 @@ query Executions($subscriptionId: ID!, $page: Int, $perPage: Int) {
               shippingEstimateDate
             }
           }
+          paymentData {
+            transactions {
+              payments {
+                url
+              }
+            }
+          }
         }
       }
     }

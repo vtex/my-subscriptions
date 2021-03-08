@@ -138,6 +138,17 @@ export function generateSubscription({
             },
           ],
         },
+        paymentData: {
+          transactions: [
+            {
+              payments: [
+                {
+                  url: 'www.google.com.br',
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     estimatedDeliveryDate,

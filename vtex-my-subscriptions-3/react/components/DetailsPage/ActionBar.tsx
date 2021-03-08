@@ -67,6 +67,15 @@ defineMessages({
   nextPurchaseButton: {
     id: 'details-page.action-bar.button.nextPurchase',
   },
+  printBankSlipLabel: {
+    id: 'details-page.action-bar.label.printBankSlip',
+  },
+  printBankSlipText: {
+    id: 'details-page.action-bar.text.printBankSlip',
+  },
+  printBankSlipButton: {
+    id: 'details-page.action-bar.button.printBankSlip',
+  },
 })
 
 class ActionBarContainer extends Component<Props> {
@@ -96,9 +105,11 @@ class ActionBarContainer extends Component<Props> {
       address,
       isSkipped,
       payment,
+      orderStatus,
       orderDeliveryDate,
       orderTrackingUrl,
       nextPurchaseDate,
+      bankSlipUrl,
       onUpdateAction,
     } = this.props
 
@@ -110,13 +121,15 @@ class ActionBarContainer extends Component<Props> {
       action = 'restore'
     } else if (!address) {
       action = 'changeAddress'
-    } else if (!payment) {
+    } else if (!payment || orderStatus === 'payment-denied') {
       action = 'changePayment'
     } else if (isSkipped) {
       action = 'unskip'
       buttonVariation = 'secondary'
     } else if (!!orderDeliveryDate || !!orderTrackingUrl) {
       action = 'orderDispatched'
+    } else if (bankSlipUrl) {
+      action = 'printBankSlip'
     } else if (nextPurchaseDate) {
       action = 'nextPurchase'
       buttonVariation = 'secondary'
@@ -136,6 +149,7 @@ class ActionBarContainer extends Component<Props> {
         'changePayment',
         'orderDispatched',
         'nextPurchase',
+        'printBankSlip',
       ].includes(action)
     ) {
       onClick = () => onUpdateAction(action as SubscriptionAction)
@@ -239,8 +253,10 @@ type Props = {
   nextPurchaseDate: string
   address: Subscription['shippingAddress']
   payment: Subscription['purchaseSettings']['paymentMethod']
+  orderStatus: string | undefined
   orderDeliveryDate: string | undefined
   orderTrackingUrl: string | undefined
+  bankSlipUrl: string | undefined
   onUpdateAction: (action: SubscriptionAction) => void
 }
 
