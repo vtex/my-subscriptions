@@ -6141,9 +6141,9 @@ vtex-tachyons@^3.2.0:
   resolved "https://registry.yarnpkg.com/vtex-tachyons/-/vtex-tachyons-3.2.2.tgz#e9e39d939778ef7d80a92c476cecf7417f79a6e8"
   integrity sha512-4M53uuvV+2XEjplVYiPgpBuaI5dtGksVgz/20NNjbZkXklJM7Lwgod/hOoh3PtIn36+95zZVVgXYfs3e6EU8YA==
 
-"vtex.address-form@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.5/public/_types/react":
+"vtex.address-form@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.6/public/_types/react":
   version "0.0.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.5/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.6.6/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
 
 "vtex.my-account-commons@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@1.5.2/public/@types/vtex.my-account-commons":
   version "1.5.2"
@@ -6169,17 +6169,17 @@ vtex-tachyons@^3.2.0:
   version "2.138.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.138.0/public/@types/vtex.store-graphql#a802ff0193cfaf1d9bca8d2cf36134977ac1f40e"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.1/public/@types/vtex.styleguide":
-  version "9.135.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.1/public/@types/vtex.styleguide#ed8d203eff74ed072b6e2f6ddb66d0c92b797ade"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.4/public/@types/vtex.styleguide":
+  version "9.135.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.4/public/@types/vtex.styleguide#f2143f2cbf61b3b01851be37e188b84edc65eb9a"
 
-"vtex.subscriptions-commons@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons":
-  version "1.1.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.1.0/public/@types/vtex.subscriptions-commons#f122e45f2e94c7efdd49cc9cee45c69f9d350535"
+"vtex.subscriptions-commons@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.2.1/public/@types/vtex.subscriptions-commons":
+  version "1.2.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.2.1/public/@types/vtex.subscriptions-commons#2c0893b2254010713e907bd2a0d290856c00c43e"
 
-"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.9.2/public/@types/vtex.subscriptions-graphql":
-  version "3.9.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.9.2/public/@types/vtex.subscriptions-graphql#ef9d257f171ee0290d024b6345caaaa7dfbc1050"
+"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.11.0/public/@types/vtex.subscriptions-graphql":
+  version "3.11.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.11.0/public/@types/vtex.subscriptions-graphql#1682bd8071241f8aa03f77801fca22d458df0720"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.0/public/_types/react":
   version "0.0.0"
