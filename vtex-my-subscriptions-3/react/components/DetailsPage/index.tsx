@@ -142,7 +142,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
     const items = subscription.items.map((item) => ({
       quantity: item.quantity,
-      id: parseInt(item.id, 10),
+      id: parseInt(item.sku.id, 10),
       seller: '1',
     }))
 
