@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - OrderNow functionality.
+- Totalizer translations on Summary component.
 
 ## [3.9.2] - 2021-03-04
 
