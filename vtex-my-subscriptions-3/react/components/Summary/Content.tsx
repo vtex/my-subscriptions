@@ -12,7 +12,7 @@ const SummaryContent: FunctionComponent<Props> = ({ totals, currencyCode }) => {
         return (
           <div className="mb4 flex justify-between" key={total.id}>
             <span>
-              <TranslateTotalizer id={total.id} />
+              <TranslateTotalizer id={total.id} nonStorePage />
             </span>
             <FormattedNumber
               currency={currencyCode}
