@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.9.3] - 2021-04-14
+
 ### Fixed
 
 - OrderNow functionality.
