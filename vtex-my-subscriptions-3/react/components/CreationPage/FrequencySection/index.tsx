@@ -9,7 +9,7 @@ import FREQUENCY_QUERY, {
   Args,
   Result,
 } from '../../../graphql/queries/frequencyOptions.gql'
-import { queryWrapper } from '../../../tracking'
+import { queryWrapper, getRuntimeInfo } from '../../../tracking'
 import { SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
@@ -146,16 +146,17 @@ type InnerProps = ChildProps
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, Args, ChildProps>(
-    `${INSTANCE}/FrequencySection`,
-    FREQUENCY_QUERY,
-    {
+  queryWrapper<OuterProps, Result, Args, ChildProps>({
+    getRuntimeInfo,
+    workflowInstance: `${INSTANCE}/FrequencySection`,
+    document: FREQUENCY_QUERY,
+    operationOptions: {
       props: ({ data }) => ({
         loading: data?.loading ?? false,
         frequencies: data?.frequencies ?? [],
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 

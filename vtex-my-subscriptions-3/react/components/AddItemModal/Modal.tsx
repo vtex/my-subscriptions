@@ -11,7 +11,7 @@ import {
   IconCaretRight,
 } from 'vtex.styleguide'
 
-import { queryWrapper } from '../../tracking'
+import { queryWrapper, getRuntimeInfo } from '../../tracking'
 import SEARCH_QUERY, {
   Args as SearchArgs,
   Result as SearchResult,
@@ -186,18 +186,19 @@ type Props = InnerProps & OuterProps & MappedProps
 
 const enhance = compose<Props, OuterProps>(
   injectIntl,
-  queryWrapper<OuterProps, SearchResult, SearchArgs, MappedProps>(
-    INSTANCE,
-    SEARCH_QUERY,
-    {
+  queryWrapper<OuterProps, SearchResult, SearchArgs, MappedProps>({
+    getRuntimeInfo,
+    workflowInstance: INSTANCE,
+    document: SEARCH_QUERY,
+    operationOptions: {
       skip: ({ isModalOpen }) => !isModalOpen,
       props: ({ data }) => ({
         loading: data?.loading ?? false,
         products: data?.searchProducts?.list ?? [],
         totalCount: data?.searchProducts?.totalCount ?? 0,
       }),
-    }
-  )
+    },
+  })
 )
 
 export default enhance(AddItemModal)

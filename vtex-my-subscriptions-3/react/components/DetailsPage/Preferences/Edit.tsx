@@ -6,7 +6,7 @@ import { Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
-import { queryWrapper } from '../../../tracking'
+import { queryWrapper, getRuntimeInfo } from '../../../tracking'
 import QUERY, {
   Result,
   Args,
@@ -125,10 +125,11 @@ type Props = OuterProps & ChildProps & WrappedComponentProps
 
 const enhance = compose<Props, OuterProps>(
   injectIntl,
-  queryWrapper<OuterProps, Result, Args, ChildProps>(
-    `${INSTANCE}/EditPreferences`,
-    QUERY,
-    {
+  queryWrapper<OuterProps, Result, Args, ChildProps>({
+    workflowInstance: `${INSTANCE}/EditPreferences`,
+    document: QUERY,
+    getRuntimeInfo,
+    operationOptions: {
       options: {
         fetchPolicy: 'network-only',
       },
@@ -138,8 +139,8 @@ const enhance = compose<Props, OuterProps>(
         frequencies: data?.frequencies,
         payments: data?.payments,
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 

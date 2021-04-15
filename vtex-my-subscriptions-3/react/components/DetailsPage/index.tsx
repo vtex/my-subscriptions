@@ -21,7 +21,12 @@ import UPDATE_STATUS, {
 import UPDATE_IS_SKIPPED, {
   Args as UpdateIsSkippedArgs,
 } from '../../graphql/mutations/updateIsSkipped.gql'
-import { logError, queryWrapper, logGraphqlError } from '../../tracking'
+import {
+  logError,
+  queryWrapper,
+  logGraphQLError,
+  getRuntimeInfo,
+} from '../../tracking'
 import Header from './PageHeader'
 import { SubscriptionAction, retrieveModalConfig, goToElement } from './utils'
 import ConfirmationModal from '../ConfirmationModal'
@@ -53,9 +58,11 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError({
-      error,
-      errorInfo,
-      runtime: this.props.runtime,
+      error: {
+        ...error,
+        ...errorInfo,
+      },
+      runtimeInfo: getRuntimeInfo(this.props.runtime),
       instance: INSTANCE,
     })
   }
@@ -84,10 +91,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     return updateStatus({
       variables,
     }).catch((error: ApolloError) => {
-      logGraphqlError({
+      logGraphQLError({
         error,
         variables,
-        runtime,
+        runtimeInfo: getRuntimeInfo(runtime),
         type: 'MutationError',
         instance: 'UpdateStatus',
       })
@@ -124,10 +131,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     return updateIsSkipped({
       variables,
     }).catch((error: ApolloError) => {
-      logGraphqlError({
+      logGraphQLError({
         error,
         variables,
-        runtime,
+        runtimeInfo: getRuntimeInfo(runtime),
         type: 'MutationError',
         instance: 'UpdateIsSkipped',
       })
@@ -154,10 +161,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     return orderNow({ variables })
       .then(() => (window.location.href = '/checkout/'))
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime,
+          runtimeInfo: getRuntimeInfo(runtime),
           type: 'MutationError',
           instance: 'OrderNow',
         })
@@ -292,10 +299,11 @@ const enhance = compose<Props, {}>(
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
   graphql(ORDER_NOW, { name: 'orderNow' }),
-  queryWrapper<InputProps, Result, QueryArgs, ChildProps>(
-    INSTANCE,
-    DETAILS_PAGE_QUERY,
-    {
+  queryWrapper<InputProps, Result, QueryArgs, ChildProps>({
+    workflowInstance: INSTANCE,
+    document: DETAILS_PAGE_QUERY,
+    getRuntimeInfo,
+    operationOptions: {
       options: (input) => ({
         variables: {
           id: input.match.params.subscriptionId,
@@ -306,8 +314,8 @@ const enhance = compose<Props, {}>(
         subscription: data?.subscription,
         orderFormId: data?.orderForm?.orderFormId,
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 

@@ -27,7 +27,8 @@
     "vtex.store-graphql": "2.x",
     "vtex.totalizer-translator": "2.x",
     "vtex.subscriptions-commons": "1.x",
-    "vtex.my-subscriptions-portal-connector": "0.x"
+    "vtex.my-subscriptions-portal-connector": "0.x",
+    "vtex.splunk-monitoring": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

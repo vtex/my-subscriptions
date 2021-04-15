@@ -26,7 +26,7 @@ import UPDATE_PAYMENT, {
 import UPDATE_ADDRESS, {
   Args as UpdateAddressArgs,
 } from '../../../graphql/mutations/updateAddress.gql'
-import { logGraphqlError } from '../../../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../../../tracking'
 import BatchModal from '../BatchModal'
 
 function updateType(
@@ -170,10 +170,10 @@ class PreferencesContainer extends Component<Props, State> {
   ) => {
     const { runtime } = this.props
 
-    logGraphqlError({
+    logGraphQLError({
       error,
       variables,
-      runtime,
+      runtimeInfo: getRuntimeInfo(runtime),
       type: 'MutationError',
       instance: `Update${updateType(variables)}`,
     })

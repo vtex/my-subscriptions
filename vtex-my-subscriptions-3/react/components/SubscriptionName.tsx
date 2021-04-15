@@ -10,7 +10,7 @@ import UPDATE_NAME, { Args } from '../graphql/mutations/updateName.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
-import { logGraphqlError } from '../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../tracking'
 import EditButton from './EditButton'
 
 const messages = defineMessages({
@@ -117,10 +117,10 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
         return updateName({
           variables,
         }).catch((error: ApolloError) => {
-          logGraphqlError({
+          logGraphQLError({
             error,
             variables,
-            runtime: this.props.runtime,
+            runtimeInfo: getRuntimeInfo(this.props.runtime),
             type: 'MutationError',
             instance: 'UpdateName',
           })

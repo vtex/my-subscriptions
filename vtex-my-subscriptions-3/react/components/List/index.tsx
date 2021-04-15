@@ -11,7 +11,7 @@ import QUERY, {
   Subscription,
 } from '../../graphql/queries/subscriptions.gql'
 import { SubscriptionDisplayFilter, CSS, convertFilter } from './utils'
-import { logError, logGraphqlError } from '../../tracking'
+import { logError, logGraphQLError, getRuntimeInfo } from '../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'
@@ -57,9 +57,11 @@ class SubscriptionsListContainer extends Component<
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError({
-      error,
-      errorInfo,
-      runtime: this.props.runtime,
+      error: {
+        ...error,
+        ...errorInfo,
+      },
+      runtimeInfo: getRuntimeInfo(this.props.runtime),
       instance: INSTANCE,
     })
   }
@@ -144,12 +146,12 @@ class SubscriptionsListContainer extends Component<
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
               if (error) {
-                logGraphqlError({
+                logGraphQLError({
                   error,
                   variables,
                   type: 'QueryError',
                   instance: INSTANCE,
-                  runtime: this.props.runtime,
+                  runtimeInfo: getRuntimeInfo(this.props.runtime),
                 })
                 return <ErrorState refetch={refetch} />
               }

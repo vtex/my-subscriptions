@@ -16,7 +16,7 @@ import UPDATE_STATUS, { Args } from '../graphql/mutations/updateStatus.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
-import { logGraphqlError } from '../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../tracking'
 
 export const messages = defineMessages({
   pauseTitle: {
@@ -101,6 +101,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       block,
       updateStatus,
       subscriptionId,
+      runtime,
     } = this.props
 
     const {
@@ -125,10 +126,10 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
         return updateStatus({
           variables,
         }).catch((error: ApolloError) => {
-          logGraphqlError({
+          logGraphQLError({
             error,
             variables,
-            runtime: this.props.runtime,
+            runtimeInfo: getRuntimeInfo(runtime),
             type: 'MutationError',
             instance: 'UpdateStatus',
           })

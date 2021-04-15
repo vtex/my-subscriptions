@@ -24,7 +24,7 @@ import UPDATE_ADDRESS, {
 import UPDATE_PAYMENT, {
   Args as UpdatePaymentArgs,
 } from '../../graphql/mutations/updatePaymentMethod.gql'
-import { queryWrapper, logGraphqlError } from '../../tracking'
+import { queryWrapper, logGraphQLError, getRuntimeInfo } from '../../tracking'
 import { messages as modalMessages } from '../ConfirmationModal'
 import Thumbnail from './SubscriptionThumbnail'
 
@@ -95,10 +95,10 @@ class BatchModal extends Component<Props, State> {
   ) => {
     const { option, runtime } = this.props
 
-    logGraphqlError({
+    logGraphQLError({
       error,
       variables,
-      runtime,
+      runtimeInfo: getRuntimeInfo(runtime),
       type: 'MutationError',
       instance: `Batch/Update${option === 'ADDRESS' ? 'Address' : 'Payment'}`,
     })
@@ -275,16 +275,17 @@ interface OuterProps extends Args {
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, Args, MappedProps>(
-    `${INSTANCE}/ListBy`,
-    QUERY,
-    {
+  queryWrapper<OuterProps, Result, Args, MappedProps>({
+    getRuntimeInfo,
+    workflowInstance: `${INSTANCE}/ListBy`,
+    document: QUERY,
+    operationOptions: {
       props: ({ data }) => ({
         loading: data ? data.loading : false,
         targetSubscriptions: data?.list ? data.list : [],
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderNothing),
   graphql(UPDATE_ADDRESS, {
     name: 'updateAddress',

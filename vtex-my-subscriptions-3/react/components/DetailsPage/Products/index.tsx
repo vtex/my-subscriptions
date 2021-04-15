@@ -26,7 +26,7 @@ import ADD_ITEM_MUTATION, {
 import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
 import { INSTANCE } from '..'
-import { logGraphqlError } from '../../../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../../../tracking'
 import { OnAddItemArgs } from '../../AddItemModal'
 
 function mapItemsToHashMap(items: Item[]) {
@@ -116,10 +116,10 @@ class ProductsContainer extends Component<Props, State> {
         })
       })
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime: this.props.runtime,
+          runtimeInfo: getRuntimeInfo(this.props.runtime),
           type: 'MutationError',
           instance: 'RemoveItem',
         })
@@ -158,10 +158,10 @@ class ProductsContainer extends Component<Props, State> {
         showToast({ message: intl.formatMessage(messages.editionSuccess) })
       )
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime: this.props.runtime,
+          runtimeInfo: getRuntimeInfo(this.props.runtime),
           type: 'MutationError',
           instance: 'UpdateItems',
         })
@@ -220,10 +220,10 @@ class ProductsContainer extends Component<Props, State> {
         })
       })
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime,
+          runtimeInfo: getRuntimeInfo(runtime),
           type: 'MutationError',
           instance: `${INSTANCE}/AddItem`,
         })

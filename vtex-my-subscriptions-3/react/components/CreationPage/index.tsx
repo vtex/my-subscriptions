@@ -24,7 +24,7 @@ import CREATE_MUTATION, {
   Args as CreationArgs,
   Result as CreationResult,
 } from '../../graphql/mutations/createSubscription.gql'
-import { logGraphqlError } from '../../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../../tracking'
 import { TOMORROW } from './constants'
 
 const INITIAL_STATE: SubscriptionForm = {
@@ -111,10 +111,10 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         history.push(`/subscriptions/${result.data?.createSubscription.id}`)
       )
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime,
+          runtimeInfo: getRuntimeInfo(runtime),
           type: 'MutationError',
           instance: 'CreateSubscription',
         })
