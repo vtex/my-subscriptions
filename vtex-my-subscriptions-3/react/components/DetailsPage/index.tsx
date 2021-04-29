@@ -23,7 +23,7 @@ import UPDATE_IS_SKIPPED, {
 } from '../../graphql/mutations/updateIsSkipped.gql'
 import {
   logError,
-  queryWrapper,
+  withQueryWrapper,
   logGraphQLError,
   getRuntimeInfo,
 } from '../../tracking'
@@ -299,7 +299,7 @@ const enhance = compose<Props, {}>(
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
   graphql(ORDER_NOW, { name: 'orderNow' }),
-  queryWrapper<InputProps, Result, QueryArgs, ChildProps>({
+  withQueryWrapper<InputProps, Result, QueryArgs, ChildProps>({
     workflowInstance: INSTANCE,
     document: DETAILS_PAGE_QUERY,
     getRuntimeInfo,

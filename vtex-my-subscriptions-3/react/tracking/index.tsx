@@ -1,7 +1,14 @@
-import { RuntimeContext } from 'vtex.render-runtime'
-import { utils } from 'vtex.splunk-monitoring'
+import type { RuntimeContext } from 'vtex.render-runtime'
+import {
+  main,
+  withMetric as metricHoc,
+  withQueryWrapper as queryHoc,
+  types,
+} from 'vtex.splunk-monitoring'
 
-const monitoring = new utils.SplunkMonitoring({ token: 'bdb546bd-456f-41e2-8c58-00aae10331ab' })
+const monitoring = new main.SplunkMonitoring({
+  token: 'bdb546bd-456f-41e2-8c58-00aae10331ab',
+})
 
 export function getRuntimeInfo(runtime: RuntimeContext) {
   const { workspace, renderMajor, production } = runtime
@@ -18,4 +25,16 @@ export function getRuntimeInfo(runtime: RuntimeContext) {
   }
 }
 
-export const { logMetric, logGraphQLError, logError, queryWrapper, withMetric } = monitoring
+export const withMetric = (args: types.WithMetricArgs) =>
+  metricHoc(monitoring, args)
+
+export const withQueryWrapper = <TProps, TData, TGraphQLVariables, TChildProps>(
+  args: types.WithQueryWrapperArgs<
+    TProps,
+    TData,
+    TGraphQLVariables,
+    TChildProps
+  >
+) => queryHoc(monitoring, args)
+
+export const { logMetric, logGraphQLError, logError } = monitoring

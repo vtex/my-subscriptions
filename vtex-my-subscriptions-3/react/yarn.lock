@@ -6157,37 +6157,37 @@ vtex-tachyons@^3.2.0:
   version "0.1.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-subscriptions-portal-connector@0.1.1/public/@types/vtex.my-subscriptions-portal-connector#ed488b9aba0d86f1bdb579e9e8813c2a99ecdf58"
 
-"vtex.my-subscriptions@https://sousa--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.my-subscriptions@3.9.3+build1618510577/public/@types/vtex.my-subscriptions":
+"vtex.my-subscriptions@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-subscriptions@3.9.3/public/@types/vtex.my-subscriptions":
   version "3.9.3"
-  resolved "https://sousa--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.my-subscriptions@3.9.3+build1618510577/public/@types/vtex.my-subscriptions#1d14558de21ba967a6172dc8f5053477541c3960"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-subscriptions@3.9.3/public/@types/vtex.my-subscriptions#94e9e9047773755ed53f635439b360bc93a27312"
 
 "vtex.payment-flags@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.6.0/public/@types/vtex.payment-flags":
   version "2.6.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.6.0/public/@types/vtex.payment-flags#8efda8ef8e97d88a210e94a86275d47fd61c7a30"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.128.2/public/@types/vtex.render-runtime":
-  version "8.128.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.128.2/public/@types/vtex.render-runtime#67f5975f7edd73c9afa7bee57734540c0ead5428"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.128.4/public/@types/vtex.render-runtime":
+  version "8.128.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.128.4/public/@types/vtex.render-runtime#63491782d44910c4edc8528bc645c7c335c33128"
 
-"vtex.splunk-monitoring@https://sousa--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.splunk-monitoring@0.0.0+build1618510756/public/@types/vtex.splunk-monitoring":
-  version "0.0.0"
-  resolved "https://sousa--recorrenciacharlie.myvtex.com/_v/private/typings/linked/v1/vtex.splunk-monitoring@0.0.0+build1618510756/public/@types/vtex.splunk-monitoring#8d73bf86145a973d9ff310b178779dbc23c91474"
+"vtex.splunk-monitoring@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.splunk-monitoring@1.0.0/public/@types/vtex.splunk-monitoring":
+  version "1.0.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.splunk-monitoring@1.0.0/public/@types/vtex.splunk-monitoring#9b55141bda2941407d245aa5fadd40c1b4c55e46"
 
-"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.140.0/public/@types/vtex.store-graphql":
-  version "2.140.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.140.0/public/@types/vtex.store-graphql#28a441a55796281ee57a4bfe5dc59516ac5b8f19"
+"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.141.0/public/@types/vtex.store-graphql":
+  version "2.141.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.141.0/public/@types/vtex.store-graphql#fa80b190c8a32f48ecb9c0508bcf2a5dc1cd7c83"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.138.2/public/@types/vtex.styleguide":
-  version "9.138.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.138.2/public/@types/vtex.styleguide#8cb6b8e7f06d1a2357f3fe117708fa03188267ea"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.139.1/public/@types/vtex.styleguide":
+  version "9.139.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.139.1/public/@types/vtex.styleguide#dba376d8c3b8db0e20e4bf380b6b1c93dfc4d4e9"
 
 "vtex.subscriptions-commons@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.2.1/public/@types/vtex.subscriptions-commons":
   version "1.2.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.2.1/public/@types/vtex.subscriptions-commons#2c0893b2254010713e907bd2a0d290856c00c43e"
 
-"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.11.2/public/@types/vtex.subscriptions-graphql":
-  version "3.11.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.11.2/public/@types/vtex.subscriptions-graphql#f2e252184fd837e9c4f40fd76bb02ecfd553eb16"
+"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.11.4/public/@types/vtex.subscriptions-graphql":
+  version "3.11.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.11.4/public/@types/vtex.subscriptions-graphql#f7f4c1665deabdeab5144a71fcf2d60805f1cbb4"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.2.1/public/@types/vtex.totalizer-translator":
   version "2.2.1"

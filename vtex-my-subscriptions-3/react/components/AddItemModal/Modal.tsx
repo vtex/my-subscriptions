@@ -11,7 +11,7 @@ import {
   IconCaretRight,
 } from 'vtex.styleguide'
 
-import { queryWrapper, getRuntimeInfo } from '../../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../../tracking'
 import SEARCH_QUERY, {
   Args as SearchArgs,
   Result as SearchResult,
@@ -186,7 +186,7 @@ type Props = InnerProps & OuterProps & MappedProps
 
 const enhance = compose<Props, OuterProps>(
   injectIntl,
-  queryWrapper<OuterProps, SearchResult, SearchArgs, MappedProps>({
+  withQueryWrapper<OuterProps, SearchResult, SearchArgs, MappedProps>({
     getRuntimeInfo,
     workflowInstance: INSTANCE,
     document: SEARCH_QUERY,

@@ -11,7 +11,7 @@ import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
-import { queryWrapper, getRuntimeInfo } from '../../../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails/SubscriptionsOrdersList'
 
@@ -96,7 +96,7 @@ interface ChildProps {
 type Props = OuterProps & ChildProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, Args, ChildProps>({
+  withQueryWrapper<OuterProps, Result, Args, ChildProps>({
     getRuntimeInfo,
     workflowInstance: INSTANCE,
     document: QUERY,

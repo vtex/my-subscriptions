@@ -6,7 +6,7 @@ import { Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
-import { queryWrapper, getRuntimeInfo } from '../../../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
 import QUERY, {
   Result,
   Args,
@@ -125,7 +125,7 @@ type Props = OuterProps & ChildProps & WrappedComponentProps
 
 const enhance = compose<Props, OuterProps>(
   injectIntl,
-  queryWrapper<OuterProps, Result, Args, ChildProps>({
+  withQueryWrapper<OuterProps, Result, Args, ChildProps>({
     workflowInstance: `${INSTANCE}/EditPreferences`,
     document: QUERY,
     getRuntimeInfo,

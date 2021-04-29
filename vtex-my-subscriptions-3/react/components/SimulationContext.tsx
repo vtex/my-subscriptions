@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react'
 
-import { queryWrapper, getRuntimeInfo } from '../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../tracking'
 import QUERY, {
   SubscriptionForm,
   Result,
@@ -65,7 +65,7 @@ export interface InjectedSimulationContextProps {
   loading: boolean
 }
 
-export default queryWrapper<Props, Result, OuterProps, InnerProps>({
+export default withQueryWrapper<Props, Result, OuterProps, InnerProps>({
   workflowInstance: 'SIMULATION_CONTAINER',
   getRuntimeInfo,
   document: QUERY,

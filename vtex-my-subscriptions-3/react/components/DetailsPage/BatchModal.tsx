@@ -24,7 +24,11 @@ import UPDATE_ADDRESS, {
 import UPDATE_PAYMENT, {
   Args as UpdatePaymentArgs,
 } from '../../graphql/mutations/updatePaymentMethod.gql'
-import { queryWrapper, logGraphQLError, getRuntimeInfo } from '../../tracking'
+import {
+  withQueryWrapper,
+  logGraphQLError,
+  getRuntimeInfo,
+} from '../../tracking'
 import { messages as modalMessages } from '../ConfirmationModal'
 import Thumbnail from './SubscriptionThumbnail'
 
@@ -275,7 +279,7 @@ interface OuterProps extends Args {
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, Args, MappedProps>({
+  withQueryWrapper<OuterProps, Result, Args, MappedProps>({
     getRuntimeInfo,
     workflowInstance: `${INSTANCE}/ListBy`,
     document: QUERY,
