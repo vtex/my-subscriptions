@@ -2,19 +2,16 @@ declare module '*/search.gql' {
   import { DocumentNode } from 'graphql'
 
   interface SearchItem {
+    name: string
     skuId: string
     imageUrl: string
-    variations: string[]
     plans: string[]
   }
   export interface SearchProduct {
-    productId: string
-    productName: string
     unitMultiplier: number
     measurementUnit: string
     brand: string
     price: number
-    categories: string[]
     items: SearchItem[]
   }
 
