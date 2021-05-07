@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.9.4] - 2021-05-05
+
+### Fixed
+
+- Sku name on product search.
+
 ## [3.9.3] - 2021-04-14
 
 ### Fixed
