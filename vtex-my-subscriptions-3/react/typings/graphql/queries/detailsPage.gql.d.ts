@@ -7,6 +7,7 @@ declare module '*/detailsPage.gql' {
     PaymentMethod,
     QuerySubscriptionArgs as Args,
     SubscriptionItem,
+    Order,
   } from 'vtex.subscriptions-graphql'
 
   type Item = Pick<SubscriptionItem, 'id' | 'currentPrice' | 'quantity' | 'sku'>
@@ -27,7 +28,11 @@ declare module '*/detailsPage.gql' {
     | 'paymentAccountId'
   > & {
     items: Item[]
-    lastExecution: Pick<SubscriptionExecution, 'id' | 'status'> | null
+    lastExecution: Pick<
+      SubscriptionExecution,
+      'id' | 'status' | 'order',
+      Pick<Order, 'orderId' | 'status'>
+    > | null
     purchaseSettings: {
       currencyCode: string
       paymentMethod: PaymentMethod | null

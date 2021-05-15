@@ -121,6 +121,35 @@ export function generateSubscription({
     lastExecution: {
       id: '3748EAF9A6F44F72B899359C92DF6C81',
       status: lastExecutionStatus,
+      order: {
+        orderId: '1112620108352-01',
+        status: 'ready-for-handling',
+        shippingData: {
+          logisticsInfo: [
+            {
+              shippingEstimateDate: '2021-03-02T14:02:01.8879259+00:00',
+            },
+          ],
+        },
+        packageAttachment: {
+          packages: [
+            {
+              trackingUrl: 'www.google.com.br',
+            },
+          ],
+        },
+        paymentData: {
+          transactions: [
+            {
+              payments: [
+                {
+                  url: 'www.google.com.br',
+                },
+              ],
+            },
+          ],
+        },
+      },
     },
     estimatedDeliveryDate,
     addressId: 'b3665b68c9714441bdea54c35a4d0cd6',

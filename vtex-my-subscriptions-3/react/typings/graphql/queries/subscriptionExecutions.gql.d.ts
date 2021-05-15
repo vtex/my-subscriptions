@@ -6,6 +6,7 @@ declare module '*/subscriptionExecutions.gql' {
     id: string
     status: SubscriptionExecutionStatus
     date: string
+    order: Order
   }
 
   interface Result {
@@ -16,6 +17,27 @@ declare module '*/subscriptionExecutions.gql' {
     subscriptionId: string
     page: number
     perPage: number
+  }
+
+  interface ItemLogistics {
+    shippingEstimateDate: string
+  }
+
+  interface ShippingData {
+    logisticsInfo: Array<!ItemLogistics>
+  }
+  interface Package {
+    trackingUrl: string
+  }
+  interface PackageAttachment {
+    packages: Array<!Package>
+  }
+
+  interface Order {
+    orderId: string
+    packageAttachment: !PackageAttachment
+    shippingData: !ShippingData
+    status: string
   }
 
   export { SubscriptionExecution, Result, Args }
