@@ -95,7 +95,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
   }
 
   private handleSave = (formikValues: SubscriptionForm) => {
-    const { createSubscription, history, runtime } = this.props
+    const { createSubscription, history } = this.props
     const data = this.assembleForm(formikValues)
 
     if (!data) return
@@ -114,7 +114,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         logGraphQLError({
           error,
           variables,
-          runtimeInfo: getRuntimeInfo(runtime),
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: 'CreateSubscription',
         })

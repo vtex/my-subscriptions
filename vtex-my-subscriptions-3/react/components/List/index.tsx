@@ -4,7 +4,6 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { Dropdown, Button, PageHeader as Header } from 'vtex.styleguide'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import QUERY, {
   Result,
@@ -61,7 +60,7 @@ class SubscriptionsListContainer extends Component<
         ...error,
         ...errorInfo,
       },
-      runtimeInfo: getRuntimeInfo(this.props.runtime),
+      runtimeInfo: getRuntimeInfo(),
       instance: INSTANCE,
     })
   }
@@ -151,7 +150,7 @@ class SubscriptionsListContainer extends Component<
                   variables,
                   type: 'QueryError',
                   instance: INSTANCE,
-                  runtimeInfo: getRuntimeInfo(this.props.runtime),
+                  runtimeInfo: getRuntimeInfo(),
                 })
                 return <ErrorState refetch={refetch} />
               }
@@ -183,11 +182,9 @@ class SubscriptionsListContainer extends Component<
   }
 }
 
-type Props = WrappedComponentProps &
-  InjectedRuntimeContext &
-  RouteComponentProps
+type Props = WrappedComponentProps & RouteComponentProps
 
-const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
+const enhance = compose<Props, {}>(injectIntl, withRouter)
 
 export { Subscription }
 

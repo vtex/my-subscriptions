@@ -8,7 +8,6 @@ import {
 } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
@@ -101,7 +100,6 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
       block,
       updateStatus,
       subscriptionId,
-      runtime,
     } = this.props
 
     const {
@@ -129,7 +127,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
           logGraphQLError({
             error,
             variables,
-            runtimeInfo: getRuntimeInfo(runtime),
+            runtimeInfo: getRuntimeInfo(),
             type: 'MutationError',
             instance: 'UpdateStatus',
           })
@@ -162,15 +160,14 @@ interface Props {
   block: boolean
 }
 
-interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
+interface InnerProps extends WrappedComponentProps {
   updateStatus: (args: { variables: Args }) => Promise<unknown>
   showToast: (args: object) => void
 }
 
 const enhance = compose<Props & InnerProps, Props>(
   injectIntl,
-  graphql(UPDATE_STATUS, { name: 'updateStatus' }),
-  withRuntimeContext
+  graphql(UPDATE_STATUS, { name: 'updateStatus' })
 )
 
 export default enhance(SubscriptionUpdateStatusButtonContainer)

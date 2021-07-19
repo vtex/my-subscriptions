@@ -9,7 +9,6 @@ import {
 } from 'react-intl'
 import { ApolloError } from 'apollo-client'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import { Item } from '../../../graphql/queries/detailsPage.gql'
@@ -119,7 +118,7 @@ class ProductsContainer extends Component<Props, State> {
         logGraphQLError({
           error,
           variables,
-          runtimeInfo: getRuntimeInfo(this.props.runtime),
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: 'RemoveItem',
         })
@@ -161,7 +160,7 @@ class ProductsContainer extends Component<Props, State> {
         logGraphQLError({
           error,
           variables,
-          runtimeInfo: getRuntimeInfo(this.props.runtime),
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: 'UpdateItems',
         })
@@ -188,7 +187,7 @@ class ProductsContainer extends Component<Props, State> {
     onError,
     onFinish,
   }: OnAddItemArgs) => {
-    const { subscriptionId, showToast, addItem, intl, runtime } = this.props
+    const { subscriptionId, showToast, addItem, intl } = this.props
 
     const variables = {
       item: { id: skuId, quantity },
@@ -223,7 +222,7 @@ class ProductsContainer extends Component<Props, State> {
         logGraphQLError({
           error,
           variables,
-          runtimeInfo: getRuntimeInfo(runtime),
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: `${INSTANCE}/AddItem`,
         })
@@ -285,7 +284,7 @@ interface State {
   products: { [itemId: string]: Item }
 }
 
-interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
+interface InnerProps extends WrappedComponentProps {
   removeItem: (args: { variables: RemoveArgs }) => Promise<void>
   updateItems: (args: { variables: UpdateArgs }) => Promise<void>
   addItem: (args: { variables: AddArgs }) => Promise<MutationResult<AddResult>>
@@ -309,8 +308,7 @@ const enhance = compose<Props, OuterProps>(
   graphql(UPDATE_MUTATION, { name: 'updateItems' }),
   graphql(ADD_ITEM_MUTATION, {
     name: 'addItem',
-  }),
-  withRuntimeContext
+  })
 )
 
 export default enhance(ProductsContainer)

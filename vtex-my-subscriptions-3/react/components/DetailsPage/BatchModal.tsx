@@ -10,7 +10,6 @@ import {
   ShowToastArgs,
   Alert,
 } from 'vtex.styleguide'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import { INSTANCE } from '.'
 import QUERY, {
@@ -97,12 +96,12 @@ class BatchModal extends Component<Props, State> {
     error: ApolloError,
     variables: UpdateAddressArgs | UpdatePaymentArgs
   ) => {
-    const { option, runtime } = this.props
+    const { option } = this.props
 
     logGraphQLError({
       error,
       variables,
-      runtimeInfo: getRuntimeInfo(runtime),
+      runtimeInfo: getRuntimeInfo(),
       type: 'MutationError',
       instance: `Batch/Update${option === 'ADDRESS' ? 'Address' : 'Payment'}`,
     })
@@ -260,8 +259,7 @@ interface MappedProps {
 }
 
 type InnerProps = WrappedComponentProps &
-  MappedProps &
-  InjectedRuntimeContext & {
+  MappedProps & {
     updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
     updatePayment: (args: { variables: UpdatePaymentArgs }) => Promise<void>
     showToast: (args: ShowToastArgs) => void
@@ -298,7 +296,6 @@ const enhance = compose<Props, OuterProps>(
     name: 'updatePayment',
   }),
   withToast,
-  withRuntimeContext,
   injectIntl
 )
 

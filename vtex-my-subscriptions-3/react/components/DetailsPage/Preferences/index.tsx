@@ -8,7 +8,6 @@ import {
   PaymentSystemGroup,
   SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { withToast, ShowToastArgs } from 'vtex.styleguide'
 import { RouteComponentProps, withRouter } from 'vtex.my-account-commons/Router'
 
@@ -168,12 +167,10 @@ class PreferencesContainer extends Component<Props, State> {
     error: ApolloError,
     variables: UpdateAddressArgs | UpdatePaymentArgs | UpdateFrequencyArgs
   ) => {
-    const { runtime } = this.props
-
     logGraphQLError({
       error,
       variables,
-      runtimeInfo: getRuntimeInfo(runtime),
+      runtimeInfo: getRuntimeInfo(),
       type: 'MutationError',
       instance: `Update${updateType(variables)}`,
     })
@@ -409,14 +406,12 @@ type InnerProps = {
   updatePayment: (args: { variables: UpdatePaymentArgs }) => Promise<void>
   updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
   showToast: ({ message }: ShowToastArgs) => void
-} & InjectedRuntimeContext &
-  WrappedComponentProps &
+} & WrappedComponentProps &
   RouteComponentProps
 
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
-  withRuntimeContext,
   withToast,
   withRouter,
   injectIntl,

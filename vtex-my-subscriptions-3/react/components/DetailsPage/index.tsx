@@ -4,7 +4,6 @@ import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { graphql, MutationResult } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import DETAILS_PAGE_QUERY, {
@@ -62,7 +61,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
         ...error,
         ...errorInfo,
       },
-      runtimeInfo: getRuntimeInfo(this.props.runtime),
+      runtimeInfo: getRuntimeInfo(),
       instance: INSTANCE,
     })
   }
@@ -79,7 +78,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     this.setState({ isEditMode })
 
   private handleUpdateStatus = (status: SubscriptionStatus) => {
-    const { updateStatus, subscription, runtime } = this.props
+    const { updateStatus, subscription } = this.props
 
     if (!subscription) return null
 
@@ -94,7 +93,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       logGraphQLError({
         error,
         variables,
-        runtimeInfo: getRuntimeInfo(runtime),
+        runtimeInfo: getRuntimeInfo(),
         type: 'MutationError',
         instance: 'UpdateStatus',
       })
@@ -119,7 +118,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     })
 
   private handleUpdateSkipped = () => {
-    const { updateIsSkipped, subscription, runtime } = this.props
+    const { updateIsSkipped, subscription } = this.props
 
     if (!subscription) return null
 
@@ -134,7 +133,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       logGraphQLError({
         error,
         variables,
-        runtimeInfo: getRuntimeInfo(runtime),
+        runtimeInfo: getRuntimeInfo(),
         type: 'MutationError',
         instance: 'UpdateIsSkipped',
       })
@@ -143,7 +142,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
   }
 
   private handleOrderNow = () => {
-    const { orderFormId, orderNow, subscription, runtime } = this.props
+    const { orderFormId, orderNow, subscription } = this.props
 
     if (!subscription) return null
 
@@ -164,7 +163,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
         logGraphQLError({
           error,
           variables,
-          runtimeInfo: getRuntimeInfo(runtime),
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: 'OrderNow',
         })
@@ -280,8 +279,7 @@ type Props = {
     args: Variables<UpdateIsSkippedArgs>
   ) => Promise<MutationResult>
   updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<MutationResult>
-} & InjectedRuntimeContext &
-  WrappedComponentProps &
+} & WrappedComponentProps &
   ChildProps
 
 type InputProps = RouteComponentProps<{ subscriptionId: string }>
@@ -295,7 +293,6 @@ interface ChildProps {
 const enhance = compose<Props, {}>(
   injectIntl,
   withRouter,
-  withRuntimeContext,
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
   graphql(ORDER_NOW, { name: 'orderNow' }),
