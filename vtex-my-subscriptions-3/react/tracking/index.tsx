@@ -1,4 +1,3 @@
-import type { RuntimeContext } from 'vtex.render-runtime'
 import {
   main,
   withMetric as metricHoc,
@@ -6,22 +5,25 @@ import {
   types,
 } from 'vtex.splunk-monitoring'
 
+// my-subscriptions index on splunk
 const monitoring = new main.SplunkMonitoring({
   token: 'bdb546bd-456f-41e2-8c58-00aae10331ab',
 })
 
-export function getRuntimeInfo(runtime: RuntimeContext) {
-  const { workspace, renderMajor, production } = runtime
+export function getRuntimeInfo() {
+  const { workspace, renderMajor, production, account } = window.__RUNTIME__
+
+  const [appName] = (process.env.VTEX_APP_ID as string).split('@')
 
   return {
-    appName: process.env.VTEX_APP_NAME as string,
+    appName,
     appVersion: process.env.VTEX_APP_VERSION as string,
     service: 'Subscriptions',
     owner: 'PostPurchaseXP',
-    renderMajor: renderMajor ?? 7,
+    renderMajor,
     workspace,
     production,
-    account: runtime.account,
+    account,
   }
 }
 
