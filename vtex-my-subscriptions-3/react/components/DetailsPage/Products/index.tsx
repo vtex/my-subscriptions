@@ -24,7 +24,6 @@ import ADD_ITEM_MUTATION, {
 } from '../../../graphql/mutations/addItem.gql'
 import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
-import { INSTANCE } from '..'
 import { logGraphQLError, getRuntimeInfo } from '../../../tracking'
 import { OnAddItemArgs } from '../../AddItemModal'
 
@@ -224,7 +223,7 @@ class ProductsContainer extends Component<Props, State> {
           variables,
           runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
-          instance: `${INSTANCE}/AddItem`,
+          instance: 'SubscriptionsDetails/AddItem',
         })
         onError()
       })

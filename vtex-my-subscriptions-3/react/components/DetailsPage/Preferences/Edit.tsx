@@ -11,7 +11,6 @@ import QUERY, {
   Result,
   Args,
 } from '../../../graphql/queries/availablePreferences.gql'
-import { INSTANCE } from '..'
 import FrequencySelector from '../../Selector/Frequency'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
@@ -126,7 +125,7 @@ type Props = OuterProps & ChildProps & WrappedComponentProps
 const enhance = compose<Props, OuterProps>(
   injectIntl,
   withQueryWrapper<OuterProps, Result, Args, ChildProps>({
-    workflowInstance: `${INSTANCE}/EditPreferences`,
+    workflowInstance: 'SubscriptionsDetails/EditPreferences',
     document: QUERY,
     getRuntimeInfo,
     operationOptions: {

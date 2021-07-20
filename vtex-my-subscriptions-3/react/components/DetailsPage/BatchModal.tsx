@@ -11,7 +11,6 @@ import {
   Alert,
 } from 'vtex.styleguide'
 
-import { INSTANCE } from '.'
 import QUERY, {
   Args,
   Result,
@@ -279,7 +278,7 @@ type Props = InnerProps & OuterProps
 const enhance = compose<Props, OuterProps>(
   withQueryWrapper<OuterProps, Result, Args, MappedProps>({
     getRuntimeInfo,
-    workflowInstance: `${INSTANCE}/ListBy`,
+    workflowInstance: 'SubscriptionsDetails/ListBy',
     document: QUERY,
     operationOptions: {
       props: ({ data }) => ({

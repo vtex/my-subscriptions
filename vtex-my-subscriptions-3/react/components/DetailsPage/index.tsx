@@ -36,7 +36,7 @@ import Summary from '../Summary'
 import History from './History'
 import Skeleton from './Skeleton'
 
-export const INSTANCE = 'SubscriptionsDetails'
+const INSTANCE = 'SubscriptionsDetails'
 const PREFERENCES_ID = 'vtex.subscription.preferences.div'
 const DETAILS_ID = 'vtex.subscription.details.div'
 
