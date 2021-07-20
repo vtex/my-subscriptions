@@ -20,6 +20,6 @@ const ExtensionRouter = () => (
 
 export default withMetric({
   metricName: 'AppUsage/MySubscription',
-  logRate: 33,
+  logRate: 10,
   getRuntimeInfo,
 })(ExtensionRouter)
