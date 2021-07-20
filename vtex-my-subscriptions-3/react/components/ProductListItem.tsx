@@ -72,7 +72,7 @@ class ProductListItem extends PureComponent<Props> {
 }
 
 interface Props {
-  imageUrl: string
+  imageUrl?: string
   name: string
   brandName: string
   quantity: number

@@ -38,7 +38,7 @@ const SkuThumbnail: FunctionComponent<Props> = ({
 }
 
 type Props = {
-  imageUrl: string
+  imageUrl?: string
   name: string
   brandName: string
   measurementUnit: string
