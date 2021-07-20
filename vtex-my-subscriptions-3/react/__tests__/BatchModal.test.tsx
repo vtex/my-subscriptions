@@ -6,12 +6,6 @@ import { generateSubscription } from '../mocks/subscriptionFactory'
 import { generateListByMock, generateUpdateAddressMock } from '../mocks'
 import { requestLoad } from '../utils/tests'
 
-Object.defineProperty(global, 'window', {
-  value: {
-    __RUNTIME__: {},
-  },
-})
-
 describe('BatchModal Scenarios', () => {
   it('Shouldnt display the target subscription on the list', async () => {
     const targetSubscription = generateSubscription({ name: 'Target Subs' })

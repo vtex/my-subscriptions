@@ -10,10 +10,12 @@ const monitoring = new main.SplunkMonitoring({
   token: 'bdb546bd-456f-41e2-8c58-00aae10331ab',
 })
 
-export function getRuntimeInfo() {
-  const { workspace, renderMajor, production, account } = window.__RUNTIME__
+export function getRuntimeInfo(): types.RuntimeInfo {
+  const runtime = window?.__RUNTIME__ ?? {}
 
-  const [appName] = (process.env.VTEX_APP_ID as string).split('@')
+  const { workspace, renderMajor, production, account } = runtime
+
+  const [appName] = ((process.env.VTEX_APP_ID as string) || '').split('@')
 
   return {
     appName,

@@ -1,7 +1,9 @@
 import { graphql } from 'react-apollo'
 
 export const main = {
-  SplunkMonitoring: () => null,
+  SplunkMonitoring: () => ({
+    logGraphQLError: () => null,
+  }),
 }
 
 export const withQueryWrapper = (_: any, args: any) => {
