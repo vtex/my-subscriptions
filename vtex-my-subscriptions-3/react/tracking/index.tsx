@@ -15,7 +15,7 @@ export function getRuntimeInfo(): types.RuntimeInfo {
 
   const { workspace, renderMajor, production, account } = runtime
 
-  const [appName] = ((process.env.VTEX_APP_ID as string) || '').split('@')
+  const [appName] = ((process.env.VTEX_APP_ID as string) ?? '').split('@')
 
   return {
     appName,
