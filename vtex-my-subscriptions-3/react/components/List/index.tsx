@@ -17,6 +17,7 @@ import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'
 import Images from './Images'
 import Summary from './Summary'
+import { cssHandlesHOC } from '../cssHandlesHOC'
 
 function isEmpty(data: Result) {
   if (!data.list || data.list.length === 0) {
@@ -76,6 +77,7 @@ class SubscriptionsListContainer extends Component<
   }
 
   public render() {
+    const { handles } = this.props
     const { intl, history } = this.props
     const { filter } = this.state
 
@@ -118,7 +120,7 @@ class SubscriptionsListContainer extends Component<
         <div className="db-ns dn">
           <Header
             title={
-              <span className="normal">
+              <span className={`normal ${handles.headerTitle}`}>
                 {intl.formatMessage(messages.title)}
               </span>
             }
@@ -183,10 +185,12 @@ class SubscriptionsListContainer extends Component<
 
 type Props = WrappedComponentProps &
   InjectedRuntimeContext &
-  RouteComponentProps
+  RouteComponentProps & { handles: { [key: string]: string } }
 
 const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
 
 export { Subscription }
 
-export default enhance(SubscriptionsListContainer)
+const CSS_HANDLES = ['headerTitle']
+
+export default cssHandlesHOC(enhance(SubscriptionsListContainer), CSS_HANDLES)
