@@ -31,6 +31,7 @@ import Preferences from './Preferences'
 import Summary from '../Summary'
 import History from './History'
 import Skeleton from './Skeleton'
+import { cssHandlesHOC } from '../cssHandlesHOC'
 
 export const INSTANCE = 'SubscriptionsDetails'
 const PREFERENCES_ID = 'vtex.subscription.preferences.div'
@@ -42,7 +43,11 @@ const messages = defineMessages({
   },
 })
 
-class SubscriptionsDetailsContainer extends Component<Props, State> {
+class SubscriptionsDetailsContainer extends Component<
+  Props & WrappedComponentProps & CSSHandles,
+  State,
+  CSSHandles
+> {
   public state = {
     isModalOpen: false,
     errorMessage: null,
@@ -174,6 +179,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
       displayHistory,
       isEditMode,
     } = this.state
+    const { handles } = this.props
 
     if (!subscription) return null
 
@@ -212,21 +218,25 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
         />
         <div className="pa5 pa7-ns flex flex-wrap">
           <div className="w-100 w-60-ns">
-            <ActionBar
-              status={subscription.status}
-              isSkipped={subscription.isSkipped}
-              address={subscription.shippingAddress}
-              payment={subscription.purchaseSettings.paymentMethod}
-              onUpdateAction={this.handleUpdateAction}
-              nextPurchaseDate={subscription.nextPurchaseDate}
-            />
-            <Products
-              subscriptionId={subscription.id}
-              status={subscription.status}
-              items={subscription.items}
-              planId={subscription.plan.id}
-              currencyCode={subscription.purchaseSettings.currencyCode}
-            />
+            <div className={handles.subscriptionsActionBar}>
+              <ActionBar
+                status={subscription.status}
+                isSkipped={subscription.isSkipped}
+                address={subscription.shippingAddress}
+                payment={subscription.purchaseSettings.paymentMethod}
+                onUpdateAction={this.handleUpdateAction}
+                nextPurchaseDate={subscription.nextPurchaseDate}
+              />
+            </div>
+            <div className={handles.subscriptionProducts}>
+              <Products
+                subscriptionId={subscription.id}
+                status={subscription.status}
+                items={subscription.items}
+                planId={subscription.plan.id}
+                currencyCode={subscription.purchaseSettings.currencyCode}
+              />
+            </div>
           </div>
           <div
             className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns"
@@ -275,7 +285,8 @@ type Props = {
   updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<MutationResult>
 } & InjectedRuntimeContext &
   WrappedComponentProps &
-  ChildProps
+  ChildProps &
+  CSSHandles
 
 type InputProps = RouteComponentProps<{ subscriptionId: string }>
 
@@ -311,4 +322,9 @@ const enhance = compose<Props, {}>(
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 
-export default enhance(SubscriptionsDetailsContainer)
+const CSS_HANDLES = ['subscriptionActionBar', 'subscriptionProducts']
+
+export default cssHandlesHOC(
+  enhance(SubscriptionsDetailsContainer),
+  CSS_HANDLES
+)

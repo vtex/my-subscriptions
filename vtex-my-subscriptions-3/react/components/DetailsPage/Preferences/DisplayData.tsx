@@ -5,12 +5,21 @@ import {
   SubscriptionExecutionStatus,
   SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Frequency from '../../Frequency/Info'
 import Payment from '../../DisplayPayment'
 import Address from '../../DisplayAddress'
 import EditButton from '../../EditButton'
+
+const CSS_HANDLES = [
+  'subscriptionPreferences',
+  'subscriptionPreferencesTitle',
+  'subscriptionFrequency',
+  'subscriptionPayment',
+  'subscriptionShippingAddress',
+]
 
 const DisplayData: FunctionComponent<Props> = ({
   plan,
@@ -19,33 +28,43 @@ const DisplayData: FunctionComponent<Props> = ({
   lastExecutionStatus,
   onGoToEdition,
   status,
-}) => (
-  <Box
-    title={
-      <div className="flex flex-wrap justify-between items-center">
-        <FormattedMessage id="details-page.preferences.title" />
-        {(status === 'ACTIVE' || status === 'PAUSED') && (
-          <EditButton onClick={onGoToEdition} withBackground />
-        )}
-      </div>
-    }
-  >
-    <Frequency
-      periodicity={plan.frequency.periodicity}
-      purchaseDay={plan.purchaseDay}
-      interval={plan.frequency.interval}
-    />
-    <div className="mt7">
-      <Payment
-        paymentMethod={payment.paymentMethod ?? null}
-        lastExecutionStatus={lastExecutionStatus}
-      />
+}) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
+  return (
+    <div className={handles.subscriptionPreferences}>
+      <Box
+        title={
+          <div
+            className={`flex flex-wrap justify-between items-center ${handles.subscriptionPreferencesTitle}`}
+          >
+            <FormattedMessage id="details-page.preferences.title" />
+            {(status === 'ACTIVE' || status === 'PAUSED') && (
+              <EditButton onClick={onGoToEdition} withBackground />
+            )}
+          </div>
+        }
+      >
+        <div className={handles.subscriptionFrequency}>
+          <Frequency
+            periodicity={plan.frequency.periodicity}
+            purchaseDay={plan.purchaseDay}
+            interval={plan.frequency.interval}
+          />
+        </div>
+        <div className={`mt7 ${handles.subscriptionPayment}`}>
+          <Payment
+            paymentMethod={payment.paymentMethod ?? null}
+            lastExecutionStatus={lastExecutionStatus}
+          />
+        </div>
+        <div className={`mt7 ${handles.subscriptionShippingAddress}`}>
+          <Address address={address ?? null} />
+        </div>
+      </Box>
     </div>
-    <div className="mt7">
-      <Address address={address ?? null} />
-    </div>
-  </Box>
-)
+  )
+}
 
 type Props = {
   status: SubscriptionStatus

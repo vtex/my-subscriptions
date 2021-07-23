@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import Frequency from '../Frequency/Info'
 import Name from '../SubscriptionName'
@@ -9,12 +10,15 @@ import UpdateStatusButton from '../UpdateStatusButton'
 import ItemDate from './ItemDate'
 import { Subscription } from '.'
 
+const CSS_HANDLES = ['reactivateSubscriptionButton']
+
 const SubscriptionSummary: FunctionComponent<Props> = ({
   subscription,
   onGoToDetails,
 }) => {
   const isPaused = subscription.status === 'PAUSED'
   const isActive = subscription.status === 'ACTIVE'
+  const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <div className="w-100 flex flex-wrap pv6 pl3-ns pr5-ns">
@@ -57,7 +61,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
             <FormattedMessage id="subscription.list.button.seeDetails" />
           </Button>
           {isPaused && (
-            <div className="pt4">
+            <div className={`pt4 ${handles.reactivateSubscriptionButton}`}>
               <UpdateStatusButton
                 targetStatus="ACTIVE"
                 subscriptionId={subscription.id}

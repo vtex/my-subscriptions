@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
-import { defineMessages, FormattedMessage, FormattedDate } from 'react-intl'
+import {
+  defineMessages,
+  FormattedMessage,
+  FormattedDate,
+  WrappedComponentProps,
+} from 'react-intl'
 import { Box, Button } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import { Subscription } from '../../graphql/queries/detailsPage.gql'
+import { cssHandlesHOC } from '../cssHandlesHOC'
 import { SubscriptionAction } from './utils'
 
 defineMessages({
@@ -45,7 +51,9 @@ defineMessages({
   },
 })
 
-class ActionBarContainer extends Component<Props> {
+class ActionBarContainer extends Component<
+  Props & WrappedComponentProps & CSSHandles
+> {
   private getSuggestedAction = () => {
     const { status, address, isSkipped, payment, onUpdateAction } = this.props
 
@@ -80,6 +88,8 @@ class ActionBarContainer extends Component<Props> {
   }
 
   public render = () => {
+    const { handles } = this.props
+
     const {
       buttonVariation,
       displayDanger,
@@ -90,7 +100,7 @@ class ActionBarContainer extends Component<Props> {
     if (action === null) return null
 
     return (
-      <div className="pb6">
+      <div className={`pb6 ${handles.actionBarContainer}`}>
         <Box>
           <div
             className={`mb2 t-body ${
@@ -114,7 +124,9 @@ class ActionBarContainer extends Component<Props> {
                 }}
               />
             </div>
-            <div className="mw5-ns w-100 mt4 w-40-ns mt0-ns pl0 pl6-ns">
+            <div
+              className={`mw5-ns w-100 mt4 w-40-ns mt0-ns pl0 pl6-ns ${handles.actionBarButton}`}
+            >
               <Button variation={buttonVariation} onClick={onClick} block>
                 <FormattedMessage
                   id={`details-page.action-bar.button.${action}`}
@@ -137,4 +149,6 @@ type Props = {
   onUpdateAction: (action: SubscriptionAction) => void
 }
 
-export default ActionBarContainer
+const CSS_HANDLES = ['actionBarContainer', 'actionBarTitle']
+
+export default cssHandlesHOC(ActionBarContainer, CSS_HANDLES)

@@ -48,6 +48,11 @@ const messages = defineMessages({
 
 const INSTANCE = 'SubscriptionsList'
 
+const CSS_HANDLES = [
+  'selectDisplay',
+  'newSubscriptionButton',
+  'subscriptionsListItem',
+]
 class SubscriptionsListContainer extends Component<
   Props & WrappedComponentProps,
   { filter: SubscriptionDisplayFilter }
@@ -97,9 +102,11 @@ class SubscriptionsListContainer extends Component<
     const variables = { filter: resultFilter }
 
     const headerContent = (
-      <Button onClick={() => history.push('/subscriptions-new')}>
-        {intl.formatMessage(messages.createButton)}
-      </Button>
+      <div className={handles.newSubscriptionButton}>
+        <Button onClick={() => history.push('/subscriptions-new')}>
+          {intl.formatMessage(messages.createButton)}
+        </Button>
+      </div>
     )
 
     return (
@@ -129,7 +136,7 @@ class SubscriptionsListContainer extends Component<
           </Header>
         </div>
         <div className="pa5 pa7-ns">
-          <div className="w5 mb7">
+          <div className={`w5 mb7 ${handles.selectDisplay}`}>
             <Dropdown
               label={filterLabel}
               size="large"
@@ -161,7 +168,7 @@ class SubscriptionsListContainer extends Component<
                 <>
                   {data.list.map((subscription) => (
                     <article
-                      className={CSS.subscriptionItemWrapper}
+                      className={`${CSS.subscriptionItemWrapper} ${handles.subscriptionsListItem}`}
                       key={subscription.id}
                     >
                       <Images
@@ -185,12 +192,11 @@ class SubscriptionsListContainer extends Component<
 
 type Props = WrappedComponentProps &
   InjectedRuntimeContext &
-  RouteComponentProps & { handles: { [key: string]: string } }
+  RouteComponentProps &
+  CSSHandles
 
 const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
 
 export { Subscription }
-
-const CSS_HANDLES = ['headerTitle']
 
 export default cssHandlesHOC(enhance(SubscriptionsListContainer), CSS_HANDLES)
