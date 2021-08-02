@@ -4,7 +4,6 @@ import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
 import { graphql, MutationResult } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import DETAILS_PAGE_QUERY, {
@@ -21,7 +20,12 @@ import UPDATE_STATUS, {
 import UPDATE_IS_SKIPPED, {
   Args as UpdateIsSkippedArgs,
 } from '../../graphql/mutations/updateIsSkipped.gql'
-import { logError, queryWrapper, logGraphqlError } from '../../tracking'
+import {
+  logError,
+  withQueryWrapper,
+  logGraphQLError,
+  getRuntimeInfo,
+} from '../../tracking'
 import Header from './PageHeader'
 import { SubscriptionAction, retrieveModalConfig, goToElement } from './utils'
 import ConfirmationModal from '../ConfirmationModal'
@@ -32,7 +36,7 @@ import Summary from '../Summary'
 import History from './History'
 import Skeleton from './Skeleton'
 
-export const INSTANCE = 'SubscriptionsDetails'
+const INSTANCE = 'SubscriptionsDetails'
 const PREFERENCES_ID = 'vtex.subscription.preferences.div'
 const DETAILS_ID = 'vtex.subscription.details.div'
 
@@ -53,9 +57,11 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError({
-      error,
-      errorInfo,
-      runtime: this.props.runtime,
+      error: {
+        ...error,
+        ...errorInfo,
+      },
+      runtimeInfo: getRuntimeInfo(),
       instance: INSTANCE,
     })
   }
@@ -72,7 +78,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     this.setState({ isEditMode })
 
   private handleUpdateStatus = (status: SubscriptionStatus) => {
-    const { updateStatus, subscription, runtime } = this.props
+    const { updateStatus, subscription } = this.props
 
     if (!subscription) return null
 
@@ -84,10 +90,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     return updateStatus({
       variables,
     }).catch((error: ApolloError) => {
-      logGraphqlError({
+      logGraphQLError({
         error,
         variables,
-        runtime,
+        runtimeInfo: getRuntimeInfo(),
         type: 'MutationError',
         instance: 'UpdateStatus',
       })
@@ -112,7 +118,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     })
 
   private handleUpdateSkipped = () => {
-    const { updateIsSkipped, subscription, runtime } = this.props
+    const { updateIsSkipped, subscription } = this.props
 
     if (!subscription) return null
 
@@ -124,10 +130,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     return updateIsSkipped({
       variables,
     }).catch((error: ApolloError) => {
-      logGraphqlError({
+      logGraphQLError({
         error,
         variables,
-        runtime,
+        runtimeInfo: getRuntimeInfo(),
         type: 'MutationError',
         instance: 'UpdateIsSkipped',
       })
@@ -136,7 +142,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
   }
 
   private handleOrderNow = () => {
-    const { orderFormId, orderNow, subscription, runtime } = this.props
+    const { orderFormId, orderNow, subscription } = this.props
 
     if (!subscription) return null
 
@@ -154,10 +160,10 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     return orderNow({ variables })
       .then(() => (window.location.href = '/checkout/'))
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime,
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: 'OrderNow',
         })
@@ -273,8 +279,7 @@ type Props = {
     args: Variables<UpdateIsSkippedArgs>
   ) => Promise<MutationResult>
   updateStatus: (args: Variables<UpdateStatusArgs>) => Promise<MutationResult>
-} & InjectedRuntimeContext &
-  WrappedComponentProps &
+} & WrappedComponentProps &
   ChildProps
 
 type InputProps = RouteComponentProps<{ subscriptionId: string }>
@@ -288,14 +293,14 @@ interface ChildProps {
 const enhance = compose<Props, {}>(
   injectIntl,
   withRouter,
-  withRuntimeContext,
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
   graphql(UPDATE_IS_SKIPPED, { name: 'updateIsSkipped' }),
   graphql(ORDER_NOW, { name: 'orderNow' }),
-  queryWrapper<InputProps, Result, QueryArgs, ChildProps>(
-    INSTANCE,
-    DETAILS_PAGE_QUERY,
-    {
+  withQueryWrapper<InputProps, Result, QueryArgs, ChildProps>({
+    workflowInstance: INSTANCE,
+    document: DETAILS_PAGE_QUERY,
+    getRuntimeInfo,
+    operationOptions: {
       options: (input) => ({
         variables: {
           id: input.match.params.subscriptionId,
@@ -306,8 +311,8 @@ const enhance = compose<Props, {}>(
         subscription: data?.subscription,
         orderFormId: data?.orderForm?.orderFormId,
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 

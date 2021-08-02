@@ -4,14 +4,13 @@ import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { Dropdown, Button, PageHeader as Header } from 'vtex.styleguide'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import QUERY, {
   Result,
   Subscription,
 } from '../../graphql/queries/subscriptions.gql'
 import { SubscriptionDisplayFilter, CSS, convertFilter } from './utils'
-import { logError, logGraphqlError } from '../../tracking'
+import { logError, logGraphQLError, getRuntimeInfo } from '../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
 import EmptyState from './EmptyState'
@@ -57,9 +56,11 @@ class SubscriptionsListContainer extends Component<
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logError({
-      error,
-      errorInfo,
-      runtime: this.props.runtime,
+      error: {
+        ...error,
+        ...errorInfo,
+      },
+      runtimeInfo: getRuntimeInfo(),
       instance: INSTANCE,
     })
   }
@@ -144,12 +145,12 @@ class SubscriptionsListContainer extends Component<
             {({ error, loading, refetch, data }) => {
               if (loading) return <Loading />
               if (error) {
-                logGraphqlError({
+                logGraphQLError({
                   error,
                   variables,
                   type: 'QueryError',
                   instance: INSTANCE,
-                  runtime: this.props.runtime,
+                  runtimeInfo: getRuntimeInfo(),
                 })
                 return <ErrorState refetch={refetch} />
               }
@@ -181,11 +182,9 @@ class SubscriptionsListContainer extends Component<
   }
 }
 
-type Props = WrappedComponentProps &
-  InjectedRuntimeContext &
-  RouteComponentProps
+type Props = WrappedComponentProps & RouteComponentProps
 
-const enhance = compose<Props, {}>(injectIntl, withRouter, withRuntimeContext)
+const enhance = compose<Props, {}>(injectIntl, withRouter)
 
 export { Subscription }
 

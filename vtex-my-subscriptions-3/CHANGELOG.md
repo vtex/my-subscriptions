@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.0] - 2021-08-02
+
+### Changed
+
+- Using **vtex.splunk-monitoring** to log errors.
+
 ## [3.9.4] - 2021-05-05
 
 ### Fixed

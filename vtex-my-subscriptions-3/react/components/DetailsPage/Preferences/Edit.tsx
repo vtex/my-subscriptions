@@ -6,12 +6,11 @@ import { Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
-import { queryWrapper } from '../../../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
 import QUERY, {
   Result,
   Args,
 } from '../../../graphql/queries/availablePreferences.gql'
-import { INSTANCE } from '..'
 import FrequencySelector from '../../Selector/Frequency'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
@@ -125,10 +124,11 @@ type Props = OuterProps & ChildProps & WrappedComponentProps
 
 const enhance = compose<Props, OuterProps>(
   injectIntl,
-  queryWrapper<OuterProps, Result, Args, ChildProps>(
-    `${INSTANCE}/EditPreferences`,
-    QUERY,
-    {
+  withQueryWrapper<OuterProps, Result, Args, ChildProps>({
+    workflowInstance: 'SubscriptionsDetails/EditPreferences',
+    document: QUERY,
+    getRuntimeInfo,
+    operationOptions: {
       options: {
         fetchPolicy: 'network-only',
       },
@@ -138,8 +138,8 @@ const enhance = compose<Props, OuterProps>(
         frequencies: data?.frequencies,
         payments: data?.payments,
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton))
 )
 

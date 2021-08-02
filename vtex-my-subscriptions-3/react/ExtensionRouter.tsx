@@ -4,7 +4,7 @@ import { Route } from 'vtex.my-account-commons/Router'
 import ListPage from './components/List'
 import DetailsPage from './components/DetailsPage'
 import CreationPage from './components/CreationPage'
-import { withAppInfo } from './tracking'
+import { withMetric, getRuntimeInfo } from './tracking'
 
 const ExtensionRouter = () => (
   <>
@@ -18,4 +18,8 @@ const ExtensionRouter = () => (
   </>
 )
 
-export default withAppInfo(ExtensionRouter)
+export default withMetric({
+  metricName: 'AppUsage/MySubscription',
+  logRate: 10,
+  getRuntimeInfo,
+})(ExtensionRouter)

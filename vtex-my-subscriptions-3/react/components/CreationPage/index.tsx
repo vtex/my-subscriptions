@@ -24,7 +24,7 @@ import CREATE_MUTATION, {
   Args as CreationArgs,
   Result as CreationResult,
 } from '../../graphql/mutations/createSubscription.gql'
-import { logGraphqlError } from '../../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../../tracking'
 import { TOMORROW } from './constants'
 
 const INITIAL_STATE: SubscriptionForm = {
@@ -95,7 +95,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
   }
 
   private handleSave = (formikValues: SubscriptionForm) => {
-    const { createSubscription, history, runtime } = this.props
+    const { createSubscription, history } = this.props
     const data = this.assembleForm(formikValues)
 
     if (!data) return
@@ -111,10 +111,10 @@ class SubscriptionCreationContainer extends Component<Props, State> {
         history.push(`/subscriptions/${result.data?.createSubscription.id}`)
       )
       .catch((error: ApolloError) => {
-        logGraphqlError({
+        logGraphQLError({
           error,
           variables,
-          runtime,
+          runtimeInfo: getRuntimeInfo(),
           type: 'MutationError',
           instance: 'CreateSubscription',
         })

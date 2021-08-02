@@ -11,7 +11,7 @@ import HistoryItem from './HistoryItem'
 import HistoryItemsSkeleton from './HistoryItemsSkeleton'
 import style from './style.css'
 import HistoryEmpty from './HistoryEmpty'
-import { queryWrapper } from '../../../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
 
 const INSTANCE = 'SubscriptionsDetails/SubscriptionsOrdersList'
 
@@ -96,28 +96,33 @@ interface ChildProps {
 type Props = OuterProps & ChildProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, Args, ChildProps>(INSTANCE, QUERY, {
-    options: ({ subscriptionId, perPage }) => ({
-      variables: {
-        subscriptionId,
-        page: 1,
-        perPage,
-      },
-    }),
-    props: ({ data }) =>
-      data?.executions
-        ? {
-            executions: data.executions.list,
-            totalCount: data.executions.totalCount,
-            loading: data.loading,
-            fetchMore: data.fetchMore,
-          }
-        : {
-            executions: [],
-            totalCount: 0,
-            loading: true,
-            fetchMore: () => null,
-          },
+  withQueryWrapper<OuterProps, Result, Args, ChildProps>({
+    getRuntimeInfo,
+    workflowInstance: INSTANCE,
+    document: QUERY,
+    operationOptions: {
+      options: ({ subscriptionId, perPage }) => ({
+        variables: {
+          subscriptionId,
+          page: 1,
+          perPage,
+        },
+      }),
+      props: ({ data }) =>
+        data?.executions
+          ? {
+              executions: data.executions.list,
+              totalCount: data.executions.totalCount,
+              loading: data.loading,
+              fetchMore: data.fetchMore,
+            }
+          : {
+              executions: [],
+              totalCount: 0,
+              loading: true,
+              fetchMore: () => null,
+            },
+    },
   }),
   branch<ChildProps>(
     ({ loading }) => loading,

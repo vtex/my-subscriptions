@@ -7,7 +7,7 @@ import { Total } from 'vtex.subscriptions-graphql'
 import FREQUENCY_QUERY, {
   Result,
 } from '../../../graphql/queries/availablePaymentAddresses.gql'
-import { queryWrapper } from '../../../tracking'
+import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
 import { SubscriptionForm } from '..'
 import Box from '../../CustomBox'
 import Title from '../../CustomBox/Title'
@@ -209,10 +209,11 @@ type State = {
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, void, ChildProps>(
-    `${INSTANCE}/SummarySection`,
-    FREQUENCY_QUERY,
-    {
+  withQueryWrapper<OuterProps, Result, void, ChildProps>({
+    getRuntimeInfo,
+    workflowInstance: `${INSTANCE}/SummarySection`,
+    document: FREQUENCY_QUERY,
+    operationOptions: {
       options: {
         fetchPolicy: 'network-only',
       },
@@ -221,8 +222,8 @@ const enhance = compose<Props, OuterProps>(
         addresses: data?.addresses ?? [],
         payments: data?.payments ?? [],
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderComponent(Skeleton)),
   connect
 )

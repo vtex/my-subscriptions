@@ -4,13 +4,12 @@ import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { ApolloError } from 'apollo-client'
 import { Input } from 'vtex.styleguide'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
 import UPDATE_NAME, { Args } from '../graphql/mutations/updateName.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
-import { logGraphqlError } from '../tracking'
+import { logGraphQLError, getRuntimeInfo } from '../tracking'
 import EditButton from './EditButton'
 
 const messages = defineMessages({
@@ -117,10 +116,10 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
         return updateName({
           variables,
         }).catch((error: ApolloError) => {
-          logGraphqlError({
+          logGraphQLError({
             error,
             variables,
-            runtime: this.props.runtime,
+            runtimeInfo: getRuntimeInfo(),
             type: 'MutationError',
             instance: 'UpdateName',
           })
@@ -168,7 +167,7 @@ interface OuterProps {
   skus: Array<{ name: string }>
 }
 
-interface InnerProps extends WrappedComponentProps, InjectedRuntimeContext {
+interface InnerProps extends WrappedComponentProps {
   updateName: (args: { variables: Args }) => Promise<unknown>
   showToast: (args: object) => void
 }
@@ -179,8 +178,7 @@ interface InputChangeEvent {
 
 const enhance = compose<InnerProps & OuterProps, OuterProps>(
   injectIntl,
-  graphql(UPDATE_NAME, { name: 'updateName' }),
-  withRuntimeContext
+  graphql(UPDATE_NAME, { name: 'updateName' })
 )
 
 export default enhance(SubscriptionNameContainer)

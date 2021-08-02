@@ -10,9 +10,7 @@ import {
   ShowToastArgs,
   Alert,
 } from 'vtex.styleguide'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
 
-import { INSTANCE } from '.'
 import QUERY, {
   Args,
   Result,
@@ -24,7 +22,11 @@ import UPDATE_ADDRESS, {
 import UPDATE_PAYMENT, {
   Args as UpdatePaymentArgs,
 } from '../../graphql/mutations/updatePaymentMethod.gql'
-import { queryWrapper, logGraphqlError } from '../../tracking'
+import {
+  withQueryWrapper,
+  logGraphQLError,
+  getRuntimeInfo,
+} from '../../tracking'
 import { messages as modalMessages } from '../ConfirmationModal'
 import Thumbnail from './SubscriptionThumbnail'
 
@@ -93,12 +95,12 @@ class BatchModal extends Component<Props, State> {
     error: ApolloError,
     variables: UpdateAddressArgs | UpdatePaymentArgs
   ) => {
-    const { option, runtime } = this.props
+    const { option } = this.props
 
-    logGraphqlError({
+    logGraphQLError({
       error,
       variables,
-      runtime,
+      runtimeInfo: getRuntimeInfo(),
       type: 'MutationError',
       instance: `Batch/Update${option === 'ADDRESS' ? 'Address' : 'Payment'}`,
     })
@@ -256,8 +258,7 @@ interface MappedProps {
 }
 
 type InnerProps = WrappedComponentProps &
-  MappedProps &
-  InjectedRuntimeContext & {
+  MappedProps & {
     updateAddress: (args: { variables: UpdateAddressArgs }) => Promise<void>
     updatePayment: (args: { variables: UpdatePaymentArgs }) => Promise<void>
     showToast: (args: ShowToastArgs) => void
@@ -275,16 +276,17 @@ interface OuterProps extends Args {
 type Props = InnerProps & OuterProps
 
 const enhance = compose<Props, OuterProps>(
-  queryWrapper<OuterProps, Result, Args, MappedProps>(
-    `${INSTANCE}/ListBy`,
-    QUERY,
-    {
+  withQueryWrapper<OuterProps, Result, Args, MappedProps>({
+    getRuntimeInfo,
+    workflowInstance: 'SubscriptionsDetails/ListBy',
+    document: QUERY,
+    operationOptions: {
       props: ({ data }) => ({
         loading: data ? data.loading : false,
         targetSubscriptions: data?.list ? data.list : [],
       }),
-    }
-  ),
+    },
+  }),
   branch<Props>(({ loading }) => loading, renderNothing),
   graphql(UPDATE_ADDRESS, {
     name: 'updateAddress',
@@ -293,7 +295,6 @@ const enhance = compose<Props, OuterProps>(
     name: 'updatePayment',
   }),
   withToast,
-  withRuntimeContext,
   injectIntl
 )
 
