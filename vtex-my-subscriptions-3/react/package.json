@@ -4,7 +4,6 @@
     "test": "vtex-test-tools test --passWithNoTests"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "formik": "^2.1.5",
     "hoist-non-react-statics": "^3.3.2",
     "iframe-resizer": "3.x",
@@ -17,7 +16,6 @@
     "react-infinite-scroller": "^1.2.4",
     "react-intl": "3",
     "recompose": "^0.30.0",
-    "splunk-events": "^1.3.4",
     "yup": "^0.29.3"
   },
   "devDependencies": {
