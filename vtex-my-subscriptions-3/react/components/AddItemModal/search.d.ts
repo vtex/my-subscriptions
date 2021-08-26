@@ -4,6 +4,7 @@ declare module '*/search.gql' {
   interface SearchItem {
     name: string
     skuId: string
+    price: number
     imageUrl: string
     plans: string[]
   }
@@ -11,7 +12,6 @@ declare module '*/search.gql' {
     unitMultiplier: number
     measurementUnit: string
     brand: string
-    price: number
     items: SearchItem[]
   }
 
