@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.1] - 2021-08-26
+
+### Fixed
+
+- Display sku price instead of product price for every sku on search.
+
 ## [3.10.0] - 2021-08-02
 
 ### Changed

@@ -14,10 +14,10 @@ query SearchSubscribableProducts(
         unitMultiplier
         measurementUnit
         brand
-        price
         items {
           name
           skuId
+          price
           imageUrl
           plans
         }

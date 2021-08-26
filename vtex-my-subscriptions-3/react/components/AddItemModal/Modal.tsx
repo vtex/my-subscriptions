@@ -16,7 +16,7 @@ import SEARCH_QUERY, {
   Args as SearchArgs,
   Result as SearchResult,
   SearchProduct,
-} from '../../graphql/queries/search.gql'
+} from './search.gql'
 import Item from './SearchItem'
 import EmptyState from './EmptyState'
 import { AddItemArgs } from '.'
@@ -106,7 +106,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                   <Item
                     id={sku.skuId}
                     name={sku.name}
-                    price={product.price}
+                    price={sku.price}
                     currency={currency}
                     imageUrl={sku.imageUrl}
                     brand={product.brand}

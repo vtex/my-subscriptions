@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "my-subscriptions",
-  "version": "3.10.0",
+  "version": "3.10.1",
   "title": "MySubscriptions",
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
