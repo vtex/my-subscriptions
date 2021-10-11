@@ -28,7 +28,7 @@
   "subscription.select.day": "Día {day}",
   "subscription.edition.button.save": "Salvar",
   "subscription.edition.button.cancel": "Cancelar",
-  "subscription.view.title": "Suscripción con {productos} de valor",
+  "subscription.view.title": "Suscripción con {value} de valor",
   "subscription.notFound.title": "Aún no tiene suscripciones",
   "subscription.notFound.text": "Suscribe tus productos favoritos y siempre los encuentras aquí",
   "subscription.list.display": "Exhibir",
