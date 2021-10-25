@@ -1,5 +1,25 @@
 # My Subscriptions
 
+- This is the monorepo that contains all the code related to rendering Subscriptions related information on the shopper my account page.
+
+For more info about the MyAccount page itself, please check the [app repository](https://github.com/vtex-apps/my-account).
+
+## List of Apps
+
+| APP                                | URL                                                                                                   | Description                                                                   |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| MySubscriptions@3.x                | [v3](https://github.com/vtex-apps/my-subscriptions/apps/vtex-my-subscriptions-3/)                     | App responsible for the subscriptions pages inside MyAccount.                 |
+| MySubscriptionsPortalConnector@0.x | [v0](https://github.com/vtex-apps/my-subscriptions/apps/vtex-my-subscriptions-portal-connector/)      | Auxiliary app used to display the app on Portal stores.                       |
+
+## Git Secret
+
+This repository uses [git secret](#https://git-secret.io/).
+To get access to the encrypted code:
+
+1. Generate a gpg key: `gpg --gen-key`
+2. Get your public key : `gpg --armor --export you@example.com > mykey.asc`
+3. Send your key to an admin
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
