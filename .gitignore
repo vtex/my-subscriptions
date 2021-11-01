@@ -38,3 +38,6 @@ build
 lerna-debug.log
 yarn-error.log
 *.orig
+.gitsecret/keys/random_seed
+!*.secret
+apps/vtex-my-subscriptions-3/react/tracking/splunkSecrets.ts
