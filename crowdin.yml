@@ -1,0 +1,5 @@
+files:
+  - source: /apps/vtex-my-subscriptions-3/messages/en.json
+    translation: apps/vtex-my-subscriptions-3/messages/%two_letters_code%.json
+  - source: /apps/vtex-my-subscriptions-portal-connector/messages/en.json
+    translation: apps/vtex-my-subscriptions-portal-connector/messages/%two_letters_code%.json
