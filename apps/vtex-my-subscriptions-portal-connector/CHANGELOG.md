@@ -24,7 +24,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Initial implementation.
-
-
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions-portal-connector@0.2.0...HEAD
-[0.2.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions-portal-connector@0.1.1...vtex.my-subscriptions-portal-connector@0.2.0
