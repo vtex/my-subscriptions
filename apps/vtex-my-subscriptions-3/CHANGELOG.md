@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.11.0] - 2022-03-08
+
 ### Added
 
 - Arabic translation.
@@ -151,3 +153,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Migration to GraphQL V3.
+
+
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.0...HEAD
+[3.11.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.10.2...vtex.my-subscriptions@3.11.0
