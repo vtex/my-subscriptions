@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "my-subscriptions-portal-connector",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "title": "MySubscriptions portal connector",
   "description": "App used to make the new subscriptions appear on the old MyAccount",
   "builders": {
