@@ -38,6 +38,16 @@ Some of the files used inside the `apps/vtex-my-subscriptions-3` are encrypted, 
 4. Encrypt the file again with the new entries using `git secret hide`.
 5. Save the changes to the repo.
 
+### Deploying a new version
+
+This repo doesn't use the VTEX I/O CI/CD bot, because its an monorepo.
+
+1. Go to the folder of the desired app. `cd apps/...`
+2. Use the releasy tool to generate a new version of your app respecting the SEMVER. `releasy patch/minor/major` [releasy](https://github.com/vtex/releasy)
+3. Publish it. `vtex publish --public`
+4. Test the new version. Runing `vtex install AAP@VERSION` on your test account.
+5. Deploy `vtex deploy`
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
