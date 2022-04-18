@@ -15,4 +15,13 @@
     "vtex.my-account-commons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-account-commons@0.13.0/public/@types/vtex.my-account-commons",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@7.42.0/public/@types/vtex.render-runtime"
   }
+  ,
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
+    "jestSonar": {
+    "reportPath": "./reports",
+    "reportFile": "test-report.xml",
+    "indent": 4
+  }
 }

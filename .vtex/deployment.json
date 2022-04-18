@@ -1,0 +1,40 @@
+[
+    {
+      "name": "my-subscriptions",
+      "acronym": "mysubscriptions",
+      "description": "App for managing subscriptions",
+      "build": {
+        "disabledFlows": ["Deploy"],
+        "provider": "jenkins",
+        "type": "frontend",
+        "parameters": {
+          "CUSTOM_PIPELINE": true,
+          "PIPELINE_CI": ".vtex/Jenkins_CI.Jenkinsfile",
+          "AWS_ACCOUNT_ID": "053131491888",
+          "AWS_REGION": "us-east-1",
+          "SLACK_CHANNEL": "order-management-build-notifications"
+        }
+      },
+      "service": {
+        "type": "front"
+      },
+      "tags": [
+        {
+          "key": "ApplicationName",
+          "value": "my-subscriptions"
+        },
+        {
+          "key": "Product",
+          "value": "my-subscriptions"
+        },
+        {
+          "key": "Owner",
+          "value": "orders-management"
+        },
+        {
+          "key": "Environment",
+          "value": "stable"
+        }
+      ]
+    }
+  ]
