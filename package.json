@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "lint": "cd ./apps/vtex-my-subscriptions-3/react && yarn lint",
-    "test": "cd ./apps/vtex-my-subscriptions-3/react && yarn test",
+    "test": "cd ./apps/vtex-my-subscriptions-3/react && yarn test --collectCoverage --testResultsProcessor=jest-sonar-reporter && cd .. && node sonar-config.js",
     "locales:lint": "intl-equalizer",
     "locales:fix": "intl-equalizer --fix",
     "verify": "yarn lint && yarn locales:lint && yarn locales:fix && yarn test"
@@ -21,11 +21,14 @@
   "devDependencies": {
     "@vtex/intl-equalizer": "^2.4.2",
     "@vtex/prettier-config": "0.x",
+    "current-git-branch": "^1.1.0",
     "eslint": "^6.8.0",
     "eslint-config-vtex": "12.x",
     "eslint-config-vtex-react": "6.x",
     "husky": "^4.2.0",
+    "jest-sonar-reporter": "^2.0.0",
     "prettier": "^2.0.5",
+    "sonarqube-scanner": "^2.8.1",
     "typescript": "^3.7.5"
   }
 }

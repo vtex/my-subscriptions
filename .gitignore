@@ -41,3 +41,9 @@ yarn-error.log
 .gitsecret/keys/random_seed
 !*.secret
 apps/vtex-my-subscriptions-3/react/tracking/splunkSecrets.ts
+
+# Sonarcloud
+
+**scannerwork/
+react/coverage/
+react/reports/ 
