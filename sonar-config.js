@@ -12,7 +12,7 @@ sonarqubeScanner(
     serverUrl: 'https://sonarcloud.io',
     token: 'd30d3c427d2ea2dcedae2aa19afcafe3e689cd12',
     options: {
-      'sonar.projectKey': 'vtex_my-orders',
+      'sonar.projectKey': 'vtex_my-subscriptions',
       'sonar.organization': 'vtex',
       'sonar.branch.name': branchName,
       'sonar.test.inclusions': './react/**/*.test.tsx,./react/**/*.test.ts',

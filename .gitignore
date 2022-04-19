@@ -45,5 +45,5 @@ apps/vtex-my-subscriptions-3/react/tracking/splunkSecrets.ts
 # Sonarcloud
 
 **scannerwork/
-react/coverage/
-react/reports/ 
+**/react/coverage
+**/react/reports/ 
