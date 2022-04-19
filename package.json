@@ -19,14 +19,17 @@
     }
   },
   "devDependencies": {
+    "@apollo/react-testing": "3",
     "@vtex/intl-equalizer": "^2.4.2",
     "@vtex/prettier-config": "0.x",
+    "@vtex/test-tools": "^3.4.3",
     "eslint": "^6.8.0",
     "eslint-config-vtex": "12.x",
     "eslint-config-vtex-react": "6.x",
     "husky": "^4.2.0",
     "jest-sonar-reporter": "^2.0.0",
     "prettier": "^2.0.5",
+    "react-intl": "3",
     "sonarqube-scanner": "^2.8.1",
     "typescript": "^3.7.5"
   },
