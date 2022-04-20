@@ -8,8 +8,7 @@
     "module": "es6",
     "moduleResolution": "node",
     "target": "es2017",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx"
-  },
+    "allowSyntheticDefaultImports": true
+   },
   "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
 }
