@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
 
 import BatchModal from '../components/DetailsPage/BatchModal'
@@ -46,6 +45,7 @@ describe('BatchModal Scenarios', () => {
     const one = queryByText(name1)
     const two = queryByText(name2)
     const three = queryByText(name3)
+
 
     expect(one).toBeDefined()
     expect(two).toBeDefined()
