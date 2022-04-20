@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "lint": "cd ./apps/vtex-my-subscriptions-3/react && yarn lint",
-    "test": "cd ./apps/vtex-my-subscriptions-3/react && yarn test --collectCoverage --testResultsProcessor=jest-sonar-reporter && cd .. && node sonar-config.js",
+    "test": "cd ./apps/vtex-my-subscriptions-3/react && yarn test --collectCoverage --testResultsProcessor=jest-sonar-reporter && cd .. && cd .. && cd .. && node sonar-config.js",
     "locales:lint": "intl-equalizer",
     "locales:fix": "intl-equalizer --fix",
     "verify": "yarn lint && yarn locales:lint && yarn locales:fix && yarn test"
