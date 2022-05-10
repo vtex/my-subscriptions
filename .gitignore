@@ -38,3 +38,5 @@ build
 lerna-debug.log
 yarn-error.log
 *.orig
+.gitsecret/keys/random_seed
+!*.secret
