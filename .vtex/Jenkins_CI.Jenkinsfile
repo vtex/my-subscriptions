@@ -27,9 +27,9 @@ pipeline {
                     echo 'Installing Packages...'
                     sh '''
                         yarn install
-                        cd react
+                        cd apps/vtex-my-subscriptions-3/react
                         yarn install
-                        cd ..
+                        cd ~
                         yarn test $SOURCE_VERSION
                     '''
                     echo 'Packages installed!'
