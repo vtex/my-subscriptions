@@ -15,9 +15,12 @@ sonarqubeScanner(
       'sonar.projectKey': 'vtex_my-subscriptions',
       'sonar.organization': 'vtex',
       'sonar.branch.name': branchName,
-      'sonar.test.inclusions': './react/**/*.test.tsx,./react/**/*.test.ts',
-      'sonar.typescript.lcov.reportPaths': './react/coverage/lcov.info',
-      'sonar.testExecutionReportPaths': './react/reports/test-report.xml',
+      'sonar.test.inclusions':
+        'apps/vtex-my-subscriptions-3/react/**/*.test.tsx, apps/vtex-my-subscriptions-3/react/**/*.test.ts',
+      'sonar.typescript.lcov.reportPaths':
+        'apps/vtex-my-subscriptions-3/react/coverage/lcov.info',
+      'sonar.testExecutionReportPaths':
+        'apps/vtex-my-subscriptions-3/react/reports/test-report.xml',
     },
   },
   () => {}
