@@ -50,7 +50,7 @@
   "subcription.add.new.card": "Tambahkan kartu baru",
   "subscription.manage.orderNow": "Buat pesanan terpisah",
   "subscription.execution.again.description": "Pesanan ini tidak akan mengganggu langganan Anda, pembelian berikutnya, dan tanggalnya.",
-  "subscription.execution.again.confirmation": "Lanjutkan ke checkout",
+  "subscription.execution.again.confirmation": "Ke checkout",
   "subscription.history": "Riwayat",
   "subscription.execution.status.TRIGGERED": "Memproses",
   "subscription.execution.status.IN_PROCESS": "Memproses",
