@@ -6125,9 +6125,9 @@ vtex-tachyons@^3.2.0:
   version "0.2.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-subscriptions-portal-connector@0.2.0/public/@types/vtex.my-subscriptions-portal-connector#eb4b1657f88e384bceffb64fc761fa4193cb5245"
 
-"vtex.my-subscriptions@https://subscriptions--ppxps.myvtex.com/_v/private/typings/linked/v1/vtex.my-subscriptions@3.11.1+build1666029915/public/@types/vtex.my-subscriptions":
+"vtex.my-subscriptions@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-subscriptions@3.11.1/public/@types/vtex.my-subscriptions":
   version "3.11.1"
-  resolved "https://subscriptions--ppxps.myvtex.com/_v/private/typings/linked/v1/vtex.my-subscriptions@3.11.1+build1666029915/public/@types/vtex.my-subscriptions#67f723f4ff0c5547d2137c464beaa59b9c145a9f"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.my-subscriptions@3.11.1/public/@types/vtex.my-subscriptions#2d48b19a100a23bf9da56fd16a52186c9977da06"
 
 "vtex.payment-flags@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.payment-flags@2.9.1/public/@types/vtex.payment-flags":
   version "2.9.1"
@@ -6153,9 +6153,9 @@ vtex-tachyons@^3.2.0:
   version "1.2.3"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-commons@1.2.3/public/@types/vtex.subscriptions-commons#d49bb91f2aca919e37a6d794ebecf3236e26a06e"
 
-"vtex.subscriptions-graphql@https://subscriptions--ppxps.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.17.1+build1666039575/public/@types/vtex.subscriptions-graphql":
-  version "3.17.1"
-  resolved "https://subscriptions--ppxps.myvtex.com/_v/private/typings/linked/v1/vtex.subscriptions-graphql@3.17.1+build1666039575/public/@types/vtex.subscriptions-graphql#368bbf55afc781d30363fcabf6dd960a1e8dbaca"
+"vtex.subscriptions-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.18.0/public/@types/vtex.subscriptions-graphql":
+  version "3.18.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.subscriptions-graphql@3.18.0/public/@types/vtex.subscriptions-graphql#bf6fe19413b9dca820813d7f501302f2f34f57cf"
 
 "vtex.totalizer-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.totalizer-translator@2.4.0/public/@types/vtex.totalizer-translator":
   version "2.4.0"

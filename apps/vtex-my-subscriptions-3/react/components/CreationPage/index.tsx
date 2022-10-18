@@ -119,11 +119,9 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     const variables = {
       data,
     }
-    console.log('DATA', variables)
 
     createSubscription({ variables })
-      .then(result => {
-        console.log(result)
+      .then((result) => {
         return history.push(
           `/subscriptions/${result.data?.createSubscription.id}`
         )
@@ -160,7 +158,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
           onSubmit={this.handleSave}
           validationSchema={VALIDATION_SCHEMA}
         >
-          {formik => (
+          {(formik) => (
             <Form>
               <SimulationContext
                 subscription={this.assembleForm(formik.values)}
