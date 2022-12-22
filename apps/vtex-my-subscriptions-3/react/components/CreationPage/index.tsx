@@ -9,6 +9,9 @@ import { PageHeader as Header, Button } from 'vtex.styleguide'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
+import ORDERFORM_QUERY, {
+  Result as OrderFormResult,
+} from '../../graphql/queries/orderForm.gql'
 
 import Products from './Products'
 import Box from '../CustomBox'
@@ -54,7 +57,10 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     isLoading: false,
   }
 
-  private assembleForm = (formikValues: SubscriptionForm): ValidForm | null => {
+  private assembleForm = (
+    formikValues: SubscriptionForm,
+    salesChannel?: string
+  ): ValidForm | null => {
     if (
       !formikValues.address ||
       !formikValues.frequency ||
@@ -65,8 +71,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       return null
 
     const frequency = extractFrequency(formikValues.frequency)
-
-    return {
+    const assembledForm: ValidForm = {
       name: formikValues.name,
       nextPurchaseDate: formikValues.nextPurchaseDate.toISOString(),
       plan: {
@@ -92,11 +97,20 @@ class SubscriptionCreationContainer extends Component<Props, State> {
           formikValues.paymentSystem.paymentAccountId ?? undefined,
       },
     }
+
+    if (salesChannel) assembledForm.salesChannel = salesChannel
+    return assembledForm
   }
 
   private handleSave = (formikValues: SubscriptionForm) => {
-    const { createSubscription, history } = this.props
-    const data = this.assembleForm(formikValues)
+    const {
+      createSubscription,
+      dataOrderForm: {
+        orderForm: { salesChannel },
+      },
+      history,
+    } = this.props
+    const data = this.assembleForm(formikValues, salesChannel as string)
 
     if (!data) return
 
@@ -107,9 +121,11 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     }
 
     createSubscription({ variables })
-      .then((result) =>
-        history.push(`/subscriptions/${result.data?.createSubscription.id}`)
-      )
+      .then((result) => {
+        return history.push(
+          `/subscriptions/${result.data?.createSubscription.id}`
+        )
+      })
       .catch((error: ApolloError) => {
         logGraphQLError({
           error,
@@ -226,12 +242,14 @@ type Props = RouteComponentProps &
     createSubscription: (args: {
       variables: CreationArgs
     }) => Promise<MutationResult<CreationResult>>
+    dataOrderForm: OrderFormResult
   }
 
 const enhance = compose<Props, {}>(
   withRouter,
   withRuntimeContext,
-  graphql(CREATE_MUTATION, { name: 'createSubscription' })
+  graphql(CREATE_MUTATION, { name: 'createSubscription' }),
+  graphql(ORDERFORM_QUERY, { name: 'dataOrderForm' })
 )
 
 export default enhance(SubscriptionCreationContainer)

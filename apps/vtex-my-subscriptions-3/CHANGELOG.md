@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Indonesian translation.
 
+## [3.12.0] - 2022-10-18
+
 ## [3.11.1] - 2022-03-22
 
 ### Fixed
@@ -163,3 +165,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Migration to GraphQL V3.
+
+
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.12.0...HEAD
+[3.12.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.1...vtex.my-subscriptions@3.12.0

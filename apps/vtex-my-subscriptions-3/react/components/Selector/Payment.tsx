@@ -49,12 +49,14 @@ const PaymentSelector: FunctionComponent<Props> = ({
     </Button>
   )
 
-  const groups = Object.keys(groupedPayments)
+  const groups = Object.keys(groupedPayments).filter(
+    group => group !== 'promissory'
+  )
 
   return (
     <Label label={intl.formatMessage(messages.label)} labelDark>
       {groups.length > 0
-        ? groups.map((group) => (
+        ? groups.map(group => (
             <div className="pb4" key={group}>
               <Radio
                 id={group}
