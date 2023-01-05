@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Catalan, German, French, Italian and Romanian translations.
+
 ## [0.3.0] - 2022-12-22
 
 ## [0.2.0] - 2022-03-08
