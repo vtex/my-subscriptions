@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.13.1] - 2023-01-10
+
 ## [3.13.1-beta] - 2023-01-10
 
 ### Added
@@ -175,6 +177,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Migration to GraphQL V3.
 
 
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1-beta...HEAD
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1...HEAD
 [3.12.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.1...vtex.my-subscriptions@3.12.0
+[3.13.1]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1-beta...vtex.my-subscriptions@3.13.1
 [3.13.1-beta]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.0...vtex.my-subscriptions@3.13.1-beta
