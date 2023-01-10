@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.1] - 2023-01-10
+
 ### Added
 
 - Catalan, German, French, Italian and Romanian translations.
@@ -30,3 +32,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Initial implementation.
+
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions-portal-connector@0.3.1...HEAD
+[0.3.1]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions-portal-connector@0.3.0...vtex.my-subscriptions-portal-connector@0.3.1
