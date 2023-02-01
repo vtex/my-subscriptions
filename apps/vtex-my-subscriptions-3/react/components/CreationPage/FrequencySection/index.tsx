@@ -66,9 +66,9 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
               (frequency.split(',')[1] === 'MONTHLY' ||
                 frequency.split(',')[1] === 'YEARLY') &&
               purchaseHelper.setValue(
-                new Date().getDate() <= 28
-                  ? MONTH_OPTIONS[new Date().getDate() - 1]
-                  : MONTH_OPTIONS[0]
+                nextPurchaseDateField.value.getDate() <= 28
+                  ? MONTH_OPTIONS[nextPurchaseDateField.value.getDate() - 1]
+                  : MONTH_OPTIONS[27]
               )
           }}
           onBlurFrequency={frequencyField.onBlur}
@@ -85,6 +85,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
             purchaseMeta.touched &&
             formatMessage(messages.required)
           }
+          isNewSubscription
         />
       </div>
       <div className="w-50-ns w-100 pl6-ns pl0 pt0-ns pt6">
@@ -92,7 +93,17 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           label={formatMessage(messages.nextPurchase)}
           value={nextPurchaseDateField.value}
           minDate={new Date()}
-          onChange={nextPurchaseDateHelper.setValue}
+          onChange={(date: Date) => {
+            nextPurchaseDateHelper.setValue(date)
+            frequencyField.value?.split(',') &&
+              (frequencyField.value?.split(',')[1] === 'MONTHLY' ||
+                frequencyField.value?.split(',')[1] === 'YEARLY') &&
+              purchaseHelper.setValue(
+                date.getDate() <= 28
+                  ? MONTH_OPTIONS[date.getDate() - 1]
+                  : MONTH_OPTIONS[27]
+              )
+          }}
           locale={locale}
         />
         <div className="pt6">

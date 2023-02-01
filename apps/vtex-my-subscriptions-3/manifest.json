@@ -11,9 +11,7 @@
     "store": "0.x"
   },
   "mustUpdateAt": "2019-04-02",
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -28,7 +26,8 @@
     "vtex.totalizer-translator": "2.x",
     "vtex.subscriptions-commons": "1.x",
     "vtex.my-subscriptions-portal-connector": "0.x",
-    "vtex.splunk-monitoring": "1.x"
+    "vtex.splunk-monitoring": "1.x",
+    "vtex.css-handles": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
