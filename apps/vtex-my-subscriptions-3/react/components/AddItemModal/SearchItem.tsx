@@ -7,6 +7,12 @@ import Button from './SubscribeButton'
 import { subscribed, subscribable } from './SubscribeButton/utils'
 import QuantitySelector from '../QuantitySelector'
 
+import { useCssHandles } from 'vtex.css-handles'
+
+const CSS_HANDLES = [
+  'productItemPrice',
+]
+
 const SearchItem: FunctionComponent<Props> = ({
   imageUrl,
   name,
@@ -24,6 +30,7 @@ const SearchItem: FunctionComponent<Props> = ({
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
   const canAdd = subscribable({ targetPlan, availablePlans })
+  const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <Thumbnail
@@ -44,7 +51,7 @@ const SearchItem: FunctionComponent<Props> = ({
               !subscribable({ targetPlan, availablePlans })
             }
           />
-          <span className="mv4 mv0-ns">
+          <span className={`${handles.productItemPrice} mv4 mv0-ns`}>
             <FormattedNumber
               currency={currency}
               style="currency"
