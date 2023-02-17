@@ -25,7 +25,7 @@
   "subscription.data.orderAgain": "Nachbestellen:",
   "subscription.data.chargeEvery": "Wiederholen:",
   "subscription.select": "Auswählen",
-  "subscription.select.day": "Tag {day}",
+  "subscription.select.day": "Am {day, selectordinal, one {#.} two {#.} few {#.} other {#.}} des Monats",
   "subscription.edition.button.save": "Sichern",
   "subscription.edition.button.cancel": "Abbrechen",
   "subscription.view.title": "Abonnement mit {value} Produkten",

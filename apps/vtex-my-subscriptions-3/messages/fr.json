@@ -25,7 +25,7 @@
   "subscription.data.orderAgain": "Passer à nouveau cette commande:",
   "subscription.data.chargeEvery": "Répéter:",
   "subscription.select": "Choisir",
-  "subscription.select.day": "Jour {day}",
+  "subscription.select.day": "Le {day, selectordinal, one {#ère} two {#ème} few {#ème} other {#ème}} du mois",
   "subscription.edition.button.save": "Sauvegarder",
   "subscription.edition.button.cancel": "Annuler",
   "subscription.view.title": "Abonnement à des produits {value}",

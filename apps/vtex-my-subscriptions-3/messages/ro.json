@@ -25,7 +25,7 @@
   "subscription.data.orderAgain": "Reordona:",
   "subscription.data.chargeEvery": "Repeta:",
   "subscription.select": "Selectați",
-  "subscription.select.day": "Zi {day}",
+  "subscription.select.day": "În {day, selectordinal, one {#} two {a-#-a} few {a-#-a} other {a-#-a}} zi a lunii",
   "subscription.edition.button.save": "Salva",
   "subscription.edition.button.cancel": "Anula",
   "subscription.view.title": "Abonament la {value} products",
