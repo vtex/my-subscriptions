@@ -4,6 +4,12 @@ import { Button, ButtonPlain } from 'vtex.styleguide'
 
 import { subscribable, subscribed } from './utils'
 
+import { useCssHandles } from 'vtex.css-handles'
+
+const CSS_HANDLES = [
+  'productItemMessage',
+]
+
 const messages = defineMessages({
   frequencyNotAvailable: {
     id: 'subscribe-button.frequency-not-available',
@@ -26,6 +32,7 @@ const SubscribeButton: FunctionComponent<Props & WrappedComponentProps> = ({
 }) => {
   const isSubscribable = subscribable({ targetPlan, availablePlans })
   const isSubscribed = subscribed({ subscribedSkus, skuId })
+  const handles = useCssHandles(CSS_HANDLES)
 
   const TargetButton = buttonType === 'plain' ? ButtonPlain : Button
 
@@ -45,7 +52,7 @@ const SubscribeButton: FunctionComponent<Props & WrappedComponentProps> = ({
   }
 
   return (
-    <span className="c-muted-1">
+    <span className={`${handles.productItemMessage} c-muted-1`}>
       {intl.formatMessage(messages.frequencyNotAvailable)}
     </span>
   )

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- CSS Handles
+
 ### Fixed
 
 - For new subscriptions, auto-select appropriate `purchaseDate` (i.e. repeat day) when changing subscription frequency or date of first purchase

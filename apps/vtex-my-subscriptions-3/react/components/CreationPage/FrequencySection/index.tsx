@@ -4,6 +4,7 @@ import { compose, branch, renderComponent } from 'recompose'
 import { useIntl, defineMessages } from 'react-intl'
 import { useField } from 'formik'
 import { DatePicker, Checkbox } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import FREQUENCY_QUERY, {
   Args,
@@ -16,6 +17,14 @@ import FrequencySelector from '../../Selector/Frequency'
 import { getFutureDate } from '../utils'
 import { WEEK_OPTIONS, MONTH_OPTIONS } from '../../Frequency/utils'
 import { INSTANCE } from '../constants'
+
+const CSS_HANDLES = [
+  'frequencyWrapper',
+  'frequency',
+  'calendarNextPurchase',
+  'addExpirationDate',
+  'calendarExpirationDate',
+]
 
 const messages = defineMessages({
   required: {
@@ -49,11 +58,13 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
     SubscriptionForm['expirationDate']
   >('expirationDate')
 
+  const handles = useCssHandles(CSS_HANDLES)
+
   const { locale, formatMessage } = useIntl()
 
   return (
-    <div className="flex flex-row-ns flex-column">
-      <div className="w-50-ns w-100">
+    <div className={`${handles.frequencyWrapper} flex flex-row-ns flex-column`}>
+      <div className={`${handles.frequency} w-50-ns w-100`}>
         <FrequencySelector
           availableFrequencies={frequencies}
           selectedFrequency={frequencyField.value}
@@ -88,7 +99,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           isNewSubscription
         />
       </div>
-      <div className="w-50-ns w-100 pl6-ns pl0 pt0-ns pt6">
+      <div className={`${handles.calendarNextPurchase} w-50-ns w-100 pl6-ns pl0 pt0-ns pt6`}>
         <DatePicker
           label={formatMessage(messages.nextPurchase)}
           value={nextPurchaseDateField.value}
@@ -106,7 +117,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           }}
           locale={locale}
         />
-        <div className="pt6">
+        <div className={`${handles.addExpirationDate} pt6`}>
           <Checkbox
             checked={!!expirationDateField.value}
             id="display-end-date"
@@ -125,7 +136,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           />
         </div>
         {expirationDateField.value && (
-          <div className="pt4">
+          <div className={`${handles.calendarExpirationDate} pt4`}>
             <DatePicker
               label={formatMessage(messages.expirationDate)}
               value={expirationDateField.value}

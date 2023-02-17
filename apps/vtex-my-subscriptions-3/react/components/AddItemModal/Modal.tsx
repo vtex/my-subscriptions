@@ -11,6 +11,8 @@ import {
   IconCaretRight,
 } from 'vtex.styleguide'
 
+import { useCssHandles } from 'vtex.css-handles'
+
 import { withQueryWrapper, getRuntimeInfo } from '../../tracking'
 import SEARCH_QUERY, {
   Args as SearchArgs,
@@ -35,6 +37,16 @@ const messages = defineMessages({
     id: 'subscription.fallback.error.message',
   },
 })
+
+const CSS_HANDLES = [
+  'errorMessage',
+  'productListWrapper',
+  'productItemWrapper',
+  'paginationWrapper',
+  'paginationContent',
+  'paginationPrev',
+  'paginationNext',
+]
 
 const INSTANCE = 'SearchSubscribableProducts'
 
@@ -68,6 +80,8 @@ const AddItemModal: FunctionComponent<Props> = ({
     state = searchInput.length === 0 ? 'empty' : 'no-results'
   }
 
+  const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <Modal
       title={intl.formatMessage(messages.title)}
@@ -86,14 +100,14 @@ const AddItemModal: FunctionComponent<Props> = ({
         value={searchInput}
       />
       {displayError && (
-        <div className="mt8">
+        <div className={`${handles.errorMessage} mt8`}>
           <Alert type="error" onClose={onDismissError}>
             {intl.formatMessage(messages.errorMessage)}
           </Alert>
         </div>
       )}
       <div
-        className={`mt8 ${
+        className={`${handles.productListWrapper} mt8 ${
           state !== 'results' ? 'flex items-center justify-center' : ''
         }`}
         style={{ minHeight: '450px' }}
@@ -102,7 +116,7 @@ const AddItemModal: FunctionComponent<Props> = ({
           <>
             {products?.map((product) =>
               product?.items.map((sku) => (
-                <div key={sku.skuId} className="mb8">
+                <div key={sku.skuId} className={`${handles.productItemWrapper} mb8`}>
                   <Item
                     id={sku.skuId}
                     name={sku.name}
@@ -120,9 +134,9 @@ const AddItemModal: FunctionComponent<Props> = ({
                 </div>
               ))
             )}
-            <div className="bg-base w-100 pa6 absolute bottom-0 right-0">
-              <div className="flex flex-row justify-end">
-                <div className="mr1">
+            <div className={`${handles.paginationWrapper} bg-base w-100 pa6 absolute bottom-0 right-0`}>
+              <div className={`${handles.paginationContent} flex flex-row justify-end`}>
+                <div className={`${handles.paginationPrev} mr1`}>
                   <ButtonWithIcon
                     icon={<IconCaretLeft size={11} />}
                     variation="secondary"
@@ -131,7 +145,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                     disabled={page === 1}
                   />
                 </div>
-                <div className="ml1">
+                <div className={`${handles.paginationNext} ml1`}>
                   <ButtonWithIcon
                     icon={<IconCaretRight size={11} />}
                     variation="secondary"

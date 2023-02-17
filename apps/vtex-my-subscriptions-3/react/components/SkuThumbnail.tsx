@@ -2,6 +2,12 @@ import React, { FunctionComponent } from 'react'
 
 import Image from './ProductImage'
 
+import { useCssHandles } from 'vtex.css-handles'
+
+const CSS_HANDLES = [
+  'productListItem',
+]
+
 const SkuThumbnail: FunctionComponent<Props> = ({
   imageUrl,
   name,
@@ -12,8 +18,11 @@ const SkuThumbnail: FunctionComponent<Props> = ({
   width = 64,
   height = 64,
 }) => {
+
+  const handles = useCssHandles(CSS_HANDLES)
+
   return (
-    <article className="flex">
+    <article className={`${handles.productListItem} flex`}>
       <Image
         imageUrl={imageUrl}
         productName={name}
