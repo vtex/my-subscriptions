@@ -25,7 +25,7 @@
   "subscription.data.orderAgain": "Pesan ulang:",
   "subscription.data.chargeEvery": "Ulangi:",
   "subscription.select": "Pilih",
-  "subscription.select.day": "Hari {day}",
+  "subscription.select.day": "Pada {day, selectordinal, one {#} two {#} few {#} other {#}} bulan tersebut",
   "subscription.edition.button.save": "Simpan",
   "subscription.edition.button.cancel": "Batalkan",
   "subscription.view.title": "Langganan dengan produk {value}",

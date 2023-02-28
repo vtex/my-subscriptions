@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "my-subscriptions",
-  "version": "3.13.1",
+  "version": "3.14.0",
   "title": "MySubscriptions",
   "defaultLocale": "pt-BR",
   "description": "MySubscriptions app used used inside of the MyAccounts",
@@ -28,7 +28,8 @@
     "vtex.totalizer-translator": "2.x",
     "vtex.subscriptions-commons": "1.x",
     "vtex.my-subscriptions-portal-connector": "0.x",
-    "vtex.splunk-monitoring": "1.x"
+    "vtex.splunk-monitoring": "1.x",
+    "vtex.css-handles": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

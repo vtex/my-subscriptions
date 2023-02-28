@@ -25,7 +25,7 @@
   "subscription.data.orderAgain": "Riordina:",
   "subscription.data.chargeEvery": "Ripetere:",
   "subscription.select": "Seleziona",
-  "subscription.select.day": "Giorno {day}",
+  "subscription.select.day": "Il giorno {day, selectordinal, one {#} two {#} few {#} other {#}} del mese",
   "subscription.edition.button.save": "Salvare",
   "subscription.edition.button.cancel": "Annullare",
   "subscription.view.title": "Sottoscrizione contenente {value} prodotti",

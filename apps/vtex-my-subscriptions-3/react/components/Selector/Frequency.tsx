@@ -2,6 +2,7 @@ import React, { FunctionComponent, FocusEvent, ReactNode } from 'react'
 import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 import { Frequency } from 'vtex.subscriptions-graphql'
+import { useCssHandles } from 'vtex.css-handles'
 
 import {
   getIntervalOptions,
@@ -16,6 +17,8 @@ const messages = defineMessages({
     id: 'subscription.data.chargeEvery',
   },
 })
+
+const CSS_HANDLES = ['purchaseDayContainer'] as const
 
 function contains(frequencies: Frequency[], currentFrequency: Frequency) {
   return frequencies.some((frequency) => {
@@ -40,7 +43,10 @@ const FrequencySelector: FunctionComponent<Props> = ({
   onBlurPurchaseDay,
   errorMessageFrequency,
   errorMessagePurchaseDay,
+  isNewSubscription = false,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
   const currentFrequency = selectedFrequency
     ? extractFrequency(selectedFrequency)
     : null
@@ -60,8 +66,8 @@ const FrequencySelector: FunctionComponent<Props> = ({
         })}
         value={hasFrequency ? selectedFrequency : null}
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-          onChangeFrequency(e.target.value)
           onChangePurchaseDay(null)
+          onChangeFrequency(e.target.value)
         }}
         onBlur={onBlurFrequency}
         errorMessage={errorMessageFrequency}
@@ -69,7 +75,11 @@ const FrequencySelector: FunctionComponent<Props> = ({
       {availableFrequencies.length !== 0 &&
         currentFrequency &&
         currentFrequency.periodicity !== 'DAILY' && (
-          <div className="pt6">
+          <div
+            className={`${handles.purchaseDayContainer}${
+              isNewSubscription ? '-new' : ''
+            } pt6`}
+          >
             <Dropdown
               name="purchaseDay"
               placeholder={intl.formatMessage(messages.select)}
@@ -101,6 +111,7 @@ type Props = {
   selectedPurchaseDay: string | null
   selectedFrequency: string | null
   availableFrequencies: Frequency[]
+  isNewSubscription?: boolean
 } & WrappedComponentProps
 
 export default injectIntl(FrequencySelector)
