@@ -70,17 +70,25 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           selectedFrequency={frequencyField.value}
           onChangeFrequency={(frequency) => {
             frequencyHelper.setValue(frequency)
-            frequency.split(',') &&
-              frequency.split(',')[1] === 'WEEKLY' &&
-              purchaseHelper.setValue(WEEK_OPTIONS[new Date().getDay() - 1])
-            frequency.split(',') &&
-              (frequency.split(',')[1] === 'MONTHLY' ||
-                frequency.split(',')[1] === 'YEARLY') &&
-              purchaseHelper.setValue(
-                nextPurchaseDateField.value.getDate() <= 28
-                  ? MONTH_OPTIONS[nextPurchaseDateField.value.getDate() - 1]
+
+            const frequencyType = frequency.split(',')?.[1]
+            switch (frequencyType) {
+              case 'DAILY':
+                purchaseHelper.setValue('Not_Applicable')
+                break
+              case 'WEEKLY':
+                const dayOfWeek = new Date().getDay() - 1;
+                purchaseHelper.setValue(WEEK_OPTIONS[dayOfWeek])
+                break
+              case 'MONTHLY':
+              case 'YEARLY':
+                const purchaseDate = nextPurchaseDateField.value.getDate()
+                const purchaseMonth = purchaseDate <= 28
+                  ? MONTH_OPTIONS[purchaseDate - 1]
                   : MONTH_OPTIONS[27]
-              )
+                purchaseHelper.setValue(purchaseMonth)
+                break
+            }
           }}
           onBlurFrequency={frequencyField.onBlur}
           onChangePurchaseDay={purchaseHelper.setValue}
@@ -128,9 +136,9 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
                 expirationDateField.value
                   ? null
                   : getFutureDate({
-                      date: nextPurchaseDateField.value,
-                      months: DEFAULT_EXPIRATION,
-                    })
+                    date: nextPurchaseDateField.value,
+                    months: DEFAULT_EXPIRATION,
+                  })
               )
             }
           />
