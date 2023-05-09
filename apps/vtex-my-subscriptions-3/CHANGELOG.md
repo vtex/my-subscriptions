@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Improve display of custom taxes in subscription `SummaryContent` component
+- Better handling for cases where a subscription may include SKUs that no longer exist (mostly relevant for QA accounts)
+
 ## [3.14.2] - 2023-05-11
 
 ### Fixed
@@ -210,6 +215,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [3.13.1]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1-beta...vtex.my-subscriptions@3.13.1
 [3.13.1-beta]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.0...vtex.my-subscriptions@3.13.1-beta
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.1...HEAD
-
-
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...HEAD
+[unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...HEAD
