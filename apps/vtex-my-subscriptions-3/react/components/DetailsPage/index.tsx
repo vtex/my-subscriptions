@@ -67,7 +67,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
   }
 
   public componentDidMount() {
-    goToElement({ id: DETAILS_ID, option: 'start' })
+    document.body.scrollIntoView(true)
   }
 
   private handleOpenHistory = () => this.setState({ displayHistory: true })

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix when selecting subscription details scroll behavior
+
 ## [3.14.1] - 2023-04-10
 
 ### Fixed
