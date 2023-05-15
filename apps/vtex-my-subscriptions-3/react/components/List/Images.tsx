@@ -12,7 +12,7 @@ interface Props {
   skus: Array<{
     imageUrl: string
     productName: string
-  }>
+  }> | null
 }
 
 const iconSize = 17
@@ -57,15 +57,15 @@ function getParams(imagesLength: number) {
 }
 
 const SubscriptionImages: FunctionComponent<Props> = ({ skus }) => {
-  const params = getParams(skus.length)
+  const params = getParams(skus?.length ?? 0)
   return (
     <div className={CSS.subscriptionImageWrapper}>
       <Swiper {...params}>
-        {skus.map((sku, i) => (
+        {skus?.map((sku, i) => (
           <div key={i} className="swiper-slide center-all pa6 w-100">
             <ProductImage
-              imageUrl={sku.imageUrl}
-              productName={sku.productName}
+              imageUrl={sku?.imageUrl}
+              productName={sku?.productName}
             />
           </div>
         ))}

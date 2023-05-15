@@ -22,15 +22,15 @@ const messages = defineMessages({
 export function getName(
   intl: InnerProps['intl'],
   name: string | null | undefined,
-  skus: Array<{ name: string }>
+  skus: Array<{ name: string }> | null
 ) {
   let content: string
   if (name) {
     content = name
-  } else if (skus.length === 1) {
+  } else if (skus?.length === 1 && skus[0]?.name) {
     content = skus[0].name
   } else {
-    content = intl.formatMessage(messages.title, { value: skus.length })
+    content = intl.formatMessage(messages.title, { value: skus?.length ?? 0 })
   }
 
   return content
