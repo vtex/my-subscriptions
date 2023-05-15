@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.0] - 2023-05-15
+
 ### Fixed
 
 - Improve display of custom taxes in subscription `SummaryContent` component
@@ -209,6 +211,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1...HEAD
 [3.12.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.1...vtex.my-subscriptions@3.12.0
+[3.15.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...vtex.my-subscriptions@3.15.0
 [3.14.2]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.1...vtex.my-subscriptions@3.14.2
 [3.14.1]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.0...vtex.my-subscriptions@3.14.1
 [3.14.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1...vtex.my-subscriptions@3.14.0
@@ -216,3 +219,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [3.13.1-beta]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.0...vtex.my-subscriptions@3.13.1-beta
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.1...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...HEAD
+
+
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.0...HEAD
