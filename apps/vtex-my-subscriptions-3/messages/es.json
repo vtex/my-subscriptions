@@ -110,7 +110,7 @@
   "display-payment.payment-error-message": "Tu método de pago no parece funcionar.",
   "summary.title": "Resumen",
   "summary.price-warning": "*Precios válidos hasta {day}",
-  "list-page.back": "Regreso",
+  "list-page.back": "Atrás",
   "list-page.create-subscriptions": "Suscripción nueva",
   "creation-page.title": "Suscripción nueva",
   "creation-page.back-button": "Todas las suscripciones",
