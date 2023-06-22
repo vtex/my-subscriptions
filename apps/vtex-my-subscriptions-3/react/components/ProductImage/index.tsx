@@ -19,7 +19,9 @@ class ProductImage extends PureComponent<Props> {
   }
 
   private handleStopLoading = () => {
-    setTimeout(() => this.setState({ isLoading: false }), 100)
+    setTimeout(() => {
+      this.setState({ isLoading: false })
+    }, 100)
   }
 
   private handleError = () => {
@@ -35,30 +37,28 @@ class ProductImage extends PureComponent<Props> {
     const displayPaceholder = isLoading || hasLoadError || !hasImage
     const displayImage = !hasLoadError && hasImage
 
+    // The events onLoad and onError not always are triggered
+    setTimeout(() => {
+      if(hasImage && isLoading) {
+        this.setState({ isLoading: false })
+      }
+    }, 100);
+
     return (
       <div
         className="flex items-center justify-center"
         style={isFixed ? { width, height } : { width: '100%', height: '100%' }}
       >
-        {displayPaceholder && <IconPlaceholder />}
         {displayImage && (
           <img
             className="w-100 h-100"
             src={fixImageUrl(imageUrl, width, height)}
             alt={productName}
-            style={{
-              // Fix blinking behavior
-              height: isLoading ? 0 : '100%',
-              transition: 'opacity 1s ease-in-out',
-              WebkitTransition: 'opacity 1s ease-in-out',
-              MozTransition: 'opacity 1s ease-in-out',
-              OTransition: 'opacity 1s ease-in-out',
-              opacity: isLoading ? 0 : 1,
-            }}
             onLoad={this.handleStopLoading}
             onError={this.handleError}
           />
         )}
+        {displayPaceholder && <IconPlaceholder />}
       </div>
     )
   }

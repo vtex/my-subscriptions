@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+Fix subscription product image not being displayed
+
 ## [3.15.1] - 2023-06-20
 
 ### Added
