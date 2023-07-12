@@ -14,46 +14,41 @@ class ProductImage extends PureComponent<Props> {
   }
 
   public state = {
-    isLoading: true,
-    hasLoadError: false,
+    displayPlaceholder: true,
   }
 
   private handleStopLoading = () => {
-    setTimeout(() => this.setState({ isLoading: false }), 100)
+    this.setState({ displayPlaceholder: false })
   }
 
   private handleError = () => {
-    this.handleStopLoading()
-    this.setState({ hasLoadError: true })
+    this.setState({ displayPlaceholder: true })
   }
 
   public render() {
     const { productName, imageUrl, width, height, isFixed } = this.props
-    const { isLoading, hasLoadError } = this.state
-
-    const hasImage = !!imageUrl
-    const displayPaceholder = isLoading || hasLoadError || !hasImage
-    const displayImage = !hasLoadError && hasImage
+    const { displayPlaceholder } = this.state
 
     return (
       <div
         className="flex items-center justify-center"
         style={isFixed ? { width, height } : { width: '100%', height: '100%' }}
       >
-        {displayPaceholder && <IconPlaceholder />}
-        {displayImage && (
+        {displayPlaceholder && <IconPlaceholder />}
+        {Boolean(imageUrl) && (
           <img
             className="w-100 h-100"
             src={fixImageUrl(imageUrl, width, height)}
             alt={productName}
             style={{
+              visibility: displayPlaceholder ? 'hidden' : 'visible',
               // Fix blinking behavior
-              height: isLoading ? 0 : '100%',
+              height: displayPlaceholder ? 0 : '100%',
               transition: 'opacity 1s ease-in-out',
               WebkitTransition: 'opacity 1s ease-in-out',
               MozTransition: 'opacity 1s ease-in-out',
               OTransition: 'opacity 1s ease-in-out',
-              opacity: isLoading ? 0 : 1,
+              opacity: displayPlaceholder ? 0 : 1,
             }}
             onLoad={this.handleStopLoading}
             onError={this.handleError}
