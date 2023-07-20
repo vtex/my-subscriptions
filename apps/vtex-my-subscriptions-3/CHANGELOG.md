@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added wrapper to Create button with className `vtex-my-subscriptions-new-button`
+
 ## [3.15.1] - 2023-06-20
 
 ### Added
@@ -230,6 +234,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [3.13.1-beta]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.0...vtex.my-subscriptions@3.13.1-beta
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.1...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...HEAD
-
-
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...HEAD
+[unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...HEAD

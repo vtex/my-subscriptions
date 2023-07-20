@@ -96,9 +96,11 @@ class SubscriptionsListContainer extends Component<
     const variables = { filter: resultFilter }
 
     const headerContent = (
-      <Button onClick={() => history.push('/subscriptions-new')}>
-        {intl.formatMessage(messages.createButton)}
-      </Button>
+      <div className="vtex-my-subscriptions-new-button">
+        <Button onClick={() => history.push('/subscriptions-new')}>
+          {intl.formatMessage(messages.createButton)}
+        </Button>
+      </div>
     )
 
     return (
@@ -158,14 +160,12 @@ class SubscriptionsListContainer extends Component<
 
               return (
                 <>
-                  {data.list.map((subscription) => (
+                  {data.list.map(subscription => (
                     <article
                       className={CSS.subscriptionItemWrapper}
                       key={subscription.id}
                     >
-                      <Images
-                        skus={subscription.items.map((item) => item.sku)}
-                      />
+                      <Images skus={subscription.items.map(item => item.sku)} />
                       <Summary
                         subscription={subscription}
                         onGoToDetails={this.handleGoToDetails}

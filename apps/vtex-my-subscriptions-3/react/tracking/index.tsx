@@ -5,11 +5,11 @@ import {
   types,
 } from 'vtex.splunk-monitoring'
 
-import { TOKEN } from './splunkSecrets'
+// import { TOKEN } from './splunkSecrets'
 
 // my-subscriptions index on splunk
 const monitoring = new main.SplunkMonitoring({
-  token: TOKEN,
+  token: null,
 })
 
 export function getRuntimeInfo(): types.RuntimeInfo {
