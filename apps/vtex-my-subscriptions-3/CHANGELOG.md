@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added wrapper to Create button with className `vtex-my-subscriptions-new-button`
+
 ## [3.15.1] - 2023-06-20
 
 ### Added
