@@ -9,7 +9,7 @@ import { goToNReturn } from './utils'
 
 function transformAddresses(addresses: Address[]) {
   return addresses.map((address) => ({
-    label: `${address.street}, ${address.number}`,
+    label: `${address.street} ${address.number ? `, ${address.number}` : '' }`,
     value: address.id,
   }))
 }

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove number in case it is `null`
+
 ## [3.15.2] - 2023-08-01
 
 ### Added
