@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.3] - 2023-08-08
+
 ### Fixed
 
 - Remove number in case it is `null`
@@ -235,6 +237,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1...HEAD
 [3.12.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.1...vtex.my-subscriptions@3.12.0
+[3.15.3]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.2...vtex.my-subscriptions@3.15.3
 [3.15.2]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...vtex.my-subscriptions@3.15.2
 [3.15.1]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.0...vtex.my-subscriptions@3.15.1
 [3.15.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...vtex.my-subscriptions@3.15.0
@@ -248,4 +251,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...HEAD
 
 
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.2...HEAD
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...HEAD
