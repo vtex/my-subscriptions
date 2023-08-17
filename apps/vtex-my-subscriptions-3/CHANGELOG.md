@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Animation properties removal
+
 ## [3.15.3] - 2023-08-08
 
 ### Fixed
@@ -249,6 +253,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.1...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...HEAD
-
-
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...HEAD
+[unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...HEAD
