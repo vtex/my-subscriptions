@@ -40,16 +40,6 @@ class ProductImage extends PureComponent<Props> {
             className="w-100 h-100"
             src={fixImageUrl(imageUrl, width, height)}
             alt={productName}
-            style={{
-              visibility: displayPlaceholder ? 'hidden' : 'visible',
-              // Fix blinking behavior
-              height: displayPlaceholder ? 0 : '100%',
-              transition: 'opacity 1s ease-in-out',
-              WebkitTransition: 'opacity 1s ease-in-out',
-              MozTransition: 'opacity 1s ease-in-out',
-              OTransition: 'opacity 1s ease-in-out',
-              opacity: displayPlaceholder ? 0 : 1,
-            }}
             onLoad={this.handleStopLoading}
             onError={this.handleError}
           />
