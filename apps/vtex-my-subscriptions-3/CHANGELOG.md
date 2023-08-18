@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Add `react-image`
+
 ## [3.15.4] - 2023-08-17
 
 ### Fixed
@@ -257,6 +259,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.14.2...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...HEAD
-
-
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.4...HEAD
+[unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.4...HEAD
