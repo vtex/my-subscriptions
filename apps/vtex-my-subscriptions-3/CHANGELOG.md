@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.5] - 2023-08-24
+
 ### Added
 
 - Added CSS class to filter dropdown
@@ -247,6 +249,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1...HEAD
 [3.12.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.1...vtex.my-subscriptions@3.12.0
+[3.15.5]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.4...vtex.my-subscriptions@3.15.5
 [3.15.4]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...vtex.my-subscriptions@3.15.4
 [3.15.3]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.2...vtex.my-subscriptions@3.15.3
 [3.15.2]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...vtex.my-subscriptions@3.15.2
@@ -263,4 +266,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...HEAD
 
 
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.4...HEAD
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.5...HEAD
