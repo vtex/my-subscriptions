@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added CSS class to filter dropdown
+
 ## [3.15.4] - 2023-08-17
 
 ### Fixed
