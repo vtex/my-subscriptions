@@ -175,24 +175,30 @@ class BatchModal extends Component<Props, State> {
     }
 
     promises?.then(() => {
-      const displayError = this.state.completed.length !== selectedIds.length
+      // timeout added due to state not update instantaneously
+      setTimeout(() => {
+        // filter only unique completed ids
+        const uniqueCompletedIds = this.state.completed.filter((completed, index) => this.state.completed.indexOf(completed) === index);
 
-      if (!displayError) {
-        showToast({ message: intl.formatMessage(messages.success) })
-        onClose()
-      } else {
-        this.setState((finalState) => {
-          finalState.completed.map((id) => delete finalState.selectionItems[id])
+        const displayError = uniqueCompletedIds.length !== selectedIds.length
 
-          return {
-            selectionItems: finalState.selectionItems,
-            loading: false,
-            // If some subscription isn't on the finalState
-            // it means that some error has ocurred
-            displayError,
-          }
-        })
-      }
+        if (!displayError) {
+          showToast({ message: intl.formatMessage(messages.success) })
+          onClose()
+        } else {
+          this.setState((finalState) => {
+            finalState.completed.map((id) => delete finalState.selectionItems[id])
+
+            return {
+              selectionItems: finalState.selectionItems,
+              loading: false,
+              // If some subscription isn't on the finalState
+              // it means that some error has ocurred
+              displayError,
+            }
+          })
+        }
+      }, 100)
     })
   }
 
