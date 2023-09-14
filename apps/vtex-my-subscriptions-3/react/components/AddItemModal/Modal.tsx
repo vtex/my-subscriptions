@@ -72,6 +72,7 @@ const AddItemModal: FunctionComponent<Props> = ({
   targetPlan,
 }) => {
   let state: State
+  console.log(`products`, products)
   if (loading) {
     state = 'loading'
   } else if (products && products?.length > 0) {
@@ -119,7 +120,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                 <div key={sku.skuId} className={`${handles.productItemWrapper} mb8`}>
                   <Item
                     id={sku.skuId}
-                    name={sku.name}
+                    name={product.productName === sku.name ? sku.name : `${product.productName} ${sku.name}`}
                     price={sku.price}
                     currency={currency}
                     imageUrl={sku.imageUrl}

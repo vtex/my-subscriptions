@@ -11,6 +11,7 @@ query SearchSubscribableProducts(
   ) @context(provider: "vtex.subscriptions-graphql") {
     list {
       ... on SearchProduct {
+        productName
         unitMultiplier
         measurementUnit
         brand
