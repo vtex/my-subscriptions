@@ -72,7 +72,6 @@ const AddItemModal: FunctionComponent<Props> = ({
   targetPlan,
 }) => {
   let state: State
-  console.log(`products`, products)
   if (loading) {
     state = 'loading'
   } else if (products && products?.length > 0) {
