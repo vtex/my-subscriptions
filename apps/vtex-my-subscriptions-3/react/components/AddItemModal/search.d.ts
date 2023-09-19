@@ -9,6 +9,7 @@ declare module '*/search.gql' {
     plans: string[]
   }
   export interface SearchProduct {
+    productName: string
     unitMultiplier: number
     measurementUnit: string
     brand: string

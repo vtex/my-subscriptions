@@ -119,7 +119,7 @@ const AddItemModal: FunctionComponent<Props> = ({
                 <div key={sku.skuId} className={`${handles.productItemWrapper} mb8`}>
                   <Item
                     id={sku.skuId}
-                    name={sku.name}
+                    name={product.productName === sku.name ? sku.name : `${product.productName}\n${sku.name}`}
                     price={sku.price}
                     currency={currency}
                     imageUrl={sku.imageUrl}
