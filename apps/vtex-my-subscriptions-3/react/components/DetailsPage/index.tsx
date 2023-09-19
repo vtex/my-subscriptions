@@ -5,6 +5,7 @@ import { graphql, MutationResult } from 'react-apollo'
 import { ApolloError } from 'apollo-client'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import pathUrl from '../../utils/pathUrl'
 
 import DETAILS_PAGE_QUERY, {
   Subscription,
@@ -158,7 +159,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     }
 
     return orderNow({ variables })
-      .then(() => (window.location.href = '/checkout/'))
+      .then(() => (window.location.href = `${pathUrl()}/checkout/`))
       .catch((error: ApolloError) => {
         logGraphQLError({
           error,
