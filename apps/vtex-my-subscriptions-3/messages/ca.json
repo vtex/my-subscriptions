@@ -32,7 +32,7 @@
   "subscription.notFound.title": "Encara no teniu cap subscripció",
   "subscription.notFound.text": "Afegiu els vostres productes preferits a la subscripció i trobeu-los sempre aquí",
   "subscription.list.display": "Visualització",
-  "subscription.list.display.active_filter": "Actives",
+  "subscription.list.display.active_filter": "Active",
   "subscription.list.display.canceled_filter": "Cancel·lades",
   "subscription.list.button.seeDetails": "Mostra'n els detalls",
   "subscription.list.button.reactivate": "Reactiva la subscripció",
