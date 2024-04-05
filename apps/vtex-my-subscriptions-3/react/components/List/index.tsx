@@ -130,7 +130,7 @@ class SubscriptionsListContainer extends Component<
           </Header>
         </div>
         <div className="pa5 pa7-ns">
-          <div className="w5 mb7">
+          <div className="subscription__filter-dropdown-wrapper w5 mb7">
             <Dropdown
               label={filterLabel}
               size="large"
