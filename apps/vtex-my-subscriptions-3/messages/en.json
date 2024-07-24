@@ -32,7 +32,7 @@
   "subscription.notFound.title": "You don't have subscriptions yet",
   "subscription.notFound.text": "Subscribe your favorite products and always find them here",
   "subscription.list.display": "Display",
-  "subscription.list.display.active_filter": "Actives",
+  "subscription.list.display.active_filter": "Active",
   "subscription.list.display.canceled_filter": "Canceled",
   "subscription.list.button.seeDetails": "View details",
   "subscription.list.button.reactivate": "Reactivate Subscription",
