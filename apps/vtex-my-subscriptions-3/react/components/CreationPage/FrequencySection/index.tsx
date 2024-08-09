@@ -61,6 +61,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   const { locale, formatMessage } = useIntl()
+  const localeDatePicker = locale.split('-')[0]
 
   return (
     <div className={`${handles.frequencyWrapper} flex flex-row-ns flex-column`}>
@@ -123,7 +124,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
                   : MONTH_OPTIONS[27]
               )
           }}
-          locale={locale}
+          locale={localeDatePicker}
         />
         <div className={`${handles.addExpirationDate} pt6`}>
           <Checkbox
@@ -153,7 +154,7 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
                 days: 1,
               })}
               onChange={expirationDateHelper.setValue}
-              locale={locale}
+              locale={localeDatePicker}
             />
           </div>
         )}
