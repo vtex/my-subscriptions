@@ -25,6 +25,7 @@
     "@apollo/react-testing": "3",
     "react-intl": "3",
     "recompose": "^0.30.0",
+    "@vtex/styleguide": "^9.91.4",
     "@types/recompose": "^0.30.3",
     "eslint": "^6.8.0",
     "eslint-config-vtex": "12.x",
