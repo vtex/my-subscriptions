@@ -3,7 +3,7 @@
     - name: node-ci-v2
       notifications:
         slack:
-          channel: admin-orders-frontend
+          channel: alerts-admin-orders-frontend
       parameters:
         packageManager: yarn
         sonarProjectName: my-subscriptions
