@@ -21,6 +21,8 @@
   "devDependencies": {
     "@vtex/intl-equalizer": "^2.4.2",
     "@vtex/prettier-config": "0.x",
+    "@vtex/test-tools": "^3.4.3",
+    "@apollo/react-testing": "3",
     "eslint": "^6.8.0",
     "eslint-config-vtex": "12.x",
     "eslint-config-vtex-react": "6.x",

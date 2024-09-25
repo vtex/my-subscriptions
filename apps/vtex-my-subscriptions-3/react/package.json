@@ -1,7 +1,7 @@
 {
   "scripts": {
     "lint": "tsc --noEmit && eslint --ext ts,tsx .",
-    "test": "vtex-test-tools test --passWithNoTests"
+    "test": "vtex-test-tools test"
   },
   "dependencies": {
     "formik": "^2.1.5",
