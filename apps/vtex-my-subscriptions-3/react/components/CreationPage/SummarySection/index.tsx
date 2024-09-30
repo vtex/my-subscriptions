@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import { FormattedMessage } from 'react-intl'
-import { connect, FormikContextType } from 'formik'
-import { Total } from 'vtex.subscriptions-graphql'
+import type { FormikContextType } from 'formik'
+import { connect } from 'formik'
+import type { Total } from 'vtex.subscriptions-graphql'
 
-import FREQUENCY_QUERY, {
-  Result,
-} from '../../../graphql/queries/availablePaymentAddresses.gql'
+import type { Result } from '../../../graphql/queries/availablePaymentAddresses.gql'
+import FREQUENCY_QUERY from '../../../graphql/queries/availablePaymentAddresses.gql'
 import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
-import { SubscriptionForm } from '..'
+import type { SubscriptionForm } from '..'
 import Box from '../../CustomBox'
 import Title from '../../CustomBox/Title'
 import Section from '../../CustomBox/Section'
@@ -28,8 +28,10 @@ class SummarySection extends Component<Props, State> {
     super(props)
 
     let isEditingAddress = false
+
     if (props.addresses.length > 0) {
       const [address] = props.addresses
+
       props.formik.setFieldValue('address', {
         id: address.id,
         type: address.addressType,
@@ -39,9 +41,10 @@ class SummarySection extends Component<Props, State> {
     }
 
     let isEditingPayment = false
+
     if (props.payments.length > 0) {
       const payment = props.payments.find(
-        (currentPayment) => currentPayment.paymentSystemGroup === 'creditCard'
+        currentPayment => currentPayment.paymentSystemGroup === 'creditCard'
       )
 
       if (payment?.paymentAccount) {
@@ -67,7 +70,7 @@ class SummarySection extends Component<Props, State> {
       formik: { values },
     } = this.props
 
-    return payments.find((payment) => {
+    return payments.find(payment => {
       if (payment.paymentSystemGroup === values.paymentSystem?.group) {
         if (
           payment.paymentSystemGroup === 'creditCard' &&
@@ -78,6 +81,7 @@ class SummarySection extends Component<Props, State> {
 
         return true
       }
+
       return false
     })
   }
@@ -85,7 +89,7 @@ class SummarySection extends Component<Props, State> {
   private getSelectedAddress = () => {
     const { formik, addresses } = this.props
 
-    return addresses.find((address) => address.id === formik.values.address?.id)
+    return addresses.find(address => address.id === formik.values.address?.id)
   }
 
   private handleEditAddress = () => this.setState({ isEditingAddress: true })
@@ -119,14 +123,14 @@ class SummarySection extends Component<Props, State> {
                 ) : (
                   <PaymentSelector
                     payments={payments}
-                    onChangePaymentAccount={(args) =>
+                    onChangePaymentAccount={args =>
                       formik.setFieldValue('paymentSystem', {
                         id: args.paymentSystemId,
                         paymentAccountId: args.paymentAccountId,
                         group: 'creditCard',
                       } as SubscriptionForm['paymentSystem'])
                     }
-                    onChangePaymentSystemGroup={(args) =>
+                    onChangePaymentSystemGroup={args =>
                       formik.setFieldValue('paymentSystem', {
                         id: args.paymentSystemId,
                         group: args.group,

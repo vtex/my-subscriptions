@@ -1,6 +1,6 @@
 declare module '*/listBy.gql' {
-  import { DocumentNode } from 'graphql'
-  import {
+  import type { DocumentNode } from 'graphql'
+  import type {
     GroupOption,
     Subscription as ThinS,
   } from 'vtex.subscriptions-graphql'

@@ -1,5 +1,5 @@
 declare module '*/updatePaymentMethod.gql' {
-  import { DocumentNode } from 'graphql'
+  import type { DocumentNode } from 'graphql'
   import { MutationUpdatePaymentMethodArgs as Args } from 'vtex.subscriptions-graphql'
 
   export { Args }

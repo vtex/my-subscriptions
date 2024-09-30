@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 
 import { CSS } from './utils'
@@ -58,6 +59,7 @@ function getParams(imagesLength: number) {
 
 const SubscriptionImages: FunctionComponent<Props> = ({ skus }) => {
   const params = getParams(skus?.length ?? 0)
+
   return (
     <div className={CSS.subscriptionImageWrapper}>
       <Swiper {...params}>

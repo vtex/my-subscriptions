@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { useField } from 'formik'
 import { FormattedMessage } from 'react-intl'
 
 import Label from '../LabeledInfo'
 import SubscriptionName from '../SubscriptionName'
-import { SubscriptionForm } from '.'
+import type { SubscriptionForm } from '.'
 
 const NameSection: FunctionComponent = () => {
   const [nameField, , { setValue }] = useField<SubscriptionForm['name']>('name')
@@ -16,8 +17,8 @@ const NameSection: FunctionComponent = () => {
         <SubscriptionName
           canEdit
           name={nameField.value}
-          skus={productsField.value.map((product) => ({ name: product.name }))}
-          onSubmit={(name) => setValue(name)}
+          skus={productsField.value.map(product => ({ name: product.name }))}
+          onSubmit={name => setValue(name)}
           // eslint-disable-next-line react/jsx-handler-names
           onBlur={nameField.onBlur}
           withIconBackground

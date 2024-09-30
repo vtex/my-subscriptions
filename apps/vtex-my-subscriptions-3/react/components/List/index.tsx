@@ -1,15 +1,17 @@
-import React, { Component, ErrorInfo } from 'react'
-import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
-import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import type { ErrorInfo } from 'react'
+import React, { Component } from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
 import { Query } from 'react-apollo'
 import { compose } from 'recompose'
 import { Dropdown, Button, PageHeader as Header } from 'vtex.styleguide'
 
-import QUERY, {
-  Result,
-  Subscription,
-} from '../../graphql/queries/subscriptions.gql'
-import { SubscriptionDisplayFilter, CSS, convertFilter } from './utils'
+import type { Result } from '../../graphql/queries/subscriptions.gql'
+import QUERY, { Subscription } from '../../graphql/queries/subscriptions.gql'
+import type { SubscriptionDisplayFilter } from './utils'
+import { CSS, convertFilter } from './utils'
 import { logError, logGraphQLError, getRuntimeInfo } from '../../tracking'
 import Loading from './LoadingState'
 import ErrorState from './ErrorState'
@@ -154,8 +156,10 @@ class SubscriptionsListContainer extends Component<
                   instance: INSTANCE,
                   runtimeInfo: getRuntimeInfo(),
                 })
+
                 return <ErrorState refetch={refetch} />
               }
+
               if (!data || isEmpty(data)) return <EmptyState />
 
               return (

@@ -1,31 +1,28 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
-import { graphql, MutationResult } from 'react-apollo'
-import {
-  WrappedComponentProps,
-  injectIntl,
-  defineMessages,
-  FormattedMessage,
-} from 'react-intl'
-import { ApolloError } from 'apollo-client'
-import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { MutationResult } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl'
+import type { ApolloError } from 'apollo-client'
+import type { ShowToastArgs } from 'vtex.styleguide'
+import { withToast } from 'vtex.styleguide'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { Item } from '../../../graphql/queries/detailsPage.gql'
-import REMOVE_MUTATION, {
-  Args as RemoveArgs,
-} from '../../../graphql/mutations/removeItem.gql'
-import UPDATE_MUTATION, {
-  Args as UpdateArgs,
-} from '../../../graphql/mutations/updateItems.gql'
-import ADD_ITEM_MUTATION, {
+import type { Item } from '../../../graphql/queries/detailsPage.gql'
+import type { Args as RemoveArgs } from '../../../graphql/mutations/removeItem.gql'
+import REMOVE_MUTATION from '../../../graphql/mutations/removeItem.gql'
+import type { Args as UpdateArgs } from '../../../graphql/mutations/updateItems.gql'
+import UPDATE_MUTATION from '../../../graphql/mutations/updateItems.gql'
+import type {
   Args as AddArgs,
   Result as AddResult,
 } from '../../../graphql/mutations/addItem.gql'
+import ADD_ITEM_MUTATION from '../../../graphql/mutations/addItem.gql'
 import ConfirmationModal from '../../ConfirmationModal'
 import Listing from './Listing'
 import { logGraphQLError, getRuntimeInfo } from '../../../tracking'
-import { OnAddItemArgs } from '../../AddItemModal'
+import type { OnAddItemArgs } from '../../AddItemModal'
 
 function mapItemsToHashMap(items: Item[]) {
   return items.reduce(
@@ -143,7 +140,7 @@ class ProductsContainer extends Component<Props, State> {
 
     const variables = {
       subscriptionId,
-      items: this.getProducts().map((item) => ({
+      items: this.getProducts().map(item => ({
         id: item.id,
         quantity: item.quantity,
       })),
@@ -170,11 +167,12 @@ class ProductsContainer extends Component<Props, State> {
   }
 
   private handleUpdateQuantity = (id: string, quantity: number) =>
-    this.setState((prevState) => {
+    this.setState(prevState => {
       const updatedProducts = {
         ...prevState.products,
         [id]: { ...(prevState.products as State['products'])[id], quantity },
       }
+
       return { products: updatedProducts }
     })
 
@@ -200,7 +198,7 @@ class ProductsContainer extends Component<Props, State> {
         if (!data) return
 
         const item = data.addItem.items.find(
-          (subsItem) => subsItem.sku.id === skuId
+          subsItem => subsItem.sku.id === skuId
         )
 
         if (!item) return

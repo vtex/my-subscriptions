@@ -1,14 +1,13 @@
-import React, { FunctionComponent } from 'react'
-import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { Button, ButtonPlain } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { subscribable, subscribed } from './utils'
 
-import { useCssHandles } from 'vtex.css-handles'
-
-const CSS_HANDLES = [
-  'productItemMessage',
-]
+const CSS_HANDLES = ['productItemMessage']
 
 const messages = defineMessages({
   frequencyNotAvailable: {

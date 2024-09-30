@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
@@ -7,7 +8,7 @@ import Name from '../SubscriptionName'
 import Status from './SubscriptionStatus'
 import UpdateStatusButton from '../UpdateStatusButton'
 import ItemDate from './ItemDate'
-import { Subscription } from '.'
+import type { Subscription } from '.'
 
 const SubscriptionSummary: FunctionComponent<Props> = ({
   subscription,
@@ -21,7 +22,7 @@ const SubscriptionSummary: FunctionComponent<Props> = ({
       <div className="w-50-ns flex flex-row flex-wrap">
         <div className="w-100">
           <Name
-            skus={subscription.items.map((item) => item.sku)}
+            skus={subscription.items.map(item => item.sku)}
             subscriptionId={subscription.id}
             canEdit={subscription.status === 'ACTIVE'}
             name={subscription.name}

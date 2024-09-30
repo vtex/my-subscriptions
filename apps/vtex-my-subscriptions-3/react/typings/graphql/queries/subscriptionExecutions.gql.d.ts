@@ -1,6 +1,6 @@
 declare module '*/subscriptionExecutions.gql' {
-  import { DocumentNode } from 'graphql'
-  import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
+  import type { DocumentNode } from 'graphql'
+  import type { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 
   interface SubscriptionExecution {
     id: string

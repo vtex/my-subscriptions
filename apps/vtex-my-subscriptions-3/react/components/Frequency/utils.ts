@@ -1,7 +1,8 @@
-import { WrappedComponentProps, defineMessages, IntlShape } from 'react-intl'
-import { Periodicity, Frequency } from 'vtex.subscriptions-graphql'
+import type { WrappedComponentProps, IntlShape } from 'react-intl'
+import { defineMessages } from 'react-intl'
+import type { Periodicity, Frequency } from 'vtex.subscriptions-graphql'
 import { translations } from 'vtex.subscriptions-commons'
-import { WeekDay } from 'vtex.subscriptions-commons/react/utils/frequency'
+import type { WeekDay } from 'vtex.subscriptions-commons/react/utils/frequency'
 
 const messages = defineMessages({
   selectDay: { id: 'subscription.select.day' },
@@ -37,6 +38,7 @@ export function displayFrequency({
     periodicity,
     interval
   )
+
   let frequencyText = periodicityText
   const purchaseDayText = translations.translatePurchaseDay(
     intl,
@@ -113,13 +115,13 @@ export function getIntervalOptions({
   intl: IntlShape
 }) {
   if (periodicity === 'WEEKLY') {
-    return WEEK_OPTIONS.map((weekDay) => ({
+    return WEEK_OPTIONS.map(weekDay => ({
       value: weekDay,
       label: displayWeekDay({ weekDay, intl }),
     }))
   }
 
-  return MONTH_OPTIONS.map((dayOfMonth) => ({
+  return MONTH_OPTIONS.map(dayOfMonth => ({
     value: dayOfMonth,
     label: intl.formatMessage(messages.selectDay, { day: dayOfMonth }),
   }))
@@ -132,7 +134,7 @@ export function getFrequencyOptions({
   intl: IntlShape
   frequencies: Frequency[] | undefined
 }) {
-  return frequencies.map((frequency) => ({
+  return frequencies.map(frequency => ({
     value: frequencyIndex(frequency),
     label: displayPeriodicity({ intl, ...frequency }),
   }))

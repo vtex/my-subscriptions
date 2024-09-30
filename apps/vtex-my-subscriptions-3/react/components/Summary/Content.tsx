@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedNumber, FormattedMessage } from 'react-intl'
-import { Total } from 'vtex.subscriptions-graphql'
+import type { Total } from 'vtex.subscriptions-graphql'
 import { TranslateTotalizer } from 'vtex.totalizer-translator'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -18,11 +19,12 @@ const CSS_HANDLES = [
 
 const SummaryContent: FunctionComponent<Props> = ({ totals, currencyCode }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const taxTotals = totals.filter((total) =>
+  const taxTotals = totals.filter(total =>
     total.id.toLowerCase().includes('tax')
   )
+
   const nonTaxTotals = totals.filter(
-    (total) => !total.id.toLowerCase().includes('tax')
+    total => !total.id.toLowerCase().includes('tax')
   )
 
   const totalTax = taxTotals?.reduce((price, total) => price + total.value, 0)
@@ -30,7 +32,7 @@ const SummaryContent: FunctionComponent<Props> = ({ totals, currencyCode }) => {
 
   return (
     <div className="t-body">
-      {nonTaxTotals?.map((total) => {
+      {nonTaxTotals?.map(total => {
         return (
           <div
             className={`mb4 flex justify-between ${handles.summaryRow} ${

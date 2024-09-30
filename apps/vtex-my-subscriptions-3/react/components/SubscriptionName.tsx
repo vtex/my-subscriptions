@@ -1,11 +1,14 @@
-import React, { Component, FocusEvent } from 'react'
+import type { FocusEvent } from 'react'
+import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
-import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
-import { ApolloError } from 'apollo-client'
+import type { ApolloError } from 'apollo-client'
 import { Input } from 'vtex.styleguide'
 
-import UPDATE_NAME, { Args } from '../graphql/mutations/updateName.gql'
+import type { Args } from '../graphql/mutations/updateName.gql'
+import UPDATE_NAME from '../graphql/mutations/updateName.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
@@ -25,6 +28,7 @@ export function getName(
   skus: Array<{ name: string }> | null
 ) {
   let content: string
+
   if (name) {
     content = name
   } else if (skus?.length === 1 && skus[0]?.name) {
@@ -82,6 +86,7 @@ class SubscriptionNameContainer extends Component<OuterProps & InnerProps> {
     } = this.props
 
     let content
+
     if (skus.length === 1) {
       content = (
         <span className="no-underline c-on-base ttc">

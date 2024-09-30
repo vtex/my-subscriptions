@@ -1,4 +1,4 @@
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 export type SubscriptionDisplayFilter = 'ACTIVE_FILTER' | 'CANCELED_FILTER'
 

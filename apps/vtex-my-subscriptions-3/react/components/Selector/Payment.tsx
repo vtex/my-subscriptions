@@ -1,10 +1,16 @@
-import React, { FunctionComponent, ReactNode } from 'react'
-import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
+import type { FunctionComponent, ReactNode } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import { Radio, Dropdown, Button } from 'vtex.styleguide'
 import { utils } from 'vtex.payment-flags'
-import { PaymentSystemGroup, PaymentMethod } from 'vtex.subscriptions-graphql'
-import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import type {
+  PaymentSystemGroup,
+  PaymentMethod,
+} from 'vtex.subscriptions-graphql'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
 
 import {
   groupPayments,
@@ -74,6 +80,7 @@ const PaymentSelector: FunctionComponent<Props> = ({
                   } else {
                     const selectedSystemId =
                       groupedPayments[group][0].paymentSystemId
+
                     onChangePaymentSystemGroup({
                       group: selectedGroup,
                       paymentSystemId: selectedSystemId,

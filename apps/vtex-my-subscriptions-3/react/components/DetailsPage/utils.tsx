@@ -1,6 +1,7 @@
 import React from 'react'
-import { IntlShape, defineMessages, MessageDescriptor } from 'react-intl'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { IntlShape, MessageDescriptor } from 'react-intl'
+import { defineMessages } from 'react-intl'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import { messages as statusMessages } from '../UpdateStatusButton'
 import { messages as modalMessages } from '../ConfirmationModal'
@@ -77,6 +78,7 @@ export function retrieveModalConfig({
   )
 
   const isUnskip = action === 'unskip'
+
   switch (action) {
     case 'cancel':
       onSubmit = () => updateStatus('CANCELED')
@@ -85,6 +87,7 @@ export function retrieveModalConfig({
         desc: statusMessages.cancelDescription,
       })
       break
+
     case 'pause':
       onSubmit = () => updateStatus('PAUSED')
       children = modalBody({
@@ -92,6 +95,7 @@ export function retrieveModalConfig({
         desc: statusMessages.pauseDescription,
       })
       break
+
     case 'restore':
       onSubmit = () => updateStatus('ACTIVE')
       children = modalBody({
@@ -99,6 +103,7 @@ export function retrieveModalConfig({
         desc: statusMessages.restoreDescription,
       })
       break
+
     case 'orderNow':
       displaySuccess = false
 
@@ -106,6 +111,7 @@ export function retrieveModalConfig({
       confirmationLabel = intl.formatMessage(messages.orderAgainConfirmation)
       children = modalBody({ desc: messages.orderAgainDescription })
       break
+
     default:
       onSubmit = updateSkip
       confirmationLabel = intl.formatMessage(

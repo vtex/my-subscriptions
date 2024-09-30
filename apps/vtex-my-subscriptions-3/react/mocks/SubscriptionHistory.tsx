@@ -1,6 +1,5 @@
-import HISTORY_QUERY, {
-  Args,
-} from '../graphql/queries/subscriptionExecutions.gql'
+import type { Args } from '../graphql/queries/subscriptionExecutions.gql'
+import HISTORY_QUERY from '../graphql/queries/subscriptionExecutions.gql'
 import { DEFAULT_SUBSCRIPTION_ID } from './subscriptionFactory'
 
 const variables: Args = {

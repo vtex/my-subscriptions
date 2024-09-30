@@ -1,4 +1,4 @@
-import { RenderContext } from 'vtex.render-runtime'
+import type { RenderContext } from 'vtex.render-runtime'
 
 declare global {
   interface Window {

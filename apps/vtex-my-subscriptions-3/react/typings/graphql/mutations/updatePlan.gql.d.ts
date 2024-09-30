@@ -1,5 +1,5 @@
 declare module '*/updatePlan.gql' {
-  import { DocumentNode } from 'graphql'
+  import type { DocumentNode } from 'graphql'
   import {
     Periodicity,
     MutationUpdatePlanArgs as Args,

@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import QUERY, {
+import type {
   Result,
   Args,
+} from '../../../graphql/queries/subscriptionExecutions.gql'
+import QUERY, {
   SubscriptionExecution,
 } from '../../../graphql/queries/subscriptionExecutions.gql'
 import HistoryItem from './HistoryItem'
@@ -25,6 +27,7 @@ class HistoryList extends Component<Props> {
     const { page: currentPage } = this.state
 
     const totalPages = Math.ceil(totalCount / perPage)
+
     return currentPage < totalPages ? currentPage + 1 : null
   }
 

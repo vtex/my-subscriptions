@@ -1,13 +1,14 @@
-import {
+import type {
   SubscriptionStatus,
   SubscriptionExecutionStatus,
   Plan,
 } from 'vtex.subscriptions-graphql'
 
-import { Subscription } from '../graphql/queries/detailsPage.gql'
+import type { Subscription } from '../graphql/queries/detailsPage.gql'
 
 function generateItems(itemsAmount: number): Subscription['items'] {
   const items = []
+
   for (let i = 0; i < itemsAmount; i++) {
     items.push({
       id: `0A19A86877B04D149D314D7453F538${i}C`,

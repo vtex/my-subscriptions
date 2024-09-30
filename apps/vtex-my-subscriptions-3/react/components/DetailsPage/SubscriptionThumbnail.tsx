@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react'
-import { injectIntl, WrappedComponentProps } from 'react-intl'
-import { Periodicity } from 'vtex.subscriptions-graphql'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl } from 'react-intl'
+import type { Periodicity } from 'vtex.subscriptions-graphql'
 
 import { getName } from '../SubscriptionName'
 import { displayFrequency } from '../Frequency/utils'

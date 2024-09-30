@@ -1,6 +1,6 @@
 declare module '*/addItem.gql' {
-  import { DocumentNode } from 'graphql'
-  import { SubscriptionItem } from 'vtex.subscriptions-graphql'
+  import type { DocumentNode } from 'graphql'
+  import type { SubscriptionItem } from 'vtex.subscriptions-graphql'
 
   export interface Args {
     subscriptionId: string

@@ -1,5 +1,5 @@
 import qs from 'query-string'
-import { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
 
 export type EditOptions = 'payment' | 'address'
 
@@ -8,7 +8,7 @@ type Location = RouteComponentProps['location']
 function removeElementsFromSearch(elements: string[], location: Location) {
   const parsed = qs.parse(location.search)
 
-  elements.forEach((elementName) => delete parsed[elementName])
+  elements.forEach(elementName => delete parsed[elementName])
 
   return qs.stringify(parsed)
 }

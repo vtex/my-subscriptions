@@ -1,13 +1,15 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Box } from 'vtex.styleguide'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import EditButton from '../../EditButton'
 import EditionButtons from '../EditionButtons'
 import ProductListItem from '../../ProductListItem'
-import { Item } from '../../../graphql/queries/detailsPage.gql'
-import AddItemModal, { OnAddItemArgs } from '../../AddItemModal'
+import type { Item } from '../../../graphql/queries/detailsPage.gql'
+import type { OnAddItemArgs } from '../../AddItemModal'
+import AddItemModal from '../../AddItemModal'
 
 const ProductsListing: FunctionComponent<Props> = ({
   status,
@@ -48,7 +50,7 @@ const ProductsListing: FunctionComponent<Props> = ({
         <AddItemModal
           targetPlan={currentPlan}
           currency={currency}
-          subscribedSkus={products.map((product) => product.sku.id)}
+          subscribedSkus={products.map(product => product.sku.id)}
           onAddItem={onAddItem}
         />
       </div>

@@ -1,6 +1,10 @@
 declare module '*/availablePreferences.gql' {
-  import { DocumentNode } from 'graphql'
-  import { PaymentMethod, Frequency, Address } from 'vtex.subscriptions-graphql'
+  import type { DocumentNode } from 'graphql'
+  import type {
+    PaymentMethod,
+    Frequency,
+    Address,
+  } from 'vtex.subscriptions-graphql'
 
   interface Args {
     subscriptionId: string

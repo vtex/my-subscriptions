@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Total } from 'vtex.subscriptions-graphql'
+import type { Total } from 'vtex.subscriptions-graphql'
 
 import Box from '../CustomBox'
 import Content from './Content'

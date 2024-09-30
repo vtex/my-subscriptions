@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { defineMessages, FormattedMessage, FormattedDate } from 'react-intl'
 import { Box, Button } from 'vtex.styleguide'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { Subscription } from '../../graphql/queries/detailsPage.gql'
-import { SubscriptionAction } from './utils'
+import type { Subscription } from '../../graphql/queries/detailsPage.gql'
+import type { SubscriptionAction } from './utils'
 
 defineMessages({
   restoreLabel: {
@@ -69,6 +69,7 @@ class ActionBarContainer extends Component<Props> {
     }
 
     let onClick
+
     if (
       action &&
       ['restore', 'unskip', 'changeAddress', 'changePayment'].includes(action)
@@ -80,12 +81,8 @@ class ActionBarContainer extends Component<Props> {
   }
 
   public render = () => {
-    const {
-      buttonVariation,
-      displayDanger,
-      onClick,
-      action,
-    } = this.getSuggestedAction()
+    const { buttonVariation, displayDanger, onClick, action } =
+      this.getSuggestedAction()
 
     if (action === null) return null
 

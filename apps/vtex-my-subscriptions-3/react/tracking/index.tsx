@@ -1,8 +1,8 @@
+import type { types } from 'vtex.splunk-monitoring'
 import {
   main,
   withMetric as metricHoc,
   withQueryWrapper as queryHoc,
-  types,
 } from 'vtex.splunk-monitoring'
 
 // import { TOKEN } from './splunkSecrets'

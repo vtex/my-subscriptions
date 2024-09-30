@@ -1,6 +1,6 @@
 declare module '*/frequencyOptions.gql' {
-  import { DocumentNode } from 'graphql'
-  import { Frequency } from 'vtex.subscriptions-graphql'
+  import type { DocumentNode } from 'graphql'
+  import type { Frequency } from 'vtex.subscriptions-graphql'
 
   export type Args = {
     planId: string

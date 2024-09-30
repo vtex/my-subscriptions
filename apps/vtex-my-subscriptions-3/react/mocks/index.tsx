@@ -1,15 +1,12 @@
-import DETAIL_QUERY, {
-  Args as DetailArgs,
-} from '../graphql/queries/detailsPage.gql'
-import LIST_BY_QUERY, {
-  Args as ListByArgs,
-} from '../graphql/queries/listBy.gql'
-import UPDATE_ADDRESS_MUTATION, {
-  Args as UpdateAddressArgs,
-} from '../graphql/mutations/updateAddress.gql'
+import type { Args as DetailArgs } from '../graphql/queries/detailsPage.gql'
+import DETAIL_QUERY from '../graphql/queries/detailsPage.gql'
+import type { Args as ListByArgs } from '../graphql/queries/listBy.gql'
+import LIST_BY_QUERY from '../graphql/queries/listBy.gql'
+import type { Args as UpdateAddressArgs } from '../graphql/mutations/updateAddress.gql'
+import UPDATE_ADDRESS_MUTATION from '../graphql/mutations/updateAddress.gql'
+import type { GenerationArgs } from './subscriptionFactory'
 import {
   DEFAULT_SUBSCRIPTION_ID,
-  GenerationArgs,
   generateSubscription,
 } from './subscriptionFactory'
 

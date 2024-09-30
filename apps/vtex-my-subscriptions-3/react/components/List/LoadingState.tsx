@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { SkeletonPiece } from 'vtex.my-account-commons'
 
 import { CSS } from './utils'
@@ -6,7 +7,7 @@ import { CSS } from './utils'
 const SubscriptionsLoading: FunctionComponent = () => {
   return (
     <div className="w-100">
-      {[0, 1].map((index) => (
+      {[0, 1].map(index => (
         <div className={CSS.subscriptionItemWrapper} key={index}>
           <div className={CSS.subscriptionImageWrapper}>
             <SkeletonPiece />

@@ -1,30 +1,30 @@
 import React, { Component } from 'react'
-import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
 import { compose } from 'recompose'
-import { ApolloError } from 'apollo-client'
-import {
+import type { ApolloError } from 'apollo-client'
+import type {
   SubscriptionExecutionStatus,
   PaymentSystemGroup,
   SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
-import { withToast, ShowToastArgs } from 'vtex.styleguide'
-import { RouteComponentProps, withRouter } from 'vtex.my-account-commons/Router'
+import type { ShowToastArgs } from 'vtex.styleguide'
+import { withToast } from 'vtex.styleguide'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
 
-import { Subscription } from '../../../graphql/queries/detailsPage.gql'
+import type { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Display from './DisplayData'
 import Edit from './Edit'
 import { getAddressArgs, getPaymentArgs, removeArgs } from './utils'
 import { extractFrequency, frequencyIndex } from '../../Frequency/utils'
-import UPDATE_FREQUENCY, {
-  Args as UpdateFrequencyArgs,
-} from '../../../graphql/mutations/updatePlan.gql'
-import UPDATE_PAYMENT, {
-  Args as UpdatePaymentArgs,
-} from '../../../graphql/mutations/updatePaymentMethod.gql'
-import UPDATE_ADDRESS, {
-  Args as UpdateAddressArgs,
-} from '../../../graphql/mutations/updateAddress.gql'
+import type { Args as UpdateFrequencyArgs } from '../../../graphql/mutations/updatePlan.gql'
+import UPDATE_FREQUENCY from '../../../graphql/mutations/updatePlan.gql'
+import type { Args as UpdatePaymentArgs } from '../../../graphql/mutations/updatePaymentMethod.gql'
+import UPDATE_PAYMENT from '../../../graphql/mutations/updatePaymentMethod.gql'
+import type { Args as UpdateAddressArgs } from '../../../graphql/mutations/updateAddress.gql'
+import UPDATE_ADDRESS from '../../../graphql/mutations/updateAddress.gql'
 import { logGraphQLError, getRuntimeInfo } from '../../../tracking'
 import BatchModal from '../BatchModal'
 
@@ -34,9 +34,11 @@ function updateType(
   if ((args as UpdateFrequencyArgs).periodicity) {
     return 'Frequency'
   }
+
   if ((args as UpdatePaymentArgs).paymentSystemId) {
     return 'Payment'
   }
+
   return 'Address'
 }
 
@@ -86,6 +88,7 @@ class PreferencesContainer extends Component<Props, State> {
     const address = addressArgs
       ? { selectedAddress: { id: addressArgs.id, type: addressArgs.type } }
       : null
+
     const payment = paymentArgs
       ? {
           selectedPaymentAccountId: paymentArgs.paymentAccountId,
@@ -198,6 +201,7 @@ class PreferencesContainer extends Component<Props, State> {
       currentAddressId,
       currentPaymentAccountId,
     } = this.props
+
     const {
       selectedAddress,
       selectedFrequency,
@@ -205,6 +209,7 @@ class PreferencesContainer extends Component<Props, State> {
       selectedPaymentSystemId,
       selectedPaymentAccountId,
     } = this.state
+
     const promises: Array<Promise<void>> = []
 
     if (selectedAddress && selectedAddress.id !== address?.id) {
@@ -228,6 +233,7 @@ class PreferencesContainer extends Component<Props, State> {
     }
 
     const currentFrequency = extractFrequency(selectedFrequency)
+
     if (
       plan.purchaseDay !== selectedPurchaseDay ||
       currentFrequency.interval !== plan.frequency.interval ||
@@ -285,14 +291,9 @@ class PreferencesContainer extends Component<Props, State> {
   }
 
   public render() {
-    const {
-      plan,
-      address,
-      payment,
-      subscriptionId,
-      status,
-      isEditMode,
-    } = this.props
+    const { plan, address, payment, subscriptionId, status, isEditMode } =
+      this.props
+
     const {
       isLoading,
       errorMessage,

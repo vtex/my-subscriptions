@@ -1,5 +1,5 @@
 declare module '*/search.gql' {
-  import { DocumentNode } from 'graphql'
+  import type { DocumentNode } from 'graphql'
 
   interface SearchItem {
     name: string

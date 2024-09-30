@@ -1,6 +1,7 @@
 // src: https://github.com/vtex-apps/product-list/blob/master/react/QuantitySelector.tsx
 
-import React, { FunctionComponent, useState } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { useState } from 'react'
 import { Dropdown, Input } from 'vtex.styleguide'
 
 import styles from './styles.css'
@@ -40,7 +41,7 @@ function range(max: number) {
 function getDropdownOptions(maxValue: number) {
   const limit = Math.min(9, maxValue)
   const options = [
-    ...range(limit).map((idx) => ({ value: idx, label: `${idx}` })),
+    ...range(limit).map(idx => ({ value: idx, label: `${idx}` })),
   ]
 
   if (maxValue >= 10) {
@@ -62,6 +63,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
   const [curSelector, setSelector] = useState<SelectorType>(
     value < 10 ? 'dropdown' : 'input'
   )
+
   const [activeInput, setActiveInput] = useState(false)
 
   const normalizedValue = normalizeValue(value, maxValue)
@@ -93,6 +95,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
     }
 
     const validatedValue = validateValue(curDisplayValue, maxValue)
+
     onChange(validatedValue)
   }
 
@@ -105,6 +108,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
     if (normalizedValue >= 10) {
       setSelector('input')
     }
+
     setDisplayValue(validateDisplayValue(`${normalizedValue}`, maxValue))
   }
 

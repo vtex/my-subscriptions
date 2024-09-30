@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react'
-import { defineMessages, injectIntl, WrappedComponentProps } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import { Alert } from 'vtex.styleguide'
 
 const messages = defineMessages({

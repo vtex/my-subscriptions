@@ -7,8 +7,8 @@ function makeCancelable(promise: Promise<unknown>) {
 
   const wrappedPromise = new Promise((resolve, reject) => {
     promise.then(
-      (val) => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
-      (error) => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
+      val => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
+      error => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
     )
   })
 
@@ -49,13 +49,8 @@ class ConfirmationModalContainer extends Component<Props> {
     this.innerPromise && this.innerPromise.cancel()
 
   private handleSubmit = () => {
-    const {
-      showToast,
-      successMessage,
-      onSubmit,
-      onCloseModal,
-      onError,
-    } = this.props
+    const { showToast, successMessage, onSubmit, onCloseModal, onError } =
+      this.props
 
     const promise = onSubmit()
 
@@ -70,7 +65,7 @@ class ConfirmationModalContainer extends Component<Props> {
               message: successMessage,
             })
         })
-        .catch((error) => {
+        .catch(error => {
           this.setState({ shouldDisplayError: true })
           onError?.(error)
         })

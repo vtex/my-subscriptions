@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react'
-import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
 import {
   Modal,
@@ -10,18 +12,18 @@ import {
   IconCaretLeft,
   IconCaretRight,
 } from 'vtex.styleguide'
-
 import { useCssHandles } from 'vtex.css-handles'
 
 import { withQueryWrapper, getRuntimeInfo } from '../../tracking'
-import SEARCH_QUERY, {
+import type {
   Args as SearchArgs,
   Result as SearchResult,
   SearchProduct,
 } from './search.gql'
+import SEARCH_QUERY from './search.gql'
 import Item from './SearchItem'
 import EmptyState from './EmptyState'
-import { AddItemArgs } from '.'
+import type { AddItemArgs } from '.'
 
 const messages = defineMessages({
   title: {
@@ -72,6 +74,7 @@ const AddItemModal: FunctionComponent<Props> = ({
   targetPlan,
 }) => {
   let state: State
+
   if (loading) {
     state = 'loading'
   } else if (products && products?.length > 0) {
@@ -114,9 +117,12 @@ const AddItemModal: FunctionComponent<Props> = ({
       >
         {state === 'results' ? (
           <>
-            {products?.map((product) =>
-              product?.items.map((sku) => (
-                <div key={sku.skuId} className={`${handles.productItemWrapper} mb8`}>
+            {products?.map(product =>
+              product?.items.map(sku => (
+                <div
+                  key={sku.skuId}
+                  className={`${handles.productItemWrapper} mb8`}
+                >
                   <Item
                     id={sku.skuId}
                     name={sku.name}
@@ -134,8 +140,12 @@ const AddItemModal: FunctionComponent<Props> = ({
                 </div>
               ))
             )}
-            <div className={`${handles.paginationWrapper} bg-base w-100 pa6 absolute bottom-0 right-0`}>
-              <div className={`${handles.paginationContent} flex flex-row justify-end`}>
+            <div
+              className={`${handles.paginationWrapper} bg-base w-100 pa6 absolute bottom-0 right-0`}
+            >
+              <div
+                className={`${handles.paginationContent} flex flex-row justify-end`}
+              >
                 <div className={`${handles.paginationPrev} mr1`}>
                   <ButtonWithIcon
                     icon={<IconCaretLeft size={11} />}
