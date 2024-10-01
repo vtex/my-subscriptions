@@ -249,7 +249,7 @@ type Props = RouteComponentProps &
     dataOrderForm: OrderFormResult
   }
 
-const enhance = compose<Props, {}>(
+const enhance = compose<Props, Record<string, unknown>>(
   withRouter,
   withRuntimeContext,
   graphql(CREATE_MUTATION, { name: 'createSubscription' }),

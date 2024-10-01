@@ -161,7 +161,7 @@ interface Props {
 
 interface InnerProps extends WrappedComponentProps {
   updateStatus: (args: { variables: Args }) => Promise<unknown>
-  showToast: (args: object) => void
+  showToast: (args: Record<string, unknown>) => void
 }
 
 const enhance = compose<Props & InnerProps, Props>(

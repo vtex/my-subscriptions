@@ -74,19 +74,24 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
             const frequencyType = frequency.split(',')?.[1]
 
             switch (frequencyType) {
-              case 'DAILY':
+              case 'DAILY': {
                 purchaseHelper.setValue('Not_Applicable')
                 break
+              }
 
-              case 'WEEKLY':
+              case 'WEEKLY': {
                 const dayOfWeek = new Date().getDay() - 1
 
                 purchaseHelper.setValue(WEEK_OPTIONS[dayOfWeek])
                 break
+              }
 
-              case 'MONTHLY':
+              case 'MONTHLY': {
+                // Caso não tenha lógica, não há necessidade de criar o bloco
+                break
+              }
 
-              case 'YEARLY':
+              case 'YEARLY': {
                 const purchaseDate = nextPurchaseDateField.value.getDate()
                 const purchaseMonth =
                   purchaseDate <= 28
@@ -95,6 +100,12 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
 
                 purchaseHelper.setValue(purchaseMonth)
                 break
+              }
+
+              default: {
+                purchaseHelper.setValue('Not_Applicable')
+                break
+              }
             }
           }}
           onBlurFrequency={frequencyField.onBlur}

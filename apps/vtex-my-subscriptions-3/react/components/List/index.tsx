@@ -188,7 +188,7 @@ class SubscriptionsListContainer extends Component<
 
 type Props = WrappedComponentProps & RouteComponentProps
 
-const enhance = compose<Props, {}>(injectIntl, withRouter)
+const enhance = compose<Props, Record<string, unknown>>(injectIntl, withRouter)
 
 export { Subscription }
 

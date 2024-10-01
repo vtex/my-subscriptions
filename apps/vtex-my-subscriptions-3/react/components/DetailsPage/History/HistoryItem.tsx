@@ -15,20 +15,24 @@ const HistoryItem: FunctionComponent<Props> = ({
 
   switch (status) {
     case 'SUCCESS':
+      break
 
     case 'SUCCESS_WITH_PARTIAL_ORDER':
       statusColor = 'c-success'
       break
 
     case 'SKIPED':
+      break
 
     case 'SUCCESS_WITH_NO_ORDER':
       statusColor = 'c-warning'
       break
 
     case 'FAILURE':
+      break
 
     case 'ORDER_ERROR':
+      break
 
     case 'PAYMENT_ERROR':
       statusColor = 'c-danger'

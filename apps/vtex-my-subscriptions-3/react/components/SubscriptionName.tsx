@@ -174,7 +174,7 @@ interface OuterProps {
 
 interface InnerProps extends WrappedComponentProps {
   updateName: (args: { variables: Args }) => Promise<unknown>
-  showToast: (args: object) => void
+  showToast: (args: Record<string, unknown>) => void
 }
 
 interface InputChangeEvent {

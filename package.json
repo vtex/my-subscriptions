@@ -23,6 +23,7 @@
     "@vtex/prettier-config": "0.x",
     "husky": "^4.2.0",
     "prettier": "^2.0.5",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "eslint-plugin-jsx-a11y": "^6.10.0"
   }
 }

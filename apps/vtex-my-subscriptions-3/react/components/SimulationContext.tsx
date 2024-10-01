@@ -47,6 +47,7 @@ class SimulationContainer extends Component<Props> {
 type InnerProps = {
   loading?: boolean
   simulation?: Result['simulation']
+  children: React.ReactNode
 }
 
 type OuterProps = {
@@ -72,6 +73,7 @@ export default withQueryWrapper<Props, Result, OuterProps, InnerProps>({
     props: ({ data }) => ({
       loading: data?.loading,
       simulation: data?.simulation,
+      children: undefined,
     }),
   },
 })(SimulationContainer)

@@ -7,7 +7,10 @@ import ProductImage from '../ProductImage'
 
 import './global.css'
 
-const Swiper = window.navigator ? require('react-id-swiper').default : null
+const Swiper =
+  typeof window !== 'undefined'
+    ? (await import('react-id-swiper')).default
+    : null
 
 interface Props {
   skus: Array<{

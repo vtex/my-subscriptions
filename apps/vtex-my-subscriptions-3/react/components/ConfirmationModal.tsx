@@ -136,7 +136,8 @@ interface Props {
   errorMessage: string
   successMessage?: string
   isModalOpen: boolean
-  showToast: (args: object) => void
+  showToast: (args: Record<string, unknown>) => void
+  children: React.ReactNode
 }
 
 export default withToast(ConfirmationModalContainer)

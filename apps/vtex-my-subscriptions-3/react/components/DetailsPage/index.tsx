@@ -293,7 +293,7 @@ interface ChildProps {
   orderFormId?: string
 }
 
-const enhance = compose<Props, {}>(
+const enhance = compose<Props, Record<string, unknown>>(
   injectIntl,
   withRouter,
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
