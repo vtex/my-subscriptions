@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import type { FunctionComponent } from 'react'
 import React from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
@@ -7,10 +9,7 @@ import ProductImage from '../ProductImage'
 
 import './global.css'
 
-const Swiper =
-  typeof window !== 'undefined'
-    ? (await import('react-id-swiper')).default
-    : null
+const Swiper = window.navigator ? require('react-id-swiper').default : null
 
 interface Props {
   skus: Array<{

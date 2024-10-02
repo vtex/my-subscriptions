@@ -6,6 +6,7 @@ export const main = {
   }),
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withQueryWrapper = (_: any, args: any) => {
   return graphql(args.document, args.operationOptions)
 }

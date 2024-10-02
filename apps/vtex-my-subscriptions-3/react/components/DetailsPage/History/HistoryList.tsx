@@ -42,12 +42,29 @@ class HistoryList extends Component<Props> {
       variables: {
         page: nextPage,
       },
-      updateQuery(prev: any, { fetchMoreResult }: any) {
+      updateQuery(
+        prev: {
+          executions: { list: SubscriptionExecution[]; totalCount: number }
+        },
+        {
+          fetchMoreResult,
+        }: {
+          fetchMoreResult?: {
+            executions: { list: SubscriptionExecution[]; totalCount: number }
+          }
+        }
+      ) {
+        console.info(`prev`, prev)
+        console.info(`fetchMoreResult`, fetchMoreResult)
+
+        if (!fetchMoreResult) return prev
+
         return {
           ...prev,
           executions: {
             ...prev.executions,
             list: [...prev.executions.list, ...fetchMoreResult.executions.list],
+            totalCount: fetchMoreResult.executions.totalCount,
           },
         }
       },
@@ -89,11 +106,26 @@ interface OuterProps {
   perPage: number
 }
 
+type FetchArgs = {
+  variables: {
+    page: number
+  }
+  updateQuery(
+    prev: { executions: { list: SubscriptionExecution[]; totalCount: number } },
+    fetchMoreResult: {
+      fetchMoreResult?: {
+        executions: { list: SubscriptionExecution[]; totalCount: number }
+      }
+    }
+  ): { executions: { list: SubscriptionExecution[]; totalCount: number } }
+}
+
 interface ChildProps {
   executions: SubscriptionExecution[]
   totalCount: number
   loading: boolean
-  fetchMore: (args: any) => any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fetchMore: (args: FetchArgs) => Promise<any>
 }
 
 type Props = OuterProps & ChildProps
@@ -123,7 +155,7 @@ const enhance = compose<Props, OuterProps>(
               executions: [],
               totalCount: 0,
               loading: true,
-              fetchMore: () => null,
+              fetchMore: () => Promise.resolve(null), // Ajuste aqui para retornar Promise
             },
     },
   }),

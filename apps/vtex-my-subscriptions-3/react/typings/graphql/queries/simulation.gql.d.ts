@@ -1,10 +1,7 @@
 declare module '*/simulation.gql' {
   import type { DocumentNode } from 'graphql'
   import type { SimulationResult } from 'vtex.subscriptions-graphql'
-  import {
-    Periodicity,
-    SubscriptionFormInput,
-  } from 'vtex.subscriptions-graphql'
+  import { SubscriptionFormInput } from 'vtex.subscriptions-graphql'
 
   export type Args = {
     subscription: SubscriptionFormInput

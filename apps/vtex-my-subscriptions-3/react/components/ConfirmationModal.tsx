@@ -45,8 +45,7 @@ class ConfirmationModalContainer extends Component<Props> {
     | undefined
     | { promise: Promise<unknown>; cancel: () => void }
 
-  public componentWillUnmount = () =>
-    this.innerPromise && this.innerPromise.cancel()
+  public componentWillUnmount = () => this.innerPromise?.cancel()
 
   private handleSubmit = () => {
     const { showToast, successMessage, onSubmit, onCloseModal, onError } =
@@ -76,7 +75,7 @@ class ConfirmationModalContainer extends Component<Props> {
   }
 
   private handleLoading = (value: boolean) => {
-    this.props.onLoading && this.props.onLoading(value)
+    this.props.onLoading?.(value)
 
     this.setState({ isLoading: value })
   }
@@ -130,7 +129,7 @@ interface Props {
   onSubmit: () => Promise<unknown> | undefined
   onCloseModal: () => void
   onLoading?: (loading: boolean) => void
-  onError?: (error: any) => void
+  onError?: (error: unknown) => void
   confirmationLabel: string
   cancelationLabel: string
   errorMessage: string

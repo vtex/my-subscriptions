@@ -1,3 +1,3 @@
-export function withRuntimeContext(children: any) {
+export function withRuntimeContext(children: React.ReactNode) {
   return children
 }

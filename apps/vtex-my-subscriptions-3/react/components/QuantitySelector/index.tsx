@@ -20,7 +20,7 @@ function validateValue(value: string, maxValue: number) {
     return 1
   }
 
-  return normalizeValue(parseInt(value, 10), maxValue)
+  return normalizeValue(parsedValue, maxValue)
 }
 
 function validateDisplayValue(value: string, maxValue: number) {
@@ -35,7 +35,7 @@ function validateDisplayValue(value: string, maxValue: number) {
 }
 
 function range(max: number) {
-  return Array.from({ length: max }, (_, i) => i + 1)
+  return Array.from({ length: max }, (_, i) => (i as number) + 1)
 }
 
 function getDropdownOptions(maxValue: number) {
@@ -70,7 +70,10 @@ const QuantitySelector: FunctionComponent<Props> = ({
 
   const [curDisplayValue, setDisplayValue] = useState(`${normalizedValue}`)
 
-  const handleDropdownChange = (newValue: string) => {
+  const handleDropdownChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newValue = event.target.value
     const validatedValue = validateValue(newValue, maxValue)
     const displayValue = validateDisplayValue(newValue, maxValue)
 
@@ -82,7 +85,8 @@ const QuantitySelector: FunctionComponent<Props> = ({
     onChange(validatedValue)
   }
 
-  const handleInputChange = (newValue: string) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value
     const displayValue = validateDisplayValue(newValue, maxValue)
 
     setDisplayValue(displayValue)
@@ -124,7 +128,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
             options={dropdownOptions}
             size="small"
             value={normalizedValue}
-            onChange={(event: any) => handleDropdownChange(event.target.value)}
+            onChange={handleDropdownChange}
             placeholder="1"
             disabled={disabled}
           />
@@ -135,7 +139,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
             testId={`quantity-dropdown-${id}`}
             options={dropdownOptions}
             value={normalizedValue}
-            onChange={(event: any) => handleDropdownChange(event.target.value)}
+            onChange={handleDropdownChange}
             placeholder="1"
             disabled={disabled}
           />
@@ -152,7 +156,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
           size="small"
           value={curDisplayValue}
           maxLength={MAX_INPUT_LENGTH}
-          onChange={(event: any) => handleInputChange(event.target.value)}
+          onChange={handleInputChange}
           onBlur={handleInputBlur}
           onFocus={handleInputFocus}
           placeholder=""
@@ -164,7 +168,7 @@ const QuantitySelector: FunctionComponent<Props> = ({
           id={`quantity-input-${id}`}
           value={curDisplayValue}
           maxLength={MAX_INPUT_LENGTH}
-          onChange={(event: any) => handleInputChange(event.target.value)}
+          onChange={handleInputChange}
           onBlur={handleInputBlur}
           onFocus={handleInputFocus}
           placeholder=""

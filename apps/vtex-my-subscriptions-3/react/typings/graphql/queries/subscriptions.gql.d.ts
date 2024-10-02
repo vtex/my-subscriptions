@@ -2,7 +2,6 @@ declare module '*/subscriptions.gql' {
   import type { DocumentNode } from 'graphql'
 
   import type { Subscription as Subs } from 'vtex.subscriptions-graphql'
-  import { SubscriptionStatus, Periodicity } from 'vtex.subscriptions-graphql'
 
   export type Subscription = Pick<
     Subs,
