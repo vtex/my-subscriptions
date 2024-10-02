@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { IconEdit } from 'vtex.styleguide'
 
 const EditButton: FunctionComponent<Props> = ({

@@ -1,14 +1,16 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { PageHeader as Header, ButtonWithIcon } from 'vtex.styleguide'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
-import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
 
 import Name from '../../SubscriptionName'
 import Menu from './Menu'
 import Status from './Status'
 import Icon from './IconHistory'
-import { SubscriptionAction } from '../utils'
+import type { SubscriptionAction } from '../utils'
 
 const PageHeader: FunctionComponent<Props> = ({
   name,

@@ -1,14 +1,17 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { Tag } from 'vtex.styleguide'
-import { SubscriptionStatus as StatusType } from 'vtex.subscriptions-graphql'
+import type { SubscriptionStatus as StatusType } from 'vtex.subscriptions-graphql'
 
 export function convertStatusInTagType(status: StatusType): string | null {
   switch (status) {
     case 'CANCELED':
       return 'error'
+
     case 'PAUSED':
       return 'warning'
+
     default:
       return null
   }

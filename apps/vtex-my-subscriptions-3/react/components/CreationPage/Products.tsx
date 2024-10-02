@@ -1,10 +1,14 @@
-import React, { FunctionComponent } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { FieldArray, ArrayHelpers, FieldArrayRenderProps } from 'formik'
+import type { ArrayHelpers, FieldArrayRenderProps } from 'formik'
+import { FieldArray } from 'formik'
 import { Box } from 'vtex.styleguide'
 
-import { Product } from '.'
-import AddItemModal, { OnAddItemArgs } from '../AddItemModal'
+import type { Product } from '.'
+import type { OnAddItemArgs } from '../AddItemModal'
+import AddItemModal from '../AddItemModal'
 import ProductListItem from '../ProductListItem'
 import { SimulationConsumer } from '../SimulationContext'
 
@@ -59,7 +63,7 @@ const Products: FunctionComponent<Props> = ({ currencyCode }) => (
               subscribedSkus={values.products.map(
                 (product: Product) => product.skuId
               )}
-              onAddItem={(args) =>
+              onAddItem={args =>
                 addItem({ addItemArgs: args, values, setFieldValue, push })
               }
             />

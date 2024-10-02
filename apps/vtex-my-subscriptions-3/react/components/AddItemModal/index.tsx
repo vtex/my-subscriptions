@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { ButtonWithIcon, IconPlus } from 'vtex.styleguide'
 
 import Modal from './Modal'
@@ -57,13 +58,8 @@ class AddItemContainer extends Component<Props> {
 
   public render() {
     const { intl, currency, targetPlan, subscribedSkus } = this.props
-    const {
-      isModalOpen,
-      searchInput,
-      searchTerm,
-      page,
-      displayError,
-    } = this.state
+    const { isModalOpen, searchInput, searchTerm, page, displayError } =
+      this.state
 
     return (
       <>

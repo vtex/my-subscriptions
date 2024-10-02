@@ -1,9 +1,11 @@
-import React, { FunctionComponent } from 'react'
-import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { ActionMenu } from 'vtex.styleguide'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import { SubscriptionAction } from '../utils'
+import type { SubscriptionAction } from '../utils'
 
 defineMessages({
   skipOption: {
@@ -55,7 +57,7 @@ const Menu: FunctionComponent<Props> = ({
 
   const options = retrieveMenuOptions(isSkipped, status, orderFormId)
 
-  const actionOptions = options.map((option) => ({
+  const actionOptions = options.map(option => ({
     label: intl.formatMessage({
       id: `subscription.manage.${option}`,
     }),

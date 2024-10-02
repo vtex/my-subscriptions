@@ -1,7 +1,9 @@
-import React, { FunctionComponent, FocusEvent, ReactNode } from 'react'
-import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
+import type { FunctionComponent, FocusEvent, ReactNode } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
-import { Frequency } from 'vtex.subscriptions-graphql'
+import type { Frequency } from 'vtex.subscriptions-graphql'
 import { useCssHandles } from 'vtex.css-handles'
 
 import {
@@ -21,7 +23,7 @@ const messages = defineMessages({
 const CSS_HANDLES = ['purchaseDayContainer'] as const
 
 function contains(frequencies: Frequency[], currentFrequency: Frequency) {
-  return frequencies.some((frequency) => {
+  return frequencies.some(frequency => {
     if (
       frequency.periodicity !== currentFrequency.periodicity ||
       frequency.interval !== currentFrequency.interval
@@ -50,6 +52,7 @@ const FrequencySelector: FunctionComponent<Props> = ({
   const currentFrequency = selectedFrequency
     ? extractFrequency(selectedFrequency)
     : null
+
   const hasFrequency = currentFrequency
     ? contains(availableFrequencies, currentFrequency)
     : false

@@ -1,6 +1,6 @@
 declare module '*/availablePaymentAddresses.gql' {
-  import { DocumentNode } from 'graphql'
-  import { PaymentMethod, Address } from 'vtex.subscriptions-graphql'
+  import type { DocumentNode } from 'graphql'
+  import type { PaymentMethod, Address } from 'vtex.subscriptions-graphql'
 
   interface Result {
     addresses: Address[]

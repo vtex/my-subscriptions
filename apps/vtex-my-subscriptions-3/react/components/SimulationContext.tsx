@@ -1,10 +1,8 @@
 import React, { Component, createContext } from 'react'
 
 import { withQueryWrapper, getRuntimeInfo } from '../tracking'
-import QUERY, {
-  SubscriptionForm,
-  Result,
-} from '../graphql/queries/simulation.gql'
+import type { Result } from '../graphql/queries/simulation.gql'
+import QUERY, { SubscriptionForm } from '../graphql/queries/simulation.gql'
 
 const { Consumer, Provider } = createContext<InjectedSimulationContextProps>({
   getPrice: () => null,
@@ -19,7 +17,7 @@ class SimulationContainer extends Component<Props> {
     if (!simulation) return null
 
     const skuTotal = simulation.totalsBySimulationItems.find(
-      (total) => total.id === skuId
+      total => total.id === skuId
     )
 
     return skuTotal?.unitPrice ? skuTotal.unitPrice / 100 : null
@@ -49,6 +47,7 @@ class SimulationContainer extends Component<Props> {
 type InnerProps = {
   loading?: boolean
   simulation?: Result['simulation']
+  children: React.ReactNode
 }
 
 type OuterProps = {
@@ -74,6 +73,7 @@ export default withQueryWrapper<Props, Result, OuterProps, InnerProps>({
     props: ({ data }) => ({
       loading: data?.loading,
       simulation: data?.simulation,
+      children: undefined,
     }),
   },
 })(SimulationContainer)

@@ -1,27 +1,23 @@
-import React, { Component, ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import React, { Component } from 'react'
 import { compose, branch, renderNothing } from 'recompose'
-import { injectIntl, WrappedComponentProps, defineMessages } from 'react-intl'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { graphql } from 'react-apollo'
-import { ApolloError } from 'apollo-client'
-import {
-  ModalDialog,
-  CheckboxGroup,
-  withToast,
-  ShowToastArgs,
-  Alert,
-} from 'vtex.styleguide'
+import type { ApolloError } from 'apollo-client'
+import type { ShowToastArgs } from 'vtex.styleguide'
+import { ModalDialog, CheckboxGroup, withToast, Alert } from 'vtex.styleguide'
 
-import QUERY, {
+import type {
   Args,
   Result,
   Subscription as TargetSubscripton,
 } from '../../graphql/queries/listBy.gql'
-import UPDATE_ADDRESS, {
-  Args as UpdateAddressArgs,
-} from '../../graphql/mutations/updateAddress.gql'
-import UPDATE_PAYMENT, {
-  Args as UpdatePaymentArgs,
-} from '../../graphql/mutations/updatePaymentMethod.gql'
+import QUERY from '../../graphql/queries/listBy.gql'
+import type { Args as UpdateAddressArgs } from '../../graphql/mutations/updateAddress.gql'
+import UPDATE_ADDRESS from '../../graphql/mutations/updateAddress.gql'
+import type { Args as UpdatePaymentArgs } from '../../graphql/mutations/updatePaymentMethod.gql'
+import UPDATE_PAYMENT from '../../graphql/mutations/updatePaymentMethod.gql'
 import {
   withQueryWrapper,
   logGraphQLError,
@@ -59,12 +55,13 @@ class BatchModal extends Component<Props, State> {
 
     const selectionItems: State['selectionItems'] = {}
 
-    props.targetSubscriptions.forEach((subs) => {
+    props.targetSubscriptions.forEach(subs => {
       // Remove the current subscription from the list, because it isnt indexed yet
       // with the new id.
       if (subs.id === props.currentSubscriptionId) return
 
-      const skus = subs.items.map((item) => item.sku)
+      const skus = subs.items.map(item => item.sku)
+
       selectionItems[subs.id] = {
         label: (
           <Thumbnail
@@ -127,11 +124,12 @@ class BatchModal extends Component<Props, State> {
       showToast,
       intl,
     } = this.props
+
     const { selectionItems } = this.state
 
     const selectedIds: string[] = []
 
-    Object.keys(selectionItems).forEach((key) => {
+    Object.keys(selectionItems).forEach(key => {
       if (selectionItems[key].checked) {
         selectedIds.push(key)
       }
@@ -140,9 +138,10 @@ class BatchModal extends Component<Props, State> {
     this.setState({ loading: true })
 
     let promises: Promise<unknown> | null = null
+
     if (option === 'ADDRESS' && isAddress(currentValues)) {
       promises = Promise.all(
-        selectedIds.map((id) => {
+        selectedIds.map(id => {
           const variables = {
             subscriptionId: id,
             addressId: currentValues.addressId,
@@ -158,7 +157,7 @@ class BatchModal extends Component<Props, State> {
       )
     } else if (isPayment(currentValues)) {
       promises = Promise.all(
-        selectedIds.map((id) => {
+        selectedIds.map(id => {
           const variables = {
             subscriptionId: id,
             paymentSystemId: currentValues.paymentSystemId,
@@ -181,8 +180,8 @@ class BatchModal extends Component<Props, State> {
         showToast({ message: intl.formatMessage(messages.success) })
         onClose()
       } else {
-        this.setState((finalState) => {
-          finalState.completed.map((id) => delete finalState.selectionItems[id])
+        this.setState(finalState => {
+          finalState.completed.map(id => delete finalState.selectionItems[id])
 
           return {
             selectionItems: finalState.selectionItems,

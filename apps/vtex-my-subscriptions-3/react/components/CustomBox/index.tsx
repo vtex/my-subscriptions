@@ -1,20 +1,22 @@
-import React, { FunctionComponent, ReactNode } from 'react'
+import type { FunctionComponent, ReactNode } from 'react'
+import React from 'react'
 import { Box } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import Title from './Title'
 
-const CSS_HANDLES = [
-  'summaryWrapper',
-]
+const CSS_HANDLES = ['summaryWrapper']
 
 const CustomBox: FunctionComponent<Props> = ({ children, title, footer }) => {
-
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <Box noPadding>
-      <div className={`${handles.summaryWrapper} ${title ? 'pt7' : ''} ${footer ? '' : 'pb7'}`}>
+      <div
+        className={`${handles.summaryWrapper} ${title ? 'pt7' : ''} ${
+          footer ? '' : 'pb7'
+        }`}
+      >
         {title && <Title>{title}</Title>}
         {children}
       </div>
@@ -26,6 +28,7 @@ const CustomBox: FunctionComponent<Props> = ({ children, title, footer }) => {
     </Box>
   )
 }
+
 type Props = {
   title?: string | ReactNode
   footer?: string | ReactNode

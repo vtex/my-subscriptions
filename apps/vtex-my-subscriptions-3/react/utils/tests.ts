@@ -1,3 +1,3 @@
 export function requestLoad() {
-  return new Promise((resolve) => setTimeout(resolve, 0))
+  return new Promise(resolve => setTimeout(resolve, 0))
 }

@@ -3,7 +3,7 @@ import memoize from 'memoize-one'
 const buildSet = memoize((values: string[]) => {
   const set = new Set<string>()
 
-  values.forEach((id) => set.add(id))
+  values.forEach(id => set.add(id))
 
   return set
 })

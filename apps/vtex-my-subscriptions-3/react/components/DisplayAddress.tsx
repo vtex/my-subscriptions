@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react'
-import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
-import { Address } from 'vtex.subscriptions-graphql'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
+import type { Address } from 'vtex.subscriptions-graphql'
 import { AddressRules, AddressSummary } from 'vtex.address-form'
 
 import Label from './LabeledInfo'

@@ -1,13 +1,12 @@
 declare module '*/detailsPage.gql' {
-  import { DocumentNode } from 'graphql'
-  import {
-    Sku,
+  import type { DocumentNode } from 'graphql'
+  import type {
     Subscription as Subs,
     SubscriptionExecution,
     PaymentMethod,
-    QuerySubscriptionArgs as Args,
     SubscriptionItem,
   } from 'vtex.subscriptions-graphql'
+  import { QuerySubscriptionArgs as Args } from 'vtex.subscriptions-graphql'
 
   type Item = Pick<SubscriptionItem, 'id' | 'currentPrice' | 'quantity' | 'sku'>
 

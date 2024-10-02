@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { graphql } from 'react-apollo'
-import {
-  WrappedComponentProps,
-  injectIntl,
-  defineMessages,
-  MessageDescriptor,
-} from 'react-intl'
+import type { WrappedComponentProps, MessageDescriptor } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { compose } from 'recompose'
-import { ApolloError } from 'apollo-client'
+import type { ApolloError } from 'apollo-client'
 import { Button } from 'vtex.styleguide'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import UPDATE_STATUS, { Args } from '../graphql/mutations/updateStatus.gql'
+import type { Args } from '../graphql/mutations/updateStatus.gql'
+import UPDATE_STATUS from '../graphql/mutations/updateStatus.gql'
 import ConfirmationModal, {
   messages as modalMessages,
 } from './ConfirmationModal'
@@ -44,9 +41,7 @@ export const messages = defineMessages({
   },
 })
 
-function retrieveMessagesByStatus(
-  status: SubscriptionStatus
-): {
+function retrieveMessagesByStatus(status: SubscriptionStatus): {
   titleMessage: MessageDescriptor
   bodyMessage: MessageDescriptor
   cancelationMessage: MessageDescriptor
@@ -54,15 +49,18 @@ function retrieveMessagesByStatus(
 } {
   let titleMessage: MessageDescriptor
   let bodyMessage: MessageDescriptor
+
   switch (status) {
     case 'PAUSED':
       titleMessage = messages.pauseTitle
       bodyMessage = messages.pauseDescription
       break
+
     case 'CANCELED':
       titleMessage = messages.cancelTitle
       bodyMessage = messages.cancelDescription
       break
+
     default:
       titleMessage = messages.restoreTitle
       bodyMessage = messages.restoreDescription
@@ -121,6 +119,7 @@ class SubscriptionUpdateStatusButtonContainer extends Component<
           subscriptionId,
           status: targetStatus,
         }
+
         return updateStatus({
           variables,
         }).catch((error: ApolloError) => {
@@ -162,7 +161,7 @@ interface Props {
 
 interface InnerProps extends WrappedComponentProps {
   updateStatus: (args: { variables: Args }) => Promise<unknown>
-  showToast: (args: object) => void
+  showToast: (args: Record<string, unknown>) => void
 }
 
 const enhance = compose<Props & InnerProps, Props>(

@@ -1,5 +1,5 @@
 declare module '*/updateIsSkipped.gql' {
-  import { DocumentNode } from 'graphql'
+  import type { DocumentNode } from 'graphql'
   import { MutationUpdateIsSkippedArgs as Args } from 'vtex.subscriptions-graphql'
 
   export { Args }

@@ -1,4 +1,5 @@
-import React, { FunctionComponent, ReactNode } from 'react'
+import type { FunctionComponent, ReactNode } from 'react'
+import React from 'react'
 
 const LabeledInfo: FunctionComponent<Props> = ({
   label,

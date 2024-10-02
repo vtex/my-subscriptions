@@ -1,7 +1,9 @@
-import React, { FunctionComponent } from 'react'
-import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { PaymentFlag, utils } from 'vtex.payment-flags'
-import {
+import type {
   PaymentMethod,
   SubscriptionExecutionStatus,
 } from 'vtex.subscriptions-graphql'

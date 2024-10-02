@@ -1,4 +1,5 @@
-import React, { FunctionComponent, Fragment } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { Fragment } from 'react'
 import { SkeletonPiece } from 'vtex.my-account-commons'
 
 const SummarySkeleton: FunctionComponent<Props> = ({ numberOfItems = 3 }) => (

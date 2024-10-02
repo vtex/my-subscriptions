@@ -1,5 +1,6 @@
-import { defineMessages, WrappedComponentProps } from 'react-intl'
-import { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
+import type { WrappedComponentProps } from 'react-intl'
+import { defineMessages } from 'react-intl'
+import type { SubscriptionExecutionStatus } from 'vtex.subscriptions-graphql'
 
 defineMessages({
   triggered: {

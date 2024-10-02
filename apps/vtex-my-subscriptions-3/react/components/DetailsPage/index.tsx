@@ -1,25 +1,27 @@
-import React, { Component, ErrorInfo } from 'react'
+import type { ErrorInfo } from 'react'
+import React, { Component } from 'react'
 import { compose, branch, renderComponent } from 'recompose'
-import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
-import { graphql, MutationResult } from 'react-apollo'
-import { ApolloError } from 'apollo-client'
-import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
-import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
+import type { MutationResult } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import type { ApolloError } from 'apollo-client'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
+import type { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
-import DETAILS_PAGE_QUERY, {
+import type {
   Subscription,
   Result,
   Args as QueryArgs,
 } from '../../graphql/queries/detailsPage.gql'
-import ORDER_NOW, {
-  Args as AddItemArgs,
-} from '../../graphql/mutations/orderNow.gql'
-import UPDATE_STATUS, {
-  Args as UpdateStatusArgs,
-} from '../../graphql/mutations/updateStatus.gql'
-import UPDATE_IS_SKIPPED, {
-  Args as UpdateIsSkippedArgs,
-} from '../../graphql/mutations/updateIsSkipped.gql'
+import DETAILS_PAGE_QUERY from '../../graphql/queries/detailsPage.gql'
+import type { Args as AddItemArgs } from '../../graphql/mutations/orderNow.gql'
+import ORDER_NOW from '../../graphql/mutations/orderNow.gql'
+import type { Args as UpdateStatusArgs } from '../../graphql/mutations/updateStatus.gql'
+import UPDATE_STATUS from '../../graphql/mutations/updateStatus.gql'
+import type { Args as UpdateIsSkippedArgs } from '../../graphql/mutations/updateIsSkipped.gql'
+import UPDATE_IS_SKIPPED from '../../graphql/mutations/updateIsSkipped.gql'
 import {
   logError,
   withQueryWrapper,
@@ -27,7 +29,8 @@ import {
   getRuntimeInfo,
 } from '../../tracking'
 import Header from './PageHeader'
-import { SubscriptionAction, retrieveModalConfig, goToElement } from './utils'
+import type { SubscriptionAction } from './utils'
+import { retrieveModalConfig, goToElement } from './utils'
 import ConfirmationModal from '../ConfirmationModal'
 import ActionBar from './ActionBar'
 import Products from './Products'
@@ -146,7 +149,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
     if (!subscription) return null
 
-    const items = subscription.items.map((item) => ({
+    const items = subscription.items.map(item => ({
       quantity: item.quantity,
       id: parseInt(item.sku.id, 10),
       seller: '1',
@@ -208,7 +211,7 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
           status={subscription.status}
           subscriptionId={subscription.id}
           orderFormId={orderFormId}
-          skus={subscription.items.map((item) => ({
+          skus={subscription.items.map(item => ({
             detailUrl: item.sku.detailUrl,
             name: item.sku.name,
           }))}
@@ -290,7 +293,7 @@ interface ChildProps {
   orderFormId?: string
 }
 
-const enhance = compose<Props, {}>(
+const enhance = compose<Props, Record<string, unknown>>(
   injectIntl,
   withRouter,
   graphql(UPDATE_STATUS, { name: 'updateStatus' }),
@@ -301,7 +304,7 @@ const enhance = compose<Props, {}>(
     document: DETAILS_PAGE_QUERY,
     getRuntimeInfo,
     operationOptions: {
-      options: (input) => ({
+      options: input => ({
         variables: {
           id: input.match.params.subscriptionId,
         },

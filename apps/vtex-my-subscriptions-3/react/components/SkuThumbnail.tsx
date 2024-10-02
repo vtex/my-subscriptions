@@ -1,12 +1,10 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import { useCssHandles } from 'vtex.css-handles'
 
 import Image from './ProductImage'
 
-import { useCssHandles } from 'vtex.css-handles'
-
-const CSS_HANDLES = [
-  'productListItem',
-]
+const CSS_HANDLES = ['productListItem']
 
 const SkuThumbnail: FunctionComponent<Props> = ({
   imageUrl,
@@ -18,7 +16,6 @@ const SkuThumbnail: FunctionComponent<Props> = ({
   width = 64,
   height = 64,
 }) => {
-
   const handles = useCssHandles(CSS_HANDLES)
 
   return (

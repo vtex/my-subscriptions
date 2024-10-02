@@ -1,16 +1,19 @@
-import React, { FunctionComponent } from 'react'
-import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { compose, branch, renderComponent } from 'recompose'
-import { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import type { Plan, PaymentSystemGroup } from 'vtex.subscriptions-graphql'
 import { Alert } from 'vtex.styleguide'
 
 import Box from '../../CustomBox'
 import Section from '../../CustomBox/Section'
 import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
-import QUERY, {
+import type {
   Result,
   Args,
 } from '../../../graphql/queries/availablePreferences.gql'
+import QUERY from '../../../graphql/queries/availablePreferences.gql'
 import FrequencySelector from '../../Selector/Frequency'
 import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'

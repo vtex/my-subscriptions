@@ -7,8 +7,8 @@ function makeCancelable(promise: Promise<unknown>) {
 
   const wrappedPromise = new Promise((resolve, reject) => {
     promise.then(
-      (val) => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
-      (error) => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
+      val => (hasCanceled ? reject({ isCanceled: true }) : resolve(val)),
+      error => (hasCanceled ? reject({ isCanceled: true }) : reject(error))
     )
   })
 
@@ -45,17 +45,11 @@ class ConfirmationModalContainer extends Component<Props> {
     | undefined
     | { promise: Promise<unknown>; cancel: () => void }
 
-  public componentWillUnmount = () =>
-    this.innerPromise && this.innerPromise.cancel()
+  public componentWillUnmount = () => this.innerPromise?.cancel()
 
   private handleSubmit = () => {
-    const {
-      showToast,
-      successMessage,
-      onSubmit,
-      onCloseModal,
-      onError,
-    } = this.props
+    const { showToast, successMessage, onSubmit, onCloseModal, onError } =
+      this.props
 
     const promise = onSubmit()
 
@@ -70,7 +64,7 @@ class ConfirmationModalContainer extends Component<Props> {
               message: successMessage,
             })
         })
-        .catch((error) => {
+        .catch(error => {
           this.setState({ shouldDisplayError: true })
           onError?.(error)
         })
@@ -81,7 +75,7 @@ class ConfirmationModalContainer extends Component<Props> {
   }
 
   private handleLoading = (value: boolean) => {
-    this.props.onLoading && this.props.onLoading(value)
+    this.props.onLoading?.(value)
 
     this.setState({ isLoading: value })
   }
@@ -135,13 +129,14 @@ interface Props {
   onSubmit: () => Promise<unknown> | undefined
   onCloseModal: () => void
   onLoading?: (loading: boolean) => void
-  onError?: (error: any) => void
+  onError?: (error: unknown) => void
   confirmationLabel: string
   cancelationLabel: string
   errorMessage: string
   successMessage?: string
   isModalOpen: boolean
-  showToast: (args: object) => void
+  showToast: (args: Record<string, unknown>) => void
+  children: React.ReactNode
 }
 
 export default withToast(ConfirmationModalContainer)

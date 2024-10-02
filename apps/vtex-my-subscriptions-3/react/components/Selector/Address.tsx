@@ -1,15 +1,18 @@
-import React, { FunctionComponent, ReactNode } from 'react'
+import type { FunctionComponent, ReactNode } from 'react'
+import React from 'react'
 import { compose } from 'recompose'
-import { injectIntl, defineMessages, WrappedComponentProps } from 'react-intl'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { Dropdown, Button } from 'vtex.styleguide'
-import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
-import { Address } from 'vtex.subscriptions-graphql'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
+import type { Address } from 'vtex.subscriptions-graphql'
 
 import { goToNReturn } from './utils'
 
 function transformAddresses(addresses: Address[]) {
-  return addresses.map((address) => ({
-    label: `${address.street} ${address.number ? `, ${address.number}` : '' }`,
+  return addresses.map(address => ({
+    label: `${address.street} ${address.number ? `, ${address.number}` : ''}`,
     value: address.id,
   }))
 }
@@ -39,7 +42,7 @@ const AddressSelector: FunctionComponent<Props> = ({
         value={selectedAddressId}
         error={selectedAddressId === null}
         onChange={(_: unknown, id: string) => {
-          const address = addresses.find((item) => item.id === id)
+          const address = addresses.find(item => item.id === id)
 
           if (!address) return
 

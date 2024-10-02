@@ -1,12 +1,13 @@
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Box } from 'vtex.styleguide'
-import {
+import type {
   SubscriptionExecutionStatus,
   SubscriptionStatus,
 } from 'vtex.subscriptions-graphql'
 
-import { Subscription } from '../../../graphql/queries/detailsPage.gql'
+import type { Subscription } from '../../../graphql/queries/detailsPage.gql'
 import Frequency from '../../Frequency/Info'
 import Payment from '../../DisplayPayment'
 import Address from '../../DisplayAddress'

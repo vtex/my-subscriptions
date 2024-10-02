@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react'
-import { defineMessages, injectIntl, WrappedComponentProps } from 'react-intl'
-import { SubscriptionStatus as Status } from 'vtex.subscriptions-graphql'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
+import type { SubscriptionStatus as Status } from 'vtex.subscriptions-graphql'
 
 import styles from './styles.css'
 
@@ -19,15 +21,18 @@ const messages = defineMessages({
 const SubscriptionStatus: FunctionComponent<Props> = ({ status, intl }) => {
   let color
   let content
+
   switch (status) {
     case 'ACTIVE':
       color = 'c-success'
       content = intl.formatMessage(messages.active)
       break
+
     case 'PAUSED':
       color = 'c-warning'
       content = intl.formatMessage(messages.paused)
       break
+
     default:
       color = 'c-danger'
       content = intl.formatMessage(messages.canceled)

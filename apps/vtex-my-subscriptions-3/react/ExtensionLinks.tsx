@@ -1,5 +1,6 @@
-import { FunctionComponent, ReactElement } from 'react'
-import { WrappedComponentProps, injectIntl, defineMessages } from 'react-intl'
+import type { FunctionComponent, ReactElement } from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 
 const messages = defineMessages({
   title: {

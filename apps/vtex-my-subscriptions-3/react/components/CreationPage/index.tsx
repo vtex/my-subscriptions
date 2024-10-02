@@ -1,32 +1,34 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { graphql, MutationResult } from 'react-apollo'
-import { ApolloError } from 'apollo-client'
+import type { MutationResult } from 'react-apollo'
+import { graphql } from 'react-apollo'
+import type { ApolloError } from 'apollo-client'
 import { compose } from 'recompose'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { PageHeader as Header, Button } from 'vtex.styleguide'
-import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
-import { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
-import { withRuntimeContext, InjectedRuntimeContext } from 'vtex.render-runtime'
-import ORDERFORM_QUERY, {
-  Result as OrderFormResult,
-} from '../../graphql/queries/orderForm.gql'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { withRouter } from 'vtex.my-account-commons/Router'
+import type { PaymentSystemGroup } from 'vtex.subscriptions-graphql'
+import type { InjectedRuntimeContext } from 'vtex.render-runtime'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
+import type { Result as OrderFormResult } from '../../graphql/queries/orderForm.gql'
+import ORDERFORM_QUERY from '../../graphql/queries/orderForm.gql'
 import Products from './Products'
 import Box from '../CustomBox'
 import Section from '../CustomBox/Section'
 import NameSection from './NameSection'
 import FrequencySection from './FrequencySection'
 import SummarySection from './SummarySection'
-import SimulationContext, {
-  SubscriptionForm as ValidForm,
-} from '../SimulationContext'
+import type { SubscriptionForm as ValidForm } from '../SimulationContext'
+import SimulationContext from '../SimulationContext'
 import { extractFrequency } from '../Frequency/utils'
-import CREATE_MUTATION, {
+import type {
   Args as CreationArgs,
   Result as CreationResult,
 } from '../../graphql/mutations/createSubscription.gql'
+import CREATE_MUTATION from '../../graphql/mutations/createSubscription.gql'
 import { logGraphQLError, getRuntimeInfo } from '../../tracking'
 import { TOMORROW } from './constants'
 
@@ -99,6 +101,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     }
 
     if (salesChannel) assembledForm.salesChannel = salesChannel
+
     return assembledForm
   }
 
@@ -110,6 +113,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
       },
       history,
     } = this.props
+
     const data = this.assembleForm(formikValues, salesChannel as string)
 
     if (!data) return
@@ -121,7 +125,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
     }
 
     createSubscription({ variables })
-      .then((result) => {
+      .then(result => {
         return history.push(
           `/subscriptions/${result.data?.createSubscription.id}`
         )
@@ -158,7 +162,7 @@ class SubscriptionCreationContainer extends Component<Props, State> {
           onSubmit={this.handleSave}
           validationSchema={VALIDATION_SCHEMA}
         >
-          {(formik) => (
+          {formik => (
             <Form>
               <SimulationContext
                 subscription={this.assembleForm(formik.values)}
@@ -245,7 +249,7 @@ type Props = RouteComponentProps &
     dataOrderForm: OrderFormResult
   }
 
-const enhance = compose<Props, {}>(
+const enhance = compose<Props, Record<string, unknown>>(
   withRouter,
   withRuntimeContext,
   graphql(CREATE_MUTATION, { name: 'createSubscription' }),

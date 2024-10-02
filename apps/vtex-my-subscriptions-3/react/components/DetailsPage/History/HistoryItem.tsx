@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react'
-import { injectIntl, WrappedComponentProps } from 'react-intl'
+import type { FunctionComponent } from 'react'
+import React from 'react'
+import type { WrappedComponentProps } from 'react-intl'
+import { injectIntl } from 'react-intl'
 
 import style from './style.css'
-import { SubscriptionExecution } from './HistoryList'
+import type { SubscriptionExecution } from './HistoryList'
 import { displayOrderStatus } from './utils'
 
 const HistoryItem: FunctionComponent<Props> = ({
@@ -13,18 +15,29 @@ const HistoryItem: FunctionComponent<Props> = ({
 
   switch (status) {
     case 'SUCCESS':
+      break
+
     case 'SUCCESS_WITH_PARTIAL_ORDER':
       statusColor = 'c-success'
       break
+
     case 'SKIPED':
+      break
+
     case 'SUCCESS_WITH_NO_ORDER':
       statusColor = 'c-warning'
       break
+
     case 'FAILURE':
+      break
+
     case 'ORDER_ERROR':
+      break
+
     case 'PAYMENT_ERROR':
       statusColor = 'c-danger'
       break
+
     default:
       statusColor = 'c-muted-3'
       break

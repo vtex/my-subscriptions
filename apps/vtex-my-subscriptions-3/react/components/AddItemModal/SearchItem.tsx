@@ -1,17 +1,15 @@
-import React, { FunctionComponent, useState } from 'react'
+import type { FunctionComponent } from 'react'
+import React, { useState } from 'react'
 import { FormattedNumber, FormattedMessage } from 'react-intl'
+import { useCssHandles } from 'vtex.css-handles'
 
 import Thumbnail from '../SkuThumbnail'
-import { AddItemArgs } from '.'
+import type { AddItemArgs } from '.'
 import Button from './SubscribeButton'
 import { subscribed, subscribable } from './SubscribeButton/utils'
 import QuantitySelector from '../QuantitySelector'
 
-import { useCssHandles } from 'vtex.css-handles'
-
-const CSS_HANDLES = [
-  'productItemPrice',
-]
+const CSS_HANDLES = ['productItemPrice']
 
 const SearchItem: FunctionComponent<Props> = ({
   imageUrl,

@@ -1,6 +1,6 @@
-import { IntlShape } from 'react-intl'
-import { RouteComponentProps } from 'vtex.my-account-commons/Router'
-import { PaymentMethod } from 'vtex.subscriptions-graphql'
+import type { IntlShape } from 'react-intl'
+import type { RouteComponentProps } from 'vtex.my-account-commons/Router'
+import type { PaymentMethod } from 'vtex.subscriptions-graphql'
 import { utils } from 'vtex.payment-flags'
 
 export function goToNReturn({
@@ -31,6 +31,7 @@ export function groupPayments(payments: PaymentMethod[]): GroupedPayments {
         ],
       }
     }
+
     return {
       ...prev,
       [current.paymentSystemGroup]: [current],
@@ -59,7 +60,7 @@ export function getCreditCard(
   accountId: string,
   cards: PaymentMethod[]
 ): PaymentMethod {
-  return cards.find((card) => {
+  return cards.find(card => {
     const id = card.paymentAccount ? card.paymentAccount.id : null
 
     return id === accountId

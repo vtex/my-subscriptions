@@ -1,17 +1,19 @@
 /* eslint-disable react/jsx-handler-names */
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import React from 'react'
 import { compose, branch, renderComponent } from 'recompose'
 import { useIntl, defineMessages } from 'react-intl'
 import { useField } from 'formik'
 import { DatePicker, Checkbox } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
-import FREQUENCY_QUERY, {
+import type {
   Args,
   Result,
 } from '../../../graphql/queries/frequencyOptions.gql'
+import FREQUENCY_QUERY from '../../../graphql/queries/frequencyOptions.gql'
 import { withQueryWrapper, getRuntimeInfo } from '../../../tracking'
-import { SubscriptionForm } from '..'
+import type { SubscriptionForm } from '..'
 import Skeleton from './Skeleton'
 import FrequencySelector from '../../Selector/Frequency'
 import { getFutureDate } from '../utils'
@@ -44,19 +46,17 @@ const messages = defineMessages({
 const DEFAULT_EXPIRATION = 6
 
 const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
-  const [frequencyField, frequencyMeta, frequencyHelper] = useField<
-    SubscriptionForm['frequency']
-  >('frequency')
-  const [purchaseDayField, purchaseMeta, purchaseHelper] = useField<
-    SubscriptionForm['purchaseDay']
-  >('purchaseDay')
+  const [frequencyField, frequencyMeta, frequencyHelper] =
+    useField<SubscriptionForm['frequency']>('frequency')
 
-  const [nextPurchaseDateField, , nextPurchaseDateHelper] = useField<
-    SubscriptionForm['nextPurchaseDate']
-  >('nextPurchaseDate')
-  const [expirationDateField, , expirationDateHelper] = useField<
-    SubscriptionForm['expirationDate']
-  >('expirationDate')
+  const [purchaseDayField, purchaseMeta, purchaseHelper] =
+    useField<SubscriptionForm['purchaseDay']>('purchaseDay')
+
+  const [nextPurchaseDateField, , nextPurchaseDateHelper] =
+    useField<SubscriptionForm['nextPurchaseDate']>('nextPurchaseDate')
+
+  const [expirationDateField, , expirationDateHelper] =
+    useField<SubscriptionForm['expirationDate']>('expirationDate')
 
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -68,26 +68,44 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
         <FrequencySelector
           availableFrequencies={frequencies}
           selectedFrequency={frequencyField.value}
-          onChangeFrequency={(frequency) => {
+          onChangeFrequency={frequency => {
             frequencyHelper.setValue(frequency)
 
             const frequencyType = frequency.split(',')?.[1]
+
             switch (frequencyType) {
-              case 'DAILY':
+              case 'DAILY': {
                 purchaseHelper.setValue('Not_Applicable')
                 break
-              case 'WEEKLY':
-                const dayOfWeek = new Date().getDay() - 1;
+              }
+
+              case 'WEEKLY': {
+                const dayOfWeek = new Date().getDay() - 1
+
                 purchaseHelper.setValue(WEEK_OPTIONS[dayOfWeek])
                 break
-              case 'MONTHLY':
-              case 'YEARLY':
+              }
+
+              case 'MONTHLY': {
+                // Caso não tenha lógica, não há necessidade de criar o bloco
+                break
+              }
+
+              case 'YEARLY': {
                 const purchaseDate = nextPurchaseDateField.value.getDate()
-                const purchaseMonth = purchaseDate <= 28
-                  ? MONTH_OPTIONS[purchaseDate - 1]
-                  : MONTH_OPTIONS[27]
+                const purchaseMonth =
+                  purchaseDate <= 28
+                    ? MONTH_OPTIONS[purchaseDate - 1]
+                    : MONTH_OPTIONS[27]
+
                 purchaseHelper.setValue(purchaseMonth)
                 break
+              }
+
+              default: {
+                purchaseHelper.setValue('Not_Applicable')
+                break
+              }
             }
           }}
           onBlurFrequency={frequencyField.onBlur}
@@ -107,7 +125,9 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
           isNewSubscription
         />
       </div>
-      <div className={`${handles.calendarNextPurchase} w-50-ns w-100 pl6-ns pl0 pt0-ns pt6`}>
+      <div
+        className={`${handles.calendarNextPurchase} w-50-ns w-100 pl6-ns pl0 pt0-ns pt6`}
+      >
         <DatePicker
           label={formatMessage(messages.nextPurchase)}
           value={nextPurchaseDateField.value}
@@ -136,9 +156,9 @@ const FrequencySection: FunctionComponent<Props> = ({ frequencies }) => {
                 expirationDateField.value
                   ? null
                   : getFutureDate({
-                    date: nextPurchaseDateField.value,
-                    months: DEFAULT_EXPIRATION,
-                  })
+                      date: nextPurchaseDateField.value,
+                      months: DEFAULT_EXPIRATION,
+                    })
               )
             }
           />
