@@ -1,0 +1,19 @@
+- build:
+    pipelines:
+    - name: node-ci-v2
+      notifications:
+        slack:
+          channel: alerts-admin-orders-frontend
+      parameters:
+        packageManager: yarn
+        sonarProjectName: my-subscriptions
+        nodeCommands:
+            - test
+      runtime:
+        architecture: amd64
+      when:
+      - event: push
+        source: branch
+    provider: dkcicd
+  description: My Subscriptions
+  name: my-subscriptions
