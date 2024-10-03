@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.7] - 2024-10-03
+
 ## [3.15.6] - 2024-10-03
 
 
@@ -255,6 +257,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.13.1...HEAD
 [3.12.0]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.11.1...vtex.my-subscriptions@3.12.0
+[3.15.7]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.6...vtex.my-subscriptions@3.15.7
 [3.15.6]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.5...vtex.my-subscriptions@3.15.6
 [3.15.5]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.4...vtex.my-subscriptions@3.15.5
 [3.15.4]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...vtex.my-subscriptions@3.15.4
@@ -272,4 +275,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.1...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.3...HEAD
 [unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.4...HEAD
-[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.6...HEAD
+[Unreleased]: https://github.com/vtex/my-subscriptions/compare/vtex.my-subscriptions@3.15.7...HEAD
