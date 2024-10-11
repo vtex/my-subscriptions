@@ -43,19 +43,9 @@ class HistoryList extends Component<Props> {
         page: nextPage,
       },
       updateQuery(
-        prev: {
-          executions: { list: SubscriptionExecution[]; totalCount: number }
-        },
-        {
-          fetchMoreResult,
-        }: {
-          fetchMoreResult?: {
-            executions: { list: SubscriptionExecution[]; totalCount: number }
-          }
-        }
+        prev: FetchArgs['updateQuery']['prev']
+        fetchMoreResult?: FetchArgs['updateQuery']['fetchMoreResult']
       ) {
-        console.info(`prev`, prev)
-        console.info(`fetchMoreResult`, fetchMoreResult)
 
         if (!fetchMoreResult) return prev
 
