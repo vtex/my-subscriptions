@@ -14,6 +14,19 @@
       when:
       - event: push
         source: branch
+    - name: techdocs-v1
+      parameters:
+        entityReference: default/component/my-subscriptions
+      when:
+      - event: push
+        source: branch
+        regex: master
+        path:
+        - "docs/**"
+        - ".vtex/deployment.yaml"
+        - ".vtex/deployment.json"
+        - "README.md"
     provider: dkcicd
   description: My Subscriptions
   name: my-subscriptions
+  referenceId: CVB632FW
