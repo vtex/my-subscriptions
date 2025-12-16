@@ -33,7 +33,7 @@ const SkuThumbnail: FunctionComponent<Props> = ({
       <div className="w-100 flex flex-column flex-row-ns justify-between pl4">
         <div className="w-40-ns w-100 mb0-ns mb2 pr4">
           <div className="c-muted-1 fw5 ttu f7 mb2">{brandName}</div>
-          <div className="mb4 fw5">{name}</div>
+          <div className="mb4 fw5">{name.split('\n').map( (it, i) => <div key={'x'+i}>{it}</div> )}</div>
           <div className="t-small c-muted-1">
             {`${unitMultiplier} ${measurementUnit}`}
           </div>

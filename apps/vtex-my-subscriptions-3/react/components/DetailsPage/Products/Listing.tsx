@@ -60,7 +60,7 @@ const ProductsListing: FunctionComponent<Props> = ({
       >
         <ProductListItem
           isEditing={isEditing}
-          name={product.sku.productName}
+          name={product.sku.productName === product.sku.name ? product.sku.name : `${product.sku.productName}\n${product.sku.name}`}
           quantity={product.quantity}
           imageUrl={product.sku.imageUrl ?? undefined}
           measurementUnit={product.sku.measurementUnit}
