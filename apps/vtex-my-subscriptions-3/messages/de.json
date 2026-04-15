@@ -120,5 +120,7 @@
   "required-field": "Pflichtfeld",
   "creation-page.frequency-section.next-purchase-date": "Datum der ersten Bestellung:",
   "creation-page.frequency-section.add-expiration-date": "Ablaufdatum hinzufügen",
-  "creation-page.frequency-section.expiration-date": "Verfällt in:"
+  "creation-page.frequency-section.expiration-date": "Verfällt in:",
+  "details-page.page-header.next-purchase": "Nächste Abbuchung: {date}",
+  "details-page.free-trial.badge": "Kostenlose Testphase verbleibend: {days, plural, one {# Tag} other {# Tage}}"
 }

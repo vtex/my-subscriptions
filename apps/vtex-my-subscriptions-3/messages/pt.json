@@ -120,5 +120,7 @@
   "required-field": "Campo obrigatório",
   "creation-page.frequency-section.next-purchase-date": "Data do primeiro pedido:",
   "creation-page.frequency-section.add-expiration-date": "Adicionar data de expiração",
-  "creation-page.frequency-section.expiration-date": "Expira em:"
+  "creation-page.frequency-section.expiration-date": "Expira em:",
+  "details-page.page-header.next-purchase": "Próxima cobrança: {date}",
+  "details-page.free-trial.badge": "Teste grátis restante: {days, plural, one {# dia} other {# dias}}"
 }

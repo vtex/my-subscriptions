@@ -35,6 +35,7 @@ import Preferences from './Preferences'
 import Summary from '../Summary'
 import History from './History'
 import Skeleton from './Skeleton'
+import { FreeTrialProvider } from './FreeTrialContext'
 
 const INSTANCE = 'SubscriptionsDetails'
 const PREFERENCES_ID = 'vtex.subscription.preferences.div'
@@ -183,6 +184,8 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
 
     if (!subscription) return null
 
+    const isActivelyInTrial = subscription.isInTrialPeriod === true
+
     const modalProps = retrieveModalConfig({
       orderNow: this.handleOrderNow,
       onCloseModal: this.handleCloseModal,
@@ -196,67 +199,70 @@ class SubscriptionsDetailsContainer extends Component<Props, State> {
     })
 
     return (
-      <div id={DETAILS_ID}>
-        <History
-          subscriptionId={subscription.id}
-          isOpen={displayHistory}
-          onClose={this.handleCloseHistory}
-        />
-        <ConfirmationModal {...modalProps} />
-        <Header
-          name={subscription.name}
-          status={subscription.status}
-          subscriptionId={subscription.id}
-          orderFormId={orderFormId}
-          skus={subscription.items.map((item) => ({
-            detailUrl: item.sku.detailUrl,
-            name: item.sku.name,
-          }))}
-          isSkipped={subscription.isSkipped}
-          onUpdateAction={this.handleUpdateAction}
-          onOpenHistory={this.handleOpenHistory}
-        />
-        <div className="pa5 pa7-ns flex flex-wrap">
-          <div className="w-100 w-60-ns">
-            <ActionBar
-              status={subscription.status}
-              isSkipped={subscription.isSkipped}
-              address={subscription.shippingAddress}
-              payment={subscription.purchaseSettings.paymentMethod}
-              onUpdateAction={this.handleUpdateAction}
-              nextPurchaseDate={subscription.nextPurchaseDate}
-            />
-            <Products
-              subscriptionId={subscription.id}
-              status={subscription.status}
-              items={subscription.items}
-              planId={subscription.plan.id}
-              currencyCode={subscription.purchaseSettings.currencyCode}
-            />
-          </div>
-          <div
-            className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns"
-            id={PREFERENCES_ID}
-          >
-            <Preferences
-              isEditMode={isEditMode}
-              onChangeEdit={this.handleChangeEdit}
-              status={subscription.status}
-              plan={subscription.plan}
-              payment={subscription.purchaseSettings}
-              currentPaymentAccountId={subscription.paymentAccountId ?? null}
-              address={subscription.shippingAddress}
-              currentAddressId={subscription.addressId ?? null}
-              subscriptionId={subscription.id}
-              lastExecutionStatus={subscription.lastExecution?.status}
-            />
-            <Summary
-              totals={subscription.totals}
-              currencyCode={subscription.purchaseSettings.currencyCode}
-            />
+      <FreeTrialProvider value={{ isActivelyInTrial }}>
+        <div id={DETAILS_ID}>
+          <History
+            subscriptionId={subscription.id}
+            isOpen={displayHistory}
+            onClose={this.handleCloseHistory}
+          />
+          <ConfirmationModal {...modalProps} />
+          <Header
+            name={subscription.name}
+            status={subscription.status}
+            subscriptionId={subscription.id}
+            orderFormId={orderFormId}
+            skus={subscription.items.map((item) => ({
+              detailUrl: item.sku.detailUrl,
+              name: item.sku.name,
+            }))}
+            isSkipped={subscription.isSkipped}
+            onUpdateAction={this.handleUpdateAction}
+            onOpenHistory={this.handleOpenHistory}
+            nextPurchaseDate={subscription.nextPurchaseDate}
+          />
+          <div className="pa5 pa7-ns flex flex-wrap">
+            <div className="w-100 w-60-ns">
+              <ActionBar
+                status={subscription.status}
+                isSkipped={subscription.isSkipped}
+                address={subscription.shippingAddress}
+                payment={subscription.purchaseSettings.paymentMethod}
+                onUpdateAction={this.handleUpdateAction}
+                nextPurchaseDate={subscription.nextPurchaseDate}
+              />
+              <Products
+                subscriptionId={subscription.id}
+                status={subscription.status}
+                items={subscription.items}
+                planId={subscription.plan.id}
+                currencyCode={subscription.purchaseSettings.currencyCode}
+              />
+            </div>
+            <div
+              className="w-100 w-40-ns pt6 pt0-ns pl0 pl6-ns"
+              id={PREFERENCES_ID}
+            >
+              <Preferences
+                isEditMode={isEditMode}
+                onChangeEdit={this.handleChangeEdit}
+                status={subscription.status}
+                plan={subscription.plan}
+                payment={subscription.purchaseSettings}
+                currentPaymentAccountId={subscription.paymentAccountId ?? null}
+                address={subscription.shippingAddress}
+                currentAddressId={subscription.addressId ?? null}
+                subscriptionId={subscription.id}
+                lastExecutionStatus={subscription.lastExecution?.status}
+              />
+              <Summary
+                totals={subscription.totals}
+                currencyCode={subscription.purchaseSettings.currencyCode}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </FreeTrialProvider>
     )
   }
 }

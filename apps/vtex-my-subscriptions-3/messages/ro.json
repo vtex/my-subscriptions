@@ -120,5 +120,7 @@
   "required-field": "Câmp obligatoriu",
   "creation-page.frequency-section.next-purchase-date": "Data primei comenzi:",
   "creation-page.frequency-section.add-expiration-date": "Adaugă o dată de expirare",
-  "creation-page.frequency-section.expiration-date": "Expiră în:"
+  "creation-page.frequency-section.expiration-date": "Expiră în:",
+  "details-page.page-header.next-purchase": "Următoarea taxare: {date}",
+  "details-page.free-trial.badge": "Perioadă de probă gratuită rămasă: {days, plural, one {# zi} few {# zile} other {# de zile}}"
 }

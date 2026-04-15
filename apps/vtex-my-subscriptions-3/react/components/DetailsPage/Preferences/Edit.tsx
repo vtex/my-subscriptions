@@ -16,6 +16,7 @@ import Skeleton from './Skeleton'
 import EditionButtons from '../EditionButtons'
 import PaymentSelector from '../../Selector/Payment'
 import AddressSelector from '../../Selector/Address'
+import { useFreeTrial } from '../FreeTrialContext'
 
 const messages = defineMessages({
   title: {
@@ -43,8 +44,12 @@ const EditPreferences: FunctionComponent<Props> = ({
   addresses = [],
   onChangeAddress,
   selectedAddressId,
-}) => (
+}) => {
+  const { isActivelyInTrial } = useFreeTrial()
+
+  return (
   <Box title={intl.formatMessage(messages.title)}>
+    {!isActivelyInTrial && (
     <Section borderTop borderBottom>
       {errorMessage && (
         <div className="mb6">
@@ -61,6 +66,16 @@ const EditPreferences: FunctionComponent<Props> = ({
         selectedPurchaseDay={selectedPurchaseDay}
       />
     </Section>
+    )}
+    {isActivelyInTrial && errorMessage && (
+      <Section borderTop borderBottom>
+        <div className="mb6">
+          <Alert type="error" onClose={onDismissError}>
+            {errorMessage}
+          </Alert>
+        </div>
+      </Section>
+    )}
     <Section borderBottom>
       <PaymentSelector
         payments={payments}
@@ -85,7 +100,8 @@ const EditPreferences: FunctionComponent<Props> = ({
       />
     </div>
   </Box>
-)
+  )
+}
 
 type OuterProps = {
   subscriptionId: string

@@ -68,6 +68,8 @@ query SubscriptionDetailsPage($id: ID!) {
     }
     addressId
     paymentAccountId
+    isInTrialPeriod
+    createdAsFreeTrial
   }
   orderForm @context(provider: "vtex.store-graphql") {
     orderFormId

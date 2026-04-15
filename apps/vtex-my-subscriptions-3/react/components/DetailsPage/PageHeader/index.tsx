@@ -1,14 +1,33 @@
 import React, { FunctionComponent } from 'react'
-import { FormattedMessage } from 'react-intl'
-import { PageHeader as Header, ButtonWithIcon } from 'vtex.styleguide'
+import { FormattedDate, FormattedMessage } from 'react-intl'
+import { PageHeader as Header, ButtonWithIcon, Tag } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 import { withRouter, RouteComponentProps } from 'vtex.my-account-commons/Router'
+import { useCssHandles } from 'vtex.css-handles'
 
 import Name from '../../SubscriptionName'
 import Menu from './Menu'
 import Status from './Status'
 import Icon from './IconHistory'
 import { SubscriptionAction } from '../utils'
+import { useFreeTrial } from '../FreeTrialContext'
+
+const CSS_HANDLES = [
+  'headerNextPurchaseDate',
+  'headerFreeTrialBadge',
+] as const
+
+function getRemainingDays(targetDate: string): number {
+  const now = new Date()
+  const target = new Date(targetDate)
+
+  now.setHours(0, 0, 0, 0)
+  target.setHours(0, 0, 0, 0)
+
+  const diffMs = target.getTime() - now.getTime()
+
+  return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)))
+}
 
 const PageHeader: FunctionComponent<Props> = ({
   name,
@@ -20,7 +39,11 @@ const PageHeader: FunctionComponent<Props> = ({
   isSkipped,
   onUpdateAction,
   onOpenHistory,
+  nextPurchaseDate,
 }) => {
+  const { isActivelyInTrial } = useFreeTrial()
+  const handles = useCssHandles(CSS_HANDLES)
+
   const Title = (
     <span className="normal">
       <Name
@@ -30,6 +53,33 @@ const PageHeader: FunctionComponent<Props> = ({
         skus={skus}
         withIconBackground
       />
+      <div className={`${handles.headerNextPurchaseDate} mt3 f6 c-muted-1 fw4`}>
+        <FormattedMessage
+          id="details-page.page-header.next-purchase"
+          values={{
+            date: (
+              <FormattedDate
+                value={nextPurchaseDate}
+                day="numeric"
+                month="long"
+                year="numeric"
+              />
+            ),
+          }}
+        />
+      </div>
+      {isActivelyInTrial && (
+        <div className={`${handles.headerFreeTrialBadge} mt3`} role="status">
+          <Tag type="success">
+            <FormattedMessage
+              id="details-page.free-trial.badge"
+              values={{
+                days: getRemainingDays(nextPurchaseDate),
+              }}
+            />
+          </Tag>
+        </div>
+      )}
     </span>
   )
 
@@ -69,6 +119,7 @@ type Props = {
   status: SubscriptionStatus
   isSkipped: boolean
   subscriptionId: string
+  nextPurchaseDate: string
   onOpenHistory: () => void
   onUpdateAction: (action: SubscriptionAction) => void
   skus: Array<{

@@ -120,5 +120,7 @@
   "required-field": "Champ obligatoire",
   "creation-page.frequency-section.next-purchase-date": "Date de la première commande :",
   "creation-page.frequency-section.add-expiration-date": "Ajouter une date d'expiration",
-  "creation-page.frequency-section.expiration-date": "Expire dans :"
+  "creation-page.frequency-section.expiration-date": "Expire dans :",
+  "details-page.page-header.next-purchase": "Prochain prélèvement : {date}",
+  "details-page.free-trial.badge": "Essai gratuit restant : {days, plural, one {# jour} other {# jours}}"
 }

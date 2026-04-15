@@ -8,6 +8,7 @@ import EditionButtons from '../EditionButtons'
 import ProductListItem from '../../ProductListItem'
 import { Item } from '../../../graphql/queries/detailsPage.gql'
 import AddItemModal, { OnAddItemArgs } from '../../AddItemModal'
+import { useFreeTrial } from '../FreeTrialContext'
 
 const ProductsListing: FunctionComponent<Props> = ({
   status,
@@ -23,12 +24,15 @@ const ProductsListing: FunctionComponent<Props> = ({
   onRemoveSubscription,
   currentPlan,
   onAddItem,
-}) => (
+}) => {
+  const { isActivelyInTrial } = useFreeTrial()
+
+  return (
   <Box
     title={
       <div className="flex flex-wrap justify-between items-center min-h-small">
         <FormattedMessage id="subscription.products.card.title" />
-        {!isEditing && status === 'ACTIVE' && (
+        {!isEditing && status === 'ACTIVE' && !isActivelyInTrial && (
           <EditButton onClick={onGoToEdition} withBackground />
         )}
         {isEditing && (
@@ -43,7 +47,7 @@ const ProductsListing: FunctionComponent<Props> = ({
       </div>
     }
   >
-    {status === 'ACTIVE' && !isEditing && (
+    {status === 'ACTIVE' && !isEditing && !isActivelyInTrial && (
       <div className="mb7">
         <AddItemModal
           targetPlan={currentPlan}
@@ -77,7 +81,8 @@ const ProductsListing: FunctionComponent<Props> = ({
       </div>
     ))}
   </Box>
-)
+  )
+}
 
 interface Props {
   onGoToEdition: () => void

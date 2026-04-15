@@ -120,5 +120,7 @@
   "required-field": "Bidang ini wajib",
   "creation-page.frequency-section.next-purchase-date": "Tanggal pesanan pertama:",
   "creation-page.frequency-section.add-expiration-date": "Tambahkan tanggal kedaluwarsa",
-  "creation-page.frequency-section.expiration-date": "Kedaluwarsa dalam:"
+  "creation-page.frequency-section.expiration-date": "Kedaluwarsa dalam:",
+  "details-page.page-header.next-purchase": "Tagihan berikutnya: {date}",
+  "details-page.free-trial.badge": "Uji coba gratis tersisa: {days, plural, other {# hari}}"
 }

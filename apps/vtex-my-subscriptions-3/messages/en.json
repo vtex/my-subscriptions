@@ -120,5 +120,7 @@
   "required-field": "Required field",
   "creation-page.frequency-section.next-purchase-date": "Date of first order:",
   "creation-page.frequency-section.add-expiration-date": "Add expiration date",
-  "creation-page.frequency-section.expiration-date": "Expires in:"
+  "creation-page.frequency-section.expiration-date": "Expires in:",
+  "details-page.page-header.next-purchase": "Next charge: {date}",
+  "details-page.free-trial.badge": "Free trial remaining: {days, plural, one {# day} other {# days}}"
 }

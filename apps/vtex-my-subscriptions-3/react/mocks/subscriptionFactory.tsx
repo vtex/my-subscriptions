@@ -77,33 +77,33 @@ export function generateSubscription({
     plan: PLAN,
     shippingAddress: hasShippingAddress
       ? {
-          id: 'b3665b68c9714441bdea54c35a4d0cd6',
-          street: 'Avenida Evandro Lins e Silva',
-          number: '1',
-          complement: null,
-          neighborhood: 'Barra da Tijuca',
-          city: 'Rio de Janeiro',
-          state: 'RJ',
-          country: 'BRA',
-          postalCode: '22631-470',
-          reference: null,
-          geoCoordinate: null,
-          receiverName: 'clara szwarcman',
-          addressType: 'residential',
-        }
+        id: 'b3665b68c9714441bdea54c35a4d0cd6',
+        street: 'Avenida Evandro Lins e Silva',
+        number: '1',
+        complement: null,
+        neighborhood: 'Barra da Tijuca',
+        city: 'Rio de Janeiro',
+        state: 'RJ',
+        country: 'BRA',
+        postalCode: '22631-470',
+        reference: null,
+        geoCoordinate: null,
+        receiverName: 'clara szwarcman',
+        addressType: 'residential',
+      }
       : null,
     purchaseSettings: {
       paymentMethod: hasPaymentMethod
         ? {
-            paymentSystemId: '2',
-            paymentSystemName: 'Visa',
-            paymentSystemGroup: 'creditCard',
-            paymentAccount: {
-              id: '5FE0FD2838AB47BF852E9E43402DE553',
-              cardNumber: '************1111',
-              bin: '',
-            },
-          }
+          paymentSystemId: '2',
+          paymentSystemName: 'Visa',
+          paymentSystemGroup: 'creditCard',
+          paymentAccount: {
+            id: '5FE0FD2838AB47BF852E9E43402DE553',
+            cardNumber: '************1111',
+            bin: '',
+          },
+        }
         : null,
       currencyCode: 'BRL',
     },
@@ -125,5 +125,7 @@ export function generateSubscription({
     estimatedDeliveryDate,
     addressId: 'b3665b68c9714441bdea54c35a4d0cd6',
     paymentAccountId: null,
+    isInTrialPeriod: true,
+    createdAsFreeTrial: true,
   }
 }
