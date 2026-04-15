@@ -120,5 +120,7 @@
   "required-field": "Campo obligatorio",
   "creation-page.frequency-section.next-purchase-date": "Fecha del primer pedido:",
   "creation-page.frequency-section.add-expiration-date": "Agregar fecha de vencimiento",
-  "creation-page.frequency-section.expiration-date": "Vence el:"
+  "creation-page.frequency-section.expiration-date": "Vence el:",
+  "details-page.page-header.next-purchase": "Próximo cobro: {date}",
+  "details-page.free-trial.badge": "Prueba gratuita restante: {days, plural, one {# día} other {# días}}"
 }

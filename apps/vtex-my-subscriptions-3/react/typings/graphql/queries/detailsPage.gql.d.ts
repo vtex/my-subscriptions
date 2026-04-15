@@ -25,6 +25,8 @@ declare module '*/detailsPage.gql' {
     | 'plan'
     | 'addressId'
     | 'paymentAccountId'
+    | 'isInTrialPeriod'
+    | 'createdAsFreeTrial'
   > & {
     items: Item[]
     lastExecution: Pick<SubscriptionExecution, 'id' | 'status'> | null

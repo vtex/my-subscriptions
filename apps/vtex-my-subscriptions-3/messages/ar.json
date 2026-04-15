@@ -120,5 +120,7 @@
   "required-field": "حقل مطلوب",
   "creation-page.frequency-section.next-purchase-date": "تاريخ أول طلب:",
   "creation-page.frequency-section.add-expiration-date": "إضافة تاريخ انتهاء الصلاحية",
-  "creation-page.frequency-section.expiration-date": "تنتهي في:"
+  "creation-page.frequency-section.expiration-date": "تنتهي في:",
+  "details-page.page-header.next-purchase": "الفاتورة التالية: {date}",
+  "details-page.free-trial.badge": "الفترة التجريبية المجانية المتبقية: {days, plural, zero {# أيام} one {يوم #} two {يومان} few {# أيام} many {# يومًا} other {# يوم}}"
 }

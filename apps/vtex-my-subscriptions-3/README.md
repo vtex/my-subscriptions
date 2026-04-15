@@ -52,6 +52,7 @@ App responsible for display and management of subscriptions inside the Shopper m
   -- Add/remove SKU's
   -- Change subscription status.
   -- Change: frequency, purchase day, payment method or address.
+- **Free Trial support** — When a subscription is in an active trial period, the detail page restricts editing actions and displays a trial badge. See [Free Trial documentation](docs/free-trial.md) for details.
 
 - Agents: Shopper and Call center operator.
 

@@ -120,5 +120,7 @@
   "required-field": "Campo obbligatorio",
   "creation-page.frequency-section.next-purchase-date": "Data del primo ordine:",
   "creation-page.frequency-section.add-expiration-date": "Aggiungi data di scadenza",
-  "creation-page.frequency-section.expiration-date": "Scade tra:"
+  "creation-page.frequency-section.expiration-date": "Scade tra:",
+  "details-page.page-header.next-purchase": "Prossimo addebito: {date}",
+  "details-page.free-trial.badge": "Prova gratuita rimanente: {days, plural, one {# giorno} other {# giorni}}"
 }

@@ -4,6 +4,7 @@ import { ActionMenu } from 'vtex.styleguide'
 import { SubscriptionStatus } from 'vtex.subscriptions-graphql'
 
 import { SubscriptionAction } from '../utils'
+import { useFreeTrial } from '../FreeTrialContext'
 
 defineMessages({
   skipOption: {
@@ -51,9 +52,13 @@ const Menu: FunctionComponent<Props> = ({
   isSkipped,
   onUpdateAction,
 }) => {
+  const { isActivelyInTrial } = useFreeTrial()
+
   if (status === 'CANCELED') return null
 
-  const options = retrieveMenuOptions(isSkipped, status, orderFormId)
+  const options = isActivelyInTrial
+    ? (['cancel'] as SubscriptionAction[])
+    : retrieveMenuOptions(isSkipped, status, orderFormId)
 
   const actionOptions = options.map((option) => ({
     label: intl.formatMessage({

@@ -120,5 +120,7 @@
   "required-field": "Camp obligatori",
   "creation-page.frequency-section.next-purchase-date": "Data de la primera comanda:",
   "creation-page.frequency-section.add-expiration-date": "Afegeix la data de venciment",
-  "creation-page.frequency-section.expiration-date": "Venç d'aquí a:"
+  "creation-page.frequency-section.expiration-date": "Venç d'aquí a:",
+  "details-page.page-header.next-purchase": "Proper càrrec: {date}",
+  "details-page.free-trial.badge": "Prova gratuïta restant: {days, plural, one {# dia} other {# dies}}"
 }
