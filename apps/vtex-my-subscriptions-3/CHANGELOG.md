@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Free trial UI support on subscription details page
+- "Next charge" label for `nextPurchaseDate` on all subscriptions
+- Countdown badge showing remaining free trial days with ICU plural rules (10 locales)
+- `FreeTrialContext` to distribute trial state via React Context
+- CSS Handles: `headerNextPurchaseDate`, `headerFreeTrialBadge`
+- Restricted menu actions, product editing, and frequency editing during trial period
+
 ## [3.15.8] - 2025-02-26
 
 - Fix translations
